@@ -1,0 +1,677 @@
+module jnx-aug-openconfig-isis {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/isis";
+
+  prefix "jnx-oc-isis";
+
+  import ietf-yang-types { prefix "yang"; }
+  import openconfig-network-instance { prefix oc-ni; }
+  import openconfig-inet-types { prefix "oc-inet"; }
+  import openconfig-isis-types { prefix "oc-isis-types"; }
+
+
+  // meta
+  organization "Juniper Networks";
+
+  description
+    "This module contains JUNOS augments to OpenConfig isis model";
+
+  revision "2017-06-25" {
+    description "Initial version";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:interfaces/oc-ni:interface/oc-ni:levels/oc-ni:level/oc-ni:adjacencies" +
+  "/oc-ni:adjacency/oc-ni:state" {
+    leaf-list nbr-ipv4-address {
+      description
+      "ISIS Neighbor IPv4 address.";
+      type string;
+    }
+    leaf-list nbr-ipv6-address {
+      description
+      "ISIS Neighbor IPv6 address.";
+      type string;
+    }
+    leaf lan-adjacency-state {
+      type oc-isis-types:isis-interface-adj-state;
+      description
+        "LAN 3-way ISIS adjacency state(up, down, init, failed).";
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:state" {
+    leaf lsp-install-time {
+      type yang:timestamp;
+      description
+        "Lsp install time.";
+    } 
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:hostname/oc-ni:state" {
+    leaf hname {
+      type string;
+      description
+        "Name of the node.";
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:interfaces/oc-ni:interface" {
+      container packet-counters {
+          description
+              "This container defines ISIS interface packet counters.";
+          
+          container lsp {
+              description
+                  "This container defines LSP packet counters.";
+
+              container state {
+                  config false;
+                  description
+                      "This container defines LSP PDU counters.";
+
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  }
+              }
+          }
+
+          container iih {
+              description
+                  "This container defines IIH packet counters.";
+
+              container state {
+                  config false;
+                  description
+                      "Operational counters relating to IIH PDUs";
+
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  } 
+              }
+          }
+      
+          container ish {
+              description
+                  "This container defines ISH packet counters.";
+
+              container state {
+                  config false;
+                  description
+                      "Operational state relating to ISH PDUs.";
+                  
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  }  
+              }
+          }
+      
+          container esh {
+              description
+                  "This container defines ESH packet counters.";
+              container state {
+                  config false;
+                  description
+                      "Operational state relating to ESH PDUs";
+                  
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  } 
+              }
+          }
+
+          container psnp {
+              description
+                  "This container defines PSNP packet counters.";
+
+              container state {
+                  config false;
+                  description
+                      "Packet counters relating to PSNPs.";
+                  
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  } 
+              }
+          }
+          
+          container csnp {
+              description
+                  "Operational state parameters relating to CSNPs.";
+
+              container state {
+                  config false;
+                  description
+                      "Packet counters relating to CSNPs.";
+
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  } 
+
+              }
+          }
+
+          container unknown {
+              description
+                  "Operational state parameters relating to IS-IS PDUs that are not
+                  otherwise classified - referred to as Unknown PDUs.";
+
+              container state {
+                  config false;
+                  description
+                      "Packet counters relating to unknown PDUs.";
+                 
+                  leaf received {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface.";
+                  }
+                  leaf processed {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been processed by the local system.";
+                  }
+                  leaf dropped {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU received on the interface
+                          that have been dropped.";
+                  }
+
+                  leaf sent {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that have been sent by the
+                          local system on the interface.";
+                  }
+
+                  leaf retransmit {
+                      type yang:counter32;
+                      description
+                          "The number of the specified type of PDU that that have been
+                          retransmitted by the local system on the interface.";
+                  } 
+              }
+          }
+      }
+  }
+  
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:ipv4-te-router-id/oc-ni:state" {
+    leaf te-router-id {
+      type oc-inet:ipv4-address;
+      description
+        "IPv4 Traffic Engineering router ID of the node. For
+         traffic engineering, it guarantees that we have a
+         single stable address that can always be referenced in
+         a path that will be reachable from multiple hops away,
+         regardless of the state of the node's interfaces.";
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:extended-is-reachability/oc-ni:neighbors/oc-ni:neighbor/oc-ni:subtlvs" +
+  "/oc-ni:subtlv/oc-ni:adjacency-sids" {
+    container adj-sid {
+      description
+        "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+         an IGP segment attached to a unidirectional adjacency or
+         a set of unidirectional adjacencies. By default, an IGP-
+         Adjacency Segment is local to the node which advertises
+         it.";
+          
+      container state {
+        description
+          "State parameters of Adjacency-SID.";
+
+        leaf value {
+          type uint32;
+          description
+            "Adjacency-SID value.";
+        }
+
+        leaf-list flags {
+          type enumeration {
+            enum ADDRESS_FAMILY {
+              description
+                "Address-family flag. When unset, the Adj-SID
+                 refers to an adjacency with outgoing IPv4
+                 encapsulation. If set then the Adj-SID refers to
+                 an adjacency with outgoing IPv6 encapsulation.";
+            }
+            enum BACKUP {
+              description
+                "Backup flag. When set, the Adj-SID refers to an
+                 adjacency being protected (e.g.: using IPFRR or
+                 MPLS-FRR).";
+            }
+            enum VALUE {
+              description
+                "Value flag. When set, the SID carries a value
+                 (instead of an index). By default the flag is
+                 SET.";
+            }
+            enum LOCAL {
+              description
+                "Local flag. When set, the value/index carried
+                 by the SID has local significance. By default
+                 the flag is SET.";
+            }
+            enum SET {
+              description
+                "Set flag. When set, the S-Flag indicates that
+                 the Adj-SID refers to a set of adjacencies.";
+            }
+          } 
+          description
+            "Flags associated with Adj-Segment-ID.";
+        }
+        leaf weight {
+          type uint8;
+          description
+            "Value that represents the weight of the Adj-SID for
+             the purpose of load balancing.";
+        }
+      }
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:extended-is-reachability/oc-ni:neighbors/oc-ni:neighbor/oc-ni:subtlvs" +
+  "/oc-ni:subtlv/oc-ni:lan-adjacency-sids" {
+    container lan-adj-sid {
+      description
+        "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+         an IGP segment attached to a unidirectional adjacency or
+         a set of unidirectional adjacencies. By default, an IGP-
+         Adjacency Segment is local to the node which advertises
+         it.";
+
+      container state {
+	description
+          "State parameters of LAN Adjacency-SID.";
+
+        leaf value {
+          type uint32;
+          description
+            "LAN Adjacency-SID value.";
+        }
+
+        leaf-list flags {
+          type enumeration {
+            enum ADDRESS_FAMILY {
+              description
+                "Address-family flag. When unset, the Adj-SID
+                 refers to an adjacency with outgoing IPv4
+                 encapsulation. If set then the Adj-SID refers to
+                 an adjacency with outgoing IPv6 encapsulation.";
+            }
+            enum BACKUP {
+              description
+                "Backup flag. When set, the Adj-SID refers to an
+                 adjacency being protected (e.g.: using IPFRR or
+                 MPLS-FRR).";
+            }
+            enum VALUE {
+              description
+                "Value flag. When set, the SID carries a value
+	         (instead of an index). By default the flag is
+                 SET.";
+            }
+            enum LOCAL {
+              description
+                "Local flag. When set, the value/index carried
+                 by the SID has local significance. By default
+                 the flag is SET.";
+            }
+            enum SET {
+              description
+                "Set flag. When set, the S-Flag indicates that
+                 the Adj-SID refers to a set of adjacencies.";
+            }
+          }
+          description
+            "Flags associated with LAN-Adj-Segment-ID.";
+        }
+        leaf weight {
+          type uint8;
+          description
+	    "Value that represents the weight of the Adj-SID
+             for the purpose of load balancing.";
+        }
+
+        leaf neighbor-id {
+          type oc-isis-types:system-id;
+          description
+            "System ID of the neighbor associated with the LAN-
+             Adj-Segment-ID value.";
+        }
+      }
+    }
+  }
+
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:mt-isn/oc-ni:neighbors/oc-ni:neighbor/oc-ni:subtlvs" +
+  "/oc-ni:subtlv/oc-ni:adjacency-sids" {
+    container adj-sid {
+      description
+        "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+         an IGP segment attached to a unidirectional adjacency or
+         a set of unidirectional adjacencies. By default, an IGP-
+         Adjacency Segment is local to the node which advertises
+         it.";
+          
+      container state {
+        description
+          "State parameters of Adjacency-SID.";
+
+        leaf value {
+          type uint32;
+          description
+            "Adjacency-SID value.";
+        }
+
+        leaf-list flags {
+          type enumeration {
+            enum ADDRESS_FAMILY {
+              description
+                "Address-family flag. When unset, the Adj-SID
+                 refers to an adjacency with outgoing IPv4
+                 encapsulation. If set then the Adj-SID refers to
+                 an adjacency with outgoing IPv6 encapsulation.";
+            }
+            enum BACKUP {
+              description
+                "Backup flag. When set, the Adj-SID refers to an
+                 adjacency being protected (e.g.: using IPFRR or
+                 MPLS-FRR).";
+            }
+            enum VALUE {
+              description
+                "Value flag. When set, the SID carries a value
+                 (instead of an index). By default the flag is
+                 SET.";
+            }
+            enum LOCAL {
+              description
+                "Local flag. When set, the value/index carried
+                 by the SID has local significance. By default
+                 the flag is SET.";
+            }
+            enum SET {
+              description
+                "Set flag. When set, the S-Flag indicates that
+                 the Adj-SID refers to a set of adjacencies.";
+            }
+          } 
+          description
+            "Flags associated with Adj-Segment-ID.";
+        }
+        leaf weight {
+          type uint8;
+          description
+            "Value that represents the weight of the Adj-SID for
+             the purpose of load balancing.";
+        }
+      }
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:mt-isn/oc-ni:neighbors/oc-ni:neighbor/oc-ni:subtlvs" +
+  "/oc-ni:subtlv/oc-ni:lan-adjacency-sids" {
+    container lan-adj-sid {
+      description
+        "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+         an IGP segment attached to a unidirectional adjacency or
+         a set of unidirectional adjacencies. By default, an IGP-
+         Adjacency Segment is local to the node which advertises
+         it.";
+
+      container state {
+	description
+          "State parameters of LAN Adjacency-SID.";
+
+        leaf value {
+          type uint32;
+          description
+            "LAN Adjacency-SID value.";
+        }
+
+        leaf-list flags {
+          type enumeration {
+            enum ADDRESS_FAMILY {
+              description
+                "Address-family flag. When unset, the Adj-SID
+                 refers to an adjacency with outgoing IPv4
+                 encapsulation. If set then the Adj-SID refers to
+                 an adjacency with outgoing IPv6 encapsulation.";
+            }
+            enum BACKUP {
+              description
+                "Backup flag. When set, the Adj-SID refers to an
+                 adjacency being protected (e.g.: using IPFRR or
+                 MPLS-FRR).";
+            }
+            enum VALUE {
+              description
+                "Value flag. When set, the SID carries a value
+	         (instead of an index). By default the flag is
+                 SET.";
+            }
+            enum LOCAL {
+              description
+                "Local flag. When set, the value/index carried
+                 by the SID has local significance. By default
+                 the flag is SET.";
+            }
+            enum SET {
+              description
+                "Set flag. When set, the S-Flag indicates that
+                 the Adj-SID refers to a set of adjacencies.";
+            }
+          }
+          description
+            "Flags associated with LAN-Adj-Segment-ID.";
+        }
+        leaf weight {
+          type uint8;
+          description
+	    "Value that represents the weight of the Adj-SID
+             for the purpose of load balancing.";
+        }
+
+        leaf neighbor-id {
+          type oc-isis-types:system-id;
+          description
+            "System ID of the neighbor associated with the LAN-
+             Adj-Segment-ID value.";
+        }
+      }
+    }
+  }
+
+}
+
