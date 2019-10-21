@@ -1,0 +1,26 @@
+module jnx-aug-openconfig-ni {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/ni";
+
+  prefix "jnx-oc-ni";
+
+  import openconfig-network-instance { prefix oc-ni; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig network-instance model";
+
+  revision "2017-07-17" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances" {
+    junos:translation-script "openconfig-network-instance.slax openconfig-ni-bgp.slax openconfig-ni-mpls.slax";
+  }
+
+}
+
