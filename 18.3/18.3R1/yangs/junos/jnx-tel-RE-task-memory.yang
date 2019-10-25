@@ -1,0 +1,238 @@
+/*
+ * YANG definition for Juniper task memory
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module jnx-tel-RE-task-memory {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/jnx-tel-RE-task-memory";
+
+  prefix "jnx-tel-task-mem";
+
+  import jnx-tel-top { prefix junos; }
+
+  // meta
+  organization "Juniper Networks";
+
+  contact "support@juniper.net";
+
+  description "Yang definition for Task memory";
+  revision "2017-04-09" {
+    description "Initial yang file";
+  }
+
+  grouping jnx-task-memory-overall-state {
+    leaf tsb-size {
+      type uint32;
+    }
+    leaf tsb-alloc-bytes {
+      type uint32;
+    }
+    leaf tsb-allocs {
+      type uint32;
+    }
+    leaf tsb-max-allocs {
+      type uint32;
+    }
+    leaf tsb-max-bytes {
+      type uint64;
+    }
+    leaf tsb-free-bytes {
+      type uint64;
+    }
+  }
+ 
+  grouping jnx-task-memory-stats-state {
+    leaf tms-name {
+      type string;
+    }
+    leaf tms-allocs {
+      type uint32;
+    }
+    leaf tms-alloc-bytes {
+      type uint64;
+    }
+    leaf tms-max-allocs {
+      type uint32;
+    }
+    leaf tms-max-bytes {
+      type uint64;
+    }
+  }
+
+  grouping jnx-task-memory-total-free-stats {
+    leaf task-memory-total-free-bytes {
+      type uint64;
+    }
+  }
+
+  grouping jnx-task-memory-allocator-state {
+    leaf tb-name {
+      type string;
+    }
+    leaf tb-size {
+      type uint32;
+    }
+    leaf tb-alloc-size {
+      type uint32;
+    }
+    leaf tb-alloc-blocks {
+      type uint32;
+    }
+    leaf tb-alloc-bytes {
+      type uint64;
+    }
+    leaf tb-max-alloc-blocks {
+      type uint32;
+    }
+    leaf tb-max-alloc-bytes {
+      type uint64;
+    }
+  }
+
+  grouping jnx-task-memory-task-lite-state {
+    leaf tlp-name {
+      type string;
+    }
+    leaf tlp-alloc-bytes {
+      type uint64;
+    }
+    leaf tlp-max-alloc-bytes {
+      type uint64;
+    }
+  }
+
+  grouping jnx-task-memory-total-stats {
+    leaf task-memory-total-bytes {
+      type uint64;
+    }
+    leaf task-memory-total-max-bytes {
+      type uint64;
+    }
+  }
+
+  grouping jnx-task-memory-malloc-usage-stats {
+    leaf tm-name {
+      type string;
+    }
+    leaf tm-allocs {
+      type uint32;
+    }
+    leaf tm-alloc-bytes {
+      type uint64;
+    }
+    leaf tm-max-allocs {
+      type uint32;
+    }
+    leaf tm-max-alloc-bytes {
+      type uint64;
+    }
+    leaf tm-function-calls {
+      type uint32;
+    }
+  }
+
+  grouping jnx-task-memory-general-stats {
+    leaf task-memory-dynamic-allocs {
+      type uint64;
+    }
+    leaf task-memory-max-dynamic-allocs {
+      type uint64;
+    }
+    leaf task-memory-bss-bytes {
+      type uint64;
+    }
+    leaf task-memory-max-bss-bytes {
+      type uint64;
+    }
+    leaf task-memory-page-data-bytes {
+      type uint64;
+    }
+    leaf task-memory-max-page-data-bytes {
+      type uint64;
+    }
+    leaf task-memory-dir-bytes {
+      type uint64;
+    }
+    leaf task-memory-max-dir-bytes {
+      type uint64;
+    }
+    leaf task-memory-total-bytes-in-use {
+      type uint64;
+    }
+    leaf task-memory-total-bytes-percent {
+      type uint32;
+    }
+  }
+
+  grouping jnx-task-memory-top {
+    container task-memory-overall-report {
+      container task-size-block-list {
+        list task-size-block {
+          key tsb-size;
+          description
+            "Overall task memory report";
+          uses jnx-task-memory-overall-state;
+        }
+      }
+
+      container task-memory-stats-list {
+        list task-memory-stats {
+          key tms-name;
+          description
+            "The list of task memory statistics";
+          uses jnx-task-memory-stats-state;
+        }
+      }
+
+      uses jnx-task-memory-total-stats;
+      uses jnx-task-memory-total-free-stats;
+    }
+
+    container task-memory-allocator-report {
+      container task-block-list {
+        list task-block {
+          key tb-name;
+          description 
+            "The list of task blocks allocated";
+          uses jnx-task-memory-allocator-state;
+        }
+      }
+
+      container task-lite-page-list {
+        list task-lite-page {
+          key tlp-name;
+          description
+            "The list of task lite blocks allocated";
+          uses jnx-task-memory-task-lite-state;
+        }
+      }
+      uses jnx-task-memory-total-stats;
+    }
+
+    container task-memory-malloc-usage-report {
+      container task-malloc-list {
+        list task-malloc {
+          key tm-name;
+          description 
+            "List of malloc usage blocks";
+          uses jnx-task-memory-malloc-usage-stats;
+        }
+      }
+      uses jnx-task-memory-total-stats;
+    }
+
+    uses jnx-task-memory-general-stats; 
+  }
+
+  augment "/junos:junos" {
+    container task-memory-information {
+      config false;
+      uses jnx-task-memory-top;
+    }
+  }
+}

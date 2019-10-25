@@ -1,0 +1,114 @@
+module jnx-aug-openconfig-isis {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/isis";
+
+  prefix "jnx-oc-isis";
+
+  import ietf-yang-types { prefix "yang"; }
+  import openconfig-isis-lsdb-types { prefix "oc-isis-lsdb-types"; }
+  import openconfig-network-instance { prefix oc-ni; }
+
+
+  // meta
+  organization "Juniper Networks";
+
+  description
+    "This module contains JUNOS augments to OpenConfig isis model";
+
+  revision "2017-06-25" {
+    description "Initial version";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:interfaces/oc-ni:interface/oc-ni:levels/oc-ni:level/oc-ni:adjacencies" +
+  "/oc-ni:adjacency/oc-ni:state" {
+    leaf-list nbr-ipv4-address {
+      description
+      "ISIS Neighbor IPv4 address.";
+      type string;
+    }
+    leaf-list nbr-ipv6-address {
+      description
+      "ISIS Neighbor IPv6 address.";
+      type string;
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs" +
+  "/oc-ni:tlv/oc-ni:nlpid/oc-ni:state" {
+    leaf-list nlpids {
+      description
+      "Protocol supported.";
+      type enumeration {
+        enum IPV4 {
+          description "IPv4 Address family.";
+        }                                                                                                                                                                      enum IPV6 {
+          description "IPv6 Address family.";
+        }
+      }
+    }
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:state" {
+    leaf lsp-install-time {
+      type yang:timestamp;
+      description
+        "Lsp install time.";
+    } 
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs/oc-ni:tlv" {
+    container lsp-buffer-size {
+      container state {
+        leaf type {
+          type identityref {
+            base oc-isis-lsdb-types:ISIS_TLV_TYPE;
+          }          
+          description
+            "The type of TLV being described. The type of TLV is
+             expressed as a canonical name.";
+        }	
+        leaf buffer-size {
+          type uint16;
+          description
+            "Buffer size";
+        }
+      }
+    }  
+  }
+
+  augment  "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol" +
+  "/oc-ni:isis/oc-ni:levels/oc-ni:level/oc-ni:link-state-database/oc-ni:lsp/oc-ni:tlvs/oc-ni:tlv" +
+  "/oc-ni:extended-is-reachability/oc-ni:neighbors/oc-ni:neighbors/oc-ni:subTLVs/oc-ni:subTLVs" {
+    container if-indices {
+      container state {
+        leaf subtlv-type {
+          type identityref {
+            base oc-isis-lsdb-types:ISIS_SUBTLV_TYPE;
+          }          
+          description
+            "The type of subTLV being described. The type of subTLV is
+             expressed as a canonical name.";
+        }	
+        leaf local-index {
+          type uint32;
+          description
+           "Local interface index";
+        }
+        leaf remote-index {
+          type uint32;
+          description
+            "remote interface index";
+        }
+      }
+    }  
+  }
+ 
+}
+

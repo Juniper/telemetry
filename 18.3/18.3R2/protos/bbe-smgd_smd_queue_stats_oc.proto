@@ -1,0 +1,93 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional debug_queue_stats jnpr_debug_queue_stats_ext = 38;
+}
+
+message debug_queue_stats {
+   optional system_type system = 151;
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;
+      message subscriber_management_type {
+         optional infra_type infra = 151;
+         message infra_type {
+            optional era_type era = 151;
+            message era_type {
+               optional uint32 io_to_smd_dvlan_q_count = 51;
+               optional uint32 io_to_smd_dvlan_max_q_count = 52;
+               optional uint32 io_to_smd_padi_q_cnt = 53;
+               optional uint32 io_to_smd_padi_q_cnt_peak = 54;
+               optional uint32 io_to_smd_discover_q_cnt = 55;
+               optional uint32 io_to_smd_discover_q_cnt_peak = 56;
+               optional uint32 io_to_smd_solicit_q_cnt = 57;
+               optional uint32 io_to_smd_solicit_q_cnt_peak = 58;
+               optional uint32 io_to_smd_dhcp_q_cnt = 59;
+               optional uint32 io_to_smd_dhcp_q_cnt_peak = 60;
+               optional uint32 io_to_smd_total_q_cnt = 61;
+               optional uint32 io_to_smd_total_q_cnt_peak = 62;
+               optional uint32 smd_dvlan_q_count = 63;
+               optional uint32 smd_dvlan_max_q_count = 64;
+               optional uint32 smd_padi_q_cnt = 65;
+               optional uint32 smd_padi_q_cnt_peak = 66;
+               optional uint32 smd_discover_q_cnt = 67;
+               optional uint32 smd_discover_q_cnt_peak = 68;
+               optional uint32 smd_solicit_q_cnt = 69;
+               optional uint32 smd_solicit_q_cnt_peak = 70;
+               optional uint32 smd_dhcp_q_cnt = 71;
+               optional uint32 smd_dhcp_q_cnt_peak = 72;
+               optional uint32 smd_total_q_cnt = 73;
+               optional uint32 smd_total_q_cnt_peak = 74;
+               optional uint32 smd_notification_queue_cnt = 75;
+               optional uint32 smd_notification_queue_cnt_peak = 76;
+               optional uint32 smd_message_queue_cnt = 77;
+               optional uint32 smd_message_queue_cnt_peak = 78;
+               optional uint32 smd_packet_queue_cnt = 79;
+               optional uint32 smd_packet_queue_cnt_peak = 80;
+               optional uint32 smd_packet_low_queue_cnt = 81;
+               optional uint32 smd_packet_low_queue_cnt_peak = 82;
+               optional uint64 io_pkt_count_low = 83;
+               optional uint64 io_pkt_count_mlow = 84;
+               optional uint64 io_pkt_count_med = 85;
+               optional uint64 io_pkt_count_high = 86;
+               optional uint64 io_packets_dropped_low = 87;
+               optional uint64 io_packets_dropped_mlow = 88;
+               optional uint64 io_packets_dropped_med = 89;
+               optional uint64 io_packets_dropped_high = 90;
+               optional uint64 io_packets_dropped_padi_qlen = 91;
+               optional uint64 io_packets_dropped_padi_imbalance = 92;
+               optional uint64 io_packets_dropped_discover_qlen = 93;
+               optional uint64 io_packets_dropped_discover_imbalance = 94;
+               optional uint64 io_packets_dropped_solicit_qlen = 95;
+               optional uint64 io_packets_dropped_solicit_imbalance = 96;
+               optional uint64 io_packets_dropped_dvlan_qlen = 97;
+               optional uint64 io_packets_dropped_dvlan_imbalance = 98;
+               optional uint32 max_allowed_in_flight_current = 99;
+               optional uint32 max_allowed_in_flight_actual = 100;
+               optional uint32 max_allowed_in_flight_current_absolute = 101;
+               optional uint32 max_allowed_in_flight_max_ever_absolute = 102;
+               optional uint32 min_allowed_in_flight = 103;
+               optional uint32 max_low_pri_pkt_to_enqueue = 104;
+               optional uint32 in_flight_dvlan = 105;
+               optional uint32 in_flight_dvlan_peak = 106;
+               optional uint32 in_flight_dhcp = 107;
+               optional uint32 in_flight_dhcp_peak = 108;
+               optional uint32 in_flight_ppp = 109;
+               optional uint32 in_flight_ppp_peak = 110;
+               optional uint32 in_flight_total = 111;
+               optional uint32 in_flight_total_peak = 112;
+               optional uint32 in_nego_dvlan = 113;
+               optional uint32 in_nego_dvlan_peak = 114;
+               optional uint32 in_nego_dhcp = 115;
+               optional uint32 in_nego_dhcp_peak = 116;
+               optional uint32 in_nego_ppp = 117;
+               optional uint32 in_nego_ppp_peak = 118;
+               optional uint32 in_nego_total = 119;
+               optional uint32 in_nego_total_peak = 120;
+               optional uint32 in_nego_overrides = 121;
+            }
+         }
+      }
+   }
+}
