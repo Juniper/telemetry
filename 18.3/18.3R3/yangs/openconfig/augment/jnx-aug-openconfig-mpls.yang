@@ -1,0 +1,443 @@
+module jnx-aug-openconfig-mpls {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/mpls";
+
+  prefix "jnx-oc-mpls";
+
+  import openconfig-mpls { prefix oc-mpls; }
+  import openconfig-mpls-types { prefix oc-mpls-t; }
+  import openconfig-inet-types { prefix oc-inet-t; }
+  import openconfig-network-instance { prefix oc-ni; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains JUNOS augments to the OpenConfig MPLS model";
+
+  revision "2018-08-08" {
+    description
+      "Augment P2P path with references to associated RSVP path states";
+  }
+
+  revision "2018-05-20" {
+    description
+      "This revision adds the augments to /mpls/signaling-protocols/segment-routing for SR TE ingress and transit statistics";
+  }
+
+  revision "2016-06-08" {
+    description
+      "Initial revision";
+    reference "TBD";
+  }
+
+  grouping jnx-tunnel-counters {
+    leaf name {
+      type string;
+      description
+        "Name of the counter. This is useful when an LSP has multiple
+        counters. When an LSP is resignalled, it is possible that a new
+        counter is created in the hardware.";
+    }
+
+    leaf packet-rate {
+      type uint64;
+      description
+        "Packet rate computed over the most recent 3 second interval";
+    }
+
+    leaf byte-rate {
+      type uint64;
+      description
+        "Byte rate computed over the most recent 3 second interval";
+    }
+  }
+
+  grouping jnx-tunnel-state {
+    leaf inherited-metric {
+      type uint32;
+      description
+        "Inherited metric";
+    }
+
+    leaf instance-identifier {
+      type uint32;
+      description
+        "Instance Identifier for cases when RPD creates multiple
+        instances";
+    }
+  }
+
+  grouping jnx-tunnel-bandwidth-state {
+    leaf bandwidth {
+      type uint64;
+    description
+      "Reserved Bandwidth";
+    }
+  }
+
+  grouping jnx-tunnel-auto-bandwidth-state {
+    leaf max-average-bandwidth {
+      type uint64;
+      units "Bytes per second";
+      description
+        "Maximum Average Bandwidth";
+    }
+  }
+
+  grouping jnx-rsvp-session-state {
+    leaf notify-status {
+      type string;
+    }
+  }
+
+  grouping jnx-rsvp-interface-bw-res-state {
+    leaf static-bandwidth {
+      type uint64;
+      units "bps";
+      description 
+        "Maximum Reservable (Static) Bandwidth";
+    }
+  }
+
+  grouping jnx-tunnel-p2p-path-state {
+    leaf notify-status {
+      type string;
+    }
+  }
+
+  grouping jnx-tunnel-p2p-paths {
+    list lsp-instances {
+      key "local-index";
+
+      leaf local-index {
+        type leafref {
+          path "../state/local-index";
+        }
+      }
+
+      container state {
+        leaf local-index {
+          type uint32;
+        }
+        leaf notify-status {
+          type string;
+        }
+        leaf metric {
+          type int32;
+        }
+        leaf bandwidth {
+          type uint64;
+        }
+        leaf max-average-bandwidth {
+          type uint64;
+        }
+      }
+    }
+  }
+
+  grouping jnx-sr-te-ip-state {
+    leaf to-address {
+      type oc-inet-t:ip-address;
+      description
+        "Ip-address of the tunnel end-point. IPv4 and IPv6 are supported and will be denoted 7.7.7.7 and 7::7:7:7 respectively. (These are just examples)";
+    }
+
+    leaf color {
+      type uint64;
+      description
+        "Color identifier for the tunnel end-point
+        Valid range is 0..4294967295";
+    }
+  }
+
+  grouping jnx-sr-te-bsid-state {
+    leaf binding-sid {
+      type oc-mpls-t:mpls-label;
+      description
+        "Specify the binding-label to enable transit functionality for this tunnel.
+        Valid range is 16..1048575
+        [Here the label range for binding sid has to be from the static range mentioned in show mpls label usage]";
+    }
+
+    uses jnx-sr-te-ip-state;
+  }
+
+  grouping jnx-sr-te-common-counters {
+    list counters {
+      key "name";
+      config false;
+
+      description
+        "Per segment indentifier counters used in the model";
+
+      leaf name {
+        type string;
+        description
+          "Counter name for the said sensor OC path";
+      }
+
+      leaf packets {
+        type uint64;
+        description
+          "A cumulative counter of the packets";
+      }
+
+      leaf bytes {
+        type uint64;
+        description
+          "A cumulative counter of the bytes";
+      }
+    }
+  }
+
+  grouping jnx-sr-sid-state-counters {
+    container counters {
+      description
+        "Per segment identifier counters used in the aggregate-sid  model";
+
+        leaf in-pkts {
+          type uint64;
+          description
+            "A cumulative counter of the packets received within the context
+            which have matched a label corresponding to an SR Segment Identifier.";
+        }
+
+        leaf out-pkts {
+          type uint64;
+          description
+            "A cumulative counter of the total number of packets transmitted by
+            the local system within the context which have a label imposed that
+            corresponds to an Segment Identifier.";
+        }
+    }
+  }
+
+  grouping jnx-sr-egress-interface-state-counters {
+    container counters {
+      description
+        "Per segment identifier counters used in the egress model";
+
+        leaf out-pkts {
+          type uint64;
+          description
+            "A cumulative counter of the total number of packets transmitted by
+            the local system within the context which have a label imposed that
+            corresponds to an Segment Identifier.";
+        }
+
+        leaf out-octets {
+          type uint64;
+          description
+            "A cumulative counter of the total bytes transmitted by the local
+            system within the context which have a label imported that
+            corresponds to an SR Segment Identifier.";
+        }
+    }
+  }
+
+  grouping jnx-sr-te-bsid-policies-container {
+    container sr-te-bsid-policies {
+      description
+        "Per bsid, to-address and color counters on the local system";
+
+      list sr-te-bsid-policy {
+        key "binding-sid to-address color";
+        config false;
+
+        description
+          "Counters of the local system corresponding to traffic received or forwarded
+          with a particular bsid, to-address and color";
+
+        leaf binding-sid {
+          type leafref {
+            path "../state/binding-sid";
+          }
+          description
+            "Specify the binding-label to enable transit functionality for this tunnel. [Here the label range for binding sid has to be from the static range mentioned in show mpls label usage]";
+        }
+
+        leaf to-address {
+          type leafref {
+            path "../state/to-address";
+          }
+          description
+            "Ip-address of the tunnel end-point";
+        }
+
+        leaf color {
+          type leafref {
+            path "../state/color";
+          }
+          description
+            "Color identifier for the tunnel end-point";
+        }
+
+        container state {
+          config false;
+          description
+            "State parameters for per binding-sid, to-address and color statistics";
+
+          uses jnx-sr-te-bsid-state;
+          uses jnx-sr-te-common-counters;
+        }
+      }
+    }
+  }
+
+  grouping jnx-sr-te-ip-policies-container {
+    container sr-te-ip-policies {
+      description
+        "Per to-address and color counters on the local system";
+
+      list sr-te-ip-policy {
+        key "to-address color";
+        config false;
+
+        description
+          "Counters of the local system corresponding to traffic received
+          with a particular to and color";
+
+        leaf to-address {
+          type leafref {
+            path "../state/to-address";
+          }
+          description
+            "Ip-address of the tunnel end-point";
+        }
+
+        leaf color {
+          type leafref {
+            path "../state/color";
+          }
+          description
+            "Color identifier for the tunnel end-point
+            Valid range is 0..4294967295";
+        }
+
+        container state {
+          config false;
+          description
+            "State parameters for per to-address and color statistics";
+
+          uses jnx-sr-te-ip-state;
+          uses jnx-sr-te-common-counters;
+        }
+      }
+    }
+  }
+
+
+
+  grouping jnx-mpls-tunnel-p2p-path-state {
+    description
+      "Operational state parameters for p2p paths";
+
+    leaf-list associated-rsvp-sessions {
+      type uint32;
+
+      description
+        "If the signaling protocol specified for this path is
+         RSVP-TE, this leaf-list provides references to the
+         associated path states in the RSVP-TE protocol sessions
+         list. This is modeled as a leaf-list because there could
+         be more than one associated path state";
+    }
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:rsvp-te/" +
+    "oc-mpls:sessions/oc-mpls:session/oc-mpls:state" {
+
+    uses jnx-rsvp-session-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:rsvp-te/" +
+    "oc-mpls:interface-attributes/oc-mpls:interface/oc-mpls:bandwidth-reservations/" +
+    "oc-mpls:bandwidth-reservation/oc-mpls:state" {
+
+    uses jnx-rsvp-interface-bw-res-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:p2p-tunnel-attributes/" +
+    "oc-mpls:p2p-primary-path/oc-mpls:p2p-primary-path/oc-mpls:state" {
+
+    uses jnx-tunnel-p2p-path-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:p2p-tunnel-attributes/" +
+    "oc-mpls:p2p-primary-path/oc-mpls:p2p-primary-path" {
+
+    uses jnx-tunnel-p2p-paths;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:state" {
+
+    uses jnx-tunnel-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:bandwidth/oc-mpls:state" {
+
+    uses jnx-tunnel-bandwidth-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:bandwidth/oc-mpls:auto-bandwidth/" +
+    "oc-mpls:state" {
+
+    uses jnx-tunnel-auto-bandwidth-state;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:lsps/oc-mpls:constrained-path/" +
+    "oc-mpls:tunnels/oc-mpls:tunnel/oc-mpls:state/oc-mpls:counters" {
+
+    uses jnx-tunnel-counters;
+  }
+
+  augment "/oc-mpls:mpls" {
+      junos:translation-script "openconfig-mpls.slax";
+  }
+
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:segment-routing/" +
+    "oc-mpls:aggregate-sid-counters/oc-mpls:aggregate-sid-counter/oc-mpls:state" {
+      
+    uses jnx-sr-sid-state-counters;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:segment-routing/" +
+    "oc-mpls:interfaces/oc-mpls:interface/oc-mpls:state" {
+      
+    uses jnx-sr-egress-interface-state-counters;
+  } 
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:segment-routing" {
+    uses jnx-sr-te-bsid-policies-container;
+  }
+
+  augment "/oc-mpls:mpls/oc-mpls:signaling-protocols/oc-mpls:segment-routing" {
+    uses jnx-sr-te-ip-policies-container;
+  }
+
+  // NI MPLS Augments
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+    "oc-ni:mpls/oc-ni:lsps/oc-ni:constrained-path/" +
+    "oc-ni:tunnels/oc-ni:tunnel/oc-ni:p2p-tunnel-attributes/" +
+    "oc-ni:p2p-primary-path/oc-ni:p2p-primary-path/oc-ni:state" {
+    uses jnx-mpls-tunnel-p2p-path-state;
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+    "oc-ni:mpls/oc-ni:lsps/oc-ni:constrained-path/" +
+    "oc-ni:tunnels/oc-ni:tunnel/oc-ni:p2p-tunnel-attributes/" +
+    "oc-ni:p2p-secondary-paths/oc-ni:p2p-secondary-path/oc-ni:state" {
+    uses jnx-mpls-tunnel-p2p-path-state;
+  }
+
+}

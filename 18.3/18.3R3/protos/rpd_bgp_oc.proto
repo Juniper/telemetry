@@ -1,0 +1,431 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional bgp_bgp jnpr_bgp_bgp_ext = 62;
+}
+
+message bgp_bgp {
+   optional global_type global = 151;
+   message global_type {
+      optional state_type state = 151;
+      message state_type {
+         optional uint32 as = 51;
+         optional string router_id = 52;
+         optional uint32 total_paths = 321;
+         optional uint32 total_prefixes = 322;
+      }
+      optional route_selection_options_type route_selection_options = 152;
+      message route_selection_options_type {
+         optional state_type state = 151;
+         message state_type {
+            optional bool always_compare_med = 62;
+            optional bool ignore_as_path_length = 63;
+            optional bool external_compare_router_id = 64;
+            optional bool advertise_inactive_routes = 61;
+         }
+      }
+      optional confederation_type confederation = 153;
+      message confederation_type {
+         optional state_type state = 151;
+         message state_type {
+            optional bool enabled = 71;
+            optional uint32 identifier = 73;
+            repeated uint32 member_as = 72;
+         }
+      }
+      optional graceful_restart_type graceful_restart = 154;
+      message graceful_restart_type {
+         optional state_type state = 151;
+         message state_type {
+            optional bool enabled = 201;
+            optional uint32 restart_time = 202;
+            optional double stale_routes_time = 203;
+            optional bool helper_only = 204;
+         }
+      }
+      optional apply_policy_type apply_policy = 171;
+      message apply_policy_type {
+         optional state_type state = 151;
+         message state_type {
+            repeated string import_policy = 81;
+            repeated string export_policy = 82;
+         }
+      }
+      optional afi_safis_type afi_safis = 155;
+      message afi_safis_type {
+         message afi_safi_list {
+            optional string afi_safi_name = 43 [(telemetry_options).is_key = true];
+            optional graceful_restart_type graceful_restart = 151;
+            message graceful_restart_type {
+               optional state_type state = 151;
+               message state_type {
+                  optional bool enabled = 341;
+               }
+            }
+            optional state_type state = 152;
+            message state_type {
+               optional string afi_safi_name = 351;
+               optional bool enabled = 352;
+               optional uint32 total_paths = 321;
+               optional uint32 total_prefixes = 322;
+               optional prefix_limit_type prefix_limit = 161;
+               message prefix_limit_type {
+                  optional state_type state = 151;
+                  message state_type {
+                     optional uint32 max_prefixes = 361;
+                     optional uint32 shutdown_threshold_pct = 362;
+                     optional double restart_timer = 363;
+                  }
+               }
+            }
+         }
+         repeated afi_safi_list afi_safi = 42;
+      }
+   }
+   optional neighbors_type neighbors = 152;
+   message neighbors_type {
+      message neighbor_list {
+         optional string neighbor_address = 91 [(telemetry_options).is_key = true];
+         optional state_type state = 151;
+         message state_type {
+            optional uint32 peer_as = 121;
+            optional uint32 local_as = 122;
+            optional string peer_type = 123;
+            optional string auth_password = 124;
+            optional string remove_private_as = 125;
+            optional bool route_flap_damping = 126;
+            optional string description = 127;
+            optional string session_state = 221;
+            optional uint64 last_established = 222;
+            optional uint64 established_transitions = 223;
+            repeated string supported_capabilities = 224;
+            optional messages_type messages = 161;
+            message messages_type {
+            }
+            optional string session_status = 231;
+            optional string session_admin_status = 232;
+            optional bool interface_error = 234;
+            optional string peer_group = 101;
+            optional string neighbor_address = 102;
+            optional bool enabled = 103;
+         }
+         optional timers_type timers = 152;
+         message timers_type {
+            optional state_type state = 151;
+            message state_type {
+               optional double connect_retry = 131;
+               optional double hold_time = 132;
+               optional double keepalive_interval = 133;
+               optional double minimum_advertisement_interval = 134;
+               optional double negotiated_hold_time = 291;
+            }
+         }
+         optional transport_type transport = 153;
+         message transport_type {
+            optional state_type state = 151;
+            message state_type {
+               optional uint32 tcp_mss = 141;
+               optional bool mtu_discovery = 142;
+               optional bool passive_mode = 143;
+               optional string local_address = 144;
+               optional uint32 local_port = 241;
+               optional string remote_address = 242;
+               optional uint32 remote_port = 243;
+            }
+         }
+         optional error_handling_type error_handling = 154;
+         message error_handling_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool treat_as_withdraw = 151;
+               optional uint32 erroneous_update_messages = 281;
+            }
+         }
+         optional logging_options_type logging_options = 155;
+         message logging_options_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool log_neighbor_state_changes = 161;
+            }
+         }
+         optional ebgp_multihop_type ebgp_multihop = 156;
+         message ebgp_multihop_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 171;
+               optional uint32 multihop_ttl = 172;
+            }
+         }
+         optional route_reflector_type route_reflector = 157;
+         message route_reflector_type {
+            optional state_type state = 151;
+            message state_type {
+               optional string route_reflector_cluster_id = 181;
+               optional bool route_reflector_client = 182;
+            }
+         }
+         optional as_path_options_type as_path_options = 158;
+         message as_path_options_type {
+            optional state_type state = 151;
+            message state_type {
+               optional uint32 allow_own_as = 191;
+               optional bool replace_peer_as = 192;
+            }
+         }
+         optional use_multiple_paths_type use_multiple_paths = 159;
+         message use_multiple_paths_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 371;
+            }
+            optional ebgp_type ebgp = 152;
+            message ebgp_type {
+               optional state_type state = 151;
+               message state_type {
+                  optional bool allow_multiple_as = 381;
+                  optional uint32 maximum_paths = 382;
+               }
+            }
+            optional ibgp_type ibgp = 153;
+            message ibgp_type {
+               optional state_type state = 151;
+               message state_type {
+                  optional uint32 maximum_paths = 391;
+               }
+            }
+         }
+         optional afi_safis_type afi_safis = 160;
+         message afi_safis_type {
+            message afi_safi_list {
+               optional string afi_safi_name = 46 [(telemetry_options).is_key = true];
+               optional graceful_restart_type graceful_restart = 151;
+               message graceful_restart_type {
+                  optional state_type state = 151;
+                  message state_type {
+                     optional bool enabled = 341;
+                     optional bool received = 331;
+                     optional bool advertised = 332;
+                  }
+               }
+               optional state_type state = 152;
+               message state_type {
+                  optional string afi_safi_name = 351;
+                  optional bool enabled = 352;
+                  optional bool active = 301;
+                  optional prefixes_type prefixes = 151;
+                  message prefixes_type {
+                     optional uint32 received = 302;
+                     optional uint32 sent = 303;
+                     optional uint32 installed = 304;
+                  }
+                  optional bool prefix_limit_exceeded = 311;
+                  optional uint32 total_paths = 321;
+                  optional uint32 total_prefixes = 322;
+                  optional prefix_limit_type prefix_limit = 161;
+                  message prefix_limit_type {
+                     optional state_type state = 151;
+                     message state_type {
+                        optional uint32 max_prefixes = 361;
+                        optional uint32 shutdown_threshold_pct = 362;
+                        optional double restart_timer = 363;
+                     }
+                  }
+               }
+               optional add_paths_type add_paths = 153;
+               message add_paths_type {
+                  optional bool receive = 401;
+                  optional uint32 send_max = 402;
+                  optional string eligible_prefix_policy = 403;
+               }
+            }
+            repeated afi_safi_list afi_safi = 45;
+         }
+         optional graceful_restart_type graceful_restart = 161;
+         message graceful_restart_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 201;
+               optional uint32 restart_time = 202;
+               optional double stale_routes_time = 203;
+               optional bool helper_only = 204;
+               optional uint32 peer_restart_time = 211;
+               optional bool peer_restarting = 212;
+               optional bool local_restarting = 213;
+               optional string mode = 214;
+            }
+         }
+         optional apply_policy_type apply_policy = 171;
+         message apply_policy_type {
+            optional state_type state = 151;
+            message state_type {
+               repeated string import_policy = 81;
+               repeated string export_policy = 82;
+            }
+         }
+      }
+      repeated neighbor_list neighbor = 44;
+   }
+   optional peer_groups_type peer_groups = 153;
+   message peer_groups_type {
+      message peer_group_list {
+         optional string peer_group_name = 111 [(telemetry_options).is_key = true];
+         optional state_type state = 151;
+         message state_type {
+            optional uint32 peer_as = 121;
+            optional uint32 local_as = 122;
+            optional string peer_type = 123;
+            optional string auth_password = 124;
+            optional string remove_private_as = 125;
+            optional bool route_flap_damping = 126;
+            optional string description = 127;
+            optional string peer_group_name = 111;
+            optional uint32 total_paths = 321;
+            optional uint32 total_prefixes = 322;
+         }
+         optional timers_type timers = 152;
+         message timers_type {
+            optional state_type state = 151;
+            message state_type {
+               optional double connect_retry = 131;
+               optional double hold_time = 132;
+               optional double keepalive_interval = 133;
+               optional double minimum_advertisement_interval = 134;
+            }
+         }
+         optional transport_type transport = 153;
+         message transport_type {
+            optional state_type state = 151;
+            message state_type {
+               optional uint32 tcp_mss = 141;
+               optional bool mtu_discovery = 142;
+               optional bool passive_mode = 143;
+               optional string local_address = 144;
+            }
+         }
+         optional error_handling_type error_handling = 154;
+         message error_handling_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool treat_as_withdraw = 151;
+            }
+         }
+         optional logging_options_type logging_options = 155;
+         message logging_options_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool log_neighbor_state_changes = 161;
+            }
+         }
+         optional ebgp_multihop_type ebgp_multihop = 156;
+         message ebgp_multihop_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 171;
+               optional uint32 multihop_ttl = 172;
+            }
+         }
+         optional route_reflector_type route_reflector = 157;
+         message route_reflector_type {
+            optional state_type state = 151;
+            message state_type {
+               optional string route_reflector_cluster_id = 181;
+               optional bool route_reflector_client = 182;
+            }
+         }
+         optional as_path_options_type as_path_options = 158;
+         message as_path_options_type {
+            optional state_type state = 151;
+            message state_type {
+               optional uint32 allow_own_as = 191;
+               optional bool replace_peer_as = 192;
+            }
+         }
+         optional use_multiple_paths_type use_multiple_paths = 159;
+         message use_multiple_paths_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 371;
+            }
+            optional ebgp_type ebgp = 152;
+            message ebgp_type {
+               optional state_type state = 151;
+               message state_type {
+                  optional bool allow_multiple_as = 381;
+                  optional uint32 maximum_paths = 382;
+               }
+            }
+            optional ibgp_type ibgp = 153;
+            message ibgp_type {
+               optional state_type state = 151;
+               message state_type {
+                  optional uint32 maximum_paths = 391;
+               }
+            }
+         }
+         optional afi_safis_type afi_safis = 160;
+         message afi_safis_type {
+            message afi_safi_list {
+               optional string afi_safi_name = 49 [(telemetry_options).is_key = true];
+               optional graceful_restart_type graceful_restart = 151;
+               message graceful_restart_type {
+                  optional state_type state = 151;
+                  message state_type {
+                     optional bool enabled = 341;
+                  }
+               }
+               optional state_type state = 152;
+               message state_type {
+                  optional string afi_safi_name = 351;
+                  optional bool enabled = 352;
+                  optional bool active = 301;
+                  optional prefixes_type prefixes = 151;
+                  message prefixes_type {
+                     optional uint32 received = 302;
+                     optional uint32 sent = 303;
+                     optional uint32 installed = 304;
+                  }
+                  optional uint32 total_paths = 321;
+                  optional uint32 total_prefixes = 322;
+                  optional prefix_limit_type prefix_limit = 161;
+                  message prefix_limit_type {
+                     optional state_type state = 151;
+                     message state_type {
+                        optional uint32 max_prefixes = 361;
+                        optional uint32 shutdown_threshold_pct = 362;
+                        optional double restart_timer = 363;
+                     }
+                  }
+               }
+               optional add_paths_type add_paths = 153;
+               message add_paths_type {
+                  optional bool receive = 401;
+                  optional uint32 send_max = 402;
+                  optional string eligible_prefix_policy = 403;
+               }
+            }
+            repeated afi_safi_list afi_safi = 48;
+         }
+         optional graceful_restart_type graceful_restart = 161;
+         message graceful_restart_type {
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 201;
+               optional uint32 restart_time = 202;
+               optional double stale_routes_time = 203;
+               optional bool helper_only = 204;
+            }
+         }
+         optional apply_policy_type apply_policy = 171;
+         message apply_policy_type {
+            optional state_type state = 151;
+            message state_type {
+               repeated string import_policy = 81;
+               repeated string export_policy = 82;
+            }
+         }
+      }
+      repeated peer_group_list peer_group = 47;
+   }
+}
