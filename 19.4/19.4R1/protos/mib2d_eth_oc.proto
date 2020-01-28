@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_mib jnpr_interfaces_mib_ext = 110;
+}
+
+message interfaces_mib {
+   message interface_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional ethernet_type ethernet = 153;
+      message ethernet_type {
+         optional state_type state = 151;
+         message state_type {
+            optional string mac_address = 51;
+            optional bool auto_negotiate = 52;
+            optional string duplex_mode = 53;
+            optional string port_speed = 54;
+            optional bool enable_flow_control = 55;
+            optional string hw_mac_address = 56;
+            optional string negotiated_duplex_mode = 57;
+            optional string negotiated_port_speed = 58;
+            optional counters_type counters = 151;
+            message counters_type {
+               optional uint64 in_mac_control_frames = 51;
+               optional uint64 in_mac_pause_frames = 52;
+               optional uint64 in_oversize_frames = 53;
+               optional uint64 in_jabber_frames = 54;
+               optional uint64 in_fragment_frames = 55;
+               optional uint64 in_8021q_frames = 56;
+               optional uint64 in_crc_errors = 57;
+               optional uint64 in_block_errors = 58;
+               optional uint64 out_mac_control_frames = 60;
+               optional uint64 out_mac_pause_frames = 59;
+            }
+         }
+      }
+   }
+   repeated interface_list interface = 151;
+}

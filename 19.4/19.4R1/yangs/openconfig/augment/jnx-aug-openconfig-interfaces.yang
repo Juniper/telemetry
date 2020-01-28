@@ -1,0 +1,265 @@
+module jnx-aug-openconfig-interfaces {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/augment/interfaces";
+
+    prefix "jnx-oc-interfaces";
+
+    import ietf-yang-types { prefix yang; }
+    import openconfig-interfaces { prefix oc-interfaces; }
+    import openconfig-vlan { prefix oc-vlan; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS augments to OpenConfig Interfaces model";
+
+    revision "2016-06-02" {
+        description "Initial revision";
+        reference "TBD";
+    }
+
+    grouping jnx-interface-state {
+      leaf parent_ae_name {
+        type string;
+        description
+          "Name of parent for ae interface, if applicable";
+      }
+
+      leaf high-speed {
+        type int32;
+        description
+          "This corresponds to ifHighSpeed object in the standard interface
+          MIB";
+      }
+    }
+
+    grouping jnx-subinterface-state {
+      leaf parent_ae_name {
+        type string;
+        description
+          "Name of parent for ae interface, if applicable";
+      }
+    }
+
+    grouping jnx-interface-in-stats {
+      leaf in-pkts {
+        type yang:counter64;
+      }
+
+      leaf in-1sec-pkts {
+        type yang:counter64;
+      }
+
+      leaf in-1sec-octets {
+        type yang:counter64;
+      }
+
+      leaf in-pause-pkts {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-subinterface-in-stats {
+      leaf in-pkts {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-interface-out-stats {
+      leaf out-pkts {
+        type yang:counter64;
+      }
+
+      leaf out-1sec-pkts {
+        type yang:counter64;
+      }
+
+      leaf out-1sec-octets {
+        type yang:counter64;
+      }
+
+      leaf out-pause-pkts {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-interface-in-errors {
+      leaf in-drops {
+        type yang:counter64;
+      }
+
+      leaf in-frame-errors {
+        type yang:counter64;
+      }
+
+      leaf in-runts {
+        type yang:counter64;
+      }
+
+      leaf in-l2chan-errors {
+        type yang:counter64;
+      }
+
+      leaf in-l2-mismatch-errors {
+        type yang:counter64;
+      }
+
+      leaf in-fifo-errors {
+        type yang:counter64;
+      }
+
+      leaf in-giants {
+        type yang:counter64;
+      }
+
+      leaf in-resource-errors {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-interface-out-errors {
+      leaf out-drops {
+        type yang:counter64;
+      }
+
+      leaf carrier-transitions {
+        type yang:counter64;
+      }
+
+      leaf mtu-errors {
+        type yang:counter64;
+      }
+
+      leaf out-resource-errors {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-interface-queue-stats {
+      leaf queue-number {
+        type uint32;
+      }
+
+      leaf pks {
+        type yang:counter64;
+      }
+
+      leaf bytes {
+        type yang:counter64;
+      }
+
+      leaf tail-drop-pkts {
+        type yang:counter64;
+      }
+
+      leaf rl-drop-pkts {
+        type yang:counter64;
+      }
+
+      leaf rl-drop-bytes {
+        type yang:counter64;
+      }
+
+      leaf red-drop-pkts {
+        type yang:counter64;
+      }
+
+      leaf red-drop-bytes {
+        type yang:counter64;
+      }
+
+      leaf avg-buffer-occupancy {
+        type yang:counter64;
+      }
+
+      leaf cur-buffer-occupancy {
+        type yang:counter64;
+      }
+
+      leaf peak-buffer-occupancy {
+        type yang:counter64;
+      }
+
+      leaf allocated-buffer-size {
+        type yang:counter64;
+      }
+    }
+
+    grouping jnx-subinterface-fc-in-stats {
+      leaf address-family {
+        type string;
+      }
+
+      leaf fc-number {
+        type uint32;
+      }
+
+      leaf in-pkts {
+        type yang:counter64;
+      }
+
+      leaf in-octets {
+        type yang:counter64;
+      }
+    }
+
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/" +
+      "oc-interfaces:state" {
+
+      uses jnx-interface-state;
+    }
+
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/" +
+      "oc-interfaces:state/oc-interfaces:counters" {
+
+
+       uses jnx-interface-in-stats;
+       uses jnx-interface-out-stats;
+
+       uses jnx-interface-in-errors;
+       uses jnx-interface-out-errors;
+
+       list in-queue {
+         key queue-number;
+
+         uses jnx-interface-queue-stats;
+       }
+
+       list out-queue {
+         key queue-number;
+
+         uses jnx-interface-queue-stats;
+       }
+    }
+
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/" +
+      "oc-interfaces:subinterfaces/oc-interfaces:subinterface/" +
+      "oc-interfaces:state" {
+
+      uses jnx-subinterface-state;
+    }
+
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/" +
+      "oc-interfaces:subinterfaces/oc-interfaces:subinterface/" +
+      "oc-interfaces:state/oc-interfaces:counters" {
+
+      uses jnx-subinterface-in-stats;
+
+      list in-fc-stats {
+        key address-family;
+
+        uses jnx-subinterface-fc-in-stats;
+      }
+    }
+
+    augment "/oc-interfaces:interfaces" {
+      junos:translation-script "openconfig-interface.slax";
+    } 
+
+    augment "/oc-vlan:vlans" {
+      junos:translation-script "openconfig-interface.slax openconfig-vlan.slax";
+    } 
+
+}
