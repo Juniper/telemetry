@@ -1,0 +1,66 @@
+module jnx-aug-openconfig-local-routing {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/local-routing";
+
+  prefix "jnx-oc-loc-rt";
+
+  import openconfig-interfaces { prefix oc-if; }
+  import openconfig-local-routing { prefix oc-loc-rt; }
+  import openconfig-policy-types { prefix oc-pt; }
+  import junos-extension { prefix junos; }
+
+  // meta
+  organization "Juniper Networks";
+
+  description
+    "This module contains JUNOS augments to OpenConfig Local Routing model";
+
+  revision "2017-06-09" {
+    description "Added set-tag leaf as next-hop attribute.";
+    reference "0.0.2";
+  }
+
+  revision "2016-09-14" {
+    description "Initial version";
+    reference "0.0.1";
+  }
+
+  grouping jnx-local-static-nexthop-config {
+    leaf interface-id {
+      type oc-if:interface-id;
+      description
+        "Identifier for the interface";
+    }
+    leaf set-tag {
+      type oc-pt:tag-type;
+      description
+        "In Junos each qualified next-hop can have a tag on its own.
+         This leaf will be used to display tag value of a 
+         qualified next-hop.";
+    }
+  }
+
+  augment "/oc-loc-rt:local-routes/oc-loc-rt:static-routes/oc-loc-rt:static/oc-loc-rt:next-hops/oc-loc-rt:next-hop/oc-loc-rt:config" {
+    description
+      "Augmentation to add JUNOS specific static-route next-hop attributes";
+    uses jnx-oc-loc-rt:jnx-local-static-nexthop-config;
+
+    when "oc-loc-rt:next-hop = 'LOCAL_LINK'" {
+      description
+        "The next-hop should be set to LOCAL_LINK for interface-id to be configured";
+    }
+  }
+
+  augment "/oc-loc-rt:local-routes/oc-loc-rt:static-routes/oc-loc-rt:static/oc-loc-rt:next-hops/oc-loc-rt:next-hop/oc-loc-rt:state" {
+    description
+      "Augmentation to add JUNOS specific static-route next-hop attributes";
+    uses jnx-oc-loc-rt:jnx-local-static-nexthop-config;
+  }
+
+  augment "/oc-loc-rt:local-routes" {
+    junos:translation-script "openconfig-local-routing.slax";
+  }
+}
+
