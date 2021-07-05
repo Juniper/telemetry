@@ -1,0 +1,44 @@
+module jnx-aug-openconfig-qos {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/augment/qos";
+
+    prefix "jnx-oc-qos";
+
+    import openconfig-interfaces { prefix oc-if; }
+    import ietf-yang-types { prefix yang; }
+    import openconfig-qos { prefix oc-qos; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS augments to OpenConfig Qos model";
+
+    revision "2020-08-02" {
+        description "Initial revision";
+        reference "TBD";
+    }
+
+    grouping jnx-iflset-interface {
+      description
+         "Reference leafrefs to iflsetinterface";
+
+      leaf jnx-iflsetinterface {
+        type string;
+        description
+          "Reference to a iflsetinterface";
+      }
+    }
+
+    augment "/oc-qos:qos/oc-qos:interfaces/" +
+      "oc-qos:interface/oc-qos:interface-ref/" +
+      "oc-qos:state" {
+
+      uses jnx-iflset-interface;
+    }
+
+    augment "/oc-qos:qos" {
+      junos:translation-script "openconfig-qos-interfaces.slax";
+    }
+}
