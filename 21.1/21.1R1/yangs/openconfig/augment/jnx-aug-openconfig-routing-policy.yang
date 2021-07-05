@@ -1,0 +1,25 @@
+module jnx-aug-openconfig-routing-policy {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/rpol";
+
+  prefix "jnx-oc-rpol";
+
+  import openconfig-routing-policy { prefix oc-rpol; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig routing policy model";
+
+  revision "2016-12-16" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-rpol:routing-policy" {
+    junos:translation-script "openconfig-policy.slax";
+  }
+}
+
