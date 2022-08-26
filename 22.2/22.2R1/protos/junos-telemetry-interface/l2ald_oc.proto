@@ -1,0 +1,58 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_l2_network_instance jnpr_network_instances_l2_network_instance_ext = 50;
+}
+
+message network_instances_l2_network_instance {
+   message network_instance_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional fdb_type fdb = 141;
+      message fdb_type {
+         optional state_type state = 151;
+         message state_type {
+            optional bool mac_learning = 61;
+            optional uint32 mac_aging_time = 62;
+            optional uint32 maximum_entries = 63;
+         }
+      }
+      optional interfaces_type interfaces = 151;
+      message interfaces_type {
+         message interface_list {
+            optional string id = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 161;
+            message state_type {
+               optional string id = 61;
+               optional bool mac_pinning = 62;
+            }
+         }
+         repeated interface_list interface = 151;
+      }
+      optional vlans_type vlans = 161;
+      message vlans_type {
+         message vlan_list {
+            optional uint32 vlan_id = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 52;
+            message state_type {
+               optional uint32 vlan_id = 52;
+               optional string name = 51;
+               optional string status = 53;
+            }
+            optional members_type members = 53;
+            message members_type {
+               message member_list {
+                  optional state_type state = 161;
+                  message state_type {
+                     optional string interface = 151;
+                  }
+               }
+               repeated member_list member = 151;
+            }
+         }
+         repeated vlan_list vlan = 161;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}
