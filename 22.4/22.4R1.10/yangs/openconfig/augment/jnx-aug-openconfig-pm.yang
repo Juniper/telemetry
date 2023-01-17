@@ -1,0 +1,343 @@
+module jnx-aug-openconfig-pm {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/openconfig/augment/pm";
+
+  prefix "oc-pm";
+
+  // import some basic types
+  import openconfig-extensions { prefix oc-ext; }
+  import openconfig-inet-types { prefix oc-inet; }
+  import openconfig-interfaces { prefix oc-if; }
+  import openconfig-yang-types { prefix oc-yang; }
+  import openconfig-qos { prefix oc-qos; }
+  import openconfig-sampling-sflow { prefix oc-sflow; }
+  import jnx-aug-openconfig-qos { prefix jnx-oc-qos; }
+  import junos-extension { prefix junos; }
+
+  // Include submodules.
+
+  // meta
+  organization "OpenConfig working group";
+
+  contact
+    "OpenConfig working group
+    www.openconfig.net";
+
+  description
+    "This module defines configuration and operational state data
+    related to data plane traffic sampling based on sFlow.
+
+    RFC 3176 - InMon Corporation's sFlow: A Method for
+    Monitoring Traffic in Switched and Routed Networks";
+
+  oc-ext:openconfig-version "0.1.0";
+
+  revision "2020-06-26" {
+    description
+      "Initial revision";
+    reference "0.1.0";
+  }
+
+  grouping remote-port-mirror-ref {
+    description
+      "Reference leafrefs to port-mirror.";
+
+    leaf remote-port-mirror {
+      type leafref {
+        path "/oc-sflow:sampling/oc-pm:port-mirror/oc-pm:remote-port-mirror/oc-pm:instances/oc-pm:instance/oc-pm:name";
+      }
+      description
+        "Remote port mirror instance name.";
+    }
+  }
+  
+  typedef pm-family-type {
+    type enumeration {
+      enum PM_IPV4 {
+        description
+          "Port mirroring for ipv4";
+      }
+      enum PM_IPV6 {
+        description
+          "Port mirroring for ipv6";
+      }
+    }
+  }
+
+  grouping pm-interfaces-config {
+    description
+      "Configuration data for port mirror data on interfaces.";
+
+    leaf name {
+      type oc-if:base-interface-ref;
+      description
+        "Reference to the interface for port mirror configuration and
+        state.";
+    }
+
+  }
+
+  grouping pm-interfaces-state {
+    description
+      "Operational state data for sFlow collectors.";
+
+    leaf octets-mirrored {
+      type oc-yang:counter64;
+      description
+        "The total number of octets mirrored.";
+    }
+    leaf packets-mirrored {
+      type oc-yang:counter64;
+      description
+        "The total number of packets mirrored.";
+    }
+  }
+
+  grouping pm-interfaces-top {
+    description
+      "Top-level grouping for port mirror data on an interface.";
+
+    container interfaces {
+      description
+        "Enclosing container for list of port mirror interfaces.";
+
+      list interface {
+        key "name";
+        description
+          "List of interfaces with port mirror data.";
+
+        leaf name {
+          type leafref {
+            path "../config/name";
+          }
+          description
+            "Reference to list key.";
+        }
+
+        container state {
+
+          config false;
+
+          description
+            "Operational state data for port mirror data on interfaces.";
+
+          uses pm-interfaces-config;
+          uses pm-interfaces-state;
+        }
+      }
+    }
+  }
+
+  grouping lpm-params-config {
+    description
+      "Configuration data for local port mirroring.";
+
+    leaf type {
+      type pm-family-type;
+
+      description
+        "Type of the port mirror instance";
+    }
+
+    leaf input-rate {
+      type uint32;
+      description
+        "Ratio of packets to be sampled.";
+    }
+
+    leaf input-max-packet-length {
+      type uint32;
+      description
+        "Maximum length of the mirrored packet.";
+    }
+
+    leaf pm-interface {
+      type oc-if:base-interface-ref;
+      description
+        "Reference to the interface for port mirror configuration and
+        state.";
+    }
+
+    leaf pm-nexthop {
+      type oc-inet:ip-address;
+      description
+        "nexthop address where packets need to be mirrored.";
+    }
+
+  }
+
+  grouping rpm-params-config {
+    description
+      "Configuration data for port mirroring.";
+
+    leaf name {
+      type string;
+
+      description
+        "Name of the port mirror instance";
+    }
+
+    leaf type {
+      type pm-family-type;
+
+      description
+        "Type of the port mirror instance";
+    }
+
+    leaf input-rate {
+      type uint32;
+      description
+        "Ratio of packets to be sampled.";
+    }
+
+    leaf input-max-packet-length {
+      type uint32;
+      description
+        "Maximum length of the mirrored packet.";
+    }
+
+    leaf egress-interface {
+      type oc-if:base-interface-ref;
+      description
+        "Reference to the interface for port mirror configuration and
+        state.";
+    }
+
+    leaf egress-nexthop {
+      type oc-inet:ip-address;
+      description
+        "Egress nexthop address.";
+    }
+
+    uses jnx-oc-qos:policer-ref;
+    uses jnx-oc-qos:classifier-ref;
+  }
+
+  grouping pm-state {
+    description
+      "Operational state data for sFlow collectors.";
+
+    leaf octets-mirrored {
+      type oc-yang:counter64;
+      description
+        "The total number of mirrored bytes.";
+    }
+
+    leaf packets-mirrored {
+      type oc-yang:counter64;
+      description
+        "The total number of mirrored packets.";
+    }
+  }
+
+
+  grouping local-pm-top {
+    description
+      "Top-level grouping for data related to local port mirror.";
+
+    container local-port-mirror {
+      description
+        "Enclosing container for local port mirror.";
+      container instances {
+        list instance {
+          key "type";
+
+          description
+            "List of local port mirror instances.";
+
+          leaf type {
+            type pm-family-type;
+            description
+              "Reference to type list key.";
+          }
+
+          container config {
+            description
+              "Configuration data for local port mirror instances.";
+
+            uses lpm-params-config;
+          }
+
+          container state {
+            config false;
+
+            description
+              "Operational state data for local port mirror instance.";
+
+            uses lpm-params-config;
+            uses pm-state;
+          }
+        }
+      }
+    }
+  }
+
+  grouping remote-pm-top {
+    description
+      "Top-level grouping for data related to port mirror instance.";
+
+    container remote-port-mirror {
+      description
+        "Enclosing container for list of remote port mirror.";
+       container instances {
+        list instance {
+          key "name type";
+          description
+            "List of port mirror instances.";
+
+          leaf name {
+            type leafref {
+              path "../config/name";
+            }
+            description
+              "Reference to name list key.";
+          }
+
+          leaf type {
+            type pm-family-type;
+            description
+              "Reference to type list key.";
+          }
+          container config {
+            description
+              "Configuration data for port mirror instances.";
+
+            uses rpm-params-config;
+          }
+
+          container state {
+            config false;
+
+            description
+              "Operational state data for port mirror instance.";
+
+            uses rpm-params-config;
+            uses pm-state;
+          }
+        }
+      }
+    }
+  }
+
+
+  grouping pm-global-top {
+    description
+      "Top-level grouping for global port mirror";
+
+    container port-mirror {
+      description
+        "Top-level container for port mirror data.";
+
+        uses remote-pm-top;
+        uses local-pm-top;
+    }
+  }
+
+  augment "/oc-sflow:sampling" {
+     uses pm-global-top;
+     junos:translation-script "openconfig-port-mirror.slax";
+  }
+}
