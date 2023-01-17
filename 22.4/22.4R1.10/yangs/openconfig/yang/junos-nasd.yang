@@ -1,0 +1,446 @@
+module junos-nasd {
+
+     yang-version "1";
+     namespace "http://juniper.net/yang/junos-nasd";
+
+     prefix "jnasd";
+
+     // meta
+     organization "Juniper Networks Inc.";
+
+     description
+          "This module provides common data defnitions for agf nas operational state and statistics";
+
+     revision "2021-09-30" {
+          description
+               "Initial definition of agf nasd openconfig model";
+          reference "1.0.0";
+     }
+
+     // grouping statements
+
+     grouping nasd-group-n1-total-stats {
+          description "NAS n1 protocol statistics";
+          leaf registration-request-sent {
+               description "Number of registration request messages sent";
+               type uint64;
+          }
+          leaf registration-complete-sent {
+               description "Number of registration complete messages sent";
+               type uint64;
+          }
+          leaf deregistration-request-sent {
+               description "Number of de-registration request messages sent";
+               type uint64;
+          }
+          leaf deregistration-accept-sent {
+               description "Number of de-registration accept messages sent";
+               type uint64;
+          }
+          leaf identity-response-sent {
+               description "Number of identity response messages sent";
+               type uint64;
+          }
+          leaf authentication-response-sent {
+               description "Number of authentication response messages sent";
+               type uint64;
+          }
+          leaf authentication-failure-sent {
+               description "Number of authentication failure messages sent";
+               type uint64;
+          }
+          leaf security-mode-complete-sent {
+               description "Number of security-mode complete messages sent";
+               type uint64;
+          }
+          leaf security-mode-reject-sent {
+               description "Number of security-mode reject messages sent";
+               type uint64;
+          }
+          leaf service-request-sent {
+               description "Number of service request messages sent";
+               type uint64;
+          }
+          leaf uplink-nas-transport-sent {
+               description "Number of Uplink-NAS transport messages sent";
+               type uint64;
+          }
+          leaf mobility-5gmm-status-sent {
+               description "Number of MM5G status messages sent";
+               type uint64;
+          }
+          leaf pdu-session-est-request-sent {
+               description "Number of PDU session establishment request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-mod-complete-sent {
+               description "Number of PDU session modification request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-mod-reject-sent {
+               description "Number of PDU session modification reject messages sent";
+               type uint64;
+          }
+          leaf pdu-session-release-request-sent {
+               description "Number of PDU session release request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-release-complete-sent {
+               description "Number of PDU session release complete messages sent";
+               type uint64;
+          }
+          leaf pdu-session-5gsm-status-sent {
+               description "Number of SM5G status messages sent";
+               type uint64;
+          }
+          leaf registration-accept-rcvd {
+               description "Number of registration request messages recieved";
+               type uint64;
+          }
+          leaf registration-reject-rcvd {
+               description "Number of registration reject messages recieved";
+               type uint64;
+          }
+          leaf deregistration-accept-rcvd {
+               description "Number of de-registration accept messages recieved";
+               type uint64;
+          }
+          leaf deregistration-request-rcvd {
+               description "Number of de-registration request messages recieved";
+               type uint64;
+          }
+          leaf identity-request-rcvd {
+               description "Number of identity response messages recieved";
+               type uint64;
+          }
+          leaf authentication-request-rcvd {
+               description "Number of authentication request messages recieved";
+               type uint64;
+          }
+          leaf authentication-result-rcvd {
+               description "Number of authentication result messages recieved";
+               type uint64;
+          }
+          leaf authentication-reject-rcvd {
+               description "Number of authentication reject messages recieved";
+               type uint64;
+          }
+          leaf security-mode-command-rcvd {
+               description "Number of security-mode command messages recieved";
+               type uint64;
+          }
+          leaf service-accept-rcvd {
+               description "Number of service accept messages recieved";
+               type uint64;
+          }
+          leaf service-reject-rcvd {
+               description "Number of service reject messages recieved";
+               type uint64;
+          }
+          leaf downlink-nas-transport-rcvd {
+               description "Number of Downlink-NAS transport messages recieved";
+               type uint64;
+          }
+          leaf mobility-5gmm-status-rcvd {
+               description "Number of MM5G status messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-est-accept-rcvd {
+               description "Number of PDU session establishment messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-est-reject-rcvd {
+               description "Number of PDU session establishment reject messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-mod-command-rcvd {
+               description "Number of PDU session modification messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-release-cmd-rcvd {
+               description "Number of PDU session release messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-release-reject-rcvd {
+               description "Number of PDU session release rejectt messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-5gsm-status-rcvd {
+               description "Number of SM5G status messages recieved";
+               type uint64;
+          }
+     }
+
+     grouping nasd-group-total-ue-summary {
+          description "NAS UE summary state";
+          leaf ue-total-count {
+             description "UE summary state total counters";
+             type uint64;
+          }
+          leaf ue-initial-count {
+             description "UE summary initial state counters";
+             type uint64;
+          }
+          leaf ue-registering-count {
+             description "UE summary registering state counters";
+             type uint64;
+          }
+          leaf ue-registered-count {
+             description "UE summary registered state counters";
+             type uint64;
+          }
+          leaf ue-deregistering-count {
+             description "UE summary deregistering state counters";
+             type uint64;
+          }
+          leaf ue-deregistered-count {
+             description "UE summary deregistered state counters";
+             type uint64;
+          }
+     }
+
+     grouping nasd-group-n1-fnrg-stats {
+          description "NAS n1 protocol fn-rg statistics";
+          leaf registration-request-sent {
+               description "Number of registration request messages sent";
+               type uint64;
+          }
+          leaf registration-complete-sent {
+               description "Number of registration complete messages sent";
+               type uint64;
+          }
+          leaf deregistration-request-sent {
+               description "Number of de-registration request messages sent";
+               type uint64;
+          }
+          leaf deregistration-accept-sent {
+               description "Number of de-registration accept messages sent";
+               type uint64;
+          }
+          leaf identity-response-sent {
+               description "Number of identity response messages sent";
+               type uint64;
+          }
+          leaf authentication-response-sent {
+               description "Number of authentication response messages sent";
+               type uint64;
+          }
+          leaf authentication-failure-sent {
+               description "Number of authentication failure messages sent";
+               type uint64;
+          }
+          leaf security-mode-complete-sent {
+               description "Number of security-mode complete messages sent";
+               type uint64;
+          }
+          leaf security-mode-reject-sent {
+               description "Number of security-mode reject messages sent";
+               type uint64;
+          }
+          leaf service-request-sent {
+               description "Number of service request messages sent";
+               type uint64;
+          }
+          leaf uplink-nas-transport-sent {
+               description "Number of Uplink-NAS transport messages sent";
+               type uint64;
+          }
+          leaf mobility-5gmm-status-sent {
+               description "Number of MM5G status messages sent";
+               type uint64;
+          }
+          leaf pdu-session-est-request-sent {
+               description "Number of PDU session establishment request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-mod-complete-sent {
+               description "Number of PDU session modification request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-mod-reject-sent {
+               description "Number of PDU session modification reject messages sent";
+               type uint64;
+          }
+          leaf pdu-session-release-request-sent {
+               description "Number of PDU session release request messages sent";
+               type uint64;
+          }
+          leaf pdu-session-release-complete-sent {
+               description "Number of PDU session release complete messages sent";
+               type uint64;
+          }
+          leaf pdu-session-5gsm-status-sent {
+               description "Number of SM5G status messages sent";
+               type uint64;
+          }
+          leaf registration-accept-rcvd {
+               description "Number of registration request messages recieved";
+               type uint64;
+          }
+          leaf registration-reject-rcvd {
+               description "Number of registration reject messages recieved";
+               type uint64;
+          }
+          leaf deregistration-accept-rcvd {
+               description "Number of de-registration accept messages recieved";
+               type uint64;
+          }
+          leaf deregistration-request-rcvd {
+               description "Number of de-registration request messages recieved";
+               type uint64;
+          }
+          leaf identity-request-rcvd {
+               description "Number of identity response messages recieved";
+               type uint64;
+          }
+          leaf authentication-request-rcvd {
+               description "Number of authentication request messages recieved";
+               type uint64;
+          }
+          leaf authentication-result-rcvd {
+               description "Number of authentication result messages recieved";
+               type uint64;
+          }
+          leaf authentication-reject-rcvd {
+               description "Number of authentication reject messages recieved";
+               type uint64;
+          }
+          leaf security-mode-command-rcvd {
+               description "Number of security-mode command messages recieved";
+               type uint64;
+          }
+          leaf service-accept-rcvd {
+               description "Number of service accept messages recieved";
+               type uint64;
+          }
+          leaf service-reject-rcvd {
+               description "Number of service reject messages recieved";
+               type uint64;
+          }
+          leaf downlink-nas-transport-rcvd {
+               description "Number of Downlink-NAS transport messages recieved";
+               type uint64;
+          }
+          leaf mobility-5gmm-status-rcvd {
+               description "Number of MM5G status messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-est-accept-rcvd {
+               description "Number of PDU session establishment messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-est-reject-rcvd {
+               description "Number of PDU session establishment reject messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-mod-command-rcvd {
+               description "Number of PDU session modification messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-release-cmd-rcvd {
+               description "Number of PDU session release messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-release-reject-rcvd {
+               description "Number of PDU session release rejectt messages recieved";
+               type uint64;
+          }
+          leaf pdu-session-5gsm-status-rcvd {
+               description "Number of SM5G status messages recieved";
+               type uint64;
+          }
+     }
+
+     grouping nasd-group-fnrg-ue-summary {
+          description "NAS UE summary fn-rg state";
+          leaf ue-total-count {
+               description "UE summary state total counters";
+               type uint64;
+          }
+          leaf ue-initial-count {
+               description "UE summary initial state counters";
+               type uint64;
+          }
+          leaf ue-registering-count {
+               description "UE summary registering state counters";
+               type uint64;
+          }
+          leaf ue-registered-count {
+               description "UE summary registered state counters";
+               type uint64;
+          }
+          leaf ue-deregistering-count {
+               description "UE summary deregistering state counters";
+               type uint64;
+          }
+          leaf ue-deregistered-count {
+               description "UE summary deregistered state counters";
+                type uint64;
+          }
+     }
+
+     grouping nasd-group-pdu-session {
+          description "NAS PDU session state";
+          leaf session-total-count {
+               description "PDU session state counters";
+               type uint64;
+          }
+          leaf session-inactive-count {
+               description "PDU session inactive state counters";
+               type uint64;
+          }
+          leaf session-activating-count {
+               description "PDU session activating state counters";
+               type uint64;
+          }
+          leaf session-active-count {
+               description "PDU session active state counters";
+               type uint64;
+          }
+          leaf session-deactivating-count {
+               description "PDU session deactivating state counters";
+               type uint64;
+          }
+     }
+
+     grouping nasd-stats-top {
+          container junos {
+               config false;
+               description "JunOS OS";
+               container system {
+                    container subscriber-management {
+                        container agf{
+                              container nas {
+                                   container n1 {
+                                        container statistics {
+                                             uses nasd-group-n1-total-stats;
+                                        }
+                                        container fn-rg {
+                                             container statistics {
+                                                  uses nasd-group-n1-fnrg-stats;
+                                             }
+                                        }
+                                   }
+                                   container user-equipment {
+                                        container ue-summary {
+                                             uses nasd-group-total-ue-summary;
+                                        }
+                                        container fn-rg {
+                                             container ue-summary {
+                                                  uses nasd-group-fnrg-ue-summary;
+                                             }
+                                        }
+                                        container pdu-session-state {
+                                             uses nasd-group-pdu-session;
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          }
+     }
+     uses nasd-stats-top;
+}
+
+
