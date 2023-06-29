@@ -1,0 +1,110 @@
+module jnx-aug-openconfig-bgp-rib {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/bgp-rib";
+
+  prefix "jnx-oc-bgprib";
+
+  import openconfig-inet-types { prefix inet; }
+  import openconfig-rib-bgp {prefix oc-bgprib; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig bgp-rib model.";
+
+  revision "2022-01-04" {
+    description
+      "Correcting description about route key augmentations support for both
+       streaming and notification modes";
+  }
+  revision "2021-07-27" {
+    description "Support for BGP-rib Notification key";
+    reference "0.2.0.";
+  }
+
+  grouping route-jnx-rtkey {
+    description
+      "Common grouping for a list of BGP routes for IPv4 unicast.";
+    leaf prefix {
+      type inet:ipv4-prefix;
+      description
+        "Prefix for the route.";
+    }
+    leaf path-id {
+      type uint32;
+      description
+        "When the BGP speaker supports advertisement of multiple
+         paths for a prefix, the path identifier is used to
+         uniquely identify a route based on the combination of the
+         prefix and path id.  In the Adj-RIB-In, the path-id value is
+         the value received in the update message.   In the Loc-RIB,
+         if used, it should represent a locally generated path-id
+         value for the corresponding route.  In Adj-RIB-Out, it
+         should be the value sent to a neighbor when add-paths is
+         used; i.e., the capability has been negotiated.";
+     reference
+       "RFC 7911 - Advertisement of Multiple Paths in BGP";
+    }
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv4-unicast/oc-bgprib:loc-rib/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv4-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-in-pre/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv4-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-in-post/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv4-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-out-pre/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv4-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-out-post/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv6-unicast/oc-bgprib:loc-rib/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv6-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-in-pre/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv6-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-in-post/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv6-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-out-pre/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+
+  augment "/oc-bgprib:bgp-rib/oc-bgprib:afi-safis/oc-bgprib:afi-safi/oc-bgprib:ipv6-unicast/oc-bgprib:neighbors/oc-bgprib:neighbor/oc-bgprib:adj-rib-out-post/oc-bgprib:routes/oc-bgprib:route" {
+    description
+      "Augmentation to add key (prefix and path-id) to bgp-rib entry";
+    uses route-jnx-rtkey;
+  }
+}

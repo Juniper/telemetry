@@ -1,0 +1,222 @@
+module junos-slice-qstats {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/junos-slice-qstats";
+
+  prefix "junos-slice-qstats";
+
+  import ietf-yang-types { prefix yang; }
+
+  // meta
+  organization "Juniper Networks";
+
+  description
+    "This module provides data definitions for PFE slice queue statistics
+    ";
+
+  grouping slice-qstats-detail {
+    leaf queue-number {
+      type uint32;
+      description
+      "Queue number for which qstats are being exported";
+    }
+
+    leaf queued-pkts {
+      type yang:counter64;
+      description
+      "The total number of packets queued at the queue.";
+    }
+
+    leaf queued-bytes {
+      type yang:counter64;
+      description
+      "The total number of bytes queued at the queue.";
+    }
+
+    leaf pkts {
+      type yang:counter64;
+      description
+        "Number of packets trasmitted in the queue.";
+    }
+
+    leaf bytes {
+      type yang:counter64;
+      description
+        "Number of bytes trasmitted in the queue.";
+    }
+
+    leaf tail-drop-pkts {
+      type yang:counter64;
+      description
+      "The number of packets tail dropped at the queue.";
+    }
+
+    leaf rl-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of rate limit dropped packets at the queue.";
+    }
+
+    leaf rl-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of rate limit dropped bytes at the queue.";
+    }
+
+    leaf red-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of red drop packets at the queue.";
+    }
+
+    leaf lp-red-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of low PLP packets RED-droppped at the queue.";
+    }
+
+    leaf mlp-red-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of medium-low PLP packets RED-droppped at the queue.";
+    }
+
+    leaf mhp-red-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of medium-high PLP packets RED-droppped at the queue.";
+    }
+
+    leaf hp-red-drop-pkts {
+      type yang:counter64;
+      description
+      "The total number of high PLP packets RED-droppped at the queue.";
+    }
+
+    leaf red-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of red drop bytes at the queue.";
+    }
+
+    leaf lp-red-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of low PLP bytes RED-droppped at the queue.";
+    }
+
+    leaf mlp-red-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of medium-low PLP bytes RED-droppped at the queue.";
+    }
+
+    leaf mhp-red-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of medium-high PLP bytes RED-droppped at the queue.";
+    }
+
+    leaf hp-red-drop-bytes {
+      type yang:counter64;
+      description
+      "The total number of high PLP bytes RED-droppped at the queue.";
+    }
+
+
+    leaf avg-buffer-occupancy {
+      type yang:counter64;
+      description
+      "Average buffer occupancy of the queue.";
+    }
+
+    leaf cur-buffer-occupancy {
+      type yang:counter64;
+      description
+      "Current buffer occupancy of the queue.";
+    }
+
+    leaf peak-buffer-occupancy {
+      type yang:counter64;
+      description
+      "Peak buffer occupancy of the queue.";
+    }
+
+    leaf allocated-buffer-size {
+      type yang:counter64;
+      description
+      "Allocated buffer size for the queue.";
+    }
+  }
+
+  grouping interface-slice-qstats {
+    description
+    "This describes the data exported by PFE jvision slice queue stats sensor";
+
+    list interface {
+      description
+      "Describes interface slice queue stats information";
+      key name;
+
+      leaf name {
+        type string;
+        description
+        "Describes the interface name for which the slice qstats are exported";
+      }
+
+      leaf parent-ae-name {
+        type string;
+        description
+        "Describes parent Aggregated interface name if the IFD is part of AE";
+      }
+
+      list slice {
+        description
+        "Describes slice queue stats information";
+        key slice-name;
+
+        leaf slice-name {
+          type string;
+          description
+          "Describes the slice name for which the slice qstats are exported";
+        }
+        list out-queue {
+          description
+          "Describes slice egress queue stats information";
+          key queue-number;
+
+          uses slice-qstats-detail;
+        }
+      }
+    }
+  }
+
+  grouping cos-slice-qstats {
+    description
+      "This describes the data exported by PFE jvision for slice qstats sensor";
+
+    container junos {
+      config false;
+      description "JunOS OS";
+
+      container system {
+        description "Junos System";
+
+        container linecard {
+          description "Contains PFE resources";
+
+          container cos {
+            description "Contains COS resources";
+
+            uses interface-slice-qstats;
+          }
+        }
+      }
+    }
+  }
+
+  uses cos-slice-qstats;
+
+}
