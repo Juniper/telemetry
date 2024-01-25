@@ -1,0 +1,43 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos jnpr_junos_ext = 15;
+}
+
+message junos {
+   optional system_type system = 151;
+   message system_type {
+      optional linecard_type linecard = 151;
+      message linecard_type {
+         message qmon_sw_list {
+            optional string name = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 151;
+            message state_type {
+               optional string parent_ae_name = 51;
+            }
+            message ingress_list {
+               optional uint32 queue_number = 51 [(telemetry_options).is_key = true];
+               optional uint32 peak_buffer_occupancy_bytes = 52;
+               optional uint64 packets = 53;
+               optional uint64 bytes = 54;
+               optional uint64 tail_drop_packets = 55;
+               optional uint64 tail_drop_bytes = 56;
+            }
+            repeated ingress_list ingress = 152;
+            message egress_list {
+               optional uint32 queue_number = 51 [(telemetry_options).is_key = true];
+               optional uint32 peak_buffer_occupancy_bytes = 52;
+               optional uint32 peak_buffer_occupancy_percent = 53;
+               optional uint64 packets = 54;
+               optional uint64 bytes = 55;
+               optional uint64 tail_drop_packets = 56;
+               optional uint64 tail_drop_bytes = 57;
+            }
+            repeated egress_list egress = 153;
+         }
+         repeated qmon_sw_list qmon_sw = 151;
+      }
+   }
+}
