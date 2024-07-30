@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_300 jnpr_state_300_ext = 300;
+}
+
+message state_300 {
+   optional sampling_type sampling = 153;
+   message sampling_type {
+      optional flow_monitoring_type flow_monitoring = 50;
+      message flow_monitoring_type {
+         message type_list {
+            optional string name = 1 [(telemetry_options).is_key = true];
+            message slot_list {
+               optional string name = 1 [(telemetry_options).is_key = true];
+               message pfe_list {
+                  optional string name = 1 [(telemetry_options).is_key = true];
+                  optional string service_status = 2;
+               }
+               repeated pfe_list pfe = 25;
+               optional bool flexible_flow_sizing = 102;
+               optional bool use_extended_flow_memory = 103;
+               optional bool route_set = 104;
+               optional bool config_set = 105;
+               optional uint64 autonomous_system_records = 106;
+               optional uint64 max_flow_table_size = 107;
+               optional bool ipv6_extended_attribute = 108;
+               optional uint64 last_clear = 109;
+               optional counters_type counters = 120;
+               message counters_type {
+                  optional uint64 memory_allocation_failures = 1;
+                  optional bool memory_overload_failures = 2;
+               }
+               message family_list {
+                  optional string name = 1 [(telemetry_options).is_key = true];
+                  optional string export_format = 2;
+                  optional uint32 observation_domain_id = 3;
+                  optional double flow_table_utilization = 4;
+                  optional uint64 max_flows_supported = 5;
+                  optional uint64 route_records = 6;
+                  optional counters_type counters = 7;
+                  message counters_type {
+                     optional uint64 flow_packets = 1;
+                     optional uint64 flow_bytes = 2;
+                     optional uint64 flows_total = 3;
+                     optional uint64 flows_active = 4;
+                     optional uint64 flows_exported = 5;
+                     optional uint64 packets_exported = 6;
+                     optional uint64 flows_inactive_timed_out = 7;
+                     optional uint64 flows_active_timed_out = 8;
+                     optional uint64 flows_inserted = 9;
+                     optional uint64 flow_create_failures = 10;
+                     optional uint64 route_lookup_failures = 11;
+                     optional uint64 autonomous_system_lookup_failures = 12;
+                     optional uint64 flow_packet_export_failures = 13;
+                  }
+               }
+               repeated family_list family = 50;
+            }
+            repeated slot_list slot = 2;
+         }
+         repeated type_list type = 1;
+      }
+   }
+}
