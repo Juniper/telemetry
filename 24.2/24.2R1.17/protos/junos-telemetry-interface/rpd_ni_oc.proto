@@ -1,0 +1,136 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_ni_226 jnpr_network_instances_ni_226_ext = 226;
+}
+
+message network_instances_ni_226 {
+   message network_instance_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional state_type state = 151;
+      message state_type {
+         optional string name = 51;
+         optional string type = 56;
+         optional bool enabled = 53;
+         optional string description = 52;
+         optional string router_id = 55;
+         optional string route_distinguisher = 54;
+      }
+      optional inter_instance_policies_type inter_instance_policies = 155;
+      message inter_instance_policies_type {
+         optional import_export_policy_type import_export_policy = 153;
+         message import_export_policy_type {
+            optional state_type state = 151;
+            message state_type {
+               repeated string export_route_target = 51;
+               repeated string import_route_target = 52;
+            }
+         }
+         optional apply_policy_type apply_policy = 152;
+         message apply_policy_type {
+            optional state_type state = 151;
+            message state_type {
+               repeated string export_policy = 51;
+               optional string default_export_policy = 52;
+               repeated string import_policy = 53;
+               optional string default_import_policy = 54;
+            }
+         }
+      }
+      optional route_limits_type route_limits = 154;
+      message route_limits_type {
+         message route_limit_list {
+            optional string afi = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 151;
+            message state_type {
+               optional string afi = 51;
+               optional uint32 maximum = 52;
+               optional bool warning_only = 53;
+            }
+         }
+         repeated route_limit_list route_limit = 151;
+      }
+      optional interfaces_type interfaces = 153;
+      message interfaces_type {
+         message interface_list {
+            optional string id = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 151;
+            message state_type {
+               optional string id = 51;
+               optional string interface = 52;
+               optional uint32 subinterface = 53;
+            }
+         }
+         repeated interface_list interface = 151;
+      }
+      optional protocols_type protocols = 152;
+      message protocols_type {
+         message protocol_list {
+            optional string identifier = 51;
+            optional string name = 52;
+            optional state_type state = 151;
+            message state_type {
+               optional bool enabled = 51;
+               optional string identifier = 52;
+               optional string name = 53;
+            }
+            optional static_routes_type static_routes = 152;
+            message static_routes_type {
+               message static_list {
+                  optional string prefix = 51 [(telemetry_options).is_key = true];
+                  optional state_type state = 151;
+                  message state_type {
+                     optional string prefix = 51;
+                     optional string set_tag = 52;
+                     optional string description = 53;
+                  }
+                  optional next_hops_type next_hops = 152;
+                  message next_hops_type {
+                     message next_hop_list {
+                        optional string index = 51 [(telemetry_options).is_key = true];
+                        optional state_type state = 151;
+                        message state_type {
+                           optional string index = 51;
+                           optional string next_hop = 52;
+                           optional bool recurse = 54;
+                           optional uint32 metric = 53;
+                           optional uint32 preference = 55;
+                        }
+                        optional interface_ref_type interface_ref = 152;
+                        message interface_ref_type {
+                           optional state_type state = 151;
+                           message state_type {
+                              optional string interface = 51;
+                              optional uint32 subinterface = 52;
+                           }
+                        }
+                     }
+                     repeated next_hop_list next_hop = 51;
+                  }
+               }
+               repeated static_list static = 51;
+            }
+            optional local_aggregates_type local_aggregates = 153;
+            message local_aggregates_type {
+               message aggregate_list {
+                  optional string prefix = 51 [(telemetry_options).is_key = true];
+                  optional state_type state = 151;
+                  message state_type {
+                     optional string prefix = 51;
+                     optional bool discard = 52;
+                     optional string set_tag = 53;
+                     optional string description = 54;
+                     optional uint32 metric = 55;
+                     optional uint32 preference = 56;
+                  }
+               }
+               repeated aggregate_list aggregate = 51;
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 51;
+}

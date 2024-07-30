@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_evpn_303 jnpr_state_evpn_303_ext = 303;
+}
+
+message state_evpn_303 {
+   optional routing_instances_type routing_instances = 150;
+   message routing_instances_type {
+      message routing_instance_list {
+         optional string name = 50 [(telemetry_options).is_key = true];
+         optional protocols_type protocols = 150;
+         message protocols_type {
+            optional evpn_type evpn = 171;
+            message evpn_type {
+               optional mac_database_duplicates_type mac_database_duplicates = 181;
+               message mac_database_duplicates_type {
+                  optional mac_entries_type mac_entries = 181;
+                  message mac_entries_type {
+                     message mac_entry_list {
+                        optional string l2_domain_id = 71;
+                        optional string mac_address = 73;
+                        optional string l2_domain_id_type = 72;
+                        optional string active_source = 74;
+                        optional uint64 active_source_timestamp = 75;
+                     }
+                     repeated mac_entry_list mac_entry = 181;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}
