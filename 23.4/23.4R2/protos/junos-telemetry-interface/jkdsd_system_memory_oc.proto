@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_debug_267 jnpr_system_debug_267_ext = 267;
+}
+
+message system_debug_267 {
+   optional memory_type memory = 151;
+   message memory_type {
+      optional state_type state = 151;
+      message state_type {
+         optional uint64 physical = 51;
+         optional uint64 reserved = 52;
+         optional uint64 used = 53;
+         optional uint64 free = 54;
+      }
+   }
+}
