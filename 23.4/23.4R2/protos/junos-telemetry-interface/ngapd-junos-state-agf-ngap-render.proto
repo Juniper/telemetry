@@ -1,0 +1,93 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_225 jnpr_state_225_ext = 225;
+}
+
+message state_225 {
+   optional services_type services = 154;
+   message services_type {
+      optional agf_type agf = 155;
+      message agf_type {
+         optional ngap_type ngap = 151;
+         message ngap_type {
+            optional counters_type counters = 152;
+            message counters_type {
+               optional uint64 ues_total = 104;
+               optional uint64 ues_establishing = 105;
+               optional uint64 ues_established = 106;
+               optional uint64 ues_releasing = 107;
+               optional uint64 ues_released = 108;
+            }
+            optional amfs_type amfs = 156;
+            message amfs_type {
+               message amf_list {
+                  optional string name = 53 [(telemetry_options).is_key = true];
+                  optional string routing_instance = 54;
+                  optional bool default = 55;
+                  optional string connection_status = 56;
+                  optional bool overload_status = 57;
+                  optional counters_type counters = 158;
+                  message counters_type {
+                     optional uint64 ues_total = 59;
+                     optional uint64 ues_establishing = 60;
+                     optional uint64 ues_established = 61;
+                     optional uint64 ues_releasing = 62;
+                     optional uint64 ues_released = 63;
+                  }
+                  optional message_counters_type message_counters = 159;
+                  message message_counters_type {
+                     optional uint64 ng_setup_request_msgs_sent = 65;
+                     optional uint64 ran_config_update_msgs_sent = 66;
+                     optional uint64 amf_config_update_acknowledgement_msgs_sent = 67;
+                     optional uint64 amf_config_update_failure_msgs_sent = 68;
+                     optional uint64 ng_reset_msgs_sent = 69;
+                     optional uint64 ng_reset_acknowledgement_msgs_sent = 70;
+                     optional uint64 non_ue_error_indication_msgs_sent = 71;
+                     optional uint64 ng_setup_response_msgs_received = 72;
+                     optional uint64 ng_setup_failure_msgs_received = 73;
+                     optional uint64 ran_config_update_acknowledgement_msgs_received = 74;
+                     optional uint64 ran_config_update_failure_msgs_received = 75;
+                     optional uint64 amf_config_update_msgs_received = 76;
+                     optional uint64 ng_reset_msgs_received = 77;
+                     optional uint64 ng_reset_acknowledgement_msgs_received = 78;
+                     optional uint64 non_ue_error_indication_msgs_received = 79;
+                     optional uint64 amf_status_indication_msgs_received = 80;
+                     optional uint64 overload_start_msgs_received = 81;
+                     optional uint64 overload_stop_msgs_received = 82;
+                     optional uint64 initial_context_setup_response_msgs_sent = 83;
+                     optional uint64 initial_context_setup_failure_msgs_sent = 84;
+                     optional uint64 ue_context_release_request_msgs_sent = 85;
+                     optional uint64 ue_context_release_complete_msgs_sent = 86;
+                     optional uint64 ue_context_modify_response_msgs_sent = 87;
+                     optional uint64 ue_context_modify_failure_msgs_sent = 88;
+                     optional uint64 pdu_session_resource_setup_response_msgs_sent = 89;
+                     optional uint64 pdu_session_resource_release_response_msgs_sent = 90;
+                     optional uint64 pdu_session_resource_mod_response_msgs_sent = 91;
+                     optional uint64 pdu_session_resource_notify_msgs_sent = 92;
+                     optional uint64 pdu_session_resource_mod_indication_msgs_sent = 93;
+                     optional uint64 pdu_session_resource_setup_request_msgs_received = 94;
+                     optional uint64 pdu_session_resource_release_command_msgs_received = 95;
+                     optional uint64 pdu_session_resource_mod_request_msgs_received = 96;
+                     optional uint64 pdu_session_resource_mod_confirm_msgs_received = 97;
+                     optional uint64 initial_ue_msgs_sent = 98;
+                     optional uint64 uplink_nas_transport_msgs_sent = 99;
+                     optional uint64 nas_non_delivery_indication_msgs_sent = 100;
+                     optional uint64 ue_error_indication_msgs_sent = 112;
+                     optional uint64 initial_context_setup_request_msgs_received = 101;
+                     optional uint64 ue_context_release_command_msgs_received = 102;
+                     optional uint64 ue_context_modification_request_msgs_received = 103;
+                     optional uint64 downlink_nas_transport_msgs_received = 109;
+                     optional uint64 reroute_nas_request_msgs_received = 110;
+                     optional uint64 ue_tnla_bind_release_request_msgs_received = 111;
+                     optional uint64 ue_error_indication_msgs_received = 113;
+                  }
+               }
+               repeated amf_list amf = 157;
+            }
+         }
+      }
+   }
+}
