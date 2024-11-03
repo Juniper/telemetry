@@ -1,0 +1,264 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module mib2d-junos-state-interfaces-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/junos/state/interfaces/render";
+
+  prefix "js-if-rdr";
+
+  import junos-state { prefix js; }
+  import junos-state-system { prefix js-sys; }
+  import junos-state-protocols { prefix js-pro; }
+  import junos-state-interfaces { prefix js-if; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+  // augment statements
+ grouping mib2d-if-states {
+    uses js-if:interface-top {
+      augment "local-index" {
+        dr:source "ifindex";
+        dr:fieldnum 66;
+      }
+      augment "media-type" {
+        dr:source "ifmediatype";
+        dr:fieldnum 67;
+	dr:map COPPER { dr:map-from 1; }
+	dr:map FIBER  { dr:map-from 2; }
+      }
+
+      augment "flags" {
+        dr:fieldnum 74;
+      }
+
+      augment "flags/specific-config" {
+        dr:source "ifd_specficconfig_flags";
+        dr:fieldnum 68;
+        dr:map IFDSPF_MULTICAST_STATISTICS { dr:map-from 1; }
+        dr:map IFDSPF_OAM_ON_SVLAN { dr:map-from 4; }
+        dr:map IFDSPF_RPF_COUNTER { dr:map-from 2097152; }
+        dr:map 0 { dr:map-from * ; }
+      }
+      augment "flags/device" {
+        dr:source "ifd_device_flags";
+        dr:fieldnum 69;
+        dr:map IFDF_PRESENT    { dr:map-from 1; }
+        dr:map IFDF_RUNNING    { dr:map-from 2; }
+        dr:map IFDF_DUPLEX     { dr:map-from 4; }
+        dr:map IFDF_DOWN       { dr:map-from 8; }
+        dr:map IFDF_NOCARR    { dr:map-from 16; }
+        dr:map IFDF_ERROR     { dr:map-from 32; }
+        dr:map IFDF_ERROR2    { dr:map-from 64; }
+        dr:map IFDF_NOMULTI  { dr:map-from 128; }
+        dr:map IFDF_LOOPBACK { dr:map-from 256; }
+        dr:map IFDF_QUENCH   { dr:map-from 512; }
+        dr:map IFDF_ALLMULTI{ dr:map-from 1024; }
+        dr:map IFDF_PROMISC { dr:map-from 2048; }
+        dr:map IFDF_LINKDOWN{ dr:map-from 4096; }
+        dr:map IFDF_LOOPED  { dr:map-from 8192; }
+        dr:map 0 { dr:map-from * ; }
+      }
+      augment "flags/config" {
+        dr:source "ifd_config_flags";
+        dr:fieldnum 70;
+        dr:map IFF_HARDDOWN    { dr:map-from 1; }
+        dr:map IFF_LINKDOWN    { dr:map-from 8; }
+        dr:map IFF_DOWN     { dr:map-from 2; }
+        dr:map IFF_UP       { dr:map-from 2147483650; }
+        dr:map IFF_ADMINDOWN    { dr:map-from 4; }
+        dr:map IFF_ADMINUP     { dr:map-from 2147483652; }
+        dr:map IFF_POINTOPOINT    { dr:map-from 16; }
+        dr:map DK_NOT_IFF_POINTOPOINT  { dr:map-from 2147483664; }
+        dr:map IFF_NOMULTI { dr:map-from 64; }
+        dr:map IFF_MULTI   { dr:map-from 2147483712; }
+        dr:map IFF_PROMISC { dr:map-from 256; }
+        dr:map IFF_ALLMULTI { dr:map-from 512; }
+        dr:map IFF_TRAPENABLE { dr:map-from 32768; }
+        dr:map IFF_INARP  { dr:map-from 128; }
+        dr:map IFF_RX_DISABLE  { dr:map-from 2048; }
+        dr:map IFF_TX_DISABLE  { dr:map-from 1024; }
+        dr:map IFF_CCCDOWN  { dr:map-from 4096; }
+        dr:map IFF_CLEARDF  { dr:map-from 262144; }
+        dr:map IFF_REASSEM  { dr:map-from 268435456; }
+        dr:map IFF_ACFC  { dr:map-from 2097152; }
+        dr:map IFF_PFC  { dr:map-from 4194304; }
+        dr:map IFF_RDD  { dr:map-from 8388608; }
+        dr:map IFF_LOOPED  { dr:map-from 33554432; }
+        dr:map 0 { dr:map-from * ; }
+      }
+      augment "flags/media" {
+        dr:source "ifd_media_flags";
+        dr:fieldnum 71;
+        dr:map IFMF_AUTOSELECT  { dr:map-from 1; }
+        dr:map IFMF_SCHEDULER  { dr:map-from 16; }
+        dr:map IFMF_SHARED_SCHEDULER  { dr:map-from 1024; }
+        dr:map IFMF_NOKEEPALIVE  { dr:map-from 1; }
+        dr:map IFMF_NONE  { dr:map-from 0; }
+        dr:map IFMF_KEEPALIVE { dr:map-from 0; }
+        dr:map IFMF_VLAN_OFFLOAD  { dr:map-from 2; }
+        dr:map IFMF_LOOSE_LMI  { dr:map-from 4; }
+        dr:map IFMF_DCE  { dr:map-from 8; }
+        dr:map IFMF_LOOSE_LCP  { dr:map-from 4; }
+        dr:map IFMF_LOOSE_NCP  { dr:map-from 8; }
+        dr:map IFMF_PPP_ACFC  { dr:map-from 128; }
+        dr:map IFMF_PPP_PFC  { dr:map-from 256; }
+      }
+      augment "flags/error" {
+        dr:source "ifd_error_flags";
+        dr:fieldnum 57;
+        dr:map NONE { dr:map-from 0; }
+        dr:map BPDU  { dr:map-from 1; }
+        dr:map LOOP_DETECT_PDU { dr:map-from 2; }
+        dr:map ETHERNET_SWITCHING { dr:map-from 3; }
+        dr:map MAC_REWRITE { dr:map-from 4; }
+      }
+     augment "link-level-type" {
+       dr:source "link_level_type";
+       dr:fieldnum 72;
+       dr:map IFML_FRAMERELAY_EXT_TCC { dr:map-from 49; }
+       dr:map IFML_CISCOHDLC_TCC { dr:map-from 29; }
+       dr:map IFML_ETHERNET_CCC { dr:map-from 30; }
+       dr:map IFML_VT { dr:map-from 31; }
+       dr:map IFML_EXTENDED_VLAN_CCC { dr:map-from 32; }
+       dr:map IFML_ETHER_OVER_ATM { dr:map-from 33; }
+       dr:map IFML_ETHER_VPLS_OVER_ATM { dr:map-from 46; }
+       dr:map IFML_PICPEER { dr:map-from 60; }
+       dr:map IFML_ETHERNET_TCC { dr:map-from 35; }
+       dr:map IFML_VLAN_TCC { dr:map-from 36; }
+       dr:map IFML_EXTENDED_VLAN_TCC { dr:map-from 37; }
+       dr:map IFML_CONTROLLER { dr:map-from 38; }
+       dr:map IFML_ETHERNET_VPLS { dr:map-from 41; }
+       dr:map IFML_ETHERNET_VLAN_VPLS { dr:map-from 42; }
+       dr:map IFML_ETHERNET_EXTENDED_VLAN_VPLS { dr:map-from 43; }
+       dr:map IFML_SERVICES { dr:map-from 45; }
+       dr:map IFML_GGSNI { dr:map-from 51; }
+       dr:map IFML_LT { dr:map-from 44; }
+       dr:map IFML_UT { dr:map-from 75; }
+       dr:map IFML_XT { dr:map-from 77; }
+       dr:map IFML_COLLECTOR { dr:map-from 53; }
+       dr:map IFML_DFC { dr:map-from 59; }
+       dr:map IFML_PPPOE { dr:map-from 56; }
+       dr:map IFML_PPP_SUBORDINATE { dr:map-from 57; }
+       dr:map IFML_CISCOHDLC_SUBORDINATE { dr:map-from 58; }
+       dr:map IFML_VP { dr:map-from 62; }
+       dr:map IFML_ST { dr:map-from 63; }
+       dr:map IFML_VS { dr:map-from 88; }
+       dr:map IFML_OTHER { dr:map-from  255; }
+       dr:map IFML_FR_ETHER { dr:map-from 65; }
+       dr:map IFML_FR_ETHER_TCC { dr:map-from 66; }
+       dr:map IFML_FR_ETHER_EXT_TCC { dr:map-from 67; }
+       dr:map IFML_VLAN_VCI_CCC { dr:map-from 68; }
+       dr:map IFML_TDM_CESOPSN_CCC { dr:map-from 74; }
+       dr:map IFML_ETHER_VPLS_OVER_PPP { dr:map-from 76; }
+       dr:map IFML_TDM_IMA { dr:map-from 78; }
+       dr:map IFML_UDPT { dr:map-from 86; }
+       dr:map IFML_ETHERNET_FLEX { dr:map-from 52; }
+       dr:map IFML_VTEP { dr:map-from 91; }
+       dr:map IFML_VCP { dr:map-from 70; }
+       dr:map IFML_RBEB { dr:map-from 93; }
+       dr:map IFML_FTI { dr:map-from 97; }
+       dr:map IFML_UNSPEC { dr:map-from 0; }
+       dr:map IFML_ETHER { dr:map-from 1; }
+       dr:map IFML_FDDI { dr:map-from 2; }
+       dr:map IFML_TOKENRING { dr:map-from 3; }
+       dr:map IFML_PPP { dr:map-from 4; }
+       dr:map IFML_FRAMERELAY { dr:map-from 5; }
+       dr:map IFML_FRAMERELAY_FLEX { dr:map-from 50; }
+       dr:map IFML_CISCOHDLC { dr:map-from 6; }
+       dr:map IFML_SMDSDXI { dr:map-from 7; }
+       dr:map IFML_ATMPVC { dr:map-from 8; }
+       dr:map IFML_PPP_CCC { dr:map-from 9; }
+       dr:map IFML_FRAMERELAY_CCC { dr:map-from 10; }
+       dr:map IFML_FRAMERELAY_EXT_CCC { dr:map-from 48; }
+       dr:map IFML_FR_PORT_CCC { dr:map-from 47; }
+       dr:map IFML_IPIP { dr:map-from 11; }
+       dr:map IFML_GRE { dr:map-from 12; }
+       dr:map IFML_VLAN { dr:map-from 71; }
+       dr:map IFML_MGMTVLAN { dr:map-from 72; }
+       dr:map IFML_PIM { dr:map-from 13; }
+       dr:map IFML_PIMD { dr:map-from 14; }
+       dr:map IFML_CISCOHDLC_CCC { dr:map-from 15; }
+       dr:map IFML_VLAN_CCC { dr:map-from 16; }
+       dr:map IFML_MLPPP { dr:map-from 17; }
+       dr:map IFML_MLFR { dr:map-from 18; }
+       dr:map IFML_ML { dr:map-from 19; }
+       dr:map IFML_SLPPP { dr:map-from 61; }
+       dr:map IFML_LS { dr:map-from 40; }
+       dr:map IFML_MFR { dr:map-from 39; }
+       dr:map IFML_LSI { dr:map-from 20; }
+       dr:map IFML_ATM_CELLRELAY_CCC { dr:map-from 22; }
+       dr:map IFML_CRYPTO { dr:map-from 23; }
+       dr:map IFML_GGSN{ dr:map-from 24;  }
+       dr:map IFML_LSI_PPP { dr:map-from 25; }
+       dr:map IFML_LSI_CISCOHDLC { dr:map-from 26; }
+       dr:map IFML_PPP_TCC { dr:map-from 27; }
+       dr:map IFML_FRAMERELAY_TCC { dr:map-from 28; }
+     }
+   }
+ }
+
+  dr:command-app "mib2d";
+  dr:sub-component "mib";
+  jnpr-proto:message-id "JS-MIB2D-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container state {
+       dr:fieldnum 49;
+       container interfaces {
+        dr:source "/JuniperNetworksSensors/interfaces";
+        dr:fieldnum 50;
+        list interface {
+          dr:source "interface";
+          dr:fieldnum 151;
+          key "name";
+          leaf name {
+            type string;
+            dr:source "name";
+            dr:fieldnum 51;
+          }
+	  uses mib2d-if-states;
+        }
+      }
+    }
+  }
+}
+  rpc juniper-telemetry-get {
+    output {
+      container state {
+        dr:fieldnum 49;
+        container interfaces {
+	dr:fieldnum 50;
+        dr:source "/JuniperNetworksSensors/interfaces";
+        list interface {
+          dr:source "interface";
+          dr:fieldnum 151;
+          key "name";
+          leaf name {
+            type string;
+            dr:source "name";
+            dr:fieldnum 51;
+          }
+          uses mib2d-if-states;
+        }
+      }
+    }
+  }
+}
+}

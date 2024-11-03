@@ -1,0 +1,54 @@
+module jnx-aug-openconfig-system-aaa {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/system/aaa";
+
+  prefix "jnx-oc-system-aaa";
+
+  import openconfig-system { prefix oc-sys; }
+  import openconfig-aaa { prefix oc-aaa; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig system aaa model";
+
+  revision "2019-02-26" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-sys:system/oc-sys:aaa/oc-sys:authentication/oc-sys:admin-user/oc-sys:config" {
+    uses oc-aaa:aaa-admin-config {
+      refine admin-password {
+        junos:secret;
+      }
+    }
+  }
+
+  augment "/oc-sys:system/oc-sys:aaa/oc-sys:authentication/oc-sys:users/oc-sys:user/oc-sys:config" {
+    uses oc-aaa:aaa-authentication-user-config {
+      refine password {
+        junos:secret;
+      }
+    }
+  }
+
+  augment "/oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:radius/oc-sys:config" {
+    uses oc-aaa:aaa-radius-server-config {
+      refine secret-key {
+        junos:secret;
+      }
+    }
+  }
+
+  augment "/oc-sys:system/oc-sys:aaa/oc-sys:server-groups/oc-sys:server-group/oc-sys:servers/oc-sys:server/oc-sys:tacacs/oc-sys:config" {
+    uses oc-aaa:aaa-tacacs-server-config {
+      refine secret-key {
+        junos:secret;
+      }
+    }
+  }
+
+}

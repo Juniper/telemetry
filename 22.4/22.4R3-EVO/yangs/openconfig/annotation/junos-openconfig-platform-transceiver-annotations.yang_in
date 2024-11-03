@@ -1,0 +1,194 @@
+module junos-openconfig-platform-transceiver-annotations {
+
+    yang-version "1";
+
+    prefix "jnx-oc-transceiver-ann";
+
+    namespace "http://yang.juniper.net/yang/platform/transceiver/annotations";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-transceiver { prefix oc-transceiver; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-03-28" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:enabled" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:form-factor-preconf" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:ethernet-pmd-preconf" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:present" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:form-factor" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:connector-type" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:vendor" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:vendor-part" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:vendor-rev" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:ethernet-pmd" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:sonet-sdh-compliance-code" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:otn-compliance-code" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:serial-no" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:date-code" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:output-power/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10008);
+
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:input-power/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10008);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:laser-bias-current/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10008);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:index" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:description" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:tx-laser" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:target-output-power" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:output-frequency" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:output-power/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:input-power/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels/oc-transceiver:channel/oc-transceiver:state/oc-transceiver:laser-bias-current/oc-transceiver:instant" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(ptx10008);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:fec-mode" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:module-functional-type" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:output-power" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:input-power" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:state/oc-transceiver:laser-bias-current" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:physical-channels" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:enabled" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:form-factor-preconf" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-transceiver:transceiver/oc-transceiver:config/oc-transceiver:ethernet-pmd-preconf" {
+        JUNOS_PRODUCT_TVP(mx10004);
+    }
+}

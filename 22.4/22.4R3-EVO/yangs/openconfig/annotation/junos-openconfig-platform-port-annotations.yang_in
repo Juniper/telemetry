@@ -1,0 +1,28 @@
+module junos-openconfig-platform-port-annotations {
+
+    yang-version "1";
+
+    prefix "jnx-oc-port-ann";
+
+    namespace "http://yang.juniper.net/yang/platform/port/annotations";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-port { prefix oc-port; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-04-05" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:port/oc-port:breakout-mode/oc-port:groups/oc-port:group/oc-port:state" {
+        JUNOS_PRODUCT(mx240 mx480 mx960 mx2010 mx2020 mx2008);
+        JUNOS_PRODUCT(BRACKLA_PTX ptx10008);
+        JUNOS_PRODUCT_TVP(mx10003 mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT_TVP(ptx10002-60c ptx1000-72q);
+    }
+
+}

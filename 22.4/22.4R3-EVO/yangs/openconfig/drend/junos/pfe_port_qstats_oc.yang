@@ -1,0 +1,55 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2018, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_port_qstats_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/mib2d/pfe-port-qstats-oc";
+
+  prefix "pfe-port-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-interfaces { prefix ocif; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-port {
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+	dr:backup-supported;
+        dr:source "/junos/system/linecard/interface/queue/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface" {
+        dr:source "/junos/system/linecard/interface/queue/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state" {
+        dr:source "/junos/system/linecard/interface/queue/";
+        dr:fieldnum 151;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-port-qstats";
+  jnpr-proto:message-id "PFE-PORT-QSTATS-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses pfe-port;
+    }
+  }
+}

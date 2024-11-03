@@ -1,0 +1,75 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2019, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module pfe_mpls_ldp_p2mp_lsp_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-mpls-ldp-p2mp-lsp-oc";
+
+  prefix "mpls-ldp-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-ldp {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        uses jnx-aug-oc-mpls:jnx-ldp-p2mp-lsps-container {
+          augment "p2mp-lsps" {
+            dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+            dr:fieldnum 151;
+          }
+          augment "p2mp-lsps/p2mp-lsp" {
+            dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+            dr:fieldnum 151;
+          }
+          augment "p2mp-lsps/p2mp-lsp/state" {
+            dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+            dr:fieldnum 151;
+          }
+          augment "p2mp-lsps/p2mp-lsp/state/counters" {
+            dr:source "/junos/services/ldp/p2mp/label-switched-path/usage/";
+            dr:fieldnum 151;
+          }
+        }
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-ldp-p2mp-lsp";
+  jnpr-proto:message-id "LDP-P2MP-LSP-STATS-MESSAGE-ID";
+
+   rpc juniper-netconf-get {
+       output {
+         uses mpls-ldp;
+       }
+   }
+}

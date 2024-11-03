@@ -1,0 +1,83 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2021, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_packet_capture {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/pfe-packet-capture";
+
+    prefix "pfe_pcap";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import junos-packet-capture { prefix jnx-pcap; }
+
+    dr:command-app "agentd";
+    dr:sub-component "pfe_packet_capture";
+
+    jnpr-proto:message-id "PFE-PACKET-CAPTURE-MESSAGE-ID";
+
+    grouping pfe-pcap {
+        uses jnx-pcap:packet-capture-top {
+            augment "junos/system" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 151;
+            }
+            augment "junos/system/linecard" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 151;
+            }
+            augment "junos/system/linecard/packet-capture" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 151;
+            }
+            augment "junos/system/linecard/packet-capture/packet" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 151;
+            }
+            augment "junos/system/linecard/packet-capture/packet/id" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 51;
+            }
+            augment "junos/system/linecard/packet-capture/packet/total-length" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 52;
+            }
+            augment "junos/system/linecard/packet-capture/packet/actual-length" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 53;
+            }
+            augment "junos/system/linecard/packet-capture/packet/packet-data" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 54;
+            }
+            augment "junos/system/linecard/packet-capture/packet/timestamp" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 55;
+            }
+            augment "junos/system/linecard/packet-capture/packet/ifl-index" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 56;
+            }
+            augment "junos/system/linecard/packet-capture/packet/cos-queue" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 57;
+            }
+            augment "junos/system/linecard/packet-capture/packet/direction" {
+                dr:source "/junos/system/linecard/packet-capture/";
+                dr:fieldnum 58;
+            }
+        }
+    }
+
+    rpc juniper-netconf-get {
+        output {
+            uses pfe-pcap;
+        }
+    }
+}

@@ -1,0 +1,2520 @@
+/*
+ * Render tree for network instance based BGP Openconfig 
+ *
+ * March 2017, Mukul Srivastava
+ *
+ * Copyright (c) 1998-2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * BGP Render Tree. 
+ */
+
+module rpd_ni_bgp_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/rpd-bgp-augment";
+
+  prefix "bgpnioc";
+ 
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  
+  import openconfig-bgp {prefix oc-bgp; }
+  import openconfig-routing-policy { prefix oc-rpol; }
+  import jnx-aug-openconfig-ni { prefix jnx-oc-ni; }
+
+  description "
+	Example of psuedo 'OpenConfig' rendering of bgp state version 2.1.1
+  ";
+
+  revision "2018-04-24" {
+     description
+      "OpenConfig network instance based BGP refactor";
+    reference "4.0.1";
+  }
+  revision "2017-03-15" {
+     description
+      "OpenConfig network instance based BGP refactor";
+    reference "2.1.1";
+  }
+
+  /*
+   * Daemon that handles this hierarchy
+   */
+  dr:command-app "rpd";
+  dr:sub-component "ni-bgp";
+  jnpr-proto:message-id "RPD-NI-BGP-OC-MESSAGE-ID";
+
+  grouping bgp-global_config-group {
+    uses oc-bgp:bgp-global-config {
+      augment "as" {
+        dr:source "global_as";
+        dr:fieldnum 51;
+      }
+      augment "router-id" {
+        dr:source "global_router_id";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping bgp-route-selection-options_config-group {
+    uses oc-bgp:bgp-common-route-selection-options-config {
+      augment "advertise-inactive-routes" {
+        dr:source "advertise_inactive_routes";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "always-compare-med" {
+        dr:source "always_compare_med";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "ignore-as-path-length" {
+        dr:source "ignore_as_path_length";
+        dr:fieldnum 53;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "external-compare-router-id" {
+        dr:source "external_compare_router_id";
+        dr:fieldnum 54;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-confederation_config-group {
+    uses oc-bgp:bgp-global-confederation-config {
+      augment "member-as" {
+        dr:source "member_as";
+        dr:fieldnum 52;
+      }
+      augment "identifier" {
+        dr:source "confederation_identifier";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping bgp-policy-group {
+    uses oc-rpol:apply-policy-group {
+      augment "apply-policy" {
+        dr:fieldnum 171;
+      }
+      augment "apply-policy/state" {
+        dr:fieldnum 151;
+      }
+      augment "apply-policy/state/import-policy" {
+        dr:source "import-policy";
+        dr:fieldnum 51;
+      }
+      augment "apply-policy/state/export-policy" {
+        dr:source "export-policy";
+        dr:fieldnum 52;
+      }
+
+    }
+  }
+
+  grouping bgp-peer-group-bfd-state-group {
+    uses jnx-oc-ni:bfd-group-state-params {
+      augment "enable-bfd" {
+        dr:fieldnum 172;
+      }
+      augment "enable-bfd/state" {
+        dr:fieldnum 151;
+      }
+      augment "enable-bfd/state/enabled" {
+        dr:source "bfd_enabled";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-bfd-state-group {
+    uses jnx-oc-ni:bfd-peer-state-params {
+      augment "enable-bfd" {
+        dr:fieldnum 172;
+      }
+      augment "enable-bfd/state" {
+        dr:fieldnum 151;
+      }
+      augment "enable-bfd/state/enabled" {
+        dr:source "bfd_enabled";
+        dr:fieldnum 51;
+      }
+      augment "enable-bfd/state/jnx-min-tx-interval" {
+        dr:source "bfd_min_tx_interval";
+        dr:fieldnum 52;
+      }
+      augment "enable-bfd/state/jnx-local-multiplier" {
+        dr:source "bfd_local_multiplier";
+        dr:fieldnum 53;
+      }
+      augment "enable-bfd/state/jnx-min-rx-interval" {
+        dr:source "bfd_min_rx_interval";
+        dr:fieldnum 54;
+      }
+      augment "enable-bfd/state/jnx-session-state" {
+        dr:source "bfd_sess_state";
+        dr:fieldnum 55;
+      }
+      augment "enable-bfd/state/jnx-session-mode" {
+        dr:source "bfd_sess_mode";
+        dr:fieldnum 56;
+      }
+    }
+  }
+  
+  grouping bgp-neighbor-neighbor-address-group {
+    uses oc-bgp:bgp-neighbor-config {
+      augment "neighbor-address" {
+        dr:source "peer_address";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-neighbor-additional_config_group {
+    uses oc-bgp:bgp-neighbor-config {
+      augment "peer-group" {
+        dr:source "peer_group";
+        dr:fieldnum 81;
+      }
+      augment "neighbor-address" {
+        dr:source "peer_address";
+        dr:fieldnum 82;
+      }
+      augment "enabled" {
+        dr:source "peer_enabled";
+        dr:fieldnum 83;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+ 
+  grouping bgp-peer-group-peer-group-name_config_group {
+    uses oc-bgp:bgp-peer-group-config {
+      augment "peer-group-name" {
+        dr:source "peer_group";
+        dr:fieldnum 61;
+      }
+    }
+  }
+
+  grouping bgp-neighbor_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-config {
+      augment "peer-as" {
+        dr:source "peer_as";
+        dr:fieldnum 51;
+      }
+      augment "local-as" {
+        dr:source "local_as";
+        dr:fieldnum 52;
+      }
+      augment "peer-type" {
+        dr:source "peer_type";
+        dr:fieldnum 53;
+        dr:map INTERNAL { dr:map-from Internal; }
+        dr:map EXTERNAL { dr:map-from External; }
+      }
+      augment "auth-password" {
+        dr:source "auth_password";
+        dr:fieldnum 54;
+      }
+      augment "remove-private-as" {
+        dr:source "remove_private_as";
+        dr:fieldnum 55;
+        dr:map PRIVATE_AS_REPLACE_ALL { dr:map-from 1; }
+        dr:map PRIVATE_AS_REMOVE_ALL { dr:map-from 0; }
+      }
+      augment "route-flap-damping" {
+        dr:source "route_flap_damping";
+        dr:fieldnum 56;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "description" {
+        dr:source "description";
+        dr:fieldnum 57;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-timers_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-timers-config {
+      augment "connect-retry" {
+        dr:source "connect_retry";
+        dr:fieldnum 51;
+      }
+      augment "hold-time" {
+        dr:source "hold_time";
+        dr:fieldnum 52;
+      }
+      augment "keepalive-interval" {
+        dr:source "keepalive_interval";
+        dr:fieldnum 53;
+      }
+      augment "minimum-advertisement-interval" {
+        dr:source "minimum_advertisement_interval";
+        dr:fieldnum 54;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-transport_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-transport-config {
+      augment "tcp-mss" {
+        dr:source "tcp_mss";
+        dr:fieldnum 51;
+      }
+      augment "mtu-discovery" {
+        dr:source "mtu_discovery";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "passive-mode" {
+        dr:source "passive_mode";
+        dr:fieldnum 53;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "local-address" {
+        dr:source "local_address";
+        dr:fieldnum 54;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-error-handling_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-error-handling-config {
+      augment "treat-as-withdraw" {
+        dr:source "treat_as_withdraw";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-neighbor-logging-options_config_group {
+      uses oc-bgp:bgp-common-neighbor-group-logging-options-config {
+      augment "log-neighbor-state-changes" {
+        dr:source "log_neighbor_state_changes";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-neighbor-multihop_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-multihop-config {
+      augment "enabled" {
+        dr:source "multihop_enabled";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "multihop-ttl" {
+        dr:source "multihop_ttl";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-route-reflector_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-route-reflector-config {
+      augment "route-reflector-cluster-id" {
+        dr:source "route_reflector_cluster_id";
+        dr:fieldnum 51;
+      }
+      augment "route-reflector-client" {
+        dr:source "route_reflector_client";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+
+  grouping bgp-neighbor-as-path-options_config_group {
+    uses oc-bgp:bgp-common-neighbor-group-as-path-options-config {
+      augment "allow-own-as" {
+        dr:source "allow_own_as";
+        dr:fieldnum 51;
+      }
+      augment "replace-peer-as" {
+        dr:source "replace_peer_as";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "disable-peer-as-filter" {
+        dr:source "disable_peer_as_filter";
+        dr:fieldnum 53;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-neighbor-graceful-restart_config_group {
+    uses oc-bgp:bgp-common-graceful-restart-config {
+      augment "enabled" {
+        dr:source "graceful_restart_enabled";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "restart-time" {
+        dr:source "graceful_restart_restart_time";
+        dr:fieldnum 52;
+      }
+      augment "stale-routes-time" {
+        dr:source "graceful_restart_stale_routes_time";
+        dr:fieldnum 53;
+      }
+      augment "helper-only" {
+        dr:source "graceful_restart_helper_only";
+        dr:fieldnum 54;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+  
+  grouping bgp-neighbor-graceful-restart_state-group {
+    uses oc-bgp:bgp-neighbor-graceful-restart-state {
+      augment "peer-restart-time" {
+        dr:source "peer_restart_time";
+        dr:fieldnum 61;
+      }
+      augment "peer-restarting" {
+        dr:source "peer_restarting";
+        dr:fieldnum 62;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "local-restarting" {
+        dr:source "local_restarting";
+        dr:fieldnum 63;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "mode" {
+        dr:source "restart_mode";
+        dr:fieldnum 64;
+        dr:map HELPER_ONLY { dr:map-from 0; }
+        dr:map BILATERAL { dr:map-from 1; }
+        dr:map REMOTE_HELPER { dr:map-from 2; }
+      }
+    }
+  }
+
+  grouping bgp-neighbor_state-group {
+    uses oc-bgp:bgp-neighbor-state {
+      augment "session-state" {
+        dr:source "peer_state";
+        dr:fieldnum 61;
+        dr:map IDLE { dr:map-from Idle; }
+        dr:map CONNECT { dr:map-from Connect; }
+        dr:map ACTIVE { dr:map-from Active; }
+        dr:map OPENSENT { dr:map-from OpenSent; }
+        dr:map OPENCONFIRM { dr:map-from OpenConfirm; }
+        dr:map ESTABLISHED { dr:map-from Established; }
+      }
+      augment "last-established" {
+        dr:source "peer_last_established";
+        dr:fieldnum 62;
+      }
+      augment "established-transitions" {
+        dr:source "peer_established_transitions";
+        dr:fieldnum 63;
+      }
+      augment "supported-capabilities" {
+        dr:source "capability";
+        dr:fieldnum 64;
+        dr:source-notification-name "bgp-established-cap";
+        dr:map MPBGP            { dr:map-from 1; }
+        dr:map ROUTE_REFRESH    { dr:map-from 2; }
+        dr:map ASN32            { dr:map-from 3; }
+        dr:map GRACEFUL_RESTART { dr:map-from 4; }
+        dr:map ADD_PATHS        { dr:map-from 5; }
+        }
+      augment "messages" {
+        dr:fieldnum 151;
+      }
+      augment "messages/sent" {
+        dr:fieldnum 151;
+      }
+      augment "messages/sent/UPDATE" {
+        dr:source "sent_update";
+	dr:fieldnum 65;
+      }
+      augment "messages/sent/NOTIFICATION" {
+        dr:source "sent_notification";
+	dr:fieldnum 66;
+      }
+      augment "messages/sent/last-notification-time" {
+        dr:source "sent_notification_time";
+	dr:fieldnum 71;
+      }
+      augment "messages/sent/last-notification-error-code" {
+        dr:source "sent_notification_code";
+        dr:map MESSAGE_HEADER_ERROR { dr:map-from 1; }
+        dr:map OPEN_MESSAGE_ERROR { dr:map-from 2; }
+        dr:map UPDATE_MESSAGE_ERROR { dr:map-from 3; }
+        dr:map HOLD_TIMER_EXPIRED { dr:map-from 4; }
+        dr:map FINITE_STATE_MACHINE_ERROR { dr:map-from 5; }
+        dr:map CEASE { dr:map-from 6; }
+	dr:fieldnum 72;
+      }
+      augment "messages/sent/last-notification-error-subcode" {
+        dr:source "sent_notification_subcode";
+	dr:map UNSPECIFIC                  { dr:map-from 0; }
+        /* header error *
+        dr:map CONNECTION_NOT_SYNCHRONIZED { dr:map-from 257; }
+        dr:map BAD_MESSAGE_LENGTH          { dr:map-from 258; }
+        dr:map BAD_MESSAGE_TYPE            { dr:map-from 259; }
+        /* open error - openconfig doesn't map authentication failure */
+        dr:map UNSUPPORTED_VERSION_NUMBER     { dr:map-from 513; }
+        dr:map BAD_PEER_AS                    { dr:map-from 514; }
+        dr:map BAD_BGP_IDENTIFIER             { dr:map-from 515; }
+        dr:map UNSUPPORTED_OPTIONAL_PARAMETER { dr:map-from 516; }
+        dr:map AUTHENTICATION_FAILURE         { dr:map-from 517; }
+        dr:map UNACCEPTABLE_HOLD_TIME         { dr:map-from 518; }
+        dr:map UNSUPPORTED_CAPABILITY         { dr:map-from 519; }
+        /* update error - openconfig doesn't map AS loop failure */
+        dr:map MALFORMED_ATTRIBUTE_LIST          { dr:map-from 769; }
+        dr:map UNRECOGNIZED_WELL_KNOWN_ATTRIBUTE { dr:map-from 770; }
+        dr:map MISSING_WELL_KNOWN_ATTRIBUTE      { dr:map-from 771; }
+        dr:map ATTRIBUTE_FLAGS_ERROR             { dr:map-from 772; }
+        dr:map ATTRIBUTE_LENGTH_ERROR            { dr:map-from 773; }
+        dr:map INVALID_ORIGIN_ATTRIBUTE          { dr:map-from 774; }
+        dr:map AS_LOOP                           { dr:map-from 775; }
+        dr:map INVALID_NEXT_HOP_ATTRIBUTE        { dr:map-from 776; }
+        dr:map OPTIONAL_ATTRIBUTE_ERROR          { dr:map-from 777; }
+        dr:map INVALID_NETWORK_FIELD             { dr:map-from 778; }
+        dr:map MALFORMED_AS_PATH                 { dr:map-from 779; }
+	/* holdtime - openconfig doesn't map any subcodes */
+	/* FSM - junos doesn't support any subcodes */
+        /* cease -  openconfig doesn't map hard reset */
+        dr:map MAX_NUM_PREFIXES_REACHED  { dr:map-from 1537; }
+        dr:map ADMINISTRATIVE_SHUTDOWN   { dr:map-from 1538; }
+        dr:map PEER_DE_CONFIGURED        { dr:map-from 1538; }
+        dr:map ADMINISTRATIVE_RESET      { dr:map-from 1540; }
+        dr:map CONNECTION_REJECTED       { dr:map-from 1541; }
+        dr:map OTHER_CONFIG_CHANGE       { dr:map-from 1542; }
+        dr:map CONN_COLLISION_RESOLUTION { dr:map-from 1543; }
+        dr:map OUT_OF_RESOURCES          { dr:map-from 1544; }
+        dr:map HARDRESET                 { dr:map-from 1545; }
+	dr:fieldnum 73;
+      }
+      augment "messages/received" {
+        dr:fieldnum 152;
+      }
+      augment "messages/received/UPDATE" {
+        dr:source "received_update";
+	dr:fieldnum 67;
+      }
+      augment "messages/received/NOTIFICATION" {
+        dr:source "received_notification";
+	dr:fieldnum 68;
+      }
+      augment "messages/received/last-notification-time" {
+        dr:source "received_notification_time";
+	dr:fieldnum 74;
+      }
+      augment "messages/received/last-notification-error-code" {
+        dr:map NONE { dr:map-from 0; }
+        dr:map MESSAGE_HEADER_ERROR { dr:map-from 1; }
+        dr:map OPEN_MESSAGE_ERROR { dr:map-from 2; }
+        dr:map UPDATE_MESSAGE_ERROR { dr:map-from 3; }
+        dr:map HOLD_TIMER_EXPIRED { dr:map-from 4; }
+        dr:map FINITE_STATE_MACHINE_ERROR { dr:map-from 5; }
+        dr:map CEASE { dr:map-from 6; }
+        dr:source "received_notification_code";
+	dr:fieldnum 75;
+      }
+      augment "messages/received/last-notification-error-subcode" {
+        dr:source "received_notification_subcode";
+        dr:map UNSPECIFIC                  { dr:map-from 0; }
+        /* header error *
+        dr:map CONNECTION_NOT_SYNCHRONIZED { dr:map-from 257; }
+        dr:map BAD_MESSAGE_LENGTH          { dr:map-from 258; }
+        dr:map BAD_MESSAGE_TYPE            { dr:map-from 259; }
+        /* open error - openconfig doesn't map authentication failure */
+        dr:map UNSUPPORTED_VERSION_NUMBER     { dr:map-from 513; }
+        dr:map BAD_PEER_AS                    { dr:map-from 514; }
+        dr:map BAD_BGP_IDENTIFIER             { dr:map-from 515; }
+        dr:map UNSUPPORTED_OPTIONAL_PARAMETER { dr:map-from 516; }
+        dr:map AUTHENTICATION_FAILURE         { dr:map-from 517; }
+        dr:map UNACCEPTABLE_HOLD_TIME         { dr:map-from 518; }
+        dr:map UNSUPPORTED_CAPABILITY         { dr:map-from 519; }
+        /* update error - openconfig doesn't map AS loop failure */
+        dr:map MALFORMED_ATTRIBUTE_LIST          { dr:map-from 769; }
+        dr:map UNRECOGNIZED_WELL_KNOWN_ATTRIBUTE { dr:map-from 770; }
+        dr:map MISSING_WELL_KNOWN_ATTRIBUTE      { dr:map-from 771; }
+        dr:map ATTRIBUTE_FLAGS_ERROR             { dr:map-from 772; }
+        dr:map ATTRIBUTE_LENGTH_ERROR            { dr:map-from 773; }
+        dr:map INVALID_ORIGIN_ATTRIBUTE          { dr:map-from 774; }
+        dr:map AS_LOOP                           { dr:map-from 775; }
+        dr:map INVALID_NEXT_HOP_ATTRIBUTE        { dr:map-from 776; }
+        dr:map OPTIONAL_ATTRIBUTE_ERROR          { dr:map-from 777; }
+        dr:map INVALID_NETWORK_FIELD             { dr:map-from 778; }
+        dr:map MALFORMED_AS_PATH                 { dr:map-from 779; }
+	/* holdtime - openconfig doesn't map any subcodes */
+	/* FSM - junos doesn't support any subcodes */
+        /* cease -  openconfig doesn't map hard reset */
+        dr:map MAX_NUM_PREFIXES_REACHED  { dr:map-from 1537; }
+        dr:map ADMINISTRATIVE_SHUTDOWN   { dr:map-from 1538; }
+        dr:map PEER_DE_CONFIGURED        { dr:map-from 1538; }
+        dr:map ADMINISTRATIVE_RESET      { dr:map-from 1540; }
+        dr:map CONNECTION_REJECTED       { dr:map-from 1541; }
+        dr:map OTHER_CONFIG_CHANGE       { dr:map-from 1542; }
+        dr:map CONN_COLLISION_RESOLUTION { dr:map-from 1543; }
+        dr:map OUT_OF_RESOURCES          { dr:map-from 1544; }
+        dr:map HARDRESET                 { dr:map-from 1545; }
+	dr:fieldnum 76;
+      }
+      augment "queues" {
+        dr:fieldnum 152;
+      }
+      augment "queues/input" {
+        dr:source "input_queue_counter";
+	dr:fieldnum 69;
+      }
+      augment "queues/output" {
+        dr:source "output_queue_counter";
+	dr:fieldnum 70;
+      }
+      augment "dynamically-configured" {
+        dr:source "peer_dynamically_configured";
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+	dr:fieldnum 77;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-jnx_state {
+    uses jnx-oc-ni:bgp-neighbor-jnx_state {
+      augment "session-status" {
+        dr:source "peer_status";
+        dr:fieldnum 71;
+        dr:map RUNNING { dr:map-from 0; }
+        dr:map HALTED { dr:map-from 1; }
+      }
+      augment "session-admin-status" {
+        dr:source "peer_admin_status";
+        dr:fieldnum 72;
+        dr:map STOP { dr:map-from 1; }
+        dr:map START { dr:map-from 0; }
+      }
+      augment "interface-error" {
+        dr:source "peer_interface_error";
+        dr:fieldnum 74;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "import-eval-pending" {
+        dr:source "peer_import_eval_pending";
+        dr:fieldnum 75;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "import-eval" {
+        dr:source "peer_import_eval";
+        dr:fieldnum 76;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+  
+  grouping bgp-neighbor-transport_state-group {
+    uses oc-bgp:bgp-neighbor-transport-state {
+      augment "local-port" {
+        dr:source "local_port";
+        dr:fieldnum 61;
+      }
+      augment "remote-address" {
+        dr:source "remote_address";
+        dr:fieldnum 62;
+      }
+      augment "remote-port" {
+        dr:source "remote_port";
+        dr:fieldnum 63;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-error-handling_state-group {
+    uses oc-bgp:bgp-neighbor-error-handling-state {
+      augment "erroneous-update-messages" {
+        dr:source "erroneous_update_messages";
+        dr:fieldnum 61;
+      }
+    }
+  }
+ 
+  grouping bgp-neighbor-timers_state-group {
+    uses oc-bgp:bgp-neighbor-timers-state {
+      augment "negotiated-hold-time" {
+        dr:source "negotiated_hold_time";
+        dr:fieldnum 61;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-afi-safi_state-group {
+    uses oc-bgp:bgp-neighbor-afi-safi-state {
+      augment "active" {
+        dr:source "afi_safi_negotiated";
+        dr:fieldnum 61;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "prefixes" {
+	dr:fieldnum 151;
+        uses jnx-oc-ni:bgp-neighbor-afi-safi-jnx_state_prefixes {
+          augment "accepted" {
+	    dr:source "accepted_prefix_count";
+	    dr:fieldnum 62;
+	  }
+          augment "received-pre-policy" {
+            dr:source "received_pre_policy_prefix_count";
+            dr:fieldnum 69;
+          }
+          augment "rejected" {
+            dr:source "rejected_prefix_count";
+            dr:fieldnum 70;
+          }
+	}
+      }
+      augment "prefixes/received" {
+        dr:source "received_prefix_count";
+        dr:fieldnum 63;
+      }
+      augment "prefixes/sent" {
+        dr:source "advertised_prefix_count";
+        dr:fieldnum 64;
+      }
+      augment "prefixes/installed" {
+        dr:source "active_prefix_count";
+        dr:fieldnum 65;
+      }
+      augment "prefixes" {
+        uses jnx-oc-ni:bgp-neighbor-afi-safi-jnx_state_prefixes {
+          augment "accepted" {
+            dr:source "accepted_prefix_count";
+            dr:fieldnum 66;
+          }
+          augment "received-pre-policy" {
+            dr:source "received_pre_policy_prefix_count";
+            dr:fieldnum 67;
+          }
+          augment "rejected" {
+            dr:source "rejected_prefix_count";
+            dr:fieldnum 68;
+          }
+        }
+      }
+    }
+  }
+
+  grouping bgp-neighbor-afi-safi-jnx_state {
+    uses jnx-oc-ni:bgp-neighbor-afi-safi-jnx_state {
+      augment "prefix-limit-exceeded" {
+        dr:source "prefix_exceeded";
+        dr:fieldnum 72;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "queues" {
+        dr:fieldnum 152;
+      }
+      augment "queues/input" {
+        dr:source "afi_safi_input_queue_counter";
+        dr:fieldnum 73;
+      }
+      augment "queues/output" {
+        dr:source "afi_safi_output_queue_counter";
+        dr:fieldnum 74;
+      }
+    }
+  }
+  
+  grouping bgp-context-pfx-path-counters_common-group {
+    uses oc-bgp:bgp-common-state {
+      augment "total-paths" {
+        dr:source "received_prefix_count";
+        dr:fieldnum 81;
+      }
+      augment "total-prefixes" {
+        dr:source "received_prefix_count";
+        dr:fieldnum 82;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-afi-safi-graceful-restart_state-group {
+    uses oc-bgp:bgp-neighbor-afi-safi-graceful-restart-state {
+      augment "received" {
+        dr:source "gr_received";
+        dr:fieldnum 61;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "advertised" {
+        dr:source "gr_advertised";
+        dr:fieldnum 62;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+ 
+  grouping bgp-afi-safi-graceful-restart_config-group { 
+    uses oc-bgp:bgp-common-mp-afi-safi-graceful-restart-config {
+      augment "enabled" {
+        dr:source "graceful_restart_enabled";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-afi-safi_config-group {
+    uses oc-bgp:bgp-common-mp-afi-safi-config {
+      augment "afi-safi-name" {
+        dr:source "afi_safi_name";
+        dr:fieldnum 51;
+        dr:map IPV4_UNICAST {dr:map-from inet-unicast; }
+        dr:map IPV6_UNICAST {dr:map-from inet6-unicast; }
+        dr:map IPV4_LABELED_UNICAST {dr:map-from inet-labeled-unicast; }
+        dr:map IPV6_LABELED_UNICAST {dr:map-from inet6-labeled-unicast; }
+        dr:map L3VPN_IPV4_UNICAST {dr:map-from inet-vpn-unicast; }
+        dr:map L3VPN_IPV6_UNICAST {dr:map-from inet6-vpn-unicast; }
+        dr:map L3VPN_IPV4_MULTICAST {dr:map-from inet-vpn-multicast; }
+        dr:map L3VPN_IPV6_MULTICAST {dr:map-from inet6-vpn-multicast; }
+        dr:map L2VPN_VPLS {dr:map-from l2vpn; }
+        dr:map L2VPN_EVPN {dr:map-from evpn; }
+        dr:map IPV4_MULTICAST { dr:map-from inet-multicast; }
+        dr:map IPV6_MULTICAST { dr:map-from inet6-multicast; }
+        dr:map L2VPN_MSPW_AD { dr:map-from l2vpn-mspw-ad; }
+        dr:map ATMVPN { dr:map-from atmvpn; }
+        dr:map ROUTE_TARGET { dr:map-from route-target; }
+        dr:map IPV4_FLOW { dr:map-from inet-flow; }
+        dr:map IPV4_VPN_FLOW { dr:map-from inet-vpn-flow; }
+        dr:map IPV6_FLOW { dr:map-from inet6-flow; }
+        dr:map IPV6_VPN_FLOW { dr:map-from inet6-vpn-flow; }
+        dr:map ISO_UNICAST { dr:map-from iso-unicast; }
+        dr:map ISO_VPN_UNICAST { dr:map-from iso-vpn-unicast; }
+        dr:map IPV4_MVPN { dr:map-from inet-mvpn; }
+        dr:map IPV6_MVPN { dr:map-from inet6-mvpn; }
+        dr:map IPV4_MDT { dr:map-from inet-mdt; }
+        dr:map TE_UNICAST { dr:map-from te-unicast; }
+        dr:map BRIDGE_UNICAST { dr:map-from bridge-unicast; }
+        dr:map BRIDGE_VPN_UNICAST { dr:map-from bridge-vpn-unicast; }
+        dr:map FABRIC { dr:map-from fabric; }
+        dr:map FABRIC_VPN { dr:map-from fabric-vpn; }
+      } 
+      augment "enabled" {
+        dr:source "afi_safi_enabled";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping all-afi-safi-common-prefix-limit_config-group {
+    uses oc-bgp:bgp-common-mp-all-afi-safi-common-prefix-limit-config {
+      augment "max-prefixes" {
+        dr:source "prefix_limit";
+        dr:fieldnum 51;
+      }
+      augment "prevent-teardown" {
+        dr:source "prefix_shutdown";
+        dr:map true { dr:map-from 0; }
+        dr:map false { dr:map-from 1; }
+        dr:fieldnum 54;
+      }
+      augment "shutdown-threshold-pct" {
+        dr:source "prefix_percentage";
+        dr:fieldnum 52;
+      }
+      augment "restart-timer" {
+        dr:source "prefix_timeout";
+        dr:fieldnum 53;
+      }
+    }
+  } 
+
+  grouping bgp-use-multiple-paths_config-group { 
+    uses oc-bgp:bgp-common-use-multiple-paths-config {
+      augment "enabled" {
+        dr:source "multipath_enabled";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  } 
+  
+  grouping bgp-use-multiple-paths-ebgp_config-group {
+    uses oc-bgp:bgp-common-use-multiple-paths-ebgp-config {
+      augment "allow-multiple-as" {
+        dr:source "allow_multiple_as";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "maximum-paths" {
+        dr:source "maximum_ecmp_paths";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping bgp-use-neighbor-multiple-paths-ebgp_config-group {
+    uses oc-bgp:bgp-common-use-multiple-paths-ebgp-config {
+      augment "allow-multiple-as" {
+        dr:source "allow_multiple_as";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+    }
+  }
+
+  grouping bgp-use-multiple-paths-ibgp_config-group {
+    uses oc-bgp:bgp-common-use-multiple-paths-ibgp-config {
+      augment "maximum-paths" {
+        dr:source "maximum_ecmp_paths";
+        dr:fieldnum 51;
+      }
+    }
+  } 
+
+  grouping bgp-neighbor-add-paths_config-group {
+    uses oc-bgp:bgp-common-neighbor-group-add-paths-config {
+      augment "receive" {
+        dr:source "add_path_receive";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "send" {
+        dr:source "add_path_send";
+        dr:fieldnum 54;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "send-max" {
+        dr:source "add_path_send_max";
+        dr:fieldnum 52;
+      }
+      augment "eligible-prefix-policy" {
+        dr:source "add_path_send_eligible_prefix_policy";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping bgp-default-route-distance_config-group {
+    uses oc-bgp:bgp-global-default-route-distance-config {
+      augment "external-route-distance" {
+        dr:source "external_preference";
+        dr:fieldnum 51;
+      }
+      augment "internal-route-distance" {
+        dr:source "internal_preference";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping bgp-neighbor-jnx_neighbor {
+    uses jnx-oc-ni:bgp-neighbor-jnx_neighbor {
+      augment "snmp-peer-index" {
+        dr:source "snmp_peer_index";
+        dr:fieldnum 61;
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-bgp-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+ output {
+
+    container network-instances { 
+      list network-instance {
+        key "name";
+        dr:source "/rt-instances/rt-instance";
+        dr:fieldnum 151;
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+        container protocols {
+          dr:fieldnum 151;
+          container protocol {
+            dr:source "protocols/protocol";
+            dr:fieldnum 151;
+            container bgp {
+              dr:source "bgp";
+              dr:fieldnum 151;
+
+              container global {
+                dr:fieldnum 151;
+
+                container state {
+                  dr:fieldnum 151;
+                  uses bgp-global_config-group;
+                  uses bgp-context-pfx-path-counters_common-group; 
+                }
+                container route-selection-options {
+                  dr:fieldnum 152;
+
+                  container state {
+                    dr:fieldnum 151;
+                    uses bgp-route-selection-options_config-group;
+                  }
+                }
+                container confederation {
+                  dr:fieldnum 153;
+
+                  container state {
+                    dr:fieldnum 151;
+                    uses bgp-confederation_config-group;
+                  }
+                } 
+                container graceful-restart {
+                  dr:fieldnum 154;
+
+                  container state {
+                    dr:fieldnum 151;
+                    uses bgp-neighbor-graceful-restart_config_group;
+                  }
+                }
+                uses bgp-policy-group;
+                container afi-safis {
+                  dr:fieldnum 155;
+                  list afi-safi {
+                    key "afi-safi-name";
+                    dr:source "nlri";
+                    dr:fieldnum 151;
+
+                    leaf afi-safi-name {
+                      type string;
+                      dr:source "afi_safi_name";
+                      dr:fieldnum 51;
+                      dr:map IPV4_UNICAST {dr:map-from inet-unicast; }
+                      dr:map IPV6_UNICAST {dr:map-from inet6-unicast; }
+                      dr:map IPV4_LABELED_UNICAST {dr:map-from inet-labeled-unicast; }
+                      dr:map IPV6_LABELED_UNICAST {dr:map-from inet6-labeled-unicast; }
+                      dr:map L3VPN_IPV4_UNICAST {dr:map-from inet-vpn-unicast; }
+                      dr:map L3VPN_IPV6_UNICAST {dr:map-from inet6-vpn-unicast; }
+                      dr:map L3VPN_IPV4_MULTICAST {dr:map-from inet-vpn-multicast; }
+                      dr:map L3VPN_IPV6_MULTICAST {dr:map-from inet6-vpn-multicast; }
+                      dr:map L2VPN_VPLS {dr:map-from l2vpn; }
+                      dr:map L2VPN_EVPN {dr:map-from evpn; }
+                      dr:map IPV4_MULTICAST { dr:map-from inet-multicast; }
+                      dr:map IPV6_MULTICAST { dr:map-from inet6-multicast; }
+                      dr:map L2VPN_MSPW_AD { dr:map-from l2vpn-mspw-ad; }
+                      dr:map ATMVPN { dr:map-from atmvpn; }
+                      dr:map ROUTE_TARGET { dr:map-from route-target; }
+                      dr:map IPV4_FLOW { dr:map-from inet-flow; }
+                      dr:map IPV4_VPN_FLOW { dr:map-from inet-vpn-flow; }
+                      dr:map IPV6_FLOW { dr:map-from inet6-flow; }
+                      dr:map IPV6_VPN_FLOW { dr:map-from inet6-vpn-flow; }
+                      dr:map ISO_UNICAST { dr:map-from iso-unicast; }
+                      dr:map ISO_VPN_UNICAST { dr:map-from iso-vpn-unicast; }
+                      dr:map IPV4_MVPN { dr:map-from inet-mvpn; }
+                      dr:map IPV6_MVPN { dr:map-from inet6-mvpn; }
+                      dr:map IPV4_MDT { dr:map-from inet-mdt; }
+                      dr:map TE_UNICAST { dr:map-from te-unicast; }
+                      dr:map BRIDGE_UNICAST { dr:map-from bridge-unicast; }
+                      dr:map BRIDGE_VPN_UNICAST { dr:map-from bridge-vpn-unicast; }
+                      dr:map FABRIC { dr:map-from fabric; }
+                      dr:map FABRIC_VPN { dr:map-from fabric-vpn; }
+                    }
+                    container graceful-restart {
+                      dr:fieldnum 151;
+                      container state {
+                        dr:fieldnum 151;
+                        uses bgp-afi-safi-graceful-restart_config-group;
+                      }
+                    } 
+                    container state {
+                      dr:fieldnum 152;
+                      uses bgp-afi-safi_config-group;
+                      uses bgp-context-pfx-path-counters_common-group; 
+                    }
+                    container add-paths {
+                      dr:fieldnum 153;
+                      container state {
+                        dr:fieldnum 151;
+                        uses bgp-neighbor-add-paths_config-group;
+                      }
+                    }
+		    container ipv4-unicast {
+                      dr:fieldnum 154;
+	              when "../afi-safi-name[name='oc-bgp:IPV4_UNICAST']";
+		      dr:source "ipv4-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }
+		    container ipv6-unicast {
+                      dr:fieldnum 155;
+	              when "../afi-safi-name[name='IPV6_UNICAST']";
+		      dr:source "ipv6-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }
+                    container ipv4-labeled-unicast {
+                      dr:fieldnum 156;
+                      when "../afi-safi-name[name='IPV4_LABELED_UNICAST']";
+                      dr:source "ipv4-labeled-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container ipv6-labeled-unicast {
+                      dr:fieldnum 157;
+                      when "../afi-safi-name[name='IPV6_LABELED_UNICAST']";
+                      dr:source "ipv6-labeled-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l3vpn-ipv4-unicast {
+                      dr:fieldnum 158;
+                      when "../afi-safi-name[name='L3VPN_IPV4_UNICAST']";
+                      dr:source "l3vpn-ipv4-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l3vpn-ipv6-unicast {
+                      dr:fieldnum 159;
+                      when "../afi-safi-name[name='L3VPN_IPV6_UNICAST']";
+                      dr:source "l3vpn-ipv6-unicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l3vpn-ipv4-multicast {
+                      dr:fieldnum 160;
+                      when "../afi-safi-name[name='L3VPN_IPV4_MULTICAST']";
+                      dr:source "l3vpn-ipv4-multicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l3vpn-ipv6-multicast {
+                      dr:fieldnum 161;
+                      when "../afi-safi-name[name='L3VPN_IPV6_MULTIICAST']";
+                      dr:source "l3vpn-ipv6-multicast";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l2vpn-vpls {
+                      dr:fieldnum 162;
+                      when "../afi-safi-name[name='L2VPN_VPLS']";
+                      dr:source "l2vpn";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                    container l2vpn-evpn {
+                      dr:fieldnum 163;
+                      when "../afi-safi-name[name='L2VPN_EVPN']";
+                      dr:source "evpn";
+                      container prefix-limit {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses all-afi-safi-common-prefix-limit_config-group;
+                        }
+                      }
+                    }    
+                  }
+                }
+              }
+              container neighbors {
+                dr:fieldnum 152;
+                list neighbor {
+                  key neighbor-address;
+                  dr:source "neighbor";
+                  dr:fieldnum 151;
+                  dr:source-notification-name "bgp-neighbor";
+                  dr:source-notification-name "bgp-established-cap";
+                  dr:source-notification-name "bgp-established-af";
+                  uses bgp-neighbor-neighbor-address-group;
+                  uses bgp-neighbor-jnx_neighbor;
+                  container state {
+                    dr:fieldnum 151;
+                    uses bgp-neighbor_config_group;
+                    uses bgp-neighbor_state-group;
+                    uses bgp-neighbor-jnx_state;
+                    uses bgp-neighbor-neighbor-additional_config_group;
+                  }
+                  container timers {
+                    dr:fieldnum 152;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-timers_config_group;
+                      uses bgp-neighbor-timers_state-group;
+                    }
+                  }
+                  container transport {
+                    dr:fieldnum 153;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-transport_config_group;
+                      uses bgp-neighbor-transport_state-group;
+                    }
+                  }
+                  container error-handling {
+                    dr:fieldnum 154;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-error-handling_config_group;
+                      uses bgp-neighbor-error-handling_state-group;
+                    }
+                  }
+                  container logging-options {
+                    dr:fieldnum 155;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-logging-options_config_group;
+                    }
+                  }
+                  container ebgp-multihop {
+                    dr:fieldnum 156;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-multihop_config_group;
+                    }
+                  }
+                  container route-reflector {
+                    dr:fieldnum 157;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-route-reflector_config_group;
+                    }
+                  }
+                  container as-path-options {
+                    dr:fieldnum 158;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-as-path-options_config_group;
+                    }
+                  }
+                  container use-multiple-paths {
+                    dr:fieldnum 159;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-use-multiple-paths_config-group;
+                    }
+                    container ebgp {
+                      dr:fieldnum 152;
+                      container state {
+                        dr:fieldnum 151;
+                        uses bgp-use-neighbor-multiple-paths-ebgp_config-group;
+                      }
+                    }
+                  }
+                  container afi-safis {
+                    dr:fieldnum 160;
+
+                    list afi-safi {
+                      key "afi-safi-name";
+                      dr:source "nlri";
+                      dr:fieldnum 51;
+                      dr:source-notification-name "bgp-established-af";
+                      leaf afi-safi-name {
+                        type string;
+                        dr:source "afi_safi_name";
+                        dr:fieldnum 51;
+                        dr:map IPV4_UNICAST {dr:map-from inet-unicast; }
+                        dr:map IPV6_UNICAST {dr:map-from inet6-unicast; }
+                        dr:map IPV4_LABELED_UNICAST {dr:map-from inet-labeled-unicast; }
+                        dr:map IPV6_LABELED_UNICAST {dr:map-from inet6-labeled-unicast; }
+                        dr:map L3VPN_IPV4_UNICAST {dr:map-from inet-vpn-unicast; }
+                        dr:map L3VPN_IPV6_UNICAST {dr:map-from inet6-vpn-unicast; }
+                        dr:map L3VPN_IPV4_MULTICAST {dr:map-from inet-vpn-multicast; }
+                        dr:map L3VPN_IPV6_MULTICAST {dr:map-from inet6-vpn-multicast; }
+                        dr:map L2VPN_VPLS {dr:map-from l2vpn; }
+                        dr:map L2VPN_EVPN {dr:map-from evpn; }
+                        dr:map IPV4_MULTICAST { dr:map-from inet-multicast; }
+                        dr:map IPV6_MULTICAST { dr:map-from inet6-multicast; }
+                        dr:map L2VPN_MSPW_AD { dr:map-from l2vpn-mspw-ad; }
+                        dr:map ATMVPN { dr:map-from atmvpn; }
+                        dr:map ROUTE_TARGET { dr:map-from route-target; }
+                        dr:map IPV4_FLOW { dr:map-from inet-flow; }
+                        dr:map IPV4_VPN_FLOW { dr:map-from inet-vpn-flow; }
+                        dr:map IPV6_FLOW { dr:map-from inet6-flow; }
+                        dr:map IPV6_VPN_FLOW { dr:map-from inet6-vpn-flow; }
+                        dr:map ISO_UNICAST { dr:map-from iso-unicast; }
+                        dr:map ISO_VPN_UNICAST { dr:map-from iso-vpn-unicast; }
+                        dr:map IPV4_MVPN { dr:map-from inet-mvpn; }
+                        dr:map IPV6_MVPN { dr:map-from inet6-mvpn; }
+                        dr:map IPV4_MDT { dr:map-from inet-mdt; }
+                        dr:map TE_UNICAST { dr:map-from te-unicast; }
+                        dr:map BRIDGE_UNICAST { dr:map-from bridge-unicast; }
+                        dr:map BRIDGE_VPN_UNICAST { dr:map-from bridge-vpn-unicast; }
+                        dr:map FABRIC { dr:map-from fabric; }
+                        dr:map FABRIC_VPN { dr:map-from fabric-vpn; }
+                      }
+                      container graceful-restart {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses bgp-afi-safi-graceful-restart_config-group;
+                          uses bgp-neighbor-afi-safi-graceful-restart_state-group;
+                        }
+                      } 
+                      container state {
+                        dr:fieldnum 152;
+                        uses bgp-afi-safi_config-group;
+                        uses bgp-neighbor-afi-safi_state-group;
+                        uses bgp-neighbor-afi-safi-jnx_state;
+                      }
+                      container add-paths {
+                        dr:fieldnum 153;
+		        container state {
+                          dr:fieldnum 151;
+                          uses bgp-neighbor-add-paths_config-group;
+                        }
+                      }
+                      container ipv4-unicast {
+                        dr:fieldnum 154;
+                        when "../afi-safi-name[name='IPV4_UNICAST']";
+			dr:source "ipv4-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+		      container ipv6-unicast {
+                        dr:fieldnum 155;
+                        when "../afi-safi-name[name='IPV6_UNICAST']";
+ 			dr:source "ipv6-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }  
+                      } 
+                      container ipv4-labeled-unicast {
+                        dr:fieldnum 156;
+                        when "../afi-safi-name[name='IPV4_LABELED_UNICAST']";
+                        dr:source "ipv4-labeled-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container ipv6-labeled-unicast {
+                        dr:fieldnum 157;
+                        when "../afi-safi-name[name='IPV6_LABELED_UNICAST']";
+                        dr:source "ipv6-labeled-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv4-unicast {
+                        dr:fieldnum 158;
+                        when "../afi-safi-name[name='L3VPN_IPV4_UNICAST']";
+                        dr:source "l3vpn-ipv4-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv6-unicast {
+                        dr:fieldnum 159;
+                        when "../afi-safi-name[name='L3VPN_IPV6_UNICAST']";
+                        dr:source "l3vpn-ipv6-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv4-multicast {
+                        dr:fieldnum 160;
+                        when "../afi-safi-name[name='L3VPN_IPV4_MULTICAST']";
+                        dr:source "l3vpn-ipv4-multicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv6-multicast {
+                        dr:fieldnum 161;
+                        when "../afi-safi-name[name='L3VPN_IPV6_MULTIICAST']";
+                        dr:source "l3vpn-ipv6-multicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l2vpn-vpls {
+                        dr:fieldnum 162;
+                        when "../afi-safi-name[name='L2VPN_VPLS']";
+                        dr:source "l2vpn";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;  
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l2vpn-evpn {
+                        dr:fieldnum 163;
+                        when "../afi-safi-name[name='L2VPN_EVPN']";
+                        dr:source "evpn";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;  
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                    }
+                  }
+                  container graceful-restart {
+                    dr:fieldnum 161;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-graceful-restart_config_group;
+                      uses bgp-neighbor-graceful-restart_state-group;
+                    }
+                  }
+                  uses bgp-policy-group;
+                  uses bgp-neighbor-bfd-state-group;
+                }
+              }
+
+              container peer-groups {
+                dr:fieldnum 153;
+                list peer-group {
+                  key peer-group-name;
+                  dr:source "peer-group";
+                  dr:fieldnum 151;
+
+                  uses bgp-peer-group-peer-group-name_config_group;
+                  container state {
+                    dr:fieldnum 151;
+                    uses bgp-neighbor_config_group;
+                    uses bgp-peer-group-peer-group-name_config_group;
+                    uses bgp-context-pfx-path-counters_common-group;
+                  }
+                  container timers {
+                    dr:fieldnum 152;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-timers_config_group;
+                    }
+                  }
+                  container transport {
+                    dr:fieldnum 153;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-transport_config_group;
+                    }
+                  }
+                  container error-handling {
+                    dr:fieldnum 154;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-error-handling_config_group;
+                    }
+                  }
+                  container logging-options {
+                    dr:fieldnum 155;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-logging-options_config_group;
+                    }
+                  }
+                  container ebgp-multihop {
+                    dr:fieldnum 156;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-multihop_config_group;
+                    }
+                  }
+                  container route-reflector {
+                    dr:fieldnum 157;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-route-reflector_config_group;
+                    }
+                  }
+                  container as-path-options {
+                    dr:fieldnum 158;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-as-path-options_config_group;
+                    }
+                  }
+                  container use-multiple-paths {
+                    dr:fieldnum 159;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-use-multiple-paths_config-group;
+                    }
+                    container ebgp {
+                      dr:fieldnum 152;
+                      container state {
+                        dr:fieldnum 151;
+                        uses bgp-use-multiple-paths-ebgp_config-group;
+                      }
+                    }
+                    container ibgp {
+                      dr:fieldnum 153;
+                      container state {
+                        dr:fieldnum 151;
+                        uses bgp-use-multiple-paths-ibgp_config-group;
+                      }
+                    }
+                  }
+                  container afi-safis {
+                    dr:fieldnum 160;
+                    list afi-safi {
+                      key afi-safi-name;
+                      dr:source "nlri";
+                      dr:fieldnum 51;
+                  
+                      leaf afi-safi-name {
+                        type string;
+                        dr:source "afi_safi_name";
+                        dr:fieldnum 51;
+                        dr:map IPV4_UNICAST {dr:map-from inet-unicast; }
+                        dr:map IPV6_UNICAST {dr:map-from inet6-unicast; }
+                        dr:map IPV4_LABELED_UNICAST {dr:map-from inet-labeled-unicast; }
+                        dr:map IPV6_LABELED_UNICAST {dr:map-from inet6-labeled-unicast; }
+                        dr:map L3VPN_IPV4_UNICAST {dr:map-from inet-vpn-unicast; }
+                        dr:map L3VPN_IPV6_UNICAST {dr:map-from inet6-vpn-unicast; }
+                        dr:map L3VPN_IPV4_MULTICAST {dr:map-from inet-vpn-multicast; }
+                        dr:map L3VPN_IPV6_MULTICAST {dr:map-from inet6-vpn-multicast; }
+                        dr:map L2VPN_VPLS {dr:map-from l2vpn; }
+                        dr:map L2VPN_EVPN {dr:map-from evpn; }
+                        dr:map IPV4_MULTICAST { dr:map-from inet-multicast; }
+                        dr:map IPV6_MULTICAST { dr:map-from inet6-multicast; }
+                        dr:map L2VPN_MSPW_AD { dr:map-from l2vpn-mspw-ad; }
+                        dr:map ATMVPN { dr:map-from atmvpn; }
+                        dr:map ROUTE_TARGET { dr:map-from route-target; }
+                        dr:map IPV4_FLOW { dr:map-from inet-flow; }
+                        dr:map IPV4_VPN_FLOW { dr:map-from inet-vpn-flow; }
+                        dr:map IPV6_FLOW { dr:map-from inet6-flow; }
+                        dr:map IPV6_VPN_FLOW { dr:map-from inet6-vpn-flow; }
+                        dr:map ISO_UNICAST { dr:map-from iso-unicast; }
+                        dr:map ISO_VPN_UNICAST { dr:map-from iso-vpn-unicast; }
+                        dr:map IPV4_MVPN { dr:map-from inet-mvpn; }
+                        dr:map IPV6_MVPN { dr:map-from inet6-mvpn; }
+                        dr:map IPV4_MDT { dr:map-from inet-mdt; }
+                        dr:map TE_UNICAST { dr:map-from te-unicast; }
+                        dr:map BRIDGE_UNICAST { dr:map-from bridge-unicast; }
+                        dr:map BRIDGE_VPN_UNICAST { dr:map-from bridge-vpn-unicast; }
+                        dr:map FABRIC { dr:map-from fabric; }
+                        dr:map FABRIC_VPN { dr:map-from fabric-vpn; }
+                      }
+                      container graceful-restart {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+                          uses bgp-afi-safi-graceful-restart_config-group;
+                        }
+                      } 
+                      container state {
+                        dr:fieldnum 152;
+                        uses bgp-afi-safi_config-group;
+                        uses bgp-neighbor-afi-safi_state-group;
+                        uses bgp-context-pfx-path-counters_common-group;
+                      }
+                      container add-paths {
+                        dr:fieldnum 153;
+                        container state {
+                          dr:fieldnum 151;
+                          uses bgp-neighbor-add-paths_config-group;
+                        }
+                      }
+                      container ipv4-unicast {
+                        dr:fieldnum 154;
+                        when "../afi-safi-name[name='IPV4_UNICAST']";
+                        dr:source "ipv4-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+		      container ipv6-unicast {
+                        dr:fieldnum 155;
+                        when "../afi-safi-name[name='IPV6_UNICAST']";
+                        dr:source "ipv6-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }  
+                      } 
+                      container ipv4-labeled-unicast {
+                        dr:fieldnum 156;
+                        when "../afi-safi-name[name='IPV4_LABELED_UNICAST']";
+                        dr:source "ipv4-labeled-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;  
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container ipv6-labeled-unicast {
+                        dr:fieldnum 157;
+                        when "../afi-safi-name[name='IPV6_LABELED_UNICAST']";
+                        dr:source "ipv6-labeled-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv4-unicast {
+                        dr:fieldnum 158;
+                        when "../afi-safi-name[name='L3VPN_IPV4_UNICAST']";
+                        dr:source "l3vpn-ipv4-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv6-unicast {
+                        dr:fieldnum 159;
+                        when "../afi-safi-name[name='L3VPN_IPV6_UNICAST']";
+                        dr:source "l3vpn-ipv6-unicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv4-multicast {
+                        dr:fieldnum 160;
+                        when "../afi-safi-name[name='L3VPN_IPV4_MULTICAST']";
+                        dr:source "l3vpn-ipv4-multicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l3vpn-ipv6-multicast {
+                        dr:fieldnum 161;
+                        when "../afi-safi-name[name='L3VPN_IPV6_MULTIICAST']";
+                        dr:source "l3vpn-ipv6-multicast";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l2vpn-vpls {
+                        dr:fieldnum 162;
+                        when "../afi-safi-name[name='L2VPN_VPLS']";
+                        dr:source "l2vpn";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                      container l2vpn-evpn {
+                        dr:fieldnum 163;
+                        when "../afi-safi-name[name='L2VPN_EVPN']";
+                        dr:source "evpn";
+                        container prefix-limit {
+                          dr:fieldnum 151;
+                          container state {
+                            dr:fieldnum 151;
+                            uses all-afi-safi-common-prefix-limit_config-group;
+                          }
+                        }
+                      }    
+                    }
+                  }
+                  container graceful-restart {
+                    dr:fieldnum 161;
+                    container state {
+                      dr:fieldnum 151;
+                      uses bgp-neighbor-graceful-restart_config_group;
+                    }
+                  }
+                  uses bgp-policy-group;
+                  uses bgp-peer-group-bfd-state-group;
+
+                  /*
+                   * OC:Non-Compliant: Junos support dynamic-neighbors per peer-group
+                   * and not at global level.
+                   */
+                  container dynamic-neighbor-prefixes {
+                    dr:fieldnum 163;
+		    list dynamic-neighbor-prefix {
+		      key prefix;
+		      dr:source "dynamic-neighbor";
+                      dr:fieldnum 51;
+
+		      leaf prefix {
+                        dr:fieldnum 51;
+		        type string;
+			dr:source "dynamic_prefix";
+                      }
+                      container state {
+                        dr:fieldnum 151;
+                        leaf prefix {
+                          dr:fieldnum 51;
+			  type string;
+			  dr:source "dynamic_prefix";
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+   }
+  }
+  notification oc-bgp-neighbor {
+    dr:source-notification-name "bgp-neighbor";
+    container network-instances {
+      dr:source "/notification/bgp-neighbor/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container protocols {
+          dr:fieldnum 151;
+          container protocol {
+            dr:fieldnum 151;
+            container bgp {
+              dr:fieldnum 151;
+              container neighbors {
+	        dr:source "neighbors";
+                dr:fieldnum 152;
+                list neighbor {
+                  key neighbor-address;
+	          dr:source "neighbor";
+                  dr:fieldnum 151;
+                  leaf neighbor-address {
+	            dr:source "peer_address";
+                    type string;
+                    dr:fieldnum 51;
+                  }
+		  container state {
+                    dr:fieldnum 151;
+                    leaf session-state {
+                      dr:source "peer_state";
+                      type string;
+                      dr:map IDLE { dr:map-from Idle; }
+                      dr:map CONNECT { dr:map-from Connect; }
+                      dr:map ACTIVE { dr:map-from Active; }
+                      dr:map OPENSENT { dr:map-from OpenSent; }
+                      dr:map OPENCONFIRM { dr:map-from OpenConfirm; }
+                      dr:map ESTABLISHED { dr:map-from Established; }
+                      dr:fieldnum 61;
+                    }
+                    leaf snmp-peer-index {
+                      dr:source "snmp_peer_index";
+                      type uint32;
+                      dr:fieldnum 84;
+                    }
+                    leaf peer-as {
+                      dr:source "peer_as";
+                      type uint32;
+                      dr:fieldnum 51;
+                    }
+                    leaf local-as {
+                      dr:source "local_as";
+                      type uint32;
+                      dr:fieldnum 52;
+                    }
+                    leaf peer-type {
+                      dr:source "peer_type";
+                      type string;
+                      dr:fieldnum 53;
+                      dr:map INTERNAL { dr:map-from Internal; }
+                      dr:map EXTERNAL { dr:map-from External; }
+                    }
+                    leaf auth-password {
+                      dr:source "auth_password";
+                      type string;
+                      dr:fieldnum 54;
+                    }
+                    leaf route-flap-damping {
+                      dr:source "route_flap_damping";
+                      type boolean;
+                      dr:fieldnum 56;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                    leaf description {
+                      dr:source "description";
+                      type string;
+                      dr:fieldnum 57;
+                    }
+                    leaf last-established {
+                      dr:source "peer_last_established";
+		      type uint64;
+                      dr:fieldnum 62;
+                    }
+                    leaf established-transitions {
+                      dr:source "peer_established_transitions";
+		      type uint32;
+                      dr:fieldnum 63;
+                    }
+                    container messages {
+                      dr:fieldnum 151;
+                      container sent {
+                        dr:fieldnum 151;
+                        leaf UPDATE {
+                          dr:source "sent_update";
+                          type uint32;
+                          dr:fieldnum 65;
+                        }
+                        leaf NOTIFICATION {
+                          dr:source "sent_notification";
+                          type uint32;
+	                  dr:fieldnum 66;
+                        }
+                        leaf last-notification-time {
+                          dr:source "sent_notification_time";
+                          type uint64;
+                          dr:fieldnum 71;
+                        }
+                        leaf last-notification-error-code {
+                          type string;
+                          dr:source "sent_notification_code";
+                          dr:map MESSAGE_HEADER_ERROR { dr:map-from 1; }
+                          dr:map OPEN_MESSAGE_ERROR { dr:map-from 2; }
+                          dr:map UPDATE_MESSAGE_ERROR { dr:map-from 3; }
+                          dr:map HOLD_TIMER_EXPIRED { dr:map-from 4; }
+                          dr:map FINITE_STATE_MACHINE_ERROR { dr:map-from 5; }
+                          dr:map CEASE { dr:map-from 6; }
+                          dr:fieldnum 72;
+                        }
+                        leaf last-notification-error-subcode {
+                          type string;
+                          dr:source "sent_notification_subcode";
+                          dr:map UNSPECIFIC                     { dr:map-from 0; }
+                          /* header error *
+                          dr:map CONNECTION_NOT_SYNCHRONIZED    { dr:map-from 257; }
+                          dr:map BAD_MESSAGE_LENGTH             { dr:map-from 258; }
+                          dr:map BAD_MESSAGE_TYPE               { dr:map-from 259; }
+                          /* open error - openconfig doesn't map authentication failure */
+                          dr:map UNSUPPORTED_VERSION_NUMBER     { dr:map-from 513; }
+                          dr:map BAD_PEER_AS                    { dr:map-from 514; }
+                          dr:map BAD_BGP_IDENTIFIER             { dr:map-from 515; }
+                          dr:map UNSUPPORTED_OPTIONAL_PARAMETER { dr:map-from 516; }
+                          dr:map AUTHENTICATION_FAILURE         { dr:map-from 517; }
+                          dr:map UNACCEPTABLE_HOLD_TIME         { dr:map-from 518; }
+                          dr:map UNSUPPORTED_CAPABILITY         { dr:map-from 519; }
+                          /* update error - openconfig doesn't map AS loop failure */
+                          dr:map MALFORMED_ATTRIBUTE_LIST          { dr:map-from 769; }
+                          dr:map UNRECOGNIZED_WELL_KNOWN_ATTRIBUTE { dr:map-from 770; }
+                          dr:map MISSING_WELL_KNOWN_ATTRIBUTE      { dr:map-from 771; }
+                          dr:map ATTRIBUTE_FLAGS_ERROR             { dr:map-from 772; }
+                          dr:map ATTRIBUTE_LENGTH_ERROR            { dr:map-from 773; }
+                          dr:map INVALID_ORIGIN_ATTRIBUTE          { dr:map-from 774; }
+                          dr:map AS_LOOP                           { dr:map-from 775; }
+                          dr:map INVALID_NEXT_HOP_ATTRIBUTE        { dr:map-from 776; }
+                          dr:map OPTIONAL_ATTRIBUTE_ERROR          { dr:map-from 777; }
+                          dr:map INVALID_NETWORK_FIELD             { dr:map-from 778; }
+                          dr:map MALFORMED_AS_PATH                 { dr:map-from 779; }
+                          /* holdtime - openconfig doesn't map any subcodes */
+                          /* FSM - junos doesn't support any subcodes */
+                          /* cease -  openconfig doesn't map hard reset */
+                          dr:map MAX_NUM_PREFIXES_REACHED  { dr:map-from 1537; }
+                          dr:map ADMINISTRATIVE_SHUTDOWN   { dr:map-from 1538; }
+                          dr:map PEER_DE_CONFIGURED        { dr:map-from 1538; }
+                          dr:map ADMINISTRATIVE_RESET      { dr:map-from 1540; }
+                          dr:map CONNECTION_REJECTED       { dr:map-from 1541; }
+                          dr:map OTHER_CONFIG_CHANGE       { dr:map-from 1542; }
+                          dr:map CONN_COLLISION_RESOLUTION { dr:map-from 1543; }
+                          dr:map OUT_OF_RESOURCES          { dr:map-from 1544; }
+                          dr:map HARDRESET                 { dr:map-from 1545; }
+                          dr:fieldnum 73;
+                        }
+                      }
+                      container received {
+                        dr:fieldnum 152;
+                        leaf UPDATE {
+                          dr:source "received_update";
+                          type uint32;
+                          dr:fieldnum 67;
+                        }
+                        leaf NOTIFICATION {
+                          dr:source "received_notification";
+                          type uint32;
+                          dr:fieldnum 68;
+                        }
+                        leaf last-notification-time {
+                          dr:source "received_notification_time";
+                          type uint64;
+                          dr:fieldnum 74;
+                        }
+                        leaf last-notification-error-code {
+                          type string;
+                          dr:map NONE { dr:map-from 0; }
+                          dr:map MESSAGE_HEADER_ERROR { dr:map-from 1; }
+                          dr:map OPEN_MESSAGE_ERROR { dr:map-from 2; }
+                          dr:map UPDATE_MESSAGE_ERROR { dr:map-from 3; }
+                          dr:map HOLD_TIMER_EXPIRED { dr:map-from 4; }
+                          dr:map FINITE_STATE_MACHINE_ERROR { dr:map-from 5; }
+                          dr:map CEASE { dr:map-from 6; }
+                          dr:source "received_notification_code";
+                          dr:fieldnum 75;
+                        }
+                        leaf last-notification-error-subcode {
+                          dr:source "received_notification_subcode";
+                          type string;
+                          dr:map UNSPECIFIC                  { dr:map-from 0; }
+                          /* header error *
+                          dr:map CONNECTION_NOT_SYNCHRONIZED { dr:map-from 257; }
+                          dr:map BAD_MESSAGE_LENGTH          { dr:map-from 258; }
+                          dr:map BAD_MESSAGE_TYPE            { dr:map-from 259; }
+                          /* open error - openconfig doesn't map authentication failure */
+                          dr:map UNSUPPORTED_VERSION_NUMBER     { dr:map-from 513; }
+                          dr:map BAD_PEER_AS                    { dr:map-from 514; }
+                          dr:map BAD_BGP_IDENTIFIER             { dr:map-from 515; }
+                          dr:map UNSUPPORTED_OPTIONAL_PARAMETER { dr:map-from 516; }
+                          dr:map AUTHENTICATION_FAILURE         { dr:map-from 517; }
+                          dr:map UNACCEPTABLE_HOLD_TIME         { dr:map-from 518; }
+                          dr:map UNSUPPORTED_CAPABILITY         { dr:map-from 519; }
+                          /* update error - openconfig doesn't map AS loop failure */
+                          dr:map MALFORMED_ATTRIBUTE_LIST          { dr:map-from 769; }
+                          dr:map UNRECOGNIZED_WELL_KNOWN_ATTRIBUTE { dr:map-from 770; }
+                          dr:map MISSING_WELL_KNOWN_ATTRIBUTE      { dr:map-from 771; }
+                          dr:map ATTRIBUTE_FLAGS_ERROR             { dr:map-from 772; }
+                          dr:map ATTRIBUTE_LENGTH_ERROR            { dr:map-from 773; }
+                          dr:map INVALID_ORIGIN_ATTRIBUTE          { dr:map-from 774; }
+                          dr:map AS_LOOP                           { dr:map-from 775; }
+                          dr:map INVALID_NEXT_HOP_ATTRIBUTE        { dr:map-from 776; }
+                          dr:map OPTIONAL_ATTRIBUTE_ERROR          { dr:map-from 777; }
+                          dr:map INVALID_NETWORK_FIELD             { dr:map-from 778; }
+                          dr:map MALFORMED_AS_PATH                 { dr:map-from 779; }
+                          /* holdtime - openconfig doesn't map any subcodes */
+                          /* FSM - junos doesn't support any subcodes */
+                          /* cease -  openconfig doesn't map hard reset */
+                          dr:map MAX_NUM_PREFIXES_REACHED  { dr:map-from 1537; }
+                          dr:map ADMINISTRATIVE_SHUTDOWN   { dr:map-from 1538; }
+                          dr:map PEER_DE_CONFIGURED        { dr:map-from 1538; }
+                          dr:map ADMINISTRATIVE_RESET      { dr:map-from 1540; }
+                          dr:map CONNECTION_REJECTED       { dr:map-from 1541; }
+                          dr:map OTHER_CONFIG_CHANGE       { dr:map-from 1542; }
+                          dr:map CONN_COLLISION_RESOLUTION { dr:map-from 1543; }
+                          dr:map OUT_OF_RESOURCES          { dr:map-from 1544; }
+                          dr:map HARDRESET                 { dr:map-from 1545; }
+                          dr:fieldnum 76;
+                        }
+                      }
+                    }
+                    container queues {
+                      dr:fieldnum 152;
+                      leaf input {
+                        dr:source "input_queue_counter";
+                        type uint32;
+                        dr:fieldnum 69;
+                      }
+                      leaf output {
+                        dr:source "output_queue_counter";
+                        type uint32;
+                        dr:fieldnum 70;
+                      }
+                    }
+                    leaf dynamically-configured {
+                      dr:fieldnum 77;
+                      dr:source "peer_dynamically_configured";
+                      type boolean;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                    leaf session-status {
+                      dr:source "peer_status";
+                      type string;
+                      dr:fieldnum 71;
+                      dr:map RUNNING { dr:map-from 0; }
+                      dr:map HALTED { dr:map-from 1; }
+                    }
+                    leaf session-admin-status {
+                      dr:source "peer_admin_status";
+                      type string;
+                      dr:fieldnum 72;
+                      dr:map STOP { dr:map-from 1; }
+                      dr:map START { dr:map-from 0; }
+                    }
+                    leaf interface-error {
+                      dr:source "peer_interface_error";
+                      type boolean;
+                      dr:fieldnum 74;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                    leaf import-eval-pending {
+                      dr:source "peer_import_eval_pending";
+                      type boolean;
+                      dr:fieldnum 75;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                    leaf import-eval {
+                      dr:source "peer_import_eval";
+                      type boolean;
+                      dr:fieldnum 76;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                    leaf peer-group {
+                      dr:source "peer_group";
+                      type string;
+                      dr:fieldnum 81;
+                    }
+                    leaf neighbor-address {
+                      dr:source "peer_address";
+                      type string;
+                      dr:fieldnum 82;
+                    }
+                    leaf enabled {
+                      dr:source "peer_enabled";
+                      type boolean;
+                      dr:fieldnum 83;
+                      dr:map true { dr:map-from 1; }
+                      dr:map false { dr:map-from 0; }
+                    }
+                  }
+                  container timers {
+                    dr:fieldnum 152;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf connect-retry {
+                        dr:source "connect_retry";
+                        type decimal64 {fraction-digits 2;}
+                        dr:fieldnum 51;
+                      }
+                      leaf hold-time {
+                        dr:source "hold_time";
+                        type decimal64 {fraction-digits 2;}
+                        dr:fieldnum 52;
+                      }
+                      leaf keepalive-interval {
+                        dr:source "keepalive_interval";
+                        type decimal64 {fraction-digits 2;}
+                        dr:fieldnum 53;
+                      }
+                      leaf minimum-advertisement-interval {
+                        dr:source "minimum_advertisement_interval";
+                        type decimal64 {fraction-digits 2;}
+                        dr:fieldnum 54;
+                      }
+                      leaf negotiated-hold-time {
+                        dr:source "negotiated_hold_time";
+                        type decimal64 {fraction-digits 2;}
+                        dr:fieldnum 61;
+                      }
+                    }
+                  }
+                  container transport {
+                    dr:fieldnum 153;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf tcp-mss {
+                        dr:source "tcp_mss";
+                        type uint16;
+                        dr:fieldnum 51;
+                      }
+                      leaf mtu-discovery {
+                        dr:source "mtu_discovery";
+                        type boolean;
+                        dr:fieldnum 52;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                      leaf passive-mode {
+                        dr:source "passive_mode";
+                        type boolean;
+                        dr:fieldnum 53;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                      leaf local-address {
+                        dr:source "local_address";
+                        type string;
+                        dr:fieldnum 54;
+                      }
+                      leaf local-port {
+                        dr:source "local_port";
+                        type uint16;
+                        dr:fieldnum 61;
+                      }
+                      leaf remote-address {
+                        dr:source "remote_address";
+                        type string;
+                        dr:fieldnum 62;
+                      }
+                      leaf remote-port {
+                        dr:source "remote_port";
+                        type uint16;
+                        dr:fieldnum 63;
+                      }
+                    }
+                  }
+                  container error-handling {
+                    dr:fieldnum 154;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf treat-as-withdraw {
+                        dr:source "treat_as_withdraw";
+                        type boolean;
+                        dr:fieldnum 51;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                      leaf erroneous-update-messages {
+                        dr:source "erroneous_update_messages";
+                        type uint32;
+                        dr:fieldnum 61;
+                      }
+                    }
+                  }
+                  container logging-options {
+                    dr:fieldnum 155;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf log-neighbor-state-changes {
+                        dr:source "log_neighbor_state_changes";
+                        type boolean;
+                        dr:fieldnum 51;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                    }
+                  }
+                  container ebgp-multihop {
+                    dr:fieldnum 156;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf enabled {
+                        dr:source "multihop_enabled";
+                        type boolean;
+                        dr:fieldnum 51;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                      leaf multihop-ttl {
+                        dr:source "multihop_ttl";
+                        type uint8;
+                        dr:fieldnum 52;
+                      }
+                    }
+                  }
+                  container route-reflector {
+                    dr:fieldnum 157;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf route-reflector-cluster-id {
+                        dr:source "route_reflector_cluster_id";
+                        type string;
+                        dr:fieldnum 51;
+                      }
+                      leaf route-reflector-client {
+                        dr:source "route_reflector_client";
+                        type boolean;
+                        dr:fieldnum 52;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                    }
+                  }
+                  container as-path-options {
+                    dr:fieldnum 158;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf allow-own-as {
+                        dr:source "allow_own_as";
+                        type uint16;
+                        dr:fieldnum 51;
+                      }
+                      leaf replace-peer-as {
+                        dr:source "replace_peer_as";
+                        type boolean;
+                        dr:fieldnum 52;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                      leaf disable-peer-as-filter {
+                        dr:source "disable_peer_as_filter";
+                        type boolean;
+                        dr:fieldnum 53;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                    }
+                  }
+                  container use-multiple-paths {
+                    dr:fieldnum 159;
+                    container state {
+                      dr:fieldnum 151;
+                      leaf enabled {
+                        dr:source "multipath_enabled";
+                        type boolean;
+                        dr:fieldnum 51;
+                        dr:map true { dr:map-from 1; }
+                        dr:map false { dr:map-from 0; }
+                      }
+                    }
+                    container ebgp {
+                      dr:fieldnum 152;
+                      container state {
+                        dr:fieldnum 151;
+                        leaf allow-multiple-as {
+                          dr:source "allow_multiple_as";
+                          type boolean;
+                          dr:fieldnum 51;
+                          dr:map true { dr:map-from 1; }
+                          dr:map false { dr:map-from 0; }
+                        }
+                      }
+                    }
+                  }
+                  container graceful-restart {
+                     dr:fieldnum 161;
+                     container state {
+                       dr:fieldnum 151;
+		       leaf peer-restart-time {
+                          dr:source "peer_restart_time";
+                          type uint16;
+                          dr:fieldnum 61;
+                       }
+                       leaf peer-restarting {
+                          dr:source "peer_restarting";
+                          type boolean;
+                          dr:fieldnum 62;
+                          dr:map true { dr:map-from 1; }
+                          dr:map false { dr:map-from 0; }
+                       }
+                       leaf local-restarting {
+                          dr:source "local_restarting";
+                          type boolean;
+                          dr:fieldnum 63;
+                          dr:map true { dr:map-from 1; }
+                          dr:map false { dr:map-from 0; }
+                       }
+                       leaf mode {
+                          dr:fieldnum 64;
+                          dr:source "restart_mode";
+                          type string;
+                          dr:map HELPER_ONLY { dr:map-from 0; }
+                          dr:map BILATERAL { dr:map-from 1; }
+                          dr:map REMOTE_HELPER { dr:map-from 2; }
+                       }
+                     }
+                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+  notification oc-bgp-established-af {
+    dr:source-notification-name "bgp-established-af";
+    container network-instances {
+      dr:source "/notification/bgp-established-af/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container protocols {
+          dr:fieldnum 151;
+          container protocol {
+            dr:fieldnum 151;
+            container bgp {
+              dr:fieldnum 151;
+              container neighbors {
+                dr:source "neighbors";
+                dr:fieldnum 152;
+                list neighbor {
+	          dr:source "neighbor";
+                  dr:fieldnum 151;
+                  key neighbor-address;
+                  leaf neighbor-address {
+                    dr:source "peer_address";
+                    type string;
+                    dr:fieldnum 51;
+                  }
+		  container afi-safis {
+		    dr:fieldnum 160;
+		    dr:source "nlris";
+		    list afi-safi {
+		      dr:source "nlri";
+                      key afi-safi-name;
+                      dr:fieldnum 51;
+
+                      leaf afi-safi-name {
+                        dr:source "afi_safi_name";
+                        type string;
+                        dr:fieldnum 51;
+                        dr:map IPV4_UNICAST {dr:map-from inet-unicast; }
+                        dr:map IPV6_UNICAST {dr:map-from inet6-unicast; }
+                        dr:map IPV4_LABELED_UNICAST {dr:map-from inet-labeled-unicast; }
+                        dr:map IPV6_LABELED_UNICAST {dr:map-from inet6-labeled-unicast; }
+                        dr:map L3VPN_IPV4_UNICAST {dr:map-from inet-vpn-unicast; }
+                        dr:map L3VPN_IPV6_UNICAST {dr:map-from inet6-vpn-unicast; }
+                        dr:map L3VPN_IPV4_MULTICAST {dr:map-from inet-vpn-multicast; }
+                        dr:map L3VPN_IPV6_MULTICAST {dr:map-from inet6-vpn-multicast; }
+                        dr:map L2VPN_VPLS {dr:map-from l2vpn; }
+                        dr:map L2VPN_EVPN {dr:map-from evpn; }
+                        dr:map IPV4_MULTICAST { dr:map-from inet-multicast; }
+                        dr:map IPV6_MULTICAST { dr:map-from inet6-multicast; }
+                        dr:map L2VPN_MSPW_AD { dr:map-from l2vpn-mspw-ad; }
+                        dr:map ATMVPN { dr:map-from atmvpn; }
+                        dr:map ROUTE_TARGET { dr:map-from route-target; }
+                        dr:map IPV4_FLOW { dr:map-from inet-flow; }
+                        dr:map IPV4_VPN_FLOW { dr:map-from inet-vpn-flow; }
+                        dr:map IPV6_FLOW { dr:map-from inet6-flow; }
+                        dr:map IPV6_VPN_FLOW { dr:map-from inet6-vpn-flow; }
+                        dr:map ISO_UNICAST { dr:map-from iso-unicast; }
+                        dr:map ISO_VPN_UNICAST { dr:map-from iso-vpn-unicast; }
+                        dr:map IPV4_MVPN { dr:map-from inet-mvpn; }
+                        dr:map IPV6_MVPN { dr:map-from inet6-mvpn; }
+                        dr:map IPV4_MDT { dr:map-from inet-mdt; }
+                        dr:map TE_UNICAST { dr:map-from te-unicast; }
+                        dr:map BRIDGE_UNICAST { dr:map-from bridge-unicast; }
+                        dr:map BRIDGE_VPN_UNICAST { dr:map-from bridge-vpn-unicast; }
+                        dr:map FABRIC { dr:map-from fabric; }
+                        dr:map FABRIC_VPN { dr:map-from fabric-vpn; }
+                      }
+		      container state {
+                         dr:fieldnum 152;
+                         leaf active {
+                           dr:source "afi_safi_negotiated";
+                           type boolean;
+                           dr:fieldnum 61;
+                           dr:map true { dr:map-from 1; }
+                           dr:map false { dr:map-from 0; }
+                         }
+                      }
+                      container graceful-restart {
+                        dr:fieldnum 151;
+                        container state {
+                          dr:fieldnum 151;
+		          leaf received {
+                            dr:source "gr_received";
+                            type boolean;
+                            dr:fieldnum 61;
+                            dr:map true { dr:map-from 1; }
+                            dr:map false { dr:map-from 0; }
+                          }
+                          leaf advertised {
+                            dr:source "gr_advertised";
+                            type boolean;
+                            dr:fieldnum 62;
+                            dr:map true { dr:map-from 1; }
+                            dr:map false { dr:map-from 0; }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-bgp-established-cap {
+    dr:source-notification-name "bgp-established-cap";
+    container network-instances {
+      dr:source "/notification/bgp-established-cap/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container protocols {
+          dr:fieldnum 151;
+          container protocol {
+            dr:fieldnum 151;
+            container bgp {
+              dr:fieldnum 151;
+              container neighbors {
+                dr:source "neighbors";
+                dr:fieldnum 152;
+                list neighbor {
+	          dr:source "neighbor";
+                  dr:fieldnum 151;
+                  key neighbor-address;
+                  leaf neighbor-address {
+                    dr:source "peer_address";
+                    type string;
+                    dr:fieldnum 51;
+                  }
+		  container state {
+                    dr:fieldnum 151;
+                    leaf-list supported-capabilities {
+                      dr:source "capabilities";
+                      type string;
+                      dr:fieldnum 64;
+                      dr:map MPBGP            { dr:map-from 1; }
+                      dr:map ROUTE_REFRESH    { dr:map-from 2; }
+                      dr:map ASN32            { dr:map-from 3; }
+                      dr:map GRACEFUL_RESTART { dr:map-from 4; }
+                      dr:map ADD_PATHS        { dr:map-from 5; }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

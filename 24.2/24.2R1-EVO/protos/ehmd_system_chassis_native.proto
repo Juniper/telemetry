@@ -1,0 +1,50 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_telemetry_293 jnpr_state_telemetry_293_ext = 293;
+}
+
+message state_telemetry_293 {
+   optional chassis_type chassis = 152;
+   message chassis_type {
+      optional modules_type modules = 153;
+      message modules_type {
+         message module_list {
+            optional string name = 155 [(telemetry_options).is_key = true];
+            optional string part_name = 156;
+            optional string parent_module = 157;
+            optional load_average_type load_average = 158;
+            message load_average_type {
+               optional double interval_1min = 159;
+               optional double interval_5min = 160;
+               optional double interval_15min = 161;
+            }
+            optional processes_type processes = 162;
+            message processes_type {
+               message process_list {
+                  optional uint32 pid = 164 [(telemetry_options).is_key = true];
+                  optional string name = 165;
+                  optional cpu_type cpu = 166;
+                  message cpu_type {
+                     optional double interval_1min = 167;
+                     optional double interval_5min = 168;
+                     optional double interval_15min = 169;
+                  }
+                  optional memory_type memory = 170;
+                  message memory_type {
+                     optional uint64 text_segment_size = 171;
+                     optional uint64 stack_segment_size = 172;
+                     optional uint64 data_segment_size = 173;
+                     optional uint64 resident_memory_size = 174;
+                     optional uint64 virtual_memory_size = 175;
+                  }
+               }
+               repeated process_list process = 163;
+            }
+         }
+         repeated module_list module = 154;
+      }
+   }
+}

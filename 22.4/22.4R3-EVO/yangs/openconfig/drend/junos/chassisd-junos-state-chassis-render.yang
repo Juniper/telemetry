@@ -1,0 +1,99 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module chassisd-junos-state-chassis-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/junos/state/chassis/render";
+
+  prefix "js-chassis-rdr";
+
+  import junos-state { prefix js; }
+  import junos-state-system { prefix js-sys; }
+  import junos-state-protocols { prefix js-pro; }
+  import junos-state-chassis { prefix js-ch; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+ dr:command-app "chassisd";
+ dr:sub-component "chassis";
+ jnpr-proto:message-id "JS-CHASSISD-OC-CHASSIS-MESSAGE-ID";
+
+// augment statements
+
+ grouping chassis-mac {
+  uses js-ch:chassis-module-top {
+
+   augment "modules" {
+     dr:fieldnum 150;
+     dr:source "/chassis/modules";
+   }
+
+   augment "modules/module" {
+     dr:fieldnum 151;
+     dr:source "module";
+   }
+
+   augment "modules/module/name" {
+     dr:fieldnum 152;
+     dr:source "chassis_mac_item";
+   }
+
+   augment "modules/module/mac-addresses" {
+     dr:fieldnum 153;
+   }
+
+   augment "modules/module/mac-addresses/public-base-address" {
+     dr:fieldnum 154;
+     dr:source "chassis_public_base_addr";
+   }
+
+   augment "modules/module/mac-addresses/public-address-count" {
+     dr:fieldnum 155;
+     dr:zero-suppressed;
+     dr:source "chassis_public_count";
+   }
+
+   augment "modules/module/mac-addresses/private-base-address" {
+     dr:fieldnum 156;
+     dr:source "chassis_private_base_addr";
+   }
+
+   augment "modules/module/mac-addresses/private-address-count" {
+     dr:fieldnum 157;
+     dr:zero-suppressed;
+     dr:source "chassis_private_count";
+   }
+
+  }
+ }
+
+
+
+ rpc juniper-netconf-get {
+    output {
+       container state {
+          dr:fieldnum 148;
+          container chassis {
+             dr:fieldnum 149;
+	     uses chassis-mac;
+          }
+       }
+    }
+ }
+
+}

@@ -1,0 +1,1385 @@
+/*
+ * OC definition for authd 
+ *
+ * Nov 2016, qjchen 
+ *
+ * Copyright (c) 1998-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module authd_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/authd";
+
+    prefix "authdoc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "authd";
+    dr:sub-component "authentication";
+    jnpr-proto:message-id "AUTHD-OC-MESSAGE-ID";
+
+    
+    grouping authen-stats-group {
+         description "The set of AAA authentication statistics";
+         leaf req-received {
+             description "The total number of authentication requests";
+             type uint64;
+             dr:source req_received;
+	     dr:fieldnum 51;
+         }
+         leaf req-accepted {
+             description "The total number of authentication requests that were accepted";
+             type uint64;
+             dr:source req_accepted;
+	     dr:fieldnum 52;
+         }
+         leaf req-rejected {
+             description "The total number of authentication requests that were rejected";
+             type uint64;
+             dr:source req_rejected;
+	     dr:fieldnum 53;
+         }
+         leaf req-challenge {
+             description "The total number of authentication requests that were challenged";
+             type uint64;
+             dr:source req_challenge;
+	     dr:fieldnum 54;
+         }
+         leaf req-timeout {
+             description "The total number of authentication requests that timed out pending response";
+             type uint64;
+             dr:source req_timeout;
+	     dr:fieldnum 55;
+         }
+         leaf pre-authen-req-received {
+             description "The total number of pre-authentication requests";
+             type uint64;
+             dr:source pre_authen_req_received;
+	     dr:fieldnum 56;
+         }
+         leaf pre-authen-req-accepted {
+             description "The total number of pre-authentication requests that were accepted";
+             type uint64;
+             dr:source pre_authen_req_accepted;
+	     dr:fieldnum 57;
+         }
+         leaf pre-authen-req-rejected {
+             description "The total number of pre-authentication requests that were rejected";
+             type uint64;
+             dr:source pre_authen_req_rejected;
+	     dr:fieldnum 58;
+         }
+         leaf pre-authen-req-challenge {
+             description "The total number of pre-authentication requests that were challenged";
+             type uint64;
+             dr:source pre_authen_req_challenge;
+	     dr:fieldnum 59;
+         }
+         leaf pre-authen-req-timeout {
+             description "The total number of pre-authentication requests that timed out pending response";
+             type uint64;
+             dr:source pre_authen_req_timeout;
+	     dr:fieldnum 60;
+         }
+         leaf re-authen-req-received {
+             description "The total number of re-authentication requests";
+             type uint64;
+             dr:source re_authen_req_received;
+	     dr:fieldnum 61;
+         }
+         leaf re-authen-req-accepted {
+             description "The total number of re-authentication requests that were accepted";
+             type uint64;
+             dr:source re_authen_req_accepted;
+	     dr:fieldnum 62;
+         }
+         leaf re-authen-req-rejected {
+             description "The total number of re-authentication requests that were rejected";
+             type uint64;
+             dr:source re_authen_req_rejected;
+	     dr:fieldnum 63;
+         }
+         leaf re-authen-req-internal-errors {
+              description "The total number of re-authentication requests that encountered internal error";
+              type uint64;
+              dr:source re_authen_req_internal_errors;
+	      dr:fieldnum 64;
+         }
+         leaf re-authen-req-challenge {
+             description "The total number of re-authentication requests that were challenged";
+             type uint64;
+             dr:source re_authen_req_challenge;
+	     dr:fieldnum 65;
+         }
+         leaf re-authen-req_timeout {
+             description "The total number of re-authentication requests that timed out pending response";
+             type uint64;
+             dr:source re_authen_req_timeout;
+	     dr:fieldnum 66;
+         }
+    }
+
+
+    grouping acct-stats-group {
+        description "The set of RADIUS server accounting statistics";
+        leaf acct-req-received {
+            description "The total number of accounting requests";
+            type uint64;
+            dr:source acct_req_received;
+            dr:fieldnum 51;
+        }
+        leaf acct-req-timeout {
+            description "The total number of accounting requests that timed out pending response";
+            type uint64;
+            dr:source acct_req_timeout;
+            dr:fieldnum 52;
+        }
+        leaf acct-resp-failure {
+            description "The total number of failed accounting responses";
+            type uint64;
+            dr:source acct_resp_failure;
+            dr:fieldnum 53;
+        }
+        leaf acct-resp-success {
+            description "The total number of successful accounting responses";
+            type uint64;
+            dr:source acct_resp_success;
+            dr:fieldnum 54;
+        }
+        /* jv part 3 */
+        leaf acct-req-start {
+            description "The total number of accounting start requests";
+            type uint64;
+            dr:source acct_req_start;
+            dr:fieldnum 55;
+        }
+        leaf acct-req-interim {
+            description "The total number of accounting interim requests";
+            type uint64;
+            dr:source acct_req_interim;
+            dr:fieldnum 56;
+        }
+        leaf acct-req-stop {
+            description "The total number of accounting stop requests";
+            type uint64;
+            dr:source acct_req_stop;
+            dr:fieldnum 57;
+        }
+        leaf acct-resp-total {
+            description "The total number of accounting responses";
+            type uint64;
+            dr:source acct_resp_total;
+            dr:fieldnum 58;
+        }
+        leaf acct-resp-start {
+            description "The total number of accounting start responses";
+            type uint64;
+            dr:source acct_resp_start;
+            dr:fieldnum 59;
+        }
+        leaf acct-resp-interim {
+            description "The total number of accounting interim responses";
+            type uint64;
+            dr:source acct_resp_interim;
+            dr:fieldnum 60;
+        }
+        leaf acct-resp-stop {
+            description "The total number of accounting stop responses";
+            type uint64;
+            dr:source acct_resp_stop;
+            dr:fieldnum 61;
+        }
+    }
+
+    grouping dynreq-stats-group {
+        description "The set of RADIUS server dynamic request statistics";
+        leaf dynamic-req-received {
+            description "The total number of dynamic requests received";
+            type uint64;
+            dr:source dynamic_req_received;
+            dr:fieldnum 51;
+        }
+        leaf dynamic-req-success {
+            description "The total number of dynamic requests processed successfully";
+            type uint64;
+            dr:source dynamic_req_success;
+            dr:fieldnum 52;
+        }
+        leaf dynamic-req-error {
+            description "The total number of dynamic requests processed with error";
+            type uint64;
+            dr:source dynamic_req_error;
+            dr:fieldnum 53;
+        }
+        leaf dynamic-req-silently-drop {
+            description "The total number of dynamic requests dropped silently";
+            type uint64;
+            dr:source dynamic_req_silently_drop;
+            dr:fieldnum 54;
+        }
+    }
+
+    grouping group-authd-radius-server-statistic-list {
+        description "The list of RADIUS server statistics";
+        list radius-server {
+            description "The statistics for a RADIUS server";
+            dr:source "radius-server";
+            dr:fieldnum 151;
+            key "server-address";
+
+            leaf server-address {
+                description "The RADIUS server IPv4 address (format a.b.c.d)";
+                type string;
+                dr:source server_address;
+                dr:fieldnum 52;
+            }
+            container statistics {
+                description "The RADIUS server periodic statistics";
+            dr:source "statistics";
+	    dr:fieldnum 151;
+            leaf server-last-rtt {
+                description "Last round-trip delay time in milliseconds";
+                type uint64;
+                dr:source server_last_rtt; 
+                dr:fieldnum 51;
+            }
+
+            /*auth*/
+            leaf auth-access-requests { 
+                 description "The total number of access requests";
+                 type uint64;
+                 dr:source  auth_access_requests;
+                 dr:fieldnum 52;
+            }
+            leaf auth-rollover-requests { 
+                 description "The total number of access requests that were rolled over to the next server";
+                 type uint64; 
+                 dr:source  auth_rollover_requests;
+                 dr:fieldnum 53;
+            }
+            leaf auth-retransmissions { 
+                 description "The total number of retransmitted access requests";
+                 type uint64;
+                 dr:source  auth_retransmissions; 
+                 dr:fieldnum 54;
+            }
+            leaf auth-access-accepts { 
+                 description "The total number of access requests that were accepted";
+                 type uint64;
+                 dr:source  auth_access_accepts; 
+                 dr:fieldnum 55;
+            }
+            leaf auth-access-rejects { 
+                 description "The total number of access requests that were rejected";
+                 type uint64; 
+                 dr:source  auth_access_rejects;
+                 dr:fieldnum 56;
+            }
+            leaf auth-access-challenges { 
+                 description "The total number of access challenge requests";
+                 type uint64;
+                 dr:source  auth_access_challenges; 
+                 dr:fieldnum 57;
+            }
+            leaf auth-malformed-responses { 
+                 description "The total number of malformed authentication responses";
+                 type uint64; 
+                 dr:source  auth_malformed_responses;
+                 dr:fieldnum 58;
+            }
+            leaf auth-bad-authenticators { 
+                 description "The total number of authentication responses with an invalid authenticator";
+                 type uint64;
+                 dr:source  auth_bad_authenticators; 
+                 dr:fieldnum 59;
+            }
+            leaf auth-req-pending { 
+                 description "The total number of access requests that are pending a response";
+                 type uint64;
+                 dr:source  auth_req_pending; 
+                 dr:fieldnum 60;
+            }
+            leaf auth-request-timeouts { 
+                 description "The total number of access requests that timed out pending response";
+                 type uint64;
+                 dr:source  auth_request_timeouts;  
+                 dr:fieldnum 61;
+            }
+            leaf auth-unknown-responses { 
+                 description "The total number of authentication responses with an unknown message code";
+                 type uint64; 
+                 dr:source  auth_unknown_responses; 
+                 dr:fieldnum 62;
+            }
+            leaf auth-packets-dropped { 
+                 description "The total number of authentication responses that were dropped due to bad parameters";
+                 type uint64; 
+                 dr:source  auth_packets_dropped; 
+                 dr:fieldnum 63;
+            }
+
+            
+            leaf preauth-access-requests { 
+                 description "The total number of pre-authentication access requests";
+                 type uint64;
+                 dr:source preauth_access_requests;  
+                 dr:fieldnum 64;
+            }
+            leaf preauth-rollover-requests { 
+                 description "The total number of pre-authentication access requests that were rolled over to next server";
+                 type uint64;
+                 dr:source preauth_rollover_requests;  
+                 dr:fieldnum 65;
+            }
+            leaf preauth-retransmissions { 
+                 description "The total number of retransmitted pre-authentication access requests";
+                 type uint64; 
+                 dr:source preauth_retransmissions;
+                 dr:fieldnum 66;
+            }
+            leaf preauth-access-accepts { 
+                 description "The total number of pre-authentication access requests that were accepted";
+                 type uint64;
+                 dr:source preauth_access_accepts; 
+                 dr:fieldnum 67;
+            }
+            leaf preauth-access-rejects { 
+                 description "The total number of pre-authentication access requests that were rejected";
+                 type uint64;
+                 dr:source preauth_access_rejects; 
+                 dr:fieldnum 68;
+            }
+            leaf preauth-access-challenges { 
+                 description "The total number of pre-authentication access challenge requests";
+                 type uint64;
+                 dr:source preauth_access_challenges; 
+                 dr:fieldnum 69;
+            }
+            leaf preauth-malformed-responses { 
+                 description "The total number of malformed pre-authentication responses";
+                 type uint64;
+                 dr:source preauth_malformed_responses; 
+                 dr:fieldnum 70;
+            }
+            leaf preauth-bad-authenticators { 
+                 description "The total number of pre-authentication responses with an invalid authenticator";
+                 type uint64;
+                 dr:source preauth_bad_authenticators; 
+                 dr:fieldnum 71;
+            }
+            leaf preauth-req-pending { 
+                 description "The total number of pre-authentication access requests that are pending a response";
+                 type uint64;
+                 dr:source preauth_req_pending; 
+                 dr:fieldnum 72;
+            }
+            leaf preauth-request-timeouts { 
+                 description "The total number of pre-authentication access requests that timed out pending response";
+                 type uint64;
+                 dr:source preauth_request_timeouts;
+                 dr:fieldnum 73;
+            }
+            leaf preauth-unknown-responses { 
+                 description "The total number of pre-authentication responses with an unknown message code";
+                 type uint64; 
+                 dr:source preauth_unknown_responses;
+                 dr:fieldnum 74;
+            }
+            leaf preauth-packets-dropped { 
+                 description "The total number of pre-authentication responses that were dropped due to bad parameters";
+                 type uint64; 
+                 dr:source preauth_packets_dropped;
+                 dr:fieldnum 75;
+            }
+
+            leaf acct-start-requests { 
+                 description "The total number of accounting start requests";
+                 type uint64;
+                 dr:source acct_start_requests; 
+                 dr:fieldnum 76;
+            }
+            leaf acct-interim-requests { 
+                 description "The total number of accounting interim requests";
+                 type uint64;
+                 dr:source acct_interim_requests; 
+                 dr:fieldnum 77;
+            }
+            leaf acct-stop-requests { 
+                 description "The total number of accounting stop requests";
+                 type uint64;
+                 dr:source acct_stop_requests; 
+                 dr:fieldnum 78;
+            }
+            leaf acct-rollover-requests { 
+                 description "The total number of accounting requests that were rolled over to next RADIUS server";
+                 type uint64;
+                 dr:source acct_rollover_requests; 
+                 dr:fieldnum 79;
+            }
+            leaf acct-retransmissions { 
+                 description "The total number of retransmitted accounting requests";
+                 type uint64;
+                 dr:source acct_retransmissions; 
+                 dr:fieldnum 80;
+            }
+            leaf acct-start-responses { 
+                 description "The total number of accounting start responses";
+                 type uint64; 
+                 dr:source acct_start_responses;
+                 dr:fieldnum 81;
+            }
+            leaf acct-interim-responses { 
+                 description "The total number of accounting interim responses";
+                 type uint64;
+                 dr:source acct_interim_responses; 
+                 dr:fieldnum 82;
+            }
+            leaf acct-stop-responses { 
+                 description "The total number of accounting stop responses";
+                 type uint64;
+                 dr:source acct_stop_responses; 
+                 dr:fieldnum 83;
+            }
+            leaf acct-malformed-responses { 
+                 description "The total number of malformed accounting responses";
+                 type uint64;
+                 dr:source acct_malformed_responses; 
+                 dr:fieldnum 84;
+            }
+            leaf acct-bad-authenticators { 
+                 description "The total number of accounting responses with an invalid authenticator";
+                 type uint64;
+                 dr:source acct_bad_authenticators; 
+                 dr:fieldnum 85;
+            }
+            leaf acct-req-pending { 
+                 description "The total number of accounting requests that are pending a response";
+                 type uint64;
+                 dr:source acct_req_pending; 
+                 dr:fieldnum 86;
+            }
+            leaf acct-request-timeouts { 
+                 description "The total number of accounting requests that timed out pending response";
+                 type uint64; 
+                 dr:source acct_request_timeouts;
+                 dr:fieldnum 87;
+            }
+            leaf acct-unknown-responses { 
+                 description "The total number of accounting responses with an unknown message code";
+                 type uint64;
+                 dr:source acct_unknown_responses; 
+                 dr:fieldnum 88;
+            }
+            leaf acct-packets-dropped { 
+                 description "The total number of accounting responses dropped due to bad parameters";
+                 type uint64;
+                 dr:source acct_packets_dropped; 
+                 dr:fieldnum 89;
+            }
+            }
+            container response-time {
+                 description "The RADIUS server 1 minute interval statistics";
+            dr:source "response-time";
+	    dr:fieldnum 152;
+            leaf one-minute-minimum-response-time {
+                 description "The minimum response time measured over a 1 minute interval";
+                 type uint64;
+                 dr:source minimum_response_time;
+                 dr:fieldnum 51;
+            }
+            leaf one-minute-average-response-time {
+                 description "The average response time measured over a 1 minute interval";
+                 type uint64;
+                 dr:source average_response_time;
+                 dr:fieldnum 52;
+            }  
+            leaf one-minute-maximum-response-time {
+                 description "The maximum response time measured over a 1 minute interval";
+                 type uint64;
+                 dr:source maximum_response_time;
+                 dr:fieldnum 53;
+            }
+            leaf one-minute-messages-sent {
+                 description "The total number of messages sent over a 1 minute interval";
+                 type uint64;
+                 dr:source messages_sent;
+                 dr:fieldnum 54;
+            }
+            leaf one-minute-messages-received {
+                 description "The total number of messages received over a 1 minute interval";
+                 type uint64;
+                 dr:source messages_received;
+                 dr:fieldnum 55;
+            }
+            leaf one-minute-messages-no-response {
+                 description "The total number of messages pending response over a 1 minute interval";
+                 type uint64;
+                 dr:source messages_no_response;
+                 dr:fieldnum 56;
+            }
+             
+            }
+        }
+
+    }
+
+
+    grouping group-authd-address-assignment-lsri-list {
+        description "The list of address assignment statisctis per logical-system/routing-instance";
+            list  logical-system-routing-instance{
+                description "The address assignment statisctis for a logical-system/routing-instance";
+                dr:source "logical-system-routing-instance";
+                dr:fieldnum 151;
+                key "name";
+
+                leaf name {
+                    description "The logical-system and routing-instance name in ls:ri format";
+                    type string;
+                    dr:source lsri_name;
+                    dr:fieldnum 51;
+                }
+
+                container pools {
+                    description "The list of address pool statistics";
+                    dr:source "pools";
+		    dr:fieldnum 151;
+                    list pool {
+                        description "An entry in the address pool list";
+                        dr:source "pool";
+                        dr:fieldnum 151;
+                        key "pool-name";
+
+                        leaf pool-name {
+                            description "The address pool name";
+                            type string;
+                            dr:source pool_name; 
+                            dr:fieldnum 51;
+                        }
+                        
+                        leaf out-of-memory {
+                            description "The total number of failed address assignments due to a memory allocation failure";
+                            type uint64;
+                            dr:source out_of_memory;
+                            dr:fieldnum 52;
+                        }
+
+                        leaf out-of-address{
+                            description "The total number of failed address assignments due to no address available";
+                            type uint64;
+                            dr:source out_of_address;
+                            dr:fieldnum 53;
+                        }
+
+                        leaf address-total {
+                            description "The total number of addresses configured";
+                            type uint64;
+                            dr:source address_total;
+                            dr:fieldnum 54;
+                        } 
+
+                        leaf address-in-use{
+                            description "The total number of addresses in-use";
+                            type uint64;
+                            dr:source address_in_use;
+                            dr:fieldnum 55;
+                        }
+
+                        leaf address-usage-percent {
+                            description "The percentage of addresses in-use";
+                            type uint64;
+                            dr:source address_usage_percent;
+                            dr:fieldnum 56;
+                        } 
+
+                        leaf linked-pool-name {
+                            description "The next address pool in the chain of linked pools. If there is no next address pool, the value is empty.";
+                            type string;
+                            dr:source linked_pool_name; 
+                            dr:fieldnum 57;
+                        }
+
+                        leaf linked-pool-head {
+                            description "The first address pool in a chain of linked pools that this pool is a member of. If this pool is not part of a linked address pool, the value is empty.";
+                            type string;
+                            dr:source linked_pool_head; 
+                            dr:fieldnum 58;
+                        }
+                    }
+                }
+            }
+    }
+
+    grouping nasreq-stats-group {
+        description "The set of NASREQ client statistics";
+        leaf authentication-request-messages-sent {
+            description "Authentication requests successfully sent";
+            type uint64;
+            dr:source authentication_request_messages_sent;
+            dr:fieldnum 51;
+        }
+
+        leaf authentication-request-message-failures {
+            description "Authentication request processing errors";
+            type uint64;
+            dr:source authentication_request_message_failures;
+            dr:fieldnum 52;
+        }
+
+        leaf authentication-request-messages-timeouts {
+            description "Authentication requests timed out";
+            type uint64;
+            dr:source authentication_request_messages_timeouts;
+            dr:fieldnum 53;
+        }
+
+        leaf authentication-denies-failures {
+            description "Authentication requests rejected";
+            type uint64;
+            dr:source authentication_denies_failures;
+            dr:fieldnum 54;
+        }
+
+        leaf authentication-grants-received {
+            description "Authentication grants received";
+            type uint64;
+            dr:source authentication_grants_received;
+            dr:fieldnum 55;
+        }
+
+        leaf authorization-request-messages-sent {
+            description "Authorization requests successfully sent";
+            type uint64;
+            dr:source authorization_request_messages_sent;
+            dr:fieldnum 56;
+        }
+
+        leaf authorization-request-message-failures {
+            description "Authorization request processing errors";
+            type uint64;
+            dr:source authorization_request_message_failures;
+            dr:fieldnum 57;
+        }
+
+        leaf authorization-request-messages-timeouts {
+            description "Authorization requests timed out";
+            type uint64;
+            dr:source authorization_request_messages_timeouts;
+            dr:fieldnum 58;
+        }
+
+        leaf authorization-denies-failures {
+            description "Authorization requests rejected";
+            type uint64;
+            dr:source authorization_denies_failures;
+            dr:fieldnum 59;
+        }
+
+        leaf authorization-grants-received {
+            description "Authorization grants received";
+            type uint64;
+            dr:source authorization_grants_received;
+            dr:fieldnum 60;
+        }
+
+        leaf session-terminate-request-messages-sent {
+            description "Termination requests successfully sent";
+            type uint64;
+            dr:source session_terminate_request_messages_sent;
+            dr:fieldnum 61;
+        }
+
+        leaf session-terminate-request-message-failures {
+            description "Termination request processing errors";
+            type uint64;
+            dr:source session_terminate_request_message_failures;
+            dr:fieldnum 62;
+        }
+
+        leaf session-terminate-request-messages-timeouts {
+            description "Termination requests timed out";
+            type uint64;
+            dr:source session_terminate_request_messages_timeouts;
+            dr:fieldnum 63;
+        }
+
+        leaf session-terminate-response-messages-failures {
+            description "Termination response processing errors";
+            type uint64;
+            dr:source session_terminate_response_messages_failures;
+            dr:fieldnum 64;
+        }
+
+        leaf session-terminate-response-messages-received {
+            description "Termination responses received";
+            type uint64;
+            dr:source session_terminate_response_messages_received;
+            dr:fieldnum 65;
+        }
+
+        leaf abort-session-requests-received {
+            description "Abort session requests received";
+            type uint64;
+            dr:source abort_session_requests_received;
+            dr:fieldnum 66;
+        }
+
+        leaf abort-session-response-ack-messages-sent {
+            description "Abort session requests responded with ack";
+            type uint64;
+            dr:source abort_session_response_ack_messages_sent;
+            dr:fieldnum 67;
+        }
+
+        leaf abort-session-response-nack-messages-sent {
+            description "Abort session requests responded with nack";
+            type uint64;
+            dr:source abort_session_response_nack_messages_sent;
+            dr:fieldnum 68;
+        }
+
+        leaf abort-session-response-message-failures {
+            description "Abort session response failures";
+            type uint64;
+            dr:source abort_session_response_message_failures;
+            dr:fieldnum 69;
+        }
+
+        leaf transmit-queue-time-outs {
+            description "Total count of messages dropped from the transmit queue due to timeout";
+            type uint64;
+            dr:source transmit_queue_time_outs;
+            dr:fieldnum 70;
+        }
+
+        leaf response-parse-errors {
+            description "Response messages dropped due to parsing errors";
+            type uint64;
+            dr:source response_parse_errors;
+            dr:fieldnum 71;
+        }
+
+        leaf responses-dropped {
+            description "Total count of responses dropped";
+            type uint64;
+            dr:source responses_dropped;
+            dr:fieldnum 72;
+        }
+
+        leaf outstanding-requests {
+            description "Outstanding request messages";
+            type uint64;
+            dr:source outstanding_requests;
+            dr:fieldnum 73;
+        }
+    }
+
+     grouping nas5g-stats-group {
+         description "The set of NAS-5G client statistics";
+              leaf authentication-request-attempts {
+             description "Authentication request attempts received";
+             type uint64;
+             dr:source authentication_request_attempts;
+             dr:fieldnum 51;
+         }
+
+         leaf authentication-request-messages-sent {
+             description "Authentication requests successfully sent";
+             type uint64;
+             dr:source authentication_request_messages_sent;
+             dr:fieldnum 52;
+         }
+
+         leaf authentication-request-messages-authenticated {
+             description "Authentication requests processed";
+             type uint64;
+             dr:source authentication_request_message_authenticated;
+             dr:fieldnum 53;
+         }
+
+         leaf authentication-request-failures {
+             description "Authentication request failures";
+             type uint64;
+             dr:source authentication_request_failures;
+             dr:fieldnum 54;
+         }
+
+         leaf authentication-response-failures {
+             description "Authentication response failures";
+             type uint64;
+             dr:source authentication_response_failures;
+             dr:fieldnum 55;
+         }
+
+         leaf authentication-request-timeouts {
+             description "Authorization grants received";
+             type uint64;
+             dr:source authentication_request_timeouts;
+             dr:fieldnum 56;
+         }
+
+         leaf max-outstanding-requests-exceeded-failures {
+             description "Max outstanding requests exceeding failures";
+             type uint64;
+             dr:source max_outstanding_requests_exceeded_failures;
+             dr:fieldnum 57;
+         }
+
+         leaf session-terminate-request-messages-sent {
+             description "Termination requests successfully sent";
+             type uint64;
+             dr:source session_terminate_request_messages_sent;
+             dr:fieldnum 58;
+         }
+
+         leaf session-terminate-request-message-failures {
+             description "Termination request processing errors";
+             type uint64;
+             dr:source session_terminate_request_message_failures;
+             dr:fieldnum 59;
+         }
+
+         leaf session-terminate-request-timeouts {
+             description "Termination requests timed out";
+             type uint64;
+             dr:source session_terminate_request_timeouts;
+             dr:fieldnum 60;
+         }
+
+         leaf session-terminate-response-failures {
+             description "Termination response processing errors";
+             type uint64;
+             dr:source session_terminate_response_failures;
+             dr:fieldnum 61;
+         }
+
+         leaf session-terminate-response-messages-received {
+             description "Termination responses received";
+             type uint64;
+             dr:source session_terminate_response_received;
+             dr:fieldnum 62;
+         }
+
+         leaf session-command-logout-received {
+             description "Session command logout messages received";
+             type uint64;
+             dr:source session_command_logout_received;
+             dr:fieldnum 63;
+         }
+
+         leaf session-command-logout-receive-failures {
+             description "Session command logout messages receive failures";
+             type uint64;
+             dr:source session_command_logout_receive_failures;
+             dr:fieldnum 64;
+         }
+    }
+
+    grouping pcrf-stats-group {
+        description "The set of PCRF client statistics";
+            leaf ccr-initial {
+                description "Number of CCR-I messages sent";
+                type uint64;
+                dr:source ccr_initial;
+                dr:fieldnum 51;
+            }
+
+            leaf ccr-initial-retry {
+                description "Number of CCR-I messages retried";
+                type uint64;
+                dr:source ccr_initial_retry;
+                dr:fieldnum 52;
+            }
+
+            leaf cca-initial {
+                description "Number of CCA-I messages received";
+                type uint64;
+                dr:source cca_initial;
+                dr:fieldnum 53;
+            }
+
+            leaf cca-initial-grant {
+                description "Number of CCA-I grant messages received";
+                type uint64;
+                dr:source cca_initial_grant;
+                dr:fieldnum 54;
+            }
+
+            leaf cca-initial-deny {
+                description "Number of CCA-I deny messages received";
+                type uint64;
+                dr:source cca_initial_deny;
+                dr:fieldnum 55;
+            }
+
+            leaf cca-initial-failure {
+                description "Number of CCA-I message failures";
+                type uint64;
+                dr:source cca_initial_failure;
+                dr:fieldnum 56;
+            }
+
+            leaf ccr-update {
+                description "Number of CCR-U messages sent";
+                type uint64;
+                dr:source ccr_update;
+                dr:fieldnum 57;
+            }
+
+            leaf ccr-update-retry {
+                description "Number of CCR-U messages retried";
+                type uint64;
+                dr:source ccr_update_retry;
+                dr:fieldnum 58;
+            }
+
+            leaf cca-update {
+                description "Number of CCA-U messages received";
+                type uint64;
+                dr:source cca_update;
+                dr:fieldnum 59;
+            }
+
+            leaf cca-update-timeout {
+                description "Number of CCA-U messages timed out waiting for a response";
+                type uint64;
+                dr:source cca_update_timeout;
+                dr:fieldnum 60;
+            }
+
+            leaf ccr-terminate {
+                description "Number of CCR-T messages sent";
+                type uint64;
+                dr:source ccr_terminate;
+                dr:fieldnum 61;
+            }
+
+            leaf ccr-terminate-retry {
+                description "Number of CCR-T messages retried";
+                type uint64;
+                dr:source ccr_terminate_retry;
+                dr:fieldnum 62;
+            }
+
+            leaf cca-terminate {
+                description "Number of CCA-T messages received";
+                type uint64;
+                dr:source cca_terminate;
+                dr:fieldnum 63;
+            }
+
+            leaf cca-terminate-timeout {
+                description "Number of CCA-T messages timed out waiting for a response";
+                type uint64;
+                dr:source cca_terminate_timeout;
+                dr:fieldnum 64;
+            }
+
+            leaf cca-parse-error {
+                description "Number of CCA messages that could not be parsed correctly";
+                type uint64;
+                dr:source cca_parse_error;
+                dr:fieldnum 65;
+            }
+
+            leaf cca-dropped {
+                description "Number of CCA messages dropped";
+                type uint64;
+                dr:source cca_dropped;
+                dr:fieldnum 66;
+            }
+
+            leaf cca-initial-bad-result-code {
+                description "Number of CCA-I messages received with result-code other than success.";
+                type uint64;
+                dr:source cca_initial_bad_result_code;
+                dr:fieldnum 67;
+            }
+
+            leaf cca-initial-bad-data {
+                description "Number of CCC-I messages received with bad data";
+                type uint64;
+                dr:source cca_initial_bad_data;
+                dr:fieldnum 68;
+            }
+
+            leaf rar-update {
+                description "Number of RAR messages received";
+                type uint64;
+                dr:source rar_update;
+                dr:fieldnum 69;
+            }
+
+            leaf rar-update-retry {
+                description "Number of RAR-U messages retired";
+                type uint64;
+                dr:source rar_update_retry;
+                dr:fieldnum 70;
+            }
+
+            leaf rar-update-drop {
+                description "Number of RAR-U messages dropped";
+                type uint64;
+                dr:source rar_update_drop;
+                dr:fieldnum 71;
+            }
+
+            leaf raa-update-ack {
+                description "Number of RAA-U messages responded with an ack";
+                type uint64;
+                dr:source raa_update_ack;
+                dr:fieldnum 72;
+            }
+
+            leaf raa-update-nak {
+                description "Number of RAA-U messages responded with nack.";
+                type uint64;
+                dr:source raa_update_nak;
+                dr:fieldnum 73;
+            }
+
+            leaf rar-disconnect {
+                description "Number of RAR-D messages received";
+                type uint64;
+                dr:source rar_disconnect;
+                dr:fieldnum 74;
+            }
+
+            leaf rar-disconnect-retry {
+                description "Number of RAR-D messages retried";
+                type uint64;
+                dr:source rar_disconnect_retry;
+                dr:fieldnum 75;
+            }
+
+            leaf rar-disconnect-drop {
+                description "Number of RAR-D messages dropped";
+                type uint64;
+                dr:source rar_disconnect_drop;
+                dr:fieldnum 76;
+            }
+
+            leaf raa-disconnect-ack {
+                description "Number of RAA-D messages responded with an ack";
+                type uint64;
+                dr:source raa_disconnect_ack;
+                dr:fieldnum 77;
+            }
+
+            leaf raa-disconnect-nak {
+                description "Number of RAA-D messages responded with nack.";
+                type uint64;
+                dr:source raa_disconnect_nak;
+                dr:fieldnum 78;
+            }
+
+            leaf rar-audit {
+                description "Number of RAR-A messages received";
+                type uint64;
+                dr:source rar_audit;
+                dr:fieldnum 79;
+            }
+
+            leaf rar-audit-retry {
+                description "Number of RAR-A messages retried";
+                type uint64;
+                dr:source rar_audit_retry;
+                dr:fieldnum 80;
+            }
+
+            leaf rar-audit-drop {
+                description "Number of RAR-A messages dropped";
+                type uint64;
+                dr:source rar_audit_drop;
+                dr:fieldnum 81;
+            }
+
+            leaf raa-audit-ack {
+                description "Number of RAA-A messages responded with an ack";
+                type uint64;
+                dr:source raa_audit_ack;
+                dr:fieldnum 82;
+            }
+
+            leaf raa-audit-nak {
+                description "Number of RAA-A messages responded with a nack";
+                type uint64;
+                dr:source raa_audit_nak;
+                dr:fieldnum 83;
+            }
+    }
+
+    grouping ocs-stats-group {
+        description "The set of OCS client statistics";
+            leaf ccr-initial {
+                description "Number of CCR-I messages sent";
+                type uint64;
+                dr:source ccr_initial;
+                dr:fieldnum 51;
+            }
+
+            leaf ccr-initial-retry {
+                description "Number of CCR-I messages retried";
+                type uint64;
+                dr:source ccr_initial_retry;
+                dr:fieldnum 52;
+            }
+
+            leaf ccr-initial-alternate-retry {
+                description "Number of CCR-I messages retried on the alternate partition";
+                type uint64;
+                dr:source ccr_initial_alternate_retry;
+                dr:fieldnum 53;
+            }
+
+            leaf cca-initial {
+                description "Number of CCA-I messages received";
+                type uint64;
+                dr:source cca_initial;
+                dr:fieldnum 54;
+            }
+
+            leaf cca-initial-alternate {
+                description "Number of CCA-I messages received on the alternate partition";
+                type uint64;
+                dr:source cca_initial_alternate;
+                dr:fieldnum 55;
+            }
+
+            leaf ccr-update {
+                description "Number of CCR-U messages sent";
+                type uint64;
+                dr:source ccr_update;
+                dr:fieldnum 56;
+            }
+
+            leaf ccr-update-retry {
+                description "Number of CCR-U messages retried";
+                type uint64;
+                dr:source ccr_update_retry;
+                dr:fieldnum 57;
+            }
+
+            leaf ccr-update-alternate-retry {
+                description "Number of CCR-U messages retried on the alternate partition";
+                type uint64;
+                dr:source ccr_update_alternate_retry;
+                dr:fieldnum 58;
+            }
+
+            leaf cca-update {
+                description "Number of CCA-U messages received";
+                type uint64;
+                dr:source cca_update;
+                dr:fieldnum 59;
+            }
+
+            leaf cca-update-alternate {
+                description "Number of CCA-U messages received on the alternate partition";
+                type uint64;
+                dr:source cca_update_alternate;
+                dr:fieldnum 60;
+            }
+
+            leaf ccr-terminate {
+                description "Number of CCR-T messages sent";
+                type uint64;
+                dr:source ccr_terminate;
+                dr:fieldnum 61;
+            }
+
+            leaf ccr-terminate-retry {
+                description "Number of CCR-T messages retried";
+                type uint64;
+                dr:source ccr_terminate_retry;
+                dr:fieldnum 62;
+            }
+
+            leaf ccr-terminate-alternate-retry {
+                description "Number of CCR-T messages retried on the alternate partition";
+                type uint64;
+                dr:source ccr_terminate_alternate_retry;
+                dr:fieldnum 63;
+            }
+
+            leaf cca-terminate {
+                description "Number of CCA-T messages received";
+                type uint64;
+                dr:source cca_terminate;
+                dr:fieldnum 64;
+            }
+
+            leaf cca-terminate-alternate {
+                description "Number of CCA-T messages received on the alternate partition";
+                type uint64;
+                dr:source cca_terminate_alternate;
+                dr:fieldnum 65;
+            }
+
+            leaf cca-terminate-timeout {
+                description "Number of CCA-T messages timed out waiting for a response";
+                type uint64;
+                dr:source cca_terminate_timeout;
+                dr:fieldnum 66;
+            }
+
+            leaf cca-parse-error {
+                description "Number of CCA messages that could not be parsed correctly";
+                type uint64;
+                dr:source cca_parse_error;
+                dr:fieldnum 67;
+            }
+
+            leaf cca-dropped {
+                description "Number of CCA messages dropped";
+                type uint64;
+                dr:source cca_dropped;
+                dr:fieldnum 68;
+            }
+
+            leaf cca-initial-bad-result-code {
+                description "Number of CCA-I messages received with result-code other than success.";
+                type uint64;
+                dr:source cca_initial_bad_result_code;
+                dr:fieldnum 69;
+            }
+
+            leaf cca-initial-bad-data {
+                description "Number of CCC-I messages received with bad data";
+                type uint64;
+                dr:source cca_initial_bad_data;
+                dr:fieldnum 70;
+            }
+
+            leaf asr {
+                description "Number of ASR messages received";
+                type uint64;
+                dr:source asr;
+                dr:fieldnum 71;
+            }
+
+            leaf asr-retry {
+                description "Number of ASR messages retried";
+                type uint64;
+                dr:source asr_retry;
+                dr:fieldnum 72;
+            }
+
+            leaf asr-parse-error {
+                description "Number of ASR messages dropped due to parsing errors";
+                type uint64;
+                dr:source asr_parse_error;
+                dr:fieldnum 73;
+            }
+
+            leaf asr-update-drop {
+                description "Number of ASR messages dropped due to other reasons";
+                type uint64;
+                dr:source asr_update_drop;
+                dr:fieldnum 74;
+            }
+
+            leaf asa-ack {
+                description "Number of ASA messages responded with an ack.";
+                type uint64;
+                dr:source asa_ack;
+                dr:fieldnum 75;
+            }
+
+            leaf asa-nak {
+                description "Number of ASA messages responded with a nack";
+                type uint64;
+                dr:source asa_nak;
+                dr:fieldnum 76;
+            }
+    }
+
+    rpc juniper-netconf-get {
+       dr:command-top-of-output "/oc-authd-information";
+       dr:command-help "Default <get> rpc";
+       output {
+          container junos {
+              container system {
+		  dr:fieldnum 151;
+                  container subscriber-management {
+		      dr:fieldnum 151;
+                      container aaa{
+			  dr:fieldnum 151;
+                          container authentication-statistics {
+                              dr:source "/junos/system/subscriber-management/aaa/authentication-statistics";
+			      dr:fieldnum 152;
+                              uses authen-stats-group;
+                          }
+                          container accounting-statistics {
+                              dr:source "/junos/system/subscriber-management/aaa/accounting-statistics";
+			      dr:fieldnum 153;
+                              uses acct-stats-group;
+                          }
+                          container dynamic-request-statistics {
+                              dr:source "/junos/system/subscriber-management/aaa/dynamic-request-statistics";
+			      dr:fieldnum 154;
+                              uses dynreq-stats-group;
+                          }
+                          container radius-servers {
+                              dr:source "/junos/system/subscriber-management/aaa/radius-servers";
+			      dr:fieldnum 155;
+                              uses group-authd-radius-server-statistic-list;
+                          }
+                          container address-assignment-statistics {
+			      dr:fieldnum 156;
+                              container logical-system-routing-instances {
+                              dr:source "/junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances";
+			      dr:fieldnum 151;
+                              uses group-authd-address-assignment-lsri-list;
+                              }
+                          }
+                          container diameter {
+                              dr:fieldnum 157;
+                              container clients {
+                                  dr:fieldnum 151;
+                                  container nasreq {
+                                      description "The set of NASREQ client statistics";
+                                      dr:source "/junos/system/subscriber-management/aaa/diameter/clients/nasreq";
+                                      dr:fieldnum 151;
+                                      uses nasreq-stats-group;
+                                  }
+                                  container gx {
+                                      description "The set of PCRF client statistics";
+                                      dr:source "/junos/system/subscriber-management/aaa/diameter/clients/gx";
+                                      dr:fieldnum 152;
+                                      uses pcrf-stats-group;
+                                  }
+                                  container gy {
+                                      description "The set of OCS client statistics";
+                                      dr:source "/junos/system/subscriber-management/aaa/diameter/clients/gy";
+                                      dr:fieldnum 153;
+                                      uses ocs-stats-group;
+                                  }
+                              }
+                          }
+                          container nas5g-statistics {
+                              description "NAS-5G statistics";
+                              dr:source "/junos/system/subscriber-management/aaa/nas5g-statistics";
+                              dr:fieldnum 158;
+                              uses nas5g-stats-group;
+                          }
+                      }
+                  }
+              }
+          }
+       }
+    }
+}

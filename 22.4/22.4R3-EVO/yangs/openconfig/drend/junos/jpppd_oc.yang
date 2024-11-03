@@ -1,0 +1,79 @@
+/*
+    * OC definition for ppp statistics
+    *
+    * Copyright (c) 2017, Juniper Networks, Inc.
+    * All rights reserved.
+*/
+
+/**
+    * @file
+    * OC Render Tree.
+    */
+
+module jpppd_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/jpppd";	
+    prefix "jpppd_oc";
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    dr:command-app "jpppd";
+    dr:sub-component "ppp";
+    jnpr-proto:message-id "JPPPD-OC-MESSAGE-ID";
+
+    grouping ppp-stats-group {	
+        leaf ppp-stats-total-subscriber-sessions {
+            type uint32;
+            dr:source ppp-stats-total-subscriber-sessions;
+            dr:fieldnum 51;
+        }
+        leaf ppp-stats-sessions-disable-phase {
+            type uint32;
+            dr:source ppp-stats-sessions-disable-phase;
+            dr:fieldnum 52;
+        }
+        leaf ppp-stats-sessions-establish-phase {
+            type uint32;
+            dr:source ppp-stats-sessions-establish-phase;
+            dr:fieldnum 53;
+        }
+        leaf ppp-stats-sessions-network-phase {
+            type uint32;
+            dr:source ppp-stats-sessions-network-phase;
+            dr:fieldnum 54;
+        }
+        leaf ppp-stats-sessions-authenticate-phase {
+            type uint32;
+            dr:source ppp-stats-sessions-authenticate-phase;
+            dr:fieldnum 55;
+        }
+    }       
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-jpppd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+		    dr:fieldnum 151;
+                    container subscriber-management {
+			dr:fieldnum 151;
+                        container client-protocols {
+			    dr:fieldnum 151;
+                            container ppp {
+				dr:fieldnum 151;
+                                container statistics {
+                                    dr:source "/junos/system/subscriber-management/client-protocols/ppp/statistics";
+				    dr:fieldnum 151;
+                                    uses ppp-stats-group;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,127 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2021, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_qos_egress_qstats {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/mib2d/pfe-qos-egress-qstats";
+
+  prefix "pfe-qos-egress-qstats";
+
+  import openconfig-qos { prefix oc-qos; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-qos-out-queue-stats {
+    uses oc-qos:qos-interfaces-top {
+      augment "interfaces" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/interface-id" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/interface-id" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 51;
+      }
+      augment "interfaces/interface/interface-ref" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 152;
+      }
+      augment "interfaces/interface/interface-ref/state" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 151;
+      }
+      augment "interfaces/interface/interface-ref/state/interface" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 51;
+      }
+      augment "interfaces/interface/interface-ref/state/subinterface" {
+	dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+	dr:fieldnum 52;
+      }
+      augment "interfaces/interface/output" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 153;
+      }
+      augment "interfaces/interface/output/queues" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/output/queues/queue" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/output/queues/queue/name" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/output/queues/queue/state" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/output/queues/queue/state/name" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/output/queues/queue/state/max-queue-len" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/output/queues/queue/state/avg-queue-len" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/output/queues/queue/state/transmit-pkts" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/output/queues/queue/state/transmit-octets" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 55;
+      }
+      augment "interfaces/interface/output/queues/queue/state/dropped-pkts" {
+        dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+        dr:fieldnum 56;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-egress-qstats";
+  jnpr-proto:message-id "PFE-QOS-EGR-QSTATS-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container qos {
+	 dr:source "/qos/interfaces/interface/output/queues/queue/state/";
+         dr:fieldnum 151;
+
+	 uses pfe-qos-out-queue-stats;
+        }
+     }
+  }
+}

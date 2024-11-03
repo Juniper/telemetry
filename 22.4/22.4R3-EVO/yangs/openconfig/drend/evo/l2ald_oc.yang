@@ -1,0 +1,432 @@
+/*
+ * Render tree for L2ALD Network instance 
+ *
+ * Jan 2022, Deepika A
+ *
+ * Copyright (c) 2019-24, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module l2ald_oc {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/l2ald_oc";
+
+  prefix "l2-network-instance";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  import openconfig-vlan { prefix oc-vlan; }
+  import openconfig-network-instance { prefix oc-ni; }
+
+  description  "Example of L2ALD Bridge Domain";
+
+  // meta data
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping l2ni-fdb-mac-info {
+    uses oc-ni:l2ni-instance {
+      augment "fdb" {
+        dr:fieldnum 141;
+        dr:source-notification-name "oc-ni-fdb-change";
+      }
+
+      augment "fdb/state" {
+        dr:fieldnum 151;
+        dr:source "mac_db";
+      }
+
+      augment "fdb/state/mac-learning" {
+        dr:source "learning_enable";
+        dr:fieldnum 61;
+      }
+
+      augment "fdb/state/mac-aging-time" {
+        dr:source "aging_time";
+        dr:fieldnum 62;
+      }
+
+      augment "fdb/state/maximum-entries" {
+        dr:fieldnum 63;
+        dr:source "table_size";
+      }
+
+      augment "fdb/mac-table" {
+        dr:fieldnum 121;
+        dr:source "mac_db";
+      }
+
+      augment "fdb/mac-table/entries" {
+        dr:fieldnum 131;
+        dr:source "entries";
+      }
+
+      augment "fdb/mac-table/entries/entry" {
+        dr:fieldnum 141;
+        dr:source "entry";
+        dr:source-notification-name "oc-ni-mac-address-change";
+      }
+
+      augment "fdb/mac-table/entries/entry/mac-address" {
+        dr:fieldnum 61;
+        dr:source "mac_address";
+      }
+
+      augment "fdb/mac-table/entries/entry/vlan" {
+        dr:fieldnum 62;
+        dr:source "vlan_id";
+      }
+
+      augment "fdb/mac-table/entries/entry/state" {
+        dr:fieldnum 111;
+      }
+
+      augment "fdb/mac-table/entries/entry/state/mac-address" {
+        dr:fieldnum 81;
+        dr:source "mac_address";
+      }
+
+      augment "fdb/mac-table/entries/entry/state/vlan" {
+        dr:fieldnum 82;
+        dr:source "vlan_id";
+      }
+
+      augment "fdb/mac-table/entries/entry/state/entry-type" {
+        dr:fieldnum 83;
+        dr:source "entry_type";
+        dr:map STATIC  { dr:map-from 0; }
+        dr:map DYNAMIC  { dr:map-from 1; }
+      }
+
+      augment "fdb/mac-table/entries/entry/state/evi" {
+        dr:fieldnum 85;
+        dr:source "vni_id";
+      }
+
+      augment "fdb/mac-table/entries/entry/interface" {
+        dr:fieldnum 112;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref" {
+        dr:fieldnum 112;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state" {
+        dr:fieldnum 113;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state/interface" {
+        dr:fieldnum 131;
+        dr:source "interface";
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state/subinterface" {
+        dr:fieldnum 141;
+        dr:source "subinterface";
+
+      }
+   }
+ }
+
+ grouping oc-vlan-top { 
+    uses oc-vlan:vlan-top {
+       augment "vlans" {
+	 dr:fieldnum 161;
+       }
+
+       augment "vlans/vlan" {
+	 dr:source "bd";
+	 dr:fieldnum 161;
+       }
+
+       augment "vlans/vlan/vlan-id" {
+	 dr:source "tag";
+	 dr:fieldnum 51;
+       }
+
+       augment "vlans/vlan/state" {
+	 dr:fieldnum 52;
+	 dr:source-notification-name "oc-ni-vlan-state-change";
+       }
+
+       augment "vlans/vlan/state/name" {
+	 dr:source "bd_config_name";
+	 dr:fieldnum 51;
+       }
+
+       augment "vlans/vlan/state/vlan-id" {
+	 dr:source "vlan-id";
+	 dr:fieldnum 52;
+       }
+
+       augment "vlans/vlan/state/status" {
+	 description "Admin state of the VLAN";
+	 dr:source "state";
+	 dr:fieldnum 53;
+	 dr:map ACTIVE  { dr:map-from 1; }
+	 dr:map SUSPENDED { dr:map-from 2; }
+       }
+
+       augment "vlans/vlan/members" {
+	  dr:fieldnum 53;
+       }
+
+       augment "vlans/vlan/members/member" {
+	 dr:fieldnum 151;
+	 dr:atomic-data;
+	 dr:source "member";
+       }
+
+       augment "vlans/vlan/members/member/state" {
+	 dr:fieldnum 161;
+	 dr:source-notification-name "oc-ni-vlan-member-state-change";
+       }
+
+       augment "vlans/vlan/members/member/state/interface" {
+	 dr:fieldnum 151;
+	 dr:source "if_name";
+       }
+    }
+ }
+
+
+  // Daemon that handles this hierarchy
+  dr:command-app "l2ald";
+  dr:sub-component "l2-network-instance";
+  jnpr-proto:message-id "L2ALD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+            description
+              "Routing instance name";
+          }
+
+          uses l2ni-fdb-mac-info;
+
+          container interfaces {
+            dr:fieldnum 151;
+            list interface {
+              key "id";
+              dr:source "interfaces/interface";
+              dr:fieldnum 151;
+
+              leaf id {
+                type string;
+                dr:source "intf_name";
+                dr:fieldnum 51;
+              }
+
+              container state {
+                dr:fieldnum 161;
+                uses oc-ni:instance-interfaces-config {
+                  augment "id" {
+                    dr:source "intf_name";
+                    dr:fieldnum 61;
+                  }
+
+                  augment "mac-pinning" {
+                    dr:source "mac_pinning";
+                    dr:fieldnum 62;
+                    dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+                  }
+                }
+              }
+            }
+          }
+          uses oc-vlan-top;
+        }
+      }
+    }
+  }
+
+  notification oc-ni-fdb-change {
+    dr:source-notification-name "oc-ni-fdb-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-fdb-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses l2ni-fdb-mac-info; 
+	}
+     }
+  }
+
+  notification oc-ni-vlan-state-change {
+    dr:source-notification-name "oc-ni-vlan-state-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-vlan-state-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses oc-vlan-top;
+        }
+     }
+  }
+
+  notification oc-ni-vlan-member-state-change {
+    dr:source-notification-name "oc-ni-vlan-member-state-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-vlan-member-state-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses oc-vlan-top;
+	}
+     }
+  }
+
+  notification oc-ni-intf-mac-pinning-change {
+    dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-intf-mac-pinning-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+
+	   container interfaces {
+              dr:fieldnum 151;
+              list interface {
+		 key "id";
+		 dr:source "interfaces/interface";
+		 dr:fieldnum 151;
+
+		 leaf id {
+		   type string;
+		   dr:source "intf_name";
+		   dr:fieldnum 51;
+		 }
+
+		 container state {
+		    dr:fieldnum 161;
+		    uses oc-ni:instance-interfaces-config {
+		      augment "mac-pinning" {
+			dr:source "mac_pinning";
+			dr:fieldnum 62;
+			dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+		      }
+		    }
+		 }
+              }
+           }
+        }
+     }
+  }
+
+  notification oc-ni-mac-address-change {
+    dr:source-notification-name "oc-ni-mac-address-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-mac-address-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key "name";
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+            dr:fieldnum 141;
+          }
+          augment "fdb/mac-table" {
+            dr:fieldnum 121;
+            dr:source "mac_db";
+          }
+          augment "fdb/mac-table/entries" {
+            dr:fieldnum 131;
+            dr:source "entries";
+          }
+          augment "fdb/mac-table/entries/entry" {
+            dr:fieldnum 141;
+            dr:source "entry";
+          }
+          augment "fdb/mac-table/entries/entry/mac-address" {
+            dr:fieldnum 61;
+            dr:source "mac_address";
+          }
+          augment "fdb/mac-table/entries/entry/vlan" {
+            dr:fieldnum 62;
+            dr:source "vlan_id";
+          }
+          augment "fdb/mac-table/entries/entry/state" {
+            dr:fieldnum 111;
+          }
+          augment "fdb/mac-table/entries/entry/state/mac-address" {
+            dr:fieldnum 81;
+            dr:source "mac_address";
+          }
+          augment "fdb/mac-table/entries/entry/state/vlan" {
+            dr:fieldnum 82;
+            dr:source "vlan_id";
+          }
+          augment "fdb/mac-table/entries/entry/state/entry-type" {
+            dr:fieldnum 83;
+            dr:source "entry_type";
+            dr:map STATIC  { dr:map-from 0; }
+            dr:map DYNAMIC  { dr:map-from 1; }
+          }
+          augment "fdb/mac-table/entries/entry/state/evi" {
+            dr:fieldnum 85;
+            dr:source "vni_id";
+          }
+          augment "fdb/mac-table/entries/entry/interface" {
+            dr:fieldnum 112;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref" {
+             dr:fieldnum 112;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state" {
+            dr:fieldnum 113;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state/interface" {
+            dr:fieldnum 131;
+            dr:source "interface";
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state/subinterface" {
+            dr:fieldnum 141;
+            dr:source "subinterface";
+          }
+        }
+      }
+    }
+  }
+}

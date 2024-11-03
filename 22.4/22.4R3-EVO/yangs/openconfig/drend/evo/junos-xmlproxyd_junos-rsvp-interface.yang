@@ -1,0 +1,176 @@
+/*
+ * Render Tree definition for RSVP interface
+ *
+ * March 2016, Venkata Chaitanya Munukutla
+ *
+ * Copyright (c) 1998-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module junos-xmlproxyd_junos-rsvp-interface {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/mpls";
+
+  prefix "rsvp_interface_internal";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  dr:command-app "xmlproxyd";
+  dr:sub-component "rsvp-interface";
+  jnpr-proto:message-id "JUNOS-XMLPROXYD-JUNOS-RSVP-INTERFACE-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/junos";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:cli-command "show rsvp interface detail";
+    dr:command-help "default <get> rpc";
+    output {
+      container junos {
+        container rsvp-interface-information {
+          dr:source "/rsvp-interface-information";
+	  dr:fieldnum 151;
+
+          leaf "active-count" {
+             type uint32;
+             dr:source "active-count";
+             dr:fieldnum 51;
+          }
+          list "rsvp-interface" {
+            key "interface-name";
+            dr:source "rsvp-interface";
+            dr:fieldnum 151;
+            leaf "interface-name" {
+              type string;
+              dr:source "interface-name";
+              dr:fieldnum 51;
+            } 
+            leaf "index" {
+              type uint32;
+              dr:source "index";
+              dr:fieldnum 52;
+            }
+            leaf "rsvp-status" {
+              type string;
+              dr:source "rsvp-status";
+              dr:fieldnum 53;
+            }
+            leaf "authentication-flag" {
+              type string;
+              dr:source "authentication-flag";
+              dr:fieldnum 54;
+            }
+            leaf "aggregate-flag" {
+              type string;
+              dr:source "aggregate-flag";
+              dr:fieldnum 55;
+            }
+            leaf "ack-flag" {
+              type string;
+              dr:source "ack-flag";
+              dr:fieldnum 56;
+            }
+            leaf "protect-flag" {
+              type string;
+              dr:source "protect-flag";
+              dr:fieldnum 57;
+            }
+            leaf "hello-interval" {
+              type uint32;
+              dr:source "hello-interval";
+              dr:fieldnum 58;
+            }
+            leaf "interface-address" {
+              type string;
+              dr:source "interface-address";
+              dr:fieldnum 59;
+            }
+            list "message-statistics" {
+              key "rsvp-message";
+              dr:source "message-statistics";
+              dr:fieldnum 151;
+              leaf "rsvp-message" {
+                type string;
+                dr:source "rsvp-message";
+                dr:fieldnum 51;
+              }
+              leaf "messages-sent" {
+                type uint32;
+                dr:source "messages-sent";
+                dr:fieldnum 52;
+              }
+              leaf "messages-received" {
+                type uint32;
+                dr:source "messages-received";
+                dr:fieldnum 53;
+              }
+              leaf "messages-sent-5seconds" {
+                type uint32;
+                dr:source "messages-sent-5seconds";
+                dr:fieldnum 54;
+              }
+              leaf messages-received-5seconds {
+                type uint32;
+                dr:source "messages-received-5seconds";
+                dr:fieldnum 55;
+              }
+            }
+            container rsvp-telink {
+              dr:source "rsvp-telink";
+	      dr:fieldnum 152;
+              leaf "active-reservation" {
+                type uint32;
+                dr:source "active-reservation";
+                dr:fieldnum 51;
+              }
+              leaf "preemption-count" {
+                type uint32;
+                dr:source "preemption-count";
+                dr:fieldnum 52;
+              }
+              leaf "update-threshold" {
+                type uint32;
+                dr:source "update-threshold";
+                dr:fieldnum 53;
+              }
+              leaf "subscription" {
+                type uint32;
+                dr:source "subscription";
+                dr:fieldnum 54;
+              }
+              leaf "static-bandwidth" {
+                type string;
+                dr:source "static-bandwidth";
+                dr:fieldnum 55;
+              }
+              leaf "available-bandwidth" {
+                type string;
+                dr:source "available-bandwidth";
+                dr:fieldnum 56;
+              }  
+              list "reserved-bandwidth" {
+                key "bandwidth-priority";
+                dr:source "reserved-bandwidth";
+                dr:fieldnum 151;
+                leaf "bandwidth-priority" {
+                  type uint32;
+                  dr:source "bandwidth-priority";
+                  dr:fieldnum 51;
+                }
+                leaf "total-reserved-bandwidth" {
+                  type string;
+                  dr:source "total-reserved-bandwidth";
+                  dr:fieldnum 52;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

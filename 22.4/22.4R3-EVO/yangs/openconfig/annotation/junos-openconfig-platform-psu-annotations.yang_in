@@ -1,0 +1,24 @@
+module junos-openconfig-platform-psu-annotations {
+
+    yang-version "1";
+
+    prefix "jnx-oc-platform-psu-ann";
+
+    namespace "http://yang.juniper.net/yang/platform/psu/annotations";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-psu { prefix oc-platform-psu; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-04-05" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:power-supply/oc-platform:state" {
+        JUNOS_PRODUCT(BRACKLA_PTX VALE_PTX);
+    }
+}

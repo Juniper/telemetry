@@ -1,0 +1,56 @@
+module jnx-aug-openconfig-platform {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/augment/platform";
+
+    prefix "jnx-oc-platform";
+
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-cpu { prefix oc-cpu; }
+
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS augments to OpenConfig components model";
+
+    revision "2019-11-05" {
+        description "Initial revision";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:cpu/" +
+        "oc-cpu:utilization/oc-cpu:state" {
+              leaf name {
+                  type string;
+                  description "Indicates the name related to the utilization of
+                  the CPU";
+              }
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:integrated-circuit/oc-platform:state" {
+        description "Data for chip component, such as ASIC or NPU";
+
+        container properties {
+            description "Contianer for chip component";
+            list property {
+
+                key name;
+                description "Name of the chip component";
+
+                leaf name {
+                    description "Name for chip component";
+                    type string;
+                }
+
+                container state {
+                    description "Container for chip component state";
+
+                    leaf value {
+                        description "Data value for chip component";
+                        type uint64;
+                    }
+                }
+            }
+        }
+    }
+}

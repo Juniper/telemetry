@@ -1,0 +1,100 @@
+/*
+ * $Id:$
+ *
+ * File: hwdre_fpc_env.yang
+ * Description: FPC environment OC yang model for Platform status
+ *
+ * Created by Siddharth Agali
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module hwdre_fpc_env {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/hwdre-fpc-env";
+
+    prefix "hwdre-fpc-env";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import junos-fpc-env { prefix junos-fpc-env; }
+
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+  grouping fpc-env-inventory {
+    uses junos-fpc-env:jnx-fpc-env-top {
+        augment "junos" {
+            dr:source "/evl_types:JunosOperState";
+            dr:fieldnum 1;
+        }
+        augment "junos/system" {
+            dr:fieldnum -1;
+        }
+        augment "junos/system/linecard" {
+            dr:source "hwd_module:fruE";
+            dr:fieldnum 4;
+        }
+        augment "junos/system/linecard/name" {
+            dr:source "oc_name";
+            dr:fieldnum 4;
+        }
+        augment "junos/system/linecard/environment" {
+            dr:fieldnum -1;
+        }
+        augment "junos/system/linecard/environment/power-record" {
+            dr:source "fpcPowerRecordPropertyE";
+            dr:fieldnum 1;
+        }
+        augment "junos/system/linecard/environment/power-record/max-fpc-power" {
+                dr:source "max_fpc_power";
+                dr:fieldnum 1;
+        }
+        augment "junos/system/linecard/environment/power-record/fpc-power" {
+                dr:source "fpc_power";
+                dr:fieldnum 2;
+        }
+        augment "junos/system/linecard/environment/temp-record" {
+            dr:source "fpcTempPropertyE";
+            dr:fieldnum 2;
+        }
+        augment "junos/system/linecard/environment/temp-record/temp-sensor-name" {
+                dr:source "name";
+                dr:fieldnum 1;
+        }
+        augment "junos/system/linecard/environment/temp-record/temp-value" {
+                dr:source "value";
+                dr:fieldnum 2;
+        }
+        augment "junos/system/linecard/environment/voltage-record" {
+            dr:source "fpcVoltPropertyE";
+            dr:fieldnum 3;
+        }
+        augment "junos/system/linecard/environment/voltage-record/voltage-sensor-name" {
+                dr:source "name";
+                dr:fieldnum 1;
+        }
+        augment "junos/system/linecard/environment/voltage-record/voltage-value" {
+                dr:source "value";
+                dr:fieldnum 2;
+        }
+    }
+  }
+
+  dr:command-app "hwdre";
+  jnpr-proto:message-id "FPCENV-ID";
+  dr:sub-component "re";
+
+  rpc juniper-netconf-get {
+      dr:command-top-of-output "/evl_types:JunosOperState";
+      dr:command-full-name "drend juniper-netconf-get";
+      dr:command-help "default netconf <get> rpc";
+      output {
+          uses fpc-env-inventory;
+      }
+  }
+}

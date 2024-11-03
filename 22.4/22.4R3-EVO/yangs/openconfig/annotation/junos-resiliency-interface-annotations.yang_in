@@ -1,0 +1,25 @@
+module junos-resiliency-interface-annotations {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/junos/resiliency-interface/annotations";
+
+  prefix "junos-resiliency-interface-ann";
+
+  import junos-resiliency-interface { prefix jri; }
+  import junos-extension { prefix junos; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+
+  revision "2023-01-18" {
+    description
+      "Initial version to add native junos resiliency interface product support information";
+  }
+
+  augment "/jri:junos/jri:exception-profiles"
+  {
+    JUNOS_PRODUCT(MX_SERIES);
+    JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+}

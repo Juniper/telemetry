@@ -1,0 +1,370 @@
+/**
+ * @copyright  Copyright Juniper Networks 2022. All rights reserved
+ * @file       oc_optics_render.yang
+ * @author     sravanidc 
+ * @date       March, 2022
+ * @brief      picd - Open config - Optic sensor data
+ */
+
+module picd_oc_optics_render {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/picd_oc_optics_render";
+
+    prefix "oc_optics_render";
+
+    import drend {
+        prefix "dr";
+    }
+
+    //For UDP streaming
+    import jnpr-proto { prefix jnpr-proto; }
+    import jnx-aug-openconfig-interfaces { prefix jnx-aug-oc-interfaces; }
+    jnpr-proto:message-id "OPTICS-ID";
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    dr:command-app "picd";
+    dr:sub-component "optics_oc";
+
+    grouping ifd-group {
+        leaf "name" {
+            type string;
+            dr:source "name";
+            dr:fieldnum 1;
+        }
+    }
+
+    grouping picd-XcvrDiagData {
+        leaf "optics_type" {
+            type uint32;
+            dr:source "OpticsType";
+            dr:fieldnum 1;
+        }
+        leaf "module_temp" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentModuleTemperature";
+            dr:fieldnum 2;
+        }
+        leaf "module_temp_high_alarm_threshold" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentModuleTemperatureHighAlarmThreshold";
+            dr:fieldnum 3;
+        }
+        leaf "module_temp_low_alarm_threshold" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentModuleTemperatureLowAlarmThreshold";
+            dr:fieldnum 4;
+        }
+        leaf "module_temp_high_warning_threshold" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentModuleTemperatureHighWarningThreshold";
+            dr:fieldnum 5;
+        }
+        leaf "module_temp_low_warning_threshold" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentModuleTemperatureLowWarningThreshold";
+            dr:fieldnum 6;
+        }
+        leaf "laser_output_power_high_alarm_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentTxLaserOutputPowerHighAlarmThreshold_dbm";
+            dr:fieldnum 7;
+        }
+        leaf "laser_output_power_low_alarm_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentTxLaserOutputPowerLowAlarmThreshold_dbm";
+            dr:fieldnum 8;
+        }
+        leaf "laser_output_power_high_warning_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentTxLaserOutputPowerHighWarningThreshold_dbm";
+            dr:fieldnum 9;
+        }
+        leaf "laser_output_power_low_warning_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentTxLaserOutputPowerLowWarningThreshold_dbm";
+            dr:fieldnum 10;
+        }
+        leaf "laser_rx_power_high_alarm_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentRxLaserPowerHighAlarmThreshold_dbm";
+            dr:fieldnum 11;
+        }
+        leaf "laser_rx_power_low_alarm_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentRxLaserPowerLowAlarmThreshold_dbm";
+            dr:fieldnum 12;
+        }
+        leaf "laser_rx_power_high_warning_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentRxLaserPowerHighWarningThreshold_dbm";
+            dr:fieldnum 13;
+        }
+        leaf "laser_rx_power_low_warning_threshold_dbm" {
+            type decimal64 { fraction-digits 2; }
+            dr:source "CurrentRxLaserPowerLowWarningThreshold_dbm";
+            dr:fieldnum 14;
+        }
+       leaf "laser_bias_current_high_alarm_threshold" {
+            type decimal64 { fraction-digits 3; }
+            dr:source "CurrentTxLaserBiasCurrentHighAlarmThreshold";
+            dr:fieldnum 15;
+       }
+       leaf "laser_bias_current_low_alarm_threshold" {
+            type decimal64 { fraction-digits 3; }
+            dr:source "CurrentTxLaserBiasCurrentLowAlarmThreshold";
+            dr:fieldnum 16;
+       }
+       leaf "laser_bias_current_high_warning_threshold" {
+            type decimal64 { fraction-digits 3; }
+            dr:source "CurrentTxLaserBiasCurrentHighWarningThreshold";
+            dr:fieldnum 17;
+       }
+       leaf "laser_bias_current_low_warning_threshold" {
+            type decimal64 { fraction-digits 3; }
+            dr:source "CurrentTxLaserBiasCurrentLowWarningThreshold";
+            dr:fieldnum 18;
+       }
+        leaf "module_temp_high_alarm" {
+            type boolean;
+            dr:source "ModuleTemperatureHighAlarm";
+            dr:fieldnum 19;
+        }
+        leaf "module_temp_low_alarm" {
+            type boolean;
+            dr:source "ModuleTemperatureLowAlarm";
+            dr:fieldnum 20;
+        }
+        leaf "module_temp_high_warning" {
+            type boolean;
+            dr:source "ModuleTemperatureHighWarn";
+            dr:fieldnum 21;
+        }
+        leaf "module_temp_low_warning" {
+            type boolean;
+            dr:source "ModuleTemperatureLowWarn";
+            dr:fieldnum 22;
+        }
+        leaf "wavelength_channel" {
+            type string;
+            dr:source "CurrentModuleWavelength";
+            dr:fieldnum 73;
+        }
+        leaf "wavelength_setpoint" {
+            type string;
+            dr:source "CurrentWavelengthSetpoint";
+            dr:fieldnum 74;
+        }
+        leaf "tx_dither" {
+            type string;
+            dr:source "CurrentTxDither";
+            dr:fieldnum 75;
+        }
+        leaf "frequency_error" {
+            type string;
+            dr:source "CurrentFrequencyError";
+            dr:fieldnum 76;
+        }
+        leaf "wavelength_error" {
+            type string;
+            dr:source "CurrentWavelengthError";
+            dr:fieldnum 77;
+        }
+        leaf "tec_fault" {
+            type string;
+            dr:source "CurrentTecFault";
+            dr:fieldnum 78;
+        }
+        leaf "w_unlocked_alarm" {
+            type string;
+            dr:source "CurrentWUnlockedAlarm";
+            dr:fieldnum 79;
+        }
+        leaf "tx_tune_alarm" {
+            type string;
+            dr:source "CurrentTxTuneAlarm";
+            dr:fieldnum 80;
+        }
+    }
+
+    grouping picd-XcvrDiagLaneData {
+           leaf "lane_number" {
+              type int32;
+              dr:source "LaneIndex";
+              dr:fieldnum 1;
+           }
+           leaf "lane_laser_temperature" {
+              type decimal64 { fraction-digits 2; }
+              dr:source "CurrentLaneLaserTemperature";
+              dr:fieldnum 2;
+           }
+           leaf "lane_laser_output_power_dbm" {
+              type decimal64 { fraction-digits 2; }
+              dr:source "CurrentLaneTxLaserPower_dbm";
+              dr:fieldnum 3;
+           }
+           leaf "lane_laser_receiver_power_dbm" {
+              type decimal64 { fraction-digits 2; }
+              dr:source "CurrentLaneRxLaserPower_dbm";
+              dr:fieldnum 4;
+           }
+           leaf "lane_laser_bias_current" {
+              type decimal64 { fraction-digits 3; }
+              dr:source "CurrentLaneTxLaserBiasCurrent";
+              dr:fieldnum 5;
+           }
+           leaf "lane_laser_output_power_high_alarm" {
+              type boolean;
+              dr:source "LaneTxLaserPowerHighAlarm";
+              dr:fieldnum 6;
+           }
+           leaf "lane_laser_output_power_low_alarm" {
+              type boolean;
+              dr:source "LaneTxLaserPowerLowAlarm";
+              dr:fieldnum 7;
+           }
+           leaf "lane_laser_output_power_high_warning" {
+              type boolean;
+              dr:source "LaneTxLaserPowerHighWarn";
+              dr:fieldnum 8;
+           }
+           leaf "lane_laser_output_power_low_warning" {
+              type boolean;
+              dr:source "LaneTxLaserPowerLowWarn";
+              dr:fieldnum 9;
+           }
+           leaf "lane_laser_receiver_power_high_alarm" {
+              type boolean;
+              dr:source "LaneRxLaserPowerHighAlarm";
+              dr:fieldnum 10;
+           }
+           leaf "lane_laser_receiver_power_low_alarm" {
+              type boolean;
+              dr:source "LaneRxLaserPowerLowAlarm";
+              dr:fieldnum 11;
+           }
+           leaf "lane_laser_receiver_power_high_warning" {
+              type boolean;
+              dr:source "LaneRxLaserPowerHighWarn";
+              dr:fieldnum 12;
+           }
+           leaf "lane_laser_receiver_power_low_warning" {
+              type boolean;
+              dr:source "LaneRxLaserPowerLowWarn";
+              dr:fieldnum 13;
+           }
+           leaf "lane_laser_bias_current_high_alarm" {
+              type boolean;
+              dr:source "LaneTxLaserBiasCurrentHighAlarm";
+              dr:fieldnum 14;
+           }
+           leaf "lane_laser_bias_current_low_alarm" {
+              type boolean;
+              dr:source "LaneTxLaserBiasCurrentLowAlarm";
+              dr:fieldnum 15;
+           }
+           leaf "lane_laser_bias_current_high_warning" {
+              type boolean;
+              dr:source "LaneTxLaserBiasCurrentHighWarn";
+              dr:fieldnum 16;
+           }
+           leaf "lane_laser_bias_current_low_warning" {
+              type boolean;
+              dr:source "LaneTxLaserBiasCurrentLowWarn";
+              dr:fieldnum 17;
+           }
+           leaf "lane_tx_loss_of_signal_alarm" {
+              type boolean;
+              dr:source "LaneTxLOS";
+              dr:fieldnum 18;
+           }
+           leaf "lane_rx_loss_of_signal_alarm" {
+              type boolean;
+              dr:source "LaneRxLOS";
+              dr:fieldnum 19;
+           }
+           leaf "lane_tx_laser_disabled_alarm" {
+              type boolean;
+              dr:source "LaneTxLaserDisabledAlarm";
+              dr:fieldnum 20;
+           }
+           leaf "media_fec_corr_bits" {
+              type uint64;
+              dr:source "CurrentModuleMediaFecCorrBits";
+              dr:fieldnum 67;
+           }
+           leaf "media_fec_uncorr_blocks" {
+              type uint64;
+              dr:source "CurrentModuleMediaFecUnCorrBlocks";
+              dr:fieldnum 68;
+           }
+    }
+
+    /// junos/system/linecard/interfaces/   <==> /interfaces/interface[name='et-0/0/0']/state/counters/
+    /// junos/system/linecard/optics/   <==> /interfaces/interface[name='et-0/0/0']/optics/lanediags/lane[lane-number='0']/
+    rpc juniper-netconf-get {
+        output {
+            container interfaces {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                list interface {
+                    dr:atomic-data;
+                    dr:source "intf-interface-info";
+                    dr:fieldnum 1;
+                    uses ifd-group;
+                    key name;
+                    list optics {
+                       dr:source "xcvr-diagdata";
+                       dr:fieldnum 3;
+                       uses picd-XcvrDiagData;
+                       container lanediags {
+                           dr:fieldnum -1;
+                           list lane {
+                              key lane_number;
+                              dr:source "lanedata";
+                              dr:fieldnum 25;
+                              uses picd-XcvrDiagLaneData;
+                           }
+                       }
+                    }
+                }
+            }
+        }
+    }
+
+    rpc juniper-telemetry-get {
+        output {
+            container interfaces {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                list interface {
+                    dr:atomic-data;
+                    dr:source "intf-interface-info";
+                    dr:fieldnum 1;
+                    uses ifd-group;
+                    key name;
+                    list optics {
+                       dr:source "xcvr-diagdata";
+                       dr:fieldnum 3;
+                       uses picd-XcvrDiagData;
+                       container lanediags {
+                           dr:fieldnum -1;
+                           list lane {
+                              key lane_number;
+                              dr:source "lanedata";
+                              dr:fieldnum 25;
+                              uses picd-XcvrDiagLaneData;
+                           }
+                       }
+                    }
+                }
+            }
+        }
+    }
+}

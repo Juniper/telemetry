@@ -1,0 +1,159 @@
+/*
+ * $Id$
+ *
+ * @copyright  Copyright Juniper Networks 2021. All rights reserved
+ * @file       fabricHub_oc.yang
+ * @author     Aslam Ahmed
+ * @date       Oct, 2021
+ * @brief      fabricHub - OC integrated-circuit sensors
+ */
+
+module fabricHub_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/fabricHub";
+
+  prefix "fabricHub-oc";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-platform { prefix oc-pf; }
+  import openconfig-platform-integrated-circuit { prefix oc-ic; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+  contact "www.juniper.net";
+
+  grouping ic-type {
+
+    uses oc-pf:platform-component-config {
+      augment "name" {
+         dr:source "name";
+         dr:fieldnum 57;
+      }
+    }
+
+    uses oc-pf:platform-component-state {
+      augment "type" {
+         dr:source "ic_type";
+         dr:fieldnum 56;
+         dr:map INTEGRATED_CIRCUIT     { dr:map-from 27; } // ASIC type
+      }
+
+      augment "parent" {
+         dr:source "parent";
+         dr:fieldnum 58;
+      }
+    }
+  }
+
+  grouping fabric-capacity-state {
+    uses oc-ic:backplane-capacity-state {
+
+      augment "total" {
+         dr:source "total";
+         dr:fieldnum 52;
+      }
+
+      augment "total-operational-capacity" {
+         dr:source "total_operational_capacity";
+         dr:fieldnum 53;
+      }
+
+      augment "available-pct" {
+         dr:source "available_pct";
+         dr:fieldnum 54;
+      }
+
+      augment "consumed-capacity" {
+         dr:source "consumed_capacity";
+         dr:fieldnum 55; 
+      }   
+    }
+  }
+
+  dr:command-app "fabricHub";
+  jnpr-proto:message-id "FABRICHUB-OC-MESSAGE-ID";
+  dr:sub-component "re";
+
+  rpc juniper-netconf-get {
+    output {
+        container components {
+          dr:source "/evl_types:JunosOperState";
+          dr:fieldnum 151;
+          list component {
+            dr:source "fabric_module:fabricPfeE/fabricTelemetryCapacity";
+            dr:source-notification-name "fabric_module:fabricTelemetryCapacity-event";
+            dr:fieldnum 151;
+            key "name";
+            leaf name {
+              type string;
+              dr:source "name";
+              dr:source-notification-name "fabric_module:fabricTelemetryCapacity-event";
+              dr:fieldnum 51;
+            }
+
+            container state {
+              dr:fieldnum 152;
+
+              uses ic-type;
+            }
+
+            container integrated-circuit {
+              dr:fieldnum 151;
+
+              container backplane-facing-capacity {
+                dr:fieldnum 151;
+
+                container state {
+                  dr:fieldnum 151;
+
+                  uses fabric-capacity-state;
+                }
+              }
+            }
+          }
+        }
+     }
+  }
+
+  notification "oc-ic-fab-capacity-change" {
+    dr:source-notification-name "fabric_module:fabricTelemetryCapacity-event";
+        container components {
+          dr:source "/notification/fabric_module:fabricTelemetryCapacity-event/evl_types:JunosOperState";
+          dr:fieldnum 151;
+          list component {
+            dr:source "fabric_module:fabricPfeE/fabricTelemetryCapacity";
+            dr:fieldnum 151;
+            key "name";
+            leaf name {
+              type string;
+              dr:source "name";
+              dr:fieldnum 51;
+            }
+
+            container state {
+              dr:fieldnum 152;
+
+              uses ic-type;
+            }
+
+            container integrated-circuit {
+              dr:fieldnum 151;
+
+              container backplane-facing-capacity {
+                dr:fieldnum 151;
+
+                container state {
+                  dr:fieldnum 151;
+
+                  uses fabric-capacity-state;
+                }
+             }
+           }
+        }
+      }
+   }
+}

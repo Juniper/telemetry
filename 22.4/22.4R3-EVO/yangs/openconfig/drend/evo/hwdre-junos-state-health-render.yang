@@ -1,0 +1,133 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module hwdre-junos-state-health-render {
+  yang-version "1.1";
+
+  // namespace
+  namespace "http://yang.juniper.net/junos/state/health/render";
+
+  prefix "js-health-rdr";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import junos-state-chassis { prefix js-chas; }
+  import junos-state-health  { prefix js-health; }
+
+  // meta
+  organization "Juniper Networks, Inc.";
+
+  contact "www.juniper.net";
+
+  grouping chassisd-inventory {
+    container "state" {
+      dr:fieldnum 151;
+      container "chassis" {
+        dr:fieldnum 151;
+        uses js-chas:chassis-module-top {
+          augment "modules" {
+            dr:source "/evl_types:JunosOperState";
+            dr:fieldnum 151;
+          }
+          augment "modules/module" {
+            dr:source "hwd_module:fruE";
+            dr:source-notification-name "hwd_module:fruE-event";
+            dr:fieldnum 151;
+            uses js-health:chassis-module-health {
+              augment "health" {
+                dr:source "telemetryHealthData";
+                dr:fieldnum 151;
+              }
+              augment "health/status" {
+                dr:fieldnum 51;
+                dr:source "status";
+                dr:map UNSPECIFIED {dr:map-from 0;}
+                dr:map HEALTHY     {dr:map-from 1;}
+                dr:map DEGRADED    {dr:map-from 2;}
+                dr:map FAILED      {dr:map-from 3;}
+              }
+              augment "health/last-unhealthy" {
+                dr:fieldnum 52;
+                dr:source "lastUnhealthy";
+              }
+              augment "health/unhealthy-count" {
+                dr:fieldnum 53;
+                dr:source "unHealthyCount";
+              }
+            }
+          }
+          augment "modules/module/name" {
+            dr:source "oc_name";
+            dr:source-notification-name "hwd_module:fruE-event";
+            dr:fieldnum 51;
+          }
+        }
+      }
+    }
+  }
+
+  // Daemon which handles this hierarchy
+  dr:command-app "hwdre";
+  jnpr-proto:message-id "HWDRE-HEALTHZ-NATIVE-MESSAGE-ID";
+
+  // rpc for fetching health status
+  rpc juniper-netconf-get {
+      dr:command-top-of-output "/evl_types:JunosOperState";
+      dr:command-full-name "drend juniper-netconf-get";
+      dr:command-help "default netconf <get> rpc";
+      output {
+          uses chassisd-inventory;
+      }
+  }
+
+  notification "js-fru-state-change" {
+    dr:source-notification-name "hwd_module:fruE-event";
+    container "state" {
+      dr:fieldnum 151;
+      container "chassis" {
+        dr:fieldnum 151;
+        uses js-chas:chassis-module-top {
+          augment "modules" {
+            dr:source "/notification/hwd_module:fruE-event/evl_types:JunosOperState";
+            dr:fieldnum 151;
+          }
+          augment "modules/module" {
+            dr:source "hwd_module:fruE";
+            dr:fieldnum 151;
+            uses js-health:chassis-module-health {
+              augment "health" {
+                dr:source "telemetryHealthData";
+                dr:fieldnum 151;
+              }
+              augment "health/status" {
+                dr:fieldnum 51;
+                dr:source "status";
+                dr:map UNSPECIFIED {dr:map-from 0;}
+                dr:map HEALTHY     {dr:map-from 1;}
+                dr:map DEGRADED    {dr:map-from 2;}
+                dr:map FAILED      {dr:map-from 3;}
+              }
+              augment "health/last-unhealthy" {
+                dr:fieldnum 52;
+                dr:source "lastUnhealthy";
+              }
+              augment "health/unhealthy-count" {
+                dr:fieldnum 53;
+                dr:source "unHealthyCount";
+              }
+            }
+          }
+          augment "modules/module/name" {
+            dr:source "oc_name";
+            dr:fieldnum 51;
+          }
+        }
+      }
+    }
+  }
+}

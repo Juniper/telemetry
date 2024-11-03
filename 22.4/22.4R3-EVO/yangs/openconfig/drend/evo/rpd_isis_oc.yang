@@ -1,0 +1,3506 @@
+module rpd_isis_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/isis_oc_render";
+
+  prefix "isis_oc";
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-inet-types { prefix "oc-inet"; }
+  import openconfig-isis-types { prefix "oc-isis-types"; }
+  import openconfig-isis { prefix oc-isis; }
+
+  description "
+    Rendering Junos ISIS State in OpenConfig ISIS Schema terms
+  ";
+  revision "2018-06-04" {
+    description "Updated to OC ISIS yang v0.3.3"; 
+  }
+
+  revision "2017-04-04" {
+    description "Initial revision"; 
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "isis";
+  jnpr-proto:message-id "RPD-ISIS-OC-MESSAGE-ID";
+
+  grouping rend-isis-levels {
+    uses oc-isis:isis-base-level-config {
+      augment "level-number" {
+        dr:source "state/level";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping rend-isis-sys-counters {
+    uses oc-isis:system-level-counters-structural {
+      augment "state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "state/corrupted-lsps" {
+        dr:source "corrupt_lsps";
+        dr:fieldnum 51;
+      }
+      augment "state/database-overloads" {
+        dr:source "db_overloads";
+        dr:fieldnum 52;
+      }
+      augment "state/manual-address-drop-from-areas" {
+        dr:source "man_area_drops";
+        dr:fieldnum 53;
+      }
+      augment "state/exceed-max-seq-nums" {
+        dr:source "max_seq_nums";
+        dr:fieldnum 54;
+      }
+      augment "state/seq-num-skips" {
+        dr:source "seq_num_skips";
+        dr:fieldnum 55;
+      }
+      augment "state/own-lsp-purges" {
+        dr:source "own_lsp_purges";
+        dr:fieldnum 56;
+      }
+      augment "state/id-len-mismatch" {
+        dr:source "id_len_mismatches";
+        dr:fieldnum 57;
+      }
+      augment "state/part-changes" {
+        dr:source "part_changes";
+        dr:fieldnum 58;
+      }
+      augment "state/max-area-address-mismatches" {
+        dr:source "max_area_addr_mismatches";
+        dr:fieldnum 59;
+      }
+      augment "state/auth-fails" {
+        dr:source "auth_fails";
+        dr:fieldnum 60;
+      }
+      augment "state/spf-runs" {
+        dr:source "spf_count";
+        dr:fieldnum 61;
+      }
+      augment "state/auth-type-fails" {
+        dr:source "auth_type_fails";
+        dr:fieldnum 62;
+      }
+      augment "state/lsp-errors" {
+        dr:source "lsp_errors";
+        dr:fieldnum 63;
+      }
+    }
+  }
+
+
+  grouping rend-isis-lsdb {
+    uses oc-isis:lsp-state {
+      augment "lsp-id" {
+        dr:source "lsp-id";
+        dr:fieldnum 51;
+      }
+      augment "state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "state/lsp-id" {
+        dr:source "lsp-id";
+        dr:fieldnum 51;
+      }
+      augment "state/maximum-area-addresses" {
+        dr:source "maximum-area-addresses";
+        dr:fieldnum 52;
+      }
+      augment "state/version" {
+        dr:source "version";
+        dr:fieldnum 53;
+      }
+      augment "state/version2" {
+        dr:source "version2";
+        dr:fieldnum 54;
+      }
+      augment "state/id-length" {
+        dr:source "id-length";
+        dr:fieldnum 55;
+      }
+      augment "state/pdu-type" {
+        dr:source "pdu-type";
+        dr:fieldnum 56;
+	dr:map LEVEL-1 { dr:map-from 1; }
+	dr:map LEVEL-2 { dr:map-from 2; }
+	dr:map LEVEL-1-2 { dr:map-from 3; }
+      }
+      augment "state/remaining-lifetime" {
+        dr:source "remaining-lifetime";
+        dr:fieldnum 57;
+      }
+      augment "state/sequence-number" {
+        dr:source "sequence-number";
+        dr:fieldnum 58;
+      }
+      augment "state/checksum" {
+        dr:source "checksum";
+        dr:fieldnum 59;
+      }
+      augment "state/pdu-length" {
+        dr:source "pdu-length";
+        dr:fieldnum 60;
+      }
+      augment "state" {
+        leaf lsp-install-time {
+          type uint64;
+          description
+            "LSP install time";
+          dr:source "lsp-install-time";
+          dr:fieldnum 61;
+        }
+      }
+      augment "state/flags" {
+        dr:source "flag";
+        dr:fieldnum 62;
+        dr:map PARTITION_REPAIR { dr:map-from 128; }
+        dr:map ATTACHED_ERROR { dr:map-from 64; }
+        dr:map ATTACHED_EXPENSE { dr:map-from 32; }
+        dr:map ATTACHED_DELAY { dr:map-from 16; }
+        dr:map ATTACHED_DEFAULT { dr:map-from 8; }
+        dr:map OVERLOAD { dr:map-from 4; }
+      }
+      augment "state/is-type" {
+        dr:source "level";
+        dr:fieldnum 63;
+      }
+      augment "tlvs" {
+        dr:source "tlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv" {
+        dr:source "tlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/type" {
+        dr:source "tlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/state" {
+	dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/state/type" {
+        dr:source "tlv-type";
+        dr:fieldnum 51;
+	dr:map AREA_ADDRESSES { dr:map-from 1; }
+        dr:map IIS_NEIGHBORS { dr:map-from 2; }
+        dr:map AUTHENTICATION { dr:map-from 10; }
+        dr:map PURGE_OI { dr:map-from 13; }
+	dr:map LSP_BUFFER_SIZE { dr:map-from 14; }
+	dr:map EXTENDED_IS_REACHABILITY { dr:map-from 22; }
+        dr:map IPV4_INTERNAL_REACHABILITY { dr:map-from 128; }
+	dr:map NLPID { dr:map-from 129; }
+        dr:map IPV4_EXTERNAL_REACHABILITY { dr:map-from 130; }
+	dr:map IPV4_INTERFACE_ADDRESSES { dr:map-from 132; }
+	dr:map IPV4_TE_ROUTER_ID { dr:map-from 134; }
+	dr:map EXTENDED_IPV4_REACHABILITY { dr:map-from 135; }
+	dr:map DYNAMIC_NAME { dr:map-from 137; }
+        dr:map IPV4_SRLG { dr:map-from 138; }
+        dr:map MT_ISN { dr:map-from 222; }
+        dr:map MULTI_TOPOLOGY { dr:map-from 229; }
+        dr:map IPV6_INTERFACE_ADDRESSES { dr:map-from 232; }
+        dr:map MT_IPV4_REACHABILITY { dr:map-from 235; }
+	dr:map IPV6_REACHABILITY { dr:map-from 236; }
+        dr:map MT_IPV6_REACHABILITY { dr:map-from 237; }
+	dr:map ROUTER_CAPABILITIES { dr:map-from 242; }
+      }
+      augment "tlvs/tlv/area-address" {
+        dr:source "area-address";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/area-address/state" {
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/area-address/state/address" {
+        dr:source "area-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/nlpid" {
+        dr:source "nlpid";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/nlpid/state" {
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/nlpid/state/nlpid" {
+        dr:source "nlpid";
+        dr:fieldnum 51;
+        dr:map IPV4 { dr:map-from 204; }
+        dr:map IPV6 { dr:map-from 142; }
+      }
+      augment "tlvs/tlv/hostname" {
+        dr:source "hostname";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/hostname/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/hostname/state" {
+        leaf hname {
+          type string;
+          description
+            "Name of the node.";
+
+          dr:source "name";
+          dr:fieldnum 51;
+        }
+      }
+      augment "tlvs/tlv/ipv4-te-router-id" {
+        dr:source "rtrid";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/ipv4-te-router-id/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-te-router-id/state" {
+        leaf te-router-id {
+          type oc-inet:ipv4-address;
+          description
+            "IPv4 Traffic Engineering router ID of the node. For
+             traffic engineering, it guarantees that we have a
+             single stable address that can always be referenced in
+             a path that will be reachable from multiple hops away,
+             regardless of the state of the node's interfaces.";
+
+          dr:source "value";
+          dr:fieldnum 51;
+	}
+      }
+      augment "tlvs/tlv/ipv4-interface-addresses" {
+        dr:source "ipaddr";
+        dr:fieldnum 156;
+      }
+      augment "tlvs/tlv/ipv4-interface-addresses/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-interface-addresses/state/address" {
+        dr:source "ipaddr";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-interface-addresses" {
+        dr:source "ipv6addr";
+        dr:fieldnum 157;
+      }
+       augment "tlvs/tlv/ipv6-interface-addresses/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-interface-addresses/state/address" {
+        dr:source "ipv6addr";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/lsp-buffer-size" {
+        dr:source "lsp-bufsize";
+        dr:fieldnum 158;
+      }
+      augment "tlvs/tlv/lsp-buffer-size/state" {
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/lsp-buffer-size/state/size" {	
+        dr:source "bufsize";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability" {
+        dr:source "extended-ipv4-reachability";
+        dr:fieldnum 159;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/state/s-bit" {
+        dr:source "s-bit";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 54;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs" {
+        dr:source "subtlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv" {
+        dr:source "subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+	dr:map TLV135_TAG { dr:map-from 1; }
+	dr:map TLV135_PREFIX_SID { dr:map-from 3; }
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag" {
+        dr:source "tag";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag/state/tag32" {
+        dr:source "tag32";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids" {
+        dr:source "prefix-sid";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid" {
+        dr:source "sid";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/algorithm" {
+        dr:source "algo";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 53;
+        dr:map READVERTISEMENT { dr:map-from 128; }
+        dr:map NODE { dr:map-from 64; }
+        dr:map PHP { dr:map-from 32; }
+        dr:map EXPLICIT_NULL { dr:map-from 16; }
+        dr:map VALUE { dr:map-from 8; }
+        dr:map LOCAL { dr:map-from 4; }
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-ipv4-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/ipv6-reachability" {
+        dr:source "ipv6-reachability";
+        dr:fieldnum 160;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv6-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv6-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state/x-bit" {
+        dr:source "x-bit";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state/s-bit" {
+        dr:source "s-bit";
+        dr:fieldnum 54;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 55;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs" {
+        dr:source "subtlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv" {
+        dr:source "subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/state" {
+	dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+	dr:map TLV236_TAG { dr:map-from 1; }
+	dr:map TLV236_PREFIX_SID { dr:map-from 3; }
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag" {
+        dr:source "tag";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag/state/tag32" {
+        dr:source "tag32";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids" {
+        dr:source "prefix-sid";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid" {
+        dr:source "sid";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/algorithm" {
+        dr:source "algo";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 53;
+	dr:map READVERTISEMENT { dr:map-from 128; }
+        dr:map NODE { dr:map-from 64; }
+        dr:map PHP { dr:map-from 32; }
+        dr:map EXPLICIT_NULL { dr:map-from 16; }
+        dr:map VALUE { dr:map-from 8; }
+        dr:map LOCAL { dr:map-from 4; }
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/extended-is-reachability" {
+        dr:source "extended-is-reachability";
+        dr:fieldnum 161;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors" {
+        dr:source "neighbors";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/state/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances" {
+        dr:source "instances";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance" {
+        dr:source "instance";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/id" {
+        dr:source "id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs" {
+        dr:source "subTLVs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv" {
+        dr:source "subTLV";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+        dr:map TLV22_ADMIN_GROUP { dr:map-from 3; }
+	dr:map TLV22_IPV4_INTERFACE_INDEX { dr:map-from 4; }
+	dr:map TLV22_IPV4_INTERFACE_ADDRESS { dr:map-from 6; }
+	dr:map TLV22_IPV4_NEIGHBOR_ADDRESS { dr:map-from 8; }
+	dr:map TLV22_MAX_LINK_BANDWIDTH { dr:map-from 9; }
+	dr:map TLV22_MAX_RESERVABLE_BANDWIDTH { dr:map-from 10; }
+	dr:map TLV22_UNRESERVED_BANDWIDTH { dr:map-from 11; }
+        dr:map TLV22_IPV6_INTERFACE_ADDRESS { dr:map-from 12; }
+        dr:map TLV22_IPV6_NEIGHBOR_ADDRESS { dr:map-from 13; }
+	dr:map TLV22_TE_DEFAULT_METRIC { dr:map-from 18; }
+	dr:map TLV22_BANDWIDTH_CONSTRAINTS { dr:map-from 22; }
+	dr:map TLV22_ADJ_SID { dr:map-from 31; }
+	dr:map TLV22_ADJ_LAN_SID { dr:map-from 32; }
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-interface-address" {
+        dr:source "ipv4-interface-address";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-interface-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-interface-address/state/address" {
+        dr:source "ipv4-interface-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-neighbor-address" {
+        dr:source "ipv4-neighbor-address";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-neighbor-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv4-neighbor-address/state/address" {
+        dr:source "ipv4-neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/link-id" {
+        dr:source "if-indices";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/link-id/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/link-id/state/local" {
+        dr:source "local-index";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/link-id/state/remote" {
+        dr:source "remote-index";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-link-bandwidth" {
+        dr:source "max-link-bandwidth";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-link-bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-link-bandwidth/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-reservable-link-bandwidth" {
+        dr:source "max-reservable-link-bandwidth";
+        dr:fieldnum 156;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-reservable-link-bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/max-reservable-link-bandwidth/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth" {
+        dr:source "unreserved-bandwidth";
+        dr:fieldnum 157;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth/setup-priority" {
+        dr:source "setup-priority";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth/setup-priority/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/te-default-metric" {
+        dr:source "te-default-metric";
+        dr:fieldnum 158;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/te-default-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/te-default-metric/state/metric" {
+        dr:source "te-default-metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints" {
+        dr:source "bandwidth-constraints";
+        dr:fieldnum 159;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint" {
+         dr:source "bandwidth-constraint";
+         dr:fieldnum 151;
+       }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/model-id" {
+        dr:source "model-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state/model-id" {
+        dr:source "model-id";
+        dr:fieldnum 51;
+      }
+      /*augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state/reserved" {
+        dr:source "reserved";
+        dr:fieldnum 52;
+      }*/
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints"{
+        dr:source "constraints";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint"{
+        dr:source "constraint";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/constraint-id"{
+        dr:source "constraint-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state"{
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state/constraint-id"{
+        dr:source "constraint-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state/bandwidth"{
+        dr:source "bandwidth";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/admin-group" {
+        dr:source "admin-group";
+        dr:fieldnum 160;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/admin-group/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/admin-group/state/admin-group" {
+        dr:source "admin-group";
+        dr:fieldnum 51;
+      }
+
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids" {
+        dr:source "adjacency-sid";
+        dr:fieldnum 161;
+      }
+	  
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid" {
+       	  dr:source "sid";
+          dr:fieldnum 151;
+      }
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid/value" {
+          dr:source "value";
+          dr:fieldnum 51;
+      }
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+      }  
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid/state/value" {
+          dr:source "value";
+          dr:fieldnum 51;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid/state/flags" {
+          dr:source "flag";
+          dr:fieldnum 52;
+          dr:map ADDRESS_FAMILY { dr:map-from 128; }
+          dr:map BACKUP { dr:map-from 64; }
+          dr:map VALUE { dr:map-from 32; }
+          dr:map LOCAL { dr:map-from 16; }
+          dr:map SET { dr:map-from 8; }
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/adjacency-sids/adjacency-sid/state/weight" {
+          dr:source "weight";
+          dr:fieldnum 53;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids" {
+          dr:source "lan-adjacency-sid";
+          dr:fieldnum 162;
+	}
+	
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid" {
+          dr:source "sid";
+          dr:fieldnum 151;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/value" {
+          dr:source "value";
+          dr:fieldnum 51;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/state/value" {
+          dr:source "value";
+          dr:fieldnum 51;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/state/flags" {
+          dr:source "flag";
+          dr:fieldnum 52;
+          dr:map ADDRESS_FAMILY { dr:map-from 128; }
+          dr:map BACKUP { dr:map-from 64; }
+          dr:map VALUE { dr:map-from 32; }
+          dr:map LOCAL { dr:map-from 16; }
+          dr:map SET { dr:map-from 8; }
+	}
+	
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/state/weight" {
+          dr:source "weight";
+          dr:fieldnum 53;
+	}
+
+	augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/lan-adjacency-sids/lan-adjacency-sid/state/neighbor-id" {
+          dr:source "neighbor-id";
+          dr:fieldnum 54;
+	}
+
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-interface-address" {
+        dr:source "ipv6-interface-address";
+        dr:fieldnum 163;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-interface-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-interface-address/state/address" {
+        dr:source "ipv6-interface-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-neighbor-address" {
+        dr:source "ipv6-neighbor-address";
+        dr:fieldnum 164;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-neighbor-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/subtlvs/subtlv/ipv6-neighbor-address/state/address" {
+        dr:source "ipv6-neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/extended-is-reachability/neighbors/neighbor/instances/instance/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+/* RLI 34136
+      augment "tlvs/tlv/mt-isn" {
+        dr:source "mt-isn";
+        dr:fieldnum 162;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors" {
+        dr:source "neighbors";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/state/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/state/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs" {
+        dr:source "subTLVs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv" {
+        dr:source "subTLV";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+        dr:map TLV222_IPV4_INTERFACE_INDEX { dr:map-from 4; }
+        dr:map TLV222_IPV4_INTERFACE_ADDRESS { dr:map-from 6; }
+        dr:map TLV222_IPV4_NEIGHBOR_ADDRESS { dr:map-from 8; }
+        dr:map TLV222_MAX_LINK_BANDWIDTH { dr:map-from 9; }
+        dr:map TLV222_MAX_RESERVABLE_BANDWIDTH { dr:map-from 10; }
+        dr:map TLV222_UNRESERVED_BANDWIDTH { dr:map-from 11; }
+        dr:map TLV222_IPV6_INTERFACE_ADDRESS { dr:map-from 12; }
+        dr:map TLV222_IPV6_NEIGHBOR_ADDRESS { dr:map-from 13; }
+        dr:map TLV222_TE_DEFAULT_METRIC { dr:map-from 18; }
+        dr:map TLV222_BANDWIDTH_CONSTRAINTS { dr:map-from 22; }
+        dr:map TLV222_ADJ_SID { dr:map-from 31; }
+        dr:map TLV222_ADJ_LAN_SID { dr:map-from 32; }
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-interface-address" {
+        dr:source "ipv4-interface-address";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-interface-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-interface-address/state/address" {
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-neighbor-address" {
+        dr:source "ipv4-neighbor-address";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-neighbor-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv4-neighbor-address/state/address" {
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/link-id" {
+        dr:source "if-indices";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/link-id/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/link-id/state/local" {
+        dr:source "local-index";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/link-id/state/remote" {
+        dr:source "remote-index";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-link-bandwidth" {
+        dr:source "max-link-bandwidth";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-link-bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-link-bandwidth/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-reservable-link-bandwidth" {
+        dr:source "max-reservable-link-bandwidth";
+        dr:fieldnum 156;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-reservable-link-bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/max-reservable-link-bandwidth/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth" {
+        dr:source "unreserved-bandwidth";
+        dr:fieldnum 157;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth/setup-priority" {
+        dr:source "setup-priority";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth/setup-priority/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/unreserved-bandwidth/setup-priority/state/bandwidth" {
+        dr:source "bandwidth";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/te-default-metric" {
+        dr:source "te-default-metric";
+        dr:fieldnum 158;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/te-default-metric/state" {
+        dr:fieldnum 151;
+       }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/te-default-metric/state/metric" {
+        dr:source "te-default-metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints" {
+        dr:source "bandwidth-constraints";
+        dr:fieldnum 159;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint" {
+         dr:source "bandwidth-constraint";
+         dr:fieldnum 151;
+       }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/model-id" {
+        dr:source "model-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state/model-id" {
+        dr:source "model-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/state/reserved" {
+        dr:source "reserved";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints"{
+        dr:source "constraints";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint"{
+        dr:source "constraint";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/constraint-id"{
+        dr:source "constraint-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state"{
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state/constraint-id"{
+        dr:source "constraint-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/bandwidth-constraints/bandwidth-constraint/constraints/constraint/state/bandwidth"{
+        dr:source "bandwidth";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/admin-group" {
+        dr:source "admin-group";
+        dr:fieldnum 160;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/admin-group/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/admin-group/state/admin-group" {
+        dr:source "admin-group";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/adjacency-sids" {
+        dr:source "adjacency-sid";
+        dr:fieldnum 161;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/adjacency-sids" {
+        container adj-sid {
+          dr:source "sid";
+          dr:fieldnum 151;
+          description
+            "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+            an IGP segment attached to a unidirectional adjacency or
+            a set of unidirectional adjacencies. By default, an IGP-
+            Adjacency Segment is local to the node which advertises
+            it.";
+
+          container state {
+            dr:source "state";
+            dr:fieldnum 151;
+            description
+              "State parameters of Adjacency-SID.";
+
+            leaf value {
+              type uint32;
+              description
+                "Adjacency-SID value.";
+              dr:source "value";
+              dr:fieldnum 51;
+            }
+
+            leaf-list flags {
+              type enumeration {
+                enum ADDRESS_FAMILY {
+                  description
+                    "Address-family flag. When unset, the Adj-SID
+                    refers to an adjacency with outgoing IPv4
+                    encapsulation. If set then the Adj-SID refers to
+                    an adjacency with outgoing IPv6 encapsulation.";
+                }
+                enum BACKUP {
+                  description
+                    "Backup flag. When set, the Adj-SID refers to an
+                    adjacency being protected (e.g.: using IPFRR or
+                    MPLS-FRR).";
+                }
+                enum VALUE {
+                  description
+                    "Value flag. When set, the SID carries a value
+                    (instead of an index). By default the flag is
+                    SET.";
+                }
+                enum LOCAL {
+                  description
+                    "Local flag. When set, the value/index carried
+                    by the SID has local significance. By default
+                    the flag is SET.";
+                }
+                enum SET {
+                  description
+                    "Set flag. When set, the S-Flag indicates that
+                    the Adj-SID refers to a set of adjacencies.";
+                }
+              }
+              description
+                "Flags associated with Adj-Segment-ID.";
+              dr:source "flag";
+              dr:fieldnum 52;
+	      dr:map ADDRESS_FAMILY { dr:map-from 128; }
+              dr:map BACKUP { dr:map-from 64; }
+              dr:map VALUE { dr:map-from 32; }
+              dr:map LOCAL { dr:map-from 16; }
+              dr:map SET { dr:map-from 8; }
+            }
+            
+            leaf weight {
+              type uint8;
+              description
+                "Value that represents the weight of the Adj-SID for
+                the purpose of load balancing.";
+              dr:source "weight";
+              dr:fieldnum 53;
+            }
+          }
+        }
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/lan-adjacency-sids" {
+        dr:source "lan-adjacency-sid";
+        dr:fieldnum 162;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/lan-adjacency-sids" {
+        container lan-adj-sid {
+          dr:source "sid";
+          dr:fieldnum 151;
+
+          description
+            "Adjacency Segment-IDs List. An IGP-Adjacency Segment is
+            an IGP segment attached to a unidirectional adjacency or
+            a set of unidirectional adjacencies. By default, an IGP-
+            Adjacency Segment is local to the node which advertises
+            it.";
+
+          container state {
+            dr:source "state";
+            dr:fieldnum 151;
+	    description
+              "State parameters of LAN Adjacency-SID.";
+
+            leaf value {
+              type uint32;
+              description
+                "LAN Adjacency-SID value.";
+              dr:source "value";
+              dr:fieldnum 51;
+            }
+
+            leaf-list flags {
+              type enumeration {
+                enum ADDRESS_FAMILY {
+                  description
+                    "Address-family flag. When unset, the Adj-SID
+                    refers to an adjacency with outgoing IPv4
+                    encapsulation. If set then the Adj-SID refers to
+                    an adjacency with outgoing IPv6 encapsulation.";
+                }
+                enum BACKUP {
+                  description
+                    "Backup flag. When set, the Adj-SID refers to an
+                    adjacency being protected (e.g.: using IPFRR or
+                    MPLS-FRR).";
+                }
+                enum VALUE {
+                  description
+                    "Value flag. When set, the SID carries a value
+		    (instead of an index). By default the flag is
+                    SET.";
+                }
+                enum LOCAL {
+                  description
+                    "Local flag. When set, the value/index carried
+                    by the SID has local significance. By default
+                    the flag is SET.";
+                }
+                enum SET {
+                  description
+                    "Set flag. When set, the S-Flag indicates that
+                    the Adj-SID refers to a set of adjacencies.";
+                }
+              }
+              description
+                "Flags associated with LAN-Adj-Segment-ID.";
+              dr:source "flag";
+              dr:fieldnum 52;
+              dr:map ADDRESS_FAMILY { dr:map-from 128; }
+              dr:map BACKUP { dr:map-from 64; }
+              dr:map VALUE { dr:map-from 32; }
+              dr:map LOCAL { dr:map-from 16; }
+              dr:map SET { dr:map-from 8; }
+            }
+
+            leaf weight {
+              type uint8;
+              description
+		"Value that represents the weight of the Adj-SID
+                for the purpose of load balancing.";
+              dr:source "weight";
+              dr:fieldnum 53;
+            }
+
+            leaf neighbor-id {
+              type oc-isis-types:system-id;
+              description
+                "System ID of the neighbor associated with the LAN-
+                Adj-Segment-ID value.";
+              dr:source "neighbor-id";
+              dr:fieldnum 54;
+            }
+          }
+        }
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-interface-address" {
+        dr:source "ipv6-interface-address";
+        dr:fieldnum 163;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-interface-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-interface-address/state/address" {
+        dr:source "ipv6-interface-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-neighbor-address" {
+        dr:source "ipv6-neighbor-address";
+        dr:fieldnum 164;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-neighbor-address/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/subtlvs/subtlv/ipv6-neighbor-address/state/address" {
+        dr:source "ipv6-neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-isn/neighbors/neighbor/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+*/
+      augment "tlvs/tlv/router-capabilities" {
+        dr:source "router-capabilities";
+        dr:fieldnum 162;
+      }
+      augment "tlvs/tlv/router-capabilities/capability" {
+        dr:source "router-capability";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/instance-number" {
+        dr:source "instance-number";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/state/instance-number" {
+        dr:source "instance-number";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/state/router-id" {
+        dr:source "rtr-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 53;
+	dr:map FLOOD { dr:map-from 1; }
+	dr:map DOWN { dr:map-from 2; }
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs" {
+        dr:source "subtlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv" {
+        dr:source "subtlvs";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/state" {
+	dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+	dr:map TLV242_SR_CAPABILITY { dr:map-from 2; }
+	dr:map TLV242_SR_ALGORITHM { dr:map-from 19; }
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-algorithms" {
+        dr:source "segment-routing-algorithm";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-algorithms/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-algorithms/state/algorithm" {
+        dr:source "algorithm";
+        dr:fieldnum 51;
+	dr:map SPF { dr:map-from 0; }
+	dr:map STRICT_SPF { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability" {
+        dr:source "segment-routing-capability";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 51;
+        dr:map IPV4_MPLS { dr:map-from 128; }
+        dr:map IPV6_MPLS { dr:map-from 64; }
+        dr:map IPV6_SR { dr:map-from 32; }
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors" {
+        dr:source "srgb-descriptors";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors/srgb-descriptor" {
+        dr:source "srgb-descriptor";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors/srgb-descriptor/range" {
+        dr:source "range";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors/srgb-descriptor/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors/srgb-descriptor/state/range" {
+        dr:source "range";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/subtlvs/subtlv/segment-routing-capability/srgb-descriptors/srgb-descriptor/state/label" {
+        dr:source "label";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/router-capabilities/capability/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+/* RLI 34136
+      augment "tlvs/tlv/multi-topology" {
+        dr:source "multi-topology";
+        dr:fieldnum 164;
+      }
+      augment "tlvs/tlv/multi-topology/topologies" {
+        dr:source "topologies";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/multi-topology/topologies/topology" {
+        dr:source "topology";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/multi-topology/topologies/topology/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/multi-topology/topologies/topology/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/multi-topology/topologies/topology/state/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/multi-topology/topologies/topology/state/attributes" {
+        dr:source "attr";
+        dr:fieldnum 52;
+        dr:map TLV229_OVERLOAD { dr:map-from 128; }
+        dr:map TLV229_ATTACHED { dr:map-from 64; }
+        dr:map TLV229_NONE { dr:map-from 0; }
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability" {
+        dr:source "mt-ipv6-reachability";
+        dr:fieldnum 165;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv6-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv6-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/x-bit" {
+        dr:source "x-bit";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/s-bit" {
+        dr:source "s-bit";
+        dr:fieldnum 54;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 55;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/state/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 56;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs" {
+        dr:source "subtlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv" {
+        dr:source "subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/state" {
+	dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+        dr:map TLV237_TAG { dr:map-from 1; }
+        dr:map TLV237_PREFIX_SID { dr:map-from 3; }
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag" {
+        dr:source "tag";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/tag/state/tag32" {
+        dr:source "tag32";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids" {
+        dr:source "prefix-sid";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid" {
+        dr:source "sid";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+       augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/algorithm" {
+        dr:source "algo";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 53;
+        dr:map READVERTISEMENT { dr:map-from 128; }
+        dr:map NODE { dr:map-from 64; }
+        dr:map PHP { dr:map-from 32; }
+        dr:map EXPLICIT_NULL { dr:map-from 16; }
+        dr:map VALUE { dr:map-from 8; }
+        dr:map LOCAL { dr:map-from 4; }
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs" {
+        dr:source "undefined-subtlvs";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv" {
+        dr:source "undefined-subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv6-reachability/prefixes/prefix/undefined-subtlvs/undefined-subtlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/is-reachability" {
+        dr:source "is-reachability";
+        dr:fieldnum 166;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors" {
+        dr:source "neighbors";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/state/system-id" {
+        dr:source "sys-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/default-metric" {
+        dr:source "default-metric";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/default-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/default-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 51;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map EXTERNAL { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/default-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/delay-metric" {
+        dr:source "delay-metric";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/delay-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/delay-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/delay-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/error-metric" {
+         dr:source "error-metric";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/error-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/error-metric/state/metric" {
+        dr:source "metric";
+         dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/error-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/expense-metric" {
+        dr:source "expense-metric";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/expense-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/expense-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/is-reachability/neighbors/neighbor/expense-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+*/
+      augment "tlvs/tlv/ipv4-srlgs" {
+        dr:source "ipv4-srlgs";
+        dr:fieldnum 163;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg" {
+        dr:source "ipv4-srlg";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/instance-number" {
+        dr:source "instance-number";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/instance-number" {
+        dr:source "instance-number";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/system-id" {
+        dr:source "system-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/psn-number" {
+        dr:source "psn-number";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/ipv4-interface-address" {
+        dr:source "ipaddr";
+        dr:fieldnum 54;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/ipv4-neighbor-address" {
+        dr:source "nbraddr";
+        dr:fieldnum 55;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/srlg-value" {
+        dr:source "srlg-value";
+        dr:fieldnum 56;
+      }
+      augment "tlvs/tlv/ipv4-srlgs/ipv4-srlg/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 57;
+        dr:map UNNUMBERED { dr:map-from 0; }
+        dr:map NUMBERED { dr:map-from 1; }
+      }
+/* RLI 34136
+      augment "tlvs/tlv/ipv4-internal-reachability" {
+        dr:source "ipv4-internal-reachability";
+        dr:fieldnum 168;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/default-metric" {
+        dr:source "default-metric";
+         dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/default-metric/state" {
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/default-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 51;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map EXTERNAL { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/default-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/delay-metric" {
+        dr:source "delay-metric";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/delay-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/delay-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/delay-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/error-metric" {
+        dr:source "error-metric";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/error-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/error-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/error-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/expense-metric" {
+        dr:source "expense-metric";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/expense-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/expense-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-internal-reachability/prefixes/prefix/expense-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }              
+      augment "tlvs/tlv/ipv4-external-reachability" {
+        dr:source "ipv4-external-reachability";
+        dr:fieldnum 169;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/default-metric" {
+        dr:source "default-metric";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/default-metric/state" {
+         dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/default-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 51;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map EXTERNAL { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/default-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/delay-metric" {
+        dr:source "delay-metric";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/delay-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/delay-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/delay-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/error-metric" {
+        dr:source "error-metric";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/error-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/error-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/error-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/expense-metric" {
+        dr:source "expense-metric";
+        dr:fieldnum 155;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/expense-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/expense-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/ipv4-external-reachability/prefixes/prefix/expense-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/purge-oi" {
+        dr:source "purge-oi";
+        dr:fieldnum 170;
+      }
+      augment "tlvs/tlv/purge-oi/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/purge-oi/state/system-id-count" {
+        dr:fieldnum 51;
+        dr:source sys-id-cnt;
+      }
+      augment "tlvs/tlv/purge-oi/state/source-system-id" {
+        dr:source "poi-from";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/purge-oi/state/received-system-id" {
+        dr:source "poi";
+        dr:fieldnum 53;
+      }
+*/
+/* future TLVs
+      augment "tlvs/tlv/es-reachability" {
+        dr:source "es-reachability";
+        dr:fieldnum 171;
+      }
+      augment "tlvs/tlv/es-reachability/system-id" {
+        dr:source "system-id";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/es-reachability/default-metric" {
+        dr:source "default-metric";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/es-reachability/default-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/es-reachability/default-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 51;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map EXTERNAL { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/es-reachability/default-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/es-reachability/delay-metric" {
+        dr:source "delay-metric";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/es-reachability/delay-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/es-reachability/delay-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/es-reachability/delay-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/es-reachability/error-metric" {
+         dr:source "error-metric";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/es-reachability/error-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/es-reachability/error-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/es-reachability/error-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/es-reachability/expense-metric" {
+        dr:source "expense-metric";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/es-reachability/expense-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/es-reachability/expense-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/es-reachability/expense-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/iso-prefix" {
+        dr:source "iso-prefix";
+        dr:fieldnum 172;
+      }
+      augment "tlvs/tlv/iso-prefix/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/iso-prefix/default-metric" {
+        dr:source "default-metric";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/iso-prefix/default-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/iso-prefix/default-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 51;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map EXTERNAL { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/iso-prefix/default-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/iso-prefix/delay-metric" {
+        dr:source "delay-metric";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/iso-prefix/delay-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/iso-prefix/delay-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/iso-prefix/delay-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/iso-prefix/error-metric" {
+         dr:source "error-metric";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/iso-prefix/error-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/iso-prefix/error-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/iso-prefix/error-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }
+      augment "tlvs/tlv/iso-prefix/expense-metric" {
+        dr:source "expense-metric";
+        dr:fieldnum 154;
+      }
+      augment "tlvs/tlv/iso-prefix/expense-metric/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/iso-prefix/expense-metric/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/iso-prefix/expense-metric/state/flags" {
+        dr:source "flags";
+        dr:fieldnum 52;
+        dr:map INTERNAL { dr:map-from 0; }
+        dr:map UNSUPPORTED { dr:map-from 1; }
+      }       
+*/
+
+/* RLI 34136
+      augment "tlvs/tlv/mt-ipv4-reachability" {
+        dr:source "mt-ipv4-reachability";
+        dr:fieldnum 171;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes" {
+        dr:source "prefixes";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix" {
+        dr:source "prefix";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state/prefix" {
+        dr:source "ipv4-prefix";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state/mt-id" {
+        dr:source "mt-id";
+        dr:fieldnum 52;
+      }
+       augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state/up-down" {
+        dr:source "up-down";
+        dr:fieldnum 53;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state/s-bit" {
+        dr:source "s-bit";
+        dr:fieldnum 54;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 55;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs" {
+        dr:source "subtlvs";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv" {
+        dr:source "subtlv";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/state" {
+	dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/state/type" {
+        dr:source "subtlv-type";
+        dr:fieldnum 51;
+        dr:map TLV235_TAG { dr:map-from 1; }
+        dr:map TLV235_PREFIX_SID { dr:map-from 3; }
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag" {
+        dr:source "tag";
+        dr:fieldnum 152;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/tag/state/tag32" {
+        dr:source "tag32";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids" {
+        dr:source "prefix-sid";
+        dr:fieldnum 153;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid" {
+        dr:source "sid";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/value" {
+        dr:source "sid-value";
+        dr:fieldnum 51;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/algorithm" {
+        dr:source "algo";
+        dr:fieldnum 52;
+      }
+      augment "tlvs/tlv/mt-ipv4-reachability/prefixes/prefix/subtlvs/subtlv/prefix-sids/prefix-sid/state/flags" {
+        dr:source "flag";
+        dr:fieldnum 53;
+        dr:map READVERTISEMENT { dr:map-from 128; }
+        dr:map NODE { dr:map-from 64; }
+        dr:map PHP { dr:map-from 32; }
+        dr:map EXPLICIT_NULL { dr:map-from 16; }
+        dr:map VALUE { dr:map-from 8; }
+        dr:map LOCAL { dr:map-from 4; }
+      }
+      augment "tlvs/tlv/authentication" {
+        dr:source "authentication";
+        dr:fieldnum 172;
+      }
+      augment "tlvs/tlv/authentication/state" {
+        dr:fieldnum 151;
+      }
+      augment "tlvs/tlv/authentication/state/crypto-type" {
+        dr:source "crypto-type";
+        dr:fieldnum 51;
+        dr:map CLEARTEXT { dr:map-from 1; }
+        dr:map HMAC_MD5 { dr:map-from 54; }
+      }
+      augment "tlvs/tlv/authentication/state/authentication-key" {
+        dr:source "auth-key";
+        dr:fieldnum 52;
+      }
+*/
+      augment "undefined-tlvs" {
+        dr:source "undefined-tlvs";
+        dr:fieldnum 153;
+      }
+      augment "undefined-tlvs/undefined-tlv" {
+        dr:source "undefined-tlv";
+        dr:fieldnum 151;
+      }
+      augment "undefined-tlvs/undefined-tlv/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "undefined-tlvs/undefined-tlv/state" {
+        dr:source "state";
+	dr:fieldnum 151;
+      }
+      augment "undefined-tlvs/undefined-tlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 51;
+      }
+      augment "undefined-tlvs/undefined-tlv/state/length" {
+        dr:source "length";
+        dr:fieldnum 52;
+      }
+      augment "undefined-tlvs/undefined-tlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+
+  grouping rend-isis-intf-levels {
+    uses oc-isis:isis-interface-level-config {
+      augment "level-number" {
+        dr:source "level";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping rend-isis-intf {
+    uses oc-isis:isis-interface-config {
+      augment "interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+     }
+  }
+
+  grouping rend-isis-global {
+    uses oc-isis:isis-global-base {
+      augment "lsp-bit" {
+        dr:source "lsp-bit";
+        dr:fieldnum 151;
+      }
+      augment "lsp-bit/overload-bit" {
+        dr:source "overload-bit";
+        dr:fieldnum 151;
+      }
+      augment "lsp-bit/overload-bit/state" {
+        dr:source "state";
+        dr:fieldnum 151;
+      }
+      augment "lsp-bit/overload-bit/state/set-bit" {
+        dr:source "set-bit";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping rend-isis-circuit-counters {
+    uses oc-isis:circuit-counters-structural {
+      augment "state" {
+        dr:fieldnum 151;
+      }
+      augment "state/adj-changes" {
+        dr:source "adj_changes";
+        dr:fieldnum 51;
+      }
+      augment "state/init-fails" {
+        dr:source "init_fails";
+        dr:fieldnum 52;
+      }
+      augment "state/rejected-adj" {
+        dr:source "rejected_adj";
+        dr:fieldnum 53;
+      }
+      augment "state/id-field-len-mismatches" {
+        dr:source "id_field_len_mismatches";
+        dr:fieldnum 54;
+      }
+      augment "state/max-area-address-mismatches" {
+        dr:source "max_area_addr_mismatches";
+        dr:fieldnum 55;
+      }
+      augment "state/auth-type-fails" {
+        dr:source "auth_type_fails";
+        dr:fieldnum 56;
+      }
+      augment "state/auth-fails" {
+        dr:source "auth_fails";
+        dr:fieldnum 57;
+      }
+      augment "state/lan-dis-changes" {
+        dr:source "lan_dis_changes";
+        dr:fieldnum 58;
+      }
+      augment "state/adj-number" {
+        dr:source "adj_number";
+        dr:fieldnum 59;
+      }
+    }
+  }
+
+  grouping rend-isis-interface-bfd {
+    uses oc-isis:isis-bfd-config {
+      augment "bfd-tlv" {
+      dr:source "bfd-tlv";
+      dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping rend-isis-packet-counters {
+    uses oc-isis:packet-counters-structural {
+      augment "lsp" {
+        dr:source "lsp";
+        dr:fieldnum 151;
+      }
+      augment "lsp/state" {
+        dr:fieldnum 151;
+      }
+      augment "lsp/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "lsp/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "lsp/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "lsp/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "lsp/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "iih" {
+        dr:source "iih";
+        dr:fieldnum 152;
+      }
+      augment "iih/state" {
+        dr:fieldnum 151;
+      }
+      augment "iih/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "iih/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "iih/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "iih/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "iih/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "psnp" {
+        dr:source "psnp";
+        dr:fieldnum 153;
+      }
+      augment "psnp/state" {
+        dr:fieldnum 151;
+      }
+      augment "psnp/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "psnp/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "psnp/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "psnp/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "psnp/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "csnp" {
+        dr:source "cnsp";
+        dr:fieldnum 154;
+      }
+      augment "csnp/state" {
+        dr:fieldnum 151;
+      }
+      augment "csnp/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "csnp/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "csnp/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "csnp/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "csnp/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "ish" {
+        dr:source "ish";
+        dr:fieldnum 155;
+      }
+      augment "ish/state" {
+        dr:fieldnum 151;
+      }
+      augment "ish/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "ish/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "ish/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "ish/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "ish/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "esh" {
+        dr:source "esh";
+        dr:fieldnum 156;
+      }
+      augment "esh/state" {
+        dr:fieldnum 151;
+      }
+      augment "esh/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "esh/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "esh/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "esh/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "esh/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+      augment "unknown" {
+        dr:source "unknown";
+        dr:fieldnum 157;
+      }
+      augment "unknown/state" {
+        dr:fieldnum 151;
+      }
+      augment "unknown/state/received" {
+        dr:source "received";
+        dr:fieldnum 51;
+      }
+      augment "unknown/state/dropped" {
+        dr:source "dropped";
+        dr:fieldnum 52;
+      }
+      augment "unknown/state/processed" {
+        dr:source "processed";
+        dr:fieldnum 53;
+      }
+      augment "unknown/state/sent" {
+        dr:source "sent";
+        dr:fieldnum 54;
+      }
+      augment "unknown/state/retransmit" {
+        dr:source "rexmit";
+        dr:fieldnum 55;
+      }
+    }
+  }
+
+  grouping rend-isis-afi-safi-config {
+    uses oc-isis:isis-afi-safi-config {
+      augment "afi-name" {
+        dr:source "afi-name";
+        dr:fieldnum 51;
+      }
+      augment "safi-name" {
+        dr:source "safi-name";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping rend-isis-metric-config {
+    uses oc-isis:isis-metric-config {
+      augment "metric" {
+        dr:source "metric";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-isis-adj-state {
+    uses oc-isis:adjacency-state {
+      augment "system-id" {
+        dr:source "sys-name";
+        dr:fieldnum 51;
+      }
+      augment "neighbor-snpa" {
+        dr:source "nbr-snpa";
+        dr:fieldnum 52;
+      }
+      augment "local-extended-circuit-id" {
+        dr:source "local-extended-circuit-id";
+        dr:fieldnum 53;
+      }
+      augment "neighbor-extended-circuit-id" {
+        dr:source "nbr-extended-circuit-id";
+        dr:fieldnum 54;
+      }
+      augment "priority" {
+        dr:source "priority";
+        dr:fieldnum 55;
+      }
+      augment "dis-system-id" {
+        dr:source "dis-system-name";
+        dr:fieldnum 56;
+      }
+      augment "neighbor-circuit-type" {
+        dr:source "nbr-circuit-type";
+        dr:fieldnum 57;
+	dr:map LEVEL-1 { dr:map-from 1; }
+	dr:map LEVEL-2 { dr:map-from 2; }
+	dr:map LEVEL-1-2 { dr:map-from 3; }
+      }
+      augment "adjacency-type" {
+        dr:source "adj-type";
+        dr:fieldnum 58;
+	dr:map LEVEL-1 { dr:map-from 1; }
+	dr:map LEVEL-2 { dr:map-from 2; }
+	dr:map LEVEL-1-2 { dr:map-from 3; }
+      }
+      augment "adjacency-state" {
+        dr:source "adj-state";
+        dr:fieldnum 59;
+        dr:map up { dr:map-from 0; }
+        dr:map init { dr:map-from 1; }
+        dr:map down { dr:map-from 2; }
+        dr:map fail { dr:map-from 3; }
+      }
+      augment "multi-topology" {
+        dr:source "multi-topo";
+        dr:fieldnum 61;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "topology" {
+        dr:source "topology";
+        dr:fieldnum 62;
+      }
+      augment "restart-support" {
+        dr:source "restart-support";
+        dr:fieldnum 63;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "restart-suppress" {
+        dr:source "restart-suppress";
+        dr:fieldnum 64;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "restart-status" {
+        dr:source "restart-status";
+        dr:fieldnum 65;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "area-address" {
+        dr:source "area-address";
+        dr:fieldnum 67;
+      }
+      augment "nlpid" {
+        dr:source "nlpid";
+        dr:fieldnum 68;
+        dr:map IPV4 { dr:map-from 204; }
+        dr:map IPV6 { dr:map-from 142; }
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-isis-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+          }
+
+          container protocols {
+            dr:fieldnum 151;
+            container protocol {
+              dr:source "protocols/protocol";
+              dr:fieldnum 151;
+
+              container isis {
+                dr:source "isis";
+                dr:fieldnum 151;
+
+                container levels {
+   	          dr:fieldnum 151;
+                  list level {
+                    key "level-number";
+                    dr:source "levels/level";
+                    dr:fieldnum 151;
+
+                    leaf level-number {
+                      type oc-isis-types:level-number;
+                      dr:source "level";
+                      dr:fieldnum 51;
+                    }
+
+                    container link-state-database {
+                      dr:source "link-state-database";
+                      dr:fieldnum 151;
+                      list lsp {
+                        key "lsp-id";
+                        dr:source "lsp";
+			dr:source-notification-name "lsdb-change";
+                        dr:fieldnum 151;
+                        uses rend-isis-lsdb;
+                      }
+                    }
+
+                    container state {
+                      dr:fieldnum 152;
+                      uses rend-isis-levels;
+                    }
+
+                    container system-level-counters {
+                      dr:fieldnum 153;
+                      dr:source "system-counters";
+                      uses rend-isis-sys-counters;
+                    }
+                  }
+                }
+
+                container interfaces {
+                  dr:fieldnum 152;
+                  list interface {
+                    key "interface-id";
+                    dr:source "interfaces/interface";
+                    dr:fieldnum 151;
+
+                    leaf interface-id {
+                      type leafref {
+                        path "../state/interface-id";
+                      }
+                      dr:source "name";
+                      dr:fieldnum 51;
+                    }
+
+                    container state {
+                      dr:fieldnum 151;
+                      uses rend-isis-intf;
+                    }
+
+                    container circuit-counters {
+                      dr:source "circuit-counters";
+                      dr:fieldnum 152;
+                      uses rend-isis-circuit-counters;
+                    }
+          
+                    container packet-counters {
+                       dr:source "packet-counters";
+                       dr:fieldnum 153;
+                       uses rend-isis-packet-counters;
+                    }
+
+                    container levels {
+                      dr:fieldnum 154;
+                      list level {
+                        key "level-number";
+                        dr:source "levels/level";
+                        dr:fieldnum 151;
+
+                        leaf level-number {
+                          type leafref {
+                            path "../state/level-number";
+                          }
+                          dr:source "level";
+                          dr:fieldnum 51;
+                        }
+
+                        container state {
+                          dr:fieldnum 151;
+                          uses rend-isis-intf-levels;
+                        }
+               
+                        container adjacencies {
+	                  dr:fieldnum 152;
+                    
+                          list adjacency {
+                            key "system-id";
+                            dr:fieldnum 151;
+                            dr:source "adjacencies/adjacency";
+			    dr:source-notification-name "adj-state-change";
+			    dr:source-notification-name "adj-state-change-ipv4-addr";
+			    dr:source-notification-name "adj-state-change-ipv6-addr";
+			    dr:source-notification-name "adj-state-change-mt";
+			    dr:source-notification-name "adj-state-change-nlpid";
+			    dr:source-notification-name "adj-state-change-areaaddr";
+                            leaf system-id {
+                              type leafref {
+                                path "../state/system-id";
+                              }
+                              dr:fieldnum 51;
+                              dr:source "sys-name";
+                            }
+
+                            container state {
+                              dr:fieldnum 151;
+                              uses rend-isis-adj-state;
+
+                              leaf-list ipv4-neighbor-address {
+                                type string;
+                                description
+                                  "nbr ipv4 address";
+                                dr:source "neighbor-ipv4-address";
+                                dr:fieldnum 69;
+                              }
+
+                              leaf-list ipv6-neighbor-address {
+                                type string;
+                                description
+                                  "nbr ipv6 address";
+                                dr:source "neighbor-ipv6-address";
+                                dr:fieldnum 70;
+                              }
+
+			      leaf "lan-adjacency-state"{
+			        dr:source "lan-adj-state";
+			        type oc-isis-types:isis-interface-adj-state;
+				dr:fieldnum 71;
+				dr:map up { dr:map-from 0; }
+				dr:map init { dr:map-from 1; }
+				dr:map down { dr:map-from 2; }
+				dr:map fail { dr:map-from 3; }
+			      }
+                            }
+                          }
+                        }
+
+                        container afi-safi {
+                          dr:fieldnum 153;
+                          dr:source "afi-safi";
+                          
+                          list af {
+                            key "afi-name safi-name";
+                            dr:fieldnum 151;
+                            dr:source "af";
+                            
+                            leaf afi-name {
+                              type leafref {
+                                path "../state/afi-name";
+                              }
+                              dr:fieldnum 51;
+                              dr:source "afi-name";
+                            }
+
+                            leaf safi-name {
+                              type leafref {
+                                path "../state/safi-name";
+                              }
+                              dr:fieldnum 52;
+                              dr:source "safi-name";
+                            }
+
+                            container state {
+                              dr:fieldnum 151;
+                              dr:source "state";
+                              uses rend-isis-afi-safi-config;
+                              uses rend-isis-metric-config;
+                            }
+                          }
+                        }
+                      }
+                    }
+		    container bfd {
+		      dr:source "bfd";
+		      dr:fieldnum 155;
+	              container state {
+			 dr:source "state";
+			 dr:fieldnum 151;
+			 uses rend-isis-interface-bfd;
+		       }
+		     }
+                   }
+                 }
+                container global {
+                  dr:fieldnum 153;
+                  dr:source "global";
+                  uses rend-isis-global;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-adj-state-change {
+    dr:source-notification-name "adj-state-change";
+    container network-instances {
+      dr:source "/notification/adj-state-change/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type leafref {
+			      path "../state/system-id";
+			    }
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    uses rend-isis-adj-state;
+
+			    leaf "lan-adjacency-state"{
+			      dr:source "lan-adj-state";
+			      type oc-isis-types:isis-interface-adj-state;
+			      dr:fieldnum 71;
+			      dr:map up { dr:map-from 0; }
+			      dr:map init { dr:map-from 1; }
+			      dr:map down { dr:map-from 2; }
+			      dr:map fail { dr:map-from 3; }
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+  notification oc-adj-state-change-ipv4-addr {
+    dr:source-notification-name "adj-state-change-ipv4-addr";
+    container network-instances {
+      dr:source "/notification/adj-state-change-ipv4-addr/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type string;
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    leaf ipv4-neighbor-address {
+			      type string;
+			      dr:source "neighbor-ipv4-address";
+			      dr:fieldnum 69;
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+
+  notification oc-adj-state-change-ipv6-addr {
+    dr:source-notification-name "adj-state-change-ipv6-addr";
+    container network-instances {
+      dr:source "/notification/adj-state-change-ipv6-addr/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type string;
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    leaf ipv6-neighbor-address {
+			      type string;
+			      dr:source "neighbor-ipv6-address";
+			      dr:fieldnum 70;
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+
+  notification oc-adj-state-change-mt {
+    dr:source-notification-name "adj-state-change-mt";
+    container network-instances {
+      dr:source "/notification/adj-state-change-mt/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type string;
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    leaf topology {
+			      type string;
+			      dr:source "topology";
+			      dr:fieldnum 62;
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+
+  notification oc-adj-state-change-nlpid {
+    dr:source-notification-name "adj-state-change-nlpid";
+    container network-instances {
+      dr:source "/notification/adj-state-change-nlpid/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type string;
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    leaf nlpid {
+			      type string;
+			      dr:source "nlpid";
+			      dr:fieldnum 68;
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+
+  notification oc-adj-state-change-areaaddr {
+    dr:source-notification-name "adj-state-change-areaaddr";
+    container network-instances {
+      dr:source "/notification/adj-state-change-areaaddr/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "network-instance";
+        dr:fieldnum 151;
+	leaf name {
+	  type string;
+	  dr:source "instance-name";
+	  dr:fieldnum 51;
+        }
+	container protocols {
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:fieldnum 151;
+	      container interfaces {
+	        dr:fieldnum 152;
+	        list interface {
+		  dr:source "interfaces/interface";
+		  dr:fieldnum 151;
+		  key "interface-id";
+		  leaf interface-id {
+		    dr:source "name";
+		    type string;
+		    dr:fieldnum 51;
+		  }
+		  container levels {
+		    dr:fieldnum 154;
+		    list level {
+		      key "level-number";
+		      dr:source "levels/level";
+		      dr:fieldnum 151;
+		      leaf level-number {
+		        type oc-isis-types:level-number;
+		        dr:source "level";
+		        dr:fieldnum 51;
+		      }
+		      container adjacencies {
+		        dr:fieldnum 152;
+		        list adjacency {
+			  key "system-id";
+			  dr:fieldnum 151;
+			  dr:source "adjacencies/adjacency";
+			  leaf system-id{
+			    type string;
+			    dr:source "sys-name";
+			    dr:fieldnum 51;
+		          }
+			  container state {
+			    dr:fieldnum 151;
+			    leaf area-address {
+			      type string;
+			      dr:source "area-address";
+			      dr:fieldnum 67;
+			    }
+			  }
+		        }
+                      }
+                    }
+                  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+  notification oc-lsdb-change {
+    dr:source-notification-name "lsdb-change";
+    container network-instances {
+      dr:source "/notification/lsdb-change/rt-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        key "name";
+        dr:source "rt-instance";
+        dr:fieldnum 151;
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+
+        container protocols {
+	  dr:source "protocols";
+	  dr:fieldnum 151;
+	  container protocol {
+	    dr:source "protocol";
+	    dr:fieldnum 151;
+	    container isis {
+	      dr:source "isis";
+              dr:fieldnum 151;
+	      container levels {
+	        dr:fieldnum 151;
+	        list level {
+		  key "level-number";
+		  dr:source "levels/level";
+		  dr:fieldnum 151;
+		  leaf level-number {
+		    type oc-isis-types:level-number;
+		    dr:source "level";
+		    dr:fieldnum 51;
+		  }
+		  container link-state-database {
+		    dr:fieldnum 151;
+		    dr:source "link-state-database";
+		    list lsp {
+		      key "lsp-id";
+	              dr:source "lsp";
+		      dr:fieldnum 151;
+		      uses rend-isis-lsdb;
+		    }
+		  }
+	        }
+	      }
+	    }
+	  }
+        }
+      }
+    }
+  }
+
+}

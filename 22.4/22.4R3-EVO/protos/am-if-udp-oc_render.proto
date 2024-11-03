@@ -1,0 +1,96 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional InterfaceInfo jnpr_InterfaceInfo_ext = 3;
+}
+
+message InterfaceInfo {
+   message interface_list {
+      optional string if_name = 1 [(telemetry_options).is_key = true];
+      optional uint64 init_time = 2;
+      optional uint32 snmp_if_index = 3;
+      optional string parent_ae_name = 4;
+      optional string admin_status = 10;
+      optional string oper_status = 11;
+      optional uint64 if_transitions = 13;
+      optional uint32 ifLastChange = 14;
+      optional uint32 ifHighSpeed = 15;
+      message ingress_queue_info_list {
+         optional uint32 queue_number = 1;
+         optional uint64 pkts = 2;
+         optional uint64 bytes = 3;
+         optional uint64 tail_drop_pkts = 4;
+         optional uint64 rl_drop_pkts = 5;
+         optional uint64 rl_drop_bytes = 6;
+         optional uint64 red_drop_pkts = 7;
+         optional uint64 red_drop_bytes = 8;
+         optional uint64 avg_buffer_occupancy = 9;
+         optional uint64 cur_buffer_occupancy = 10;
+         optional uint64 peak_buffer_occupancy = 11;
+         optional uint64 allocated_buffer_size = 12;
+      }
+      repeated ingress_queue_info_list ingress_queue_info = 5;
+      message egress_queue_info_list {
+         optional uint32 queue_number = 1;
+         optional uint64 pkts = 2;
+         optional uint64 bytes = 3;
+         optional uint64 tail_drop_pkts = 4;
+         optional uint64 rl_drop_pkts = 5;
+         optional uint64 rl_drop_bytes = 6;
+         optional uint64 red_drop_pkts = 7;
+         optional uint64 red_drop_bytes = 8;
+         optional uint64 avg_buffer_occupancy = 9;
+         optional uint64 cur_buffer_occupancy = 10;
+         optional uint64 peak_buffer_occupancy = 11;
+         optional uint64 allocated_buffer_size = 12;
+      }
+      repeated egress_queue_info_list egress_queue_info = 6;
+      message ingress_stats_list {
+         optional uint64 packets = 1;
+         optional uint64 octets = 2;
+         optional uint64 one_second_packets = 3;
+         optional uint64 one_second_octets = 4;
+         optional uint64 unicast_packets = 5;
+         optional uint64 multicast_packets = 6;
+         optional uint64 broadcast_packets = 7;
+         optional uint64 if_error = 8;
+         optional uint64 if_pause_pkts = 9;
+         optional uint64 if_unknown_proto_pkts = 10;
+      }
+      repeated ingress_stats_list ingress_stats = 7;
+      message egress_stats_list {
+         optional uint64 packets = 1;
+         optional uint64 octets = 2;
+         optional uint64 one_second_packets = 3;
+         optional uint64 one_second_octets = 4;
+         optional uint64 unicast_packets = 5;
+         optional uint64 multicast_packets = 6;
+         optional uint64 broadcast_packets = 7;
+         optional uint64 if_error = 8;
+         optional uint64 if_pause_pkts = 9;
+         optional uint64 if_unknown_proto_pkts = 10;
+      }
+      repeated egress_stats_list egress_stats = 8;
+      message ingress_errors_list {
+         optional uint64 errors = 1;
+         optional uint64 queue_drops = 2;
+         optional uint64 frame_errors = 3;
+         optional uint64 discards = 4;
+         optional uint64 runts = 5;
+         optional uint64 layer3_incompletes = 6;
+         optional uint64 layer2_channel_errors = 7;
+         optional uint64 layer2_mismatch_timeouts = 8;
+         optional uint64 fifo_errorrs = 9;
+         optional uint64 resource_errorrs = 10;
+      }
+      repeated ingress_errors_list ingress_errors = 9;
+      message egress_errors_list {
+         optional uint64 if_errors = 1;
+         optional uint64 if_discards = 2;
+      }
+      repeated egress_errors_list egress_errors = 16;
+   }
+   repeated interface_list interface = 1;
+}

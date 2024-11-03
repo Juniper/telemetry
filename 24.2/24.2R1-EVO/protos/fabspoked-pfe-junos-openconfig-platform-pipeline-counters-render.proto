@@ -1,0 +1,33 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_fpc_240 jnpr_components_fpc_240_ext = 240;
+}
+
+message components_fpc_240 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 171;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 171;
+         message pipeline_counters_type {
+            optional packet_type packet = 171;
+            message packet_type {
+               optional fabric_block_type fabric_block = 171;
+               message fabric_block_type {
+                  optional state_type state = 171;
+                  message state_type {
+                     optional uint64 in_cells = 52;
+                     optional uint64 out_cells = 53;
+                     optional uint64 in_bytes = 54;
+                     optional uint64 out_bytes = 55;
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 171;
+}

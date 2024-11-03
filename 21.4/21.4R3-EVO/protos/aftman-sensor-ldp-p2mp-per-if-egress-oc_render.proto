@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_p2mp_egress jnpr_mpls_p2mp_egress_ext = 156;
+}
+
+message mpls_p2mp_egress {
+   optional signaling_protocols_type signaling_protocols = 125;
+   message signaling_protocols_type {
+      optional ldp_type ldp = 125;
+      message ldp_type {
+         message p2mp_egress_interfaces_list {
+            message p2mp_interface_list {
+               optional string interface_name = 105 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 105 [(telemetry_options).is_key = true];
+                     optional uint64 out_pkts = 106;
+                     optional uint64 out_octets = 107;
+                  }
+                  repeated counters_list counters = 125;
+               }
+               repeated state_list state = 125;
+            }
+            repeated p2mp_interface_list p2mp_interface = 125;
+         }
+         repeated p2mp_egress_interfaces_list p2mp_egress_interfaces = 125;
+      }
+   }
+}

@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_jexpr_pkt_lookup_pipestats_219 jnpr_components_jexpr_pkt_lookup_pipestats_219_ext = 219;
+}
+
+message components_jexpr_pkt_lookup_pipestats_219 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional packet_type packet = 151;
+            message packet_type {
+               optional lookup_block_type lookup_block = 151;
+               message lookup_block_type {
+                  message state_list {
+                     optional uint64 lookup_memory = 51;
+                     optional uint64 lookup_memory_used = 52;
+                     optional uint64 nexthop_memory = 53;
+                     optional uint64 nexthop_memory_used = 54;
+                     optional uint64 acl_memory_total_entries = 55;
+                     optional uint64 acl_memory_used_entries = 56;
+                     optional uint64 acl_memory_total_bytes = 57;
+                     optional uint64 acl_memory_used_bytes = 58;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

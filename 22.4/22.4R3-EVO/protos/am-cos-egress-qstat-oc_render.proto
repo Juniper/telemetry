@@ -1,0 +1,48 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional qos_227 jnpr_qos_227_ext = 227;
+}
+
+message qos_227 {
+   message interfaces_list {
+      message interface_list {
+         optional string interface_id = 51 [(telemetry_options).is_key = true];
+         message state_list {
+            optional string interface_id = 51;
+         }
+         repeated state_list state = 151;
+         message interface_ref_list {
+            message state_list {
+               optional string interface = 51;
+               optional uint32 subinterface = 52;
+            }
+            repeated state_list state = 151;
+         }
+         repeated interface_ref_list interface_ref = 152;
+         message output_list {
+            message queues_list {
+               message queue_list {
+                  optional string name = 51 [(telemetry_options).is_key = true];
+                  message state_list {
+                     optional string name = 51;
+                     optional uint64 max_queue_len = 52;
+                     optional uint64 avg_queue_len = 53;
+                     optional uint64 transmit_pkts = 54 [(telemetry_options).is_counter = true];
+                     optional uint64 transmit_octets = 55 [(telemetry_options).is_counter = true];
+                     optional uint64 dropped_pkts = 56 [(telemetry_options).is_counter = true];
+                  }
+                  repeated state_list state = 151;
+               }
+               repeated queue_list queue = 151;
+            }
+            repeated queues_list queues = 151;
+         }
+         repeated output_list output = 153;
+      }
+      repeated interface_list interface = 151;
+   }
+   repeated interfaces_list interfaces = 151;
+}

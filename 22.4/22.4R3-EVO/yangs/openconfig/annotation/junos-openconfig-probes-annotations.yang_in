@@ -1,0 +1,45 @@
+module junos-openconfig-probes-annotations {
+
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/yang/probes/annotations";
+
+    prefix "jnx-oc-probes-ann";
+
+    import junos-extension { prefix junos; }
+    import openconfig-probes { prefix oc-probes; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+
+    revision "2023-01-31" {
+        description "Adding product annotations at augment probes level along with other additions";
+    }
+
+    revision "2022-12-01" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-probes:probes" {
+        JUNOS_PRODUCT(EVO_PTX_ALL);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN ULTRON_ACX XMEN_ACX);
+    }
+
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:state" {
+        JUNOS_PRODUCT_EXCLUDE(BALERION_ALL BRACKLA_QFX);
+    }
+
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:target/oc-probes:state" {
+        JUNOS_PRODUCT_EXCLUDE(BALERION_ALL BRACKLA_QFX);
+    }
+
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:results/oc-probes:state" {
+        JUNOS_PRODUCT_EXCLUDE(BALERION_ALL BRACKLA_QFX);
+    }
+
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:results/oc-probes:history" {
+        JUNOS_PRODUCT_EXCLUDE(BALERION_ALL BRACKLA_QFX);
+    }
+}

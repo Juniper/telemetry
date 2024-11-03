@@ -1,0 +1,142 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_telemetry jnpr_system_telemetry_ext = 213;
+}
+
+message system_telemetry {
+   optional state_type state = 151;
+   message state_type {
+      optional string hostname = 152;
+      optional string domain_name = 153;
+      optional string current_datetime = 154;
+      optional uint64 boot_time = 155;
+   }
+   optional clock_type clock = 156;
+   message clock_type {
+      optional state_type state = 157;
+      message state_type {
+         optional string timezone_name = 158;
+      }
+   }
+   optional memory_type memory = 159;
+   message memory_type {
+      optional state_type state = 160;
+      message state_type {
+         optional uint64 physical = 161;
+         optional uint64 reserved = 162;
+      }
+   }
+   optional cpus_type cpus = 163;
+   message cpus_type {
+      message cpu_list {
+         optional string index = 165 [(telemetry_options).is_key = true];
+         optional state_type state = 166;
+         message state_type {
+            optional string index = 165;
+            optional total_type total = 168;
+            message total_type {
+               optional uint32 instant = 169;
+               optional uint32 avg = 170;
+               optional uint32 min = 171;
+               optional uint32 max = 172;
+               optional uint64 interval = 173;
+               optional uint64 min_time = 174;
+               optional uint64 max_time = 175;
+            }
+            optional user_type user = 176;
+            message user_type {
+               optional uint32 instant = 177;
+               optional uint32 avg = 178;
+               optional uint32 min = 179;
+               optional uint32 max = 180;
+               optional uint64 interval = 181;
+               optional uint64 min_time = 182;
+               optional uint64 max_time = 183;
+            }
+            optional kernel_type kernel = 184;
+            message kernel_type {
+               optional uint32 instant = 185;
+               optional uint32 avg = 186;
+               optional uint32 min = 187;
+               optional uint32 max = 188;
+               optional uint64 interval = 189;
+               optional uint64 min_time = 190;
+               optional uint64 max_time = 191;
+            }
+            optional nice_type nice = 192;
+            message nice_type {
+               optional uint32 instant = 193;
+               optional uint32 avg = 194;
+               optional uint32 min = 195;
+               optional uint32 max = 196;
+               optional uint64 interval = 197;
+               optional uint64 min_time = 198;
+               optional uint64 max_time = 199;
+            }
+            optional idle_type idle = 200;
+            message idle_type {
+               optional uint32 instant = 201;
+               optional uint32 avg = 202;
+               optional uint32 min = 203;
+               optional uint32 max = 204;
+               optional uint64 interval = 205;
+               optional uint64 min_time = 206;
+               optional uint64 max_time = 207;
+            }
+            optional wait_type wait = 208;
+            message wait_type {
+               optional uint32 instant = 209;
+               optional uint32 avg = 210;
+               optional uint32 min = 211;
+               optional uint32 max = 212;
+               optional uint64 interval = 213;
+               optional uint64 min_time = 214;
+               optional uint64 max_time = 215;
+            }
+            optional hardware_interrupt_type hardware_interrupt = 216;
+            message hardware_interrupt_type {
+               optional uint32 instant = 217;
+               optional uint32 avg = 218;
+               optional uint32 min = 219;
+               optional uint32 max = 220;
+               optional uint64 interval = 221;
+               optional uint64 min_time = 222;
+               optional uint64 max_time = 223;
+            }
+            optional software_interrupt_type software_interrupt = 224;
+            message software_interrupt_type {
+               optional uint32 instant = 225;
+               optional uint32 avg = 226;
+               optional uint32 min = 227;
+               optional uint32 max = 228;
+               optional uint64 interval = 229;
+               optional uint64 min_time = 230;
+               optional uint64 max_time = 231;
+            }
+         }
+      }
+      repeated cpu_list cpu = 164;
+   }
+   optional processes_type processes = 232;
+   message processes_type {
+      message process_list {
+         optional uint64 pid = 234 [(telemetry_options).is_key = true];
+         optional state_type state = 235;
+         message state_type {
+            optional uint64 pid = 236;
+            optional string name = 237;
+            optional uint64 start_time = 238;
+            optional uint64 uptime = 255;
+            optional uint64 cpu_usage_user = 239;
+            optional uint64 cpu_usage_system = 240;
+            optional uint32 cpu_utilization = 241;
+            optional uint64 memory_usage = 242;
+            optional uint32 memory_utilization = 243;
+         }
+      }
+      repeated process_list process = 233;
+   }
+}

@@ -1,0 +1,32 @@
+module junos-xmlproxyd-rtg-task-memory-annotations {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/junos/xmlproxyd-rtg-task-memory/annotations";
+
+  prefix "junos-xmlproxyd-rtg-task-memory-ann";
+
+  import junos-xmlproxyd-rtg-task-memory { prefix task-memory; }
+  import junos-extension { prefix junos; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  revision "2022-12-06" {
+    description "Initial version to add task memory model product support information";
+  }
+
+  augment "/task-memory:junos/task-memory:task-memory-information" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(QFX5120-48YM QFX5120-48T QFX5210-64C);
+      JUNOS_PRODUCT_TVP(QFX5110-24Q-2P QFX5110-32Q QFX5110-48S-4C QFX5110-48S-4Q QFX5110-48T-6Q);
+      JUNOS_PRODUCT_TVP(EX4100-48P EX4100-48T EX4100-24P EX4100-24T EX4100-F-48P EX4100-F-24P EX4100-F-48T EX4100-F-24T);
+      JUNOS_PRODUCT_TVP(EX4100-48MP EX4100-24MP EX4100-F-12P EX4100-F-12T);
+      JUNOS_PRODUCT_TVP(EX4400-24MP EX4400-24P EX4400-24T EX4400-48F EX4400-48MP EX4400-48P EX4400-48T);
+  }
+}

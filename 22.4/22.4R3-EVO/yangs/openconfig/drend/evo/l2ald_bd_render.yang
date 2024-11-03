@@ -1,0 +1,197 @@
+/*
+ * Render tree for L2ALD Bridge Domain 
+ *
+ * Sep 2019, Mohammad Mustaq 
+ *
+ * Copyright (c) 2019-24, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module l2ald_bd_render {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/l2ald_bd";
+
+  prefix "bridge-domain";
+
+  import drend {
+      prefix dr;
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+  description  "Example of L2ALD Bridge Domain";
+
+  // meta data 
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping bd-group-top {
+    leaf vlan-name {
+      type string;
+      dr:source "bd_name"; 
+      dr:fieldnum 51;
+      description
+        "Bridge Domain Name";
+    }
+
+    leaf vlan-id { 
+      type uint32; 
+      dr:source "tag"; 
+      dr:fieldnum 52;
+      description
+        "Vlan tag of the Bridge domain";
+    }
+
+    leaf status { 
+      type enumeration {
+        enum ACTIVE {
+          description "VLAN is active";
+        }
+        enum SUSPENDED {
+          description "VLAN is inactive / suspended";
+        }
+      }
+      default ACTIVE;
+      description "Admin state of the VLAN";
+      dr:source "state"; 
+      dr:fieldnum 53;
+      dr:map ACTIVE  { dr:map-from 1; }
+      dr:map SUSPENDED { dr:map-from 2; }
+    }
+
+    leaf vni {
+      type uint32; 
+      dr:source "vni"; 
+      dr:fieldnum 54;
+      description
+        "VXLAN VNI of the Bridge domain";
+    }
+
+    leaf l3-interface {
+      type string; 
+      dr:source "irb_ifl_name"; 
+      dr:fieldnum 55;
+      description
+        "L3 Inter Routing interface name of the Bridge domain";
+    }
+
+    leaf num-local-mac-entries {
+      type uint32; 
+      dr:source "num_local_mac_entries"; 
+      dr:fieldnum 56;
+      description
+        "Number of Local mac entries";
+    }
+
+    leaf num-ar-replicator-entries {
+      type uint32; 
+      dr:source "num_ar_replicator_entries"; 
+      dr:fieldnum 57;
+      description
+        "Number of AR Replicator entries";
+    }
+
+    leaf ethernet-tag-id {
+      type uint32; 
+      dr:source "vni"; 
+      dr:fieldnum 58;
+      description
+        "Ethernet Tag Id VLAN/VNI used in EVPN MPLS/VXLAN";
+    }
+  }
+
+  grouping l2ni-bd-member-group-top {
+    leaf interface { 
+      type string; 
+      dr:source "if_name"; 
+      dr:fieldnum 61;
+      description
+        "Member interface of the Bridge domain";
+    }
+  }
+
+  // Daemon that handles this hierarchy
+  dr:command-app "l2ald";
+  dr:sub-component "bridge-domain";
+  jnpr-proto:message-id "L2ALD-BD-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container network-instances { 
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+            description
+              "Routing instance name";
+          }
+
+          list vlan {
+            key "vlan-name";
+            dr:source "bd";
+            dr:fieldnum 151;
+            dr:source-notification-name "bd-change";
+            description
+              "Bridge Domain List";
+
+            uses bd-group-top;
+
+            list member {
+              dr:source "member";
+              dr:atomic-data;
+              dr:fieldnum 161;
+              description
+                "Member Interfaces list";
+
+              uses l2ni-bd-member-group-top;
+            }
+          }
+        }
+      } 
+    }
+  }
+
+   notification bd-change {
+     dr:source-notification-name "bd-change";
+     dr:fieldnum 151;
+
+     container network-instances {
+       list network-instance {
+         dr:source "/notification/bd-change/rt-instances/rt-instance";
+         dr:fieldnum 151;
+         key "name";
+
+         leaf name {
+           dr:source "instance-name";
+           dr:fieldnum 51;
+           type string;
+         }
+
+         list vlan {
+            key "vlan-name";
+            dr:source "bd";
+            dr:fieldnum 151;
+
+            uses bd-group-top;
+
+            list member {
+              dr:source "member";
+              dr:atomic-data;
+              dr:fieldnum 161;
+
+              uses l2ni-bd-member-group-top;
+            }
+         }
+       }
+     }
+   }
+
+}

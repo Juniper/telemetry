@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional InterfaceExp_udp_oper_status jnpr_InterfaceExp_udp_oper_status_ext = 18;
+}
+
+message InterfaceExp_udp_oper_status {
+   message interface_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional string oper_status = 2;
+   }
+   repeated interface_list interface = 1;
+}

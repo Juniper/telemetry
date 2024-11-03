@@ -1,0 +1,393 @@
+/*
+* $Id$
+*
+* Copyright (c) 2021, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module hwdfpc_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/hwdfpc-oc";
+
+  prefix "hwdfpc-oc";
+
+  import openconfig-platform { prefix oc-pf; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+
+  contact "www.juniper.net";
+
+  grouping chassisd-inventory {
+      uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:source-notification-name "hwd_module:fruE-event";
+        dr:source-notification-name "hwd_module:subcomponentE-event";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/type" {
+        dr:source "fruType";
+        dr:fieldnum 52;
+        dr:map CHASSIS          { dr:map-from 1 ; } // CHASSIS;
+        dr:map BACKPLANE        { dr:map-from 2 ; } // BACKPLANE;
+        dr:map FRU              { dr:map-from 3 ; } // FPM;
+        dr:map POWER_SUPPLY     { dr:map-from 4 ; } // PDU;
+        dr:map POWER_SUPPLY     { dr:map-from 5 ; } // PSM;
+        dr:map FRU              { dr:map-from 6 ; } // CCG;
+        dr:map CONTROLLER_CARD  { dr:map-from 7 ; } // RE;
+        dr:map FRU              { dr:map-from 8 ; } // CB;
+        dr:map LINECARD         { dr:map-from 9 ; } // FPC;
+        dr:map FRU              { dr:map-from 10; } // PIC;
+        dr:map LINECARD         { dr:map-from 11; } // SPMB;
+        dr:map FABRIC           { dr:map-from 12; } // SIB;
+        dr:map FRU              { dr:map-from 13; } // FTC;
+        dr:map FAN              { dr:map-from 14; } // FAN;
+        dr:map PORT             { dr:map-from 15; } // PORT;
+        dr:map FRU              { dr:map-from 16; } // MEZZ;
+        dr:map LINECARD         { dr:map-from 17; } // FEB;
+        dr:map SOFTWARE_MODULE  { dr:map-from 19; } // BIOS;
+        dr:map BOOT_LOADER      { dr:map-from 20; } // BOOTLOADER;
+        dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW;
+      }
+      augment "components/component/state/id" {
+        dr:source "serialNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 53;
+      }
+      augment "components/component/state/description" {
+        dr:source "description";
+        dr:fieldnum 54;
+      }
+      augment "components/component/state/serial-no" {
+        dr:source "serialNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 55;
+      }
+      augment "components/component/state/part-no" {
+        dr:source "partNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 56;
+      }
+      augment "components/component/state/hardware-version" {
+        dr:source "version";
+        dr:zero-suppressed;
+        dr:fieldnum 57;
+      }
+      augment "components/component/state/oper-status" {
+        dr:source "state";
+        dr:fieldnum 58;
+        dr:map INACTIVE             { dr:map-from 3 ; } // Present
+        dr:map ACTIVE               { dr:map-from 8 ; } // Online
+        dr:map DISABLED             { dr:map-from 10; } // Offline
+        dr:map DISABLED             { dr:map-from 12; } // Standby
+        dr:map INACTIVE             { dr:map-from 14; } // Fault
+        dr:map INACTIVE             { dr:map-from 15; } // Fault Power Off
+        dr:map DISABLED             { dr:map-from 18; } // Power off
+      }
+      augment "components/component/state/location" {
+        dr:source "location";
+        dr:fieldnum 59;
+      }
+      augment "components/component/state/mfg-name" {
+        dr:source "mfg_name";
+        dr:zero-suppressed;
+        dr:fieldnum 60;
+      }
+      augment "components/component/state/mfg-date" {
+        dr:source "manufactureDate";
+        dr:zero-suppressed;
+        dr:fieldnum 61;
+      }
+      augment "components/component/state/firmware-version" {
+        dr:source "firmware_version";
+        dr:zero-suppressed;
+        dr:fieldnum 62;
+      }
+      augment "components/component/state/software-version" {
+        dr:source "software_version";
+        dr:zero-suppressed;
+        dr:fieldnum 63;
+      }
+      augment "components/component/state/removable" {
+        dr:source "is_removable";
+        dr:fieldnum 64;
+      }
+      augment "components/component/state/empty" {
+        dr:source "empty";
+        dr:fieldnum 65;
+      }
+      augment "components/component/state/parent" {
+        dr:source "parent";
+        dr:fieldnum 66;
+      }
+      augment "components/component/state/allocated-power" {
+        dr:source "allocated_power";
+        dr:fieldnum 67;
+      }
+      augment "components/component/state/used-power" {
+        dr:source "used_power";
+        dr:fieldnum 68;
+      }
+      augment "components/component/state/temperature" {
+        dr:source "fruUtilization";
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/temperature/instant" {
+        dr:source "temperature";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory" {
+        dr:source "fruUtilization";
+        dr:fieldnum 152;
+      }
+      augment "components/component/state/memory/available" {
+        dr:source "memory_dram_size";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory/utilized" {
+        dr:source "memory_dram_used";
+        dr:fieldnum 52;
+      }
+      augment "components/component/properties" {
+        dr:fieldnum 152;
+      }
+      augment "components/component/properties/property" {
+        dr:source "propertyE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties/property/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/state/value" {
+        dr:source "value";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties/property/state/configurable" {
+        dr:source "configurable";
+        dr:fieldnum 52;
+      }
+      augment "components/component/subcomponents" {
+        dr:fieldnum 153;
+      }
+      augment "components/component/subcomponents/subcomponent" {
+        dr:source "subcomponentE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents/subcomponent/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/state/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-fru-state-change" {
+    dr:source-notification-name "hwd_module:fruE-event";
+    uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/notification/hwd_module:fruE-event/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/type" {
+        dr:source "fruType";
+        dr:map CHASSIS          { dr:map-from 1 ; } // CHASSIS;
+        dr:map BACKPLANE        { dr:map-from 2 ; } // BACKPLANE;
+        dr:map FRU              { dr:map-from 3 ; } // FPM;
+        dr:map POWER_SUPPLY     { dr:map-from 4 ; } // PDU;
+        dr:map POWER_SUPPLY     { dr:map-from 5 ; } // PSM;
+        dr:map FRU              { dr:map-from 6 ; } // CCG;
+        dr:map CONTROLLER_CARD  { dr:map-from 7 ; } // RE;
+        dr:map FRU              { dr:map-from 8 ; } // CB;
+        dr:map LINECARD         { dr:map-from 9 ; } // FPC;
+        dr:map FRU              { dr:map-from 10; } // PIC;
+        dr:map LINECARD         { dr:map-from 11; } // SPMB;
+        dr:map FABRIC           { dr:map-from 12; } // SIB;
+        dr:map FRU              { dr:map-from 13; } // FTC;
+        dr:map FAN              { dr:map-from 14; } // FAN;
+        dr:map PORT             { dr:map-from 15; } // PORT;
+        dr:map FRU              { dr:map-from 16; } // MEZZ;
+        dr:map LINECARD         { dr:map-from 17; } // FEB;
+        dr:map SOFTWARE_MODULE  { dr:map-from 19; } // BIOS;
+        dr:map BOOT_LOADER      { dr:map-from 20; } // BOOTLOADER;
+        dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW;
+        dr:fieldnum 52;
+      }
+      augment "components/component/state/id" {
+        dr:source "serialNumber";
+        dr:fieldnum 53;
+      }
+      augment "components/component/state/description" {
+        dr:source "description";
+        dr:fieldnum 54;
+      }
+      augment "components/component/state/serial-no" {
+        dr:source "serialNumber";
+        dr:fieldnum 55;
+      }
+      augment "components/component/state/part-no" {
+        dr:source "partNumber";
+        dr:fieldnum 56;
+      }
+      augment "components/component/state/hardware-version" {
+        dr:source "version";
+        dr:fieldnum 57;
+      }
+      augment "components/component/state/oper-status" {
+        dr:source "state";
+        dr:fieldnum 58;
+        dr:map INACTIVE             { dr:map-from 3 ; } // Present
+        dr:map ACTIVE               { dr:map-from 8 ; } // Online
+        dr:map DISABLED             { dr:map-from 10; } // Offline
+        dr:map DISABLED             { dr:map-from 12; } // Standby
+        dr:map INACTIVE             { dr:map-from 14; } // Fault
+        dr:map INACTIVE             { dr:map-from 15; } // Fault Power Off
+        dr:map DISABLED             { dr:map-from 18; } // Power off
+      }
+      augment "components/component/state/location" {
+        dr:source "location";
+        dr:fieldnum 59;
+      }
+      augment "components/component/state/mfg-name" {
+        dr:source "mfg_name";
+        dr:fieldnum 60;
+      }
+      augment "components/component/state/mfg-date" {
+        dr:source "manufactureDate";
+        dr:fieldnum 61;
+      }
+      augment "components/component/state/firmware-version" {
+        dr:source "firmware_version";
+        dr:fieldnum 62;
+      }
+      augment "components/component/state/software-version" {
+        dr:source "software_version";
+        dr:fieldnum 63;
+      }
+      augment "components/component/state/removable" {
+        dr:source "is_removable";
+        dr:fieldnum 64;
+      }
+      augment "components/component/state/empty" {
+        dr:source "empty";
+        dr:fieldnum 65;
+      }
+      augment "components/component/state/parent" {
+        dr:source "parent";
+        dr:fieldnum 66;
+      }
+      augment "components/component/state/allocated-power" {
+        dr:source "allocated_power";
+        dr:fieldnum 67;
+      }
+      augment "components/component/state/temperature" {
+        dr:source "fruUtilization";
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/temperature/instant" {
+        dr:source "temperature";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory" {
+        dr:source "fruUtilization";
+        dr:fieldnum 152;
+      }
+      augment "components/component/state/memory/available" {
+        dr:source "memory_dram_size";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory/utilized" {
+        dr:source "memory_dram_used";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  notification "oc-subcomp-state-change" {
+    dr:source-notification-name "hwd_module:subcomponentE-event";
+    uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/notification/hwd_module:subcomponentE-event/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents" {
+        dr:fieldnum 153;
+      }
+      augment "components/component/subcomponents/subcomponent" {
+        dr:source "subcomponentE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents/subcomponent/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/state/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  dr:command-app "hwdfpc";
+  jnpr-proto:message-id "HWDFPC-OC-MESSAGE-ID";
+  dr:sub-component "fpc";
+
+  rpc juniper-netconf-get {
+    output {
+        uses chassisd-inventory;
+    }
+  }
+}

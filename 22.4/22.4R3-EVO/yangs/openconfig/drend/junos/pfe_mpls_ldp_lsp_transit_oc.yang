@@ -1,0 +1,76 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2019, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_ldp_lsp_transit_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-ldp-lsp-transit-oc";
+
+  prefix "mpls-ldp-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-ldp {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        uses jnx-aug-oc-mpls:jnx-ldp-lsps-transit-container {
+          augment "lsp-transit-policies" {
+            dr:fieldnum 151;
+            dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+          }
+          augment "lsp-transit-policies/lsp-transit-policy" {
+            dr:fieldnum 151;
+            dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+          }
+          augment "lsp-transit-policies/lsp-transit-policy/state" {
+            dr:fieldnum 151;
+            dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+          }
+          augment "lsp-transit-policies/lsp-transit-policy/state/counters" {
+            dr:fieldnum 151;
+            dr:source "/junos/services/ldp/label-switched-path/transit/usage/";
+          }
+        }
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-ldp-lsp-transit";
+  jnpr-proto:message-id "LDP-LSP-TRANSIT-STATS-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses mpls-ldp;
+    }
+  }
+}
+

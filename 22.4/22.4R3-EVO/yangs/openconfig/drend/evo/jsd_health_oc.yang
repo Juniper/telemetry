@@ -1,0 +1,189 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module jsd_health_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/jsd";
+
+  prefix "jsd-health-oc";
+
+  import openconfig-system-grpc { prefix oc-sys-grpc; }
+  import jnx-aug-openconfig-system-grpc { prefix jnx-oc-sys-grpc; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+  // augment statements
+
+  grouping server-state {
+    uses oc-sys-grpc:grpc-server-config {
+      augment "name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "services" {
+        dr:source "services";
+        dr:fieldnum 52;
+      }
+      augment "enable" {
+        dr:source "enable";
+        dr:fieldnum 53;
+      }
+      augment "port" {
+        dr:source "port";
+        dr:fieldnum 54;
+      }
+      augment "transport-security" {
+        dr:source "secure";
+        dr:fieldnum 55;
+      }
+      augment "certificate-id" {
+        dr:source "certificate_name";
+        dr:fieldnum 56;
+      }
+      augment "metadata-authentication" {
+        dr:source "metadata_auth";
+        dr:fieldnum 57;
+      }
+      augment "listen-addresses" {
+        dr:source "address";
+        dr:fieldnum 58;
+      }
+    }
+  }
+  grouping connections_state {
+    uses jnx-oc-sys-grpc:system-grpc-server-connections-state {
+      augment "state" {
+        dr:fieldnum 151;
+      }
+      augment "state/client-id" {
+        dr:source "client_id";
+        dr:fieldnum 51;
+      }
+      augment "state/username" {
+        dr:source "username";
+        dr:fieldnum 52;
+      }
+      augment "state/source-host" {
+        dr:source "peerStr";
+        dr:fieldnum 53;
+      }
+      augment "state/login-time" {
+        dr:source "loginTime";
+        dr:fieldnum 54;
+      }
+      augment "state/in-rpcs" {
+        dr:source "in_rpcs";
+        dr:fieldnum 55;
+      }
+      augment "state/out-pkts" {
+        dr:source "out_pkts";
+        dr:fieldnum 56;
+      }
+      augment "state/socket-buffer-usage" {
+        dr:source "socket_usage";
+        dr:fieldnum 57;
+      }
+    }
+  }
+
+  grouping counters_state {
+    uses jnx-oc-sys-grpc:system-grpc-server-counter-state {
+      augment "state" {
+        dr:fieldnum 151;
+      }
+      augment "state/service" {
+        dr:source "service_name";
+        dr:fieldnum 51;
+      }
+      augment "state/in-rpcs" {
+        dr:source "in_rpcs";
+        dr:fieldnum 52;
+      }
+      augment "state/out-pkts" {
+        dr:source "out_pkts";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  dr:command-app "jsd";
+  dr:sub-component "health";
+  jnpr-proto:message-id "JSD-HEALTH-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container system {
+        dr:fieldnum 151;
+
+        container grpc-servers {
+          dr:fieldnum 151;
+
+          list grpc-server {
+            dr:fieldnum 151;
+            dr:source "/servers/server";
+            key "name";
+
+            leaf name {
+              type string;
+              dr:source "name";
+              dr:fieldnum 51;
+            }
+
+            container state {
+              dr:fieldnum 151;
+
+              uses server-state;
+
+              container connections {
+                dr:fieldnum 151;
+
+                list connection {
+                  dr:source "/servers/server/connections";
+                  dr:fieldnum 151;
+                  key "client-id";
+
+                  leaf client-id {
+                    type string;
+                    dr:source "client_id";
+                    dr:fieldnum 51;
+                  }
+                  uses connections_state;
+                }
+              }
+            }
+            container counters {
+              dr:fieldnum 152;
+
+              list counter {
+                dr:source "/servers/server/counters";
+                dr:fieldnum 151;
+                /**/key "service";
+
+                leaf service {
+                  type string;
+                  dr:source "service_name";
+                  dr:fieldnum 51;
+                }
+                uses counters_state;/**/
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_queue_stats jnpr_interfaces_queue_stats_ext = 200;
+}
+
+message interfaces_queue_stats {
+   message interface_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      message state_list {
+         message counters_list {
+            message out_queue_list {
+               optional uint32 queue_number = 51 [(telemetry_options).is_key = true];
+               optional uint64 queued_pkts = 52;
+               optional uint64 queued_bytes = 53;
+               optional uint64 lp_red_drop_pkts = 54;
+               optional uint64 hp_red_drop_pkts = 55;
+            }
+            repeated out_queue_list out_queue = 151;
+         }
+         repeated counters_list counters = 151;
+      }
+      repeated state_list state = 151;
+   }
+   repeated interface_list interface = 151;
+}

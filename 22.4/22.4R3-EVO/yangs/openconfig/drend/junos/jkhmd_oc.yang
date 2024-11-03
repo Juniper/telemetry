@@ -1,0 +1,2222 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2018-20, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module "jkhmd_oc" {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/kernel_health";
+
+  prefix "jkhmd-oc";
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  dr:command-app "jkhmd";
+  dr:sub-component "kernel-health";
+  jnpr-proto:message-id "JKHMD-TELEMETRY-OC-MESSAGE-ID";
+
+  typedef gresErrorState {
+      type enumeration {
+         enum KSYNCD_NO_ERROR {
+             value 0;
+         }
+         enum KSYNCD_ERROR_INIT {
+             value 1;
+         }
+         enum KSYNCD_ERROR_VERSION_MISMATCH {
+             value 2;
+         }
+         enum KSYNCD_VERSION_MIS_AND_INIT_ERR {
+             value 3;
+         }
+         enum KSYNCD_ERROR_RECONNECT {
+             value 4;
+         }
+         enum KSYNCD_RECONNECT_AND_INIT_ERR {
+             value 5;
+         }
+         enum KSYNCD_ERROR_RECONNECT1 {
+             value 8;
+         }
+         enum KSYNCD_ERROR_REPLICATION {
+             value 65536;
+         }
+         enum KSYNCD_INIT_AND_REPL_ERR {
+             value 65537;
+         }
+         enum KSYNCD_VERSION_MIS_AND_REPL_ERR {
+             value 65538;
+         }
+         enum KSYNCD_RECONNNECT_AND_REPL_ERR {
+             value 65540;
+         }
+         enum KSYNCD_ERROR_CONFIG_SYNC {
+             value 131072;
+         }
+         enum KSYNCD_INIT_AND_CFG_SYNC_ERR {
+             value 131073;
+         }
+         enum KSYNCD_VERSION_MIS_INIT_AND_CFG_SYNC_ERR {
+             value 131075;
+         }
+         enum KSYNCD_REPL_AND_CFG_SYNC_ERROR {
+             value 196608;
+         }
+         enum KSYNCD_INIT_REPL_AND_CFG_SYNC_ERR {
+             value 196609;
+         }
+         enum KSYNCD_ERROR_CONNECTION {
+             value 262144;
+         }
+         enum KSYNCD_CONN_AND_INIT_ERROR {
+             value 262145;
+         }
+         enum KSYNCD_CONN_AND_REPL_ERROR {
+             value 327680;
+         }
+         enum KSYNCD_CONN_REPL_AND_INIT_ERR {
+             value 327681;
+         }
+         enum KSYNCD_CONN_AND_CFG_SYNC_ERROR {
+             value 393216;
+         }
+         enum KSYNCD_CONN_INIT_AND_CFG_SYNC_ERR {
+             value 393217;
+         }
+         enum KSYNCD_CONN_REPL_AND_CFG_SYNC_ERR {
+             value 458752;
+         }
+      }
+  }
+
+  typedef veriexecType {
+      type enumeration {
+          enum VERIEXEC_STATE_INACTIVE { 
+              value 0;
+          }
+          enum VERIEXEC_STATE_LOADED { 
+              value 1;
+          }
+          enum VERIEXEC_STATE_ACTIVE { 
+              value 2;
+          }
+          enum VERIEXEC_STATE_ACTIVE_AND_LOADED { 
+              value 3;
+          }
+          enum VERIEXEC_STATE_ENFORCED { 
+              value 4;
+          }
+          enum VERIEXEC_STATE_ACTIVE_LOADED_AND_ENFORCED { 
+              value 7;
+          }
+          enum VERIEXEC_STATE_LOCKED { 
+              value 8;
+          }
+          enum VERIEXEC_STATE_ACTIVE_LOADED_AND_LOCKED { 
+              value 11;
+          }
+          enum VERIEXEC_STATE_ACTIVE_LOADED_ENFORCED_AND_LOCKED { 
+              value 15;
+          }
+      }
+  }
+
+  typedef issuState {
+      type enumeration {
+          enum ISSU_STATE_IDLE {
+              value 0;
+          }
+          enum ISSU_STATE_ERROR {
+              value 16;
+          }
+          enum ISSU_STATE_VALIDATE {
+              value 32;
+          }
+          enum ISSU_STATE_SLAVE_RE_PREPARE {
+              value 48;
+          }
+          enum ISSU_STATE_SLAVE_RE_PREPARE_DONE {
+              value 64;
+          }
+          enum ISSU_STATE_LCC_SLAVE_RES_PREPARE {
+              value 65;
+          }
+          enum ISSU_STATE_LCC_SLAVE_RES_PREPARE_DONE {
+              value 66;
+          }
+          enum ISSU_STATE_LCC_PROTOCOL_BACKUP_SWITCHED {
+              value 72;
+          }
+          enum ISSU_STATE_DAEMON_PREPARE {
+              value 80;
+          }
+          enum ISSU_STATE_DAEMON_READY {
+              value 96;
+          }
+          enum ISSU_STATE_DAEMON_ABORT {
+              value 112;
+          }
+          enum ISSU_STATE_OFFLINE_FRUS {
+              value 120;
+          }
+          enum ISSU_STATE_FRU_ISSU {
+              value 128;
+          }
+          enum ISSU_STATE_FPC_WARM_BOOT {
+              value 136;
+          }
+          enum ISSU_STATE_FPC_WARM_BOOT_DONE {
+              value 137;
+          }
+          enum ISSU_STATE_FPC_HOSTIO_TRANSFER {
+              value 138;
+          }
+          enum ISSU_STATE_FRU_ISSU_DONE {
+              value 144;
+          }
+          enum ISSU_STATE_SWITCHOVER_PREPARE {
+              value 160;
+          }
+          enum ISSU_STATE_SWITCHOVER_READY {
+              value 176;
+          }
+          enum ISSU_STATE_ALL_VC_MEMBERS_SWITCHOVER_READY {
+              value 177;
+          }
+          enum ISSU_STATE_SWITCHOVER_DONE {
+              value 192;
+          }
+          enum ISSU_STATE_OLD_MASTER_UPGRADE {
+              value 208;
+          }
+          enum ISSU_STATE_OLD_MASTER_UPGRADE_DONE {
+              value 224;
+          }
+          enum ISSU_STATE_LCC_OLD_MASTER_UPGRADE {
+              value 225;
+          }
+          enum ISSU_STATE_LCC_OLD_MASTER_UPGRADE_DONE {
+              value 226;
+          }
+          enum ISSU_STATE_UNKNOWN {
+              value 240;
+          }
+      }
+  }
+
+  typedef gresConfiguredState {
+      type enumeration {
+          enum NOT_CONFIGURED {
+              value 0;
+          }
+          enum UNCONFIGURING {
+              value 1;
+          }
+          enum CONFIGURING {
+              value 2;
+          }
+          enum CONFIGURED {
+              value 3;
+          }
+      }
+  }
+
+  typedef gresReadyState {
+      type enumeration {
+          enum GRES_NOT_READY {
+              value 0;
+          }
+          enum GRES_READY {
+              value 1;
+          }
+      }
+  }
+
+  typedef gresOrePresent {
+      type enumeration {
+	  enum OTHER_RE_NOT_PRESENT {
+	      value 0;
+	  }
+	  enum OTHER_RE_PRESENT {
+	      value 1;
+	  }
+      }
+  }
+
+  typedef gresOreAlive {
+      type enumeration {
+	  enum OTHER_RE_NOT_ALIVE {
+	      value 0;
+	  }
+	  enum OTHER_RE_ALIVE {
+	      value 1;
+	  }
+      }
+  }
+
+  typedef gresMastershipState {
+      type enumeration {
+	  enum NOT_PROTOCOL_MASTER {
+	      value 0;
+	  }
+	  enum PROTOCOL_MASTER {
+	      value 1;
+	  }
+	  enum PROTOCOL_BACKUP {
+	      value 2;
+	  }
+      }
+  }
+
+  grouping kernel-ifstate-group {
+        dr:source "/junos/kernel-ifstate";
+        dr:fieldnum 141;
+        leaf dead-ifstates-cnt
+        {
+            type uint32;
+            dr:source "dead-ifstates-cnt";
+            dr:fieldnum 51;
+        }
+        leaf alive-ifstates-cnt
+        {
+            type uint32;
+            dr:source "alive-ifstates-cnt";
+            dr:fieldnum 52;
+        }
+        leaf delayed-unrefs-cnt
+        {
+            type uint32;
+            dr:source "delayed-unrefs-cnt";
+            dr:fieldnum 53;
+        }
+        leaf delayed-unrefs-max
+        {
+            type uint32;
+            dr:source "delayed-unrefs-max";
+            dr:fieldnum 54;
+        }
+        leaf stuck-clients-cnt
+        {
+            type uint32;
+            dr:source "stuck-clients-cnt";
+            dr:fieldnum 55;
+        }
+        leaf dead-clients-cnt
+        {
+            type uint32;
+            dr:source "dead-clients-cnt";
+            dr:fieldnum 56;
+        }
+        leaf alive-clients-cnt
+        {
+            type uint32;
+            dr:source "alive-clients-cnt";
+            dr:fieldnum 57;
+        }
+        leaf client-limit-reached
+        {
+            type uint32;
+            dr:source "client-limit-reached";
+            dr:fieldnum 58;
+        }
+    }
+
+    grouping chassis-gres-group {
+        dr:source "/junos/chassis/gres";
+        dr:fieldnum 142;
+        leaf gres-time
+        {
+            type uint64;
+            dr:source "gres-time";
+            dr:fieldnum 51;
+        }
+        leaf slave-connect-time
+        {
+            type uint64;
+            dr:source "slave-connect-time";
+            dr:fieldnum 52;
+        }
+        leaf configured-state
+        {
+            type gresConfiguredState;
+            dr:source "configured-state";
+            dr:map NOT_CONFIGURED { dr:map-from 0;}
+            dr:map UNCONFIGURING  { dr:map-from 1;}
+            dr:map CONFIGURING    { dr:map-from 2;}
+            dr:map CONFIGURED     { dr:map-from 3;}
+            dr:fieldnum 53;
+        }
+        leaf master-kernel-ready
+        {
+            type gresReadyState;
+            dr:source "master-kernel-ready";
+            dr:map GRES_NOT_READY { dr:map-from 0; }
+            dr:map GRES_READY { dr:map-from 1; }
+            dr:fieldnum 54;
+        }
+        leaf slave-kernel-ready
+        {
+            type gresReadyState;
+            dr:source "slave-kernel-ready";
+            dr:map GRES_NOT_READY { dr:map-from 0; }
+            dr:map GRES_READY { dr:map-from 1; }
+            dr:fieldnum 55;
+        }
+        leaf error-state
+        {
+            type gresErrorState;
+            dr:source "error-state";
+            dr:map KSYNCD_NO_ERROR                              { dr:map-from 0; }
+            dr:map KSYNCD_ERROR_INIT                            { dr:map-from 1; }
+            dr:map KSYNCD_ERROR_VERSION_MISMATCH                { dr:map-from 2; }
+            dr:map KSYNCD_VERSION_MIS_AND_INIT_ERR              { dr:map-from 3; }
+            dr:map KSYNCD_ERROR_RECONNECT                       { dr:map-from 4; }
+            dr:map KSYNCD_RECONNECT_AND_INIT_ERR                { dr:map-from 5; }
+            dr:map KSYNCD_ERROR_RECONNECT1                      { dr:map-from 8; }
+            dr:map KSYNCD_ERROR_REPLICATION                     { dr:map-from 65536; }
+            dr:map KSYNCD_INIT_AND_REPL_ERR                     { dr:map-from 65537; }
+            dr:map KSYNCD_VERSION_MIS_AND_REPL_ERR              { dr:map-from 65538; }
+            dr:map KSYNCD_RECONNNECT_AND_REPL_ERR               { dr:map-from 65540; }
+            dr:map KSYNCD_ERROR_CONFIG_SYNC                     { dr:map-from 131072; }
+            dr:map KSYNCD_INIT_AND_CFG_SYNC_ERR                 { dr:map-from 131073; }
+            dr:map KSYNCD_VERSION_MIS_INIT_AND_CFG_SYNC_ERR     { dr:map-from 131075; }
+            dr:map KSYNCD_REPL_AND_CFG_SYNC_ERROR               { dr:map-from 196608; }
+            dr:map KSYNCD_INIT_REPL_AND_CFG_SYNC_ERR            { dr:map-from 196609; }
+            dr:map KSYNCD_ERROR_CONNECTION                      { dr:map-from 262144; }
+            dr:map KSYNCD_CONN_AND_INIT_ERROR                   { dr:map-from 262145; }
+            dr:map KSYNCD_CONN_AND_REPL_ERROR                   { dr:map-from 327680; }
+            dr:map KSYNCD_CONN_REPL_AND_INIT_ERR                { dr:map-from 327681; }
+            dr:map KSYNCD_CONN_AND_CFG_SYNC_ERROR               { dr:map-from 393216; }
+            dr:map KSYNCD_CONN_INIT_AND_CFG_SYNC_ERR            { dr:map-from 393217; }
+            dr:map KSYNCD_CONN_REPL_AND_CFG_SYNC_ERR            { dr:map-from 458752; }
+            dr:map KSYNCD_UNDEFINED_ERR                         { dr:map-from *; }
+            dr:fieldnum 56;
+        }
+	leaf other-re-present {
+	    type gresOrePresent;
+            dr:source "other-re-present";
+	    dr:map OTHER_RE_NOT_PRESENT { dr:map-from 0; }
+	    dr:map OTHER_RE_PRESENT     { dr:map-from 1; }
+	    dr:fieldnum 151;
+	}
+        leaf other-re-alive {
+            type gresOreAlive;
+            dr:source "other-re-alive";
+            dr:map OTHER_RE_NOT_ALIVE { dr:map-from 0; }
+	    dr:map OTHER_RE_ALIVE     { dr:map-from 1; }
+            dr:fieldnum 152;
+        }
+        leaf is-protocol-master {
+            type gresMastershipState;
+            dr:source "is-protocol-master";
+	    dr:map NOT_PROTOCOL_MASTER { dr:map-from 0; }
+	    dr:map PROTOCOL_MASTER     { dr:map-from 1; }
+	    dr:map PROTOCOL_BACKUP     { dr:map-from 2; }
+            dr:fieldnum 165;
+         }
+    }
+
+    grouping chassis-issu-group {
+        dr:source "/junos/chassis/issu";
+        dr:fieldnum 143;
+        leaf failure-stage
+        {
+            type issuState;
+            dr:source "failure-stage";
+            dr:map  ISSU_STATE_IDLE { dr:map-from 0; }
+            dr:map  ISSU_STATE_ERROR { dr:map-from 16; }
+            dr:map  ISSU_STATE_VALIDATE { dr:map-from  32; }
+            dr:map  ISSU_STATE_SLAVE_RE_PREPARE { dr:map-from 48; }
+            dr:map  ISSU_STATE_SLAVE_RE_PREPARE_DONE { dr:map-from 64; }
+            dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE { dr:map-from 65; }
+            dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE_DONE { dr:map-from 66; }
+            dr:map  ISSU_STATE_LCC_PROTOCOL_BACKUP_SWITCHED { dr:map-from  72; }
+            dr:map  ISSU_STATE_DAEMON_PREPARE { dr:map-from 80; }
+            dr:map  ISSU_STATE_DAEMON_READY { dr:map-from 96; }
+            dr:map  ISSU_STATE_ABORT { dr:map-from 112; }
+            dr:map  ISSU_STATE_OFFLINE_FRUS { dr:map-from 120; }
+            dr:map  ISSU_STATE_FRU_ISSU { dr:map-from 128; }
+            dr:map  ISSU_STATE_FPC_WARM_BOOT { dr:map-from 136; }
+            dr:map  ISSU_STATE_FPC_WARM_BOOT_DONE { dr:map-from  137; }
+            dr:map  ISSU_STATE_FPC_HOSTIO_TRANSFER { dr:map-from 138; }
+            dr:map  ISSU_STATE_FRU_ISSU_DONE { dr:map-from 144; }
+            dr:map  ISSU_STATE_SWITCHOVER_PREPARE { dr:map-from  160; }
+            dr:map  ISSU_STATE_SWITCHOVER_READY { dr:map-from 176; }
+            dr:map  ISSU_STATE_ALL_VC_MEMBERS_SWITCHOVER_READY { dr:map-from 177; }
+            dr:map  ISSU_STATE_SWITCHOVER_DONE { dr:map-from 192; }
+            dr:map  ISSU_STATE_OLD_MASTER_UPGRADE { dr:map-from 208; }
+            dr:map  ISSU_STATE_OLD_MASTER_UPGRADE_DONE { dr:map-from 224; }
+            dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE { dr:map-from 225; }
+            dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE_DONE { dr:map-from 226; }
+            dr:map  ISSU_STATE_UNKNOWN { dr:map-from 240; }
+            dr:fieldnum 51;
+        }
+        leaf current-issu-stage
+        {
+            type issuState;
+            dr:source "current-issu-stage";
+            dr:map  ISSU_STATE_IDLE { dr:map-from 0; }
+            dr:map  ISSU_STATE_ERROR { dr:map-from 16; }
+            dr:map  ISSU_STATE_VALIDATE { dr:map-from  32; }
+            dr:map  ISSU_STATE_SLAVE_RE_PREPARE { dr:map-from 48; }
+            dr:map  ISSU_STATE_SLAVE_RE_PREPARE_DONE { dr:map-from 64; }
+            dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE { dr:map-from 65; }
+            dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE_DONE { dr:map-from 66; }
+            dr:map  ISSU_STATE_LCC_PROTOCOL_BACKUP_SWITCHED { dr:map-from  72; }
+            dr:map  ISSU_STATE_DAEMON_PREPARE { dr:map-from 80; }
+            dr:map  ISSU_STATE_DAEMON_READY { dr:map-from 96; }
+            dr:map  ISSU_STATE_ABORT { dr:map-from 112; }
+            dr:map  ISSU_STATE_OFFLINE_FRUS { dr:map-from 120; }
+            dr:map  ISSU_STATE_FRU_ISSU { dr:map-from 128; }
+            dr:map  ISSU_STATE_FPC_WARM_BOOT { dr:map-from 136; }
+            dr:map  ISSU_STATE_FPC_WARM_BOOT_DONE { dr:map-from  137; }
+            dr:map  ISSU_STATE_FPC_HOSTIO_TRANSFER { dr:map-from 138; }
+            dr:map  ISSU_STATE_FRU_ISSU_DONE { dr:map-from 144; }
+            dr:map  ISSU_STATE_SWITCHOVER_PREPARE { dr:map-from  160; }
+            dr:map  ISSU_STATE_SWITCHOVER_READY { dr:map-from 176; }
+            dr:map  ISSU_STATE_ALL_VC_MEMBERS_SWITCHOVER_READY { dr:map-from 177; }
+            dr:map  ISSU_STATE_SWITCHOVER_DONE { dr:map-from 192; }
+            dr:map  ISSU_STATE_OLD_MASTER_UPGRADE { dr:map-from 208; }
+            dr:map  ISSU_STATE_OLD_MASTER_UPGRADE_DONE { dr:map-from 224; }
+            dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE { dr:map-from 225; }
+            dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE_DONE { dr:map-from 226; }
+            dr:map  ISSU_STATE_UNKNOWN { dr:map-from 240; }
+            dr:fieldnum 52;
+        }
+    }
+
+    grouping kernel-peer-infra-group {
+        dr:source "/junos/kernel/peer-infra";
+        dr:fieldnum 144;
+        leaf peer-pfeman-conn-drops
+        {
+            type uint32;
+            dr:source "pfeman-conn-drops";
+            dr:fieldnum 51;
+        }
+        leaf spurious-ppt-wkups
+        {
+            type uint32;
+            dr:source "spurious-ppt-wkups";
+            dr:fieldnum 52;
+        }
+    }
+
+    grouping kernel-tnp-group {
+        dr:source "/junos/kernel/tnp";
+        dr:fieldnum 144;
+        leaf tnp-hello-drop-cnt
+        {
+            type uint64;
+            dr:source "tnp-hello-drop-cnt";
+            dr:fieldnum 211;
+        }
+        leaf tnp-frag-drop-cnt
+        {
+            type uint64;
+            dr:source "tnp-frag-drop-cnt";
+            dr:fieldnum 212;
+        }
+    }
+
+    grouping kernel-vpls-group {
+        dr:source "/junos/kernel/vpls";
+        dr:fieldnum 201;
+        leaf unicast-token-cnt
+        {
+            type uint32;
+            dr:source "unicast-token-cnt";
+            dr:fieldnum 213;
+        }
+        leaf unicast-token-max
+        {
+            type uint32;
+            dr:source "unicast-token-max";
+            dr:fieldnum 214;
+        }
+        leaf flood-token-cnt
+        {
+            type uint32;
+            dr:source "flood-token-cnt";
+            dr:fieldnum 215;
+        }
+        leaf flood-token-max
+        {
+            type uint32;
+            dr:source "flood-token-max";
+            dr:fieldnum 216;
+        }
+    }
+
+    grouping kernel-tunnel-group {
+        dr:source "/junos/kernel/tunnel";
+        dr:fieldnum 202;
+        leaf rpf-tunnelid-cnt
+        {
+            type uint32;
+            dr:source "rpf-tunnelid-cnt";
+            dr:fieldnum 217;
+        }
+        leaf rpf-tunnelid-max
+        {
+            type uint32;
+            dr:source "rpf-tunnelid-max";
+            dr:fieldnum 218;
+        }
+        leaf nonrpf-tunnelid-cnt
+        {
+            type uint32;
+            dr:source "nonrpf-tunnelid-cnt";
+            dr:fieldnum 219;
+        }
+        leaf nonrpf-tunnelid-max
+        {
+            type uint32;
+            dr:source "nonrpf-tunnelid-max";
+            dr:fieldnum 220;
+        }
+        leaf looped-cnt
+        {
+            type uint32;
+            dr:source "looped-cnt";
+            dr:fieldnum 221;
+        }
+    }
+
+    grouping kernel-multicast-group {
+        dr:source "/junos/kernel/multicast";
+        dr:fieldnum 203;
+        leaf iifmismatch-err-cnt
+        {
+            type uint64;
+            dr:source "iifmismatch-err-cnt";
+            dr:fieldnum 222;
+        }
+        leaf rslv-req-err-cnt
+        {
+            type uint64;
+            dr:source "rslv-req-err-cnt";
+            dr:fieldnum 223;
+        }
+    }
+
+    grouping kernel-record-time-group {
+        dr:source "/junos/kernel/record-meta-data";
+        dr:fieldnum 145;
+        leaf record-time
+        {
+            type uint64;
+            dr:source "record-time";
+            dr:fieldnum 51;
+        }
+    }
+    grouping kernel-tcpip-nhidx-group {
+        dr:source "/junos/kernel/tcpip/nhidx";
+        dr:fieldnum 580;
+        leaf nexthop-pub-max
+        {
+            type uint32;
+            dr:source "nexthop-pub-max";
+            dr:fieldnum 401;
+        }
+        leaf nexthop-priv-max
+        {
+            type uint32;
+            dr:source "nexthop-priv-max";
+            dr:fieldnum 402;
+        }
+        leaf nexthop-pub-cnt
+        {
+            type uint32;
+            dr:source "nexthop-pub-cnt";
+            dr:fieldnum 403;
+        }
+        leaf nexthop-priv-cnt
+        {
+            type uint32;
+            dr:source "nexthop-priv-cnt";
+            dr:fieldnum 404;
+        }
+    }
+    grouping kernel-tcpip-rtb-group {
+        dr:source "/junos/kernel/tcpip/rtb";
+        dr:fieldnum 581;
+        leaf route-clone-max
+        {
+            type uint32;
+            dr:source "route-clone-max";
+            dr:fieldnum 405;
+        }
+        leaf route-clone-cnt
+        {
+            type uint32;
+            dr:source "route-clone-cnt";
+            dr:fieldnum 406;
+        }
+    }
+    grouping kernel-tcpip-arp-group {
+        dr:source "/junos/kernel/tcpip/arp";
+        dr:fieldnum 582;
+        leaf nbrcache-iri-max
+        {
+            type uint32;
+            dr:source "nbrcache-iri-max";
+            dr:fieldnum 407;
+        }
+        leaf nbrcache-mgmt-max
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-max";
+            dr:fieldnum 408;
+        }
+        leaf nbrcache-public-max
+        {
+            type uint32;
+            dr:source "nbrcache-public-max";
+            dr:fieldnum 409;
+        }
+        leaf nbrcache-iri-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-iri-cnt";
+            dr:fieldnum 410;
+        }
+        leaf nbrcache-mgmt-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-cnt";
+            dr:fieldnum 411;
+        }
+        leaf nbrcache-public-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-public-cnt";
+            dr:fieldnum 412;
+        }
+        leaf nbrcache-iri-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-iri-drop-cnt";
+            dr:fieldnum 413;
+        }
+        leaf nbrcache-mgmt-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-drop-cnt";
+            dr:fieldnum 414;
+        }
+        leaf nbrcache-public-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-public-drop-cnt";
+            dr:fieldnum 415;
+        }
+    }
+    grouping kernel-tcpip-ndp-group {
+        dr:source "/junos/kernel/tcpip/ndp";
+        dr:fieldnum 583;
+        leaf nbrcache-iri-max
+        {
+            type uint32;
+            dr:source "nbrcache-iri-max";
+            dr:fieldnum 416;
+        }
+        leaf nbrcache-mgmt-max
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-max";
+            dr:fieldnum 417;
+        }
+        leaf nbrcache-public-max
+        {
+            type uint32;
+            dr:source "nbrcache-public-max";
+            dr:fieldnum 418;
+        }
+        leaf nbrcache-iri-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-iri-cnt";
+            dr:fieldnum 419;
+        }
+        leaf nbrcache-mgmt-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-cnt";
+            dr:fieldnum 420;
+        }
+        leaf nbrcache-public-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-public-cnt";
+            dr:fieldnum 421;
+        }
+        leaf nbrcache-iri-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-iri-drop-cnt";
+            dr:fieldnum 422;
+        }
+        leaf nbrcache-mgmt-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-mgmt-drop-cnt";
+            dr:fieldnum 423;
+        }
+        leaf nbrcache-public-drop-cnt
+        {
+            type uint32;
+            dr:source "nbrcache-public-drop-cnt";
+            dr:fieldnum 424;
+        }
+    }
+    grouping kernel-tcpip-netisr-group {
+        dr:source "/junos/kernel/tcpip/netisr";
+        dr:fieldnum 584;
+        leaf ether-wm-cnt
+        {
+            type uint32;
+            dr:source "ether-wm-cnt";
+            dr:fieldnum 425;
+        }
+        leaf ether-drop-cnt
+        {
+            type uint32;
+            dr:source "ether-drop-cnt";
+            dr:fieldnum 426;
+        }
+        leaf ether-pkt-handled
+        {
+            type uint64;
+            dr:source "ether-pkt-handled";
+            dr:fieldnum 427;
+        }
+        leaf ether-pkt-queued
+        {
+            type uint64;
+            dr:source "ether-pkt-queued";
+            dr:fieldnum 428;
+        }
+        leaf ip-wm-cnt
+        {
+            type uint32;
+            dr:source "ip-wm-cnt";
+            dr:fieldnum 429;
+        }
+        leaf ip-drop-cnt
+        {
+            type uint32;
+            dr:source "ip-drop-cnt";
+            dr:fieldnum 430;
+        }
+        leaf ip-pkt-handled
+        {
+            type uint64;
+            dr:source "ip-pkt-handled";
+            dr:fieldnum 431;
+        }
+        leaf ip-pkt-queued
+        {
+            type uint64;
+            dr:source "ip-pkt-queued";
+            dr:fieldnum 432;
+        }
+        leaf ip6-wm-cnt
+        {
+            type uint32;
+            dr:source "ip6-wm-cnt";
+            dr:fieldnum 433;
+        }
+        leaf ip6-drop-cnt
+        {
+            type uint32;
+            dr:source "ip6-drop-cnt";
+            dr:fieldnum 434;
+        }
+        leaf ip6-pkt-handled
+        {
+            type uint64;
+            dr:source "ip6-pkt-handled";
+            dr:fieldnum 435;
+        }
+        leaf ip6-pkt-queued
+        {
+            type uint64;
+            dr:source "ip6-pkt-queued";
+            dr:fieldnum 436;
+        }
+        leaf arp-wm-cnt
+        {
+            type uint32;
+            dr:source "arp-wm-cnt";
+            dr:fieldnum 437;
+        }
+        leaf arp-drop-cnt
+        {
+            type uint32;
+            dr:source "arp-drop-cnt";
+            dr:fieldnum 438;
+        }
+        leaf arp-pkt-handled
+        {
+            type uint64;
+            dr:source "arp-pkt-handled";
+            dr:fieldnum 439;
+        }
+        leaf arp-pkt-queued
+        {
+            type uint64;
+            dr:source "arp-pkt-queued";
+            dr:fieldnum 440;
+        }
+    }
+
+    grouping kernel-tcpip-tcp-group {
+        dr:source "/junos/kernel/tcpip/tcp";
+        dr:fieldnum 501;
+        leaf tcp-ddos-attack-cnt
+        {
+            type uint32;
+            dr:source "tcp-ddos-attack-cnt";
+            dr:fieldnum 502;
+        }
+        leaf tcp-conndrops-cnt
+        {
+            type uint32;
+            dr:source "tcp-conndrops-cnt";
+            dr:fieldnum 503;
+        }
+        leaf tcp-time-wait-conn
+        {
+            type uint64;
+            dr:source "tcp-time-wait-conn";
+            dr:fieldnum 504;
+        }
+    }
+
+    grouping routing-options-nsr-group {
+        dr:source "/junos/routing-options/nonstop-routing";
+        dr:fieldnum 505;
+        leaf jsr-split-failure-cnt
+        {
+            type uint32;
+            dr:source "jsr-split-failure-cnt";
+            dr:fieldnum 506;
+        }
+        leaf jsr-merge-failure-cnt
+        {
+            type uint32;
+            dr:source "jsr-merge-failure-cnt";
+            dr:fieldnum 507;
+        }
+        leaf jsr-prl-queue-full-cnt
+        {
+            type uint32;
+            dr:source "jsr-prl-queue-full-cnt";
+            dr:fieldnum 508;
+        }
+    }
+
+    grouping security-group {
+        dr:source "/junos/security";
+        dr:fieldnum 146;
+        leaf veriexec-state
+        {
+            type veriexecType;
+            dr:source "veriexec-state";
+            dr:map  VERIEXEC_STATE_INACTIVE                           { dr:map-from 0; }
+            dr:map  VERIEXEC_STATE_LOADED                             { dr:map-from 1; }
+            dr:map  VERIEXEC_STATE_ACTIVE                             { dr:map-from 2; }
+            dr:map  VERIEXEC_STATE_ACTIVE_AND_LOADED                  { dr:map-from 3; }
+            dr:map  VERIEXEC_STATE_ENFORCED                           { dr:map-from 4; }
+            dr:map  VERIEXEC_STATE_ACTIVE_LOADED_AND_ENFORCED         { dr:map-from 7; }
+            dr:map  VERIEXEC_STATE_LOCKED                             { dr:map-from 8; }
+            dr:map  VERIEXEC_STATE_ACTIVE_LOADED_AND_LOCKED           { dr:map-from 11; }
+            dr:map  VERIEXEC_STATE_ACTIVE_LOADED_ENFORCED_AND_LOCKED  { dr:map-from 15; }
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping kernel-rtsock-group {
+        dr:source "/junos/kernel/rtsock";
+        dr:fieldnum 147;
+	leaf total-veto-cnt {
+	    type uint64;
+            dr:source "total-veto-cnt";
+	    dr:fieldnum 148;
+	}
+	leaf total-error-cnt {
+	    type uint64;
+            dr:source "total-error-cnt";
+	    dr:fieldnum 149;
+	}
+    }
+
+    grouping chassis-aggregated-devices-group {
+        dr:source "/junos/chassis/aggregated-devices";
+        dr:fieldnum 301;
+        leaf ps-lt-unstack-cnt
+        {
+            type uint32;
+            dr:source "ps-lt-unstack-cnt";
+            dr:fieldnum 311;
+        }
+        leaf ps-ifl-ccc-down-cnt
+        {
+            type uint32;
+            dr:source "ps-ifl-ccc-down-cnt";
+            dr:fieldnum 312;
+        }
+        leaf rlt-lp-link-down-cnt
+        {
+            type uint32;
+            dr:source "rlt-lp-link-down-cnt";
+            dr:fieldnum 313;
+        }
+        leaf ae-unstack-cnt
+        {
+            type uint32;
+            dr:source "ae-unstack-cnt";
+            dr:fieldnum 314;
+        }
+        leaf ae-lp-link-down-cnt
+        {
+            type uint32;
+            dr:source "ae-lp-link-down-cnt";
+            dr:fieldnum 315;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/junos-kernel-health-telemetry";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container chassis {
+                    dr:fieldnum 191;
+                    container gres {
+                        dr:source "/junos/chassis/gres";
+                        dr:source-notification-name "jkhmd-gres-notify";
+                        dr:fieldnum 181;
+                        uses chassis-gres-group;
+                    }
+                    container issu {
+                        dr:source "/junos/chassis/issu";
+                        dr:source-notification-name "jkhmd-issu-notify";
+                        dr:fieldnum 182;
+                        uses chassis-issu-group;
+                    }
+                    container aggregated-devices {
+                        dr:source "/junos/chassis/aggregated-devices";
+                        dr:source-notification-name "jkhmd-aggregated-devices-notify";
+                        dr:fieldnum 351;
+                        uses chassis-aggregated-devices-group;
+                    }
+                }
+                container routing-options {
+                    dr:fieldnum 509;
+                    container nonstop-routing {
+                        dr:source "/junos/routing-options/nonstop-routing";
+                        dr:source-notification-name "jkhmd-nsr-notify";
+                        dr:fieldnum 510;
+                        uses routing-options-nsr-group;
+                    }
+                }
+                container security {
+                    dr:source "/junos/security";
+                    dr:source-notification-name "jkhmd-security-notify";
+                    dr:fieldnum 183;
+                    uses security-group;
+                }
+                container kernel {
+                    dr:fieldnum 192;
+                    container peer-infra {
+                        dr:source "/junos/kernel/peer-infra";
+                        dr:source-notification-name "jkhmd-peer-infra-notify";
+                        dr:fieldnum 184;
+                        uses kernel-peer-infra-group;
+                    }
+                    container vpls {
+                        dr:source "/junos/kernel/vpls";
+                        dr:source-notification-name "jkhmd-vpls-notify";
+                        dr:fieldnum 201;
+                        uses kernel-vpls-group;
+                    }
+                    container tunnel {
+                        dr:source "/junos/kernel/tunnel";
+                        dr:source-notification-name "jkhmd-tunnel-notify";
+                        dr:fieldnum 202;
+                        uses kernel-tunnel-group;
+                    }
+                    container multicast {
+                        dr:source "/junos/kernel/multicast";
+                        dr:source-notification-name "jkhmd-multicast-notify";
+                        dr:fieldnum 203;
+                        uses kernel-multicast-group;
+                    }
+                    container tnp {
+                        dr:source "/junos/kernel/tnp";
+                        dr:source-notification-name "jkhmd-tnp-notify";
+                        dr:fieldnum 225;
+                        uses kernel-tnp-group;
+                    }
+                    container record-meta-data {
+                        dr:source "/junos/kernel/record-meta-data";
+                        dr:source-notification-name "jkhmd-record-meta-data-notify";
+                        dr:fieldnum 185;
+                        uses kernel-record-time-group;
+                    }
+		    container rtsock {
+                        dr:source "/junos/kernel/rtsock";
+			dr:source-notification-name "jkhmd-rtsock-notify";
+			dr:fieldnum 153;
+			uses kernel-rtsock-group;
+		    }
+                    container tcpip {
+                        dr:fieldnum 598;
+                        container tcp {
+                            dr:source "/junos/kernel/tcpip/tcp";
+                            dr:source-notification-name "jkhmd-tcpip-tcp-notify";
+                            dr:fieldnum 511;
+                            uses kernel-tcpip-tcp-group;
+                        }
+                        container nhidx {
+                            dr:source "/junos/kernel/tcpip/nhidx";
+                            dr:source-notification-name "jkhmd-tcpip-nhidx-notify";
+                            dr:fieldnum 593;
+                            uses kernel-tcpip-nhidx-group;
+                        }
+                        container rtb {
+                            dr:source "/junos/kernel/tcpip/rtb";
+                            dr:source-notification-name "jkhmd-tcpip-rtb-notify";
+                            dr:fieldnum 594;
+                            uses kernel-tcpip-rtb-group;
+                        }
+                        container arp {
+                            dr:source "/junos/kernel/tcpip/arp";
+                            dr:source-notification-name "jkhmd-tcpip-arp-notify";
+                            dr:fieldnum 595;
+                            uses kernel-tcpip-arp-group;
+                        }
+                        container ndp {
+                            dr:source "/junos/kernel/tcpip/ndp";
+                            dr:source-notification-name "jkhmd-tcpip-ndp-notify";
+                            dr:fieldnum 596;
+                            uses kernel-tcpip-ndp-group;
+                        }
+                        container netisr {
+                            dr:source "/junos/kernel/tcpip/netisr";
+                            dr:source-notification-name "jkhmd-tcpip-netisr-notify";
+                            dr:fieldnum 597;
+                            uses kernel-tcpip-netisr-group;
+                        }
+                    }
+		}
+                container kernel-ifstate {
+                    dr:source "/junos/kernel-ifstate";
+                    dr:source-notification-name "jkhmd-kernel-ifstate-notify";
+                    dr:fieldnum 186;
+                    uses kernel-ifstate-group;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-stuck-client-notify {
+        dr:source-notification-name "jkhmd-stuck-client-notify";
+        container junos {
+            container kernel-ifstate {
+                dr:source "/notification/jkhmd-stuck-client-notify/junos/kernel-ifstate";
+                dr:fieldnum 186;
+                leaf stuck-clients-cnt {
+                    type uint32;
+                    dr:source "stuck-clients-cnt";
+                    dr:fieldnum 55;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-dead-client-notify {
+        dr:source-notification-name "jkhmd-dead-client-notify";
+        container junos {
+            container kernel-ifstate {
+                dr:source "/notification/jkhmd-dead-client-notify/junos/kernel-ifstate";
+                dr:fieldnum 186;
+                leaf dead-clients-cnt
+                {
+                    type uint32;
+                    dr:source "dead-clients-cnt";
+                    dr:fieldnum 56;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-alive-client-notify {
+        dr:source-notification-name "jkhmd-alive-client-notify";
+        container junos {
+            container kernel-ifstate {
+                dr:source "/notification/jkhmd-alive-client-notify/junos/kernel-ifstate";
+                dr:fieldnum 186;
+                leaf alive-clients-cnt
+                {
+                     type uint32;
+                     dr:source "alive-clients-cnt";
+                     dr:fieldnum 57;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-client-limit-notify {
+        dr:source-notification-name "jkhmd-client-limit-notify";
+        container junos {
+            container kernel-ifstate {
+                dr:source "/notification/jkhmd-client-limit-notify/junos/kernel-ifstate";
+                dr:fieldnum 186;
+                leaf client-limit-reached
+                {
+                    type uint32;
+                    dr:source "client-limit-reached";
+                    dr:fieldnum 58;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-security-veriexec-notify {
+        dr:source-notification-name "jkhmd-security-veriexec-notify";
+        container junos {
+            container security {
+                dr:source "/notification/jkhmd-security-veriexec-notify/junos/security";
+                dr:fieldnum 183;
+                leaf veriexec-state {
+                    type veriexecType;
+                    dr:source "veriexec-state";
+                    dr:fieldnum 51;
+                    dr:map  VERIEXEC_STATE_INACTIVE           { dr:map-from 0; }
+                    dr:map  VERIEXEC_STATE_LOADED             { dr:map-from 1; }
+                    dr:map  VERIEXEC_STATE_ACTIVE             { dr:map-from 2; }
+                    dr:map  VERIEXEC_STATE_ACTIVE_AND_LOADED  { dr:map-from 3; }
+                    dr:map  VERIEXEC_STATE_ENFORCE            { dr:map-from 4; }
+                    dr:map  VERIEXEC_STATE_LOCKED             { dr:map-from 8; }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-pfeman-conn-notify {
+        dr:source-notification-name "jkhmd-pfeman-conn-notify";
+        container junos {
+            container kernel {
+                container peer-infra {
+                    dr:source "/notification/jkhmd-pfeman-conn-notify/junos/kernel/peer-infra";
+                    dr:fieldnum 184;
+                    leaf peer-pfeman-conn-drops {
+                        type uint32;
+                        dr:source "pfeman-conn-drops";
+                        dr:fieldnum 51;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ppt-wkups-notify {
+        dr:source-notification-name "jkhmd-ppt-wkups-notify";
+        container junos {
+            container kernel {
+                container peer-infra {
+                    dr:source "/notification/jkhmd-ppt-wkups-notify/junos/kernel/peer-infra";
+                    dr:fieldnum 184;
+                    leaf spurious-ppt-wkups {
+                        type uint32;
+                        dr:source "spurious-ppt-wkups";
+                        dr:fieldnum 52;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-tnp-hello-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-tnp-hello-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tnp {
+                    dr:source "/notification/jkhmd-tnp-hello-drop-cnt-notify/junos/kernel/tnp";
+                    dr:fieldnum 225;
+                    leaf tnp-hello-drop-cnt {
+                        type uint64;
+                        dr:source "tnp-hello-drop-cnt";
+                        dr:fieldnum 211;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-tnp-frag-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-tnp-frag-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tnp {
+                    dr:source "/notification/jkhmd-tnp-frag-drop-cnt-notify/junos/kernel/tnp";
+                    dr:fieldnum 225;
+                    leaf tnp-frag-drop-cnt {
+                        type uint64;
+                        dr:source "tnp-frag-drop-cnt";
+                        dr:fieldnum 212;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-unicast-token-cnt-notify {
+        dr:source-notification-name "jkhmd-unicast-token-cnt-notify";
+        container junos {
+            container kernel {
+                container vpls {
+                    dr:source "/notification/jkhmd-unicast-token-cnt-notify/junos/kernel/vpls";
+                    dr:fieldnum 201;
+                    leaf unicast-token-cnt {
+                        type uint32;
+                        dr:source "unicast-token-cnt";
+                        dr:fieldnum 213;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-unicast-token-max-notify {
+        dr:source-notification-name "jkhmd-unicast-token-max-notify";
+        container junos {
+            container kernel {
+                container vpls {
+                    dr:source "/notification/jkhmd-unicast-token-max-notify/junos/kernel/vpls";
+                    dr:fieldnum 201;
+                    leaf unicast-token-max {
+                        type uint32;
+                        dr:source "unicast-token-max";
+                        dr:fieldnum 214;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-flood-token-cnt-notify {
+        dr:source-notification-name "jkhmd-flood-token-cnt-notify";
+        container junos {
+            container kernel {
+                container vpls {
+                    dr:source "/notification/jkhmd-flood-token-cnt-notify/junos/kernel/vpls";
+                    dr:fieldnum 201;
+                    leaf flood-token-cnt {
+                        type uint32;
+                        dr:source "flood-token-cnt";
+                        dr:fieldnum 215;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-flood-token-max-notify {
+        dr:source-notification-name "jkhmd-flood-token-max-notify";
+        container junos {
+            container kernel {
+                container vpls {
+                    dr:source "/notification/jkhmd-flood-token-max-notify/junos/kernel/vpls";
+                    dr:fieldnum 201;
+                    leaf flood-token-max {
+                        type uint32;
+                        dr:source "flood-token-max";
+                        dr:fieldnum 216;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rpf-tunnelid-cnt-notify {
+        dr:source-notification-name "jkhmd-rpf-tunnelid-cnt-notify";
+        container junos {
+            container kernel {
+                container tunnel {
+                    dr:source "/notification/jkhmd-rpf-tunnelid-cnt-notify/junos/kernel/tunnel";
+                    dr:fieldnum 202;
+                    leaf rpf-tunnelid-cnt {
+                        type uint32;
+                        dr:source "rpf-tunnelid-cnt";
+                        dr:fieldnum 217;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rpf-tunnelid-max-notify {
+        dr:source-notification-name "jkhmd-rpf-tunnelid-max-notify";
+        container junos {
+            container kernel {
+                container tunnel {
+                    dr:source "/notification/jkhmd-rpf-tunnelid-max-notify/junos/kernel/tunnel";
+                    dr:fieldnum 202;
+                    leaf rpf-tunnelid-max {
+                        type uint32;
+                        dr:source "rpf-tunnelid-max";
+                        dr:fieldnum 218;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-nonrpf-tunnelid-cnt-notify {
+        dr:source-notification-name "jkhmd-nonrpf-tunnelid-cnt-notify";
+        container junos {
+            container kernel {
+                container tunnel {
+                    dr:source "/notification/jkhmd-nonrpf-tunnelid-cnt-notify/junos/kernel/tunnel";
+                    dr:fieldnum 202;
+                    leaf nonrpf-tunnelid-cnt {
+                        type uint32;
+                        dr:source "nonrpf-tunnelid-cnt";
+                        dr:fieldnum 219;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-nonrpf-tunnelid-max-notify {
+        dr:source-notification-name "jkhmd-nonrpf-tunnelid-max-notify";
+        container junos {
+            container kernel {
+                container tunnel {
+                    dr:source "/notification/jkhmd-nonrpf-tunnelid-max-notify/junos/kernel/tunnel";
+                    dr:fieldnum 202;
+                    leaf nonrpf-tunnelid-max {
+                        type uint32;
+                        dr:source "nonrpf-tunnelid-max";
+                        dr:fieldnum 220;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-looped-cnt-notify {
+        dr:source-notification-name "jkhmd-looped-cnt-notify";
+        container junos {
+            container kernel {
+                container tunnel {
+                    dr:source "/notification/jkhmd-looped-cnt-notify/junos/kernel/tunnel";
+                    dr:fieldnum 202;
+                    leaf looped-cnt {
+                        type uint32;
+                        dr:source "looped-cnt";
+                        dr:fieldnum 221;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-iifmismatch-err-cnt-notify {
+        dr:source-notification-name "jkhmd-iifmismatch-err-cnt-notify";
+        container junos {
+            container kernel {
+                container multicast {
+                    dr:source "/notification/jkhmd-iifmismatch-err-cnt-notify/junos/kernel/multicast";
+                    dr:fieldnum 203;
+                    leaf iifmismatch-err-cnt {
+                        type uint32;
+                        dr:source "iifmismatch-err-cnt";
+                        dr:fieldnum 222;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rslv-req-err-cnt-notify {
+        dr:source-notification-name "jkhmd-rslv-req-err-cnt-notify";
+        container junos {
+            container kernel {
+                container multicast {
+                    dr:source "/notification/jkhmd-rslv-req-err-cnt-notify/junos/kernel/multicast";
+                    dr:fieldnum 203;
+                    leaf rslv-req-err-cnt {
+                        type uint32;
+                        dr:source "rslv-req-err-cnt";
+                        dr:fieldnum 223;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-record-meta-data-notify {
+        dr:source-notification-name "jkhmd-record-meta-data-notify";
+        container junos {
+            container kernel {
+                container record-meta-data {
+                    dr:source "/notification/jkhmd-record-meta-data-notify/junos/kernel/record-meta-data";
+                    dr:fieldnum 185;
+                    uses kernel-record-time-group;
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rnhidx-pub-cnt-notify {
+        dr:source-notification-name "jkhmd-rnhidx-pub-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container nhidx {
+                        dr:source "/notification/jkhmd-rnhidx-pub-cnt-notify/junos/kernel/tcpip/nhidx";
+                        dr:fieldnum 593;
+                        leaf nexthop-pub-cnt {
+                            type uint64;
+                            dr:source "nexthop-pub-cnt";
+                            dr:fieldnum 403;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rnhidx-priv-cnt-notify {
+        dr:source-notification-name "jkhmd-rnhidx-priv-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container nhidx {
+                        dr:source "/notification/jkhmd-rnhidx-priv-cnt-notify/junos/kernel/tcpip/nhidx";
+                        dr:fieldnum 593;
+                        leaf nexthop-priv-cnt {
+                            type uint64;
+                            dr:source "nexthop-priv-cnt";
+                            dr:fieldnum 404;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rtb-clone-max-notify {
+        dr:source-notification-name "jkhmd-rtb-clone-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container rtb {
+                        dr:source "/notification/jkhmd-rtb-clone-max-notify/junos/kernel/tcpip/rtb";
+                        dr:fieldnum 594;
+                        leaf route-clone-max {
+                            type uint64;
+                            dr:source "route-clone-max";
+                            dr:fieldnum 405;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-rtb-clone-cnt-notify {
+        dr:source-notification-name "jkhmd-rtb-clone-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container rtb {
+                        dr:source "/notification/jkhmd-rtb-clone-cnt-notify/junos/kernel/tcpip/rtb";
+                        dr:fieldnum 594;
+                        leaf route-clone-cnt {
+                            type uint64;
+                            dr:source "route-clone-cnt";
+                            dr:fieldnum 406;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-iri-max-notify {
+        dr:source-notification-name "jkhmd-arpcache-iri-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-iri-max-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-iri-max {
+                            type uint64;
+                            dr:source "nbrcache-iri-max";
+                            dr:fieldnum 407;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-mgmt-max-notify {
+        dr:source-notification-name "jkhmd-arpcache-mgmt-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-mgmt-max-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-mgmt-max {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-max";
+                            dr:fieldnum 408;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-public-max-notify {
+        dr:source-notification-name "jkhmd-arpcache-public-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-public-max-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-public-max {
+                            type uint64;
+                            dr:source "nbrcache-public-max";
+                            dr:fieldnum 409;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-iri-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-iri-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-iri-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-iri-cnt {
+                            type uint64;
+                            dr:source "nbrcache-iri-cnt";
+                            dr:fieldnum 410;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-mgmt-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-mgmt-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-mgmt-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-mgmt-cnt {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-cnt";
+                            dr:fieldnum 411;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-public-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-public-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-public-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-public-cnt {
+                            type uint64;
+                            dr:source "nbrcache-public-cnt";
+                            dr:fieldnum 412;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-iri-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-iri-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-iri-drop-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-iri-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-iri-drop-cnt";
+                            dr:fieldnum 413;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-mgmt-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-mgmt-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-mgmt-drop-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-mgmt-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-drop-cnt";
+                            dr:fieldnum 414;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-arpcache-public-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-arpcache-public-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container arp {
+                        dr:source "/notification/jkhmd-arpcache-public-drop-cnt-notify/junos/kernel/tcpip/arp";
+                        dr:fieldnum 595;
+                        leaf nbrcache-public-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-public-drop-cnt";
+                            dr:fieldnum 415;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-iri-max-notify {
+        dr:source-notification-name "jkhmd-ndpcache-iri-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-iri-max-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-iri-max {
+                            type uint64;
+                            dr:source "nbrcache-iri-max";
+                            dr:fieldnum 416;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-mgmt-max-notify {
+        dr:source-notification-name "jkhmd-ndpcache-mgmt-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-mgmt-max-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-mgmt-max {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-max";
+                            dr:fieldnum 417;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-public-max-notify {
+        dr:source-notification-name "jkhmd-ndpcache-public-max-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-public-max-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-public-max {
+                            type uint64;
+                            dr:source "nbrcache-public-max";
+                            dr:fieldnum 418;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-iri-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-iri-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-iri-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-iri-cnt {
+                            type uint64;
+                            dr:source "nbrcache-iri-cnt";
+                            dr:fieldnum 419;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-mgmt-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-mgmt-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-mgmt-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-mgmt-cnt {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-cnt";
+                            dr:fieldnum 420;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-public-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-public-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-public-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-public-cnt {
+                            type uint64;
+                            dr:source "nbrcache-public-cnt";
+                            dr:fieldnum 421;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-iri-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-iri-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-iri-drop-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-iri-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-iri-drop-cnt";
+                            dr:fieldnum 422;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-mgmt-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-mgmt-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-mgmt-drop-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-mgmt-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-mgmt-drop-cnt";
+                            dr:fieldnum 423;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ndpcache-public-drop-cnt-notify {
+        dr:source-notification-name "jkhmd-ndpcache-public-drop-cnt-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container ndp {
+                        dr:source "/notification/jkhmd-ndpcache-public-drop-cnt-notify/junos/kernel/tcpip/ndp";
+                        dr:fieldnum 596;
+                        leaf nbrcache-public-drop-cnt {
+                            type uint64;
+                            dr:source "nbrcache-public-drop-cnt";
+                            dr:fieldnum 424;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-tcp-ddos-attack-notify {
+        dr:source-notification-name "jkhmd-tcp-ddos-attack-notify";
+        container junos {
+            container kernel {
+                container tcpip {
+                    container tcp {
+                        dr:source "/notification/jkhmd-tcp-ddos-attack-notify/junos/kernel/tcpip/tcp";
+                        dr:fieldnum 511;
+                        leaf tcp-ddos-attack-cnt {
+                            type uint32;
+                            dr:source "tcp-ddos-attack-cnt";
+                            dr:fieldnum 502;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-config-notify {
+        dr:source-notification-name "jkhmd-gres-config-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-config-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf configured-state {
+                        dr:fieldnum 53;
+                        type gresConfiguredState;
+                        dr:map NOT_CONFIGURED { dr:map-from 0;}
+                        dr:map UNCONFIGURING  { dr:map-from 1;}
+                        dr:map CONFIGURING    { dr:map-from 2;}
+                        dr:map CONFIGURED     { dr:map-from 3;}
+                        dr:source "configured-state";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-slave-ready-notify {
+        dr:source-notification-name "jkhmd-gres-slave-ready-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-slave-ready-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf slave-kernel-ready {
+                        dr:fieldnum 55;
+                        type gresReadyState;
+                        dr:map GRES_NOT_READY { dr:map-from 0; }
+                        dr:map GRES_READY { dr:map-from 1; }
+                        dr:source "slave-kernel-ready";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-master-ready-notify {
+        dr:source-notification-name "jkhmd-gres-master-ready-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-master-ready-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf master-kernel-ready {
+                        dr:fieldnum 54;
+                        type gresReadyState;
+                        dr:map GRES_NOT_READY { dr:map-from 0; }
+                        dr:map GRES_READY { dr:map-from 1; }
+                        dr:source "master-kernel-ready";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-time-notify {
+        dr:source-notification-name "jkhmd-gres-time-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-time-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf gres-time {
+                        dr:fieldnum 51;
+                        type uint64;
+                        dr:source "gres-time";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-slave-connect-time-notify {
+        dr:source-notification-name "jkhmd-gres-slave-connect-time-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-slave-connect-time-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf slave-connect-time {
+                        dr:fieldnum 52;
+                        type uint64;
+                        dr:source "slave-connect-time";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-gres-error-state-notify {
+        dr:source-notification-name "jkhmd-gres-error-state-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-error-state-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf error-state {
+                        dr:fieldnum 56;
+                        type gresErrorState;
+                        dr:map KSYNCD_NO_ERROR                              { dr:map-from 0; }
+                        dr:map KSYNCD_ERROR_INIT                            { dr:map-from 1; }
+                        dr:map KSYNCD_ERROR_VERSION_MISMATCH                { dr:map-from 2; }
+                        dr:map KSYNCD_VERSION_MIS_AND_INIT_ERR              { dr:map-from 3; }
+                        dr:map KSYNCD_ERROR_RECONNECT                       { dr:map-from 4; }
+                        dr:map KSYNCD_RECONNECT_AND_INIT_ERR                { dr:map-from 5; }
+                        dr:map KSYNCD_ERROR_RECONNECT1                      { dr:map-from 8; }
+                        dr:map KSYNCD_ERROR_REPLICATION                     { dr:map-from 65536; }
+                        dr:map KSYNCD_INIT_AND_REPL_ERR                     { dr:map-from 65537; }
+                        dr:map KSYNCD_VERSION_MIS_AND_REPL_ERR              { dr:map-from 65538; }
+                        dr:map KSYNCD_RECONNNECT_AND_REPL_ERR               { dr:map-from 65540; }
+                        dr:map KSYNCD_ERROR_CONFIG_SYNC                     { dr:map-from 131072; }
+                        dr:map KSYNCD_INIT_AND_CFG_SYNC_ERR                 { dr:map-from 131073; }
+                        dr:map KSYNCD_VERSION_MIS_INIT_AND_CFG_SYNC_ERR     { dr:map-from 131075; }
+                        dr:map KSYNCD_REPL_AND_CFG_SYNC_ERROR               { dr:map-from 196608; }
+                        dr:map KSYNCD_INIT_REPL_AND_CFG_SYNC_ERR            { dr:map-from 196609; }
+                        dr:map KSYNCD_ERROR_CONNECTION                      { dr:map-from 262144; }
+                        dr:map KSYNCD_CONN_AND_INIT_ERROR                   { dr:map-from 262145; }
+                        dr:map KSYNCD_CONN_AND_REPL_ERROR                   { dr:map-from 327680; }
+                        dr:map KSYNCD_CONN_REPL_AND_INIT_ERR                { dr:map-from 327681; }
+                        dr:map KSYNCD_CONN_AND_CFG_SYNC_ERROR               { dr:map-from 393216; }
+                        dr:map KSYNCD_CONN_INIT_AND_CFG_SYNC_ERR            { dr:map-from 393217; }
+                        dr:map KSYNCD_CONN_REPL_AND_CFG_SYNC_ERR            { dr:map-from 458752; }
+                        dr:map KSYNCD_UNDEFINED_ERR                         { dr:map-from *; }
+                        dr:source "error-state";
+                    }
+                }
+            }
+       }
+   }
+   notification oc-jkhmd-gres-other-re-present-notify {
+       dr:source-notification-name "jkhmd-gres-other-re-present-notify";
+       container junos {
+	   container chassis {
+	       container gres {
+                   dr:source "/notification/jkhmd-gres-other-re-present-notify/junos/chassis/gres";
+		   dr:fieldnum 181;
+		   leaf other-re-present {
+                       dr:fieldnum 151;
+		       type gresOrePresent;
+                       dr:map OTHER_RE_NOT_PRESENT { dr:map-from 0; }
+		       dr:map OTHER_RE_PRESENT     { dr:map-from 1; }
+		       dr:source "other-re-present";
+		    }
+		}
+	    }
+	}
+    }
+    notification oc-jkhmd-gres-other-re-alive-notify {
+        dr:source-notification-name "jkhmd-gres-other-re-alive-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-other-re-alive-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf other-re-alive {
+                        dr:fieldnum 152;
+                        type gresOreAlive;
+                        dr:map OTHER_RE_NOT_ALIVE { dr:map-from 0; }
+			dr:map OTHER_RE_ALIVE     { dr:map-from 1; }
+                        dr:source "other-re-alive";
+                    }
+                }
+            }
+       }
+    }
+    notification oc-jkhmd-gres-is-protocol-master-notify {
+        dr:source-notification-name "jkhmd-gres-is-protocol-master-notify";
+        container junos {
+            container chassis {
+                container gres {
+                    dr:source "/notification/jkhmd-gres-is-protocol-master-notify/junos/chassis/gres";
+                    dr:fieldnum 181;
+                    leaf is-protocol-master {
+                        dr:fieldnum 165;
+                        type gresMastershipState;
+                        dr:map NOT_PROTOCOL_MASTER { dr:map-from 0; }
+			dr:map PROTOCOL_MASTER     { dr:map-from 1; }
+			dr:map PROTOCOL_BACKUP     { dr:map-from 2; }
+                        dr:source "is-protocol-master";
+                    }
+                }
+            }
+         }
+   }
+    notification oc-jkhmd-failure-stage-notify {
+       dr:source-notification-name "jkhmd-failure-stage-notify";
+       container junos {
+            container chassis {
+                container issu {
+                    dr:source "/notification/jkhmd-failure-stage-notify/junos/chassis/issu";
+                    dr:fieldnum 182;
+                    leaf failure-stage {
+                        type issuState;
+                        dr:source "failure-stage";
+                        dr:map  ISSU_STATE_IDLE { dr:map-from 0; }
+                        dr:map  ISSU_STATE_ERROR { dr:map-from 16; }
+                        dr:map  ISSU_STATE_VALIDATE { dr:map-from  32; }
+                        dr:map  ISSU_STATE_SLAVE_RE_PREPARE { dr:map-from 48; }
+                        dr:map  ISSU_STATE_SLAVE_RE_PREPARE_DONE { dr:map-from 64; }
+                        dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE { dr:map-from 65; }
+                        dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE_DONE { dr:map-from 66; }
+                        dr:map  ISSU_STATE_LCC_PROTOCOL_BACKUP_SWITCHED { dr:map-from  72; }
+                        dr:map  ISSU_STATE_DAEMON_PREPARE { dr:map-from 80; }
+                        dr:map  ISSU_STATE_DAEMON_READY { dr:map-from 96; }
+                        dr:map  ISSU_STATE_ABORT { dr:map-from 112; }
+                        dr:map  ISSU_STATE_OFFLINE_FRUS { dr:map-from 120; }
+                        dr:map  ISSU_STATE_FRU_ISSU { dr:map-from 128; }
+                        dr:map  ISSU_STATE_FPC_WARM_BOOT { dr:map-from 136; }
+                        dr:map  ISSU_STATE_FPC_WARM_BOOT_DONE { dr:map-from  137; }
+                        dr:map  ISSU_STATE_FPC_HOSTIO_TRANSFER { dr:map-from 138; }
+                        dr:map  ISSU_STATE_FRU_ISSU_DONE { dr:map-from 144; }
+                        dr:map  ISSU_STATE_SWITCHOVER_PREPARE { dr:map-from  160; }
+                        dr:map  ISSU_STATE_SWITCHOVER_READY { dr:map-from 176; }
+                        dr:map  ISSU_STATE_ALL_VC_MEMBERS_SWITCHOVER_READY { dr:map-from 177; }
+                        dr:map  ISSU_STATE_SWITCHOVER_DONE { dr:map-from 192; }
+                        dr:map  ISSU_STATE_OLD_MASTER_UPGRADE { dr:map-from 208; }
+                        dr:map  ISSU_STATE_OLD_MASTER_UPGRADE_DONE { dr:map-from 224; }
+                        dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE { dr:map-from 225; }
+                        dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE_DONE { dr:map-from 226; }
+                        dr:map  ISSU_STATE_UNKNOWN { dr:map-from 240; }
+                        dr:fieldnum 51;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-current-stage-notify {
+        dr:source-notification-name "jkhmd-current-stage-notify";
+        container junos {
+            container chassis {
+                container issu {
+                    dr:source "/notification/jkhmd-current-stage-notify/junos/chassis/issu";
+                    dr:fieldnum 182;
+                    leaf current-issu-stage {
+                        type issuState;
+                        dr:source "current-issu-stage";
+                        dr:map  ISSU_STATE_IDLE { dr:map-from 0; }
+                        dr:map  ISSU_STATE_ERROR { dr:map-from 16; }
+                        dr:map  ISSU_STATE_VALIDATE { dr:map-from  32; }
+                        dr:map  ISSU_STATE_SLAVE_RE_PREPARE { dr:map-from 48; }
+                        dr:map  ISSU_STATE_SLAVE_RE_PREPARE_DONE { dr:map-from 64; }
+                        dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE { dr:map-from 65; }
+                        dr:map  ISSU_STATE_LCC_SLAVE_RES_PREPARE_DONE { dr:map-from 66; }
+                        dr:map  ISSU_STATE_LCC_PROTOCOL_BACKUP_SWITCHED { dr:map-from  72; }
+                        dr:map  ISSU_STATE_DAEMON_PREPARE { dr:map-from 80; }
+                        dr:map  ISSU_STATE_DAEMON_READY { dr:map-from 96; }
+                        dr:map  ISSU_STATE_ABORT { dr:map-from 112; }
+                        dr:map  ISSU_STATE_OFFLINE_FRUS { dr:map-from 120; }
+                        dr:map  ISSU_STATE_FRU_ISSU { dr:map-from 128; }
+                        dr:map  ISSU_STATE_FPC_WARM_BOOT { dr:map-from 136; }
+                        dr:map  ISSU_STATE_FPC_WARM_BOOT_DONE { dr:map-from  137; }
+                        dr:map  ISSU_STATE_FPC_HOSTIO_TRANSFER { dr:map-from 138; }
+                        dr:map  ISSU_STATE_FRU_ISSU_DONE { dr:map-from 144; }
+                        dr:map  ISSU_STATE_SWITCHOVER_PREPARE { dr:map-from  160; }
+                        dr:map  ISSU_STATE_SWITCHOVER_READY { dr:map-from 176; }
+                        dr:map  ISSU_STATE_ALL_VC_MEMBERS_SWITCHOVER_READY { dr:map-from 177; }
+                        dr:map  ISSU_STATE_SWITCHOVER_DONE { dr:map-from 192; }
+                        dr:map  ISSU_STATE_OLD_MASTER_UPGRADE { dr:map-from 208; }
+                        dr:map  ISSU_STATE_OLD_MASTER_UPGRADE_DONE { dr:map-from 224; }
+                        dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE { dr:map-from 225; }
+                        dr:map  ISSU_STATE_LCC_OLD_MASTER_UPGRADE_DONE { dr:map-from 226; }
+                        dr:fieldnum 52;
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-veto-cnt-notify {
+        dr:source-notification-name "jkhmd-veto-cnt-notify";
+	container junos {
+	    container kernel {
+		container rtsock {
+                    dr:source "/notification/jkhmd-veto-cnt-notify/junos/kernel/rtsock";
+		    dr:fieldnum 153;
+		    leaf total-veto-cnt {
+                        dr:fieldnum 148;
+			type uint64;
+                        dr:source "total-veto-cnt";
+		    }
+		}
+	    }
+	}
+    }
+    notification oc-jkhmd-error-cnt-notify {
+        dr:source-notification-name "jkhmd-error-cnt-notify";
+	container junos {
+	    container kernel {
+		container rtsock {
+                    dr:source "/notification/jkhmd-error-cnt-notify/junos/kernel/rtsock";
+		    dr:fieldnum 153;
+		    leaf total-error-cnt {
+                        dr:fieldnum 149;
+			type uint64;
+                        dr:source "total-error-cnt";
+		    }
+		}
+	    }
+	}
+    }
+    notification oc-jkhmd-ps-lt-unstack-error-notify {
+        dr:source-notification-name "jkhmd-ps-lt-unstack-error-notify";
+        container junos {
+            container chassis {
+                container aggregated-devices {
+                    dr:source "/notification/jkhmd-ps-lt-unstack-error-notify/junos/chassis/aggregated-devices";
+                    dr:fieldnum 351;
+                    leaf ps-lt-unstack-cnt {
+                        dr:fieldnum 311;
+                        type uint32;
+                        dr:source "ps-lt-unstack-cnt";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ps-ifl-ccc-down-notify {
+        dr:source-notification-name "jkhmd-ps-ifl-ccc-down-notify";
+        container junos {
+            container chassis {
+                container aggregated-devices {
+                    dr:source "/notification/jkhmd-ps-ifl-ccc-down-notify/junos/chassis/aggregated-devices";
+                    dr:fieldnum 351;
+                    leaf ps-ifl-ccc-down-cnt {
+                        dr:fieldnum 312;
+                        type uint32;
+                        dr:source "ps-ifl-ccc-down-cnt";
+                    }
+                }
+            }
+        }
+    }
+    notification oc-jkhmd-ae-unstack-error-notify {
+        dr:source-notification-name "jkhmd-ae-unstack-error-notify";
+        container junos {
+            container chassis {
+                container aggregated-devices {
+                    dr:source "/notification/jkhmd-ae-unstack-error-notify/junos/chassis/aggregated-devices";
+                    dr:fieldnum 351;
+                    leaf ae-unstack-cnt {
+                        dr:fieldnum 314;
+                        type uint32;
+                        dr:source "ae-unstack-cnt";
+                    }
+                }
+            }
+        }
+    }
+}
