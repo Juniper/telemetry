@@ -1,0 +1,28 @@
+module junos-bbe-smgd-rsmon-stats-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/bbe-smgd-rsmon-stats/annotations";
+
+    prefix "junos-bbe-smgd-rsmon-stats-ann";
+
+    import junos-bbe-smgd-rsmon-stats { prefix junos-bbe-smgd-rsmon-stats; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add native bbe smgd rsmon statistics
+                     related information";
+    }
+
+    augment "/junos-bbe-smgd-rsmon-stats:junos/junos-bbe-smgd-rsmon-stats:system/" +
+            "junos-bbe-smgd-rsmon-stats:subscriber-management/" +
+            "junos-bbe-smgd-rsmon-stats:infra/junos-bbe-smgd-rsmon-stats:resource-monitor/" +
+            "junos-bbe-smgd-rsmon-stats:rsmon-infra/junos-bbe-smgd-rsmon-stats:fpcs/" +
+            "junos-bbe-smgd-rsmon-stats:fpc" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+    }
+}
+

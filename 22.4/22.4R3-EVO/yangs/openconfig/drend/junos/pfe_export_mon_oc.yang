@@ -1,0 +1,164 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2020, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_export_mon_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfeexpmon";
+
+  prefix "pfe-export-mon-oc";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import junos-export-mon { prefix junos-exp-mon; }
+  jnpr-proto:message-id "PFE-EXPORT-MONITOR-OC-MESSAGE-ID";
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-exp-mon {
+      uses junos-exp-mon:pfe-export-mon {
+      augment "junos/system" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 151;
+      }
+      augment "junos/system/linecard" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 151;
+      }
+      augment "junos/system/linecard/export-monitor" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 151;
+      }
+      augment "junos/system/linecard/export-monitor/export-info" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 152;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/resource" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 153;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/rep-interval" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 154;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/payload-size" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 155;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/qos-options" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 156;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/fc-options" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 157;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/plp-options" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 158;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/server" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 159;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/server/ip" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 160;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/server/port" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 161;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/num-clients" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 162;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/clients" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 163;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/clients/index" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 164;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/clients/ip" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 165;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/clients/port" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 166;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 167;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/successful-reaps" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 168;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/failed-reaps" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 169;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/reaps-in-last-rep-interval" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 170;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/packets-in-last-rep-interval" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 171;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/instances-in-last-rep-interval" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 172;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/total-packets" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 173;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/num-wraps" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 174;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/average-reaps" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 175;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/accounting/last-packet-size" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 176;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/wraps" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 177;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/wraps/index" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 178;
+      }
+      augment "junos/system/linecard/export-monitor/export-info/wraps/time" {
+        dr:source "/junos/system/linecard/export-monitor/";
+        dr:fieldnum 179;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-export-mon-stats";
+  rpc juniper-netconf-get {
+    output {
+        uses pfe-exp-mon;
+    }
+  }
+}

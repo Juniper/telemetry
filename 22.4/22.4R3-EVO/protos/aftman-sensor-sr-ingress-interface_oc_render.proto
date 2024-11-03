@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_sr_ingress jnpr_mpls_sr_ingress_ext = 19;
+}
+
+message mpls_sr_ingress {
+   optional signaling_protocols_type signaling_protocols = 176;
+   message signaling_protocols_type {
+      optional segment_routing_type segment_routing = 176;
+      message segment_routing_type {
+         message interfaces_list {
+            message interface_list {
+               optional string name = 76 [(telemetry_options).is_key = true];
+               optional uint64 in_pkts = 77;
+               optional uint64 in_octets = 78;
+            }
+            repeated interface_list interface = 176;
+         }
+         repeated interfaces_list interfaces = 176;
+      }
+   }
+}

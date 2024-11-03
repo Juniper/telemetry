@@ -1,0 +1,245 @@
+/*
+ * Render tree for EVPN  
+ *
+ * Sep 2019, Mohammad Mustaq 
+ *
+ * Copyright (c) 2019-24, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module l2ald_evpn_render {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/l2ald_evpn";
+
+  prefix "evpn";
+
+  import drend {
+      prefix dr;
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+  description  "Example of EVPN INFO";
+
+  // meta data 
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  // Daemon that handles this hierarchy
+  dr:command-app "l2ald";
+  dr:sub-component "l2evpn";
+  jnpr-proto:message-id "L2ALD-EVPN-MESSAGE-ID";
+
+  // typedef statements evpn_ar_mode_t
+  typedef vtep-mode {
+    type enumeration {
+      enum RNVE {
+        description
+          "Virtual Tunnel End point is of type Regular NVE";
+      }
+      enum AR-REPLICATOR {
+        description
+          "Virtual Tunnel End point is of type Assisted Replicator";
+      }
+      enum AR-LEAF {
+        description
+          "Virtual Tunnel End point is of type Assisted Replicator Leaf";
+      }
+    }
+    description
+      "Describes the VTEP type Regular, AR-Leaf and AR-Replicator";
+  }
+
+  typedef vtep-state {
+    type enumeration {
+      enum IF-DOWN {
+        description
+          "VTEP is DOWN";
+      }
+      enum IF-UP {
+        description
+          "VTEP is UP and Created";
+      }
+    }
+    description
+      "Describes the VTEP state UP and DOWN"; 
+  }
+
+  typedef rvtep-event-type {
+    type enumeration {
+      enum RVTEP-ADD {
+        description
+          "Remote VTEP is added";
+      }
+      enum RVTEP-DELETE {
+        description
+          "Remote VTEP is deleted";
+      }
+      enum RVTEP-NEXTHOP-INDEX-CHANGE {
+        description
+          "Remote VTEP nexthop is changed";
+      }
+    }
+    description
+      "Indicates whether the RVTEP entry was added, deleted or changed"; 
+  }
+
+
+  grouping remote-vtep-top {
+      leaf source-ip-address { 
+        type string; 
+        dr:source "src_ip_address";
+        dr:fieldnum 51;
+        description
+          "Source IP of the Remote VTEP";
+      }
+      leaf remote-ip-address { 
+        type string; 
+        dr:source "remote_ip_address";
+        dr:fieldnum 52;
+        description
+          "Remote IP of the Remote VTEP";
+      }
+      leaf status { 
+        type vtep-state;
+        default IF-UP;
+        dr:source "state";
+        dr:map IF-UP { dr:map-from 1; }
+        dr:map IF-DOWN { dr:map-from 0; }
+        dr:fieldnum 53;
+        description
+          "state of the Remote VTEP";
+      }
+      leaf mode { 
+        type vtep-mode;
+        default RNVE;
+        dr:source "mode";
+        dr:fieldnum 54;
+        dr:map RNVE { dr:map-from 0; }
+        dr:map AR-REPLICATOR { dr:map-from 1; }
+        dr:map AR-LEAF { dr:map-from 2; }
+        description
+          "Mode of the Remote VTEP";
+      }
+      leaf nexthop-index { 
+        type uint32; 
+        dr:source "nexthop_index";
+        dr:fieldnum 55;
+        description
+          "Nexthop Index of the Remote VTEP";
+      }                        
+      leaf source-interface { 
+        type string; 
+        dr:source "src_ifl_name";
+        dr:fieldnum 56;
+        description
+          "Source Interface name of Remote VTEP";
+      }
+      leaf event-type {
+        type rvtep-event-type;
+        dr:source "event_type";
+        dr:fieldnum 57;
+        dr:map RVTEP-ADD  { dr:map-from 1; }
+        dr:map RVTEP-DELETE { dr:map-from 3; }
+        dr:map RVTEP-NEXTHOP-INDEX-CHANGE { dr:map-from 2; }
+        default RVTEP-ADD;
+        description
+          "Indicates whether the rvtep entry was added, deleted or changed."; 
+      }
+  }
+
+  rpc juniper-netconf-get {
+    output {
+      container network-instances { 
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 161;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+            description
+              "Routing instance name";
+          }
+
+          container protocols {
+            dr:fieldnum 151;
+            container protocol {
+              dr:source "protocols/protocol";
+              dr:fieldnum 151;
+
+              container evpn {
+                dr:source "evpn";
+                dr:fieldnum 151;
+
+                list vxlan-tunnel-end-point {
+                  key "remote-ip-address";
+                  dr:source "vxlan-tunnel-end-point";
+                  dr:source-notification-name "remote-vtep-change";
+                  dr:fieldnum 152;
+                  description
+                    "Remote VTEPs";
+
+                  uses remote-vtep-top;
+                }
+              }
+            }
+          }
+
+        }
+      } 
+    }
+  }
+
+
+   notification remote-vtep-change {
+     dr:source-notification-name "remote-vtep-change";
+     dr:fieldnum 161;
+
+     container network-instances {
+       dr:source "/notification/remote-vtep-change/rt-instances";
+       dr:fieldnum 151;
+
+       list network-instance {
+         dr:source "rt-instance";
+         dr:fieldnum 161;
+         key name;
+
+         leaf name {
+           dr:source "instance-name";
+           dr:fieldnum 51;
+           type string;
+         }
+
+         container protocols {
+           dr:fieldnum 151;
+           dr:source "protocols";
+
+           container protocol {
+             dr:source "protocol";
+             dr:fieldnum 151;
+
+             container evpn {
+               dr:source "evpn";
+               dr:fieldnum 151;
+
+               list vxlan-tunnel-end-point {
+                 key "remote-ip-address";
+                 dr:source "vxlan-tunnel-end-point";
+                 dr:fieldnum 152;
+                 description "Remote VTEPs";
+
+                   uses remote-vtep-top;
+               }
+             }
+           }
+         }
+       }
+     }
+   }
+}

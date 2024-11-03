@@ -1,0 +1,115 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_optics jnpr_interfaces_optics_ext = 95;
+}
+
+message interfaces_optics {
+   message interface_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional uint64 init_time = 52;
+      message state_list {
+         optional string parent_ae_name = 51;
+      }
+      repeated state_list state = 151;
+      message ethernet_list {
+         message state_list {
+            optional string mac_address = 81;
+            optional bool auto_negotiate = 82;
+            optional string duplex_mode = 83;
+            optional string port_speed = 84;
+            optional bool enable_flow_control = 85;
+            optional string hw_mac_address = 86;
+            optional string negotiated_duplex_mode = 87;
+            optional string negotiated_port_speed = 88;
+            optional counters_type counters = 151;
+            message counters_type {
+               optional uint64 in_mac_control_frames = 101;
+               optional uint64 in_mac_pause_frames = 102;
+               optional uint64 in_oversize_frames = 103;
+               optional uint64 in_undersize_frames = 104;
+               optional uint64 in_jabber_frames = 105;
+               optional uint64 in_fragment_frames = 106;
+               optional uint64 in_crc_errors = 107;
+               optional uint64 in_block_errors = 108;
+               optional uint64 out_mac_control_frames = 109;
+               optional uint64 out_mac_pause_frames = 110;
+               optional uint64 in_8021q_frames = 111;
+               optional uint64 out_8021q_frames = 112;
+               message jnx_pfc_statistics_list {
+                  optional uint32 priority = 51 [(telemetry_options).is_key = true];
+                  optional uint64 in_mac_pause_frames = 52;
+                  optional uint64 out_mac_pause_frames = 53;
+               }
+               repeated jnx_pfc_statistics_list jnx_pfc_statistics = 151;
+            }
+         }
+         repeated state_list state = 151;
+      }
+      repeated ethernet_list ethernet = 153;
+      message optics_list {
+         optional uint32 optics_type = 51;
+         optional double module_temp = 52;
+         optional double module_temp_high_alarm_threshold = 53;
+         optional double module_temp_low_alarm_threshold = 54;
+         optional double module_temp_high_warning_threshold = 55;
+         optional double module_temp_low_warning_threshold = 56;
+         optional double laser_output_power_high_alarm_threshold_dbm = 57;
+         optional double laser_output_power_low_alarm_threshold_dbm = 58;
+         optional double laser_output_power_high_warning_threshold_dbm = 59;
+         optional double laser_output_power_low_warning_threshold_dbm = 60;
+         optional double laser_rx_power_high_alarm_threshold_dbm = 61;
+         optional double laser_rx_power_low_alarm_threshold_dbm = 62;
+         optional double laser_rx_power_high_warning_threshold_dbm = 63;
+         optional double laser_rx_power_low_warning_threshold_dbm = 64;
+         optional double laser_bias_current_high_alarm_threshold = 65;
+         optional double laser_bias_current_low_alarm_threshold = 66;
+         optional double laser_bias_current_high_warning_threshold = 67;
+         optional double laser_bias_current_low_warning_threshold = 68;
+         optional bool module_temp_high_alarm = 69;
+         optional bool module_temp_low_alarm = 70;
+         optional bool module_temp_high_warning = 71;
+         optional bool module_temp_low_warning = 72;
+         optional string wavelength_channel = 73;
+         optional string wavelength_setpoint = 74;
+         optional string tx_dither = 75;
+         optional string frequency_error = 76;
+         optional string wavelength_error = 77;
+         optional string tec_fault = 78;
+         optional string w_unlocked_alarm = 79;
+         optional string tx_tune_alarm = 80;
+         optional lanediags_type lanediags = 151;
+         message lanediags_type {
+            message lane_list {
+               optional int32 lane_number = 51 [(telemetry_options).is_key = true];
+               optional double lane_laser_temperature = 52;
+               optional double lane_laser_output_power_dbm = 53;
+               optional double lane_laser_receiver_power_dbm = 54;
+               optional double lane_laser_bias_current = 55;
+               optional bool lane_laser_receiver_power_high_alarm = 56;
+               optional bool lane_laser_receiver_power_low_alarm = 57;
+               optional bool lane_laser_receiver_power_high_warning = 58;
+               optional bool lane_laser_receiver_power_low_warning = 59;
+               optional bool lane_laser_bias_current_high_alarm = 60;
+               optional bool lane_laser_bias_current_low_alarm = 61;
+               optional bool lane_laser_bias_current_high_warning = 62;
+               optional bool lane_laser_bias_current_low_warning = 63;
+               optional bool lane_tx_loss_of_signal_alarm = 64;
+               optional bool lane_rx_loss_of_signal_alarm = 65;
+               optional bool lane_tx_laser_disabled_alarm = 66;
+               optional uint64 media_fec_corr_bits = 67;
+               optional uint64 media_fec_uncorr_blocks = 68;
+               optional bool lane_laser_output_power_high_alarm = 69;
+               optional bool lane_laser_output_power_low_alarm = 70;
+               optional bool lane_laser_output_power_high_warning = 71;
+               optional bool lane_laser_output_power_low_warning = 72;
+            }
+            repeated lane_list lane = 151;
+         }
+      }
+      repeated optics_list optics = 152;
+   }
+   repeated interface_list interface = 151;
+}

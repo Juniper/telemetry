@@ -1,0 +1,50 @@
+module jnx-aug-openconfig-aft {    
+    yang-version "1";
+
+    // namespace
+    namespace "http://yang.juniper.net/openconfig/augment/aft";
+
+    prefix "jnx-oc-aft";
+
+    import openconfig-network-instance { prefix oc-ni; }
+
+    // meta
+    organization "Juniper Networks";
+
+    description "This module contains augments to openconfig afts";
+
+    revision "2021-11-25" {
+        description "added jnx-next-hop-group-complete support";
+    }
+
+    revision "2020-05-07" {
+	description "added lsp-id leaf support";
+    }
+
+    revision "2019-02-15" {
+	description "None";
+    }
+
+    augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts/oc-ni:next-hops/oc-ni:next-hop" {
+	container juniper {
+	    container state {
+		leaf unmapped-nexthop {
+		    type boolean;
+		}
+		leaf-list mapped-next-hop-index {
+		    type uint64;
+		}
+		leaf lsp-id {
+		    type uint32;
+		}
+	    }
+	}
+    }
+
+    augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts/oc-ni:next-hop-groups/oc-ni:next-hop-group" {
+        leaf jnx-next-hop-group-complete {
+            description "Indicates a next-hop-group notification is complete";
+            type boolean;
+        }
+    }
+}

@@ -1,0 +1,104 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2019, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module sr_te_per_lsp_transit_stats {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/sr-te-per-lsp-transit-stats";
+
+  prefix "sr-oc";
+
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-sr {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        uses jnx-aug-oc-mpls:jnx-sr-te-per-lsp-transit-policies-container {
+          augment "sr-te-per-lsp-transit-policies" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/tunnel-name" {
+            dr:protobuf-field-option "key";
+            dr:fieldnum 51;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/source" {
+            dr:protobuf-field-option "key";
+            dr:fieldnum 52;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/origin" {
+            dr:protobuf-field-option "key";
+            dr:fieldnum 53;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/distinguisher" {
+            dr:protobuf-field-option "key";
+            dr:fieldnum 54;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/lsp-name" {
+            dr:protobuf-field-option "key";
+            dr:fieldnum 55;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/counter-name" {
+            dr:fieldnum 56;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/instance-identifier" {
+            dr:fieldnum 57;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/packets" {
+            dr:protobuf-field-option "counter";
+            dr:fieldnum 58;
+          }
+          augment "sr-te-per-lsp-transit-policies/sr-te-per-lsp-transit-policy/record/bytes" {
+            dr:protobuf-field-option "counter";
+            dr:fieldnum 59;
+          }
+     }
+    }
+   }
+ }
+
+  dr:command-app "agentd";
+  dr:sub-component "SrTePerLspTransitStats";
+  jnpr-proto:message-id "PFE-MPLS-SR-TE-PER-LSP-TRANSIT-OC-MESSAGE-ID";
+
+   rpc juniper-netconf-get {
+       output {
+         uses mpls-sr;
+       }
+   }
+}

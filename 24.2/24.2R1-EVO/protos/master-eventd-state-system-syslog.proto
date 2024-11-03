@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_279 jnpr_state_279_ext = 279;
+}
+
+message state_279 {
+   optional system_type system = 50;
+   message system_type {
+      optional syslog_type syslog = 50;
+      message syslog_type {
+         optional messages_type messages = 50;
+         message messages_type {
+            message message_list {
+               optional string timestamp = 54;
+               optional string id = 51;
+               optional string severity = 52;
+               optional string facility = 53;
+               optional uint32 priority = 55;
+               optional uint32 pid = 56;
+               optional string log_message = 57;
+               optional string application = 58;
+               optional structured_data_type structured_data = 151;
+               message structured_data_type {
+                  optional parameters_type parameters = 161;
+                  message parameters_type {
+                     message parameter_list {
+                        optional string name = 51 [(telemetry_options).is_key = true];
+                        optional string value = 52;
+                     }
+                     repeated parameter_list parameter = 162;
+                  }
+               }
+            }
+            repeated message_list message = 151;
+         }
+      }
+   }
+}

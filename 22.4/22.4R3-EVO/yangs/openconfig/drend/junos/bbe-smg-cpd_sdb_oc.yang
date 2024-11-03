@@ -1,0 +1,170 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-smg-cpd_sdb_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/bbe-smg-cpd";
+    prefix "bbe-smg-cpd-oc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "cp-smg-service";
+    dr:sub-component "smi";
+    jnpr-proto:message-id "BBE-SMG-CPD-SDB-OC-MESSAGE-ID";
+
+    grouping sdb-statistics-state-group {
+        leaf init-state-count {
+            type uint32;
+            dr:source init_state_count;
+            dr:fieldnum 51;
+        }
+        leaf configured-state-count {
+            type uint32;
+            dr:source configured_state_count;
+            dr:fieldnum 52;
+        }
+        leaf active-state-count {
+            type uint32;
+            dr:source active_state_count;
+            dr:fieldnum 53;
+        }
+        leaf terminating-state-count {
+            type uint32;
+            dr:source terminating_state_count;
+            dr:fieldnum 54;
+        }
+        leaf terminated-state-count {
+            type uint32;
+            dr:source terminated_state_count;
+            dr:fieldnum 55;
+        }
+        leaf total-state-count {
+            type uint32;
+            dr:source total_state_count;
+            dr:fieldnum 56;
+        }
+    }
+
+    grouping sdb-statistics-client-group {
+        leaf dhcp-client-count {
+            type uint32;
+            dr:source dhcp_client_count;
+            dr:fieldnum 61;
+        }
+        leaf vlan-client-count {
+            type uint32;
+            dr:source vlan_client_count;
+            dr:fieldnum 62;
+        }
+        leaf ppp-client-count {
+            type uint32;
+            dr:source ppp_client_count;
+            dr:fieldnum 63;
+        }
+        leaf pppoe-client-count {
+            type uint32;
+            dr:source pppoe_client_count;
+            dr:fieldnum 64;
+        }
+        leaf l2tp-client-count {
+            type uint32;
+            dr:source l2tp_client_count;
+            dr:fieldnum 65;
+        }
+        leaf static-client-count {
+            type uint32;
+            dr:source static_client_count;
+            dr:fieldnum 66;
+        }
+        leaf vpls-pw-client-count {
+            type uint32;
+            dr:source vpls_pw_client_count;
+            dr:fieldnum 67;
+        }
+        leaf mlppp-client-count {
+            type uint32;
+            dr:source mlppp_client_count;
+            dr:fieldnum 68;
+        }
+        leaf essm-client-count {
+            type uint32;
+            dr:source essm_client_count;
+            dr:fieldnum 69;
+        }
+        leaf total-client-count {
+            type uint32;
+            dr:source total_client_count;
+            dr:fieldnum 70;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-bbe-smg-cpd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container uplanes {
+                            dr:source "/junos/system/subscriber-management/uplanes";
+                            dr:fieldnum 151;
+                            list uplane {
+                                dr:source "uplane";
+                                dr:fieldnum 151;
+                                key uplane-id;
+                                leaf uplane-id {
+                                    description
+                                        "user plane identification number";
+                                    type uint32;
+                                    dr:source "uplane_id";
+                                    dr:fieldnum 51;
+                                }
+                                container infra {
+                                    dr:source "infra";
+                                    dr:fieldnum 151;
+                                    container sdb {
+                                        dr:source "sdb";
+                                        dr:fieldnum 151;
+                                        container statistics {
+                                            dr:source "statistics";
+                                            dr:fieldnum 151;
+                                            container state {
+                                                dr:source "state";
+                                                dr:fieldnum 151;
+                                               uses sdb-statistics-state-group;
+                                            }
+                                            container client-type {
+                                                dr:source "client-type";
+                                                dr:fieldnum 152;
+                                                uses sdb-statistics-client-group;
+                                            }
+                                        }
+                                    }
+                                } //infra
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

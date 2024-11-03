@@ -1,0 +1,33 @@
+module junos-openconfig-local-routing-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/local-routing/annotations";
+
+  prefix "jnx-oc-loc-rt-ann";
+
+  import openconfig-local-routing { prefix oc-loc-rt; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig local routing model";
+
+  revision "2022-04-04" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-loc-rt:local-routes" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(QFX5120-48YM QFX5120-48T QFX5210-64C);
+      JUNOS_PRODUCT_TVP(EX4100-48P EX4100-48T EX4100-24P EX4100-24T EX4100-F-48P EX4100-F-24P EX4100-F-48T EX4100-F-24T);
+      JUNOS_PRODUCT_TVP(EX4100-48MP EX4100-24MP EX4100-F-12P EX4100-F-12T);
+      JUNOS_PRODUCT_TVP(EX4400-24MP EX4400-24P EX4400-24T EX4400-48F EX4400-48MP EX4400-48P EX4400-48T);
+  }
+
+}

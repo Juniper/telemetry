@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_jexpr_drop_host_interface_pipestats_222 jnpr_components_jexpr_drop_host_interface_pipestats_222_ext = 222;
+}
+
+message components_jexpr_drop_host_interface_pipestats_222 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional drop_type drop = 151;
+            message drop_type {
+               optional host_interface_block_type host_interface_block = 151;
+               message host_interface_block_type {
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

@@ -1,0 +1,36 @@
+module junos-openconfig-if-ip-annotations {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/if/ip/annotations";
+
+    prefix "jnx-oc-ip-ann";
+
+    // import  modules
+    import openconfig-if-ip { prefix oc-ip; }
+    import openconfig-inet-types { prefix oc-inet; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-vlan { prefix oc-vlan; }
+    import openconfig-yang-types { prefix oc-yang; }
+    import openconfig-extensions { prefix oc-ext; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS annotations for openConfig-if-ip product model";
+
+    revision "2022-04-27" {
+        description "Initial revision";
+    }
+
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface" +
+            "/oc-ip:ipv4/oc-ip:state/oc-ip:counters" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface" +
+            "/oc-ip:ipv6/oc-ip:state/oc-ip:counters" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    }
+}

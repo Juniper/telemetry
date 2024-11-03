@@ -1,0 +1,184 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe-junos-slice-egr-qstats-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/yang/slice-egr-qstats/render";
+
+  prefix "jnx-slice-egr-qstats-rdr";
+
+  import ietf-yang-types { prefix yang; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-slice-egress-qstats {
+      leaf queue-number {
+        type uint32;
+        dr:fieldnum 51;
+      }
+
+      leaf queued-pkts {
+        type yang:counter64;
+        dr:fieldnum 52;
+      }
+
+      leaf queued-bytes {
+        type yang:counter64;
+        dr:fieldnum 53;
+      }
+      leaf pkts {
+        type yang:counter64;
+        dr:fieldnum 54;
+      }
+
+      leaf bytes {
+        type yang:counter64;
+        dr:fieldnum 55;
+      }
+
+      leaf tail-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 56;
+      }
+
+      leaf rl-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 57;
+      }
+
+      leaf rl-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 58;
+      }
+
+      leaf red-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 59;
+      }
+
+      leaf lp-red-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 60;
+      }
+
+      leaf mlp-red-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 61;
+      }
+
+      leaf mhp-red-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 62;
+      }
+
+      leaf hp-red-drop-pkts {
+        type yang:counter64;
+        dr:fieldnum 63;
+      }
+
+      leaf red-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 64;
+      }
+
+      leaf lp-red-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 65;
+      }
+
+      leaf mlp-red-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 66;
+      }
+
+      leaf mhp-red-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 67;
+      }
+
+      leaf hp-red-drop-bytes {
+        type yang:counter64;
+        dr:fieldnum 68;
+      }
+
+      leaf avg-buffer-occupancy {
+        type yang:counter64;
+        dr:fieldnum 69;
+      }
+
+      leaf cur-buffer-occupancy {
+        type yang:counter64;
+        dr:fieldnum 70;
+      }
+
+      leaf peak-buffer-occupancy {
+        type yang:counter64;
+        dr:fieldnum 71;
+      }
+
+      leaf allocated-buffer-size {
+        type yang:counter64;
+        dr:fieldnum 72;
+      }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-slice-egr-qstats";
+  jnpr-proto:message-id "PFE-SLICE-EGR-QSTATS-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container junos {
+        dr:fieldnum 151;
+        container system {
+          dr:fieldnum 151;
+          container linecard {
+            dr:fieldnum 151;
+            container cos{
+              dr:fieldnum 151;
+              list interface {
+                dr:fieldnum 151;
+                key name;
+                leaf name {
+                  type string;
+                  dr:fieldnum 51;
+                }
+                leaf parent-ae-name {
+                  type string;
+                  dr:fieldnum 52;
+                }
+                list slice {
+                  dr:fieldnum 151;
+                  key slice-name;
+                  leaf slice-name{
+                    type string;
+                    dr:fieldnum 51;
+                  }
+                  list out-queue {
+                    dr:source "/junos/system/linecard/cos/interface/slice/out-queue/";
+                    dr:fieldnum 151;
+                    key queue-number;
+                    uses pfe-slice-egress-qstats;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

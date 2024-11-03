@@ -1,0 +1,29 @@
+module junos-state-interfaces-annotations {
+
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/junos/state/interfaces/annotations";
+
+    prefix "js-if-ann";
+
+    import junos-state { prefix js; }
+    import junos-state-interfaces { prefix js-if; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the JUNOS interfaces state supported list";
+
+    revision "2022-12-09" {
+                description "Initial revision";
+            }
+
+   augment "/js:state/js-if:interfaces" {
+        JUNOS_PRODUCT_TVP(EX2300-24P EX2300-48P EX2300-24MP EX2300-48MP);
+        JUNOS_PRODUCT_TVP(EX3400-24P EX3400-48P);
+        JUNOS_PRODUCT_TVP(EX4300-24P EX4300-48P EX4300-48MP);
+        JUNOS_PRODUCT_TVP(EX4100-48P EX4100-24P EX4100-F-48P EX4100-F-24P);
+        JUNOS_PRODUCT_TVP(EX4100-48MP EX4100-24MP EX4100-F-12P);
+        JUNOS_PRODUCT_TVP(EX4400-24MP EX4400-24P EX4400-48MP EX4400-48P);
+    }
+}

@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_fpcenv jnpr_junos_fpcenv_ext = 4;
+}
+
+message junos_fpcenv {
+   optional power_record_type power_record = 1;
+   message power_record_type {
+      optional uint32 max_fpc_power = 1;
+      optional uint32 fpc_power = 2;
+   }
+   message voltage_record_list {
+      optional string voltage_sensor_name = 1 [(telemetry_options).is_key = true];
+      optional uint32 voltage_value = 2;
+   }
+   repeated voltage_record_list voltage_record = 3;
+   message temp_record_list {
+      optional string temp_sensor_name = 1 [(telemetry_options).is_key = true];
+      optional uint32 temp_value = 2;
+   }
+   repeated temp_record_list temp_record = 2;
+}

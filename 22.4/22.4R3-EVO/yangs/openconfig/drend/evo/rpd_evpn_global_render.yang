@@ -1,0 +1,110 @@
+module rpd_evpn_global_render {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/rpd_evpn_global_render";
+
+  prefix "evpn";
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  description "
+    Rendering junos evpn non instance specific telemetry in juniper evpn schema terms
+  ";
+  revision "2019-09-19" {
+    description "Updated to junos evpn global yang v0.0.1"; 
+  }
+
+  grouping ip-prefix-database-group {
+    leaf ip-prefix {
+      type string;
+      dr:source "ip-prefix";
+      dr:fieldnum 71;
+    }
+    leaf route-status {
+      type string;
+      dr:source "route-status";
+      dr:fieldnum 72;
+    }
+  }
+  grouping l3-context-group {
+    leaf context-name  {
+      type string;
+      dr:source "context-name";
+      dr:fieldnum 71;
+    }
+    leaf encapsulation {
+      type string;
+      dr:source "encapsulation";
+      dr:fieldnum 72;
+    }
+    leaf advertisement-mode {
+      type string;
+      dr:source "advertisement-mode";
+      dr:fieldnum 73;
+    }
+    leaf multicast-routing-mode {
+      type string;
+      dr:source "multicast-routing-mode";
+      dr:fieldnum 74;
+    }
+  }
+
+  grouping evpn-smet-forwarding-group {
+    leaf enabled  { 
+      type boolean; 
+      dr:source "enabled";
+      dr:fieldnum 71;
+    }
+    leaf nexthop-limit  { 
+      type uint32; 
+      dr:source "nexthop-limit";
+      dr:fieldnum 72;
+    }
+    leaf nexthop-usage  { 
+      type uint32; 
+      dr:source "nexthop-usage";
+      dr:fieldnum 73;
+    }
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "evpn";
+  jnpr-proto:message-id "RPD-EVPN-GLOBAL-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/evpn-global-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+
+      container junos {
+        container evpn {
+          dr:source "/junos/evpn";
+          dr:fieldnum 171;
+          container evpn-smet-forwarding {
+            dr:source "evpn-smet-forwarding";
+            dr:fieldnum 171;
+            uses evpn-smet-forwarding-group;
+          }
+
+          list l3-context {
+            key "context-name";
+            dr:source "l3-context";
+            dr:fieldnum 180;
+            uses l3-context-group;
+            list ip-prefix-database {
+              key "ip-prefix";
+              dr:source "ip-prefix-database";
+              dr:fieldnum 170;
+              uses ip-prefix-database-group;
+            }
+          }
+        }
+      }
+    }
+  }
+}

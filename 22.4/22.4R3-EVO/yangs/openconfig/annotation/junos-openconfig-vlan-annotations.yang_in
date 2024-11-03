@@ -1,0 +1,38 @@
+module junos-openconfig-vlan-annotations {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/vlan/annotations";
+
+    prefix "jnx-oc-vlan-ann";
+
+    // import modules
+    import openconfig-vlan { prefix oc-vlan; }
+    import openconfig-vlan-types { prefix oc-vlan-types; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+    import openconfig-if-aggregate { prefix oc-lag; }
+    import iana-if-type { prefix ianaift; }
+    import openconfig-extensions { prefix oc-ext; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS annotations for openConfig-vlan product model";
+
+    revision "2022-04-28" {
+        description "Initial revision";
+    }
+
+
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/" +
+        "oc-vlan:switched-vlan/oc-vlan:state" {
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(EX43XX);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-lag:aggregation/" +
+        "oc-vlan:switched-vlan/oc-vlan:state" {
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(EX43XX);
+    }
+}

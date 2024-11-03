@@ -1,0 +1,50 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2016, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module pfe_npu_resource {
+
+yang-version "1";
+
+// namespace
+namespace "http://juniper.net/yang/npuresources";
+
+prefix "pfe-res";
+
+import pfed_base {prefix pfedbase;}
+import drend { prefix dr; }
+import jnpr-proto { prefix jnpr-proto; }
+
+
+// meta
+organization "Juniper Networks Inc.";
+
+contact "www.juniper.net";
+
+grouping pfe-npu-resource {
+    uses pfedbase:pfed-base {
+        augment "junos" { 
+            dr:source "/junos/system/linecard/npu/memory/";
+            dr:fieldnum 151;
+        }
+        augment "junos/npu-memory" { 
+            dr:source "/junos/system/linecard/npu/memory/";
+            dr:fieldnum 151;
+        }
+    }
+}
+
+dr:command-app "agentd";
+dr:sub-component "pfe-npu";
+jnpr-proto:message-id "PFE-NPU-RESOURCE-MESSAGE-ID";
+
+rpc juniper-netconf-get {
+    output {
+        uses pfe-npu-resource;
+    }
+}
+}

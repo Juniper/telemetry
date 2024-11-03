@@ -1,0 +1,36 @@
+module junos-evpn-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/evpn/annotations";
+
+    prefix "junos-evpn-ann";
+
+    import junos-evpn { prefix junos-evpn; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Network Inc.";
+
+    revision "2022-12-14" {
+        description "Initial version for EVPN information kept at global level";
+	reference "0.0.1";
+    }
+
+    augment "/junos-evpn:junos/junos-evpn:evpn/junos-evpn:evpn-smet-forwarding" {
+        JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+	JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG );
+	JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+	JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+	JUNOS_PRODUCT_EXCLUDE(EX43XX);
+	JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+	JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+    }
+    augment "/junos-evpn:junos/junos-evpn:evpn/junos-evpn:l3-context/junos-evpn:ip-prefix-database" {
+        JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+	JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG );
+	JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+	JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+	JUNOS_PRODUCT_EXCLUDE(EX43XX);
+	JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+	JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+    }
+}

@@ -1,0 +1,128 @@
+module l2ald_oc_intf {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/l2ald-oc-intf";
+
+    prefix "vlanoc";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import openconfig-vlan { prefix oc-vlan; }
+    import openconfig-interfaces { prefix oc-if; }
+
+    grouping vlan-switched {
+      uses oc-vlan:vlan-switched-top {
+        augment "switched-vlan" {
+	  dr:fieldnum 151;
+	}
+
+	augment "switched-vlan/state" {
+	  dr:fieldnum 161;
+	}
+
+        augment "switched-vlan/state/interface-mode" {
+          dr:source "intf_mode";
+          dr:map ACCESS { dr:map-from 1; }
+          dr:map TRUNK { dr:map-from 2; }
+          dr:fieldnum 61;
+        }
+        augment "switched-vlan/state/native-vlan" {
+          dr:zero-suppressed;
+          dr:source "native_vlan";
+          dr:fieldnum 62;
+        }
+        augment "switched-vlan/state/access-vlan" {
+          dr:zero-suppressed;
+          dr:source "access_vlan";
+          dr:fieldnum 63;
+        }
+        augment "switched-vlan/state/trunk-vlans" {
+          dr:source "trunk-vlans";
+          dr:fieldnum 64;
+        }
+      }
+    }
+
+    // Daemon that handles this hierarchy
+    
+    dr:command-app "l2ald";
+    dr:sub-component "l2al-interface";
+    jnpr-proto:message-id "L2ALD-OC-INTF-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+      output {
+        container interfaces {
+          list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/l2ald/intf";
+
+            leaf name {
+              type string;
+	      dr:fieldnum 161;
+              dr:source "intf_name";
+            }
+
+            list ethernet {
+              dr:source "/l2ald/intf/ethernet";
+              dr:source-notification-name "oc-intf-switched-vlan-change";
+              uses vlan-switched;
+              dr:fieldnum 162;
+            }
+
+            list aggregation {
+              dr:source "/l2ald/intf/aggregation";
+              dr:source-notification-name "oc-aggregation-switched-vlan-change";
+              uses vlan-switched;
+              dr:fieldnum 163;
+            }
+          }
+        }
+      }
+    }
+
+    notification oc-intf-switched-vlan-change {
+       dr:source-notification-name "oc-intf-switched-vlan-change";
+       container interfaces {
+	  list interface {
+	     dr:fieldnum 151;
+	     key "name";
+	     dr:source "/notification/oc-intf-switched-vlan-change/intf";
+
+	     leaf name {
+	       type string;
+	       dr:fieldnum 161;
+	       dr:source "intf_name";
+	     }
+
+	     container ethernet {
+	       dr:source "ethernet";
+	       dr:fieldnum 162;
+	       uses vlan-switched;
+	     }
+	  }
+       }
+    }
+
+    notification oc-aggregation-switched-vlan-change {
+       dr:source-notification-name "oc-aggregation-switched-vlan-change";
+       container interfaces {
+	  list interface {
+	     dr:fieldnum 151;
+	     key "name";
+	     dr:source "/notification/oc-aggregation-switched-vlan-change/intf";
+
+	     leaf name {
+	       type string;
+	       dr:fieldnum 161;
+	       dr:source "intf_name";
+	     }
+	     container aggregation {
+	       dr:fieldnum 163;
+	       dr:source "aggregation";
+	       uses vlan-switched;
+	     }
+	  }
+       }
+    }
+}

@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_ipv4_pefix jnpr_network_instances_ipv4_pefix_ext = 143;
+}
+
+message network_instances_ipv4_pefix {
+   message network_instance_list {
+      optional string name = 49 [(telemetry_options).is_key = true];
+      optional afts_type afts = 149;
+      message afts_type {
+         optional ipv4_unicast_type ipv4_unicast = 149;
+         message ipv4_unicast_type {
+            message ipv4_entry_list {
+               optional string prefix = 49 [(telemetry_options).is_key = true];
+               message state_list {
+                  optional uint64 packets_forwarded = 49;
+                  optional uint64 octets_forwarded = 50;
+               }
+               repeated state_list state = 149;
+            }
+            repeated ipv4_entry_list ipv4_entry = 149;
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 149;
+}

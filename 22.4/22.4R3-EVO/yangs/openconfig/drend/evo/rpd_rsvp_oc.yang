@@ -1,0 +1,1258 @@
+module rpd_rsvp_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/rsvp_oc_render";
+
+  prefix "rsvpoc";
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  import openconfig-mpls-rsvp { prefix oc-rsvp; }
+  import jnx-aug-openconfig-ni-mpls { prefix jnx-aug-oc-ni-mpls; }
+
+  description "
+    Rendering Junos RSVP State in OpenConfig RSVP Schema terms
+  ";
+
+  revision "2016-06-28" {
+    description "Initial revision";
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "rsvp";
+  jnpr-proto:message-id "RPD-RSVP-OC-MESSAGE-ID";
+
+  grouping rend-rsvp-global {
+    uses oc-rsvp:rsvp-global {
+      augment "rsvp-te" {
+        dr:fieldnum 151;
+        dr:source "rsvp";
+      }
+      augment "rsvp-te/sessions" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session" {
+        dr:source "path-states/path-state";
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session/local-index" {
+        dr:source "path-handle";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object
+" {
+        dr:source "resv-rro/rro-element";
+        dr:fieldnum 151;
+        dr:source-notification-name "rro-change";
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/index" {
+        dr:source "index";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/state" {
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/state/index" {
+        dr:source "index";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/state/address" {
+        dr:source "address";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/state/reported-label" {
+        dr:source "fwd-label";
+        dr:fieldnum 53;
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "rsvp-te/sessions/session/record-route-objects/record-route-object/state/reported-flags" {
+        dr:source "flags";
+        dr:fieldnum 54;
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects" {
+          dr:fieldnum 152;
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object" {
+          dr:fieldnum 151;
+          dr:source "path-ero/ero-element";
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/index" {
+          dr:fieldnum 51;
+          dr:source "index";
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state" {
+          dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/index" {
+          dr:fieldnum 51;
+          dr:source "index";
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/loose" {
+          dr:fieldnum 52;
+          dr:source "loose";
+          dr:map true { dr:map-from 1; }
+          dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/type" {
+          dr:fieldnum 53;
+          dr:source "hop-type";
+          dr:map IPV4 { dr:map-from 1; }
+          dr:map UNNUMBERED_INTERFACE { dr:map-from 2;}
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/ip-prefix" {
+          dr:fieldnum 54;
+          dr:source "address";
+      }
+      augment "rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/interface-id" {
+          dr:fieldnum 55;
+          dr:source "unnum-int/if-id-unnum";
+      }
+      augment "rsvp-te/sessions/session/state" {
+	      dr:fieldnum 153;
+        leaf "notify-status" {
+          type string;
+          dr:source-notification-name "detour-up";
+          dr:source-notification-name "detour-down";
+          dr:source-notification-name "mtu-change";
+          dr:source-notification-name "resvtear-recv";
+          dr:source-notification-name "rsvp-patherr-recv";
+        }
+      }
+      augment "rsvp-te/sessions/session/state/local-index" {
+        dr:source "path-handle";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/sessions/session/state/source-address" {
+        dr:source "source";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/sessions/session/state/destination-address" {
+        dr:source "destination";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/sessions/session/state/tunnel-id" {
+        dr:source "tunnel-id";
+        dr:fieldnum 54;
+      }
+      augment "rsvp-te/sessions/session/state/lsp-id" {
+        dr:source "lsp-id";
+        dr:fieldnum 55;
+      }
+      augment "rsvp-te/sessions/session/state/session-name" {
+        dr:source "name";
+        dr:fieldnum 56;
+      }
+      augment "rsvp-te/sessions/session/state/status" {
+        dr:source "status";
+        dr:fieldnum 57;
+        dr:map UP { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 0; }
+      }
+      augment "rsvp-te/sessions/session/state/protection-requested" {
+        dr:source "protection-requested";
+        dr:fieldnum 58;
+        dr:map UNPROTECTED { dr:map-from 1; }
+        dr:map LINK_PROTECTION_REQUIRED { dr:map-from 2; }
+        dr:map LINK_NODE_PROTECTION_REQUESTED { dr:map-from 3; }
+      }
+      augment "rsvp-te/sessions/session/state/type" {
+        dr:source "role";
+        dr:fieldnum 59;
+        dr:map INGRESS { dr:map-from 1; }
+        dr:map TRANSIT { dr:map-from 2; }
+        dr:map EGRESS { dr:map-from 3; }
+      }
+      augment "rsvp-te/sessions/session/state/label-in" {
+        dr:source "label-in";
+        dr:fieldnum 60;
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map ENTROPY_LABEL_INDICATOR { dr:map-from 7; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "rsvp-te/sessions/session/state/label-out" {
+        dr:source "label-out";
+        dr:fieldnum 61;
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map ENTROPY_LABEL_INDICATOR { dr:map-from 7; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "rsvp-te/sessions/session/state/sender-tspec" {
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/sessions/session/state/sender-tspec/rate" {
+        dr:source "sender-tspec-rate";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/sessions/session/state/sender-tspec/size" {
+        dr:source "sender-tspec-size";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/sessions/session/state/sender-tspec/peak-data-rate" {
+        dr:source "peak-data-rate";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/neighbors" {
+	dr:fieldnum 152;
+      }
+      augment "rsvp-te/neighbors/neighbor" {
+        dr:source "neighbors/neighbor";
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/neighbors/neighbor/address" {
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/neighbors/neighbor/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/neighbors/neighbor/state/address" {
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/neighbors/neighbor/state/detected-interface" {
+        dr:source "detected-interface";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/neighbors/neighbor/state/neighbor-status" {
+        dr:source "status";
+        dr:fieldnum 53;
+        dr:map UP { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 0; }
+      }
+      augment "rsvp-te/neighbors/neighbor/state/refresh-reduction" {
+        dr:source "rr-operational";
+        dr:fieldnum 54;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/global" {
+	dr:fieldnum 153;
+      }
+      augment "rsvp-te/global/graceful-restart" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/global/graceful-restart/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/global/graceful-restart/state/enable" {
+        dr:source "globals/gr-enable";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/global/graceful-restart/state/restart-time" {
+        dr:source "globals/gr-restart-time";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/global/graceful-restart/state/recovery-time" {
+        dr:source "globals/gr-recovery-time";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/global/soft-preemption" {
+	dr:fieldnum 152;
+      }
+      augment "rsvp-te/global/soft-preemption/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/global/soft-preemption/state/enable" {
+        dr:source "globals/soft-preemption-timeout";
+        dr:fieldnum 51;
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "rsvp-te/global/soft-preemption/state/soft-preemption-timeout" {
+        dr:source "globals/soft-preemption-timeout";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/global/hellos" {
+	dr:fieldnum 153;
+      }
+      augment "rsvp-te/global/hellos/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/global/hellos/state/hello-interval" {
+        dr:source "globals/hello-interval";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/global/hellos/state/refresh-reduction" {
+        dr:source "globals/rr-enabled";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/global/state" {
+	dr:fieldnum 154;
+        uses jnx-aug-oc-ni-mpls:jnx-mpls-rsvp-error-counters {
+          augment "error-counters" {
+            dr:source "globals/counters";
+	    dr:fieldnum 151;
+          }
+          augment "error-counters/bad-packet-length" {
+            dr:source "bad-packet-length";
+            dr:fieldnum 51;
+          }
+          augment "error-counters/bad-packet-version" {
+            dr:source "bad-packet-version";
+            dr:fieldnum 52;
+          }
+          augment "error-counters/authentication-fail" {
+            dr:source "authentication-fail";
+            dr:fieldnum 53;
+          }
+          augment "error-counters/bad-checksum" {
+            dr:source "bad-checksum";
+            dr:fieldnum 54;
+          }
+          augment "error-counters/bad-packet-format" {
+            dr:source "bad-packet-format";
+            dr:fieldnum 55;
+          }
+          augment "error-counters/recv-pkt-disabled-intf" {
+            dr:source "recv-pkt-disabled-intf";
+            dr:fieldnum 56;
+          }
+          augment "error-counters/state-timeout" {
+            dr:source "state-timeout";
+            dr:fieldnum 57;
+          }
+          augment "error-counters/message-out-of-order" {
+            dr:source "message-out-of-order";
+            dr:fieldnum 58;
+          }
+          augment "error-counters/unknown-ack" {
+            dr:source "unknown-ack";
+            dr:fieldnum 59;
+          }
+          augment "error-counters/unknown-nack" {
+            dr:source "unknown-nack";
+            dr:fieldnum 60;
+          }
+          augment "error-counters/received-nack" {
+            dr:source "received-nack";
+            dr:fieldnum 61;
+          }
+          augment "error-counters/send-failure" {
+            dr:source "send-failure";
+            dr:fieldnum 62;
+          }
+        }
+      }
+      augment "rsvp-te/global/state/counters" {
+          dr:source "globals/counters";
+          dr:fieldnum 152;
+      }
+      augment "rsvp-te/global/state/counters/errors" {
+          dr:fieldnum 151;
+      }
+      augment "rsvp-te/global/state/counters/errors/bad-packet-length" {
+          dr:fieldnum 51;
+          dr:source "bad-packet-length";
+      }
+      augment "rsvp-te/global/state/counters/errors/authentication-fail" {
+          dr:fieldnum 52;
+          dr:source "authentication-fail";
+      }
+      augment "rsvp-te/global/state/counters/errors/bad-checksum" {
+          dr:fieldnum 53;
+          dr:source "bad-checksum";
+      }
+      augment "rsvp-te/global/state/counters/errors/bad-packet-format" {
+          dr:fieldnum 54;
+          dr:source "bad-packet-format";
+      }
+      augment "rsvp-te/global/state/counters/errors/out-of-order" {
+          dr:fieldnum 55;
+          dr:source "message-out-of-order";
+      }
+      augment "rsvp-te/global/state/counters/errors/unknown-ack" {
+          dr:fieldnum 56;
+          dr:source "unknown-ack";
+      }
+      augment "rsvp-te/global/state/counters/errors/unknown-nack" {
+          dr:fieldnum 57;
+          dr:source "unknown-nack";
+      }
+      augment "rsvp-te/global/state/counters/errors/received-nack" {
+          dr:fieldnum 58;
+          dr:source "received-nack";
+      }
+      augment "rsvp-te/global/state/counters/errors/transmit-failure" {
+          dr:fieldnum 59;
+          dr:source "send-failure";
+      }
+      augment "rsvp-te/global/state/counters/errors/transmit-queue-full" {
+          dr:fieldnum 60;
+          dr:source "tx-queue-full";
+      }
+      augment "rsvp-te/global/state/counters/path-timeouts" {
+        dr:source "path-timeouts";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/global/state/counters/reservation-timeouts" {
+        dr:source "resv-timeouts";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/global/state/counters/rate-limited-messages" {
+        dr:source "rate-limited-messages";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/global/state/counters/in-path-messages" {
+        dr:source "path-rx";
+        dr:fieldnum 54;
+      }
+      augment "rsvp-te/global/state/counters/in-path-error-messages" {
+        dr:source "path-err-rx";
+        dr:fieldnum 55;
+      }
+      augment "rsvp-te/global/state/counters/in-path-tear-messages" {
+        dr:source "path-tear-rx";
+        dr:fieldnum 56;
+      }
+      augment "rsvp-te/global/state/counters/in-reservation-messages" {
+        dr:source "resv-rx";
+        dr:fieldnum 57;
+      }
+      augment "rsvp-te/global/state/counters/in-reservation-error-messages" {
+        dr:source "resv-err-rx";
+        dr:fieldnum 58;
+      }
+      augment "rsvp-te/global/state/counters/in-reservation-tear-messages" {
+        dr:source "resv-tear-rx";
+        dr:fieldnum 59;
+      }
+      augment "rsvp-te/global/state/counters/in-hello-messages" {
+        dr:source "hello-rx";
+        dr:fieldnum 60;
+      }
+      augment "rsvp-te/global/state/counters/in-srefresh-messages" {
+        dr:source "srefresh-rx";
+        dr:fieldnum 61;
+      }
+      augment "rsvp-te/global/state/counters/in-ack-messages" {
+        dr:source "ack-rx";
+        dr:fieldnum 62;
+      }
+      augment "rsvp-te/global/state/counters/out-path-messages" {
+        dr:source "path-tx";
+        dr:fieldnum 63;
+      }
+      augment "rsvp-te/global/state/counters/out-path-error-messages" {
+        dr:source "path-err-tx";
+        dr:fieldnum 64;
+      }
+      augment "rsvp-te/global/state/counters/out-path-tear-messages" {
+        dr:source "path-tear-tx";
+        dr:fieldnum 65;
+      }
+      augment "rsvp-te/global/state/counters/out-reservation-messages" {
+        dr:source "resv-tx";
+        dr:fieldnum 66;
+      }
+      augment "rsvp-te/global/state/counters/out-reservation-error-messages" {
+        dr:source "resv-err-tx";
+        dr:fieldnum 67;
+      }
+      augment "rsvp-te/global/state/counters/out-reservation-tear-messages" {
+        dr:source "resv-tear-tx";
+        dr:fieldnum 68;
+      }
+      augment "rsvp-te/global/state/counters/out-hello-messages" {
+        dr:source "hello-tx";
+        dr:fieldnum 69;
+      }
+      augment "rsvp-te/global/state/counters/out-srefresh-messages" {
+        dr:source "srefresh-tx";
+        dr:fieldnum 70;
+      }
+      augment "rsvp-te/global/state/counters/out-ack-messages" {
+        dr:source "ack-tx";
+        dr:fieldnum 71;
+      }
+      augment "rsvp-te/interface-attributes" {
+	dr:fieldnum 154;
+      }
+      augment "rsvp-te/interface-attributes/interface" {
+        dr:source "interfaces/interface";
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface" {
+        uses jnx-aug-oc-ni-mpls:jnx-mpls-rsvp-interface-admin-status {
+          augment admin-status {
+            dr:source "admin-status";
+            dr:fieldnum 52;
+            dr:map ENABLED { dr:map-from 1; }
+            dr:map DISABLED { dr:map-from 0; }
+          }
+        }
+      }
+      augment "rsvp-te/interface-attributes/interface/interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/state" {
+       dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/max-link-bandwidth" {
+          dr:source "max-link-bw";
+          dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/interface-id" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters" {
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-path-messages" {
+        dr:source "counters/path-rx";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-path-error-messages" {
+        dr:source "counters/path-err-rx";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-path-tear-messages" {
+        dr:source "counters/path-tear-rx";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-reservation-messages" {
+        dr:source "counters/resv-rx";
+        dr:fieldnum 54;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-reservation-error-messages" {
+        dr:source "counters/resv-err-rx";
+        dr:fieldnum 55;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-reservation-tear-messages" {
+        dr:source "counters/resv-tear-rx";
+        dr:fieldnum 56;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-hello-messages" {
+        dr:source "counters/hello-rx";
+        dr:fieldnum 57;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-srefresh-messages" {
+        dr:source "counters/srefresh-rx";
+        dr:fieldnum 58;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/in-ack-messages" {
+        dr:source "counters/ack-rx";
+        dr:fieldnum 59;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-path-messages" {
+        dr:source "counters/path-tx";
+        dr:fieldnum 60;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-path-error-messages" {
+        dr:source "counters/path-err-tx";
+        dr:fieldnum 61;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-path-tear-messages" {
+        dr:source "counters/path-tear-tx";
+        dr:fieldnum 62;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-reservation-messages" {
+        dr:source "counters/resv-tx";
+        dr:fieldnum 63;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-reservation-error-messages" {
+        dr:source "counters/resv-err-tx";
+        dr:fieldnum 64;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-reservation-tear-messages" {
+        dr:source "counters/resv-tear-tx";
+        dr:fieldnum 65;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-hello-messages" {
+        dr:source "counters/hello-tx";
+        dr:fieldnum 66;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-srefresh-messages" {
+        dr:source "counters/srefresh-tx";
+        dr:fieldnum 67;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/out-ack-messages" {
+        dr:source "counters/ack-tx";
+        dr:fieldnum 68;
+      }
+      augment "rsvp-te/interface-attributes/interface/state" {
+          uses jnx-aug-oc-ni-mpls:jnx-mpls-rsvp-error-counters {
+          augment "error-counters" {
+	    dr:fieldnum 152;
+          }
+          augment "error-counters/bad-packet-length" {
+            dr:source "counters/bad-packet-length";
+            dr:fieldnum 51;
+          }
+          augment "error-counters/bad-packet-version" {
+            dr:source "counters/bad-packet-version";
+            dr:fieldnum 52;
+          }
+          augment "error-counters/authentication-fail" {
+            dr:source "counters/authentication-fail";
+            dr:fieldnum 53;
+          }
+          augment "error-counters/bad-checksum" {
+            dr:source "counters/bad-checksum";
+            dr:fieldnum 54;
+          }
+          augment "error-counters/bad-packet-format" {
+            dr:source "counters/bad-packet-format";
+            dr:fieldnum 55;
+          }
+          augment "error-counters/recv-pkt-disabled-intf" {
+            dr:source "counters/recv-pkt-disabled-intf";
+            dr:fieldnum 56;
+          }
+          augment "error-counters/state-timeout" {
+            dr:source "counters/state-timeout";
+            dr:fieldnum 57;
+          }
+          augment "error-counters/message-out-of-order" {
+            dr:source "counters/message-out-of-order";
+            dr:fieldnum 58;
+          }
+          augment "error-counters/unknown-ack" {
+            dr:source "counters/unknown-ack";
+            dr:fieldnum 59;
+          }
+          augment "error-counters/unknown-nack" {
+            dr:source "counters/unknown-nack";
+            dr:fieldnum 60;
+          }
+          augment "error-counters/received-nack" {
+            dr:source "counters/received-nack";
+            dr:fieldnum 61;
+          }
+          augment "error-counters/send-failure" {
+            dr:source "counters/send-failure";
+            dr:fieldnum 62;
+          }
+        }
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors" {
+          dr:fieldnum 153;
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/authentication-fail" {
+          dr:fieldnum 51;
+          dr:source "counters/authentication-fail";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/bad-checksum" {
+          dr:fieldnum 52;
+          dr:source "counters/bad-checksum";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/bad-packet-format" {
+          dr:fieldnum 53;
+          dr:source "counters/bad-packet-format";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/bad-packet-length" {
+          dr:fieldnum 54;
+          dr:source "counters/bad-packet-length";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/out-of-order" {
+          dr:fieldnum 55;
+          dr:source "counters/message-out-of-order";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/received-nack" {
+          dr:fieldnum 56;
+          dr:source "counters/received-nack";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/transmit-failure" {
+          dr:fieldnum 57;
+          dr:source "counters/send-failure";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/unknown-ack" {
+          dr:fieldnum 58;
+          dr:source "counters/unknown-ack";
+      }
+      augment "rsvp-te/interface-attributes/interface/state/counters/errors/unknown-nack" {
+          dr:fieldnum 59;
+          dr:source "counters/unknown-nack";
+      }
+      augment "rsvp-te/interface-attributes/interface/interface-ref" {
+	dr:fieldnum 152;
+      }
+      augment "rsvp-te/interface-attributes/interface/interface-ref/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/interface-ref/state/interface" {
+        dr:source "physical-name";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/interface-ref/state/subinterface" {
+        dr:source "logical-unit";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations"{
+	dr:fieldnum 153;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation" {
+        dr:source "bw-reservations/bw-reservation";
+        dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+        dr:map ALL { dr:map-from 8; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state" {
+	dr:fieldnum 151;
+        leaf static-bandwidth {
+          type uint64;
+          units "bps";
+          dr:source "static-bw";
+          dr:fieldnum 61; 
+        }
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/priority" {
+        dr:source "priority";
+        dr:fieldnum 51;
+        dr:map ALL { dr:map-from 8; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/available-bandwidth" {
+        dr:source "available-bw";
+        dr:fieldnum 52;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/reserved-bandwidth" {
+        dr:source "reserved-bw";
+        dr:fieldnum 53;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/active-reservations-count" {
+        dr:source "active-reservations";
+        dr:fieldnum 54;
+      }
+      augment "rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/highwater-mark" {
+        dr:source "highwater-mark";
+        dr:fieldnum 55;
+      }
+      augment "rsvp-te/interface-attributes/interface/hellos" {
+	dr:fieldnum 154;
+      }
+      augment "rsvp-te/interface-attributes/interface/hellos/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/hellos/state/hello-interval" {
+        dr:source "hello-interval";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/hellos/state/refresh-reduction" {
+        dr:source "rr-enabled";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/interface-attributes/interface/authentication" {
+	dr:fieldnum 155;
+      }
+      augment "rsvp-te/interface-attributes/interface/authentication/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/authentication/state/enable" {
+        dr:source "is-authenticated";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "rsvp-te/interface-attributes/interface/authentication/state/authentication-type" {
+          dr:source "state/auth-type";
+          dr:fieldnum 52;
+          dr:map RSVP_AUTH_MD5 { dr:map-from 1; }
+      }
+      augment "rsvp-te/interface-attributes/interface/authentication/state/authentication-key" {
+          dr:source "state/auth-key";
+          dr:fieldnum 53;
+      }
+      augment "rsvp-te/interface-attributes/interface/subscription" {
+	dr:fieldnum 156;
+      }
+      augment "rsvp-te/interface-attributes/interface/subscription/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/subscription/state/subscription" {
+        dr:source "subscription-percent";
+        dr:fieldnum 51;
+      }
+      augment "rsvp-te/interface-attributes/interface/subscription/state/calculated-absolute-subscription-bw" {
+          dr:source "calculated-bw";
+          dr:fieldnum 52;
+      }
+      augment "rsvp-te/interface-attributes/interface/protection" {
+	dr:fieldnum 157;
+      }
+      augment "rsvp-te/interface-attributes/interface/protection/state" {
+	dr:fieldnum 151;
+      }
+      augment "rsvp-te/interface-attributes/interface/protection/state/link-protection-style-requested" {
+        dr:source "protection-style";
+        dr:fieldnum 51;
+        dr:map UNPROTECTED { dr:map-from 1; }
+        dr:map LINK_PROTECTION_REQUIRED { dr:map-from 2; }
+        dr:map LINK_NODE_PROTECTION_REQUESTED { dr:map-from 3; }
+      }
+      augment "rsvp-te/interface-attributes/interface/protection/state/bypass-optimize-interval" {
+        dr:source "bypass-optimize-interval";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-rsvp-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+          }
+          container mpls {
+	    dr:fieldnum 151;
+            container signaling-protocols {
+	      dr:fieldnum 151;
+              uses rend-rsvp-global;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-detour-up {
+    dr:source-notification-name "detour-up";
+         
+    container network-instances {
+      dr:source "/notification/detour-up/network-instances";
+      dr:fieldnum 152;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:fieldnum 51;
+          dr:source instance-name;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint32;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 52;
+                  }
+                  leaf lsp-id {
+                    type uint32;
+                    dr:source "lspid";
+                    dr:fieldnum 53;
+                  }
+                  container state {
+                    dr:fieldnum 153;
+                    leaf notify-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 62;
+                    }
+                  }
+                }
+              } 
+            } 
+          } 
+        }
+      }
+    }
+  }
+
+  notification oc-detour-down {
+    dr:source-notification-name "detour-down";
+
+    container network-instances {
+      dr:source "/notification/detour-down/network-instances";
+      dr:fieldnum 153;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint32;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 52;
+                  }
+                  leaf lsp-id {
+                    type uint32;
+                    dr:source "lspid";
+                    dr:fieldnum 53;
+                  }
+                  container state {
+                    dr:fieldnum 153;
+                    leaf notify-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 62;
+                    }
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+
+  notification oc-mtu-change {
+    dr:source-notification-name "mtu-change";
+
+    container network-instances {
+      dr:source "/notification/mtu-change/network-instances";
+      dr:fieldnum 154;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint32;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 52;
+                  }
+                  leaf lsp-id {
+                    type uint32;
+                    dr:source "lspid";
+                    dr:fieldnum 53;
+                  }
+                  container state {
+                    dr:fieldnum 153;
+                    leaf notify-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 62;
+                    }
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+
+  notification oc-resvtear-recv {
+    dr:source-notification-name "resvtear-recv";
+
+    container network-instances {
+      dr:source "/notification/resvtear-recv/network-instances";
+      dr:fieldnum 155;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint32;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 52;
+                  }
+                  leaf lsp-id {
+                    type uint32;
+                    dr:source "lspid";
+                    dr:fieldnum 53;
+                  }
+                  container state {
+                    dr:fieldnum 153;
+                    leaf notify-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 62;
+                    }
+                  }
+                }
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+
+  notification oc-patherr-recv {
+    dr:source-notification-name "rsvp-patherr-recv";
+
+    container network-instances {
+      dr:source "/notification/rsvp-patherr-recv/network-instances";
+      dr:fieldnum 156;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint32;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 52;
+                  }
+                  leaf lsp-id {
+                    type uint32;
+                    dr:source "lspid";
+                    dr:fieldnum 53;
+                  }
+                  container state {
+                    dr:fieldnum 153;
+                    leaf notify-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 62;
+                    }
+                  }
+                  leaf subcode {
+                    type string;
+                    dr:source "status";
+                    dr:fieldnum 54;
+                  }
+                }
+              }
+            } 
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-rro-change {
+    dr:source-notification-name "rro-change";
+
+    container network-instances {
+      dr:source "/notification/rro-change/network-instances";
+      dr:fieldnum 157;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source "instance-name";
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            container rsvp-te {
+              dr:fieldnum 151;
+              container sessions {
+                dr:source "sessions";
+                dr:fieldnum 151;
+                list session {
+                  dr:source "session";
+                  dr:fieldnum 151;
+                  key local-index;
+                  leaf local-index {
+                    type uint64;
+                    dr:source "local-index";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:source "state";
+                    dr:fieldnum 153;
+                    leaf session-name {
+                      type string;
+                      dr:source "name";
+                      dr:fieldnum 56;
+                    }
+                    leaf lsp-id {
+                      type uint16;
+                      dr:source "lspid";
+                      dr:fieldnum 55;
+                    }
+                  }
+                  container record-route-objects {
+                    dr:source "record-route-objects";
+                    dr:fieldnum 151;
+                    list record-route-object {
+                      dr:source "record-route-object";
+                      dr:fieldnum 151;
+                      key index;
+                      leaf index {
+                        type uint8;
+                        dr:source "index";
+                        dr:fieldnum 51;
+                      }
+                      container state {
+                        dr:source "state";
+                        dr:fieldnum 151;
+                        leaf index {
+                          type uint8;
+                          dr:source "index";
+                          dr:fieldnum 51;
+                        }
+                        leaf address {
+                          type string;
+                          dr:source "address";
+                          dr:fieldnum 52;
+                        }
+                        leaf reported-label {
+                          type string;
+                          dr:source "reported-label";
+                          dr:fieldnum 53;
+                          dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+                          dr:map ROUTER_ALERT { dr:map-from 1; }
+                          dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+                          dr:map IMPLICIT_NULL { dr:map-from 3; }
+                          dr:map ENTROPY_LABEL_INDICATOR { dr:map-from 7; }
+                          dr:map NO_LABEL { dr:map-from 4294967295; }
+                          dr:map * { dr:map-from *; }
+                        }
+                        leaf reported-flags {
+                          type uint8;
+                          dr:source "reported-flags";
+                          dr:fieldnum 54;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+module junos-jpppd-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/jpppd/annotations";
+
+    prefix "junos-jpppd-ann";
+
+    import junos-jpppd { prefix junos-jpppd; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-11-15" {
+        description "Initial version to add native jpppd model product support information";
+    }
+
+    augment "/junos-jpppd:junos/junos-jpppd:system/junos-jpppd:subscriber-management/" +
+            "junos-jpppd:client-protocols/junos-jpppd:ppp" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+        JUNOS_PRODUCT(cbng);
+    }
+}

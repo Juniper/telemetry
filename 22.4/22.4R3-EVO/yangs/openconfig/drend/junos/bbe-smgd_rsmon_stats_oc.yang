@@ -1,0 +1,84 @@
+/*
+ * OC definition for smgd rsmon stats.
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-smgd_rsmon_stats_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/bbe-smgd_rsmon_stats_tree";
+    prefix "bbe-smgd_rsmon_stats_oc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon socket that handles this hierarchy
+     */
+    dr:command-app "smg-service";
+    dr:sub-component "rsmon-stats";
+    jnpr-proto:message-id "BBE-SMGD-RSMON-STATS-OC-MESSAGE-ID";
+
+    grouping smd-rsmon-fpc-rtt-thresholds {
+        description "Counts of FPC Round-Trip-Time (RTT) threshold crossing events - above(exceeded) and below(nominal)";
+        leaf delay-round-trip-exceeded {
+            type uint32;
+            description "Count of RTT threshold exceeded crossing events";
+            dr:source delay-round-trip-exceeded;
+            dr:fieldnum 61;
+        }
+        leaf delay-round-trip-nominal {
+            type uint32; 
+            description "Count of RTT threshold nominal crossing events";
+            dr:source delay-round-trip-nominal;
+            dr:fieldnum 62;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-smgd-sys-sub_mgmt-information";
+        dr:command-help "Default <get> rpc";
+        output{ 
+            container junos { 
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container infra {
+                            dr:fieldnum 151;
+                            container resource-monitor {
+                                dr:fieldnum 151;
+                                container rsmon-infra {
+                                    dr:fieldnum 151;
+                                    container fpcs {
+                                        dr:fieldnum 151;
+                                        list fpc {
+                                            dr:source "/junos/system/subscriber-management/infra/resource-monitor/rsmon-infra/fpcs/fpc";
+                                            dr:fieldnum 151;
+                                            key slot;
+                                            leaf slot {
+                                                type uint32;
+                                                dr:source slot;
+                                                dr:fieldnum 51;
+                                            }
+                                            uses smd-rsmon-fpc-rtt-thresholds;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

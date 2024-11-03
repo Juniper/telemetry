@@ -1,0 +1,558 @@
+/*
+ * Render Tree definition for openconfig system
+ */
+
+module xmlproxyd-junos-openconfig-system-render {
+  yang-version 1;
+
+  namespace "http://yang.juniper.net/openconfig/system/render";
+
+  prefix "jnx-oc-system-rdr";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-types { prefix oc-types; }
+  import openconfig-inet-types { prefix oc-inet; }
+  import openconfig-aaa-types { prefix oc-aaa-types; }
+
+  dr:command-app "xmlproxyd";
+  dr:sub-component "system";
+  jnpr-proto:message-id "XMLPROXYD-JUNOS-OPENCONFIG-SYSTEM-RENDER-MESSAGE-ID";
+
+  identity SYSLOG_FACILITY {
+    description
+      "Base identity for Syslog message facilities.";
+    reference
+      "IETF RFC 5424 - The Syslog Protocol";
+  }
+
+  typedef timezone-name-type {
+    type string;
+    description
+      "A time zone name as used by the Time Zone Database,
+       sometimes referred to as the 'Olson Database'.
+
+       The exact set of valid values is an implementation-specific
+       matter.  Client discovery of the exact set of time zone names
+       for a particular server is out of scope.";
+    reference
+      "BCP 175: Procedures for Maintaining the Time Zone Database";
+  }
+
+  typedef syslog-severity {
+    type enumeration {
+      enum EMERGENCY {
+        description
+          "Emergency: system is unusable (0)";
+      }
+      enum ALERT {
+        description
+          "Alert: action must be taken immediately (1)";
+      }
+      enum CRITICAL {
+        description
+          "Critical: critical conditions (2)";
+      }
+      enum ERROR {
+        description
+          "Error: error conditions (3)";
+      }
+      enum WARNING {
+        description
+          "Warning: warning conditions (4)";
+      }
+      enum NOTICE {
+        description
+          "Notice: normal but significant  condition(5)";
+      }
+      enum INFORMATIONAL {
+        description
+          "Informational: informational messages (6)";
+      }
+      enum DEBUG {
+        description
+          "Debug: debug-level messages (7)";
+      }
+    }
+    description
+      "Syslog message severities";
+    reference
+      "IETF RFC 5424 - The Syslog Protocol";
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/junos";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:cli-command "show configuration openconfig-system:system | display xml";
+    dr:command-help "default <get> rpc";
+    output {
+      container system {
+        dr:source "/system";
+        dr:fieldnum 151;
+        container state {
+          dr:source "config";
+          dr:fieldnum 151;
+          leaf hostname {
+            type oc-inet:domain-name;
+            dr:source "hostname";
+            dr:fieldnum 51;
+          }
+          leaf domain-name {
+            type oc-inet:domain-name;
+            dr:source "domain-name";
+            dr:fieldnum 52;
+          }
+          leaf login-banner {
+            type string;
+            dr:source "login-banner";
+            dr:fieldnum 53;
+          }
+          leaf motd-banner {
+            type string;
+            dr:source "motd-banner";
+            dr:fieldnum 54;
+          }
+        }
+        container clock {
+          dr:source "clock";
+          dr:fieldnum 152;
+          container state {
+            dr:source "config";
+            dr:fieldnum 151;
+            leaf timezone-name {
+              type timezone-name-type;
+              dr:source "timezone-name";
+              dr:fieldnum 51;
+            }
+          }
+        }
+        container ssh-server {
+          dr:source "ssh-server";
+          dr:fieldnum 153;
+          container state {
+            dr:source "config";
+            dr:fieldnum 151;
+            leaf enable {
+              type boolean;
+              dr:source "enable";
+              dr:fieldnum 51;
+            }
+            leaf protocol-version {
+              type enumeration {
+                enum V2 {
+                  description
+                    "Use SSH v2 only";
+                }
+                enum V1 {
+                  description
+                    "Use SSH v1 only";
+                }
+                enum V1_V2 {
+                  description
+                    "Use either SSH v1 or v2";
+                }
+              }
+              dr:source "protocol-version";
+              dr:fieldnum 52;
+            }
+            leaf timeout {
+              type uint16;
+              dr:source "timeout";
+              dr:fieldnum 53;
+            }
+            leaf rate-limit {
+              type uint16;
+              dr:source "rate-limit";
+              dr:fieldnum 54;
+            }
+            leaf session-limit {
+              type uint16;
+              dr:source "session-limit";
+              dr:fieldnum 55;
+            }
+          }
+        }
+        container telnet-server {
+          dr:source "telnet-server";
+          dr:fieldnum 154;
+          container state {
+            dr:source "config";
+            dr:fieldnum 151;
+            leaf enable {
+              type boolean;
+              dr:source "enable";
+              dr:fieldnum 51;
+            }
+            leaf rate-limit {
+              type uint16;
+              dr:source "rate-limit";
+              dr:fieldnum 52;
+            }
+            leaf session-limit {
+              type uint16;
+              dr:source "session-limit";
+              dr:fieldnum 53;
+            }
+          }
+        }
+        container logging {
+          dr:source "logging";
+          dr:fieldnum 155;
+          container console {
+            dr:source "console";
+            dr:fieldnum 151;
+            container selectors {
+              dr:source "selectors";
+              dr:fieldnum 151;
+              list selector {
+                key "facility severity";
+                dr:source "selector";
+                dr:fieldnum 151;
+                leaf facility {
+                  type leafref {
+                    path "../state/facility";
+                  }
+                  dr:source "facility";
+                  dr:fieldnum 51;
+                }
+                leaf severity {
+                  type leafref {
+                    path "../state/severity";
+                  }
+                  dr:source "severity";
+                  dr:fieldnum 52;
+                }
+                container state {
+                  dr:source "config";
+                  dr:fieldnum 151;
+                  leaf facility {
+                    type identityref {
+                      base SYSLOG_FACILITY;
+                    }
+                    dr:source "facility";
+                    dr:fieldnum 51;
+                  }
+                  leaf severity {
+                    type syslog-severity;
+                    dr:source "severity";
+                    dr:fieldnum 52;
+                  }
+                }
+              }
+            }
+          }
+          container remote-servers {
+            dr:source "remote-servers";
+            dr:fieldnum 152;
+            list remote-server {
+              key host;
+              dr:source "remote-server";
+              dr:fieldnum 151;
+              leaf host {
+                type leafref {
+                  path "../state/host";
+                }
+                dr:source "host";
+                dr:fieldnum 51;
+              }
+              container state {
+                dr:source "config";
+                dr:fieldnum 151;
+                leaf host {
+                  type oc-inet:host;
+                  dr:source "host";
+                  dr:fieldnum 51;
+                }
+                leaf source-address {
+                  type oc-inet:ip-address;
+                  dr:source "source-address";
+                  dr:fieldnum 52;
+                }
+                leaf remote-port {
+                  type oc-inet:port-number;
+                  dr:source "remote-port";
+                  dr:fieldnum 53;
+                }
+              }
+              container selectors {
+                dr:source "selectors";
+                dr:fieldnum 152;
+                list selector {
+                  key "facility severity";
+                  dr:source "selector";
+                  dr:fieldnum 151;
+                  leaf facility {
+                    type leafref {
+                      path "../state/facility";
+                    }
+                    dr:source "facility";
+                    dr:fieldnum 51;
+                  }
+                  leaf severity {
+                    type leafref {
+                      path "../state/severity";
+                    }
+                    dr:source "severity";
+                    dr:fieldnum 52;
+                  }
+                  container state {
+                  dr:source "config";
+                  dr:fieldnum 151;
+                    leaf facility {
+                      type identityref {
+                        base SYSLOG_FACILITY;
+                      }
+                      dr:source "facility";
+                      dr:fieldnum 51;
+                    }
+                    leaf severity {
+                      type syslog-severity;
+                      dr:source "severity";
+                      dr:fieldnum 52;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        container aaa {
+          dr:source "aaa";
+          dr:fieldnum 156;
+          container authentication {
+            dr:source "authentication";
+            dr:fieldnum 151;
+            container state {
+              dr:source "config";
+              dr:fieldnum 151;
+            }
+            container admin-user {
+              dr:source "admin-user";
+              dr:fieldnum 152;
+              container state {
+                dr:source "config";
+                dr:fieldnum 151;
+                leaf admin-password {
+                  type string;
+                  dr:source "admin-password";
+                  dr:fieldnum 51;
+                }
+                leaf admin-password-hashed {
+                  type oc-aaa-types:crypt-password-type;
+                  dr:source "admin-password-hashed";
+                  dr:fieldnum 52;
+                }
+              }
+            }
+            container users {
+              dr:source "users";
+              dr:fieldnum 153;
+              list user {
+                key username;
+                dr:source "user";
+                dr:fieldnum 151;
+                leaf username {
+                  type leafref {
+                    path "../state/username";
+                  }
+                  dr:source "username";
+                  dr:fieldnum 51;
+                }
+                container state {
+                  dr:source "config";
+                  dr:fieldnum 151;
+                  leaf username {
+                    type string;
+                    dr:source "username";
+                    dr:fieldnum 51;
+                  }
+                  leaf password {
+                    type string;
+                    dr:source "password";
+                    dr:fieldnum 52;
+                  }
+                  leaf password-hashed {
+                    type oc-aaa-types:crypt-password-type;
+                    dr:source "password-hashed";
+                    dr:fieldnum 53;
+                  }
+                  leaf role {
+                    type union {
+                      type string;
+                      type identityref {
+                        base oc-aaa-types:SYSTEM_DEFINED_ROLES;
+                      }
+                    }
+                    dr:source "role";
+                    dr:fieldnum 54;
+                  }
+                }
+              }
+            }
+          }
+          container accounting {
+            dr:source "accounting";
+            dr:fieldnum 152;
+            container state {
+              dr:source "config";
+              dr:fieldnum 151;
+            }
+            container events {
+              dr:source "events";
+              dr:fieldnum 152;
+              list event {
+                key event-type;
+                dr:source "event";
+                dr:fieldnum 151;
+                leaf event-type {
+                  type leafref {
+                    path "../state/event-type";
+                  }
+                  dr:source "event-type";
+                  dr:fieldnum 51;
+                }
+                container state {
+                  dr:source "config";
+                  dr:fieldnum 151;
+                  leaf event-type {
+                    type identityref {
+                      base oc-aaa-types:AAA_ACCOUNTING_EVENT_TYPE;
+                    }
+                    dr:source "event-type";
+                    dr:fieldnum 51;
+                  }
+                }
+              }
+            }
+          }
+          container server-groups {
+            dr:source "server-groups";
+            dr:fieldnum 153;
+            list server-group {
+              key name;
+              dr:source "server-group";
+              dr:fieldnum 151;
+              leaf name {
+                type leafref {
+                  path "../state/name";
+                }
+                dr:source "name";
+                dr:fieldnum 51;
+              }
+              container state {
+                dr:source "config";
+                dr:fieldnum 151;
+                leaf name {
+                  type string;
+                  dr:source "name";
+                  dr:fieldnum 51;
+                }
+                leaf type {
+                  type identityref {
+                    base oc-aaa-types:AAA_SERVER_TYPE;
+                  }
+                  dr:source "type";
+                  dr:fieldnum 52;
+                }
+              }
+              container servers {
+                dr:source "servers";
+                dr:fieldnum 152;
+                list server {
+                  key address;
+                  dr:source "server";
+                  dr:fieldnum 151;
+                  leaf address {
+                    type leafref {
+                      path "../state/address";
+                    }
+                    dr:source address;
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:source "config";
+                    dr:fieldnum 151;
+                    leaf name {
+                      type string;
+                      dr:source "name";
+                      dr:fieldnum 51;
+                    }
+                    leaf address {
+                      type oc-inet:ip-address;
+                      dr:source "address";
+                      dr:fieldnum 52;
+                    }
+                    leaf timeout {
+                      type uint16;
+                      dr:source "timeout";
+                      dr:fieldnum 53;
+                    }
+                  }
+                  container tacacs {
+                    dr:source "tacacs";
+                    dr:fieldnum 152;
+                    container state {
+                      dr:source "config";
+                      dr:fieldnum 151;
+                      leaf port {
+                        type oc-inet:port-number;
+                        dr:source "port";
+                        dr:fieldnum 51;
+                      }
+                      leaf secret-key {
+                        type oc-types:routing-password;
+                        dr:source "secret-key";
+                        dr:fieldnum 52;
+                      }
+                      leaf source-address {
+                        type oc-inet:ip-address;
+                        dr:source "source-address";
+                        dr:fieldnum 53;
+                      }
+                    }
+                  }
+                  container radius {
+                    dr:source "radius";
+                    dr:fieldnum 153;
+                    container state {
+                      dr:source "config";
+                      dr:fieldnum 151;
+                      leaf auth-port {
+                        type oc-inet:port-number;
+                        dr:source "auth-port";
+                        dr:fieldnum 51;
+                      }
+                      leaf acct-port {
+                        type oc-inet:port-number;
+                        dr:source "acct-port";
+                        dr:fieldnum 52;
+                      }
+                      leaf secret-key {
+                        type oc-types:routing-password;
+                        dr:source "secret-key";
+                        dr:fieldnum 53;
+                      }
+                      leaf source-address {
+                        type oc-inet:ip-address;
+                        dr:source "source-address";
+                        dr:fieldnum 54;
+                      }
+                      leaf retransmit-attempts {
+                        type uint8;
+                        dr:source "retransmit-attempts";
+                        dr:fieldnum 55;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

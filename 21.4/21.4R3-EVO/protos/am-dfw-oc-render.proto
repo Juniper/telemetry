@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_firewall jnpr_junos_firewall_ext = 165;
+}
+
+message junos_firewall {
+   message firewall_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional uint64 timestamp = 2;
+      message counter_list {
+         optional string name = 1 [(telemetry_options).is_key = true];
+         optional uint64 packets = 2;
+         optional uint64 bytes = 3;
+      }
+      repeated counter_list counter = 4;
+      message policer_list {
+         optional string name = 1 [(telemetry_options).is_key = true];
+         optional uint64 out_of_spec_packets = 2;
+         optional uint64 out_of_spec_bytes = 3;
+      }
+      repeated policer_list policer = 5;
+   }
+   repeated firewall_list firewall = 1;
+}

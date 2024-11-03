@@ -1,0 +1,184 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional stp_stp_269 jnpr_stp_stp_269_ext = 269;
+}
+
+message stp_stp_269 {
+   optional global_type global = 155;
+   message global_type {
+      optional state_type state = 152;
+      message state_type {
+         repeated string enabled_protocol = 51;
+         optional uint32 bpduguard_timeout_recovery = 52;
+         optional bool loop_guard = 53;
+         optional bool bpdu_guard = 54;
+      }
+   }
+   optional rstp_type rstp = 151;
+   message rstp_type {
+      optional state_type state = 152;
+      message state_type {
+         optional uint32 hello_time = 51;
+         optional uint32 max_age = 52;
+         optional uint32 forwarding_delay = 53;
+         optional uint32 hold_count = 64;
+         optional uint32 bridge_priority = 54;
+         optional string bridge_address = 55;
+         optional uint32 designated_root_priority = 59;
+         optional string designated_root_address = 67;
+         optional uint32 root_port = 58;
+         optional uint32 root_cost = 57;
+         optional uint32 hold_time = 65;
+         optional uint64 topology_changes = 56;
+         optional uint64 last_topology_change = 60;
+      }
+      optional interfaces_type interfaces = 153;
+      message interfaces_type {
+         message interface_list {
+            optional string name = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 155;
+            message state_type {
+               optional string name = 52;
+               optional uint32 cost = 53;
+               optional uint32 port_priority = 54;
+               optional uint32 port_num = 55;
+               optional string role = 56;
+               optional string port_state = 57;
+               optional uint32 designated_root_priority = 58;
+               optional string designated_root_address = 59;
+               optional uint32 designated_cost = 60;
+               optional uint32 designated_bridge_priority = 61;
+               optional string designated_bridge_address = 62;
+               optional uint32 designated_port_priority = 63;
+               optional uint32 designated_port_num = 64;
+               optional uint64 forward_transisitions = 65;
+            }
+         }
+         repeated interface_list interface = 154;
+      }
+   }
+   optional mstp_type mstp = 152;
+   message mstp_type {
+      optional state_type state = 152;
+      message state_type {
+         optional string name = 61;
+         optional uint32 revision = 62;
+         optional uint32 max_hop = 63;
+         optional uint32 hello_time = 66;
+         optional uint32 max_age = 68;
+         optional uint32 forwarding_delay = 69;
+         optional uint32 hold_count = 70;
+      }
+      optional mst_instances_type mst_instances = 151;
+      message mst_instances_type {
+         message mst_instance_list {
+            optional uint32 mst_id = 71 [(telemetry_options).is_key = true];
+            optional state_type state = 155;
+            message state_type {
+               optional uint32 mst_id = 72;
+               repeated string vlan = 73;
+               optional uint32 bridge_priority = 74;
+               optional string bridge_address = 75;
+               optional uint32 designated_root_priority = 76;
+               optional string designated_root_address = 77;
+               optional uint32 root_port = 79;
+               optional uint32 root_cost = 78;
+               optional uint32 hold_time = 80;
+               optional uint64 topology_changes = 81;
+               optional uint64 last_topology_change = 82;
+            }
+            optional interfaces_type interfaces = 156;
+            message interfaces_type {
+               message interface_list {
+                  optional string name = 71 [(telemetry_options).is_key = true];
+                  optional state_type state = 158;
+                  message state_type {
+                     optional string name = 83;
+                     optional uint32 cost = 84;
+                     optional uint32 port_priority = 85;
+                     optional uint32 port_num = 86;
+                     optional string role = 87;
+                     optional string port_state = 88;
+                     optional uint32 designated_root_priority = 89;
+                     optional string designated_root_address = 90;
+                     optional uint32 designated_cost = 91;
+                     optional uint32 designated_bridge_priority = 92;
+                     optional string designated_bridge_address = 93;
+                     optional uint32 designated_port_priority = 94;
+                     optional uint32 designated_port_num = 95;
+                     optional uint64 forward_transisitions = 96;
+                  }
+               }
+               repeated interface_list interface = 157;
+            }
+         }
+         repeated mst_instance_list mst_instance = 154;
+      }
+   }
+   optional rapid_pvst_type rapid_pvst = 153;
+   message rapid_pvst_type {
+      message vlan_list {
+         optional uint32 vlan_id = 52 [(telemetry_options).is_key = true];
+         optional state_type state = 154;
+         message state_type {
+            optional uint32 vlan_id = 53;
+            optional uint32 hello_time = 68;
+            optional uint32 max_age = 69;
+            optional uint32 forwarding_delay = 70;
+            optional uint32 hold_count = 71;
+            optional uint32 bridge_priority = 72;
+            optional string bridge_address = 73;
+            optional uint32 designated_root_priority = 74;
+            optional string designated_root_address = 75;
+            optional uint32 root_port = 76;
+            optional uint32 root_cost = 77;
+            optional uint32 hold_time = 78;
+            optional uint64 topology_changes = 79;
+            optional uint64 last_topology_change = 80;
+         }
+         optional interfaces_type interfaces = 155;
+         message interfaces_type {
+            message interface_list {
+               optional string name = 52 [(telemetry_options).is_key = true];
+               optional state_type state = 157;
+               message state_type {
+                  optional string name = 54;
+                  optional uint32 cost = 55;
+                  optional uint32 port_priority = 56;
+                  optional uint32 port_num = 57;
+                  optional string role = 58;
+                  optional string port_state = 59;
+                  optional uint32 designated_root_priority = 60;
+                  optional string designated_root_address = 61;
+                  optional uint32 designated_cost = 62;
+                  optional uint32 designated_bridge_priority = 63;
+                  optional string designated_bridge_address = 64;
+                  optional uint32 designated_port_priority = 65;
+                  optional uint32 designated_port_num = 66;
+                  optional uint64 forward_transisitions = 67;
+               }
+            }
+            repeated interface_list interface = 156;
+         }
+      }
+      repeated vlan_list vlan = 153;
+   }
+   optional interfaces_type interfaces = 154;
+   message interfaces_type {
+      message interface_list {
+         optional string name = 52 [(telemetry_options).is_key = true];
+         optional state_type state = 154;
+         message state_type {
+            optional string name = 52;
+            optional string edge_port = 53;
+            optional string link_type = 54;
+            optional string guard = 55;
+            optional bool bpdu_guard = 56;
+         }
+      }
+      repeated interface_list interface = 153;
+   }
+}

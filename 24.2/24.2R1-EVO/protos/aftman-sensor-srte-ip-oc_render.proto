@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_sr_te_ip jnpr_mpls_sr_te_ip_ext = 195;
+}
+
+message mpls_sr_te_ip {
+   optional signaling_protocols_type signaling_protocols = 112;
+   message signaling_protocols_type {
+      optional segment_routing_type segment_routing = 112;
+      message segment_routing_type {
+         message sr_te_ip_policies_list {
+            message sr_te_ip_policy_list {
+               optional string to_address = 102 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 102 [(telemetry_options).is_key = true];
+                     optional uint64 packets = 103;
+                     optional uint64 bytes = 104;
+                     optional uint64 packetRate = 105;
+                     optional uint64 byteRate = 106;
+                  }
+                  repeated counters_list counters = 112;
+               }
+               repeated state_list state = 112;
+            }
+            repeated sr_te_ip_policy_list sr_te_ip_policy = 112;
+         }
+         repeated sr_te_ip_policies_list sr_te_ip_policies = 112;
+      }
+   }
+}

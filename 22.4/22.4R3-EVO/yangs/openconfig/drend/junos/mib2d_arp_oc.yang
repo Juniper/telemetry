@@ -1,0 +1,235 @@
+module mib2d_arp_oc {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/arp";
+
+    prefix "arp-oc";
+
+    import drend {
+	prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    import openconfig-if-ip { prefix oc-ip; }
+    import jnx-aug-openconfig-if-ip { prefix jnx-oc-ip; }
+
+    // meta
+    organization "Juniper Networks";
+
+    description "None";
+
+    revision "2014-05-03" {
+	description "None";
+    }
+
+    grouping ipv4-nbr-group {
+
+	uses oc-ip:ipv4-top {
+
+	    augment "ipv4" {
+                dr:fieldnum 151;
+	    }
+	    augment "ipv4/neighbors" {
+		dr:source "/ipv4/neighbors";
+		dr:fieldnum 151;
+	    }
+
+	    augment "ipv4/neighbors/neighbor" {
+		dr:source "neighbor";
+		dr:source-notification-name "arp-change";
+                dr:fieldnum 151;
+	    }
+
+	    augment "ipv4/neighbors/neighbor/ip" {
+		dr:source "ip";
+		dr:fieldnum 51;
+	    }
+
+	    augment "ipv4/neighbors/neighbor/state" {
+		dr:fieldnum 151;
+	    }
+
+	    augment "ipv4/neighbors/neighbor/state/ip" {
+		dr:source "ip";
+		dr:fieldnum 51;
+	    }
+
+	    augment "ipv4/neighbors/neighbor/state/link-layer-address" {
+		dr:source "link-layer-address";
+		dr:fieldnum 52;
+	    }
+
+	    augment "ipv4/neighbors/neighbor/state/origin" {
+		dr:source "origin";
+		dr:fieldnum 53;
+		dr:map STATIC { dr:map-from 1; }
+		dr:map DYNAMIC { dr:map-from 2; }
+	    }
+
+	    augment "ipv4/neighbors/neighbor/state" {
+		uses jnx-oc-ip:jnx-ipv4-state-neighbor {
+		    augment host-name {
+			dr:source "host-name";
+			dr:fieldnum 61;
+		    }
+
+		    augment table-id {
+			dr:source "rtb-id";
+			dr:fieldnum 62;
+		    }
+
+		    augment neighbor-state {
+			dr:source "state";
+			dr:fieldnum 63;
+			dr:map INCOMPLETE { dr:map-from 0; }
+            		dr:map REACHABLE { dr:map-from 1; }
+            		dr:map PROBE { dr:map-from 2; }
+            		dr:map PERM { dr:map-from 3; }
+		    }
+
+		    augment expiry {
+			dr:source "expiry";
+			dr:fieldnum 64;
+		    }
+
+		    augment is-publish {
+			dr:source "ispublish";
+                        dr:fieldnum 65;
+			dr:map true   { dr:map-from 1; }
+			dr:map false  { dr:map-from 0; }
+		    }
+
+		    augment interface-name {
+			dr:source "interface-name";
+			dr:fieldnum 66;
+		    }
+
+		    augment logical-router-id {
+			dr:source "logical-router-id";
+			dr:fieldnum 67;
+		    }
+		}
+	    }
+
+	}
+
+    }
+
+    dr:command-app "mib2d";
+    dr:sub-component "mib-arp";
+    jnpr-proto:message-id "MIB2D-ARP-OC-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+	dr:command-help "show arp information";
+
+	output {
+	    container arp-information {
+		uses ipv4-nbr-group;
+	    }
+	}
+    }
+
+    rpc juniper-telemetry-get {
+	dr:command-help "show arp information";
+
+	output {
+	    container arp-information {
+		uses ipv4-nbr-group;
+	    }
+	}
+    }
+
+    notification oc-arp-change {
+        dr:source-notification-name "arp-change";
+           container arp-information {
+            dr:fieldnum 152;
+            uses oc-ip:ipv4-top {
+
+                augment "ipv4" {
+                    dr:fieldnum 151;
+                }
+
+                augment "ipv4/neighbors" {
+                    dr:source "/notification/arp-change/neighbors";
+                    dr:fieldnum 151;
+                }
+
+                augment "ipv4/neighbors/neighbor" {
+                    dr:source "neighbor";
+                    dr:fieldnum 151;
+                }
+
+                augment "ipv4/neighbors/neighbor/ip" {
+                    dr:source "ip";
+                    dr:fieldnum 51;
+                }
+                
+                augment "ipv4/neighbors/neighbor/state/ip" {
+                    dr:source "state-ip";
+                    dr:fieldnum 51;
+                }
+
+		augment "ipv4/neighbors/neighbor/state/link-layer-address" {
+		    dr:source "link-layer-address";
+                    dr:fieldnum 52;
+		}
+
+		augment "ipv4/neighbors/neighbor/state/origin" {
+		    dr:source "origin";
+                    dr:fieldnum 53;
+		    dr:map STATIC { dr:map-from 1; }
+		    dr:map DYNAMIC { dr:map-from 2; }
+		}
+		augment "ipv4/neighbors/neighbor/state" {
+                    dr:fieldnum 151;
+		    uses jnx-oc-ip:jnx-ipv4-state-neighbor {
+			augment host-name {
+			    dr:source "host-name";
+                            dr:fieldnum 61;
+			}
+
+			augment table-id {
+			    dr:source "rtb-id";
+                            dr:fieldnum 62;
+			}
+
+			augment neighbor-state {
+			    dr:source "state";
+                            dr:fieldnum 63;
+			    dr:map INCOMPLETE { dr:map-from 0; }
+			    dr:map REACHABLE { dr:map-from 1; }
+			    dr:map PROBE { dr:map-from 2; }
+			    dr:map PERM { dr:map-from 3; }
+			}
+
+			augment expiry {
+			    dr:source "expiry";
+                            dr:fieldnum 64;
+			}
+
+			augment is-publish {
+			    dr:source "ispublish";
+                            dr:fieldnum 65;
+			    dr:map true   { dr:map-from 1; }
+			    dr:map false  { dr:map-from 0; }
+			}
+
+			augment interface-name {
+			    dr:source "interface-name";
+                            dr:fieldnum 66;
+			}
+
+			augment logical-router-id {
+			    dr:source "logical-router-id";
+                            dr:fieldnum 67;
+			}
+		    }
+		}
+            }
+        }  
+    }
+
+}

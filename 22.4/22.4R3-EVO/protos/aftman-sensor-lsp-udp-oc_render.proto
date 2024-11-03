@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional lsp_statistics jnpr_lsp_statistics_ext = 5;
+}
+
+message lsp_statistics {
+   message lsp_stats_records_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional uint32 instance_identifier = 2 [(telemetry_options).is_key = true];
+      optional string counter_name = 3 [(telemetry_options).is_key = true];
+      optional uint64 packets = 4 [(telemetry_options).is_key = true];
+      optional uint64 bytes = 5 [(telemetry_options).is_key = true];
+      optional uint64 packet_rate = 6;
+      optional uint64 byte_rate = 7;
+   }
+   repeated lsp_stats_records_list lsp_stats_records = 1;
+}

@@ -1,0 +1,222 @@
+/*
+ * $Id$
+ *
+ * diameter_service_render - drend support for diameter-service
+ *
+ * Copyright (c) 2019, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module diameter_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/diameter";
+
+    prefix "diameteroc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "jdiameterd";
+    dr:sub-component "diameter";
+    jnpr-proto:message-id "JDIAMETERD-OC-MESSAGE-ID";
+
+
+
+    grouping group-diameter-peer-statistic-list {
+        description "The list of Diameter peer statistics";
+        list peer {
+            description "The statistics for a Diameter peer";
+            dr:source "peer";
+            dr:fieldnum 151;
+            key "peer-name";
+
+            leaf peer-name {
+                description "The Diameter peer name";
+                type string;
+                dr:source peer_name;
+                dr:fieldnum 52;
+            }
+            container nasreq {
+                description "The Diameter peer statistics for NASREQ";
+                dr:source "nasreq";
+                dr:fieldnum 151;
+                container response-time {
+                    description "The NASREQ peer 1 minute interval statistics";
+                    dr:source "response-time";
+                    dr:fieldnum 151;
+                    leaf one-minute-minimum-response-time {
+                        description "The minimum response time measured over a 1 minute interval";
+                        type uint64;
+                        dr:source minimum_response_time;
+                        dr:fieldnum 51;
+                    }
+                    leaf one-minute-average-response-time {
+                         description "The average response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source average_response_time;
+                         dr:fieldnum 52;
+                    }
+                    leaf one-minute-maximum-response-time {
+                         description "The maximum response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source maximum_response_time;
+                         dr:fieldnum 53;
+                    }
+                    leaf one-minute-messages-sent {
+                         description "The total number of messages sent over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_sent;
+                         dr:fieldnum 54;
+                    }
+                    leaf one-minute-messages-received {
+                         description "The total number of messages received over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_received;
+                         dr:fieldnum 55;
+                    }
+                    leaf one-minute-messages-no-response {
+                         description "The total number of messages pending response over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_no_response;
+                         dr:fieldnum 56;
+                    }
+                }
+            }
+            container gx {
+                description "The Diameter peer statistics for PCRF";
+                dr:fieldnum 152;
+                dr:source "gx";
+                container response-time {
+                    description "The PCRF peer 1 minute interval statistics";
+                    dr:source "response-time";
+                    dr:fieldnum 151;
+                    leaf one-minute-minimum-response-time {
+                        description "The minimum response time measured over a 1 minute interval";
+                        type uint64;
+                        dr:source minimum_response_time;
+                        dr:fieldnum 51;
+                    }
+                    leaf one-minute-average-response-time {
+                         description "The average response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source average_response_time;
+                         dr:fieldnum 52;
+                    }
+                    leaf one-minute-maximum-response-time {
+                         description "The maximum response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source maximum_response_time;
+                         dr:fieldnum 53;
+                    }
+                    leaf one-minute-messages-sent {
+                         description "The total number of messages sent over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_sent;
+                         dr:fieldnum 54;
+                    }
+                    leaf one-minute-messages-received {
+                         description "The total number of messages received over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_received;
+                         dr:fieldnum 55;
+                    }
+                    leaf one-minute-messages-no-response {
+                         description "The total number of messages pending response over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_no_response;
+                         dr:fieldnum 56;
+                    }
+                }
+            }
+            container gy {
+                description "The Diameter peer statistics for OCS";
+                dr:fieldnum 153;
+                dr:source "gy";
+                container response-time {
+                    description "The OCS peer 1 minute interval statistics";
+                    dr:source "response-time";
+                    dr:fieldnum 151;
+                    leaf one-minute-minimum-response-time {
+                        description "The minimum response time measured over a 1 minute interval";
+                        type uint64;
+                        dr:source minimum_response_time;
+                        dr:fieldnum 51;
+                    }
+                    leaf one-minute-average-response-time {
+                         description "The average response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source average_response_time;
+                         dr:fieldnum 52;
+                    }
+                    leaf one-minute-maximum-response-time {
+                         description "The maximum response time measured over a 1 minute interval";
+                         type uint64;
+                         dr:source maximum_response_time;
+                         dr:fieldnum 53;
+                    }
+                    leaf one-minute-messages-sent {
+                         description "The total number of messages sent over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_sent;
+                         dr:fieldnum 54;
+                    }
+                    leaf one-minute-messages-received {
+                         description "The total number of messages received over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_received;
+                         dr:fieldnum 55;
+                    }
+                    leaf one-minute-messages-no-response {
+                         description "The total number of messages pending response over a 1 minute interval";
+                         type uint64;
+                         dr:source messages_no_response;
+                         dr:fieldnum 56;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    rpc juniper-netconf-get {
+       dr:command-top-of-output "/oc-diameter-information";
+       dr:command-help "Default <get> rpc";
+       output {
+          container junos {
+              container system {
+		  dr:fieldnum 151;
+                  container subscriber-management {
+		      dr:fieldnum 151;
+                      container aaa{
+			  dr:fieldnum 151;
+                          container diameter {
+                              dr:fieldnum 151;
+                              container peers {
+                                  description "The list of Diameter peer statistics";
+                                  dr:source "/junos/system/subscriber-management/aaa/diameter/peers";
+                                  dr:fieldnum 151;
+                                  uses group-diameter-peer-statistic-list;
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+       }
+    }
+}

@@ -1,0 +1,271 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module chassisd-junos-state-poe-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/junos/state/poe/render";
+
+  prefix "js-poe-rdr";
+
+  import junos-state { prefix js; }
+  import junos-state-system { prefix js-sys; }
+  import junos-state-protocols { prefix js-pro; }
+  import junos-state-poe { prefix js-poe; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+ dr:command-app "chassisd";
+ dr:sub-component "chassis";
+ jnpr-proto:message-id "JS-CHASSISD-OC-POE-MESSAGE-ID";
+
+// augment statements
+
+ grouping poe-controller {
+  uses js-poe:poe-controller-top {
+
+   augment "controllers" {
+     dr:fieldnum 184;
+     dr:source "/poe-controller/controllers";
+   }
+
+   augment "controllers/fast-poe-enabled" {
+     dr:fieldnum 183;
+     dr:source "fast_poe_enabled";
+   }
+
+   augment "controllers/perpetual-poe-enabled" {
+     dr:fieldnum 184;
+     dr:source "perpetual_poe_enabled";
+   }
+
+   augment "controllers/controller" {
+     dr:fieldnum 185;
+     dr:source "controller";
+   }
+
+   augment "controllers/controller/index" {
+     dr:fieldnum 186;
+     dr:source "poe_controller_number";
+   }
+
+   augment "controllers/controller/firmware-available" {
+     dr:fieldnum 187;
+     dr:source "poe_controller_firmware_available";
+   }
+
+   augment "controllers/controller/max-power" {
+     dr:fieldnum 188;
+     dr:source "poe_controller_maxpower";
+   }
+
+   augment "controllers/controller/power-consumption" {
+     dr:fieldnum 189;
+     dr:source "poe_controller_power";
+   }
+
+   augment "controllers/controller/power-over-consumed" {
+     dr:fieldnum 190;
+     dr:source "poe_controller_asterisk";
+   }
+
+   augment "controllers/controller/guard-band" {
+     dr:fieldnum 191;
+     dr:source "poe_controller_guardband";
+   }
+
+   augment "controllers/controller/poe-management" {
+     dr:fieldnum 192;
+     dr:source "poe_controller_management";
+     dr:map STATIC      { dr:map-from 1 ; }
+     dr:map DYNAMIC     { dr:map-from 2 ; }
+     dr:map CLASS       { dr:map-from 3 ; }
+   }
+
+   augment "controllers/controller/poe-status" {
+     dr:fieldnum 193;
+     dr:source "poe_controller_status";
+     dr:map AF_MODE     { dr:map-from 5 ; }
+     dr:map AF_ENHANCEE { dr:map-from 4 ; }
+     dr:map AT_MODE     { dr:map-from 3 ; }
+     dr:map AT_AF_COMBO { dr:map-from 6 ; }
+     dr:map DOWNLOAD_INIT { dr:map-from 7 ; }
+     dr:map POE_SW_ERASE  { dr:map-from 8 ; }
+     dr:map DOWNLOAD_IN_PROGRESS { dr:map-from 9 ; }
+     dr:map DOWNLOAD_FAIL { dr:map-from 10 ; }
+     dr:map REBOOT_REQUIRED { dr:map-from 11 ; }
+     dr:map DOWNLOAD_REQUIRED { dr:map-from 12 ; }
+     dr:map NOT_READY         { dr:map-from 0 ; }
+     dr:map DEVICE_FAIL       { dr:map-from 2 ; }
+     dr:map POE_NOT_SUPPORTED { dr:map-from 1 ; }
+     dr:map BT_MODE           { dr:map-from 14 ; }
+   }
+
+   augment "controllers/controller/lldp-priority" {
+     dr:fieldnum 194;
+     dr:source "poe_controller_lldp_priority";
+     dr:map ENABLED      { dr:map-from 1 ; }
+     dr:map DISABLED     { dr:map-from 2 ; }
+   }
+
+  }
+ }
+
+
+ grouping poe-interface {
+  uses js-poe:poe-interface-top {
+
+   augment "interfaces" {
+     dr:fieldnum 150;
+     dr:source "/poe-interfaces/interfaces";
+   }
+
+   augment "interfaces/interface" {
+     dr:fieldnum 151;
+     dr:source "interface";
+   }
+
+   augment "interfaces/interface/name" {
+     dr:fieldnum 152;
+     dr:source "poe_interface_name";
+   }
+
+   augment "interfaces/interface/admin-status" {
+     dr:fieldnum 153;
+     dr:source "poe_admin_status";
+     dr:map ENABLED  { dr:map-from 1; }
+     dr:map DISABLED { dr:map-from 2; }
+   }
+
+   augment "interfaces/interface/oper-status" {
+     dr:source "poe_oper_status";
+     dr:fieldnum 154;
+     dr:map ENABLED  { dr:map-from 1; }
+     dr:map DISABLED { dr:map-from 2; }
+   }
+
+   augment "interfaces/interface/poe-four-pair" {
+     dr:fieldnum 156;
+     dr:source "poe_fourpair_detail";
+     dr:map ENABLED  { dr:map-from 1; }
+     dr:map DISABLED { dr:map-from 2; }
+   }
+
+   augment "interfaces/interface/poe-pair-status" {
+     dr:fieldnum 157;
+     dr:source "poe_fourpair_status";
+     dr:map 4P_POH  { dr:map-from 0; }
+     dr:map 4P_BT   { dr:map-from 1; }
+     dr:map 4P_AT   { dr:map-from 2; }
+     dr:map SS_BT   { dr:map-from 3; }
+     dr:map DS_BT   { dr:map-from 4; }
+     dr:map 2P_POH  { dr:map-from 5; }
+     dr:map 2P_AT   { dr:map-from 6; }
+   }
+
+   augment "interfaces/interface/power-limit" {
+     dr:fieldnum 158;
+     dr:source "poe_power_limit";
+   }
+
+   augment "interfaces/interface/power-limit-lldp-negotiated" {
+     dr:fieldnum 159;
+     dr:source "poe_lldp_nego_power";
+   }
+
+   augment "interfaces/interface/priority" {
+     dr:fieldnum 160;
+     dr:source "poe_priority";
+     dr:map LOW       { dr:map-from 1; }
+     dr:map HIGH      { dr:map-from 2; }
+     dr:map CRITICAL  { dr:map-from 3; }
+   }
+
+   augment "interfaces/interface/priority-lldp-negotiated" {
+     dr:fieldnum 161;
+     dr:source "poe_lldp_nego_power";
+   }
+
+   augment "interfaces/interface/power-consumption" {
+     dr:fieldnum 162;
+     dr:source "poe_power_consumed";
+   }
+
+   augment "interfaces/interface/power-over-consumed" {
+     dr:fieldnum 163;
+     dr:source "poe_interface_detail_asterisk";
+   }
+
+   augment "interfaces/interface/power-class-a" {
+     dr:fieldnum 164;
+     dr:source "poe_interface_classA";
+     dr:map CLASS_0   { dr:map-from 0; }
+     dr:map CLASS_1   { dr:map-from 1; }
+     dr:map CLASS_2   { dr:map-from 2; }
+     dr:map CLASS_3   { dr:map-from 3; }
+     dr:map CLASS_4   { dr:map-from 4; }
+     dr:map CLASS_5   { dr:map-from 5; }
+     dr:map CLASS_6   { dr:map-from 6; }
+     dr:map CLASS_7   { dr:map-from 7; }
+     dr:map CLASS_8   { dr:map-from 8; }
+     dr:map NOT_APPLICABLE   { dr:map-from 9; }
+     dr:map UNKNOWN   { dr:map-from 10; }
+   }
+
+   augment "interfaces/interface/power-class-b" {
+     dr:fieldnum 165;
+     dr:source "poe_interface_classB";
+     dr:map CLASS_0   { dr:map-from 0; }
+     dr:map CLASS_1   { dr:map-from 1; }
+     dr:map CLASS_2   { dr:map-from 2; }
+     dr:map CLASS_3   { dr:map-from 3; }
+     dr:map CLASS_4   { dr:map-from 4; }
+     dr:map CLASS_5   { dr:map-from 5; }
+     dr:map CLASS_6   { dr:map-from 6; }
+     dr:map CLASS_7   { dr:map-from 7; }
+     dr:map CLASS_8   { dr:map-from 8; }
+     dr:map NOT_APPLICABLE   { dr:map-from 9; }
+     dr:map UNKNOWN   { dr:map-from 10; }
+   }
+
+   augment "interfaces/interface/poe-mode" {
+     dr:fieldnum 166;
+     dr:source "poe_mode";
+     dr:map 802_3AF      { dr:map-from 1; }
+     dr:map 802_3AT      { dr:map-from 2; }
+     dr:map ULTRA_POE    { dr:map-from 5; }
+     dr:map 802_3BT      { dr:map-from 6; }
+   }
+  }
+ }
+
+
+
+ rpc juniper-netconf-get {
+    output {
+       container state {
+          dr:fieldnum 148;
+          container poe {
+             dr:fieldnum 149;
+	     uses poe-interface;
+             uses poe-controller;
+          }
+       }
+    }
+ }
+
+}

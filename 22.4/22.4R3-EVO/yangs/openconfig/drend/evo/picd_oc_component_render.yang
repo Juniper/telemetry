@@ -1,0 +1,1142 @@
+/**
+ * @copyright  Copyright Juniper Networks 2020. All rights reserved
+ * @file       oc_component_render.yang
+ * @author     Satish B
+ * @date       August, 2020
+ * @brief      picd - Open config - Interface sensor data
+ */
+
+module picd_oc_component_render {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/oc_component_render";
+
+    prefix "oc_component_render";
+
+    import drend {
+        prefix "dr";
+    }
+
+    //For UDP streaming
+    import jnpr-proto { prefix jnpr-proto; }
+    jnpr-proto:message-id "PICD-OC-COMPONENT-MESSAGE-ID";
+    dr:sub-component "pic";
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    dr:command-app "picd";
+
+    grouping component-state-group {
+        leaf "name" {
+            type string;
+            dr:source "portString";
+            dr:fieldnum 51;
+        }
+
+    }
+
+    grouping component-state-info-group {
+        leaf "name" {
+            type string;
+            dr:source "Name";
+            dr:fieldnum 51;
+        }
+        leaf "type" {
+            type string;
+            dr:source "Type";
+            dr:fieldnum 52;
+        }
+        leaf "id" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "Id";
+            dr:fieldnum 53;
+        }
+        leaf "location" {
+            type string;
+            dr:source "Location";
+            dr:fieldnum 54;
+        }
+        leaf "description" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "Description";
+            dr:fieldnum 55;
+        }
+        leaf "mfg-name" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "MfgName";
+            dr:fieldnum 56;
+        }
+        leaf "mfg-date" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "MfgDate";
+            dr:fieldnum 57;
+        }
+        leaf "hardware-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "HwdVer";
+            dr:fieldnum 58;
+        }
+        leaf "firmware-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "FwVer";
+            dr:fieldnum 59;
+        }
+        leaf "software-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "SwVer";
+            dr:fieldnum 60;
+        }
+        leaf "serial-no" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "SerialNo";
+            dr:fieldnum 61;
+        }
+        leaf "part-no" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "PartNo";
+            dr:fieldnum 62;
+        }
+        leaf "removable" {
+            type boolean;
+            dr:source "Removable";
+            dr:fieldnum 63;
+        }
+        leaf "oper-status" {
+            type string;
+            dr:source "OperStatus";
+            dr:fieldnum 64;
+            dr:map DISABLED { dr:map-from 1; }
+            dr:map ACTIVE { dr:map-from 2; }
+            dr:map INACTIVE { dr:map-from *; }
+        }
+        leaf "empty" {
+            type boolean;
+            dr:source "Empty";
+            dr:fieldnum 65;
+        }
+        leaf "parent" {
+            type string;
+            dr:source "Parent";
+            dr:fieldnum 66;
+        }
+        container "temperature" {
+            dr:fieldnum 67;
+            leaf "instant" {
+                type decimal64 {fraction-digits 1;}
+                dr:source "Temperature";
+                dr:fieldnum 63;
+            }
+        }
+        leaf "allocated-power" {
+            type uint32;
+            dr:source "PwrAlloc";
+            dr:fieldnum 68;
+        }
+        container "memory" {
+            dr:fieldnum 69;
+            leaf "available" {
+                type uint64;
+                dr:source "MemAvail";
+                dr:fieldnum 65;
+            }
+            leaf "utilized" {
+                type uint64;
+                dr:source "MemUtil";
+                dr:fieldnum 66;
+            }
+        }
+    }
+
+    grouping component-subcomponent-group {
+        leaf "name" {
+            type string;
+            dr:source "SubCompName";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping avg-min-max-instant-stats {
+        leaf "instant" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "instant";
+            dr:fieldnum 52;
+        }
+        leaf "avg" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "avg";
+            dr:fieldnum 53;
+        }
+        leaf "min" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "min";
+            dr:fieldnum 54;
+        }
+        leaf "max" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "max";
+            dr:fieldnum 55;
+        }
+        leaf "interval" {
+            type uint64;
+            dr:source "stat_interval";
+            dr:fieldnum 56;
+        }
+        leaf "min-time" {
+            type uint64;
+            dr:source "min_time";
+            dr:fieldnum 57;
+        }
+        leaf "max-time" {
+            type uint64;
+            dr:source "max_time";
+            dr:fieldnum 58;
+        }
+    }
+
+    grouping xcvr-state-group {
+        leaf "enabled" {
+            type boolean;
+            dr:source "Enabled";
+            dr:fieldnum 51;
+        }
+        leaf "form-factor-preconf" {
+            type string;
+            dr:source "form_factor_preconf";
+            dr:fieldnum 255;
+        }
+
+        leaf "ethernet-pmd-preconf" {
+            type string;
+            dr:source "ethernet_pmd_preconf";
+            dr:fieldnum 256;
+        }
+
+        leaf "present" {
+            type string;
+            dr:source "present";
+            dr:fieldnum 266;
+            dr:map PRESENT { dr:map-from 1; }
+            dr:map NOT_PRESENT { dr:map-from *; }
+        }
+        leaf "form-factor" {
+            type string;
+            dr:source "form_factor";
+            dr:fieldnum 257;
+        }
+
+        leaf "connector-type" {
+            type string;
+            dr:source "connector_type";
+            dr:fieldnum 258;
+            dr:map SC_CONNECTOR                  { dr:map-from 1; }
+            dr:map LC_CONNECTOR                  { dr:map-from 2; }
+            dr:map AOC_CONNECTOR                 { dr:map-from 5; }
+            dr:map MPO_CONNECTOR                 { dr:map-from 6; }
+        }
+
+        leaf "vendor" {
+            type string;
+            dr:source "vendor";
+            dr:fieldnum 259;
+        }
+
+        leaf "vendor-part" {
+            type string;
+            dr:source "vendor_part";
+            dr:fieldnum 260;
+        }
+
+        leaf "vendor-rev" {
+            type string;
+            dr:source "vendor_rev";
+            dr:fieldnum 261;
+        }
+        leaf "ethernet-pmd" {
+            type string;
+            dr:source "ethernet_pmd";
+            dr:fieldnum 262;
+        }
+
+        leaf "sonet-sdh-compliance-code" {
+            type string;
+            dr:source "sonet_sdh_compliance_code";
+            dr:fieldnum 263;
+        }
+
+        leaf "otn-compliance-code" {
+            type string;
+            dr:source "otn_compliance_code";
+            dr:fieldnum 264;
+        }
+
+        leaf "serial-no" {
+            type string;
+            dr:source "serial_number";
+            dr:fieldnum 265;
+        }
+
+        leaf "date-code" {
+            type string;
+            dr:source "code_date";
+            dr:fieldnum 286;
+        }
+
+        container "output-power" {
+            dr:fieldnum 55;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "OutputPowerDbm";
+                dr:fieldnum 52;
+            }
+        }
+        container "input-power" {
+            dr:fieldnum 56;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "InputPowerDbm";
+                dr:fieldnum 53;
+             }
+        }
+        container "laser-bias-current" {
+            dr:fieldnum 57;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "LaserBiasCurrent";
+                dr:fieldnum 54;
+            }
+        }
+        leaf "module-functional-type" {
+            type string;
+            dr:source "ModuleFunctionalType";
+            dr:fieldnum 287;
+            dr:map TYPE_DIGITAL_COHERENT_OPTIC { dr:map-from 1; }
+            dr:map TYPE_STANDARD_OPTIC { dr:map-from *; }
+        }
+        leaf "fec-mode" {
+            type string;
+            dr:source "FecMode";
+            dr:fieldnum 288;
+            dr:map FEC_ENABLED { dr:map-from 1; }
+            dr:map FEC_AUTO { dr:map-from 2; }
+            dr:map FEC_DISABLED { dr:map-from *; }
+        }
+        leaf "fault-condition" {
+            type boolean;
+            dr:source "ActiveFault";
+            dr:fieldnum 289;
+        }
+        leaf "fec-status" {
+            type string;
+            dr:source "FecStatus";
+            dr:fieldnum 290;
+            dr:map FEC_STATUS_LOCKED { dr:map-from 1; }
+            dr:map FEC_STATUS_UNLOCKED { dr:map-from 0; }
+        }
+        leaf "fec-uncorrectable-blocks" {
+            type uint64;
+            dr:source "CurrentModuleMediaFecUnCorrBlocks";
+            dr:fieldnum 291;
+        }
+        leaf "fec-corrected-bits" {
+            type uint64;
+            dr:source "CurrentModuleMediaFecCorrBits";
+            dr:fieldnum 292;
+        }
+    }
+
+    grouping port-brkout-group-idx {
+        leaf "index" {
+          type uint8;
+          dr:source "portGrpIdx";
+          dr:fieldnum 51;
+        }
+      }
+
+    grouping port-brkout-group {
+        leaf "index" {
+          type uint8;
+          dr:source "portGrpIdx";
+          dr:fieldnum 51;
+        }
+        leaf "num-breakouts" {
+          type uint8;
+          dr:source "numBrkouts";
+          dr:fieldnum 52;
+        }
+        leaf "breakout-speed" {
+          type string;
+          dr:source "channelSpeed";
+          dr:fieldnum 53;
+        }
+        leaf "num-physical-channels" {
+          type uint8;
+          dr:source "numPhyChannels";
+          dr:fieldnum 54;
+        }
+    }
+
+    grouping och-state-group {
+        leaf "frequency" {
+            type uint64;
+            dr:source "frequency";
+            dr:fieldnum 51;
+        }
+        leaf "line-port" {
+            type string;
+            dr:source "LinePort";
+            dr:fieldnum 62;
+        }
+
+        /* All the below containers are defined as lists thought they are 
+         * all containers as per OC data model because of the limitation with
+         * AFT telemetry infra which is used in by picdD telemetry.
+         * Aft infra only provides us iterator no accessor so we need to make 
+         * these lists for us to get control and populate data */
+        list "chromatic-dispersion" {
+            dr:fieldnum 52;
+            dr:source "comp-xcvr-och-chromatic-dispersion";
+            uses avg-min-max-instant-stats;
+        }
+        list "second-order-polarization-mode-dispersion" {
+            dr:fieldnum 53;
+            dr:source "comp-xcvr-och-sompd";
+            uses avg-min-max-instant-stats;
+        }
+        list "polarization-dependent-loss" {
+            dr:fieldnum 54;
+            dr:source "comp-xcvr-och-pol-dep-loss";
+            uses avg-min-max-instant-stats;
+        }
+        list "output-power" {
+            dr:fieldnum 55;
+            dr:source "comp-xcvr-och-output-pwr";
+            uses avg-min-max-instant-stats;
+        }
+        list "input-power" {
+            dr:fieldnum 56;
+            dr:source "comp-xcvr-och-input-pwr";
+            uses avg-min-max-instant-stats;
+        }
+        list "laser-bias-current" {
+            dr:fieldnum 57;
+            dr:source "comp-xcvr-och-laser-bias-current";
+            uses avg-min-max-instant-stats;
+        }
+        list "osnr" {
+            dr:fieldnum 58;
+            dr:source "comp-xcvr-och-osnr";
+            uses avg-min-max-instant-stats;
+        }
+        list "esnr" {
+            dr:fieldnum 59;
+            dr:source "comp-xcvr-och-esnr";
+            uses avg-min-max-instant-stats;
+        }
+        list "carrier-frequency-offset" {
+            dr:fieldnum 60;
+            dr:source "comp-xcvr-och-carrier-frequency-offset";
+            uses avg-min-max-instant-stats;
+        }
+        list "pre-fec-ber" {
+            dr:fieldnum 61;
+            dr:source "comp-xcvr-och-pre-fec-ber";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-xi" {
+            dr:fieldnum 63;
+            dr:source "comp-xcvr-och-mod-bias-xi";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-xq" {
+            dr:fieldnum 64;
+            dr:source "comp-xcvr-och-mod-bias-xq";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-yi" {
+            dr:fieldnum 65;
+            dr:source "comp-xcvr-och-mod-bias-yi";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-yq" {
+            dr:fieldnum 66;
+            dr:source "comp-xcvr-och-mod-bias-yq";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-x-phase" {
+            dr:fieldnum 67;
+            dr:source "comp-xcvr-och-mod-bias-xphase";
+            uses avg-min-max-instant-stats;
+        }
+        list "modulator-bias-y-phase" {
+            dr:fieldnum 68;
+            dr:source "comp-xcvr-och-mod-bias-yphase";
+            uses avg-min-max-instant-stats;
+        }
+        list "sop-roc" {
+            dr:fieldnum 69;
+            dr:source "comp-xcvr-och-sop-roc";
+            uses avg-min-max-instant-stats;
+        }
+    }
+
+    grouping xcvr-lane-index-group {
+        leaf "index" {
+            type uint32;
+            dr:source "ChannelIndex";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping xcvr-lane-state-group {
+        leaf "index" {
+            type uint32;
+            dr:source "ChannelIndex";
+            dr:fieldnum 51;
+        }
+        leaf "description" {
+            type string;
+            dr:source "Description";
+            dr:fieldnum 52;
+        }
+        leaf "associated-optical-channel" {
+            type string;
+            dr:source "AssoOptChannel";
+            dr:fieldnum 62;
+        }
+        leaf "tx-laser" {
+            type boolean;
+            dr:source "TxLaser";
+            dr:fieldnum 53;
+        }
+        leaf "target-output-power" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "LaneTargetOutputPower_dbm";
+            dr:fieldnum 54;
+        }
+        leaf "output-frequency" {
+            type uint32;
+            dr:source "LaneOutputFrequency";
+            dr:fieldnum 55;
+        }
+        container "output-power" {
+            dr:fieldnum 59;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "LaneOutputPower_dbm";
+                dr:fieldnum 56;
+            }
+        }
+        container "input-power" {
+            dr:fieldnum 60;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "LaneInputPower_dbm";
+                dr:fieldnum 57;
+            }
+        }
+        container "laser-bias-current" {
+            dr:fieldnum 61;
+            leaf "instant" {
+                type decimal64 {fraction-digits 2; }
+                dr:source "LaneLaserBiasCurrent";
+                dr:fieldnum 58;
+            }
+        }
+    }
+
+    grouping comp-port-property-group {
+        leaf "name" {
+            type string;
+            dr:source "KeyName";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping comp-port-state-group {
+        leaf "value" {
+            type string;
+            dr:source "value";
+            dr:fieldnum 51;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        output {
+            container components {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 151;
+                list component {
+                    dr:source "comp-interface-info";
+                    dr:fieldnum 151;
+                    uses component-state-group;
+                    key name;
+                    list state {
+                        dr:source "comp-portxcvr-data";
+                        dr:fieldnum 154;
+                        uses component-state-info-group;
+
+                    }
+                    list properties {
+                        dr:source "comp-portxcvr-data";
+                        dr:fieldnum 163;
+                        list property {
+                            dr:source "port-property-data";
+                            dr:fieldnum 151;
+                            uses comp-port-property-group;
+                            key name;
+                            list state {
+                                dr:source "port-state-data";
+                                dr:fieldnum 151;
+                                uses comp-port-state-group;
+                            }
+                        }
+                    }
+                    list transceiver {
+                        dr:source "comp-xcvr-data";
+                        dr:fieldnum 152;
+                        container state {
+                            dr:fieldnum 153;
+                            uses xcvr-state-group;
+                        }
+                        container physical-channels {
+                            dr:fieldnum 151;
+                            list channel {
+                                key index;
+                                dr:fieldnum 151;
+                                dr:source "comp-xcvr-channel-data";
+                                uses xcvr-lane-index-group;
+                                container state {
+                                    dr:fieldnum 155;
+                                    uses xcvr-lane-state-group;
+                                }
+                            }
+                        }
+                    }
+                     container port {
+                         dr:fieldnum 151;
+                         container breakout-mode {
+                          dr:fieldnum 151;
+                           container groups {
+                            dr:fieldnum 151;
+                              list group {
+                                key index;
+                                dr:fieldnum 151;
+                                dr:source "comp-port-grps";
+                                uses port-brkout-group-idx;
+                                container state {
+                                  dr:fieldnum 151;
+                                  uses port-brkout-group;
+                                }
+                              }
+                           }
+                         }
+                     }
+                    list optical-channel {
+                        dr:source "comp-och-data";
+                        dr:fieldnum 153;
+                        container state {
+                          dr:fieldnum 151;
+                          uses och-state-group;
+                        }
+                    }
+                    container subcomponents {
+                        dr:zero-suppressed;
+                        dr:fieldnum 160;
+                        list subcomponent {
+                            dr:fieldnum 161;
+                            dr:source "comp-subcomp-data";
+                            uses component-subcomponent-group;
+                            key name;
+                            container state {
+                              dr:fieldnum 162;
+                              uses component-subcomponent-group;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    rpc juniper-telemetry-get {
+        output {
+            container components {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 151;
+                list component {
+                    dr:source "comp-interface-info";
+                    dr:fieldnum 151;
+                    uses component-state-group;
+                    key name;
+                    list state {
+                        dr:source "comp-portxcvr-data";
+                        dr:fieldnum 154;
+                        uses component-state-info-group;
+                    }
+                    list properties {
+                        dr:source "comp-portxcvr-data";
+                        dr:fieldnum 163;
+                        list property {
+                            dr:source "port-property-data";
+                            dr:fieldnum 151;
+                            uses comp-port-property-group;
+                            key name;
+                            list state {
+                                dr:source "port-state-data";
+                                dr:fieldnum 151;
+                                uses comp-port-state-group;
+                            }
+                        }
+                    }
+                    list transceiver {
+                        dr:source "comp-xcvr-data";
+                        dr:fieldnum 152;
+                        container state {
+                            dr:fieldnum 153;
+                            uses xcvr-state-group;
+                        }
+                        container physical-channels {
+                            dr:fieldnum 151;
+                            list channel {
+                                key index;
+                                dr:fieldnum 151;
+                                dr:source "comp-xcvr-channel-data";
+                                uses xcvr-lane-index-group;
+                                container state {
+                                    dr:fieldnum 155;
+                                    uses xcvr-lane-state-group;
+                                }
+                            }
+                        }
+                    }
+                     container port {
+                         dr:fieldnum 151;
+                         container breakout-mode {
+                          dr:fieldnum 151;
+                           container groups {
+                            dr:fieldnum 151;
+                              list group {
+                                key index;
+                                dr:fieldnum 151;
+                                dr:source "comp-port-grps";
+                                uses port-brkout-group-idx;
+                                container state {
+                                  dr:fieldnum 151;
+                                  uses port-brkout-group;
+                                }
+                              }
+                           }
+                         }
+                     }
+                    list optical-channel {
+                        dr:source "comp-och-data";
+                        dr:fieldnum 153;
+                        container state {
+                          dr:fieldnum 151;
+                          uses och-state-group;
+                        }
+                    }
+                    container subcomponents {
+                        dr:zero-suppressed;
+                        dr:fieldnum 160;
+                        list subcomponent {
+                            dr:fieldnum 161;
+                            dr:source "comp-subcomp-data";
+                            uses component-subcomponent-group;
+                            key name;
+                            container state {
+                              dr:fieldnum 162;
+                              uses component-subcomponent-group;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    grouping xcvr-lane-notif-data {
+        leaf "index" {
+            type uint32;
+            dr:source "ChannelIndex";
+            dr:fieldnum 51;
+        }
+        leaf "description" {
+            type string;
+            dr:source "Description";
+            dr:fieldnum 52;
+        }
+        leaf "tx-laser" {
+            type boolean;
+            dr:source "TxLaser";
+            dr:fieldnum 53;
+        }
+        leaf "target-output-power" {
+            type decimal64 {fraction-digits 2; }
+            dr:source "LaneTargetOutputPower_dbm";
+            dr:fieldnum 54;
+        }
+        leaf "output-frequency" {
+            type uint64;
+            dr:source "LaneOutputFrequency";
+            dr:fieldnum 55;
+        }
+    }
+
+    grouping state-notif-data {
+        leaf "name" {
+            type string;
+            dr:source "Name";
+            dr:fieldnum 51;
+        }
+        leaf "type" {
+            type string;
+            dr:source "Type";
+            dr:fieldnum 52;
+        }
+        leaf "id" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "Id";
+            dr:fieldnum 53;
+        }
+        leaf "location" {
+            type string;
+            dr:source "Location";
+            dr:fieldnum 54;
+        }
+        leaf "description" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "Description";
+            dr:fieldnum 55;
+        }
+        leaf "mfg-name" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "MfgName";
+            dr:fieldnum 56;
+        }
+        leaf "mfg-date" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "MfgDate";
+            dr:fieldnum 57;
+        }
+        leaf "hardware-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "HwdVer";
+            dr:fieldnum 58;
+        }
+        leaf "firmware-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "FwVer";
+            dr:fieldnum 59;
+        }
+        leaf "software-version" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "SwVer";
+            dr:fieldnum 60;
+        }
+        leaf "serial-no" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "SerialNo";
+            dr:fieldnum 61;
+        }
+        leaf "part-no" {
+            dr:zero-suppressed;
+            type string;
+            dr:source "PartNo";
+            dr:fieldnum 62;
+        }
+        leaf "removable" {
+            type boolean;
+            dr:source "Removable";
+            dr:fieldnum 63;
+        }
+        leaf "oper-status" {
+            type string;
+            dr:source "OperStatus";
+            dr:fieldnum 64;
+            dr:map DISABLED { dr:map-from 1; }
+            dr:map ACTIVE { dr:map-from 2; }
+            dr:map INACTIVE { dr:map-from *; }
+        }
+        leaf "empty" {
+            type boolean;
+            dr:source "Empty";
+            dr:fieldnum 65;
+        }
+        leaf "parent" {
+            type string;
+            dr:source "Parent";
+            dr:fieldnum 66;
+        }
+        leaf "allocated-power" {
+            type uint32;
+            dr:source "PwrAlloc";
+            dr:fieldnum 68;
+        }
+    }
+
+    grouping comp-subcomp-notif-group {
+        leaf "name" {
+            type string;
+            dr:source "name";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping subcomp-state-notif-data {
+        leaf "name" {
+            type string;
+            dr:source "SubCompName";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping notify-state-group {
+        leaf "name" {
+            type string;
+            dr:source "XcvrString";
+            dr:fieldnum 51; 
+        }    
+    }    
+    grouping xcvr-notif-data {
+        leaf "enabled" { 
+            type boolean;
+            dr:source "Enabled";
+            dr:fieldnum 51; 
+        }    
+        leaf "form-factor-preconf" {
+            type string;
+            dr:source "FormFactorPreConf";
+            dr:fieldnum 255; 
+        }    
+    
+        leaf "ethernet-pmd-preconf" {
+            type string;    
+            dr:source "EthernetPmdPreConf";
+            dr:fieldnum 256;    
+        }    
+    
+        leaf "present" {    
+            type string;
+            dr:source "Present";
+            dr:fieldnum 266;
+            dr:map PRESENT { dr:map-from 1; }
+            dr:map NOT_PRESENT { dr:map-from *; }
+        }   
+        leaf "form-factor" {
+            type string;
+            dr:source "FormFactor";
+            dr:fieldnum 257;
+        }   
+
+        leaf "connector-type" {
+            type string;
+            dr:source "ConnectorType";
+            dr:fieldnum 258;
+            dr:map SC_CONNECTOR                  { dr:map-from 1; }
+            dr:map LC_CONNECTOR                  { dr:map-from 2; }
+            dr:map COPPER_CONNECTOR              { dr:map-from 3; }
+            dr:map RJ45_CONNECTOR                { dr:map-from 4; }
+            dr:map AOC_CONNECTOR                 { dr:map-from 5; }
+            dr:map MPO_CONNECTOR                 { dr:map-from 6; }
+            dr:map UNKNOWN                       { dr:map-from  *; }
+        }
+
+        leaf "vendor" {
+            type string;
+            dr:source "Vendor";
+            dr:fieldnum 259;
+        }
+
+        leaf "vendor-part" {
+            type string;
+            dr:source "VendorPart";
+            dr:fieldnum 260;
+        }
+        leaf "vendor-rev" {
+            type string;
+            dr:source "VendorRev";
+            dr:fieldnum 261;
+        }
+        leaf "ethernet-pmd" {
+            type string;
+            dr:source "EthernetPmd";
+            dr:fieldnum 262;
+        }
+
+        leaf "sonet-sdh-compliance-code" {
+            type string;
+            dr:source "SonetSdhComplianceCode";
+            dr:fieldnum 263;
+        }
+
+        leaf "otn-compliance-code" {
+            type string;
+            dr:source "OtnComplianceCode";
+            dr:fieldnum 264;
+        }
+        leaf "serial-no" {
+            type string;
+            dr:source "SerialNo";
+            dr:fieldnum 265;
+        }
+
+        leaf "date-code" {
+            type string;
+            dr:source "DateCode";
+            dr:fieldnum 286;
+        }
+
+        leaf "module-functional-type" {
+            type string;
+            dr:source "ModuleFunctionalType";
+            dr:fieldnum 287;
+            dr:map TYPE_DIGITAL_COHERENT_OPTIC { dr:map-from 1; }
+            dr:map TYPE_STANDARD_OPTIC { dr:map-from *; }
+        }
+
+        leaf "fec-mode" {
+            type string;
+            dr:source "FecMode";
+            dr:fieldnum 288;
+            dr:map FEC_ENABLED { dr:map-from 1; }
+            dr:map FEC_AUTO { dr:map-from 2; }
+            dr:map FEC_DISABLED { dr:map-from *; }
+        }
+    }
+
+   notification oc-component-transceiver {
+       dr:source-notification-name "transceiver";
+
+       container components {
+           dr:fieldnum 163;
+           dr:source "/notification/transceiver/components";
+
+           list component {
+               dr:fieldnum 151;
+               dr:source "component";
+               key name;
+               uses notify-state-group;
+               container transceiver {
+                   dr:fieldnum 152;
+                   dr:source "comp-xcvr-data";
+                   container state {
+                       dr:fieldnum 153;
+                       dr:source "state";
+                       uses xcvr-notif-data;
+                   }
+               }
+           }
+       }
+   }
+
+    notification oc-component-physical-channels {
+        dr:source-notification-name "physical-channels";
+
+        container components {
+            dr:fieldnum 163;
+            dr:source "/notification/physical-channels/components";
+
+            list component {
+                dr:fieldnum 151;
+                dr:source "component";
+                key name;
+                uses notify-state-group;
+                container transceiver {
+                    dr:fieldnum 152;
+                    dr:source "comp-xcvr-data";
+                    container physical-channels {
+                        dr:fieldnum 151;
+                        dr:source "comp-xcvr-channels";
+                        list channel {
+                            dr:source "comp-xcvr-channel-data";
+                            dr:fieldnum 151;
+                            key index;
+                            uses xcvr-lane-index-group;
+                            container state {
+                                dr:fieldnum 155;
+                                dr:source "state";
+                                uses xcvr-lane-notif-data;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-component-state {
+        dr:source-notification-name "state";
+
+        container components {
+            dr:fieldnum 163;
+            dr:source "/notification/state/components";
+
+            list component {
+                dr:fieldnum 151;
+                dr:source "component";
+                key name;
+                uses component-state-group;
+                container state {
+                    dr:fieldnum 154;
+                    dr:source "comp-state-data";
+                    uses state-notif-data;
+                }
+            }
+        }
+    }
+
+    notification oc-component-subcomponent {
+        dr:source-notification-name "subcomponent";
+
+        container components {
+            dr:fieldnum 163;
+            dr:source "/notification/subcomponent/components";
+
+            list component {
+                dr:fieldnum 151;
+                dr:source "component";
+                key name;
+                uses comp-subcomp-notif-group;
+                container subcomponents {
+                    dr:zero-suppressed;
+                    dr:fieldnum 160;
+                    dr:source "comp-subcomp";
+                    list subcomponent {
+                        dr:fieldnum 161;
+                        dr:source "comp-subcomp-data";
+                        uses component-subcomponent-group;
+                        key name;
+                        container state {
+                            dr:fieldnum 162;
+                            dr:source "state";
+                            uses subcomp-state-notif-data;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

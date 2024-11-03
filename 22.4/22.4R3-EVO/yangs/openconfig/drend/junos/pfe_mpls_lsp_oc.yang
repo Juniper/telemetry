@@ -1,0 +1,92 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2019, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module pfe_mpls_lsp_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/prefix";
+
+  prefix "mpls-lsp-oc";
+
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-lsp {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels/tunnel" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels/tunnel/state" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels/tunnel/state/counters" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels/tunnel/state/counters/packets" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 177;
+      }
+      augment "mpls/lsps/constrained-path/tunnels/tunnel/state/counters/bytes" {
+        dr:source "/junos/services/label-switched-path/usage/";
+        dr:fieldnum 178;
+      }
+   }
+ }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-lsp";
+  jnpr-proto:message-id "LSP?STATS-ID";
+
+   rpc juniper-netconf-get {
+       output {
+         container network-instances {
+           dr:source "/junos/services/label-switched-path/usage/";
+           dr:fieldnum 177;
+           list network-instance {
+             dr:source "/junos/services/label-switched-path/usage/";
+             dr:fieldnum 177;
+             key "name" ;
+             leaf name {
+               type string;
+               dr:source "/junos/services/label-switched-path/usage/";
+               dr:fieldnum 51;
+             }
+             uses mpls-lsp;
+          }
+       }
+    }
+  }
+}

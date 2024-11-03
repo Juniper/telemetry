@@ -1,0 +1,329 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_transceiver jnpr_components_transceiver_ext = 150;
+}
+
+message components_transceiver {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      message state_list {
+         optional string name = 51;
+         optional string type = 52;
+         optional string id = 53;
+         optional string location = 54;
+         optional string description = 55;
+         optional string mfg_name = 56;
+         optional string mfg_date = 57;
+         optional string hardware_version = 58;
+         optional string firmware_version = 59;
+         optional string software_version = 60;
+         optional string serial_no = 61;
+         optional string part_no = 62;
+         optional bool removable = 63;
+         optional string oper_status = 64;
+         optional bool empty = 65;
+         optional string parent = 66;
+         optional temperature_type temperature = 67;
+         message temperature_type {
+            optional double instant = 63;
+         }
+         optional uint32 allocated_power = 68;
+         optional memory_type memory = 69;
+         message memory_type {
+            optional uint64 available = 65;
+            optional uint64 utilized = 66;
+         }
+      }
+      repeated state_list state = 154;
+      message properties_list {
+         message property_list {
+            optional string name = 51 [(telemetry_options).is_key = true];
+            message state_list {
+               optional string value = 51;
+            }
+            repeated state_list state = 151;
+         }
+         repeated property_list property = 151;
+      }
+      repeated properties_list properties = 163;
+      message transceiver_list {
+         optional state_type state = 153;
+         message state_type {
+            optional bool enabled = 51;
+            optional string form_factor_preconf = 255;
+            optional string ethernet_pmd_preconf = 256;
+            optional string present = 266;
+            optional string form_factor = 257;
+            optional string connector_type = 258;
+            optional string vendor = 259;
+            optional string vendor_part = 260;
+            optional string vendor_rev = 261;
+            optional string ethernet_pmd = 262;
+            optional string sonet_sdh_compliance_code = 263;
+            optional string otn_compliance_code = 264;
+            optional string serial_no = 265;
+            optional string date_code = 286;
+            optional output_power_type output_power = 55;
+            message output_power_type {
+               optional double instant = 52;
+            }
+            optional input_power_type input_power = 56;
+            message input_power_type {
+               optional double instant = 53;
+            }
+            optional laser_bias_current_type laser_bias_current = 57;
+            message laser_bias_current_type {
+               optional double instant = 54;
+            }
+            optional string module_functional_type = 287;
+            optional string fec_mode = 288;
+            optional bool fault_condition = 289;
+            optional string fec_status = 290;
+            optional uint64 fec_uncorrectable_blocks = 291;
+            optional uint64 fec_corrected_bits = 292;
+         }
+         optional physical_channels_type physical_channels = 151;
+         message physical_channels_type {
+            message channel_list {
+               optional uint32 index = 51 [(telemetry_options).is_key = true];
+               optional state_type state = 155;
+               message state_type {
+                  optional uint32 index = 51;
+                  optional string description = 52;
+                  optional string associated_optical_channel = 62;
+                  optional bool tx_laser = 53;
+                  optional double target_output_power = 54;
+                  optional uint64 output_frequency = 55;
+                  optional output_power_type output_power = 59;
+                  message output_power_type {
+                     optional double instant = 56;
+                  }
+                  optional input_power_type input_power = 60;
+                  message input_power_type {
+                     optional double instant = 57;
+                  }
+                  optional laser_bias_current_type laser_bias_current = 61;
+                  message laser_bias_current_type {
+                     optional double instant = 58;
+                  }
+               }
+            }
+            repeated channel_list channel = 151;
+         }
+      }
+      repeated transceiver_list transceiver = 152;
+      optional port_type port = 151;
+      message port_type {
+         optional breakout_mode_type breakout_mode = 151;
+         message breakout_mode_type {
+            optional groups_type groups = 151;
+            message groups_type {
+               message group_list {
+                  optional uint32 index = 51 [(telemetry_options).is_key = true];
+                  optional state_type state = 151;
+                  message state_type {
+                     optional uint32 index = 51;
+                     optional uint32 num_breakouts = 52;
+                     optional string breakout_speed = 53;
+                     optional uint32 num_physical_channels = 54;
+                  }
+               }
+               repeated group_list group = 151;
+            }
+         }
+      }
+      message optical_channel_list {
+         optional state_type state = 151;
+         message state_type {
+            optional uint64 frequency = 51;
+            optional string line_port = 62;
+            message chromatic_dispersion_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated chromatic_dispersion_list chromatic_dispersion = 52;
+            message second_order_polarization_mode_dispersion_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated second_order_polarization_mode_dispersion_list second_order_polarization_mode_dispersion = 53;
+            message polarization_dependent_loss_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated polarization_dependent_loss_list polarization_dependent_loss = 54;
+            message output_power_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated output_power_list output_power = 55;
+            message input_power_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated input_power_list input_power = 56;
+            message laser_bias_current_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated laser_bias_current_list laser_bias_current = 57;
+            message osnr_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated osnr_list osnr = 58;
+            message esnr_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated esnr_list esnr = 59;
+            message carrier_frequency_offset_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated carrier_frequency_offset_list carrier_frequency_offset = 60;
+            message pre_fec_ber_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated pre_fec_ber_list pre_fec_ber = 61;
+            message modulator_bias_xi_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_xi_list modulator_bias_xi = 63;
+            message modulator_bias_xq_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_xq_list modulator_bias_xq = 64;
+            message modulator_bias_yi_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_yi_list modulator_bias_yi = 65;
+            message modulator_bias_yq_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_yq_list modulator_bias_yq = 66;
+            message modulator_bias_x_phase_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_x_phase_list modulator_bias_x_phase = 67;
+            message modulator_bias_y_phase_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated modulator_bias_y_phase_list modulator_bias_y_phase = 68;
+            message sop_roc_list {
+               optional double instant = 52;
+               optional double avg = 53;
+               optional double min = 54;
+               optional double max = 55;
+               optional uint64 interval = 56;
+               optional uint64 min_time = 57;
+               optional uint64 max_time = 58;
+            }
+            repeated sop_roc_list sop_roc = 69;
+         }
+      }
+      repeated optical_channel_list optical_channel = 153;
+      optional subcomponents_type subcomponents = 160;
+      message subcomponents_type {
+         message subcomponent_list {
+            optional string name = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 162;
+            message state_type {
+               optional string name = 51;
+            }
+         }
+         repeated subcomponent_list subcomponent = 161;
+      }
+   }
+   repeated component_list component = 151;
+}

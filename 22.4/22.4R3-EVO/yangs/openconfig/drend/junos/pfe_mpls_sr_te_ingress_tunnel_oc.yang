@@ -1,0 +1,76 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2018, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_mpls_sr_te_ingress_tunnel_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-mpls-sr-te-ingress_tunnel-oc";
+
+  prefix "mpls-sr-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-sr {
+  uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        uses jnx-aug-oc-mpls:jnx-sr-te-ingress-tunnel-policies-container {
+          augment "sr-te-ingress-tunnel-policies" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-ingress-tunnel-policies/sr-te-ingress-tunnel-policy" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-ingress-tunnel-policies/sr-te-ingress-tunnel-policy/state" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+            dr:fieldnum 151;
+          }
+          augment "sr-te-ingress-tunnel-policies/sr-te-ingress-tunnel-policy/state/counters" {
+            dr:source "/junos/services/segment-routing/traffic-engineering/tunnel/ingress/usage/";
+            dr:fieldnum 151;
+          }
+        }
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-sr-te-ingress-tunnel";
+  jnpr-proto:message-id "PFE-MPLS-SRTE-INGRESS-TUNNEL-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+     output {
+        uses mpls-sr;
+    }
+  }
+}
+

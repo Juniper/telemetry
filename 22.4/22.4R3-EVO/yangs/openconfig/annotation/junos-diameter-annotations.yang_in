@@ -1,0 +1,26 @@
+module junos-diameter-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/diameter/annotations";
+
+    prefix "junos-diameter-ann";
+
+    import junos-diameter { prefix junos-diameter; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-10-17" {
+        description "Initial version to add diameter model product support information";
+    }
+
+    augment "/junos-diameter:junos/junos-diameter:system/junos-diameter:subscriber-management/" +
+            "junos-diameter:aaa/junos-diameter:diameter" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+        JUNOS_PRODUCT(cbng);
+        JUNOS_PRODUCT(PRODUCTS_SUPPORTING_APPID);
+    }
+}

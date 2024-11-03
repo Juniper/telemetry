@@ -1,0 +1,1128 @@
+module rpd-junos-openconfig-ospfv2-render {
+  yang-version 1;
+
+  namespace "http://yang.juniper.net/openconfig/ospfv2/render";
+
+  prefix "jnx-oc-ospfv2-rdr";
+
+  import drend {
+    prefix "dr";
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-ospfv2 { prefix oc-ospfv2; }
+  import openconfig-ospf-types { prefix oc-ospf-types; }
+  import openconfig-bfd { prefix "oc-bfd"; }
+
+  description "
+    Rendering Junos OSPFv2 State in OpenConfig OSPFv2 Schema terms
+  ";
+
+  dr:command-app "rpd";
+  dr:sub-component "OSPFV2";
+  jnpr-proto:message-id "RPD-OSPFV2-OC-MESSAGE-ID";
+
+  grouping rend-ospfv2-global-state {
+    uses oc-ospfv2:ospfv2-global-config {
+      augment "router-id" {
+        dr:source "router-id";
+        dr:fieldnum 51;
+      }
+      augment "igp-shortcuts" {
+        dr:source "igp-shortcuts";
+        dr:fieldnum 52;
+      }
+      augment "log-adjacency-changes" {
+        dr:source "log-adjacency-changes";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-ospfv2-global-timers-spf{
+    uses oc-ospfv2:ospfv2-global-spf-timers-config{
+      augment "initial-delay" {
+          dr:source "initial-delay";
+          dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping rend-ospfv2-global-timers-max-metric {
+    uses oc-ospfv2:ospfv2-global-max-metric-config{
+      augment "set" {
+        dr:source "set";
+        dr:fieldnum 51;
+      }
+      augment "timeout" {
+        dr:source "timeout";
+        dr:fieldnum 52;
+      }
+      augment "include" {
+        dr:source "include";
+        dr:fieldnum 58;
+        dr:map MAX_METRIC_INCLUDE_STUB { dr:map-from 1; }
+        dr:map MAX_METRIC_INCLUDE_TYPE2_EXTERNAL {dr:map-from 2;}
+      }
+    }
+  }
+
+  grouping rend-ospfv2-global-gr-state{
+      uses oc-ospfv2:ospfv2-global-graceful-restart-config{
+      augment "enabled" {
+          dr:source "enabled";
+          dr:fieldnum 51;
+      }
+      augment "helper-only" {
+        dr:source "helper-only";
+        dr:fieldnum 52;
+      }
+  }
+  }
+
+  grouping rend-ospfv2-global-mpls-state {
+    uses oc-ospfv2:ospfv2-global-mpls-config{
+    augment "traffic-engineering-extensions" {
+        dr:source "traffic-engineering-extensions";
+        dr:fieldnum 51;
+    }
+  }
+  }
+
+  grouping rend-ospfv2-intf-state {
+    uses oc-ospfv2:ospfv2-area-interface-config {
+      augment "id" {
+         dr:source "id";
+         dr:fieldnum 51;
+      }
+       augment "network-type"{
+        dr:source "network-type";
+        dr:fieldnum 52;
+        dr:map BROADCAST_NETWORK {dr:map-from 1;}
+        dr:map NON_BROADCAST_NETWORK {dr:map-from 2;}
+        dr:map POINT_TO_POINT_NETWORK { dr:map-from 3; }
+      }
+      augment "priority" {
+        dr:source "priority";
+        dr:fieldnum 53;
+      }
+      augment "authentication-type"{
+        dr:source "authentication-type";
+        dr:fieldnum 54;
+      }
+      augment "metric"{
+        dr:source "metric";
+        dr:fieldnum 55;
+      }
+      augment "passive"{
+        dr:source "passive";
+        dr:fieldnum 56;
+      }
+    }
+  }
+
+grouping rend-ospfv2-area-state {
+  uses oc-ospfv2:ospfv2-area-config{
+    augment "identifier" {
+      dr:source "identifier";
+      dr:fieldnum 51;
+    }
+  }
+}
+grouping rend-ospfv2-intf-timers {
+  uses oc-ospfv2:ospfv2-area-interface-timers-config {
+    augment "dead-interval" {
+      dr:source "dead-interval";
+      dr:fieldnum 51;
+    }
+    augment "hello-interval" {
+      dr:source "hello-interval";
+      dr:fieldnum 52;
+    }
+    augment "retransmission-interval" {
+      dr:source "retransmission-interval";
+      dr:fieldnum 53;
+    }
+  }
+}
+
+grouping rend-ospfv2-intf-mpls-state {
+  uses oc-ospfv2:ospfv2-area-interface-mpls-config {
+    augment "traffic-engineering-metric" {
+      dr:source "traffic-engineering-metric";
+      dr:fieldnum 51;
+    }
+}
+}
+
+grouping rend-ospfv2-intf-mpls-igp-ldp-sync {
+  uses oc-ospfv2:ospfv2-common-mpls-igp-ldp-sync-config {
+    augment "enabled" {
+      dr:source "enabled";
+      dr:fieldnum 51;
+    }
+    augment "post-session-up-delay" {
+      dr:source "post-session-up-delay";
+      dr:fieldnum 52;
+    }
+  }
+  uses oc-ospfv2:ospfv2-area-interface-mpls-igp-ldp-sync-state {
+    augment "synchronized" {
+      dr:source "synchronized";
+      dr:fieldnum 53;
+    }
+  }
+}
+
+  grouping rend-ospfv2-intf-bfd {
+    uses oc-bfd:bfd-enable {
+      augment "enable-bfd" {
+         dr:source "enable-bfd";
+         dr:fieldnum 155;
+      }
+      augment "enable-bfd/state" {
+         dr:source "state";
+         dr:fieldnum 151;
+      }
+      augment "enable-bfd/state/enabled" {
+         dr:source "enabled";
+         dr:fieldnum 51;
+      }
+    }
+  }
+
+
+ grouping rend-ospfv2-intf-nbr-state {
+   uses oc-ospfv2:ospfv2-area-interface-neighbor-config {
+     augment "router-id" {
+         dr:source "router-id";
+         dr:fieldnum 51;
+      }
+      augment "metric" {
+         dr:source "metric";
+         dr:fieldnum 52;
+      }
+   }
+   uses oc-ospfv2:ospfv2-area-interface-neighbor-state {
+      augment "priority" {
+         dr:source "priority";
+         dr:fieldnum 53;
+      }
+      augment "dead-time" {
+         dr:source "dead-time";
+         dr:fieldnum 54;
+      }
+      augment "designated-router" {
+         dr:source "designated-router";
+         dr:fieldnum 55;
+      }
+      augment "backup-designated-router" {
+         dr:source "backup-designated-router";
+         dr:fieldnum 56;
+      }
+      augment "optional-capabilities" {
+         dr:source "optional-capabilities";
+         dr:fieldnum 57;
+      }
+      augment "last-established-time" {
+         dr:source "last-established-time";
+         dr:fieldnum 58;
+      }
+      augment "adjacency-state" {
+         dr:source "adjacency-state";
+         dr:fieldnum 59;
+         dr:map DOWN { dr:map-from 1; }
+         dr:map ATTEMPT { dr:map-from 2; }
+         dr:map INIT { dr:map-from 3; }
+         dr:map TWO_WAY { dr:map-from 4; }
+         dr:map EXSTART { dr:map-from 5; }
+         dr:map EXCHANGE { dr:map-from 6; }
+         dr:map LOADING { dr:map-from 7; }
+         dr:map FULL { dr:map-from 8; }
+      }
+      augment "state-changes" {
+         dr:source "state-changes";
+         dr:fieldnum 60;
+      }
+      augment "retransmission-queue-length" {
+         dr:source "retransmission-queue-length";
+         dr:fieldnum 61;
+      }
+   }
+ }
+
+ grouping rend-ospfv2-lsdb-state {
+   uses oc-ospfv2:ospfv2-lsdb-area-state {
+     augment "identifier" {
+       dr:source "identifier";
+       dr:fieldnum 51;
+     }
+   }
+ }
+
+ grouping rend-ospfv2-lsa-type-state {
+   uses oc-ospfv2:ospfv2-lsdb-area-lsa-type-state{
+     augment "type" {
+       dr:source "type";
+       dr:fieldnum 51;
+        dr:map ROUTER_LSA { dr:map-from 1; }
+        dr:map NETWORK_LSA { dr:map-from 2; }
+        dr:map SUMMARY_IP_NETWORK_LSA { dr:map-from 3; }
+        dr:map SUMMARY_ASBR_LSA { dr:map-from 4; }
+        dr:map AS_EXTERNAL_LSA { dr:map-from 5; }
+        dr:map NSSA_AS_EXTERNAL_LSA {dr:map-from 7;}
+        dr:map OSPFV2_AREA_SCOPE_OPAQUE_LSA {dr:map-from 10;}
+     }
+   }
+ }
+
+ grouping rend-ospfv2-lsa-state {
+   uses oc-ospfv2:ospfv2-lsdb-area-lsa-state {
+     augment "link-state-id" {
+       dr:source "link-state-id";
+       dr:fieldnum 51;
+     }
+     augment "advertising-router" {
+       dr:source "advertising-router";
+       dr:fieldnum 52;
+     }
+     augment "sequence-number" {
+       dr:source "sequence-number";
+       dr:fieldnum 53;
+     }
+     augment "checksum" {
+       dr:source "checksum";
+       dr:fieldnum 54;
+     }
+     augment "age" {
+       dr:source "age";
+       dr:fieldnum 55;
+     }
+   }
+ }
+
+grouping rend-ospfv2-router-lsa {
+  uses oc-ospfv2:ospfv2-lsdb-router-lsa-structure {
+    augment "router-lsa" {
+      dr:source "router-lsa";
+      dr:fieldnum 152;
+    }
+    augment "router-lsa/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "router-lsa/state/type" {
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map ROUTER_LSA_P2P { dr:map-from 1; }
+      dr:map ROUTER_LSA_TRANSIT_NETWORK { dr:map-from 2; }
+      dr:map ROUTER_LSA_STUB_NETWORK { dr:map-from 3; }
+      dr:map ROUTER_LSA_VIRTUAL_LINK { dr:map-from 4; }
+    }
+    augment "router-lsa/state/metric" {
+      dr:source "metric";
+      dr:fieldnum 52;
+    }
+    augment "router-lsa/state/number-links" {
+      dr:source "number-links";
+      dr:fieldnum 53;
+    }
+    augment "router-lsa/state/link-id" {
+      dr:source "link-id";
+      dr:fieldnum 54;
+    }
+    augment "router-lsa/state/link-data" {
+      dr:source "link-data";
+      dr:fieldnum 55;
+    }
+  }
+}
+
+grouping  rend-ospfv2-network-lsa {
+  uses oc-ospfv2:ospfv2-lsdb-network-lsa-structure {
+    augment "network-lsa" {
+      dr:source "network-lsa";
+      dr:fieldnum 153;
+    }
+    augment "network-lsa/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "network-lsa/state/network-mask" {
+      dr:source "network-mask";
+      dr:fieldnum 51;
+    }
+    augment "network-lsa/state/attached-router" {
+      dr:source "attached-router";
+      dr:fieldnum 52;
+    }
+  }
+}
+
+grouping rend-ospfv2-summary-lsa {
+   uses oc-ospfv2:ospfv2-lsdb-summary-lsa-structure {
+    augment "summary-lsa" {
+      dr:source "summary-lsa";
+      dr:fieldnum 154;
+    }
+    augment "summary-lsa/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+
+    augment "summary-lsa/state/network-mask" {
+      dr:source "network-mask";
+      dr:fieldnum 51;
+    }
+   }
+}
+grouping rend-ospfv2-as-external-lsa {
+  uses oc-ospfv2:ospfv2-lsdb-asexternal-lsa-structure {
+    augment "as-external-lsa" {
+      dr:source "as-external-lsa";
+      dr:fieldnum 157;
+    }
+    augment "as-external-lsa/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "as-external-lsa/state/mask" {
+      dr:source "mask";
+      dr:fieldnum 51;
+    }
+    augment "as-external-lsa/state/metric-type" {
+      dr:source "metric-type";
+      dr:fieldnum 52;
+      dr:map TYPE_1 { dr:map-from 1; }
+      dr:map TYPE_2 { dr:map-from 2; }
+    }
+    augment "as-external-lsa/state/metric" {
+      dr:source "metric";
+      dr:fieldnum 53;
+    }
+    augment "as-external-lsa/state/forwarding-address" {
+      dr:source "forwarding-address";
+      dr:fieldnum 54;
+    }
+    augment "as-external-lsa/state/external-route-tag" {
+      dr:source "external-route-tag";
+      dr:fieldnum 55;
+    }
+  }
+}
+
+grouping rend-ospfv2-nssa-external-lsa {
+  uses oc-ospfv2:ospfv2-lsdb-nssa-external-lsa-structure {
+    augment "nssa-external-lsa" {
+      dr:source "nssa-external-lsa";
+      dr:fieldnum 158;
+    }
+    augment "nssa-external-lsa/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "nssa-external-lsa/state/mask" {
+      dr:source "mask";
+      dr:fieldnum 51;
+    }
+    augment "nssa-external-lsa/state/metric-type" {
+      dr:source "metric-type";
+      dr:fieldnum 52;
+      dr:map TYPE_1 { dr:map-from 1; }
+      dr:map TYPE_2 { dr:map-from 2; }
+    }
+    augment "nssa-external-lsa/state/metric" {
+      dr:source "metric";
+      dr:fieldnum 53;
+    }
+    augment "nssa-external-lsa/state/forwarding-address" {
+      dr:source "forwarding-address";
+      dr:fieldnum 54;
+    }
+    augment "nssa-external-lsa/state/external-route-tag" {
+      dr:source "external-route-tag";
+      dr:fieldnum 55;
+    }
+    augment "nssa-external-lsa/state/propagate" {
+      dr:source "propagate";
+      dr:fieldnum 56;
+    }
+  }
+}
+
+grouping rend-ospfv2-opaque-lsa {
+  uses oc-ospfv2:ospfv2-lsdb-opaque-lsa-structure {
+    augment "opaque-lsa"{
+      dr:source "opaque-lsa";
+      dr:fieldnum 155;
+    }
+    augment "opaque-lsa/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/state/scope"{
+      dr:source "scope";
+      dr:fieldnum 51;
+      dr:map LINK { dr:map-from 9; }
+      dr:map AREA { dr:map-from 10;}
+      dr:map AS   { dr:map-from 11; }
+    }
+    augment "opaque-lsa/state/type"{
+      dr:source "type";
+      dr:fieldnum 52;
+      dr:map TRAFFIC_ENGINEERING { dr:map-from 1; }
+      dr:map ROUTER_INFORMATION  { dr:map-from 4; }
+      dr:map OSPFV2_EXTENDED_PREFIX { dr:map-from 7; }
+      dr:map OSPFV2_EXTENDED_LINK { dr:map-from 8; }
+    }
+    augment "opaque-lsa/traffic-engineering"{
+      dr:source "traffic-engineering";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs"{
+      dr:source "tlvs";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv"{
+      dr:source "tlv";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map TE_ROUTER_ADDRESS  { dr:map-from 1; }
+      dr:map TE_LINK  { dr:map-from 2; }
+      dr:map TE_ROUTER_IPV6_ADDRESS { dr:map-from 3; }
+      dr:map TE_LINK_LOCAL { dr:map-from 4; }
+      dr:map TE_NODE_ATTRIBUTE { dr:map-from 5; }
+      dr:map TE_OPTICAL_NODE_PROPERTY { dr:map-from 6; }
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/router-address"{
+      dr:source "router-address";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/router-address/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/router-address/state/address"{
+      dr:source "address";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link"{
+      dr:source "link";
+      dr:fieldnum 154;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs"{
+      dr:source "sub-tlvs";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv"{
+      dr:source "sub-tlv";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map TE_LINK_TYPE  { dr:map-from 1; }
+      dr:map TE_LINK_ID  { dr:map-from 2; }
+      dr:map TE_LINK_LOCAL_IP  { dr:map-from 3; }
+      dr:map TE_LINK_REMOTE_IP  { dr:map-from 4; }
+      dr:map TE_LINK_METRIC  { dr:map-from 5; }
+      dr:map TE_LINK_MAXIMUM_BANDWIDTH  { dr:map-from 6; }
+      dr:map TE_LINK_MAXIMUM_RESERVABLE_BANDWIDTH  { dr:map-from 7; }
+      dr:map TE_LINK_UNRESERVED_BANDWIDTH  { dr:map-from 8; }
+      dr:map TE_LINK_ADMIN_GROUP  { dr:map-from 9; }
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths"{
+      dr:source "unreserved-bandwidths";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth"{
+      dr:source "unreserved-bandwidth";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/priority"{
+      dr:source "priority";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state"{
+      dr:source "state";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state/priority"{
+      dr:source "priority";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state/unreserved-bandwidth"{
+      dr:source "unreserved-bandwidth";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv"{
+      dr:source "unknown-subtlv";
+      dr:fieldnum 154;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv"{
+      dr:source "unknown-tlv";
+      dr:fieldnum 155;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/router-information"{
+      dr:source "router-information";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/router-information/tlvs"{
+      dr:source "tlvs";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv"{
+      dr:source "tlv";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map RI_INFORMATIONAL_CAPABILITIES  { dr:map-from 1; }
+      dr:map RI_FUNCTIONAL_CAPABILITIES  { dr:map-from 2; }
+      dr:map RI_SR_ALGORITHM  { dr:map-from 8; }
+      dr:map RI_SR_SID_LABEL_RANGE {dr:map-from 9;}
+      dr:map RI_NODE_ADMIN_TAG  { dr:map-from 10; }
+    }
+
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm"{
+      dr:source "segment-routing-algorithm";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm/state/supported-algorithms"{
+      dr:source "supported-algorithms";
+      dr:fieldnum 51;
+    }
+
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range"{
+      dr:source "segment-routing-sid-label-range";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs"{
+      dr:source "tlvs";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv"{
+      dr:source "tlv";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map SR_SID_LABEL_TLV {dr:map-from 1;}
+      dr:map UNKNOWN {dr:map-from *;}
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state/range-size"{
+      dr:source "range-size";
+      dr:fieldnum 52;
+    }
+
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label"{
+      dr:source "sid-label";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state/entry-type"{
+      dr:source "entry-type";
+      dr:fieldnum 51;
+      dr:map LABEL {dr:map-from 1;}
+      dr:map SID {dr:map-from 2;}
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state/first-value"{
+      dr:source "first-value";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv"{
+      dr:source "unknown-tlv";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/unknown-tlv"{
+      dr:source "unknown-tlv";
+      dr:fieldnum 155;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/extended-link"{
+      dr:source "extended-link";
+      dr:fieldnum 156;
+    }
+    augment "opaque-lsa/extended-link/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/extended-link/state/link-type"{
+      dr:source "link-type";
+      dr:fieldnum 51;
+      dr:map POINT_TO_POINT_LINK { dr:map-from 1; }
+      dr:map TRANSIT_NETWORK_LINK { dr:map-from 2; }
+      dr:map STUB_NETWORK_LINK { dr:map-from 3; }
+      dr:map VIRTUAL_LINK { dr:map-from 4; }
+    }
+    augment "opaque-lsa/extended-link/state/link-id"{
+      dr:source "link-id";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/extended-link/state/link-data"{
+      dr:source "link-data";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/extended-link/tlvs"{
+      dr:source "tlvs";
+      dr:fieldnum 152;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv"{
+      dr:source "tlv";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+      dr:map ADJACENCY_SID { dr:map-from 2; }
+      dr:map UNKNOWN {dr:map-from *;}
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid"{
+      dr:source "adjacency-sid";
+      dr:fieldnum 153;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/backup"{
+      dr:source "backup";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/group"{
+      dr:source "group";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/sid-type"{
+      dr:source "sid-type";
+      dr:fieldnum 53;
+      dr:map LABEL {dr:map-from 1;}
+      dr:map SID {dr:map-from 2;}
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/sid-value"{
+      dr:source "sid-value";
+      dr:fieldnum 54;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/weight"{
+      dr:source "weight";
+      dr:fieldnum 55;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/multi-topology-identifier"{
+      dr:source "multi-topology-identifier";
+      dr:fieldnum 56;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/unknown-tlv"{
+      dr:source "unknown-tlv";
+      dr:fieldnum 155;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+    augment "opaque-lsa/unknown-tlv"{
+      dr:source "unknown-tlv";
+      dr:fieldnum 158;
+    }
+    augment "opaque-lsa/unknown-tlv/state"{
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "opaque-lsa/unknown-tlv/state/type"{
+      dr:source "type";
+      dr:fieldnum 51;
+    }
+    augment "opaque-lsa/unknown-tlv/state/length"{
+      dr:source "length";
+      dr:fieldnum 52;
+    }
+    augment "opaque-lsa/unknown-tlv/state/value"{
+      dr:source "value";
+      dr:fieldnum 53;
+    }
+  }
+}
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-ospf2-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+         list network-instance {
+           key "name";
+           dr:source "/rt-instances/rt-instance";
+           dr:fieldnum 151;
+
+           leaf name {
+             type string;
+             dr:source "instance_name";
+             dr:fieldnum 51;
+           }
+
+           container protocols {
+             dr:fieldnum 151;
+             container protocol {
+               dr:source "protocols/protocol";
+               dr:fieldnum 151;
+
+               container ospfv2 {
+                 dr:source "ospf2";
+                 dr:fieldnum 151;
+
+                 container global{
+                    dr:fieldnum 151;
+                    dr:source "global";
+
+                    container state{
+                      dr:fieldnum 151;
+                      dr:source "state";
+                      uses rend-ospfv2-global-state;
+                    }
+
+                    container timers{
+                      dr:fieldnum 152;
+                      dr:source "timers";
+
+                      container spf {
+                        dr:fieldnum 151;
+                        dr:source "spf";
+
+                        container state {
+                        dr:fieldnum 153;
+                        dr:source "state";
+                        uses rend-ospfv2-global-timers-spf;
+                        }
+                      }
+                       container max-metric {
+                         dr:fieldnum 154;
+                         dr:source "max-metric";
+
+                         container state {
+                           dr:fieldnum 151;
+                           dr:source "state";
+                           uses rend-ospfv2-global-timers-max-metric;
+                         }
+                       }
+
+                    }
+
+                    container graceful-restart {
+                      dr:fieldnum 154;
+                      dr:source "graceful-restart";
+
+                      container state {
+                      dr:fieldnum 151;
+                      dr:source "state";
+                      uses rend-ospfv2-global-gr-state;
+                      }
+                    }
+                    container mpls {
+                      dr:fieldnum 155;
+                      dr:source "mpls";
+
+                      container state{
+                        dr:fieldnum 151;
+                         dr:source "state";
+                         uses rend-ospfv2-global-mpls-state;
+                      }
+                    }
+                 }
+                 container areas{
+                    dr:fieldnum 152;
+                    dr:source "areas";
+
+                    list area {
+                      key "identifier";
+                      dr:source "area";
+                      dr:fieldnum 151;
+
+                      leaf identifier{
+                         type oc-ospf-types:ospf-area-identifier;
+                         dr:source "identifier";
+                         dr:fieldnum 51;
+                      }
+
+                          container state {
+                            dr:fieldnum 151;
+                            dr:source "state";
+                            uses rend-ospfv2-area-state;
+                          }
+
+                      container interfaces{
+                        dr:fieldnum  152;
+
+
+                        list interface {
+                          key "id";
+                          dr:source "interfaces/interface";
+                          dr:fieldnum 152;
+
+                          leaf id {
+                            type leafref {
+                              path "../state/id";
+                            }
+                            dr:source "id";
+                            dr:fieldnum 51;
+                          }
+
+                          container state {
+                            dr:fieldnum 151;
+                            dr:source "state";
+                            uses rend-ospfv2-intf-state;
+                          }
+                          container timers {
+                            dr:fieldnum 152;
+                            dr:source "timers";
+
+                            container state {
+                            dr:fieldnum 51;
+                            dr:source "state";
+                            uses rend-ospfv2-intf-timers;
+                            }
+                          }
+                          container mpls {
+                            dr:fieldnum 153;
+                            dr:source "mpls";
+
+                            container state {
+                              dr:fieldnum 151;
+                              dr:source "state";
+                              uses rend-ospfv2-intf-mpls-state;
+                            }
+
+                            container igp-ldp-sync {
+                              dr:fieldnum 152;
+                              dr:source "igp-ldp-sync";
+
+                              container state {
+                                dr:fieldnum 153;
+                                dr:source "state";
+
+                                uses rend-ospfv2-intf-mpls-igp-ldp-sync;
+                              }
+                            }
+                          }
+
+                          container neighbors {
+                            dr:fieldnum 154;
+
+                            list neighbor {
+                              key "router-id";
+                              dr:source "neighbors/neighbor";
+                              dr:fieldnum 154;
+
+                              leaf router-id {
+                                type leafref {
+                                  path "../state/router-id";
+                                }
+                                dr:source "router-id";
+                                dr:fieldnum 51;
+                              }
+
+                              container state {
+                                dr:fieldnum 151;
+                                dr:source "state";
+                                uses rend-ospfv2-intf-nbr-state;
+                              }
+                            }
+                          }
+                          uses rend-ospfv2-intf-bfd;
+                        }
+                      }
+
+                      container lsdb {
+                        dr:fieldnum 153;
+                        dr:source "lsdb";
+
+
+                        container state {
+                          dr:fieldnum 151;
+                          dr:source "state";
+                          uses rend-ospfv2-lsdb-state;
+                        }
+
+                        container lsa-types {
+                          dr:fieldnum 152;
+
+
+                          list lsa-type {
+                            key "type";
+                            dr:source "lsa-types/lsa-type";
+                            dr:fieldnum 152;
+
+                            leaf type {
+                              type leafref {
+                                path "../state/type";
+                              }
+                              dr:source "type";
+                              dr:fieldnum 51;
+                                dr:map ROUTER_LSA { dr:map-from 1; }
+                                dr:map NETWORK_LSA { dr:map-from 2; }
+                                dr:map SUMMARY_IP_NETWORK_LSA { dr:map-from 3; }
+                                dr:map SUMMARY_ASBR_LSA { dr:map-from 4; }
+                                dr:map AS_EXTERNAL_LSA { dr:map-from 5; }
+                                dr:map NSSA_AS_EXTERNAL_LSA {dr:map-from 7;}
+                                dr:map OSPFV2_AREA_SCOPE_OPAQUE_LSA {dr:map-from 10;}
+                            }
+
+                            container state {
+                              dr:fieldnum 151;
+                              dr:source "state";
+                              uses rend-ospfv2-lsa-type-state;
+                            }
+
+                            container lsas {
+                              dr:fieldnum 152;
+
+                              list lsa {
+                                key "link-state-id";
+                                dr:source "lsas/lsa";
+                                dr:fieldnum 152;
+
+                                leaf link-state-id {
+                                  type leafref {
+                                    path "../state/link-state-id";
+                                  }
+                                  dr:source "link-state-id";
+                                  dr:fieldnum 51;
+                                }
+
+                                container state {
+                                  dr:source "state";
+                                  dr:fieldnum 151;
+                                  uses rend-ospfv2-lsa-state;
+                                }
+
+                                uses rend-ospfv2-router-lsa ;
+                                uses rend-ospfv2-network-lsa;
+                                uses rend-ospfv2-summary-lsa;
+                                uses rend-ospfv2-as-external-lsa;
+                                uses rend-ospfv2-nssa-external-lsa;
+                                uses rend-ospfv2-opaque-lsa;
+
+                              }
+                            }
+
+                          }
+
+                        }
+
+                      }
+                    }
+                 }
+               }
+             }
+           }
+         }
+      }
+    }
+  }
+}

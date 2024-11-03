@@ -1,0 +1,65 @@
+/*
+ * $Id$
+ * SRX SPU (Security Processing Unit) CPU utilization Yang model.
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module pfe_spu_cpu_oc {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/security/pfe-spu-cpu-oc";
+
+    prefix "pfe-spu-cpu";
+
+    import junos-spu-cpu {prefix junos-spu-cpu;}
+    import jnpr-proto { prefix jnpr-proto; }
+    import drend { prefix dr; }
+
+    // meta
+    organization "Juniper Networks";
+    contact "yang-support@juniper.net";
+    description "Yang definition for SPU CPU utilization";
+    revision "2020-06-20" {
+        description "Initial yang file";
+    }
+
+    grouping pfe-spu-cpu {
+        uses junos-spu-cpu:jnx-spu-cpu {
+            augment "junos/security" {
+                dr:source "/junos/security/spu/cpu/usage/";
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu" {
+                dr:source "/junos/security/spu/cpu/usage/";
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/spu_name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/cpu" {
+                dr:source "/junos/security/spu/cpu/usage/";
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/cpu/cpu_name" {
+                dr:source "name";
+                dr:fieldnum 52;
+            }
+            augment "junos/security/spu/cpu/utilization" {
+                dr:source "utilization";
+                dr:fieldnum 53;
+            }
+        }
+    }
+
+    dr:command-app "agentd";
+    dr:sub-component "pfe-spu-cpu";
+    jnpr-proto:message-id "PFE-SPU-CPU-MESSAGE-ID";
+    rpc juniper-netconf-get {
+        output {
+            uses pfe-spu-cpu;
+        }
+    }
+}

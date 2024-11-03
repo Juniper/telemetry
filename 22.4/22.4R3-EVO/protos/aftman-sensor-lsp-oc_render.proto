@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_lsp_stats jnpr_mpls_lsp_stats_ext = 5;
+}
+
+message mpls_lsp_stats {
+   message lsps_list {
+      message constrained_path_list {
+         message tunnels_list {
+            message tunnel_list {
+               optional string name = 49 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 49 [(telemetry_options).is_key = true];
+                     optional uint64 packets = 50;
+                     optional uint64 bytes = 51;
+                     optional uint64 jnx_packet_rate = 52;
+                     optional uint64 jnx_byte_rate = 53;
+                  }
+                  repeated counters_list counters = 149;
+               }
+               repeated state_list state = 149;
+            }
+            repeated tunnel_list tunnel = 149;
+         }
+         repeated tunnels_list tunnels = 149;
+      }
+      repeated constrained_path_list constrained_path = 149;
+   }
+   repeated lsps_list lsps = 149;
+}

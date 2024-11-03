@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_commit_history_285 jnpr_state_commit_history_285_ext = 285;
+}
+
+message state_commit_history_285 {
+   optional system_type system = 151;
+   message system_type {
+      optional commit_type commit = 151;
+      message commit_type {
+         optional entries_type entries = 151;
+         message entries_type {
+            message entry_list {
+               optional uint64 timestamp = 51 [(telemetry_options).is_key = true];
+               optional string user = 52;
+               optional string client = 53;
+               optional string comment = 54;
+            }
+            repeated entry_list entry = 151;
+         }
+      }
+   }
+}

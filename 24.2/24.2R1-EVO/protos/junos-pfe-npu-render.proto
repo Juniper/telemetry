@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_pfe jnpr_junos_pfe_ext = 11;
+}
+
+message junos_pfe {
+}

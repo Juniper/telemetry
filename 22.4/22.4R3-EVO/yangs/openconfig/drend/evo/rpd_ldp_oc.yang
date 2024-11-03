@@ -1,0 +1,585 @@
+module rpd_ldp_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/ldp_oc_render";
+
+  prefix "ldpoc";
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+  import jnx-aug-openconfig-ldp { prefix jnx-aug-oc-ldp; }
+
+
+  import openconfig-mpls-ldp { prefix oc-ldp; }
+
+  description "
+    Rendering Junos LDP State in OpenConfig LDP Schema terms
+  ";
+
+  revision "2020-12-04" {
+    description "Initial revision";
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "ldp";
+  jnpr-proto:message-id "RPD-LDP-OC-MESSAGE-ID";
+
+  grouping rend-ldp-global {
+    uses oc-ldp:ldp-global {
+      augment "ldp" {
+        dr:fieldnum 151;
+        dr:source "ldp";
+      }
+      augment "ldp/global" {
+        dr:fieldnum 151;
+        dr:source "global";
+      }
+      augment "ldp/global/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/global/state/lsr-id" {
+        dr:fieldnum 51;
+        dr:source "inet-lsrid";
+      }
+      augment "ldp/global/graceful-restart" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/global/graceful-restart/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/global/graceful-restart/state/enabled" {
+        dr:fieldnum 51;
+        dr:source "graceful-restart-enabled";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/global/graceful-restart/state/reconnect-time" {
+        dr:fieldnum 52;
+        dr:source "graceful-restart-reconnect-time";
+      }
+      augment "ldp/global/graceful-restart/state/recovery-time" {
+        dr:fieldnum 53;
+        dr:source "graceful-restart-recovery-time";
+      }
+      augment "ldp/global/graceful-restart/state/helper-enable" {
+        dr:fieldnum 54;
+        dr:source "graceful-restart-helper-enabled";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/global/authentication" {
+        dr:fieldnum 153;
+      }
+      augment "ldp/global/authentication/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/global/authentication/state/enable" {
+        dr:fieldnum 51;
+        dr:source "authentication-state";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/global/authentication/state/authentication-key" {
+        dr:fieldnum 52;
+        dr:source "authentication-key";
+      }
+      augment "ldp/interface-attributes" {
+        dr:fieldnum 152;
+        dr:source "interfaces";
+      }
+      augment "ldp/interface-attributes/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/interface-attributes/state/hello-holdtime" {
+        dr:fieldnum 51;
+        dr:source "hold-time";
+      }
+      augment "ldp/interface-attributes/state/hello-interval" {
+        dr:fieldnum 52;
+        dr:source "hello-interval";
+      }
+      augment "ldp/interface-attributes/interfaces" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/interface-attributes/interfaces/interface" {
+        dr:fieldnum 151;
+        dr:source "interface";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/interface-id" {
+        dr:fieldnum 51;
+        dr:source "interface-name";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/interface-attributes/interfaces/interface/state/interface-id" {
+        dr:fieldnum 51;
+        dr:source "interface-name";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/interface-ref" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/interface-attributes/interfaces/interface/interface-ref/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/interface-attributes/interfaces/interface/interface-ref/state/interface" {
+        dr:fieldnum 51;
+        dr:source "physical-name";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/interface-ref/state/subinterface" {
+        dr:fieldnum 52;
+        dr:source "logical-unit";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/state/hello-holdtime" {
+        dr:fieldnum 52;
+        dr:source "hold-time";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/state/hello-interval" {
+        dr:fieldnum 53;
+        dr:source "hello-interval";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families" {
+        dr:fieldnum 153;
+        dr:source "address-families";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families/address-family" {
+        dr:fieldnum 151;
+        dr:source "address-family";
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families/address-family/afi-name" {
+        dr:fieldnum 51;
+        dr:source "name";
+        dr:map IPV4 { dr:map-from IPv4; }
+        dr:map IPV6 { dr:map-from IPv6; }
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families/address-family/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families/address-family/state/afi-name" {
+        dr:fieldnum 51;
+        dr:source "name";
+        dr:map IPV4 { dr:map-from IPv4; }
+        dr:map IPV6 { dr:map-from IPv6; }
+      }
+      augment "ldp/interface-attributes/interfaces/interface/address-families/address-family/state/enabled" {
+        dr:fieldnum 52;
+        dr:source "enabled";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/targeted" {
+        dr:fieldnum 153;
+        dr:source "targeted";
+      }
+      augment "ldp/targeted/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/targeted/state/hello-holdtime" {
+        dr:fieldnum 51;
+        dr:source "hold-time";
+      }
+      augment "ldp/targeted/state/hello-interval" {
+        dr:fieldnum 52;
+        dr:source "hello-interval";
+      }
+      augment "ldp/targeted/state/hello-accept" {
+        dr:fieldnum 53;
+        dr:source "hello-accept";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/targeted/address-families" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/targeted/address-families/address-family" {
+        dr:fieldnum 151;
+        dr:source "address-families/address-family";
+      }
+      augment "ldp/targeted/address-families/address-family/afi-name" {
+        dr:fieldnum 51;
+        dr:source "name";
+        dr:map IPV4 { dr:map-from IPv4; }
+        dr:map IPV6 { dr:map-from IPv6; }
+      }
+      augment "ldp/targeted/address-families/address-family/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/targeted/address-families/address-family/state/afi-name" {
+        dr:fieldnum 51;
+        dr:source "name";
+        dr:map IPV4 { dr:map-from IPv4; }
+        dr:map IPV6 { dr:map-from IPv6; }
+      }
+      augment "ldp/targeted/address-families/address-family/targets" {
+        dr:source "targets";
+        dr:fieldnum 152;
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target" {
+        dr:fieldnum 151;
+        dr:source "target";
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/remote-address" {
+        dr:fieldnum 51;
+        dr:source "remote-addr";
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state/remote-address" {
+        dr:fieldnum 51;
+        dr:source "remote-addr";
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state/local-address" {
+        dr:fieldnum 52;
+        dr:source "local-addr";
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state/enabled" {
+        dr:fieldnum 53;
+        dr:source "enabled";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state/hello-holdtime" {
+        dr:fieldnum 54;
+        dr:source "hold-time";
+      }
+      augment "ldp/targeted/address-families/address-family/targets/target/state/hello-interval" {
+        dr:fieldnum 55;
+        dr:source "hello-interval";
+      }
+      augment "ldp/neighbors" {
+        dr:fieldnum 154;
+        dr:source "sessions";
+      }
+      augment "ldp/neighbors/neighbor" {
+        dr:fieldnum 151;
+        dr:source "session";
+      }
+      augment "ldp/neighbors/neighbor/lsr-id" {
+        dr:fieldnum 51;
+        dr:source "remote-lsr-id";
+      }
+      augment "ldp/neighbors/neighbor/label-space-id" {
+        dr:fieldnum 52;
+        dr:source "remote-label-space-id";
+      }
+      augment "ldp/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/neighbors/neighbor/state/lsr-id" {
+        dr:fieldnum 51;
+        dr:source "remote-lsr-id";
+      }
+      augment "ldp/neighbors/neighbor/state/label-space-id" {
+        dr:fieldnum 52;
+        dr:source "remote-label-space-id";
+      }
+      augment "ldp/neighbors/neighbor/state/session-state" {
+        dr:source "session-state";
+        dr:fieldnum 53;
+        dr:source-notification-name "ldp-session-state-change";
+        dr:map NON_EXISTENT { dr:map-from Nonexistent; }
+        dr:map NON_EXISTENT { dr:map-from Connecting; }
+        dr:map NON_EXISTENT { dr:map-from Closing; }
+        dr:map INITIALIZED { dr:map-from Initialized; }
+        dr:map OPENREC { dr:map-from OpenRec; }
+        dr:map OPENSENT { dr:map-from OpenSent; }
+        dr:map OPERATIONAL { dr:map-from Operational; }
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency" {
+        dr:fieldnum 151;
+        dr:source-notification-name "ldp-hello-adjacency-change";
+        dr:source "neighbors/neighbor";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/remote-address" {
+        dr:fieldnum 51;
+        dr:source "remote-addr";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/local-address" {
+        dr:fieldnum 52;
+        dr:source "local-addr";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/remote-address" {
+        dr:fieldnum 51;
+        dr:source "remote-addr";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/local-address" {
+        dr:fieldnum 52;
+        dr:source "local-addr";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/adjacency-type" {
+        dr:fieldnum 53;
+        dr:source "adj-type";
+        dr:map LINK { dr:map-from 0; }
+        dr:map TARGETED { dr:map-from 1; }
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state" {
+        uses jnx-aug-oc-ldp:jnx-ldp-hello-adj-state {
+          augment jnx-enabled {
+            dr:source "enabled";
+            dr:fieldnum 54;
+            dr:map false { dr:map-from 0; }
+            dr:map true { dr:map-from *; }
+          }
+        }
+      }
+
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref" {
+        dr:fieldnum 152;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/interface" {
+        dr:fieldnum 51;
+        dr:source "interface/physical-name";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/subinterface" {
+        dr:fieldnum 52;
+        dr:source "interface/logical-unit";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime" {
+        dr:fieldnum 153;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/adjacent" {
+        dr:fieldnum 51;
+        dr:source "adjacent-hold-time";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/negotiated" {
+        dr:fieldnum 52;
+        dr:source "negotiated-hold-time";
+      }
+      augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/hello-expiration" {
+        dr:fieldnum 53;
+        dr:source "state/remaining-hold-time";
+      }
+      augment "ldp/neighbors/neighbor/authentication" {
+        dr:fieldnum 153;
+      }
+      augment "ldp/neighbors/neighbor/authentication/state" {
+        dr:fieldnum 151;
+      }
+      augment "ldp/neighbors/neighbor/authentication/state/enable" {
+        dr:fieldnum 51;
+        dr:source "authentication-state";
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "ldp/neighbors/neighbor/authentication/state/authentication-key" {
+        dr:fieldnum 52;
+        dr:source "authentication-key";
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-ldp-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+          }
+          container mpls {
+            dr:fieldnum 151;
+            container signaling-protocols {
+              dr:fieldnum 151;
+              uses rend-ldp-global;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-ldp-session-state-change {
+  dr:source-notification-name "ldp-session-state-change";
+
+    container network-instances {
+      dr:source "/notification/ldp-session-state-change/network-instances";
+      dr:fieldnum 152;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            uses oc-ldp:ldp-global {
+              augment "ldp" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors" {
+                dr:fieldnum 154;
+                dr:source "sessions";
+              }
+              augment "ldp/neighbors/neighbor" {
+                dr:fieldnum 151;
+                dr:source "session";
+              }
+              augment "ldp/neighbors/neighbor/lsr-id" {
+                dr:fieldnum 51;
+                dr:source "remote-lsr-id";
+              }
+              augment "ldp/neighbors/neighbor/label-space-id" {
+                dr:fieldnum 52;
+                dr:source "remote-label-space-id";
+              }
+              augment "ldp/neighbors/neighbor/state" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors/neighbor/state/session-state" {
+                dr:source "session-state";
+                dr:fieldnum 53;
+                dr:map NON_EXISTENT { dr:map-from Nonexistent; }
+                dr:map NON_EXISTENT { dr:map-from Connecting; }
+                dr:map NON_EXISTENT { dr:map-from Closing; }
+                dr:map INITIALIZED { dr:map-from Initialized; }
+                dr:map OPENREC { dr:map-from OpenRec; }
+                dr:map OPENSENT { dr:map-from OpenSent; }
+                dr:map OPERATIONAL { dr:map-from Operational; }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-ldp-hello-adjacency-change {
+  dr:source-notification-name "ldp-hello-adjacency-change";
+
+    container network-instances {
+      dr:source "/notification/ldp-hello-adjacency-change/network-instances";
+      dr:fieldnum 153;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container signaling-protocols {
+            dr:fieldnum 151;
+            uses oc-ldp:ldp-global {
+              augment "ldp" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors" {
+                dr:fieldnum 154;
+                dr:source "sessions";
+              }
+              augment "ldp/neighbors/neighbor" {
+                dr:fieldnum 151;
+                dr:source "session";
+              }
+              augment "ldp/neighbors/neighbor/lsr-id" {
+                dr:fieldnum 51;
+                dr:source "remote-lsr-id";
+              }
+              augment "ldp/neighbors/neighbor/label-space-id" {
+                dr:fieldnum 52;
+                dr:source "remote-label-space-id";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies" {
+                dr:fieldnum 152;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency" {
+                dr:fieldnum 151;
+                dr:source "neighbors/neighbor";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/remote-address" {
+                dr:fieldnum 51;
+                dr:source "remote-addr";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/local-address" {
+                dr:fieldnum 52;
+                dr:source "local-addr";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/adjacency-type" {
+                dr:fieldnum 53;
+                dr:source "adj-type";
+                dr:map LINK { dr:map-from 0; }
+                dr:map TARGETED { dr:map-from 1; }
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state" {
+                uses jnx-aug-oc-ldp:jnx-ldp-hello-adj-state {
+                  augment jnx-enabled {
+                    dr:source "enabled";
+                    dr:fieldnum 54;
+                    dr:map false { dr:map-from 0; }
+                    dr:map true { dr:map-from *; }
+                  }
+                }
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref" {
+                dr:fieldnum 152;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/interface" {
+                dr:fieldnum 51;
+                dr:source "physical-name";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/subinterface" {
+                dr:fieldnum 52;
+                dr:source "logical-unit";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime" {
+                dr:fieldnum 153;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state" {
+                dr:fieldnum 151;
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/adjacent" {
+                dr:fieldnum 51;
+                dr:source "adjacent-hold-time";
+              }
+              augment "ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/negotiated" {
+                dr:fieldnum 52;
+                dr:source "negotiated-hold-time";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+}

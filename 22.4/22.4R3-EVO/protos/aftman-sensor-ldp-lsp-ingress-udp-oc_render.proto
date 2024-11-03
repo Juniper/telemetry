@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional ldp_lsp_ingress_stats jnpr_ldp_lsp_ingress_stats_ext = 153;
+}
+
+message ldp_lsp_ingress_stats {
+   message ldp_lsp_ingress_stats_records_list {
+      optional string ip_prefix = 1 [(telemetry_options).is_key = true];
+      optional uint32 instance_identifier = 2;
+      optional string counter_name = 3;
+      message stats_list {
+         optional uint64 packets = 1;
+         optional uint64 bytes = 2;
+         optional uint64 packet_rate = 3;
+         optional uint64 byte_rate = 4;
+      }
+      repeated stats_list stats = 4;
+   }
+   repeated ldp_lsp_ingress_stats_records_list ldp_lsp_ingress_stats_records = 1;
+}

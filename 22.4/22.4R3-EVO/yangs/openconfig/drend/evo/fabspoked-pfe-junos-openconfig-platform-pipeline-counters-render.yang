@@ -1,0 +1,145 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ * @file       fabspoked-pfe_oc.yang
+ * @author     Aslam Ahmed
+ * @date       Mar, 2022
+ * @brief      Fabric-block pipeline stats for
+ *             openconfig-platform-pipeline-counters.yang
+ */
+
+module fabspoked-pfe-junos-openconfig-platform-pipeline-counters-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/openconfig/platform-pipeline-counters/render";
+
+  prefix "jnx-oc-ppc-rdr";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-platform { prefix oc-pf; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+  contact "www.juniper.net";
+
+  grouping fabric-block-stats {
+      leaf "in-cells" {
+        type  uint64;
+        dr:source "in_cells";
+        dr:fieldnum 52;
+      }
+      leaf "out-cells" {
+        type  uint64;
+        dr:source "out_cells";
+        dr:fieldnum 53;
+      }
+      leaf "in-bytes" {
+        type  uint64;
+        dr:source "in_bytes";
+        dr:fieldnum 54;
+      }
+      leaf  "out-bytes" {
+        type  uint64;
+        dr:source "out_bytes";
+        dr:fieldnum 55;
+      }
+  }
+
+  dr:command-app "fabspoked-pfe";
+  jnpr-proto:message-id "FABSPOKED-PFE-OC-MESSAGE-ID";
+  dr:sub-component "fpc";
+
+  rpc juniper-netconf-get {
+    output {
+      container components {
+        dr:source "/evl_types:JunosOperState";
+        dr:fieldnum 171;
+
+        list component {
+          dr:source "junos-chassis:pipeline-stats";
+          dr:fieldnum 171;
+
+          key "name";
+          leaf name {
+            type string;
+            dr:source "fabPipelineStatsE/asic_name";
+            dr:fieldnum 51;
+          }
+
+          container integrated-circuit {
+            dr:source "fabPipelineStatsE";
+            dr:fieldnum 171;
+
+            container pipeline-counters {
+              dr:fieldnum 171;
+
+                container packet {
+                  dr:fieldnum 171;
+
+                   container fabric-block {
+                     dr:fieldnum 171;
+
+                      container state {
+                        dr:fieldnum 171;
+
+                        uses fabric-block-stats;
+                      }
+                   }
+                }
+              }
+           }
+         }
+      }
+    }
+  }
+
+  rpc juniper-telemetry-get {
+    output {
+      container components {
+        dr:source "/evl_types:JunosOperState";
+        dr:fieldnum 171;
+
+        list component {
+          dr:source "junos-chassis:pipeline-stats";
+          dr:fieldnum 171;
+
+          key "name";
+          leaf name {
+            type string;
+            dr:source "fabPipelineStatsE/asic_name";
+            dr:fieldnum 51;
+          }
+
+          container integrated-circuit {
+            dr:source "fabPipelineStatsE";
+            dr:fieldnum 171;
+
+            container pipeline-counters {
+              dr:fieldnum 171;
+
+                container packet {
+                  dr:fieldnum 171;
+
+                   container fabric-block {
+                     dr:fieldnum 171;
+
+                      container state {
+                        dr:fieldnum 171;
+
+                        uses fabric-block-stats;
+                      }
+                   }
+                }
+              }
+           }
+         }
+      }
+    }
+  }
+}

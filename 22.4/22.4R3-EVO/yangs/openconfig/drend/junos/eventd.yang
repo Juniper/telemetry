@@ -1,0 +1,290 @@
+/*
+ * Render tree for eventd telemetry sensors
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module eventd {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/eventd";
+
+    prefix "eventd";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    dr:command-app "eventd";
+    dr:sub-component "events";
+    jnpr-proto:message-id "EVENTD-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+        output {
+            container junos {
+                container events {
+                    dr:source "/junos/events";
+                    dr:fieldnum 151;
+                    list event {
+                        dr:source "/junos/events/event";
+                        dr:fieldnum 151;
+                        key "id type priority facility";
+                        dr:source-notification-name "syslog";
+
+                        leaf id {
+                            type string;
+                            dr:source "id";
+                            dr:fieldnum 51;
+                        }
+
+                        leaf type {
+                            dr:source "type";
+                            dr:fieldnum 52;
+                            type enumeration {
+                                enum EVENT_NONE {
+                                    description 
+                                    "None event";
+                                }
+                                enum EVENT_INTERNAL {
+                                    description 
+                                    "Internal event";
+                                }
+                                enum EVENT_SYSLOG {
+                                    description 
+                                    "Syslog event";
+                                }
+                                enum EVENT_PSEUDO_SYSLOG {
+                                    description 
+                                    "Pseudo syslog event";
+                                }
+                            }
+                        }
+
+                        container timestamp {
+                            dr:source "timestamp";
+                            dr:fieldnum 151;
+                            leaf seconds {
+                                type uint32;
+                                dr:source "seconds";
+                                dr:fieldnum 51;
+                            }
+
+                            leaf microseconds {
+                                type uint32;
+                                dr:source "microseconds";
+                                dr:fieldnum 52;
+                            }
+                        }
+
+                        leaf priority {
+                            dr:source "priority";
+                            dr:fieldnum 53;
+                            type enumeration {
+                                enum LOG_EMERG {}
+                                enum LOG_ALERT {}
+                                enum LOG_CRIT {}
+                                enum LOG_ERR {}
+                                enum LOG_WARNING {}
+                                enum LOG_NOTICE {}
+                                enum LOG_INFO {}
+                                enum LOG_DEBUG {}
+                            }
+                        }
+
+                        leaf facility {
+                            dr:source "facility";
+                            dr:fieldnum 54;
+                            type enumeration {
+                                enum LOG_KERN {}
+                                enum LOG_USER {}
+                                enum LOG_MAIL {}
+                                enum LOG_DAEMON {}
+                                enum LOG_AUTH {}
+                                enum LOG_SYSLOG {}
+                                enum LOG_LPR {}
+                                enum LOG_NEWS {}
+                                enum LOG_UUCP {}
+                                enum LOG_CRON {}
+                                enum LOG_AUTHPRIV {}
+                                enum LOG_FTP {}
+                                enum LOG_LOCAL0 {}
+                                enum LOG_LOCAL1 {}
+                                enum LOG_LOCAL2 {}
+                                enum LOG_LOCAL3 {}
+                                enum LOG_LOCAL4 {}
+                                enum LOG_LOCAL5 {}
+                                enum LOG_LOCAL6 {}
+                                enum LOG_LOCAL7 {}
+                            }
+                        }
+
+                        leaf pid {
+                            type uint32;
+                            dr:source "pid";
+                            dr:fieldnum 55;
+                        }
+
+                        leaf message {
+                            type string;
+                            dr:source "message";
+                            dr:fieldnum 56;
+                        }
+
+                        leaf daemon {
+                            type string;
+                            dr:source "daemon";
+                            dr:fieldnum 57;
+                        }
+
+                        leaf hostname {
+                            type string;
+                            dr:source "hostname";
+                            dr:fieldnum 58;
+                        }
+
+                        leaf lsname {
+                            type string;
+                            dr:source "lsname";
+                            dr:fieldnum 59;
+                        }
+
+                        list attributes {
+                            key "key";
+                            dr:source "attributes";
+                            dr:fieldnum 152;
+                            leaf key {
+                                type string;
+                                dr:source "key";
+                                dr:fieldnum 51;
+                            }
+
+                            leaf value {
+                                type string;
+                                dr:source "value";
+                                dr:fieldnum 52;
+                            }
+                        }
+
+                        leaf logoptions {
+                            type int32;
+                            dr:source "logoptions";
+                            dr:fieldnum 60;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification syslog {
+        dr:source-notification-name "syslog";
+
+        container junos {
+            container events {
+                dr:source "/notification/syslog/events";
+                dr:fieldnum 151;
+
+                list event {
+                    key "id type facility";
+                    dr:source "event";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "id";
+                        dr:fieldnum 51;
+                    }
+
+                    leaf type {
+                        type uint8;
+                        dr:source "type";
+                        dr:fieldnum 52;
+                    }
+
+                    container timestamp {
+                        dr:source "timestamp";
+                        dr:fieldnum 151;
+                        leaf seconds {
+                            dr:source "seconds";
+                            dr:fieldnum 51;
+                            type uint32;
+                        }
+                        leaf microseconds {
+                            dr:source "microseconds";
+                            dr:fieldnum 52;
+                            type uint32;
+                        }
+                    }
+
+                    leaf priority {
+                        dr:source "priority";
+                        dr:fieldnum 53;
+                        type uint8;
+                    }
+
+                    leaf facility {
+                        type uint8;
+                        dr:source "facility";
+                        dr:fieldnum 54;
+                    }
+
+                    leaf pid {
+                        dr:source "pid";
+                        dr:fieldnum 55;
+                        type uint32;
+                    }
+
+                    leaf message {
+                        dr:source "message";
+                        dr:fieldnum 56;
+                        type string;
+                    }
+
+                    leaf daemon {
+                        dr:source "daemon";
+                        dr:fieldnum 57;
+                        type string;
+                    }
+
+                    leaf hostname {
+                        dr:source "hostname";
+                        dr:fieldnum 58;
+                        type string;
+                    }
+
+                    leaf lsname {
+                        dr:source "lsname";
+                        dr:fieldnum 59;
+                        type string;
+                    }
+
+                    list attributes {
+                        key "key";
+                        dr:fieldnum 152;
+                        dr:source "attributes";
+                        leaf key {
+                            dr:source "key";
+                            dr:fieldnum 51;
+                            type string;
+                        }
+
+                        leaf value {
+                            dr:source "value";
+                            dr:fieldnum 52;
+                            type string;
+                        }
+                    }
+
+                    leaf logoptions {
+                        dr:source "logoptions";
+                        dr:fieldnum 60;
+                        type int32;
+                    }
+                }
+            }
+        }
+    }
+}
