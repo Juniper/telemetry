@@ -1,0 +1,2091 @@
+module bfdd-junos-openconfig-bfd-render {
+    yang-version 1;
+
+    namespace "http://yang.juniper.net/openconfig/bfd/render";
+
+    prefix "jnx-oc-bfd-rdr";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto {
+        prefix jnpr-proto;
+    }
+
+    import openconfig-bfd {
+        prefix oc-bfd;
+    }
+
+    description "
+      Rendering Junos BFD State in OpenConfig BFD Schema terms
+    ";
+
+
+    revision "2022-03-30" {
+        description "Initial revision";
+    }
+
+    dr:command-app "bfdd";
+    jnpr-proto:message-id "BFDD-OC-MESSAGE-ID";
+
+    grouping rend-bfd-top {
+        uses oc-bfd:bfd-top {
+           augment "bfd" {
+               dr:fieldnum 153;
+               dr:source "/bfd";
+           }
+           augment "bfd/interfaces" {
+               dr:fieldnum 152;
+               dr:source "/bfd/interfaces";
+           }
+           augment "bfd/interfaces/interface" {
+               dr:source "interface";
+               dr:fieldnum 151;
+           }
+           augment "bfd/interfaces/interface/id" {
+               dr:source "state/id";
+               dr:fieldnum 50;
+           }
+           augment "bfd/interfaces/interface/state" {
+               dr:fieldnum 150;
+               dr:source "state";
+           }
+           augment "bfd/interfaces/interface/state/id" {
+                dr:fieldnum 51;
+                dr:source "id";
+           }
+           augment "bfd/interfaces/interface/state/enabled" {
+                dr:fieldnum 52;
+                dr:source "enabled";
+           }
+           augment "bfd/interfaces/interface/state/local-address" {
+                dr:fieldnum 53;
+                dr:source "local-address";
+           }
+           augment "bfd/interfaces/interface/state/desired-minimum-tx-interval" {
+                dr:fieldnum 54;
+                dr:source "desired-minimum-tx-interval";
+                dr:source-notification-name "bfd-session-min-tx-ivl-change";
+           }
+           augment "bfd/interfaces/interface/state/required-minimum-receive" {
+                dr:fieldnum 55;
+                dr:source "required-minimum-receive";
+                dr:source-notification-name "bfd-session-min-rx-ivl-change";
+           }
+           augment "bfd/interfaces/interface/state/detection-multiplier" {
+                dr:fieldnum 56;
+                dr:source "detection-multiplier";
+                dr:source-notification-name "bfd-session-multiplier-change";
+           }
+           augment "bfd/interfaces/interface/state/enable-per-member-link" {
+                dr:fieldnum 57;
+                dr:source "enable-per-member-link";
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions" {
+                dr:fieldnum 149;
+                dr:source "micro-bfd-sessions";
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session" {
+                dr:source "micro-bfd-session";
+                dr:fieldnum 148;
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/member-interface" {
+                dr:source "state/member-interface";
+                dr:fieldnum 51;
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state" {
+                dr:fieldnum 147;
+                dr:source "state";
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-address" {
+                dr:fieldnum 51;
+                dr:source "local-address";
+                dr:source-notification-name "bfd-session-micro-bfd-local-address-change";
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-address" {
+                dr:fieldnum 52;
+                dr:source "remote-address";
+                dr:source-notification-name "bfd-session-nbr-address-change";
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/member-interface" {
+                dr:fieldnum 53;
+                dr:source "member-interface";
+
+           }
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/session-state" {
+               dr:source "session-state";
+               dr:source-notification-name "bfd-session-micro-bfd-state-change";
+               dr:fieldnum 63;
+
+               dr:map UP {
+                   dr:map-from 3;
+               }
+
+               dr:map DOWN {
+                   dr:map-from 1;
+               }
+
+               dr:map ADMIN_DOWN {
+                   dr:map-from 0;
+               }
+
+               dr:map INIT {
+                   dr:map-from 2;
+               }
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-session-state" {
+               dr:source "remote-session-state";
+               dr:source-notification-name "bfd-session-micro-bfd-remote-state-change";
+               dr:fieldnum 64;
+
+               dr:map UP {
+                   dr:map-from 3;
+               }
+
+               dr:map DOWN {
+                   dr:map-from 1;
+               }
+
+               dr:map ADMIN_DOWN {
+                   dr:map-from 0;
+               }
+
+               dr:map INIT {
+                   dr:map-from 2;
+               }
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/last-failure-time" {
+               dr:source "last-failure-time";
+               dr:fieldnum 65;
+               dr:source-notification-name "bfd-session-micro-bfd-last-failure-time-change";
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/failure-transitions" {
+               dr:source "failure-transitions";
+               dr:fieldnum 66;
+               dr:source-notification-name "bfd-session-micro-bfd-failure-transitions-change";
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-discriminator" {
+               dr:source "local-discriminator";
+               dr:fieldnum 67;
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-discriminator" {
+               dr:source "remote-discriminator";
+               dr:fieldnum 68;
+               dr:source-notification-name "bfd-session-micro-bfd-remote-discriminator-change";
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-diagnostic-code" {
+               dr:source "local-diagnostic-code";
+               dr:fieldnum 69;
+               dr:source-notification-name "bfd-session-micro-bfd-local-diagnostic-code-change";
+
+               dr:map NO_DIAGNOSTIC {
+                   dr:map-from 0;
+               }
+
+               dr:map DETECTION_TIMEOUT {
+                   dr:map-from 1;
+               }
+
+               dr:map ECHO_FAILED {
+                   dr:map-from 2;
+               }
+
+               dr:map FORWARDING_RESET {
+                   dr:map-from 4;
+               }
+
+               dr:map PATH_DOWN {
+                   dr:map-from 5;
+               }
+
+               dr:map CONCATENATED_PATH_DOWN {
+                   dr:map-from 6;
+               }
+
+               dr:map ADMIN_DOWN {
+                   dr:map-from 7;
+               }
+
+               dr:map REVERSE_CONCATENATED_PATH_DOWN {
+                   dr:map-from 8;
+               }
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-diagnostic-code" {
+               dr:source "remote-diagnostic-code";
+               dr:fieldnum 70;
+               dr:source-notification-name "bfd-session-micro-bfd-remote-diagnostic-code-change";
+
+               dr:map NO_DIAGNOSTIC {
+                   dr:map-from 0;
+               }
+
+               dr:map DETECTION_TIMEOUT {
+                   dr:map-from 1;
+               }
+
+               dr:map ECHO_FAILED {
+                   dr:map-from 2;
+               }
+
+               dr:map FORWARDING_RESET {
+                   dr:map-from 4;
+               }
+
+               dr:map PATH_DOWN {
+                   dr:map-from 5;
+               }
+
+               dr:map CONCATENATED_PATH_DOWN {
+                   dr:map-from 6;
+               }
+
+               dr:map ADMIN_DOWN {
+                   dr:map-from 7;
+               }
+
+               dr:map REVERSE_CONCATENATED_PATH_DOWN {
+                   dr:map-from 8;
+               }
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-minimum-receive-interval" {
+               dr:source "remote-minimum-receive-interval";
+               dr:fieldnum 71;
+               dr:source-notification-name "bfd-session-micro-bfd-remote-min-rec-ivl-change";
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/demand-mode-requested" {
+               dr:source "demand-mode-requested";
+               dr:fieldnum 72;
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-authentication-enabled" {
+               dr:source "remote-authentication-enabled";
+               dr:fieldnum 73;
+               dr:source-notification-name "bfd-session-micro-bfd-auth-change";
+           }
+
+           augment "bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-control-plane-independent" {
+               dr:source "remote-control-plane-independent";
+               dr:fieldnum 74;
+           }
+           augment "bfd/interfaces/interface/peers" {
+                dr:fieldnum 145;
+                dr:source "peers";
+           }
+           augment "bfd/interfaces/interface/peers/peer" {
+                dr:source "peer";
+                dr:fieldnum 144;
+           }
+           augment "bfd/interfaces/interface/peers/peer/local-discriminator" {
+                dr:source "state/local-discriminator";
+                dr:fieldnum 51;
+           }
+           augment "bfd/interfaces/interface/peers/peer/state" {
+                dr:fieldnum 143;
+                dr:source "state";
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/local-address" {
+                dr:fieldnum 51;
+                dr:source "local-address";
+                dr:source-notification-name "bfd-session-local-address-change";
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/remote-address" {
+                dr:fieldnum 52;
+                dr:source "remote-address";
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/subscribed-protocols" {
+                dr:fieldnum 53;
+                dr:source "subscribed-protocols";
+                dr:source-notification-name "bfd-session-client-change";
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/session-state" {
+                dr:source "session-state";
+                dr:source-notification-name "bfd-session-state-change";
+                dr:fieldnum 63;
+
+                dr:map UP {
+                    dr:map-from 3;
+                }
+
+                dr:map DOWN {
+                    dr:map-from 1;
+                }
+
+                dr:map ADMIN_DOWN {
+                    dr:map-from 0;
+                }
+
+                dr:map INIT {
+                    dr:map-from 2;
+                }
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-session-state" {
+                dr:source "remote-session-state";
+                dr:source-notification-name "bfd-session-remote-state-change";
+                dr:fieldnum 64;
+
+                dr:map UP {
+                    dr:map-from 3;
+                }
+
+                dr:map DOWN {
+                    dr:map-from 1;
+                }
+
+                dr:map ADMIN_DOWN {
+                    dr:map-from 0;
+                }
+
+                dr:map INIT {
+                    dr:map-from 2;
+                }
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/last-failure-time" {
+                dr:source "last-failure-time";
+                dr:fieldnum 65;
+                dr:source-notification-name "bfd-session-last-failure-time-change";
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/failure-transitions" {
+                dr:source "failure-transitions";
+                dr:fieldnum 66;
+                dr:source-notification-name "bfd-session-failure-transitions-change";
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/local-discriminator" {
+                dr:source "local-discriminator";
+                dr:fieldnum 67;
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-discriminator" {
+                dr:source "remote-discriminator";
+                dr:fieldnum 68;
+                dr:source-notification-name "bfd-session-remote-discriminator-change";
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/local-diagnostic-code" {
+                dr:source "local-diagnostic-code";
+                dr:fieldnum 69;
+                dr:source-notification-name "bfd-session-local-diagnostic-code-change";
+
+                dr:map NO_DIAGNOSTIC {
+                    dr:map-from 0;
+                }
+
+                dr:map DETECTION_TIMEOUT {
+                    dr:map-from 1;
+                }
+
+                dr:map ECHO_FAILED {
+                    dr:map-from 2;
+                }
+
+                dr:map FORWARDING_RESET {
+                    dr:map-from 4;
+                }
+
+                dr:map PATH_DOWN {
+                    dr:map-from 5;
+                }
+
+                dr:map CONCATENATED_PATH_DOWN {
+                    dr:map-from 6;
+                }
+
+                dr:map ADMIN_DOWN {
+                    dr:map-from 7;
+                }
+
+                dr:map REVERSE_CONCATENATED_PATH_DOWN {
+                    dr:map-from 8;
+                }
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-diagnostic-code" {
+                dr:source "remote-diagnostic-code";
+                dr:fieldnum 70;
+                dr:source-notification-name "bfd-session-remote-diagnostic-code-change";
+
+                dr:map NO_DIAGNOSTIC {
+                    dr:map-from 0;
+                }
+
+                dr:map DETECTION_TIMEOUT {
+                    dr:map-from 1;
+                }
+
+                dr:map ECHO_FAILED {
+                    dr:map-from 2;
+                }
+
+                dr:map FORWARDING_RESET {
+                    dr:map-from 4;
+                }
+
+                dr:map PATH_DOWN {
+                    dr:map-from 5;
+                }
+
+                dr:map CONCATENATED_PATH_DOWN {
+                    dr:map-from 6;
+                }
+
+                dr:map ADMIN_DOWN {
+                    dr:map-from 7;
+                }
+
+                dr:map REVERSE_CONCATENATED_PATH_DOWN {
+                    dr:map-from 8;
+                }
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-minimum-receive-interval" {
+                dr:source "remote-minimum-receive-interval";
+                dr:fieldnum 71;
+                dr:source-notification-name "bfd-session-remote-min-rec-ivl-change";
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/demand-mode-requested" {
+                dr:source "demand-mode-requested";
+                dr:fieldnum 72;
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-authentication-enabled" {
+                dr:source "remote-authentication-enabled";
+                dr:fieldnum 73;
+                dr:source-notification-name "bfd-session-auth-change";
+           }
+
+           augment "bfd/interfaces/interface/peers/peer/state/remote-control-plane-independent" {
+                dr:source "remote-control-plane-independent";
+                dr:fieldnum 74;
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/echo" {
+                 dr:fieldnum 142;
+                 dr:source "echo";
+           }
+           augment "bfd/interfaces/interface/peers/peer/state/echo/active" {
+                 dr:source "active";
+                 dr:fieldnum 51;
+                 dr:source-notification-name "bfd-session-echo-mode-change";
+           }
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-help "Default <get> rpc";
+
+        output {
+            uses rend-bfd-top;
+        }
+    }
+
+    rpc juniper-telemetry-get {
+        dr:command-help "Default <get> rpc";
+
+        output {
+            uses rend-bfd-top;
+        }
+    }
+
+    notification oc-bfd-session-state-change {
+        dr:source-notification-name "bfd-session-state-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf session-state {
+                                    type oc-bfd:bfd-session-state;
+                                    dr:fieldnum 63;
+                                    dr:source "session-state";
+                                    dr:map UP { dr:map-from 3; }
+                                    dr:map DOWN { dr:map-from 1; }
+                                    dr:map ADMIN_DOWN { dr:map-from 0; }
+                                    dr:map INIT { dr:map-from 2; }
+                                }
+                                leaf local-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:source "local-diagnostic-code";
+                                    dr:fieldnum 69;
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                                leaf last-failure-time {
+                                    type uint64;
+                                    dr:source "last-failure-time";
+                                    dr:fieldnum 65;
+                                }
+                                leaf failure-transitions {
+                                    type uint64;
+                                    dr:source "failure-transitions";
+                                    dr:fieldnum 66;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-state-change {
+        dr:source-notification-name "bfd-session-micro-bfd-state-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf session-state {
+                                    type oc-bfd:bfd-session-state;
+                                    dr:fieldnum 63;
+                                    dr:source "session-state";
+                                    dr:map UP { dr:map-from 3; }
+                                    dr:map DOWN { dr:map-from 1; }
+                                    dr:map ADMIN_DOWN { dr:map-from 0; }
+                                    dr:map INIT { dr:map-from 2; }
+                                }
+                                leaf local-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:source "local-diagnostic-code";
+                                    dr:fieldnum 69;
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                                leaf last-failure-time {
+                                    type uint64;
+                                    dr:source "last-failure-time";
+                                    dr:fieldnum 65;
+                                }
+                                leaf failure-transitions {
+                                    type uint64;
+                                    dr:source "failure-transitions";
+                                    dr:fieldnum 66;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-remote-state-change {
+        dr:source-notification-name "bfd-session-remote-state-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-session-state {
+                                    type oc-bfd:bfd-session-state;
+                                    dr:fieldnum 64;
+                                    dr:source "remote-session-state";
+                                    dr:map UP { dr:map-from 3; }
+                                    dr:map DOWN { dr:map-from 1; }
+                                    dr:map ADMIN_DOWN { dr:map-from 0; }
+                                    dr:map INIT { dr:map-from 2; }
+                                }
+                                leaf remote-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:source "remote-diagnostic-code";
+                                    dr:fieldnum 70;
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-remote-state-change {
+        dr:source-notification-name "bfd-session-micro-bfd-remote-state-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-session-state {
+                                    type oc-bfd:bfd-session-state;
+                                    dr:fieldnum 64;
+                                    dr:source "remote-session-state";
+                                    dr:map UP { dr:map-from 3; }
+                                    dr:map DOWN { dr:map-from 1; }
+                                    dr:map ADMIN_DOWN { dr:map-from 0; }
+                                    dr:map INIT { dr:map-from 2; }
+                                }
+                                leaf remote-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:source "remote-diagnostic-code";
+                                    dr:fieldnum 70;
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-echo-mode-change {
+        dr:source-notification-name "bfd-session-echo-mode-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                container echo {
+                                    dr:fieldnum 142;
+                                    dr:source "echo";
+
+                                    leaf active {
+                                        type boolean;
+                                        dr:source "active";
+                                        dr:fieldnum 51;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-client-change {
+        dr:source-notification-name "bfd-session-client-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf-list subscribed-protocols {
+                                    type string;
+                                    dr:fieldnum 53;
+                                    dr:source "subscribed-protocols";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-local-address-change {
+        dr:source-notification-name "bfd-session-local-address-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf local-address {
+                                    type string;
+                                    dr:fieldnum 51;
+                                    dr:source "local-address";
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-local-address-change {
+        dr:source-notification-name "bfd-session-micro-bfd-local-address-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf local-address {
+                                    type string;
+                                    dr:fieldnum 51;
+                                    dr:source "local-address";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    notification oc-bfd-session-nbr-address-change {
+        dr:source-notification-name "bfd-session-nbr-address-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-address {
+                                    type string;
+                                    dr:fieldnum 52;
+                                    dr:source "remote-address";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-auth-change {
+        dr:source-notification-name "bfd-session-auth-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-authentication-enabled {
+                                    type boolean;
+                                    dr:source "remote-authentication-enabled";
+                                    dr:fieldnum 73;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-auth-change {
+        dr:source-notification-name "bfd-session-micro-bfd-auth-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-authentication-enabled {
+                                    type boolean;
+                                    dr:source "remote-authentication-enabled";
+                                    dr:fieldnum 73;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-multiplier-change {
+        dr:source-notification-name "bfd-session-multiplier-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container state {
+                        dr:fieldnum 150;
+                        dr:source "state";
+
+                        leaf detection-multiplier {
+                                type uint8;
+                                dr:fieldnum 56;
+                                dr:source "detection-multiplier";
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-nbr-fate-change {
+        dr:source-notification-name "bfd-session-nbr-fate-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-control-plane-independent {
+                                    type boolean;
+                                    dr:fieldnum 74;
+                                    dr:source "remote-control-plane-independent";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-nbr-fate-change {
+        dr:source-notification-name "bfd-session-micro-bfd-nbr-fate-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-control-plane-independent {
+                                    type boolean;
+                                    dr:fieldnum 74;
+                                    dr:source "remote-control-plane-independent";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-remote-min-rec-ivl-change {
+        dr:source-notification-name "bfd-session-remote-min-rec-ivl-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-minimum-receive-interval {
+                                    type uint32;
+                                    dr:fieldnum 71;
+                                    dr:source "remote-minimum-receive-interval";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-remote-min-rec-ivl-change {
+        dr:source-notification-name "bfd-session-micro-bfd-remote-min-rec-ivl-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-minimum-receive-interval {
+                                    type uint32;
+                                    dr:fieldnum 71;
+                                    dr:source "remote-minimum-receive-interval";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-remote-discriminator-change {
+        dr:source-notification-name "bfd-session-remote-discriminator-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-discriminator {
+                                    type string;
+                                    dr:fieldnum 68;
+                                    dr:source "remote-discriminator";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-remote-discriminator-change {
+        dr:source-notification-name "bfd-session-micro-bfd-remote-discriminator-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-discriminator {
+                                    type string;
+                                    dr:fieldnum 68;
+                                    dr:source "remote-discriminator";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-min-tx-ivl-change {
+        dr:source-notification-name "bfd-session-min-tx-ivl-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container state {
+                        dr:fieldnum 150;
+                        dr:source "state";
+
+                        leaf desired-minimum-tx-interval {
+                                type uint32;
+                                dr:fieldnum 54;
+                                dr:source "desired-minimum-tx-interval";
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-min-rx-ivl-change {
+        dr:source-notification-name "bfd-session-min-rx-ivl-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container state {
+                        dr:fieldnum 150;
+                        dr:source "state";
+
+                        leaf required-minimum-receive {
+                                type uint32;
+                                dr:fieldnum 55;
+                                dr:source "required-minimum-receive";
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-local-diagnostic-code-change {
+        dr:source-notification-name "bfd-session-local-diagnostic-code-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf local-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:fieldnum 69;
+                                    dr:source "local-diagnostic-code";
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-local-diagnostic-code-change {
+        dr:source-notification-name "bfd-session-micro-bfd-local-diagnostic-code-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf local-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:fieldnum 69;
+                                    dr:source "local-diagnostic-code";
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-remote-diagnostic-code-change {
+        dr:source-notification-name "bfd-session-remote-diagnostic-code-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf remote-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:fieldnum 70;
+                                    dr:source "remote-diagnostic-code";
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-remote-diagnostic-code-change {
+        dr:source-notification-name "bfd-session-micro-bfd-remote-diagnostic-code-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf remote-diagnostic-code {
+                                    type oc-bfd:bfd-diagnostic-code;
+                                    dr:fieldnum 70;
+                                    dr:source "remote-diagnostic-code";
+                                    dr:map NO_DIAGNOSTIC { dr:map-from 0; }
+                                    dr:map DETECTION_TIMEOUT { dr:map-from 1; }
+                                    dr:map ECHO_FAILED { dr:map-from 2; }
+                                    dr:map FORWARDING_RESET { dr:map-from 4; }
+                                    dr:map PATH_DOWN { dr:map-from 5; }
+                                    dr:map CONCATENATED_PATH_DOWN { dr:map-from 6; }
+                                    dr:map ADMIN_DOWN { dr:map-from 7; }
+                                    dr:map REVERSE_CONCATENATED_PATH_DOWN { dr:map-from 8; }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-last-failure-time-change {
+        dr:source-notification-name "bfd-session-last-failure-time-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf last-failure-time {
+                                    type uint64;
+                                    dr:fieldnum 65;
+                                    dr:source "last-failure-time";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-last-failure-time-change {
+        dr:source-notification-name "bfd-session-micro-bfd-last-failure-time-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf last-failure-time {
+                                    type uint64;
+                                    dr:fieldnum 65;
+                                    dr:source "last-failure-time";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-failure-transitions-change {
+        dr:source-notification-name "bfd-session-failure-transitions-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container peers {
+                        dr:fieldnum 145;
+                        dr:source "peers";
+
+                        list peer {
+                            key "local-discriminator";
+                            dr:source "peer";
+                            dr:fieldnum 144;
+
+                            leaf local-discriminator {
+                                type string;
+                                dr:source "state/local-discriminator";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 143;
+                                dr:source "state";
+
+                                leaf failure-transitions {
+                                    type uint64;
+                                    dr:fieldnum 66;
+                                    dr:source "failure-transitions";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification oc-bfd-session-micro-bfd-failure-transitions-change {
+        dr:source-notification-name "bfd-session-micro-bfd-failure-transitions-change";
+
+        container bfd {
+            dr:fieldnum 153;
+            dr:source "/bfd";
+
+            container interfaces {
+                dr:fieldnum 152;
+                dr:source "/bfd/interfaces";
+
+                list interface {
+                    key "id";
+                    dr:source "interface";
+                    dr:fieldnum 151;
+
+                    leaf id {
+                        type string;
+                        dr:source "state/id";
+                        dr:fieldnum 50;
+                    }
+
+                    container micro-bfd-sessions {
+                        dr:fieldnum 149;
+                        dr:source "micro-bfd-sessions";
+
+                        list micro-bfd-session {
+                            key "member-interface";
+                            dr:source "micro-bfd-session";
+                            dr:fieldnum 148;
+
+                            leaf member-interface {
+                                type string;
+                                dr:source "state/member-interface";
+                                dr:fieldnum 51;
+                            }
+
+                            container state {
+                                dr:fieldnum 147;
+                                dr:source "state";
+
+                                leaf failure-transitions {
+                                    type uint64;
+                                    dr:fieldnum 66;
+                                    dr:source "failure-transitions";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

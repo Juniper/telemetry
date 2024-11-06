@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_p2mp_ingress jnpr_mpls_p2mp_ingress_ext = 157;
+}
+
+message mpls_p2mp_ingress {
+   optional signaling_protocols_type signaling_protocols = 125;
+   message signaling_protocols_type {
+      optional ldp_type ldp = 125;
+      message ldp_type {
+         message p2mp_interfaces_list {
+            message p2mp_interface_list {
+               optional string interface_name = 105 [(telemetry_options).is_key = true];
+               optional uint64 in_pkts = 106;
+               optional uint64 in_octets = 107;
+            }
+            repeated p2mp_interface_list p2mp_interface = 125;
+         }
+         repeated p2mp_interfaces_list p2mp_interfaces = 125;
+      }
+   }
+}

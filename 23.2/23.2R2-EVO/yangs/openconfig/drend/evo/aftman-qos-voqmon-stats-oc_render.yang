@@ -1,0 +1,115 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module aftman-qos-voqmon-stats-oc_render {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/aftman_qos_voqmon_stats_oc";
+
+    prefix "aftman_qos_voqmon_stats_oc";
+
+    import drend {
+      prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    dr:command-app "evo-aftmand-bt";
+
+
+    organization "Juniper Network Inc.";
+
+    jnpr-proto:message-id "PFE-QOS-VOQMON-STATS-OC-MESSAGE-ID";
+
+    grouping qos-interface-voqmon-stat-jv-detail-group {
+        leaf max-queue-len {
+            type uint64;
+            dr:source "peakQlenByte";
+            dr:fieldnum 51;
+        }
+        leaf avg-queue-len {
+            type uint64;
+            dr:source "avgQlenByte";
+            dr:fieldnum 52;
+        }
+        leaf dropped-pkts {
+            type uint64;
+            dr:source "tailDropPkts";
+            dr:fieldnum 53;
+        }
+    }
+
+    grouping qos-interface-voqmon-stat-jv-queue-group {
+        leaf name {
+            type uint8;
+            dr:source "queue";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping qos-interface-voqmon-stat-jv-pfe-group {
+        leaf name {
+            type uint8;
+            dr:source "pfeIndex";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping qos-interface-voqmon-stat-jv-group {
+        leaf interface-id {
+            type string;
+            dr:source "ifname";
+            dr:fieldnum 51;
+        }
+    }
+
+
+    rpc juniper-netconf-get {
+        dr:command-help "Print the netconf output for Interface VoqMon Stats";
+        output {
+            container qos {
+                dr:source "/aftman_cos";
+                dr:zero-suppressed;
+                dr:fieldnum 151;
+                container interfaces {
+                    dr:fieldnum 151;
+                    list interface {
+                        dr:source "qos-interface-voqmon-stat-jv";
+                        dr:fieldnum 151;
+                        uses qos-interface-voqmon-stat-jv-group;
+                        key interface-id;
+                        container input {
+                            dr:fieldnum 151;
+                            container virtual-output-queues {
+                                dr:fieldnum 151;
+                                list voq-interface {
+                                    dr:source "qos-interface-voqmon-stat-jv-pfe";
+                                    dr:fieldnum 151;
+                                    uses qos-interface-voqmon-stat-jv-pfe-group;
+                                    key name;
+                                    container queues {
+                                        dr:fieldnum 151;
+                                        list queue {
+                                            dr:source "qos-interface-voqmon-stat-jv-detail";
+                                            dr:fieldnum 151;
+                                            uses qos-interface-voqmon-stat-jv-queue-group;
+                                            key name;
+                                            container state {
+                                                dr:fieldnum 151;
+                                                uses qos-interface-voqmon-stat-jv-detail-group;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

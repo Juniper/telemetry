@@ -1,0 +1,82 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_dot1x_268 jnpr_state_dot1x_268_ext = 268;
+}
+
+message state_dot1x_268 {
+   optional protocols_type protocols = 153;
+   message protocols_type {
+      optional dot1x_type dot1x = 152;
+      message dot1x_type {
+         optional interfaces_type interfaces = 151;
+         message interfaces_type {
+            message interface_list {
+               optional string name = 52 [(telemetry_options).is_key = true];
+               optional string role = 58;
+               optional string admin_status = 59;
+               optional string administrative_mode = 57;
+               optional string oper_status = 74;
+               optional uint32 retry_count = 60;
+               optional uint32 quiet_period = 61;
+               optional uint32 transmit_period = 55;
+               optional bool mac_radius = 62;
+               optional bool mac_radius_restrict = 63;
+               optional string mac_radius_protocol = 64;
+               optional bool reauthentication = 65;
+               optional uint32 reauthentication_interval = 54;
+               optional uint32 supplicant_timeout = 53;
+               optional uint32 server_timeout = 66;
+               optional uint32 max_eapol_request = 56;
+               optional uint32 guest_vlan = 67;
+               optional uint32 max_data_session_count = 68;
+               optional uint32 multi_domain_recovery_timeout = 69;
+               optional bool no_mac_table_binding = 70;
+               optional bool ip_mac_session_binding = 71;
+               optional bool retain_mac_aged_session = 72;
+               optional counters_type counters = 153;
+               message counters_type {
+                  optional uint64 connected_supplicants = 73;
+               }
+               optional authenticated_sessions_type authenticated_sessions = 152;
+               message authenticated_sessions_type {
+                  message authenticated_session_list {
+                     optional string mac = 81 [(telemetry_options).is_key = true];
+                     optional string supplicant_name = 83;
+                     optional string radius_supplicant_name = 84;
+                     optional string session_id = 82;
+                     optional string supplicant_state = 106;
+                     optional string supplicant_held_reason = 85;
+                     optional string authentication_method = 86;
+                     optional string vlan_name = 87;
+                     optional uint32 vlan_id = 88;
+                     optional uint32 secondary_vlan = 89;
+                     optional string voip_vlan = 90;
+                     optional string dynamic_filter = 91;
+                     optional string firewall_filter_name = 92;
+                     optional uint32 session_reauthentication_interval = 93;
+                     optional uint32 reauth_due = 94;
+                     optional bool no_mac_binding_reauth_vsa = 95;
+                     optional bool ip_mac_session_binding_vsa = 96;
+                     repeated uint32 egress_vlan = 104;
+                     optional string radius_supplicant_mode = 97;
+                     optional bool retain_mac_aged_session_vsa = 98;
+                     optional uint32 session_acct_interim_interval = 99;
+                     optional uint32 acct_interim_due = 100;
+                     optional string cwa_redirect_url = 105;
+                     optional string server_fail_voip_action = 101;
+                     optional string eapol_block = 102;
+                     optional uint32 gbp_tag = 110;
+                     optional string vlan_group_name = 111;
+                     optional string domain = 103;
+                  }
+                  repeated authenticated_session_list authenticated_session = 152;
+               }
+            }
+            repeated interface_list interface = 150;
+         }
+      }
+   }
+}

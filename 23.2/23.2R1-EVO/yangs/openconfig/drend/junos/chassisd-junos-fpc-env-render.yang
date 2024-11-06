@@ -1,0 +1,96 @@
+/*
+ * $Id:$
+ *
+ * File: chassisd-junos-fpc-env-render.yang
+ * Description: FPC environment yang model for Platform status
+ *
+ * Created by Gaurav Kumar
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module chassisd-junos-fpc-env-render {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/chassisd/junos/fpc-env/render";
+
+    prefix "js-fpcenv-rdr";
+
+    import junos-fpc-env { prefix junos-fpc-env; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import drend { prefix dr; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    dr:command-app "chassisd";
+    dr:sub-component "re";
+    jnpr-proto:message-id "FPCENV-ID";
+
+    grouping environment-top-group {
+        uses junos-fpc-env:jnx-fpc-env-top {
+            augment "junos" {
+                dr:source "/chassis-environment";
+                dr:fieldnum 1;
+            }
+            augment "junos/system" {
+                dr:fieldnum -1;
+            }
+            augment "junos/system/linecard" {
+                dr:source "modules/module";
+                dr:fieldnum 4;
+            }
+             augment "junos/system/linecard/name" {
+                dr:source "name";
+                dr:fieldnum 4;
+            }
+            augment "junos/system/linecard/environment" {
+                dr:source "environment";
+                dr:fieldnum -1;
+            }
+            augment "junos/system/linecard/environment/power-record" {
+                dr:fieldnum 1;
+            }
+            augment "junos/system/linecard/environment/power-record/max-fpc-power" {
+                dr:source "maxFpcPower";
+                dr:fieldnum 1;
+            }
+            augment "junos/system/linecard/environment/power-record/fpc-power" {
+                dr:source "fpcPower";
+                dr:fieldnum 2;
+            }
+            augment "junos/system/linecard/environment/temp-record" {
+                dr:source "temp-record";
+                dr:fieldnum 2;
+            }
+            augment "junos/system/linecard/environment/temp-record/temp-sensor-name" {
+                dr:source "tempSensorName";
+                dr:fieldnum 1;
+            }
+            augment "junos/system/linecard/environment/temp-record/temp-value" {
+                dr:source "tempValue";
+                dr:fieldnum 2;
+            }
+            augment "junos/system/linecard/environment/voltage-record" {
+                dr:source "voltage-record";
+                dr:fieldnum 3;
+            }
+            augment "junos/system/linecard/environment/voltage-record/voltage-sensor-name" {
+                dr:source "voltSensorName";
+                dr:fieldnum 1;
+            }
+            augment "junos/system/linecard/environment/voltage-record/voltage-value" {
+                dr:source "voltValue";
+                dr:fieldnum 2;
+            }
+        }
+    }
+
+    rpc juniper-netconf-get {
+        output {
+            uses environment-top-group;
+        }
+    }
+}

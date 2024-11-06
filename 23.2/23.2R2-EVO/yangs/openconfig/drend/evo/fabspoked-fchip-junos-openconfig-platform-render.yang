@@ -1,0 +1,74 @@
+/*
+* $Id$
+*
+* Copyright (c) 2022, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module fabspoked-fchip-junos-openconfig-platform-render {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://yang.juniper.net/openconfig/platform/render";
+
+  prefix "jnx-oc-platform-rdr";
+
+  import openconfig-platform { prefix oc-pf; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+
+  contact "www.juniper.net";
+
+  grouping chassisd-inventory {
+      uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:source-notification-name "hwd_module:fruE-event";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:source-notification-name "hwd_module:fruE-event";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties" {
+        dr:fieldnum 152;
+      }
+      augment "components/component/properties/property" {
+        dr:source "propertyE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties/property/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/state/value" {
+        dr:source "value";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  dr:command-app "fabspoked-fchip";
+  jnpr-proto:message-id "FABSPOKED-OC-MESSAGE-ID";
+  dr:sub-component "fab";
+
+  rpc juniper-netconf-get {
+    output {
+        uses chassisd-inventory;
+    }
+  }
+}
+

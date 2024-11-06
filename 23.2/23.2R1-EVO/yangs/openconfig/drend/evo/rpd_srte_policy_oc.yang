@@ -1,0 +1,585 @@
+module rpd_srte_policy_oc {
+
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/srte_policy_oc_render";
+
+    prefix "srte_policy_oc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    import openconfig-srte-policy { prefix oc-srte; }
+    import openconfig-segment-routing { prefix oc-sr; }
+    description "
+        Rendering Junos SRTE policy State in OpenConfig SRTE Policy Schema terms
+        ";
+
+
+dr:command-app "rpd";
+dr:sub-component "SRTE";
+jnpr-proto:message-id "RPD-SRTE-POLICY-OC-MESSAGE-ID";
+
+grouping rend-srte-policy-top {
+    uses oc-srte:oc-srte-policy-top {
+        augment "te-policies" {
+          dr:source "te-policies";
+          dr:fieldnum 151;
+        }
+        augment "te-policies/te-policy" {
+          dr:source "te-policy";
+          dr:fieldnum 151;
+          dr:source-notification-name "srte-policy-change";
+        }
+        augment "te-policies/te-policy/color" {
+          dr:source "color";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/endpoint" {
+          dr:source "endpoint";
+          dr:fieldnum "52";
+        }
+        augment "te-policies/te-policy/state" {
+          dr:fieldnum 151;
+          dr:source "state";
+        }
+        augment "te-policies/te-policy/state/color" {
+          dr:source "color";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/state/endpoint" {
+          dr:source "endpoint";
+          dr:fieldnum "52";
+        }
+        augment "te-policies/te-policy/state/bsid" {
+          dr:source "bsid";
+          dr:fieldnum 53;
+          dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+          dr:map ROUTER_ALERT { dr:map-from 1; }
+          dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+          dr:map IMPLICIT_NULL { dr:map-from 3; }
+          dr:map NO_LABEL { dr:map-from 4294967295; }
+          dr:map * { dr:map-from *; }
+        }
+        augment "te-policies/te-policy/candidate-paths" {
+          dr:source "candidate-paths";
+          dr:fieldnum 152;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path" {
+          dr:source "candidate-path";
+          dr:fieldnum 151;
+          dr:source-notification-name "candidate-path-change";
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/protocol-origin" {
+          dr:source "protocol-origin";
+          dr:fieldnum 51;
+          dr:map PCEP { dr:map-from 10; }
+          dr:map BGP { dr:map-from 20; }
+          dr:map CONFIG { dr:map-from 30; }
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/originator-asn" {
+          dr:source "originator-asn";
+          dr:fieldnum 52;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/originator-addr" {
+          dr:source "originator-addr";
+          dr:fieldnum 53;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/discriminator" {
+          dr:source "discriminator";
+          dr:fieldnum 54;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/protocol-origin" {
+          dr:source "protocol-origin";
+          dr:fieldnum 51;
+          dr:map PCEP { dr:map-from 10; }
+          dr:map BGP { dr:map-from 20; }
+          dr:map CONFIG { dr:map-from 30; }
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/originator-asn" {
+          dr:source "originator-asn";
+          dr:fieldnum 52;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/originator-addr" {
+          dr:source "originator-addr";
+          dr:fieldnum 53;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/discriminator" {
+          dr:source "discriminator";
+          dr:fieldnum 54;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/preference" {
+          dr:source "preference";
+          dr:fieldnum 55;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/enlp" {
+          dr:source "enlp";
+          dr:fieldnum 56;
+          dr:map PUSH_IPV4_EXPLICIT_NULL { dr:map-from 1; }
+          dr:map PUSH_IPV6_EXPLICIT_NULL { dr:map-from 2; }
+          dr:map PUSH_IPV46_EXPLICIT_NULL { dr:map-from 3; }
+          dr:map NO_EXPLICIT_NULL { dr:map-from 4; }
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/state/valid" {
+          dr:source "valid";
+          dr:fieldnum 57;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists" {
+          dr:source "segment-lists";
+          dr:fieldnum 152;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list" {
+          dr:source "segment-list";
+          dr:fieldnum 151;
+          dr:source-notification-name "segment-list-change";
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/id" {
+          dr:source "id";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/id" {
+          dr:source "id";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/valid" {
+          dr:source "valid";
+          dr:fieldnum 52;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/invalid-reason" {
+          dr:source "invalid-reason";
+          dr:fieldnum 53;
+          dr:map EMPTY_SL { dr:map-from 1; }
+          dr:map ZERO_WEIGHT { dr:map-from 2; }
+          dr:map FIRST_SID_UNRESOLVABLE { dr:map-from 3; }
+          dr:map OTHER_SID_UNRESOLVABLE { dr:map-from 4; }
+          dr:map VERIFICATION_FAIL { dr:map-from 5; }
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/weight" {
+          dr:source "weight";
+          dr:fieldnum 54;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids" {
+          dr:source "sids";
+          dr:fieldnum 152;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid" {
+          dr:source "sid";
+          dr:fieldnum 151;
+          dr:source-notification-name "segment-list-change";
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/index" {
+          dr:source "index";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state/index" {
+          dr:source "index";
+          dr:fieldnum 51;
+        }
+        augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state/value" {
+          dr:source "value";
+          dr:fieldnum 52;
+          dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+          dr:map ROUTER_ALERT { dr:map-from 1; }
+          dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+          dr:map IMPLICIT_NULL { dr:map-from 3; }
+          dr:map NO_LABEL { dr:map-from 4294967295; }
+          dr:map * { dr:map-from *; }
+        }
+    }         
+}
+
+grouping rend-sr-mpls-top {
+    uses oc-sr:sr-mpls-top {
+        augment "segment-routing" {
+          dr:fieldnum 151;
+          dr:source "segment-routing";
+        }
+        augment "segment-routing/interfaces" {
+          dr:source "interfaces";
+          dr:fieldnum 151;
+        }
+        augment "segment-routing/interfaces/interface" {
+          dr:source "interface";
+          dr:fieldnum 151;
+        }
+        augment "segment-routing/interfaces/interface/interface-id" {
+          dr:source "interface-id";
+          dr:fieldnum 51;
+        }
+        augment "segment-routing/interfaces/interface/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+        augment "segment-routing/interfaces/interface/state/interface-id" {
+          dr:source "interface-id";
+          dr:fieldnum 51;
+        }
+        augment "segment-routing/interfaces/interface/interface-ref" {
+          dr:source "interface-ref";
+          dr:fieldnum 152;
+        }
+        augment "segment-routing/interfaces/interface/interface-ref/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+         augment "segment-routing/interfaces/interface/interface-ref/state/interface" {
+          dr:source "interface";
+          dr:fieldnum 51;
+        }
+        augment "segment-routing/interfaces/interface/interface-ref/state/subinterface" {
+          dr:source "subinterface";
+          dr:fieldnum 52;
+        }
+    }
+}
+
+rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-srte-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+              type string;
+              dr:source "instance_name";
+              dr:fieldnum 51;
+          }
+
+          container segment-routing {
+            dr:source "segment-routing";
+            dr:fieldnum 151;
+
+            uses rend-srte-policy-top;
+          }
+
+          container mpls {
+            dr:fieldnum 152;
+            container signaling-protocols {
+              dr:fieldnum 151;
+              uses rend-sr-mpls-top;
+            }
+          }
+        }
+      }
+    }
+  }
+
+ notification oc-srte-policy-change {
+    dr:source-notification-name "srte-policy-change";
+    
+    container network-instances {
+      dr:source "/notification/srte-policy-change/network-instances";
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+
+        container segment-routing {
+          dr:source "segment-routing";
+          dr:fieldnum 151;
+
+          uses oc-srte:oc-srte-policy-top {
+              augment "te-policies" {
+                dr:source "te-policies";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy" {
+                dr:source "te-policy";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/color" {
+                dr:source "color";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/endpoint" {
+                dr:source "endpoint";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/state" {
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/state/bsid" {
+                dr:source "bsid";
+                dr:fieldnum 53;
+                dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+                dr:map ROUTER_ALERT { dr:map-from 1; }
+                dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+                dr:map IMPLICIT_NULL { dr:map-from 3; }
+                dr:map NO_LABEL { dr:map-from 4294967295; }
+                dr:map * { dr:map-from *; }
+              }
+            }
+          }
+        }
+     }
+  }
+
+  notification oc-candidate-path-change {
+    dr:source-notification-name "candidate-path-change";
+    
+    container network-instances {
+      dr:source "/notification/candidate-path-change/network-instances";
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+
+        container segment-routing {
+          dr:source "segment-routing";
+          dr:fieldnum 151;
+
+          uses oc-srte:oc-srte-policy-top {
+              augment "te-policies" {
+                dr:source "te-policies";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy" {
+                dr:source "te-policy";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/color" {
+                dr:source "color";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/endpoint" {
+                dr:source "endpoint";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths" {
+                dr:source "candidate-paths";
+                dr:fieldnum 152;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path" {
+                dr:source "candidate-path";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/protocol-origin" {
+                dr:source "protocol-origin";
+                dr:fieldnum 51;
+                dr:map PCEP { dr:map-from 10; }
+                dr:map BGP { dr:map-from 20; }
+                dr:map CONFIG { dr:map-from 30; }
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/originator-asn" {
+                dr:source "originator-asn";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/originator-addr" {
+                dr:source "originator-addr";
+                dr:fieldnum 53;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/discriminator" {
+                dr:source "discriminator";
+                dr:fieldnum 54;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state" {
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/protocol-origin" {
+                dr:source "protocol-origin";
+                dr:fieldnum 51;
+                dr:map PCEP { dr:map-from 10; }
+                dr:map BGP { dr:map-from 20; }
+                dr:map CONFIG { dr:map-from 30; }
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/originator-asn" {
+                dr:source "originator-asn";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/originator-addr" {
+                dr:source "originator-addr";
+                dr:fieldnum 53;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/discriminator" {
+                dr:source "discriminator";
+                dr:fieldnum 54;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/preference" {
+                dr:source "preference";
+                dr:fieldnum 55;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/enlp" {
+                dr:source "enlp";
+                dr:fieldnum 56;
+                dr:map PUSH_IPV4_EXPLICIT_NULL { dr:map-from 1; }
+                dr:map PUSH_IPV6_EXPLICIT_NULL { dr:map-from 2; }
+                dr:map PUSH_IPV46_EXPLICIT_NULL { dr:map-from 3; }
+                dr:map NO_EXPLICIT_NULL { dr:map-from 4; }
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/state/valid" {
+                dr:source "valid";
+                dr:fieldnum 57;
+              }
+            }
+          }
+        }
+     }
+  }
+
+notification oc-segment-list-change {
+    dr:source-notification-name "segment-list-change";
+    
+    container network-instances {
+      dr:source "/notification/segment-list-change/network-instances";
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+
+        container segment-routing {
+          dr:source "segment-routing";
+          dr:fieldnum 151;
+
+          uses oc-srte:oc-srte-policy-top {
+              augment "te-policies" {
+                dr:source "te-policies";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy" {
+                dr:source "te-policy";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/color" {
+                dr:source "color";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/endpoint" {
+                dr:source "endpoint";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths" {
+                dr:source "candidate-paths";
+                dr:fieldnum 152;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path" {
+                dr:source "candidate-path";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/protocol-origin" {
+                dr:source "protocol-origin";
+                dr:fieldnum 51;
+                dr:map PCEP { dr:map-from 10; }
+                dr:map BGP { dr:map-from 20; }
+                dr:map CONFIG { dr:map-from 30; }
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/originator-asn" {
+                dr:source "originator-asn";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/originator-addr" {
+                dr:source "originator-addr";
+                dr:fieldnum 53;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/discriminator" {
+                dr:source "discriminator";
+                dr:fieldnum 54;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists" {
+                dr:source "segment-lists";
+                dr:fieldnum 152;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list" {
+                dr:source "segment-list";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state" {
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/valid" {
+                dr:source "valid";
+                dr:fieldnum 52;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/invalid-reason" {
+                dr:source "invalid-reason";
+                dr:fieldnum 53;
+                dr:map EMPTY_SL { dr:map-from 1; }
+                dr:map ZERO_WEIGHT { dr:map-from 2; }
+                dr:map FIRST_SID_UNRESOLVABLE { dr:map-from 3; }
+                dr:map OTHER_SID_UNRESOLVABLE { dr:map-from 4; }
+                dr:map VERIFICATION_FAIL { dr:map-from 5; }
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/weight" {
+                dr:source "weight";
+                dr:fieldnum 54;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids" {
+                dr:source "sids";
+                dr:fieldnum 152;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid" {
+                dr:source "sid";
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/index" {
+                dr:source "index";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state" {
+                dr:fieldnum 151;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state/index" {
+                dr:source "index";
+                dr:fieldnum 51;
+              }
+              augment "te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/sids/sid/state/value" {
+                dr:source "value";
+                dr:fieldnum 52;
+                dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+                dr:map ROUTER_ALERT { dr:map-from 1; }
+                dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+                dr:map IMPLICIT_NULL { dr:map-from 3; }
+                dr:map NO_LABEL { dr:map-from 4294967295; }
+                dr:map * { dr:map-from *; }
+              } 
+            }
+          }
+        }
+     }
+  }
+}

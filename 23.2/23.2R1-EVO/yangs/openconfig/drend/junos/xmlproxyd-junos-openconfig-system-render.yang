@@ -1,0 +1,114 @@
+/*
+ * Render Tree definition for openconfig system
+ */
+
+module xmlproxyd-junos-openconfig-system-render {
+  yang-version 1;
+
+  namespace "http://yang.juniper.net/openconfig/system/render";
+
+  prefix "jnx-oc-system-rdr";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-aaa-types { prefix oc-aaa-types; }
+
+  dr:command-app "xmlproxyd";
+  dr:sub-component "system";
+  jnpr-proto:message-id "XMLPROXYD-JUNOS-OPENCONFIG-SYSTEM-RENDER-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/junos";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:cli-command "show configuration openconfig-system:system | display xml";
+    dr:command-help "default <get> rpc";
+    output {
+      container system {
+        dr:fieldnum 151;
+        container ssh-server {
+          dr:source "/system/ssh-server";
+          dr:fieldnum 153;
+          container state {
+            dr:source "config";
+            dr:fieldnum 151;
+            leaf rate-limit {
+              type uint16;
+              dr:source "rate-limit";
+              dr:fieldnum 54;
+            }
+            leaf session-limit {
+              type uint16;
+              dr:source "session-limit";
+              dr:fieldnum 55;
+            }
+          }
+        }
+        container telnet-server {
+          dr:source "/system/telnet-server";
+          dr:fieldnum 154;
+          container state {
+            dr:source "config";
+            dr:fieldnum 151;
+            leaf enable {
+              type boolean;
+              dr:source "enable";
+              dr:fieldnum 51;
+            }
+            leaf rate-limit {
+              type uint16;
+              dr:source "rate-limit";
+              dr:fieldnum 52;
+            }
+            leaf session-limit {
+              type uint16;
+              dr:source "session-limit";
+              dr:fieldnum 53;
+            }
+          }
+        }
+        container aaa {
+          dr:source "/system/aaa";
+          dr:fieldnum 156;
+          container accounting {
+            dr:source "accounting";
+            dr:fieldnum 152;
+            container state {
+              dr:source "config";
+              dr:fieldnum 151;
+            }
+            container events {
+              dr:source "events";
+              dr:fieldnum 152;
+              list event {
+                key event-type;
+                dr:source "event";
+                dr:fieldnum 151;
+                leaf event-type {
+                  type leafref {
+                    path "../state/event-type";
+                  }
+                  dr:source "event-type";
+                  dr:fieldnum 51;
+                }
+                container state {
+                  dr:source "config";
+                  dr:fieldnum 151;
+                  leaf event-type {
+                    type identityref {
+                      base oc-aaa-types:AAA_ACCOUNTING_EVENT_TYPE;
+                    }
+                    dr:source "event-type";
+                    dr:fieldnum 51;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

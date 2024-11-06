@@ -1,0 +1,66 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_mpls_sr_sid_egress_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-mpls-sr-sid-egress-oc";
+
+  prefix "mpls-sr-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-sr {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/aggregate-sid-counters" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state" {
+        dr:source "/junos/services/segment-routing/sid/egress/usage/";
+        dr:fieldnum 151;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-sr-sid-egress";
+  jnpr-proto:message-id "SR?STATS-SID-EGRESS-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses mpls-sr;
+    }
+  }
+}

@@ -1,0 +1,171 @@
+/**
+ * @copyright  Copyright Juniper Networks 2019. All rights reserved
+ * @file       picd_junos_state_interface_render.yang
+ * @author     Siddharth Agali
+ * @date       January, 2023
+ * @brief      picd - Native - Interface sensor data
+ */
+
+module picd_junos_state_interface_render {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/junos_state_interface_render";
+
+    prefix "junos_state_interface_render";
+
+    import drend {
+        prefix "dr";
+    }
+
+    //For UDP streaming
+    import jnpr-proto { prefix jnpr-proto; }
+    jnpr-proto:message-id "PICD-STATE-INTERFACE-MESSAGE-ID";
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    dr:command-app "picd";
+    dr:sub-component "junos_state_interfaces";
+
+    grouping ifd-group {
+        leaf "name" {
+            type string;
+            dr:source "name";
+            dr:fieldnum 1;
+        }
+    }
+
+    grouping ifd-fec-state {
+        leaf fec-mode {
+            type string;
+            dr:source "fec_mode";
+            dr:fieldnum 1;
+            dr:map NONE { dr:map-from 9; }
+            dr:map FEC74 { dr:map-from 2; }
+            dr:map FEC91 { dr:map-from 1; }
+            dr:map FEC91_RS544 { dr:map-from 6; }
+            dr:map FEC119 { dr:map-from 4; }
+            dr:map FEC134 { dr:map-from 5; }
+            dr:map FEC94 { dr:map-from 3; }
+            dr:map FECKP4 { dr:map-from 7; }
+            dr:map FEC161 { dr:map-from 10; }
+            dr:map FEC_AUTO { dr:map-from 8; }
+        }
+        leaf fec-codeword-size {
+            type uint16;
+            dr:source "fec_codeword_size";
+            dr:fieldnum 2;
+        }
+        leaf fec-codeword-rate {
+            type decimal64 { fraction-digits 3; }
+            dr:source "fec_codeword_rate";
+            dr:fieldnum 3;
+        }
+    }
+    grouping ifd-fec-counters {
+        leaf in-pcs-errored-seconds{
+            type uint64;
+            dr:source "in_pcs_errored_seconds";
+            dr:fieldnum 1;
+        }
+        leaf fec-corrected-words {
+            type uint64;
+            dr:source "fec_corrected_words";
+            dr:fieldnum 2;
+        }
+        leaf fec-uncorrectable-words {
+            type uint64;
+            dr:source "fec_uncorrectable_words";
+            dr:fieldnum 3;
+        }
+    }
+
+    rpc  juniper-netconf-get {
+        output {
+            container state {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                container interfaces {
+                    dr:fieldnum 1;
+                    list interface {
+                        dr:atomic-data;
+                        dr:source "intf-interface-info";
+                        dr:fieldnum 1;
+                        uses ifd-group;
+                        key name;
+                        list ethernet {
+                            dr:source "interface-state";
+                            dr:fieldnum 151;
+                            uses ifd-fec-state;
+                            list counters {
+                                dr:zero-suppressed;
+                                dr:source "fec-counters";
+                                dr:fieldnum 151;
+                                uses ifd-fec-counters;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    rpc  juniper-telemetry-get {
+        output {
+            container state {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                container interfaces {
+                    dr:fieldnum 1;
+                    list interface {
+                        dr:atomic-data;
+                        dr:source "intf-interface-info";
+                        dr:fieldnum 1;
+                        uses ifd-group;
+                        key name;
+                        list ethernet {
+                            dr:source "interface-state";
+                            dr:fieldnum 151;
+                            uses ifd-fec-state;
+                            list counters {
+                                dr:zero-suppressed;
+                                dr:source "fec-counters";
+                                dr:fieldnum 151;
+                                uses ifd-fec-counters;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification state-interface-ethernet {
+        dr:source-notification-name "state-interfaces";
+
+        container state {
+            dr:source "/notification/state-interfaces/interfaces";
+            dr:fieldnum 1;
+            container interfaces {
+                dr:fieldnum 1;
+                list interface {
+                    dr:source "interface";
+                    dr:fieldnum 1;
+                    key name;
+                    uses ifd-group;
+                    container ethernet {
+                        dr:source "ethernet";
+                        dr:fieldnum 151;
+                        uses ifd-fec-state;
+                    }
+                }
+            }
+        }
+    }
+
+}
+

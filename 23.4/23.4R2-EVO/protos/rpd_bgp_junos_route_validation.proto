@@ -1,0 +1,103 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_bgp_rv_291 jnpr_state_bgp_rv_291_ext = 291;
+}
+
+message state_bgp_rv_291 {
+   optional routing_instances_type routing_instances = 150;
+   message routing_instances_type {
+      message routing_instance_list {
+         optional string name = 50 [(telemetry_options).is_key = true];
+         optional routing_options_type routing_options = 150;
+         message routing_options_type {
+            optional route_validation_type route_validation = 150;
+            message route_validation_type {
+               optional rpki_rtr_type rpki_rtr = 151;
+               message rpki_rtr_type {
+                  optional groups_type groups = 151;
+                  message groups_type {
+                     message group_list {
+                        optional string name = 50 [(telemetry_options).is_key = true];
+                        optional sessions_type sessions = 151;
+                        message sessions_type {
+                           message session_list {
+                              optional string peer_ip = 50 [(telemetry_options).is_key = true];
+                              optional uint32 session_id = 51;
+                              optional uint32 version = 52;
+                              optional string session_state = 53;
+                              optional uint32 refresh_time = 54;
+                              optional uint32 hold_time = 55;
+                              optional uint32 record_lifetime = 56;
+                              optional uint32 serial_full = 57;
+                              optional uint32 serial_incremental = 58;
+                              optional uint64 last_session_up_down = 63;
+                              optional uint64 last_update = 59;
+                              optional uint64 last_eod_received = 60;
+                              optional uint64 last_sent_serial_query = 61;
+                              optional uint64 last_sent_reset_query = 62;
+                              optional rpki_session_counters_type rpki_session_counters = 151;
+                              message rpki_session_counters_type {
+                                 optional uint32 flaps = 50;
+                                 optional uint64 total_records = 51;
+                                 optional ipv4_validation_record_counters_type ipv4_validation_record_counters = 151;
+                                 message ipv4_validation_record_counters_type {
+                                    optional uint32 total_records = 50;
+                                 }
+                                 optional ipv6_validation_record_counters_type ipv6_validation_record_counters = 152;
+                                 message ipv6_validation_record_counters_type {
+                                    optional uint32 total_records = 50;
+                                 }
+                              }
+                           }
+                           repeated session_list session = 151;
+                        }
+                     }
+                     repeated group_list group = 151;
+                  }
+               }
+               optional route_validation_databases_type route_validation_databases = 152;
+               message route_validation_databases_type {
+                  message route_validation_database_list {
+                     optional string name = 50 [(telemetry_options).is_key = true];
+                     message record_set_list {
+                        optional string validation_type = 50 [(telemetry_options).is_key = true];
+                        optional string source = 51;
+                        message record_list {
+                           optional string ip_prefix = 50;
+                           optional uint32 mask_length_lower = 51;
+                           optional uint32 mask_length_upper = 52;
+                           optional string attribute_value = 53;
+                        }
+                        repeated record_list record = 152;
+                     }
+                     repeated record_set_list record_set = 152;
+                     optional ipv4_type ipv4 = 153;
+                     message ipv4_type {
+                        optional uint32 total_records = 50;
+                        optional counters_type counters = 153;
+                        message counters_type {
+                           optional uint64 records_added = 50;
+                           optional uint64 records_deleted = 51;
+                        }
+                     }
+                     optional ipv6_type ipv6 = 154;
+                     message ipv6_type {
+                        optional uint32 total_records = 50;
+                        optional counters_type counters = 154;
+                        message counters_type {
+                           optional uint64 records_added = 50;
+                           optional uint64 records_deleted = 51;
+                        }
+                     }
+                  }
+                  repeated route_validation_database_list route_validation_database = 152;
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

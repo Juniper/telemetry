@@ -1,0 +1,509 @@
+/*
+ * OC definition for smd queue debug
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-smgd_smd_queue_stats_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/bbe-smgd-smd-queue-stats-oc";
+
+    prefix "bbe-smgd-smd-queue-stats-oc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon socket that handles this hierarchy
+     */
+    dr:command-app "smg-service";
+    dr:sub-component "queue-stats";
+    jnpr-proto:message-id "BBE-SMGD-SMD-QUEUE-STATS-OC-MESSAGE-ID";
+
+    grouping smd-queue-debug-group {
+         leaf io-to-smd-dvlan-q-count {
+             type uint32;
+             dr:source io_to_smd_dvlan_q_count;
+             dr:fieldnum 51;
+         }
+         leaf io-to-smd-dvlan-max-q-count {
+             type uint32;
+             dr:source io_to_smd_dvlan_max_q_count;
+             dr:fieldnum 52;
+         }
+         leaf io-to-smd-padi-q-cnt {
+            type uint32;
+            dr:source io_to_smd_padi_q_cnt;
+            dr:fieldnum 53;
+         }
+         leaf io-to-smd-padi-q-cnt-peak {
+            type uint32;
+            dr:source io_to_smd_padi_q_cnt_peak;
+            dr:fieldnum 54;
+         }
+         leaf io-to-smd-discover-q-cnt {
+            type uint32;
+            dr:source io_to_smd_discover_q_cnt;
+            dr:fieldnum 55;
+         }
+         leaf io-to-smd-discover-q-cnt-peak {
+            type uint32;
+            dr:source io_to_smd_discover_q_cnt_peak;
+            dr:fieldnum 56;
+         }
+         leaf io-to-smd-solicit-q-cnt {
+            type uint32;
+            dr:source io_to_smd_solicit_q_cnt;
+            dr:fieldnum 57;
+         }
+         leaf io-to-smd-solicit-q-cnt-peak {
+            type uint32;
+            dr:source io_to_smd_solicit_q_cnt_peak;
+            dr:fieldnum 58;
+         }
+         leaf io-to-smd-dhcp-q-cnt {
+            type uint32;
+            dr:source io_to_smd_dhcp_q_cnt;
+            dr:fieldnum 59;
+         }
+         leaf io-to-smd-dhcp-q-cnt-peak {
+            type uint32;
+            dr:source io_to_smd_dhcp_q_cnt_peak;
+            dr:fieldnum 60;
+         }
+         leaf io-to-smd-hag-q-cnt {
+            type uint32;
+            description
+                 "Hybrid-Access number of initial setup requests queued from IO thread";
+            dr:source io_to_smd_hag_q_cnt;
+            dr:fieldnum 61;
+         }
+         leaf io-to-smd-hag-q-cnt-peak {
+            type uint32;
+            description
+                 "Hybrid-Access maximum number of initial setup requests queued from IO thread";
+            dr:source io_to_smd_hag_q_cnt_peak;
+            dr:fieldnum 62;
+         }
+         leaf io-to-smd-total-q-cnt {
+            type uint32;
+            dr:source io_to_smd_total_q_cnt;
+            dr:fieldnum 63;
+         }
+         leaf io-to-smd-total-q-cnt-peak {
+            type uint32;
+            dr:source io_to_smd_total_q_cnt_peak;
+            dr:fieldnum 64;
+         }
+
+
+         leaf smd-dvlan-q-count {
+             type uint32;
+             dr:source smd_dvlan_q_count;
+             dr:fieldnum 65;
+         }
+         leaf smd-dvlan-max-q-count {
+             type uint32;
+             dr:source smd_dvlan_max_q_count;
+             dr:fieldnum 66;
+         }
+         leaf smd-padi-q-cnt {
+            type uint32;
+            dr:source smd_padi_q_cnt;
+            dr:fieldnum 67;
+         }
+         leaf smd-padi-q-cnt-peak {
+            type uint32;
+            dr:source smd_padi_q_cnt_peak;
+            dr:fieldnum 68;
+         }
+         leaf smd-discover-q-cnt {
+            type uint32;
+            dr:source smd_discover_q_cnt;
+            dr:fieldnum 69;
+         }
+         leaf smd-discover-q-cnt-peak {
+            type uint32;
+            dr:source smd_discover_q_cnt_peak;
+            dr:fieldnum 70;
+         }
+         leaf smd-solicit-q-cnt {
+            type uint32;
+            dr:source smd_solicit_q_cnt;
+            dr:fieldnum 71;
+         }
+         leaf smd-solicit-q-cnt-peak {
+            type uint32;
+            dr:source smd_solicit_q_cnt_peak;
+            dr:fieldnum 72;
+         }
+         leaf smd-dhcp-q-cnt {
+            type uint32;
+            dr:source smd_dhcp_q_cnt;
+            dr:fieldnum 73;
+         }
+         leaf smd-dhcp-q-cnt-peak {
+            type uint32;
+            dr:source smd_dhcp_q_cnt_peak;
+            dr:fieldnum 74;
+         }
+         leaf smd-hag-q-cnt {
+            type uint32;
+            description
+                 "Hybrid-Access number of initial setup requests queued from SMD";
+            dr:source smd_hag_q_cnt;
+            dr:fieldnum 75;
+         }
+         leaf smd-hag-q-cnt-peak {
+            type uint32;
+            description
+                 "Hybrid-Access maximum number of initial setup requests queued from SMD";
+            dr:source smd_hag_q_cnt_peak;
+            dr:fieldnum 76;
+         }
+         leaf smd-total-q-cnt {
+            type uint32;
+            dr:source smd_total_q_cnt;
+            dr:fieldnum 77;
+         }
+         leaf smd-total-q-cnt-peak {
+            type uint32;
+            dr:source smd_total_q_cnt_peak;
+            dr:fieldnum 78;
+         }
+
+
+         leaf smd-notification-queue-cnt {
+            type uint32;
+            dr:source smd_notification_queue_cnt;
+            dr:fieldnum 79;
+         }
+         leaf smd-notification-queue-cnt-peak {
+            type uint32;
+            dr:source smd_notification_queue_cnt_peak;
+            dr:fieldnum 80;
+         }
+         leaf smd-message-queue-cnt {
+            type uint32;
+            dr:source smd_message_queue_cnt;
+            dr:fieldnum 81;
+         }
+         leaf smd-message-queue-cnt-peak {
+            type uint32;
+            dr:source smd_message_queue_cnt_peak;
+            dr:fieldnum 82;
+         }
+         leaf smd-packet-queue-cnt {
+            type uint32;
+            dr:source smd_packet_queue_cnt;
+            dr:fieldnum 83;
+         }
+         leaf smd-packet-queue-cnt-peak {
+            type uint32;
+            dr:source smd_packet_queue_cnt_peak;
+            dr:fieldnum 84;
+         }
+         leaf smd-packet-low-queue-cnt {
+            type uint32;
+            dr:source smd_packet_low_queue_cnt;
+            dr:fieldnum 85;
+         }
+         leaf smd-packet-low-queue-cnt-peak {
+            type uint32;
+            dr:source smd_packet_low_queue_cnt_peak;
+            dr:fieldnum 86;
+         }
+
+
+         leaf io-pkt-count-low {
+             type uint64;
+            dr:source io_pkt_count_low;
+            dr:fieldnum 87;
+         }
+         leaf io-pkt-count-mlow {
+            type uint64;
+            dr:source io_pkt_count_mlow;
+            dr:fieldnum 88;
+         }
+         leaf io-pkt-count-med {
+            type uint64;
+            dr:source io_pkt_count_med;
+            dr:fieldnum 89;
+         }
+         leaf io-pkt-count-high {
+            type uint64;
+            dr:source io_pkt_count_high;
+            dr:fieldnum 90;
+         }
+         leaf io-packets-dropped-low {
+            type uint64;
+            dr:source io_packets_dropped_low;
+            dr:fieldnum 91;
+         }
+         leaf io-packets-dropped-mlow {
+            type uint64;
+            dr:source io_packets_dropped_mlow;
+            dr:fieldnum 92;
+         }
+         leaf io-packets-dropped-med {
+            type uint64;
+            dr:source io_packets_dropped_med;
+            dr:fieldnum 93;
+         }
+         leaf io-packets-dropped-high {
+            type uint64;
+            dr:source io_packets_dropped_high;
+            dr:fieldnum 94;
+         }
+         leaf io-packets-dropped-padi-qlen {
+            type uint64;
+            dr:source io_packets_dropped_padi_qlen;
+            dr:fieldnum 95;
+         }
+         leaf io-packets-dropped-padi-imbalance {
+            type uint64;
+            dr:source io_packets_dropped_padi_imbalance;
+            dr:fieldnum 96;
+         }
+         leaf io-packets-dropped-discover-qlen {
+            type uint64;
+            dr:source io_packets_dropped_discover_qlen;
+            dr:fieldnum 97;
+         }
+         leaf io-packets-dropped-discover-imbalance {
+            type uint64;
+            dr:source io_packets_dropped_discover_imbalance;
+            dr:fieldnum 98;
+         }
+         leaf io-packets-dropped-solicit-qlen {
+            type uint64;
+            dr:source io_packets_dropped_solicit_qlen;
+            dr:fieldnum 99;
+         }
+         leaf io-packets-dropped-solicit-imbalance {
+            type uint64;
+            dr:source io_packets_dropped_solicit_imbalance;
+            dr:fieldnum 100;
+         }
+         leaf io-packets-dropped-dvlan-qlen {
+            type uint64;
+            dr:source io_packets_dropped_dvlan_qlen;
+            dr:fieldnum 101;
+         }
+         leaf io-packets-dropped-dvlan-imbalance {
+            type uint64;
+            dr:source io_packets_dropped_dvlan_imbalance;
+            dr:fieldnum 102;
+         }
+         leaf io-packets-dropped-hag-qlen {
+            type uint64;
+            description
+                 "Hybrid-Access number of initial setup request packets dropped";
+            dr:source io_packets_dropped_hag_qlen;
+            dr:fieldnum 103;
+         }
+         leaf io-packets-dropped-hag-imbalance {
+            type uint64;
+            description
+                 "Hybrid-Access number of initial setup request packets dropped due to imbalance";
+            dr:source io_packets_dropped_hag_imbalance;
+            dr:fieldnum 104;
+         }
+
+         leaf max-allowed-in-flight-current {
+            type uint32;
+            dr:source max_allowed_in_flight_current;
+            dr:fieldnum 105;
+         }
+         leaf max-allowed-in-flight-actual {
+            type uint32;
+            dr:source max_allowed_in_flight_actual;
+            dr:fieldnum 106;
+         }
+         leaf max-allowed-in-flight-current-absolute {
+            type uint32;
+            dr:source max_allowed_in_flight_current_absolute;
+            dr:fieldnum 107;
+         }
+         leaf max-allowed-in-flight-max-ever-absolute {
+            type uint32;
+            dr:source max_allowed_in_flight_max_ever_absolute;
+            dr:fieldnum 108;
+         }
+         leaf min-allowed-in-flight {
+            type uint32;
+            dr:source min_allowed_in_flight;
+            dr:fieldnum 109;
+         }
+         leaf max-low-pri-pkt-to-enqueue {
+            type uint32;
+            dr:source max_low_pri_pkt_to_enqueue;
+            dr:fieldnum 110;
+         }
+
+         leaf in-flight-dvlan {
+            type uint32;
+            dr:source in_flight_dvlan;
+            dr:fieldnum 111;
+         }
+         leaf in-flight-dvlan-peak {
+            type uint32;
+            dr:source in_flight_dvlan_peak;
+            dr:fieldnum 112;
+         }
+         leaf in-flight-dhcp {
+            type uint32;
+            dr:source in_flight_dhcp;
+            dr:fieldnum 113;
+         }
+         leaf in-flight-dhcp-peak {
+            type uint32;
+            dr:source in_flight_dhcp_peak;
+            dr:fieldnum 114;
+         }
+         leaf in-flight-ppp {
+            type uint32;
+            dr:source in_flight_ppp;
+            dr:fieldnum 115;
+         }
+         leaf in-flight-ppp-peak {
+            type uint32;
+            dr:source in_flight_ppp_peak;
+            dr:fieldnum 116;
+         }
+         leaf in-flight-hag {
+            type uint32;
+            description
+                 "Hybrid-Access current number of current sessions inflight";
+            dr:source in_flight_hag;
+            dr:fieldnum 117;
+         }
+         leaf in-flight-hag-peak {
+            type uint32;
+            description
+                 "Hybrid-Access maximum number of sessions inflight";
+            dr:source in_flight_hag_peak;
+            dr:fieldnum 118;
+         }
+         leaf in-flight-total {
+            type uint32;
+            dr:source in_flight_total;
+            dr:fieldnum 119;
+         }
+         leaf in-flight-total-peak {
+            type uint32;
+            dr:source in_flight_total_peak;
+            dr:fieldnum 120;
+         }
+         leaf in-nego-dvlan {
+            type uint32;
+            dr:source in_nego_dvlan;
+            dr:fieldnum 121;
+         }
+         leaf in-nego-dvlan-peak {
+            type uint32;
+            dr:source in_nego_dvlan_peak;
+            dr:fieldnum 122;
+         }
+         leaf in-nego-dhcp {
+            type uint32;
+            dr:source in_nego_dhcp;
+            dr:fieldnum 123;
+         }
+         leaf in-nego-dhcp-peak {
+            type uint32;
+            dr:source in_nego_dhcp_peak;
+            dr:fieldnum 124;
+         }
+         leaf in-nego-ppp {
+            type uint32;
+            dr:source in_nego_ppp;
+            dr:fieldnum 125;
+         }
+         leaf in-nego-ppp-peak {
+            type uint32;
+            dr:source in_nego_ppp_peak;
+            dr:fieldnum 126;
+         }
+         leaf in-nego-hag {
+            type uint32;
+            description
+                 "Hybrid-Access current number of sessions in negotiation";
+            dr:source in_nego_hag;
+            dr:fieldnum 127;
+         }
+         leaf in-nego-hag-peak {
+            type uint32;
+            description
+                 "Hybrid-Access maximum number of sessions in negotiation";
+            dr:source in_nego_hag_peak;
+            dr:fieldnum 128;
+         }
+         leaf in-nego-total {
+            type uint32;
+            dr:source in_nego_total;
+            dr:fieldnum 129;
+         }
+         leaf in-nego-total-peak {
+            type uint32;
+            dr:source in_nego_total_peak;
+            dr:fieldnum 130;
+         }
+         leaf in-nego-overrides {
+            type uint32;
+            dr:source in_nego_overrides;
+            dr:fieldnum 131;
+         }
+
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-smd-era-queue-debug-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container debug {
+                container system {
+	               dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container uplanes {
+                            dr:source "/debug/system/subscriber-management/uplanes";
+                            dr:fieldnum 151;
+                            list uplane {
+                                dr:source "uplane";
+                                dr:fieldnum 151;
+                                key uplane-id;
+                                leaf uplane-id {
+                                    description
+                                        "user plane identification number";
+                                    type uint32;
+                                    dr:source "uplane_id";
+                                    dr:fieldnum 51;
+                                }
+                                container infra {
+                                    dr:source "infra";
+                                    dr:fieldnum 151;
+                                    container era {
+                                        dr:source "era";
+                                        dr:fieldnum 151;
+                                        uses smd-queue-debug-group;
+                                   }
+                                }
+                            }
+                       }
+                   }
+               }
+           }
+       }
+    }
+}

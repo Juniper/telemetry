@@ -1,0 +1,73 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_optics_oc jnpr_interfaces_optics_oc_ext = 10;
+}
+
+message interfaces_optics_oc {
+   message interface_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional uint64 init_time = 2;
+      message optics_list {
+         optional uint32 optics_type = 1;
+         optional double module_temp = 2;
+         optional double module_temp_high_alarm_threshold = 3;
+         optional double module_temp_low_alarm_threshold = 4;
+         optional double module_temp_high_warning_threshold = 5;
+         optional double module_temp_low_warning_threshold = 6;
+         optional double laser_output_power_high_alarm_threshold_dbm = 7;
+         optional double laser_output_power_low_alarm_threshold_dbm = 8;
+         optional double laser_output_power_high_warning_threshold_dbm = 9;
+         optional double laser_output_power_low_warning_threshold_dbm = 10;
+         optional double laser_rx_power_high_alarm_threshold_dbm = 11;
+         optional double laser_rx_power_low_alarm_threshold_dbm = 12;
+         optional double laser_rx_power_high_warning_threshold_dbm = 13;
+         optional double laser_rx_power_low_warning_threshold_dbm = 14;
+         optional double laser_bias_current_high_alarm_threshold = 15;
+         optional double laser_bias_current_low_alarm_threshold = 16;
+         optional double laser_bias_current_high_warning_threshold = 17;
+         optional double laser_bias_current_low_warning_threshold = 18;
+         optional bool module_temp_high_alarm = 19;
+         optional bool module_temp_low_alarm = 20;
+         optional bool module_temp_high_warning = 21;
+         optional bool module_temp_low_warning = 22;
+         optional string wavelength_channel = 73;
+         optional string wavelength_setpoint = 74;
+         optional string tx_dither = 75;
+         optional string frequency_error = 76;
+         optional string wavelength_error = 77;
+         optional string tec_fault = 78;
+         optional string w_unlocked_alarm = 79;
+         optional string tx_tune_alarm = 80;
+         message lane_list {
+            optional int32 lane_number = 1 [(telemetry_options).is_key = true];
+            optional double lane_laser_temperature = 2;
+            optional double lane_laser_output_power_dbm = 3;
+            optional double lane_laser_receiver_power_dbm = 4;
+            optional double lane_laser_bias_current = 5;
+            optional bool lane_laser_output_power_high_alarm = 6;
+            optional bool lane_laser_output_power_low_alarm = 7;
+            optional bool lane_laser_output_power_high_warning = 8;
+            optional bool lane_laser_output_power_low_warning = 9;
+            optional bool lane_laser_receiver_power_high_alarm = 10;
+            optional bool lane_laser_receiver_power_low_alarm = 11;
+            optional bool lane_laser_receiver_power_high_warning = 12;
+            optional bool lane_laser_receiver_power_low_warning = 13;
+            optional bool lane_laser_bias_current_high_alarm = 14;
+            optional bool lane_laser_bias_current_low_alarm = 15;
+            optional bool lane_laser_bias_current_high_warning = 16;
+            optional bool lane_laser_bias_current_low_warning = 17;
+            optional bool lane_tx_loss_of_signal_alarm = 18;
+            optional bool lane_rx_loss_of_signal_alarm = 19;
+            optional bool lane_tx_laser_disabled_alarm = 20;
+            optional uint64 media_fec_corr_bits = 67;
+            optional uint64 media_fec_uncorr_blocks = 68;
+         }
+         repeated lane_list lane = 25;
+      }
+      repeated optics_list optics = 3;
+   }
+   repeated interface_list interface = 1;
+}

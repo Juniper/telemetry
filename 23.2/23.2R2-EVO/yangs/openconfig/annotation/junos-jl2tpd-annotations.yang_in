@@ -1,0 +1,23 @@
+module junos-jl2tpd-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/jl2tpd/annotations";
+    prefix "junos-jl2tpd-ann";
+    import junos-jl2tpd { prefix junos-jl2tpd; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add native jl2tpd model product support information";
+    }
+
+    augment "/junos-jl2tpd:junos/junos-jl2tpd:system/junos-jl2tpd:subscriber-management/" +
+            "junos-jl2tpd:client-protocols/junos-jl2tpd:l2tp" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+        JUNOS_PRODUCT(cbng);
+    }
+}
+

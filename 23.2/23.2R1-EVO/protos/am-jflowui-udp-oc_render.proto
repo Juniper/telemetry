@@ -1,0 +1,108 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional inline_jflow_stats jnpr_inline_jflow_stats_ext = 9;
+}
+
+message inline_jflow_stats {
+   optional string ipv4_flows_export_format = 2;
+   optional string ipv6_flows_export_format = 3;
+   optional string vpls_flows_export_format = 4;
+   optional string mpls_flows_export_format = 5;
+   optional string bridge_flows_export_format = 23;
+   optional uint32 ipv4_route_record_cnt = 6;
+   optional uint32 ipv6_route_record_cnt = 7;
+   optional uint32 mpls_route_record_cnt = 8;
+   optional uint32 autonomous_system_record_cnt = 9;
+   optional uint64 ipv4_max_flows_count = 10;
+   optional uint64 ipv6_max_flows_count = 11;
+   optional uint64 vpls_max_flows_count = 12;
+   optional uint64 mpls_max_flows_count = 13;
+   optional uint64 bridge_max_flows_count = 24;
+   optional uint32 memory_alloc_fail_cnt = 14;
+   optional uint32 ipv4_configured_observation_domain_id = 15;
+   optional uint32 ipv6_configured_observation_domain_id = 16;
+   optional uint32 vpls_configured_observation_domain_id = 17;
+   optional uint32 mpls_configured_observation_domain_id = 18;
+   optional uint32 bridge_configured_observation_domain_id = 25;
+   optional uint32 last_clear_timestamp = 19;
+   optional bool ipv6_extended_attribute = 20;
+   optional bool flexible_flow_sizing = 21;
+   optional bool use_extended_flow_memory = 22;
+   message npu_stats_list {
+      optional uint32 npu_identifier = 1;
+      optional uint64 ipv4_flow_packets = 51;
+      optional uint64 ipv4_flow_bytes = 52;
+      optional uint64 ipv4_total_flows = 53;
+      optional uint64 ipv4_active_flows = 54;
+      optional uint64 ipv4_flows_exported = 55;
+      optional uint64 ipv4_packets_exported = 56;
+      optional uint64 ipv4_flows_inactive_timed_out = 57;
+      optional uint64 ipv4_flows_active_timed_out = 58;
+      optional uint64 ipv4_flow_create_failure = 59;
+      optional uint64 ipv4_route_lookup_failure = 60;
+      optional uint64 ipv4_autonomous_system_lookup_failure = 61;
+      optional uint64 ipv4_flow_packet_export_failure = 62;
+      optional float ipv4_flow_table_utilization = 63;
+      optional uint64 ipv4_flow_insert_count = 64;
+      optional uint64 ipv6_flow_packets = 101;
+      optional uint64 ipv6_flow_bytes = 102;
+      optional uint64 ipv6_total_flows = 103;
+      optional uint64 ipv6_active_flows = 104;
+      optional uint64 ipv6_flows_exported = 105;
+      optional uint64 ipv6_packets_exported = 106;
+      optional uint64 ipv6_flows_inactive_timed_out = 107;
+      optional uint64 ipv6_flows_active_timed_out = 108;
+      optional uint64 ipv6_flow_create_failure = 109;
+      optional uint64 ipv6_route_lookup_failure = 110;
+      optional uint64 ipv6_autonomous_system_lookup_failure = 111;
+      optional uint64 ipv6_flow_packet_export_failure = 112;
+      optional float ipv6_flow_table_utilization = 113;
+      optional uint64 ipv6_flow_insert_count = 114;
+      optional uint64 vpls_flow_packets = 151;
+      optional uint64 vpls_flow_bytes = 152;
+      optional uint64 vpls_total_flows = 153;
+      optional uint64 vpls_active_flows = 154;
+      optional uint64 vpls_flows_exported = 155;
+      optional uint64 vpls_packets_exported = 156;
+      optional uint64 vpls_flows_inactive_timed_out = 157;
+      optional uint64 vpls_flows_active_timed_out = 158;
+      optional uint64 vpls_flow_create_failure = 159;
+      optional uint64 vpls_route_lookup_failure = 160;
+      optional uint64 vpls_autonomous_system_lookup_failure = 161;
+      optional uint64 vpls_flow_packet_export_failure = 162;
+      optional float vpls_flow_table_utilization = 163;
+      optional uint64 vpls_flow_insert_count = 164;
+      optional uint64 mpls_flow_packets = 201;
+      optional uint64 mpls_flow_bytes = 202;
+      optional uint64 mpls_total_flows = 203;
+      optional uint64 mpls_active_flows = 204;
+      optional uint64 mpls_flows_exported = 205;
+      optional uint64 mpls_packets_exported = 206;
+      optional uint64 mpls_flows_inactive_timed_out = 207;
+      optional uint64 mpls_flows_active_timed_out = 208;
+      optional uint64 mpls_flow_create_failure = 209;
+      optional uint64 mpls_route_lookup_failure = 210;
+      optional uint64 mpls_autonomous_system_lookup_failure = 211;
+      optional uint64 mpls_flow_packet_export_failure = 212;
+      optional float mpls_flow_table_utilization = 213;
+      optional uint64 mpls_flow_insert_count = 214;
+      optional uint64 bridge_flow_packets = 251;
+      optional uint64 bridge_flow_bytes = 252;
+      optional uint64 bridge_total_flows = 253;
+      optional uint64 bridge_active_flows = 254;
+      optional uint64 bridge_flows_exported = 255;
+      optional uint64 bridge_packets_exported = 256;
+      optional uint64 bridge_flows_inactive_timed_out = 257;
+      optional uint64 bridge_flows_active_timed_out = 258;
+      optional uint64 bridge_flow_create_failure = 259;
+      optional uint64 bridge_route_lookup_failure = 260;
+      optional uint64 bridge_autonomous_system_lookup_failure = 261;
+      optional uint64 bridge_flow_packet_export_failure = 262;
+      optional float bridge_flow_table_utilization = 263;
+      optional uint64 bridge_flow_insert_count = 264;
+   }
+   repeated npu_stats_list npu_stats = 50;
+}

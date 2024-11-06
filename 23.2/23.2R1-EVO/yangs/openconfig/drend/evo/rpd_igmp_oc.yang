@@ -1,0 +1,139 @@
+module rpd_igmp_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/igmp_oc_render";
+
+  prefix "igmp_oc";
+
+  import drend {
+    prefix "dr";
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-igmp { prefix oc-igmp; }
+
+  description "
+    Rendering Junos IGMP State in OpenConfig IGMP Schema terms
+  ";
+
+  dr:command-app "rpd";
+  dr:sub-component "IGMP";
+  jnpr-proto:message-id "RPD-IGMP-OC-MESSAGE-ID";
+
+  grouping rend-network-instance-top {
+    uses oc-igmp:igmp-interface-top {
+      augment "interfaces" {
+      dr:source "interfaces";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/query-expires" {
+	dr:source "query-expires";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/state/interface-id" {
+	dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state/version" {
+	dr:source "version";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/state/query-interval" {
+	dr:source "query-interval";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/state/enabled" {
+	dr:source "enabled";
+        dr:fieldnum 56;
+      }
+      augment "interfaces/interface/membership-groups" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/membership-groups/group" {
+	dr:source "membership-groups/group";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/membership-groups/group/group" {
+	dr:source "group";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/membership-groups/group/state" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/membership-groups/group/state/group" {
+	dr:source "group";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/membership-groups/group/state/source" {
+	dr:source "source";
+        dr:fieldnum 58;
+      }
+      augment "interfaces/interface/membership-groups/group/state/reporter" {
+	dr:source "reporter";
+        dr:fieldnum 59;
+      }
+    }
+  }
+
+  grouping protocol-group {
+    leaf identifier {
+      type string;
+      dr:source "identifier";
+      dr:fieldnum 51;
+    }
+    leaf name {
+      type string;
+      dr:source "protocol_instance_name";
+      dr:fieldnum 52;
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-igmp-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+         list network-instance {
+           key "name";
+           dr:source "/rt-instances/rt-instance";
+           dr:fieldnum 151;
+
+           leaf name {
+             type string;
+             dr:source "instance_name";
+             dr:fieldnum 51;
+           }
+
+           container protocols {
+             dr:fieldnum 151;
+             dr:source "protocols";
+             list protocol {
+               dr:source "protocol";
+               dr:fieldnum 151;
+               key "identifier name";
+	       uses protocol-group;
+               container igmp {
+		 dr:source "igmp";
+                 dr:fieldnum 151;
+                 uses rend-network-instance-top;
+               }
+             }
+           }
+         }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_ps_lookup_drop_218 jnpr_components_cda_ps_lookup_drop_218_ext = 218;
+}
+
+message components_cda_ps_lookup_drop_218 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional drop_type drop = 151;
+            message drop_type {
+               optional lookup_block_type lookup_block = 151;
+               message lookup_block_type {
+                  message state_list {
+                     optional uint64 no_route = 51;
+                     optional uint64 no_label = 52;
+                     optional uint64 no_nexthop = 53;
+                     optional uint64 invalid_packet = 54;
+                     optional uint64 forwarding_policy = 55;
+                     optional uint64 incorrect_software_state = 56;
+                     optional uint64 rate_limit = 57;
+                     optional uint64 fragment_total_drops = 58;
+                     optional uint64 lookup_aggregate = 59;
+                     optional uint64 acl_drops = 60;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

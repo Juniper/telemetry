@@ -1,0 +1,15 @@
+module jnx-tel-RE-rsvp-interface-annotations {
+    yang-version 1;
+    namespace "http://yang.juniper.net/openconfig/jnx-tel-RE-rsvp-interface/annotations";
+    prefix "jnx-tel-rsvp-intf-ann";
+    import jnx-tel-top { prefix jnx-tel-top; }
+    import jnx-tel-RE-rsvp-interface { prefix jnx-tel-rsvp-intf; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-12-07" {
+        description "Initial version to add internal RSVP Interfaces model product support information";
+    }
+    augment "/jnx-tel-top:junos/jnx-tel-rsvp-intf:rsvp-interface-information" {
+        junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008 mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr pvi-model ex9204 ex9208 ex9214 ex9251 ex9253 vqfx-10000 qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm QFX7100-48L qfx5100-24q-2pf qfx5100-48s-6qf qfx5100-48t-6qf qfx5100-24q-2pi srx5800 srx5600 srx5400 vsrx srxtvp ex2200-c-12p-2g ex2200-c-12t-2g ex2200-24p-4g ex2200-24t-4g ex2200-24p-4g ex2200-24t-4g ex2200-48p-4g ex2200-48t-4g ex2200-24t-dc-4g ex3200-24t ex3200-24p ex3200-48t ex3200-48p ex4200-24f ex4200-24t ex4200-24p ex4200-48t ex4200-48p ex4200-48px ex4200-24px ex4500-40f ex4550-32f ex4550-32t ex3300-24t ex3300-24p ex3300-48p ex3300-48t ex3300-24t-dc ex3300-48t-bf ex8208 ex8216 ex6210 ex-xre crpd cbng cmgd acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 ACX7024";
+    }
+}

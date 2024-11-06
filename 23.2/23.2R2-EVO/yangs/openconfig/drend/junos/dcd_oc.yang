@@ -1,0 +1,204 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module dcd_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/dcd";
+
+  prefix "dcd-oc";
+
+  import openconfig-interfaces { prefix ocif; }
+  import openconfig-if-aggregate { prefix ocaggr; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+  // augment statements
+
+  grouping dcd-aggregate {
+    uses ocaggr:aggregation-logical-top {
+      augment "aggregation" {
+	dr:fieldnum 151;
+      }
+      augment "aggregation/state" {
+        dr:fieldnum 151;
+      }
+      augment "aggregation/state/lag-type" {
+        dr:source "lag_type";
+        dr:source-notification-name "lag-type-chg";
+        dr:fieldnum 51;
+      }
+      augment "aggregation/state/min-links" {
+        dr:source "min_links";
+        dr:source-notification-name "min-links-chg";
+        dr:fieldnum 52;
+      }
+      augment "aggregation/state/lag-speed" {
+        dr:source "lag_speed";
+        dr:source-notification-name "lag-speed-chg";
+        dr:fieldnum 53;
+      }
+      augment "aggregation/state/member" {
+        dr:source "member";
+        dr:source-notification-name "member-chg";
+        dr:fieldnum 54;
+      }
+    }
+  }
+
+  dr:command-app "dcd";
+  dr:sub-component "interface";
+  jnpr-proto:message-id "DCD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container interfaces {
+       dr:fieldnum 151;
+       list interface {
+             dr:source "/dcd/ae_dcd";
+             dr:fieldnum 151;
+             key "name" ;
+             leaf name {
+                 type string;
+                 dr:fieldnum 51;
+                 dr:source "name";
+             }
+             uses dcd-aggregate;
+        }
+      }  
+    }
+  }
+
+  notification oc-lag-type-chg {
+    dr:source-notification-name "lag-type-chg";
+     uses ocif:interfaces-top {
+        augment "interfaces" {
+            dr:source "/notification/lag-type-chg/dcd";
+        }
+        augment "interfaces/interface" {
+            dr:source "ae_dcd";
+            dr:fieldnum 151;
+            uses ocaggr:aggregation-logical-top {
+                augment "aggregation" {
+                    dr:fieldnum 151;
+                }
+                augment "aggregation/state" {
+                    dr:fieldnum 151;
+                }
+                augment "aggregation/state/lag-type" {
+                    dr:source "lag_type";
+                    dr:fieldnum 51;
+                    dr:map LACP { dr:map-from 1; }
+                    dr:map STATIC { dr:map-from 2; }
+                }
+            }
+        }
+        augment "interfaces/interface/name" {
+            dr:source "name";
+            dr:fieldnum 51;
+        }
+    }
+  }
+
+  notification oc-lag-speed-chg {
+    dr:source-notification-name "lag-speed-chg";
+    uses ocif:interfaces-top {
+        augment "interfaces" {
+            dr:source "/notification/lag-speed-chg/dcd";
+        }
+        augment "interfaces/interface" {
+            dr:source "ae_dcd";
+            dr:fieldnum 151;
+            uses ocaggr:aggregation-logical-top {
+                 augment "aggregation" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state/lag-speed" {
+                     dr:source "lag_speed";
+                     dr:fieldnum 53;
+                 }
+            } 
+       }
+       augment "interfaces/interface/name" {
+            dr:source "name";
+            dr:fieldnum 51;
+       }
+     }
+   }
+
+  notification oc-min-links-chg {
+    dr:source-notification-name "min-links-chg";
+    uses ocif:interfaces-top {
+        augment "interfaces" {
+            dr:source "/notification/min-links-chg/dcd";
+        }
+        augment "interfaces/interface" {
+            dr:source "ae_dcd";
+            dr:fieldnum 151;
+            uses ocaggr:aggregation-logical-top {
+                 augment "aggregation" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state/min-links" {
+                     dr:source "min_links";
+                     dr:fieldnum 52;
+                 }
+            } 
+       }
+       augment "interfaces/interface/name" {
+            dr:source "name";
+            dr:fieldnum 51;
+       }
+     }
+   }
+
+  notification oc-member-chg {
+    dr:source-notification-name "member-chg";
+    uses ocif:interfaces-top {
+        augment "interfaces" {
+            dr:source "/notification/member-chg/dcd";
+        }
+        augment "interfaces/interface" {
+            dr:source "ae_dcd";
+            dr:fieldnum 151;
+            uses ocaggr:aggregation-logical-top {
+                 augment "aggregation" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state" {
+                     dr:fieldnum 151;
+                 }
+                 augment "aggregation/state/member" {
+                     dr:source "member";
+                     dr:fieldnum 54;
+                 }
+            } 
+       }
+       augment "interfaces/interface/name" {
+            dr:source "name";
+            dr:fieldnum 51;
+       }
+     }
+   }
+}
+
+

@@ -1,0 +1,30 @@
+module junos-xmlproxyd-rsvp-interface-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/xmlproxyd-rsvp-interface/annotations";
+
+    prefix "junos-xmlproxyd-rsvp-interface-ann";
+
+    import junos-xmlproxyd-rsvp-interface { prefix junos-xmlproxyd-rsvp-interface; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add xmlproxyd-rsvp-interface model product support information";
+    }
+
+    augment "/junos-xmlproxyd-rsvp-interface:junos/junos-xmlproxyd-rsvp-interface:rsvp-interface-information" {
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+        JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+        JUNOS_PRODUCT_TVP(ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t);
+        JUNOS_PRODUCT_TVP(ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t);
+        JUNOS_PRODUCT_TVP(ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+    }
+}

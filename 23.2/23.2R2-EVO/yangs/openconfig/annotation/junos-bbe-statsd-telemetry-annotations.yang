@@ -1,0 +1,19 @@
+module junos-bbe-statsd-telemetry-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/bbe-statsd-telemetry/annotations";
+    prefix "junos-bbe-statsd-telemetry-ann";
+    import junos-bbe-statsd-telemetry { prefix junos-bbe-statsd-telemetry; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-09-22" {
+        description "Initial version to add native bbe telemetry statistics
+                     related information";
+    }
+    augment "/junos-bbe-statsd-telemetry:junos/junos-bbe-statsd-telemetry:system/" +
+            "junos-bbe-statsd-telemetry:subscriber-management/" +
+            "junos-bbe-statsd-telemetry:dynamic-interfaces" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product "ACX7100-48L ACX7100-32C";
+        junos:product "cbng";
+    }
+}

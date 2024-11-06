@@ -1,0 +1,27 @@
+module junos-bbe-statsd-telemetry-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/bbe-statsd-telemetry/annotations";
+
+    prefix "junos-bbe-statsd-telemetry-ann";
+
+    import junos-bbe-statsd-telemetry { prefix junos-bbe-statsd-telemetry; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add native bbe telemetry statistics
+                     related information";
+    }
+
+    augment "/junos-bbe-statsd-telemetry:junos/junos-bbe-statsd-telemetry:system/" +
+            "junos-bbe-statsd-telemetry:subscriber-management/" +
+            "junos-bbe-statsd-telemetry:dynamic-interfaces" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+        JUNOS_PRODUCT(cbng);
+    }
+}
+

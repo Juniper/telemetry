@@ -1,0 +1,23 @@
+module junos-fpc-env-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/fpc-env/annotations";
+    prefix "junos-fpc-env-ann";
+    import junos-fpc-env { prefix junos-fpc-env; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-09-07" {
+        description "Initial version to add native FPC environment supported list";
+    }
+    augment "/junos-fpc-env:junos/junos-fpc-env:system/junos-fpc-env:linecard" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/junos-fpc-env:junos/junos-fpc-env:system/junos-fpc-env:linecard/junos-fpc-env:environment" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+        junos:product "acx7908 acx7509 ACX7100-48L ACX7100-32C";
+    }
+}

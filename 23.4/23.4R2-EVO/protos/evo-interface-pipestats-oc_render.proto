@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components jnpr_components_ext = 209;
+}
+
+message components {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional packet_type packet = 151;
+            message packet_type {
+               optional interface_block_type interface_block = 151;
+               message interface_block_type {
+                  message state_list {
+                     optional uint64 in_packets = 51;
+                     optional uint64 out_packets = 52;
+                     optional uint64 in_bytes = 53;
+                     optional uint64 out_bytes = 54;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+            optional drop_type drop = 152;
+            message drop_type {
+               optional interface_block_type interface_block = 151;
+               message interface_block_type {
+                  message state_list {
+                     optional uint64 oversubscription = 51;
+                     optional uint64 in_drops = 52;
+                     optional uint64 out_drops = 53;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

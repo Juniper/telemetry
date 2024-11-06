@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_sr_te_tunnel_ingress jnpr_mpls_sr_te_tunnel_ingress_ext = 194;
+}
+
+message mpls_sr_te_tunnel_ingress {
+   optional signaling_protocols_type signaling_protocols = 185;
+   message signaling_protocols_type {
+      optional segment_routing_type segment_routing = 185;
+      message segment_routing_type {
+         message sr_te_ingress_tunnel_policies_list {
+            message sr_te_ingress_tunnel_policy_list {
+               optional string tunnelName = 85 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 85 [(telemetry_options).is_key = true];
+                     optional uint64 packets = 86;
+                     optional uint64 bytes = 87;
+                     optional uint64 packetRate = 88;
+                     optional uint64 byteRate = 89;
+                  }
+                  repeated counters_list counters = 185;
+               }
+               repeated state_list state = 185;
+            }
+            repeated sr_te_ingress_tunnel_policy_list sr_te_ingress_tunnel_policy = 185;
+         }
+         repeated sr_te_ingress_tunnel_policies_list sr_te_ingress_tunnel_policies = 185;
+      }
+   }
+}

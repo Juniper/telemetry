@@ -1,0 +1,828 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2018, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module rmopd_render {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/rmopd";
+
+    prefix "rmopd_render";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    // meta
+    organization "Juniper Networks, Inc.";
+
+    contact "www.juniper.net";
+
+    typedef results-scope {
+        type enumeration {
+          enum CURRENT_TEST;
+          enum LAST_TEST;
+          enum MOVING_AVERAGE_TEST;
+          enum ALL_TESTS;
+        }
+    }
+
+    typedef probe-results-type {
+        type enumeration {
+          enum ROUND_TRIP_TIME;
+          enum EGRESS_DELAY;
+          enum INGRESS_DELAY;
+          enum POSITIVE_RTT_JITTER;
+          enum NEGATIVE_RTT_JITTER;
+          enum POSITIVE_EGRESS_JITTER;
+          enum NEGATIVE_EGRESS_JITTER;
+          enum POSITIVE_INGRESS_JITTER;
+          enum NEGATIVE_INGRESS_JITTER;
+        }
+    }
+
+    typedef twamp-mode {
+        type enumeration {
+          enum UNAUTHENTICATED;
+          enum AUTHENTICATED;
+          enum ENCRYPTED;
+          enum CONTROL_ENCRYPTED;
+        }
+    }
+
+    typedef twamp-session-state {
+        type enumeration {
+          enum ACTIVE;
+          enum PENDING;
+        }
+    }
+
+    grouping probe-summary-results-group {
+        leaf probe-measurement-type {
+            type probe-results-type;
+            dr:fieldnum 51;
+            dr:source "probe-measurement-type";
+            dr:map ROUND_TRIP_TIME { dr:map-from 1;}
+            dr:map EGRESS_DELAY { dr:map-from 2;}
+            dr:map INGRESS_DELAY { dr:map-from 3;}
+            dr:map POSITIVE_RTT_JITTER { dr:map-from 4;}
+            dr:map NEGATIVE_RTT_JITTER { dr:map-from 5;}
+            dr:map POSITIVE_EGRESS_JITTER { dr:map-from 6;}
+            dr:map NEGATIVE_EGRESS_JITTER { dr:map-from 7;}
+            dr:map POSITIVE_INGRESS_JITTER { dr:map-from 8;}
+            dr:map NEGATIVE_INGRESS_JITTER { dr:map-from 9;}
+        }
+        leaf samples {
+            type uint32;
+            dr:source "samples";
+            dr:fieldnum 52;
+        }
+        leaf min-delay {
+            type uint32;
+            dr:source "min-delay";
+            dr:fieldnum 53;
+        }
+        leaf max-delay {
+            type uint32;
+            dr:source "max-delay";
+            dr:fieldnum 54;
+        }
+        leaf avg-delay {
+            type uint32;
+            dr:source "avg-delay";
+            dr:fieldnum 55;
+        }
+        leaf jitter-delay {
+            type uint32;
+            dr:source "jitter-delay";
+            dr:fieldnum 56;
+        }
+        leaf stddev-delay {
+            type uint64;
+            dr:source "stddev-delay";
+            dr:fieldnum 57;
+        }
+        leaf sum-delay {
+            type uint64;
+            dr:source "sum-delay";
+            dr:fieldnum 58;
+        }
+    }
+
+    grouping probe-test-generic-results-group {
+        leaf results-scope {
+            type results-scope;
+            dr:fieldnum 51;
+            dr:source "results-scope";
+            dr:map CURRENT_TEST { dr:map-from 1;}
+            dr:map LAST_TEST { dr:map-from 2;}
+            dr:map MOVING_AVERAGE_TEST { dr:map-from 3;}
+            dr:map ALL_TESTS { dr:map-from 4;}
+        }
+        leaf probes-sent {
+            type uint32;
+            dr:source "probes-sent";
+            dr:fieldnum 52;
+        }
+        leaf probe-responses {
+            type uint32;
+            dr:source "probe-responses";
+            dr:fieldnum 53;
+        }
+        leaf loss-percentage {
+            type uint32;
+            dr:source "loss-percentage";
+            dr:fieldnum 54;
+        }
+        leaf last-test-time {
+            type string;
+            dr:source "last-test-time";
+            dr:fieldnum 55;
+        }
+    }
+
+    grouping probe-single-result-group {
+        leaf probe-time {
+            type string;
+            dr:source "probe-time";
+            dr:fieldnum 51;
+        }
+        leaf probe-sent-time {
+            type string;
+            dr:source "probe-sent-time";
+            dr:fieldnum 52;
+        }
+        leaf probe-status {
+            type string;
+            dr:source "probe-status";
+            dr:fieldnum 53;
+        }
+        leaf hardware-timestamp-status {
+            type string;
+            dr:source "hardware-timestamp-status";
+            dr:fieldnum 54;
+        }
+        leaf rtt {
+            type uint32;
+            dr:source "rtt";
+            dr:fieldnum 55;
+        }
+        leaf egress {
+            type uint32;
+            dr:source "egress";
+            dr:fieldnum 56;
+        }
+        leaf ingress {
+            type uint32;
+            dr:source "ingress";
+            dr:fieldnum 57;
+        }
+        leaf egress-jitter {
+            type int32;
+            dr:source "egress-jitter";
+            dr:fieldnum 58;
+        }
+        leaf ingress-jitter {
+            type int32;
+            dr:source "ingress-jitter";
+            dr:fieldnum 59;
+        }
+        leaf round-trip-jitter {
+            type int32;
+            dr:source "round-trip-jitter";
+            dr:fieldnum 60;
+        }
+        leaf egress-interarrival-jitter {
+            type int32;
+            dr:source "egress-interarrival-jitter";
+            dr:fieldnum 61;
+        }
+        leaf ingress-interarrival-jitter {
+            type int32;
+            dr:source "ingress-interarrival-jitter";
+            dr:fieldnum 62;
+        }
+        leaf round-trip-interarrival-jitter {
+            type int32;
+            dr:source "round-trip-interarrival-jitter";
+            dr:fieldnum 63;
+        }
+        leaf http-status {
+            type uint32;
+            dr:source "http-status";
+            dr:fieldnum 64;
+        }
+    }
+
+    grouping probe-test-results-group {
+        // basic config
+        leaf owner {
+            type string;
+            dr:source "owner";
+            dr:fieldnum 51;
+        }
+        leaf test-name {
+            type string;
+            dr:source "test-name";
+            dr:fieldnum 52;
+        }
+        leaf target-address {
+             type string;
+             dr:source "target-address";
+             dr:fieldnum 53;
+        }
+        leaf target-url {
+             type string;
+             dr:source "target-url";
+             dr:fieldnum 54;
+        }
+        leaf source-address {
+            type string;
+            dr:source "source-address";
+            dr:fieldnum 55;
+        }
+        leaf destination-interface {
+             type string;
+             dr:source "destination-interface";
+             dr:fieldnum 56;
+        }
+        leaf probe-type {
+             type string;
+             dr:source "probe-type";
+             dr:fieldnum 57;
+        }
+        leaf icmp-id {
+             type uint16;
+             dr:source "icmp-id ";
+             dr:fieldnum 58;
+        }
+        leaf test-size {
+            type uint32;
+            dr:source "test-size";
+            dr:fieldnum 59;
+        }
+        leaf http-status {
+            type uint32;
+            dr:source "http-status";
+            dr:fieldnum 60;
+        }
+        leaf routing-instance-name {
+            type string;
+            dr:source "routing-instance-name";
+            dr:fieldnum 61;
+        }
+        // threshold config
+        leaf rtt-thresh {
+            type uint32;
+            dr:source "rtt-thresh";
+            dr:fieldnum 62;
+        }
+        leaf rtt-jitter-thresh {
+            type uint32;
+            dr:source "rtt-jitter-thresh";
+            dr:fieldnum 63;
+        }
+        leaf rtt-stddev-thresh {
+            type uint32;
+            dr:source "rtt-stddev-thresh";
+            dr:fieldnum 64;
+        }
+        leaf igr-thresh {
+            type uint32;
+            dr:source "igr-thresh";
+            dr:fieldnum 65;
+        }
+        leaf igr-jitter-thresh {
+            type uint32;
+            dr:source "igr-jitter-thresh";
+            dr:fieldnum 66;
+        }
+        leaf igr-stddev-thresh {
+            type uint32;
+            dr:source "igr-stddev-thresh";
+            dr:fieldnum 67;
+       }
+        leaf egr-thresh {
+            type uint32;
+            dr:source "egr-thresh";
+            dr:fieldnum 68;
+        }
+        leaf egr-jitter-thresh {
+            type uint32;
+            dr:source "egr-jitter-thresh";
+            dr:fieldnum 69;
+       }
+        leaf egr-stddev-thresh {
+            type uint32;
+            dr:source "egr-stddev-thresh";
+            dr:fieldnum 70;
+        }
+    }
+
+    grouping probe-tests-hw-ts-err-group {
+        // error-counters
+        leaf invalid-client-recv-ts-cntr {
+            type uint32;
+            dr:source "invalid-client-recv-ts-cntr";
+            dr:fieldnum 51;
+        }
+        leaf invalid-client-nots-cntr {
+            type uint32;
+            dr:source "invalid-client-nots-cntr";
+            dr:fieldnum 52;
+        }
+        leaf invalid-server-send-ts-cntr {
+            type uint32;
+            dr:source "invalid-server-send-ts-cntr";
+            dr:fieldnum 53;
+        }
+        leaf invalid-server-spent-time-cntr {
+            type uint32;
+            dr:source "invalid-server-spent-time-cntr";
+            dr:fieldnum 54;
+        }
+    }
+
+    grouping active-servers-group {
+        leaf protocol {
+            type string;
+            dr:source "protocol";
+            dr:fieldnum 51;
+        }
+        leaf port {
+            type uint16;
+            dr:source "port";
+            dr:fieldnum 52;
+        }
+        leaf dst-interface {
+            type string;
+            dr:source "dst-interface";
+            dr:fieldnum 53;
+        }
+    }
+
+    // TWAMP related group
+    grouping twamp-test-session-group {
+        leaf session-name {
+            type string;
+            dr:source "session-name";
+            dr:fieldnum 51;
+        }
+        leaf sender-address {
+             type string;
+             dr:source "sender-address";
+             dr:fieldnum 52;
+        }
+        leaf sender-port {
+            type uint16;
+            dr:source "sender-port";
+            dr:fieldnum 53;
+        }
+        leaf reflector-address {
+            type string;
+            dr:source "reflector-address";
+            dr:fieldnum 54;
+        }
+        leaf reflector-port {
+            type uint16;
+            dr:source "reflector-port";
+           dr:fieldnum 55;
+        }
+    }
+
+    grouping twamp-control-connection-group {
+        leaf control-name {
+            type string;
+            dr:source "control-name";
+            dr:fieldnum 51;
+        }
+        leaf client-address {
+             type string;
+             dr:source "client-address";
+             dr:fieldnum 52;
+        }
+        leaf client-port {
+            type uint16;
+            dr:source "client-port";
+            dr:fieldnum 53;
+        }
+        leaf server-address {
+            type string;
+            dr:source "server-address";
+            dr:fieldnum 54;
+        }
+        leaf server-port {
+            type uint16;
+            dr:source "server-port";
+            dr:fieldnum 55;
+        }
+        leaf session-count {
+            type uint32;
+            dr:source "session-count";
+            dr:fieldnum 56;
+        }
+        leaf auth-mode {
+            type twamp-mode;
+            dr:source "auth-mode";
+            dr:fieldnum 57;
+            dr:map UNAUTHENTICATED { dr:map-from 1;}
+            dr:map AUTHENTICATED { dr:map-from 2;}
+            dr:map ENCRYPTED { dr:map-from 3;}
+            dr:map CONTROL_ENCRYPTED { dr:map-from 4;}
+        }
+    }
+
+    grouping twamp-control-key-group {
+        leaf control-name {
+            type string;
+            dr:source "control-name";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping twamp-server-test-sess-group {
+        leaf test-id {
+            type uint32;
+            dr:source "test-id";
+            dr:fieldnum 51;
+        }
+        leaf sender-address {
+             type string;
+             dr:source "sender-address";
+             dr:fieldnum 52;
+        }
+        leaf sender-port {
+            type uint16;
+            dr:source "sender-port";
+            dr:fieldnum 53;
+        }
+        leaf reflector-address {
+            type string;
+            dr:source "reflector-address";
+            dr:fieldnum 54;
+        }
+        leaf reflector-port {
+            type uint16;
+            dr:source "reflector-port";
+           dr:fieldnum 55;
+        }
+    }
+
+    grouping twamp-server-ctrl-conn-group {
+        leaf connection-id {
+            type uint32;
+            dr:source "connection-id";
+            dr:fieldnum 51;
+        }
+        leaf client-address {
+             type string;
+             dr:source "client-address";
+             dr:fieldnum 52;
+        }
+        leaf client-port {
+            type uint16;
+            dr:source "client-port";
+            dr:fieldnum 53;
+        }
+        leaf server-address {
+            type string;
+            dr:source "server-address";
+            dr:fieldnum 54;
+        }
+        leaf server-port {
+            type uint16;
+            dr:source "server-port";
+            dr:fieldnum 55;
+        }
+        leaf session-count {
+            type uint32;
+            dr:source "session-count";
+            dr:fieldnum 56;
+        }
+        leaf authentication-mode {
+            type twamp-mode;
+            dr:source "authentication-mode";
+            dr:fieldnum 57;
+            dr:map UNAUTHENTICATED { dr:map-from 1;}
+            dr:map AUTHENTICATED { dr:map-from 2;}
+            dr:map ENCRYPTED { dr:map-from 3;}
+            dr:map CONTROL_ENCRYPTED { dr:map-from 4;}
+        }
+        leaf session-state {
+            type twamp-session-state;
+            dr:source "session-state";
+            dr:fieldnum 58;
+            dr:map ACTIVE { dr:map-from 1;}
+            dr:map PENDING { dr:map-from 2;}
+        }
+    }
+
+    grouping twamp-server-ctrl-key-group {
+        leaf connection-id {
+            type uint32;
+            dr:source "connection-id";
+            dr:fieldnum 51;
+        }
+    }
+    grouping twamp-test-results-group {
+        leaf owner {
+            type string;
+            dr:source "owner";
+            dr:fieldnum 51;
+        }
+        leaf test-name {
+            type string;
+            dr:source "test-name";
+            dr:fieldnum 52;
+        }
+        leaf destination-interface {
+            type string;
+            dr:source "destination-interface";
+            dr:fieldnum 53;
+        }
+        leaf test-size {
+            type uint32;
+            dr:source "test-size";
+            dr:fieldnum 54;
+        }
+        leaf client-address {
+            type string;
+            dr:source "client-address";
+            dr:fieldnum 55;
+        }
+        leaf client-port {
+             type uint16;
+             dr:source "client-port";
+            dr:fieldnum 56;
+        }
+        leaf sender-address {
+            type string;
+            dr:source "sender-address";
+            dr:fieldnum 57;
+        }
+        leaf sender-port {
+            type uint16;
+            dr:source "sender-port";
+            dr:fieldnum 58;
+        }
+        leaf reflector-address {
+            type string;
+            dr:source "reflector-address";
+            dr:fieldnum 59;
+        }
+        leaf reflector-port {
+            type uint16;
+            dr:source "reflector-port";
+            dr:fieldnum 60;
+        }
+        leaf server-address {
+             type string;
+             dr:source "server-address";
+            dr:fieldnum 61;
+        }
+        leaf server-port {
+            type uint16;
+            dr:source "server-port";
+            dr:fieldnum 62;
+        }
+        // threshold config
+        leaf loss-thresh-total {
+            type uint32;
+            dr:source "loss-thresh-total";
+            dr:fieldnum 63;
+        }
+        leaf loss-thresh-succ {
+            type uint32;
+            dr:source "loss-thresh-succ";
+            dr:fieldnum 64;
+        }
+        leaf rtt-thresh {
+            type uint32;
+            dr:source "rtt-thresh";
+            dr:fieldnum 65;
+        }
+        leaf rtt-jitter-thresh {
+            type uint32;
+            dr:source "rtt-jitter-thresh";
+            dr:fieldnum 66;
+        }
+        leaf rtt-stddev-thresh {
+            type uint32;
+            dr:source "rtt-stddev-thresh";
+            dr:fieldnum 67;
+        }
+        leaf igr-thresh {
+            type uint32;
+            dr:source "igr-thresh";
+            dr:fieldnum 68;
+        }
+        leaf igr-jitter-thresh {
+            type uint32;
+            dr:source "igr-jitter-thresh";
+            dr:fieldnum 69;
+        }
+        leaf igr-stddev-thresh {
+            type uint32;
+            dr:source "igr-stddev-thresh";
+            dr:fieldnum 70;
+        }
+        leaf egr-thresh {
+            type uint32;
+            dr:source "egr-thresh";
+            dr:fieldnum 71;
+        }
+        leaf egr-jitter-thresh {
+            type uint32;
+            dr:source "egr-jitter-thresh";
+            dr:fieldnum 72;
+        }
+        leaf egr-stddev-thresh {
+            type uint32;
+            dr:source "egr-stddev-thresh";
+            dr:fieldnum 73;
+        }
+        // routing instance config
+        leaf routing-instance-name {
+            type string;
+            dr:source "routing-instance-name";
+            dr:fieldnum 74;
+        }
+    }
+
+
+    // Daemon which handles this hierarchy
+    dr:command-app "rmopd";
+    jnpr-proto:message-id "RMOPD-RENDER-MESSAGE-ID";
+
+    // rpc for fetching RPM stats for a particular Probe test since there can be simultaneous Test going.
+    rpc juniper-netconf-get {
+        //dr:command-top-of-output "/oc-rmopd-information";
+        //dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                dr:fieldnum 151;
+                container rpm {
+                    dr:fieldnum 151;
+                    container probe-results {
+                        dr:source "/rmopd/rpm/probe-results";
+                        dr:fieldnum 151;
+                        list probe-test-results {
+                            key "owner test-name";
+                            dr:source "probe-test-results";
+                            dr:fieldnum 151;
+                            uses probe-test-results-group;
+                            container probe-tests-hw-ts-err {
+                                dr:source "probe-tests-hw-ts-err";
+                                dr:fieldnum 151;
+                                uses probe-tests-hw-ts-err-group;
+                            }
+                            container probe-single-results {
+                                dr:source "probe-single-results";
+                                dr:fieldnum 152;
+                                uses probe-single-result-group;
+                            }
+                            list probe-test-generic-results {
+                                key "results-scope";
+                                dr:source "probe-test-generic-results";
+                                dr:fieldnum 153;
+                                uses probe-test-generic-results-group;
+
+                                list probe-test-generic-measurements {
+                                    key "probe-measurement-type";
+                                    dr:source "probe-test-generic-measurements";
+                                    dr:fieldnum 151;
+                                    uses probe-summary-results-group;
+                                }
+                            }
+                        }
+                    }
+                    container history-results {
+                        dr:source "/rmopd/rpm/history-results";
+                        dr:fieldnum 152;
+                        list history-test-results {
+                            dr:source "history-test-results";
+                            dr:fieldnum 151;
+                            list history-single-test-results {
+                                key "owner test-name";
+                                dr:source "history-single-test-results";
+                                dr:fieldnum 151;
+                                uses probe-test-results-group;
+
+                                container probe-single-results {
+                                    dr:source "probe-single-results";
+                                    dr:fieldnum 151;
+                                    uses probe-single-result-group;
+                                }
+                            }
+                        }
+                    }
+                    container server {
+                        dr:source "/rmopd/rpm/server";
+                        dr:fieldnum 153;
+                        list active-servers {
+                            dr:source "active-servers";
+                            dr:fieldnum 151;
+                            uses active-servers-group;
+                        }
+                    }
+                }
+                container twamp {
+                    dr:fieldnum 152;
+                    container server {
+                        dr:fieldnum 151;
+                        dr:source "/rmopd/twamp/server";
+                        list control-connection {
+                            key "connection-id";
+                            dr:source "control-connection";
+                            dr:fieldnum 151;
+                            uses twamp-server-ctrl-conn-group;
+                        }
+                        list test-session {
+                            key "connection-id";
+                            dr:source "test-session";
+                            dr:fieldnum 152;
+                            uses twamp-server-ctrl-key-group;
+                            list test-session-info {
+                                key "test-id";
+                                dr:source "test-session-info";
+                                dr:fieldnum 151;
+                                uses twamp-server-test-sess-group;
+                            }
+                        }
+                    }
+                    container client {
+                        dr:fieldnum 152;
+                        list control-connection {
+                            key "control-name";
+                            dr:source "/rmopd/twamp/client/control-connection";
+                            dr:fieldnum 151;
+                            uses twamp-control-connection-group;
+                        }
+                        list test-session {
+                            key "control-name";
+                            dr:source "/rmopd/twamp/client/test-session";
+                            dr:fieldnum 152;
+                            uses twamp-control-connection-group;
+                            list test-session-info {
+                                key "session-name";
+                                dr:source "test-session-info";
+                                dr:fieldnum 151;
+                                uses twamp-test-session-group;
+                            }
+                        }
+                        list probe-test-results {
+                            key "owner test-name";
+                            dr:source "/rmopd/twamp/client/probe-test-results";
+                            dr:fieldnum 153;
+                            uses twamp-test-results-group;
+                            container probe-tests-hw-ts-err {
+                                dr:source "probe-tests-hw-ts-err";
+                                dr:fieldnum 151;
+                                uses probe-tests-hw-ts-err-group;
+                            }
+                            container probe-single-results {
+                                dr:source "probe-single-results";
+                                dr:fieldnum 152;
+                                uses probe-single-result-group;
+                            }
+                            list probe-test-generic-results {
+                                key "results-scope";
+                                dr:source "probe-test-generic-results";
+                                dr:fieldnum 153;
+                                uses probe-test-generic-results-group;
+
+                                list probe-test-generic-measurements {
+                                    key "probe-measurement-type";
+                                    dr:source "probe-test-generic-measurements";
+                                    dr:fieldnum 151;
+                                    uses probe-summary-results-group;
+                                }
+                            }
+                        }
+                        list history-test-results {
+                            dr:source "/rmopd/twamp/client/history-test-results";
+                            dr:fieldnum 154;
+                            list history-single-test-results {
+                                key "owner test-name";
+                                dr:source "history-single-test-results";
+                                dr:fieldnum 151;
+                                uses twamp-test-results-group;
+
+                                container probe-single-results {
+                                    dr:source "probe-single-results";
+                                    dr:fieldnum 151;
+                                    uses probe-single-result-group;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

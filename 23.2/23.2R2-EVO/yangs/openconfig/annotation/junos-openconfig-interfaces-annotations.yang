@@ -1,0 +1,697 @@
+module junos-openconfig-interfaces-annotations {
+    yang-version "1";
+    prefix "jnx-oc-if-ann";
+    namespace "http://openconfig.net/yang/interfaces/annotations";
+    import junos-extension { prefix junos; }
+    import openconfig-if-ethernet { prefix oc-ethernet; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-interfaces { prefix oc-interfaces; }
+    import openconfig-if-tunnel { prefix oc-tun; }
+    import jnx-aug-openconfig-interfaces { prefix jnx-oc-interfaces; }
+    import openconfig-p4rt { prefix oc-p4rt; }
+    import openconfig-if-ip { prefix oc-ip; }
+    import openconfig-vlan { prefix oc-vlan; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2022-03-29" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/oc-if:interfaces" {
+        junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008 qfx5130-48c qfx5130-48cm qfx5230-64cd";
+        junos:product "ex9204 ex9208 ex9214 ex9251 ex9253";
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10016 ACX7100-48L ACX7100-32C acx7509 ptx10001-36mr ptx10004 qfx5220-32cd ptx10003-160c ptx10003-80c";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product "srx5400 srx5600 srx5800 vsrx";
+        junos:product-tvp "srx1500 srx4100 srx4200 srx4600 srx4800";
+        junos:product-tvp "ptx10002-60c";
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:loopback-mode" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx1000 ptx5000 ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:admin-status" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:oper-status" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:last-change" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:logical" {
+        junos:product "mx304 mx960 mx2010 mx2020";
+        junos:product "ptx1000 ptx5000 ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-octets" {
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+        junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-unicast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-broadcast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-multicast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-discards" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-errors" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:in-fcs-errors" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-octets" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+        junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-unicast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-broadcast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-multicast-pkts" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-discards" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product-exclude "ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:out-errors" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ACX7100-48L ACX7100-32C ACX7024";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-if:counters/oc-if:carrier-transitions" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:hold-time/oc-if:state/oc-if:up" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:hold-time/oc-if:state/oc-if:down" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:index" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:description" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:enabled" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:name" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:ifindex" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:admin-status" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:oper-status" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:last-change" {
+        junos:product "mx240 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:logical" {
+        junos:product "ptx10003-160c ptx10003-80c ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:in-octets" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:in-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:in-unicast-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:in-multicast-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:out-octets" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:out-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product "ptx10003-160c ptx10003-80c ptx10008";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:out-unicast-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-if:state/oc-if:counters/oc-if:out-multicast-pkts" {
+        junos:product "mx104 mx240 mx480 mx960 mx2008 mx2010 mx2020 mx304";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/jnx-oc-interfaces:index" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/jnx-oc-interfaces:egress-queues" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/jnx-oc-interfaces:init-time" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+      junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+      junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/jnx-oc-interfaces:jnx-pfc-statistics/jnx-oc-interfaces:priority" {
+      junos:product "ptx10001-36mr ptx10004 ptx10008 ptx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/jnx-oc-interfaces:jnx-pfc-statistics/jnx-oc-interfaces:in-mac-pause-frames" {
+      junos:product "ptx10001-36mr ptx10004 ptx10008 ptx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/jnx-oc-interfaces:jnx-pfc-statistics/jnx-oc-interfaces:out-mac-pause-frames" {
+      junos:product "ptx10001-36mr ptx10004 ptx10008 ptx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/jnx-oc-interfaces:parent-ae-name" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/jnx-oc-interfaces:high-speed" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-1sec-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-1sec-octets" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-pause-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:parent-ae-name" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-unknown-proto-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-1sec-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-1sec-octets" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-pause-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-unknown-proto-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-drops" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-frame-errors" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-runts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-giants" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-resource-errors" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-drops" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:mtu-errors" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-resource-errors" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:queue-number" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:tail-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:tail-drop-bytes" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:rl-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:rl-drop-bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:red-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:red-drop-bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:avg-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:cur-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:peak-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:allocated-buffer-size" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:queued-pkts" {
+      junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:queued-bytes" {
+      junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:lp-red-drop-pkts" {
+      junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:in-queue/jnx-oc-interfaces:hp-red-drop-pkts" {
+      junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:queue-number" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:tail-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:tail-drop-bytes" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:rl-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:rl-drop-bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:red-drop-pkts" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:red-drop-bytes" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:avg-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:cur-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:peak-buffer-occupancy" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:allocated-buffer-size" {
+      junos:product "mx960 mx2010 mx2020";
+      junos:product "ptx5000 ptx1000";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:queued-pkts" {
+      junos:product "mx240 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:queued-bytes" {
+      junos:product "mx240 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:lp-red-drop-pkts" {
+      junos:product "mx240 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-interfaces:interfaces/oc-interfaces:interface/oc-interfaces:state/oc-interfaces:counters/jnx-oc-interfaces:out-queue/jnx-oc-interfaces:hp-red-drop-pkts" {
+      junos:product "mx240 mx480 mx960 mx2010 mx2020";
+      junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:state/oc-p4rt:id" {
+      junos:product "ptx10008 ptx10016 ptx10001-36mr";
+      junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+      junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:ip" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:prefix-length" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:origin" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:state/oc-ip:enabled" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:state/oc-ip:mtu" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:ip" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:prefix-length" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:origin" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/oc-ip:state/oc-ip:status" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr ptx10004";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:state/oc-ip:enabled" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx5220-128c qfx5220-32cd qfx5230-64cd";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:state/oc-ip:mtu" {
+        junos:product "ptx3000 ptx5000 ptx1000 ptx10008 ptx10001-36mr";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7332 acx7348 acx7900";
+        junos:product "qfx5130-32cd qfx5130-48c qfx5130-48cm qfx5700 qfx10002-60c qfx5220-128c qfx5220-32cd qfx5230-64cd";
+        junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp";
+        junos:product-tvp "ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc";
+        junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+        junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+        junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+        junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+        junos:product-tvp "ex4300-48mp";
+        junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+        junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+        junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "qfx5200-48y qfx5200-32c";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-tun:tunnel" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product "ptx10008";
+        junos:product-tvp "mx204 mx10003 mx10004 mx10008 mx10016";
+    }
+}

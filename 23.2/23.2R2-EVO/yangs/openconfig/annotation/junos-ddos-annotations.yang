@@ -1,0 +1,20 @@
+module junos-ddos-annotations {
+  yang-version 1;
+  namespace "http://juniper.net/yang/junos/ddos/annotations";
+  prefix "junos-ddos-ann";
+  import junos-ddos { prefix junos-ddos; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Network Inc.";
+  revision "2022-10-17" {
+    description "Initial version to add ddos model product support information";
+  }
+  augment "/junos-ddos:ddos-stats" {
+    junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    junos:product "ptx10003-160c ptx10003-80c ptx10008";
+  }
+  augment "/junos-ddos:ddos-stats/junos-ddos:group/junos-ddos:protocol-stats/junos-ddos:protocol/junos-ddos:flow-stats" {
+    junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+  }
+}

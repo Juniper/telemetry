@@ -1,0 +1,22 @@
+module junos-fabric-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/fabric/annotations";
+
+    prefix "junos-fabric-ann";
+
+    import junos-fabric { prefix junos-fabric; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2023-10-20" {
+        description "Initial version to add native fabric sensor list";
+    }
+
+    augment "/junos-fabric:junos/junos-fabric:system/junos-fabric:linecard/junos-fabric:fabric" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    }
+}

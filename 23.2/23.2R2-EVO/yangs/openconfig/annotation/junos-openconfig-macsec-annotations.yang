@@ -1,0 +1,31 @@
+module junos-openconfig-macsec-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/macsec/annotations";
+  prefix "jnx-oc-macsec-ann";
+  import openconfig-macsec { prefix oc-macsec; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig macsec model";
+  revision "2022-08-24" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+  augment "/oc-macsec:macsec" {
+      junos:product "srx340 srx340-lem srx345 srx345-lem srx345-dual-ac srx345-dc srx380-poe-ac srxtvp ex4200-24f ex4200-24t ex4200-24p ex4200-48t ex4200-48p ex4200-48px ex4200-24px ex4550-32f ex4550-32t ex4500-40f ex4550-32f ex4550-32t ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f ex9204 ex9208 ex9214 ex9251 ex9253 mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr srx5800 srx5600 srx5400 srx300 srx300-lem srx320 srx320-lem srx320-poe srx320-poe-lem srx340 srx340-lem srx345 srx345-lem srx345-dual-ac srx345-dc srx320-lte-aa srx320-lte-ae srx320-poe-lte-aa srx320-poe-lte-ae srx380-poe-ac qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx5100-24q-2pf qfx5100-48s-6qf qfx5100-48t-6qf qfx5100-24q-2pi ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 qfx10016 qfx10008 ptx10001-36mr ptx10001-27cd ACX7100-48L ACX7100-32C acx7509 ptx10002-36qdd acx7908 acx7332 acx7348";
+      junos:product-exclude "srxtvp";
+      junos:product-tvp "ptx10001-20c ptx10008 ptx10016";
+      junos:product-tvp "nfx350_s1 nfx350_s2 nfx350_s3";
+      junos:product-tvp "qfx10008 qfx10016 qfx10001-l-20c";
+      junos:product-tvp "qfx-5401-M20C qfx5120-48ym-8c";
+      junos:product-tvp "acx5448 acx6360-ox acx6360-or";
+      junos:product-tvp "ex3400-24p ex3400-24t ex3400-48p ex3400-48t";
+      junos:product-tvp "ex4100-f-12t ex4100-f-12p";
+      junos:product-tvp "ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp";
+      junos:product-tvp "ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p";
+      junos:product-tvp "ex4300-48mp";
+      junos:product-tvp "ex4400-24x ex4400-24mp ex4400-24p ex4400-24t";
+      junos:product-tvp "ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+}

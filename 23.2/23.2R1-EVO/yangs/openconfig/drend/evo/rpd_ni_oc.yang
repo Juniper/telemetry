@@ -1,0 +1,290 @@
+/*
+ * Render tree for DREND implementation of Network-instance
+ *
+ * December 2021, Himadri Agarwal (himadria)
+ *
+ * Copyright (c) 2021, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+
+module rpd_ni_oc {
+  yang-version "1";
+
+  namespace "http://juniper.net/yang/rpd-network-instance";
+
+  prefix "rpd-ni";
+
+
+  import openconfig-network-instance { prefix oc-ni; }
+  import openconfig-local-routing { prefix oc-loc-rt; }
+  import openconfig-interfaces { prefix oc-if; }
+  import jnx-aug-openconfig-local-routing { prefix jnx-loc-rt; }
+  import drend { prefix "dr"; }
+  import jnpr-proto { prefix jnpr-proto; }
+  description "
+      Openconfig render tree for routing instance";
+
+  revision "2021-11-02" {
+      description "Initial revision";
+  }
+
+  /* 
+   *  Daemon that handles this hierarchy
+   */
+   dr:command-app "rpd";
+   dr:sub-component "ni";
+   jnpr-proto:message-id "RPD-NI-OC-MESSAGE-ID";
+
+   grouping ni-group {
+       uses oc-ni:network-instance-config {
+           augment "name" {
+             dr:source "instance_name";
+             dr:fieldnum 51;
+           }
+           augment "description" {
+             dr:source "description";
+             dr:fieldnum 52;
+           }
+           augment "enabled" {
+             dr:source "enabled";
+             dr:fieldnum 53;
+           }
+           augment "route-distinguisher" {
+             dr:source "route_distinguisher";
+             dr:fieldnum 54;
+           }
+           augment "router-id" {
+             dr:source "router_id";
+             dr:fieldnum 55;
+           }
+           augment "type" {
+             dr:source "instance_type";
+             dr:fieldnum 56;
+           }
+       }
+   }
+
+   grouping ni-interface-group {
+           leaf id {
+			 type string;
+             dr:source "ni_interface_id";
+             dr:fieldnum 51;
+           }
+           leaf interface {
+			 type leafref {
+				path "/oc-if:interfaces/oc-if:interface/oc-if:name";
+			 }
+             dr:source "ni_interface";
+             dr:fieldnum 52;
+           }
+           leaf subinterface {
+			 type leafref {
+				path "/oc-if:interfaces/" +
+					"oc-if:interface[oc-if:name=current()/../interface]/" +
+					"oc-if:subinterfaces/oc-if:subinterface/oc-if:index";
+			}
+             dr:source "ni_subinterface";
+             dr:fieldnum 53;
+           }
+   }
+
+
+   grouping ni-static-route{
+       uses oc-loc-rt:local-static-config {
+           augment "prefix" {
+             dr:source "ni_prefix";
+             dr:fieldnum 51;
+           }
+           augment "set-tag" {
+             dr:source "ni_set_tag";
+             dr:fieldnum 52;
+           }
+       }
+   }
+
+   grouping ni-static-nexthop{
+       uses oc-loc-rt:local-static-nexthop-config {
+           augment "index" {
+             dr:source "ni_index";
+             dr:fieldnum 51;
+           }
+           augment "next-hop" {
+             dr:source "ni_next-hop";
+             dr:fieldnum 52;
+           }
+           augment "metric" {
+             dr:source "ni_metric";
+             dr:fieldnum 53;
+           }
+           augment "recurse" {
+             dr:source "ni_recurse";
+             dr:fieldnum 54;
+           }
+       }
+   }
+  
+   grouping ni-static-nexthop-interface {
+       uses oc-if:interface-ref-common {
+         augment "interface" {
+           dr:source "ni_static_nh_interface";
+           dr:fieldnum 51;
+         }
+         augment "subinterface" {
+           dr:source "ni_static_nh_subinterface";
+           dr:fieldnum 52;
+         }
+       }
+   } 
+
+   grouping ni-aggregate-state {
+    uses oc-loc-rt:local-aggregate-config {
+      augment "prefix" {
+        dr:source "ni_prefix";
+        dr:fieldnum 51;
+      }
+      augment "discard" {
+        dr:source "ni_discard";
+        dr:fieldnum 52;
+      }
+      augment "set-tag" {
+        dr:source "ni_set-tag";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+   rpc juniper-netconf-get {
+    dr:command-top-of-output "/rt-instances/rt-instance";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 51;
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;   
+          }
+          container state {
+            dr:fieldnum 151;
+            dr:source state;
+            uses ni-group;
+          }
+          container interfaces {
+            dr:fieldnum 152;
+            dr:source "rt-interfaces";
+            list interface {
+              dr:source "interface-ref";
+              dr:fieldnum 151;
+              leaf id {
+                type leafref {
+                  path "../state/id";
+                }
+                dr:source "state/ni_interface_id";
+                dr:fieldnum 152;
+              }
+              container state {
+                dr:source state;
+                dr:fieldnum 151;
+                uses ni-interface-group;
+              }
+            }
+          }
+          container protocols {
+            dr:fieldnum 153;
+            dr:source protocols;
+            list protocol {
+              dr:source protocol;
+              dr:fieldnum 151;
+               leaf identifier {
+                 type string;
+                 dr:source identifier;
+                 dr:fieldnum 51;
+               }
+               leaf name {
+                 type string;
+                 dr:source protocol_instance_name;
+                 dr:fieldnum 52;
+               }
+
+              container static-routes {
+                dr:source "static-routes";
+	            dr:fieldnum 151;
+                list static {
+                  dr:source "static";
+                  dr:fieldnum 51;
+                  leaf prefix {
+                    type leafref {
+                      path "../state/prefix";
+                    }
+                    dr:source "state/prefix";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:source "state";
+	                dr:fieldnum 151;
+                    uses ni-static-route;
+                  }
+                  container next-hops {
+                    dr:source "next-hops";
+	                dr:fieldnum 152;
+                    list next-hop {
+                      dr:source "next-hop";
+                      dr:fieldnum 51;
+                      leaf index {
+                        type leafref {
+                          path "../state/index";
+                        }
+                        dr:source "state/index";
+                        dr:fieldnum 51;
+                      }
+                      container  interface-ref {
+                        dr:source "interface-ref";
+                                dr:fieldnum 151;
+                        container state {
+                                dr:source "state";
+		                dr:fieldnum 151;
+                                uses ni-static-nexthop-interface;
+                        }
+                      }
+                      container state {
+                        dr:source "state";
+		                dr:fieldnum 152;
+                        uses ni-static-nexthop;
+                      }
+                    }
+                  }
+                }
+              }
+              container local-aggregates {
+                dr:source "local-aggregates";
+	            dr:fieldnum 152;
+                list aggregate {
+                  dr:source "aggregate";
+                  dr:fieldnum 51;
+                  leaf prefix {
+                    type leafref {
+                      path "../state/prefix";
+                    }
+                    dr:source "state/prefix";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:source "state";
+	                dr:fieldnum 151;
+                    uses ni-aggregate-state;
+                  }
+                }
+              }
+            } /* closing of list protocol */
+          } /* closing of protocols container */
+        } /* closing of list network-instnace */
+      } /* closing of network-instance container */
+    }  
+  } /* closing of rpc */
+} /* closing of module rpd_ni_oc */ 

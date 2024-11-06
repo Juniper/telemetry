@@ -1,0 +1,46 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state jnpr_state_ext = 212;
+}
+
+message state {
+   optional system_type system = 151;
+   message system_type {
+      optional ddos_protection_type ddos_protection = 151;
+      message ddos_protection_type {
+         optional instances_type instances = 151;
+         message instances_type {
+            message instance_list {
+               optional uint32 slot = 51;
+               optional string protocol_name = 52;
+               optional string packet_type = 53;
+               optional string locale = 54;
+               optional violations_type violations = 151;
+               message violations_type {
+                  optional string status = 51;
+                  optional uint64 violated_time_start = 52;
+                  optional uint64 violated_time_end = 53;
+                  optional counters_type counters = 151;
+                  message counters_type {
+                     optional uint64 violation_count = 51;
+                  }
+               }
+               optional counters_type counters = 152;
+               message counters_type {
+                  optional uint64 in_packets = 51;
+                  optional uint64 dropped_packets = 52;
+                  optional uint64 policer_dropped_packets = 53;
+                  optional uint64 other_dropped_packets = 54;
+                  optional uint64 flows_dropped_packets = 55;
+                  optional uint32 rate_arrival = 56;
+                  optional uint32 rate_arrival_max = 57;
+               }
+            }
+            repeated instance_list instance = 151;
+         }
+      }
+   }
+}

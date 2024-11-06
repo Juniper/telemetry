@@ -1,0 +1,100 @@
+module junos-openconfig-terminal-device-annotations {
+
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/yang/terminal-device/annotations";
+
+    prefix "jnx-oc-opt-term-ann";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import  openconfig-terminal-device { prefix oc-opt-term; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-04-05" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:config/oc-opt-term:frequency" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:frequency" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:line-port" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:input-power" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:laser-bias-current" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:chromatic-dispersion" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:osnr" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:esnr" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:carrier-frequency-offset" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:pre-fec-ber" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-xi" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-xq" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-yi" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-yq" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-x-phase" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-y-phase" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:sop-roc" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:second-order-polarization-mode-dispersion" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:polarization-dependent-loss" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+}

@@ -1,0 +1,955 @@
+/*
+ * Render tree for L2ALD Network instance 
+ *
+ * Jan 2022, Deepika A
+ *
+ * Copyright (c) 2019-24, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module l2ald_oc {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/l2ald_oc";
+
+  prefix "l2-network-instance";
+
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  import openconfig-vlan { prefix oc-vlan; }
+  import openconfig-network-instance { prefix oc-ni; }
+
+  description  "Example of L2ALD Bridge Domain";
+
+  // meta data
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping l2ni-fdb-info {
+    uses oc-ni:l2ni-instance {
+      augment "fdb" {
+        dr:fieldnum 141;
+      }
+
+      augment "fdb/state" {
+        dr:fieldnum 151;
+        dr:source "mac_db";
+        dr:source-notification-name "oc-ni-fdb-change";
+      }
+
+      augment "fdb/state/mac-learning" {
+        dr:source "learning_enable";
+        dr:fieldnum 61;
+      }
+
+      augment "fdb/state/mac-aging-time" {
+        dr:source "aging_time";
+        dr:fieldnum 62;
+      }
+
+      augment "fdb/state/maximum-entries" {
+        dr:fieldnum 63;
+        dr:source "table_size";
+      }
+
+      augment "fdb/mac-table" {
+        dr:fieldnum 121;
+        dr:source "mac_db";
+      }
+
+      augment "fdb/mac-table/entries" {
+        dr:fieldnum 131;
+        dr:source "entries";
+      }
+
+      augment "fdb/mac-table/entries/entry" {
+        dr:fieldnum 141;
+        dr:source "entry";
+        dr:source-notification-name "oc-ni-mac-address-change";
+      }
+
+      augment "fdb/mac-table/entries/entry/mac-address" {
+        dr:fieldnum 61;
+        dr:source "mac_address";
+      }
+
+      augment "fdb/mac-table/entries/entry/vlan" {
+        dr:fieldnum 62;
+        dr:source "vid";
+      }
+
+      augment "fdb/mac-table/entries/entry/state" {
+        dr:fieldnum 111;
+      }
+
+      augment "fdb/mac-table/entries/entry/state/mac-address" {
+        dr:fieldnum 81;
+        dr:source "mac_address";
+      }
+
+      augment "fdb/mac-table/entries/entry/state/vlan" {
+        dr:fieldnum 82;
+        dr:source "vid";
+      }
+
+      augment "fdb/mac-table/entries/entry/state/entry-type" {
+        dr:fieldnum 83;
+        dr:source "entry_type";
+        dr:map STATIC  { dr:map-from 0; }
+        dr:map DYNAMIC  { dr:map-from 1; }
+      }
+
+      augment "fdb/mac-table/entries/entry/state/evi" {
+        dr:fieldnum 85;
+        dr:source "vni_id";
+      }
+
+      augment "fdb/mac-table/entries/entry/interface" {
+        dr:fieldnum 112;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref" {
+        dr:fieldnum 112;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state" {
+        dr:fieldnum 113;
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state/interface" {
+        dr:fieldnum 131;
+        dr:source "interface";
+      }
+
+      augment "fdb/mac-table/entries/entry/interface/interface-ref/state/subinterface" {
+        dr:fieldnum 141;
+        dr:source "subinterface";
+      }
+
+      augment "fdb/l2rib" {
+        dr:fieldnum 131;
+      }
+      augment "fdb/l2rib/mac-table" {
+        dr:fieldnum 130;
+      }
+      augment "fdb/l2rib/mac-table/entries" {
+        dr:fieldnum 130;
+        dr:source "mac_db/entries";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry" {
+        dr:fieldnum 130;
+        dr:source "entry";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/mac-address" {
+        dr:fieldnum 130;
+        dr:source "mac_address";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/state" {
+        dr:fieldnum 131;
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/state/mac-address" {
+        dr:fieldnum 131;
+        dr:source "mac_address";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/state/vlan" {
+        dr:fieldnum 132;
+        dr:source "vid";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/state/evi" {
+        dr:fieldnum 133;
+        dr:source "vni_id";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/state/l2-vni" {
+        dr:fieldnum 134;
+        dr:source "vni_id";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers" {
+        dr:fieldnum 132;
+        dr:source "producers";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer" {
+        dr:fieldnum 132;
+        dr:source "producer";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer/producer" {
+        dr:fieldnum 132;
+        dr:source "type";
+        dr:map STATIC { dr:map-from 0; }
+        dr:map LOCAL { dr:map-from 2; }
+        dr:map BGP { dr:map-from 3; }
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state" {
+        dr:fieldnum 133;
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/producer" {
+        dr:fieldnum 133;
+        dr:source "type";
+        dr:map STATIC { dr:map-from 0; }
+        dr:map LOCAL { dr:map-from 2; }
+        dr:map BGP { dr:map-from 3; }
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/esi" {
+        dr:fieldnum 134;
+        dr:source "esi";
+      }
+      augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/next-hop" {
+        dr:fieldnum 135;
+        dr:source "nexthop";
+      }
+      augment "fdb/l2rib/mac-table/next-hops" {
+        dr:fieldnum 131;
+        dr:source "protocols/protocol/evpn";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop" {
+        dr:fieldnum 131;
+        dr:source "vxlan-tunnel-end-point";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/index" {
+        dr:fieldnum 131;
+        dr:source "nexthop_index";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/state" {
+        dr:fieldnum 132;
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/state/index" {
+        dr:fieldnum 132;
+        dr:source "nexthop_index";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/state/peer-ip" {
+        dr:fieldnum 133;
+        dr:source "remote_ip_address";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/state/interface" {
+        dr:fieldnum 134;
+        dr:source "vtep_intf";
+      }
+      augment "fdb/l2rib/mac-table/next-hops/next-hop/state/subinterface" {
+        dr:fieldnum 135;
+        dr:source "vtep_subunit";
+      }
+      augment "fdb/l2rib/mac-ip-table" {
+        dr:fieldnum 140;
+      }
+      augment "fdb/l2rib/mac-ip-table/entries" {
+        dr:fieldnum 140;
+        dr:source "macip_db/entries";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry" {
+        dr:fieldnum 140;
+        dr:source "entry";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/mac-address" {
+        dr:fieldnum 140;
+        dr:source "mac_address";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/host-ip" {
+        dr:fieldnum 141;
+        dr:source "ip_address";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state" {
+        dr:fieldnum 142;
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state/mac-address" {
+        dr:fieldnum 142;
+        dr:source "mac_address";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state/host-ip" {
+        dr:fieldnum 143;
+        dr:source "ip_address";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state/vlan" {
+        dr:fieldnum 144;
+        dr:source "vid";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state/evi" {
+        dr:fieldnum 145;
+        dr:source "vni_id";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/state/l2-vni" {
+        dr:fieldnum 146;
+        dr:source "vni_id";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers" {
+        dr:fieldnum 143;
+        dr:source "producers";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer" {
+        dr:fieldnum 143;
+        dr:source "producer";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/producer" {
+        dr:fieldnum 143;
+        dr:source "type";
+        dr:map STATIC { dr:map-from 0; }
+        dr:map LOCAL { dr:map-from 5; }
+        dr:map BGP { dr:map-from 4; }
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state" {
+        dr:fieldnum 144;
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/producer" {
+        dr:fieldnum 144;
+        dr:source "type";
+        dr:map STATIC { dr:map-from 0; }
+        dr:map LOCAL { dr:map-from 5; }
+        dr:map BGP { dr:map-from 4; }
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/esi" {
+        dr:fieldnum 145;
+        dr:source "esi";
+      }
+      augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/next-hop" {
+        dr:fieldnum 146;
+        dr:source "nexthop";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops" {
+        dr:fieldnum 141;
+        dr:source "protocols/protocol/evpn";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop" {
+        dr:fieldnum 141;
+        dr:source "vxlan-tunnel-end-point";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/index" {
+        dr:fieldnum 141;
+        dr:source "nexthop_index";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state" {
+        dr:fieldnum 142;
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/index" {
+        dr:fieldnum 142;
+        dr:source "nexthop_index";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/peer-ip" {
+        dr:fieldnum 143;
+        dr:source "remote_ip_address";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/interface" {
+        dr:fieldnum 144;
+        dr:source "vtep_intf";
+      }
+      augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/subinterface" {
+        dr:fieldnum 145;
+        dr:source "vtep_subunit";
+      }
+   }
+ }
+
+ grouping oc-vlan-top { 
+    uses oc-vlan:vlan-top {
+       augment "vlans" {
+	 dr:fieldnum 161;
+       }
+
+       augment "vlans/vlan" {
+	 dr:source "bd";
+	 dr:fieldnum 161;
+       }
+
+       augment "vlans/vlan/vlan-id" {
+	 dr:source "tag";
+	 dr:fieldnum 51;
+       }
+
+       augment "vlans/vlan/state" {
+	 dr:fieldnum 52;
+	 dr:source-notification-name "oc-ni-vlan-state-change";
+       }
+
+       augment "vlans/vlan/state/name" {
+	 dr:source "bd_config_name";
+	 dr:fieldnum 51;
+       }
+
+       augment "vlans/vlan/state/vlan-id" {
+	 dr:source "vlan-id";
+	 dr:fieldnum 52;
+       }
+
+       augment "vlans/vlan/state/status" {
+	 description "Admin state of the VLAN";
+	 dr:source "state";
+	 dr:fieldnum 53;
+	 dr:map ACTIVE  { dr:map-from 1; }
+	 dr:map SUSPENDED { dr:map-from 2; }
+       }
+
+       augment "vlans/vlan/members" {
+	  dr:fieldnum 53;
+       }
+
+       augment "vlans/vlan/members/member" {
+	 dr:fieldnum 151;
+	 dr:atomic-data;
+	 dr:source "member";
+       }
+
+       augment "vlans/vlan/members/member/state" {
+	 dr:fieldnum 161;
+	 dr:source-notification-name "oc-ni-vlan-member-state-change";
+       }
+
+       augment "vlans/vlan/members/member/state/interface" {
+	 dr:fieldnum 151;
+	 dr:source "if_name";
+       }
+    }
+ }
+
+
+  // Daemon that handles this hierarchy
+  dr:command-app "l2ald";
+  dr:sub-component "l2-network-instance";
+  jnpr-proto:message-id "L2ALD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+            description
+              "Routing instance name";
+          }
+
+          uses l2ni-fdb-info;
+
+          container interfaces {
+            dr:fieldnum 151;
+            list interface {
+              key "id";
+              dr:source "interfaces/interface";
+              dr:fieldnum 151;
+
+              leaf id {
+                type string;
+                dr:source "intf_name";
+                dr:fieldnum 51;
+              }
+
+              container state {
+                dr:fieldnum 161;
+                uses oc-ni:instance-interfaces-config {
+                  augment "id" {
+                    dr:source "intf_name";
+                    dr:fieldnum 61;
+                  }
+
+                  augment "mac-pinning" {
+                    dr:source "mac_pinning";
+                    dr:fieldnum 62;
+                    dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+                  }
+                }
+              }
+            }
+          }
+          uses oc-vlan-top;
+        }
+      }
+    }
+  }
+
+  notification oc-ni-fdb-change {
+    dr:source-notification-name "oc-ni-fdb-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-fdb-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses l2ni-fdb-info; 
+	}
+     }
+  }
+
+  notification oc-ni-vlan-state-change {
+    dr:source-notification-name "oc-ni-vlan-state-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-vlan-state-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses oc-vlan-top;
+        }
+     }
+  }
+
+  notification oc-ni-vlan-member-state-change {
+    dr:source-notification-name "oc-ni-vlan-member-state-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-vlan-member-state-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+           uses oc-vlan-top;
+	}
+     }
+  }
+
+  notification oc-ni-intf-mac-pinning-change {
+    dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+    container network-instances {
+	list network-instance {
+	   dr:source "/notification/oc-ni-intf-mac-pinning-change/rt-instances/rt-instance";
+	   dr:fieldnum 151;
+	   key "name";
+
+	   leaf name {
+	     type string;
+	     dr:source "instance_name";
+	     dr:fieldnum 51;
+	   }
+
+	   container interfaces {
+              dr:fieldnum 151;
+              list interface {
+		 key "id";
+		 dr:source "interfaces/interface";
+		 dr:fieldnum 151;
+
+		 leaf id {
+		   type string;
+		   dr:source "intf_name";
+		   dr:fieldnum 51;
+		 }
+
+		 container state {
+		    dr:fieldnum 161;
+		    uses oc-ni:instance-interfaces-config {
+		      augment "mac-pinning" {
+			dr:source "mac_pinning";
+			dr:fieldnum 62;
+			dr:source-notification-name "oc-ni-intf-mac-pinning-change";
+		      }
+		    }
+		 }
+              }
+           }
+        }
+     }
+  }
+
+  notification oc-ni-mac-address-change {
+    dr:source-notification-name "oc-ni-mac-address-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-mac-address-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key "name";
+
+        leaf name {
+          type string;
+          dr:source "instance_name";
+          dr:fieldnum 51;
+        }
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+            dr:fieldnum 141;
+          }
+          augment "fdb/mac-table" {
+            dr:fieldnum 121;
+            dr:source "mac_db";
+          }
+          augment "fdb/mac-table/entries" {
+            dr:fieldnum 131;
+            dr:source "entries";
+          }
+          augment "fdb/mac-table/entries/entry" {
+            dr:fieldnum 141;
+            dr:source "entry";
+          }
+          augment "fdb/mac-table/entries/entry/mac-address" {
+            dr:fieldnum 61;
+            dr:source "mac_address";
+          }
+          augment "fdb/mac-table/entries/entry/vlan" {
+            dr:fieldnum 62;
+            dr:source "vid";
+          }
+          augment "fdb/mac-table/entries/entry/state" {
+            dr:fieldnum 111;
+          }
+          augment "fdb/mac-table/entries/entry/state/mac-address" {
+            dr:fieldnum 81;
+            dr:source "mac_address";
+          }
+          augment "fdb/mac-table/entries/entry/state/vlan" {
+            dr:fieldnum 82;
+            dr:source "vid";
+          }
+          augment "fdb/mac-table/entries/entry/state/entry-type" {
+            dr:fieldnum 83;
+            dr:source "entry_type";
+            dr:map STATIC  { dr:map-from 0; }
+            dr:map DYNAMIC  { dr:map-from 1; }
+          }
+          augment "fdb/mac-table/entries/entry/state/evi" {
+            dr:fieldnum 85;
+            dr:source "vni_id";
+          }
+          augment "fdb/mac-table/entries/entry/interface" {
+            dr:fieldnum 112;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref" {
+             dr:fieldnum 112;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state" {
+            dr:fieldnum 113;
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state/interface" {
+            dr:fieldnum 131;
+            dr:source "interface";
+          }
+          augment "fdb/mac-table/entries/entry/interface/interface-ref/state/subinterface" {
+            dr:fieldnum 141;
+            dr:source "subinterface";
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-ni-l2rib-mac-addr-change {
+    dr:source-notification-name "oc-ni-l2rib-mac-addr-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-l2rib-mac-addr-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key "name";
+
+        leaf name {
+          dr:source "instance-name";
+          dr:fieldnum 51;
+          type string;
+        }
+
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+            dr:fieldnum 141;
+          }
+          augment "fdb/l2rib" {
+            dr:fieldnum 131;
+          }
+          augment "fdb/l2rib/mac-table" {
+            dr:fieldnum 130;
+          }
+          augment "fdb/l2rib/mac-table/entries" {
+            dr:fieldnum 130;
+            dr:source "mac_db/entries";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry" {
+            dr:fieldnum 130;
+            dr:source "entry";
+            dr:source-notification-name "oc-ni-l2rib-mac-addr-change";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/mac-address" {
+            dr:fieldnum 130;
+            dr:source "mac_address";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/state" {
+            dr:fieldnum 131;
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/state/mac-address" {
+            dr:fieldnum 131;
+            dr:source "mac_address";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/state/vlan" {
+            dr:fieldnum 132;
+            dr:source "vid";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/state/evi" {
+            dr:fieldnum 133;
+            dr:source "vni_id";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/state/l2-vni" {
+            dr:fieldnum 134;
+            dr:source "vni_id";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers" {
+            dr:fieldnum 132;
+            dr:source "producers";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer" {
+            dr:fieldnum 132;
+            dr:source "producer";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer/producer" {
+            dr:fieldnum 132;
+            dr:source "type";
+            dr:map STATIC { dr:map-from 0; }
+            dr:map LOCAL { dr:map-from 2; }
+            dr:map BGP { dr:map-from 3; }
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state" {
+            dr:fieldnum 133;
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/producer" {
+            dr:fieldnum 133;
+            dr:source "type";
+            dr:map STATIC { dr:map-from 0; }
+            dr:map LOCAL { dr:map-from 2; }
+            dr:map BGP { dr:map-from 3; }
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/esi" {
+            dr:fieldnum 134;
+            dr:source "esi";
+          }
+          augment "fdb/l2rib/mac-table/entries/entry/producers/producer/state/next-hop" {
+            dr:fieldnum 135;
+            dr:source "nexthop";
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-ni-l2rib-macip-addr-change {
+    dr:source-notification-name "oc-ni-l2rib-macip-addr-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-l2rib-macip-addr-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key "name";
+
+        leaf name {
+          dr:source "instance-name";
+          dr:fieldnum 51;
+          type string;
+        }
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+            dr:fieldnum 141;
+          }
+          augment "fdb/l2rib" {
+            dr:fieldnum 131;
+          }
+          augment "fdb/l2rib/mac-ip-table" {
+            dr:fieldnum 140;
+          }
+          augment "fdb/l2rib/mac-ip-table/entries" {
+            dr:fieldnum 140;
+            dr:source "macip_db/entries";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry" {
+            dr:fieldnum 140;
+            dr:source "entry";
+            dr:source-notification-name "oc-ni-l2rib-macip-addr-change";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/mac-address" {
+            dr:fieldnum 140;
+            dr:source "mac_address";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/host-ip" {
+            dr:fieldnum 141;
+            dr:source "ip_address";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state" {
+            dr:fieldnum 142;
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state/mac-address" {
+            dr:fieldnum 142;
+            dr:source "mac_address";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state/host-ip" {
+            dr:fieldnum 143;
+            dr:source "ip_address";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state/vlan" {
+            dr:fieldnum 144;
+            dr:source "vid";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state/evi" {
+            dr:fieldnum 145;
+            dr:source "vni_id";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/state/l2-vni" {
+            dr:fieldnum 146;
+            dr:source "vni_id";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers" {
+            dr:fieldnum 143;
+            dr:source "producers";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer" {
+            dr:fieldnum 143;
+            dr:source "producer";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/producer" {
+            dr:fieldnum 143;
+            dr:source "type";
+            dr:map STATIC { dr:map-from 0; }
+            dr:map LOCAL { dr:map-from 5; }
+            dr:map BGP { dr:map-from 4; }
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state" {
+            dr:fieldnum 144;
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/producer" {
+            dr:fieldnum 144;
+            dr:source "type";
+            dr:map STATIC { dr:map-from 0; }
+            dr:map LOCAL { dr:map-from 5; }
+            dr:map BGP { dr:map-from 4; }
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/esi" {
+            dr:fieldnum 145;
+            dr:source "esi";
+          }
+          augment "fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/next-hop" {
+            dr:fieldnum 146;
+            dr:source "nexthop";
+          }
+        }
+      }
+    }
+  }
+
+
+  notification oc-ni-mac-table-venh-change {
+    dr:source-notification-name "oc-ni-mac-table-venh-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-mac-table-venh-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key name;
+
+        leaf name {
+          dr:source "instance-name";
+          dr:fieldnum 51;
+          type string;
+        }
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+           dr:fieldnum 141;
+          }
+          augment "fdb/l2rib" {
+            dr:fieldnum 131;
+          }
+          augment "fdb/l2rib/mac-table" {
+            dr:fieldnum 130;
+          }
+          augment "fdb/l2rib/mac-table/next-hops" {
+            dr:fieldnum 131;
+            dr:source "protocols/protocol/evpn";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop" {
+            dr:fieldnum 131;
+            dr:source "vxlan-tunnel-end-point";
+            dr:source-notification-name "oc-ni-mac-table-venh-change";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/index" {
+            dr:fieldnum 131;
+            dr:source "nexthop_index";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/state" {
+            dr:fieldnum 132;
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/state/index" {
+            dr:fieldnum 132;
+            dr:source "nexthop_index";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/state/peer-ip" {
+            dr:fieldnum 133;
+            dr:source "remote_ip_address";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/state/interface" {
+            dr:fieldnum 134;
+            dr:source "vtep_intf";
+          }
+          augment "fdb/l2rib/mac-table/next-hops/next-hop/state/subinterface" {
+            dr:fieldnum 135;
+            dr:source "vtep_subunit";
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-ni-macip-table-venh-change {
+    dr:source-notification-name "oc-ni-macip-table-venh-change";
+    container network-instances {
+      list network-instance {
+        dr:source "/notification/oc-ni-macip-table-venh-change/rt-instances/rt-instance";
+        dr:fieldnum 151;
+        key name;
+
+        leaf name {
+          dr:source "instance-name";
+          dr:fieldnum 51;
+          type string;
+        }
+        uses oc-ni:l2ni-instance {
+          augment "fdb" {
+            dr:fieldnum 141;
+          }
+          augment "fdb/l2rib" {
+           dr:fieldnum 131;
+          }
+          augment "fdb/l2rib/mac-ip-table" {
+            dr:fieldnum 140;
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops" {
+            dr:fieldnum 141;
+            dr:source "protocols/protocol/evpn";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop" {
+            dr:fieldnum 141;
+            dr:source "vxlan-tunnel-end-point";
+            dr:source-notification-name "oc-ni-macip-table-venh-change";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/index" {
+            dr:fieldnum 141;
+            dr:source "nexthop_index";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state" {
+            dr:fieldnum 142;
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/index" {
+            dr:fieldnum 142;
+            dr:source "nexthop_index";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/peer-ip" {
+            dr:fieldnum 143;
+            dr:source "remote_ip_address";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/interface" {
+            dr:fieldnum 144;
+            dr:source "vtep_intf";
+          }
+          augment "fdb/l2rib/mac-ip-table/next-hops/next-hop/state/subinterface" {
+            dr:fieldnum 145;
+            dr:source "vtep_subunit";
+          }
+        }
+      }
+    }
+  }
+}

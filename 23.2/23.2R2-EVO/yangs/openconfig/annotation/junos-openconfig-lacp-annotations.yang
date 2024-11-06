@@ -1,0 +1,26 @@
+module junos-openconfig-lacp-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/lacp";
+  prefix "jnx-oc-lacp-ann";
+  import openconfig-lacp { prefix oc-lacp; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks";
+  description
+     "This module contains platform annotations for LACP OC Yang";
+  revision "2022-07-08" {
+      description "Initial revision";
+  }
+  augment "/oc-lacp:lacp" {
+      junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+      junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+      junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+      junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+      junos:product "qfx5130-32cd qfx5700 qfx10002-60c qfx10016 qfx10008 acx7900 ptx10001-36mr ptx10001-27cd";
+      junos:product-tvp "ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp ex2300-c ex2300-24t ex2300-48t ex3400-24p ex3400-24t ex3400-48p ex3400-48t ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t ex4300-48mp ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t ex4400-24x ex4650-48y ex4650-48y-8c";
+      junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5120-32c qfx5120-48y qfx5120-48t-6c qfx5120-48y-8c qfx5120-48ym-8c qfx5210-64 qfx5210-64c qfx5210-64c-s qfx5110-48s qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q qfx5200-48y qfx5200-32c qfx5200-32c-32q qfx5200-32c-64q qfx5200-32c-r qfx5200-48y-64q qfx10001-l-20c qfx10002-60c qfx10002-36q qfx10002-72q qfx10004 qfx10008 qfx10016";
+      junos:product-tvp "srx1500 src1550 srx4100 srx4200 srx4600 srx4800 acx5448 acx6360-or acx6360-ox acx5448 acx710 acx5048 acx5448-d acx5096 acx5448-m mx10004 mx10008 mx10016 mx304";
+      junos:product "srx5400 srx5600 srx5800 vsrx";
+      junos:product-tvp "srx1500 src1550 srx4100 srx4200 srx4600 srx4800";
+      junos:product "ex9204 ex9208 ex9214 ex9251 ex9253";
+  }
+}

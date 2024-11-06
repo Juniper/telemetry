@@ -1,0 +1,769 @@
+/*
+ * $Id:$
+ *
+ * Render Tree definition for openconfig system on Junos
+ *
+ * Chandradeep Kasturi, December 2022
+ *
+ * Copyright (c) 2022, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module sysd-junos-openconfig-system-render {
+  yang-version 1;
+
+  namespace "http://yang.juniper.net/junos/openconfig/system/render";
+
+  prefix "jnx-junos-oc-sys-rdr";
+
+  import drend {
+    prefix dr;
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-system { prefix oc-sys; }
+  import openconfig-system-terminal { prefix oc-sys-term; }
+  import openconfig-system-logging { prefix oc-log; }
+  import openconfig-aaa { prefix oc-aaa; }
+
+  grouping system-global-config {
+    uses oc-sys:system-global-config {
+      augment "hostname" {
+        dr:source "hostname";
+        dr:fieldnum 51;
+      }
+
+      augment "domain-name" {
+        dr:source "domain_name";
+        dr:fieldnum 52;
+      }
+
+      augment "login-banner" {
+        dr:source "login_banner";
+        dr:fieldnum 53;
+      }
+
+      augment "motd-banner" {
+        dr:source "motd_banner";
+        dr:fieldnum 54;
+      }
+    }
+  }
+
+  grouping system-clock-top {
+    uses oc-sys:system-clock-top {
+      augment clock {
+        dr:fieldnum 52;
+        dr:source "clock";
+      }
+
+      augment clock/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment clock/state/timezone-name {
+        dr:fieldnum 51;
+        dr:source "timezone_name";
+      }
+    }
+  }
+
+  grouping system-dns-top {
+    uses oc-sys:system-dns-top {
+      augment dns {
+        dr:fieldnum 53;
+        dr:source "dns";
+      }
+
+      augment dns/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment dns/state/search {
+        dr:fieldnum 51;
+        dr:source "search";
+      }
+
+      augment dns/servers {
+        dr:fieldnum 52;
+        dr:source "servers";
+      }
+
+      augment dns/servers/server {
+        dr:fieldnum 51;
+        dr:source "server";
+      }
+
+      augment dns/servers/server/address {
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      augment dns/servers/server/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment dns/servers/server/state/address {
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      augment dns/servers/server/state/port {
+        dr:fieldnum 52;
+        dr:source "port";
+      }
+
+      augment dns/host-entries {
+        dr:fieldnum 53;
+        dr:source "host-entries";
+      }
+
+      augment dns/host-entries/host-entry {
+        dr:fieldnum 51;
+        dr:source "host-entry";
+      }
+
+      augment dns/host-entries/host-entry/hostname {
+        dr:fieldnum 51;
+        dr:source "hostname";
+      }
+
+      augment dns/host-entries/host-entry/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment dns/host-entries/host-entry/state/hostname {
+        dr:fieldnum 51;
+        dr:source "hostname";
+      }
+
+      augment dns/host-entries/host-entry/state/alias {
+        dr:fieldnum 52;
+        dr:source "alias";
+      }
+
+      augment dns/host-entries/host-entry/state/ipv4-address {
+        dr:fieldnum 53;
+        dr:source "ipv4-address";
+      }
+
+      augment dns/host-entries/host-entry/state/ipv6-address {
+        dr:fieldnum 54;
+        dr:source "ipv6-address";
+      }
+    }
+  }
+
+  grouping system-ntp-top {
+    uses oc-sys:system-ntp-top {
+      augment ntp {
+        dr:fieldnum 54;
+        dr:source "ntp";
+      }
+
+      augment ntp/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment ntp/state/enabled {
+        dr:fieldnum 51;
+        dr:source "enabled";
+      }
+
+      augment ntp/state/ntp-source-address {
+        dr:fieldnum 52;
+        dr:source "ntp_source_address";
+      }
+
+      augment ntp/state/enable-ntp-auth {
+        dr:fieldnum 53;
+        dr:source "enable_ntp_auth";
+      }
+
+      augment ntp/ntp-keys {
+        dr:fieldnum 52;
+        dr:source "ntp-keys";
+      }
+
+      augment ntp/ntp-keys/ntp-key {
+        dr:fieldnum 51;
+        dr:source "ntp-key";
+      }
+
+      augment ntp/ntp-keys/ntp-key/key-id {
+        dr:fieldnum 51;
+        dr:source "key_id";
+      }
+
+      augment ntp/ntp-keys/ntp-key/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment ntp/ntp-keys/ntp-key/state/key-id {
+        dr:fieldnum 51;
+        dr:source "key_id";
+      }
+
+      augment ntp/ntp-keys/ntp-key/state/key-type {
+        dr:fieldnum 52;
+        dr:source "key_type";
+        dr:map MD5      { dr:map-from 0 ; }
+        dr:map SHA1     { dr:map-from 1 ; }
+        dr:map SHA256   { dr:map-from 2 ; }
+      }
+
+      augment ntp/ntp-keys/ntp-key/state/key-value {
+        dr:fieldnum 53;
+        dr:source "key_value";
+      }
+
+      augment ntp/servers {
+        dr:fieldnum 53;
+        dr:source "servers";
+      }
+
+      augment ntp/servers/server {
+        dr:fieldnum 51;
+        dr:source "server";
+      }
+
+      augment ntp/servers/server/address {
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      augment ntp/servers/server/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment ntp/servers/server/state/address {
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      augment ntp/servers/server/state/port {
+        dr:fieldnum 52;
+        dr:source "port";
+      }
+
+      augment ntp/servers/server/state/version {
+        dr:fieldnum 53;
+        dr:source "version";
+      }
+
+      augment ntp/servers/server/state/association-type {
+        dr:fieldnum 54;
+        dr:source "association_type";
+        dr:map SERVER    { dr:map-from 0 ; }
+        dr:map PEER      { dr:map-from 1 ; }
+        dr:map POOL      { dr:map-from 2 ; }
+      }
+
+      augment ntp/servers/server/state/iburst {
+        dr:fieldnum 55;
+        dr:source "iburst";
+      }
+
+      augment ntp/servers/server/state/prefer {
+        dr:fieldnum 56;
+        dr:source "prefer";
+      }
+    }
+  }
+
+  grouping system-ssh-server-top {
+    uses oc-sys-term:system-ssh-server-top {
+      augment ssh-server {
+        dr:fieldnum 55;
+        dr:source "ssh-server";
+      }
+
+      augment ssh-server/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment ssh-server/state/enable {
+        dr:fieldnum 51;
+        dr:source "enable";
+      }
+
+      augment ssh-server/state/protocol-version {
+        dr:fieldnum 52;
+        dr:source "protocol_version";
+        dr:map V2       { dr:map-from 0 ; }
+        dr:map V1       { dr:map-from 1 ; }
+        dr:map V1_V2    { dr:map-from 2 ; }
+      }
+
+      augment ssh-server/state/timeout {
+        dr:fieldnum 53;
+        dr:source "timeout";
+      }
+    }
+  }
+
+  grouping logging-top {
+    uses oc-log:logging-top {
+      augment logging {
+        dr:fieldnum 56;
+        dr:source "logging";
+      }
+
+      augment logging/console {
+        dr:fieldnum 51;
+        dr:source "console";
+      }
+
+      augment logging/console/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment logging/console/selectors {
+        dr:fieldnum 52;
+        dr:source "selectors";
+      }
+
+      augment logging/console/selectors/selector {
+        dr:fieldnum 51;
+        dr:source "selector";
+      }
+
+      augment logging/console/selectors/selector/facility {
+        dr:fieldnum 51;
+        dr:source "facility";
+        dr:map ALL           { dr:map-from 0 ; }
+        dr:map KERNEL        { dr:map-from 1 ; }
+        dr:map USER          { dr:map-from 2 ; }
+        dr:map SYSTEM_DAEMON { dr:map-from 3 ; }
+        dr:map AUTH          { dr:map-from 4 ; }
+        dr:map AUTH          { dr:map-from 5 ; }
+        dr:map NTP           { dr:map-from 6 ; }
+        dr:map LOCAL0        { dr:map-from 7 ; }
+        dr:map LOCAL1        { dr:map-from 8 ; }
+        dr:map LOCAL2        { dr:map-from 9 ; }
+        dr:map LOCAL3        { dr:map-from 10 ; }
+        dr:map LOCAL4        { dr:map-from 11 ; }
+        dr:map LOCAL5        { dr:map-from 12 ; }
+        dr:map LOCAL6        { dr:map-from 13 ; }
+        dr:map LOCAL7        { dr:map-from 14 ; }
+        dr:map UNKNOWN       { dr:map-from 15 ; }
+      }
+
+      augment logging/console/selectors/selector/severity {
+        dr:fieldnum 52;
+        dr:source "severity";
+        dr:map EMERGENCY      { dr:map-from 0 ; }
+        dr:map ALERT          { dr:map-from 1 ; }
+        dr:map CRITICAL       { dr:map-from 2 ; }
+        dr:map ERROR          { dr:map-from 3 ; }
+        dr:map WARNING        { dr:map-from 4 ; }
+        dr:map NOTICE         { dr:map-from 5 ; }
+        dr:map INFORMATIONAL  { dr:map-from 6 ; }
+        dr:map DEBUG          { dr:map-from 7 ; }
+        dr:map ANY            { dr:map-from 8 ; }
+        dr:map UNKNOWN        { dr:map-from 9 ; }
+      }
+
+      augment logging/console/selectors/selector/state {
+        dr:fieldnum 53;
+        dr:source "state";
+      }
+
+      augment logging/console/selectors/selector/state/facility {
+        dr:fieldnum 51;
+        dr:source "facility";
+        dr:map ALL           { dr:map-from 0 ; }
+        dr:map KERNEL        { dr:map-from 1 ; }
+        dr:map USER          { dr:map-from 2 ; }
+        dr:map SYSTEM_DAEMON { dr:map-from 3 ; }
+        dr:map AUTH          { dr:map-from 4 ; }
+        dr:map AUTH          { dr:map-from 5 ; }
+        dr:map NTP           { dr:map-from 6 ; }
+        dr:map LOCAL0        { dr:map-from 7 ; }
+        dr:map LOCAL1        { dr:map-from 8 ; }
+        dr:map LOCAL2        { dr:map-from 9 ; }
+        dr:map LOCAL3        { dr:map-from 10 ; }
+        dr:map LOCAL4        { dr:map-from 11 ; }
+        dr:map LOCAL5        { dr:map-from 12 ; }
+        dr:map LOCAL6        { dr:map-from 13 ; }
+        dr:map LOCAL7        { dr:map-from 14 ; }
+        dr:map UNKNOWN       { dr:map-from 15 ; }
+      }
+
+      augment logging/console/selectors/selector/state/severity {
+        dr:fieldnum 52;
+        dr:source "severity";
+        dr:map EMERGENCY      { dr:map-from 0 ; }
+        dr:map ALERT          { dr:map-from 1 ; }
+        dr:map CRITICAL       { dr:map-from 2 ; }
+        dr:map ERROR          { dr:map-from 3 ; }
+        dr:map WARNING        { dr:map-from 4 ; }
+        dr:map NOTICE         { dr:map-from 5 ; }
+        dr:map INFORMATIONAL  { dr:map-from 6 ; }
+        dr:map DEBUG          { dr:map-from 7 ; }
+        dr:map ANY            { dr:map-from 8 ; }
+        dr:map UNKNOWN        { dr:map-from 9 ; }
+      }
+
+      augment logging/remote-servers {
+        dr:fieldnum 52;
+        dr:source "remote-servers";
+      }
+
+      augment logging/remote-servers/remote-server {
+        dr:fieldnum 51;
+        dr:source "remote-server";
+      }
+
+      augment logging/remote-servers/remote-server/host {
+        dr:fieldnum 51;
+        dr:source "host";
+      }
+
+      augment logging/remote-servers/remote-server/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment logging/remote-servers/remote-server/state/host {
+        dr:fieldnum 51;
+        dr:source "host";
+      }
+
+      augment logging/remote-servers/remote-server/state/source-address {
+        dr:fieldnum 52;
+        dr:source "source_address";
+      }
+
+      augment logging/remote-servers/remote-server/state/remote-port {
+        dr:fieldnum 53;
+        dr:source "remote_port";
+      }
+
+      augment logging/remote-servers/remote-server/selectors {
+        dr:fieldnum 53;
+        dr:source "selectors";
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector {
+        dr:fieldnum 51;
+        dr:source "selector";
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector/facility {
+        dr:fieldnum 51;
+        dr:source "facility";
+        dr:map ALL           { dr:map-from 0 ; }
+        dr:map KERNEL        { dr:map-from 1 ; }
+        dr:map USER          { dr:map-from 2 ; }
+        dr:map SYSTEM_DAEMON { dr:map-from 3 ; }
+        dr:map AUTH          { dr:map-from 4 ; }
+        dr:map AUTH          { dr:map-from 5 ; }
+        dr:map NTP           { dr:map-from 6 ; }
+        dr:map LOCAL0        { dr:map-from 7 ; }
+        dr:map LOCAL1        { dr:map-from 8 ; }
+        dr:map LOCAL2        { dr:map-from 9 ; }
+        dr:map LOCAL3        { dr:map-from 10 ; }
+        dr:map LOCAL4        { dr:map-from 11 ; }
+        dr:map LOCAL5        { dr:map-from 12 ; }
+        dr:map LOCAL6        { dr:map-from 13 ; }
+        dr:map LOCAL7        { dr:map-from 14 ; }
+        dr:map UNKNOWN       { dr:map-from 15 ; }
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector/severity {
+        dr:fieldnum 52;
+        dr:source "severity";
+        dr:map EMERGENCY      { dr:map-from 0 ; }
+        dr:map ALERT          { dr:map-from 1 ; }
+        dr:map CRITICAL       { dr:map-from 2 ; }
+        dr:map ERROR          { dr:map-from 3 ; }
+        dr:map WARNING        { dr:map-from 4 ; }
+        dr:map NOTICE         { dr:map-from 5 ; }
+        dr:map INFORMATIONAL  { dr:map-from 6 ; }
+        dr:map DEBUG          { dr:map-from 7 ; }
+        dr:map ANY            { dr:map-from 8 ; }
+        dr:map UNKNOWN        { dr:map-from 9 ; }
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector/state {
+        dr:fieldnum 53;
+        dr:source "state";
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector/state/facility {
+        dr:fieldnum 51;
+        dr:source "facility";
+        dr:map ALL           { dr:map-from 0 ; }
+        dr:map KERNEL        { dr:map-from 1 ; }
+        dr:map USER          { dr:map-from 2 ; }
+        dr:map SYSTEM_DAEMON { dr:map-from 3 ; }
+        dr:map AUTH          { dr:map-from 4 ; }
+        dr:map AUTH          { dr:map-from 5 ; }
+        dr:map NTP           { dr:map-from 6 ; }
+        dr:map LOCAL0        { dr:map-from 7 ; }
+        dr:map LOCAL1        { dr:map-from 8 ; }
+        dr:map LOCAL2        { dr:map-from 9 ; }
+        dr:map LOCAL3        { dr:map-from 10 ; }
+        dr:map LOCAL4        { dr:map-from 11 ; }
+        dr:map LOCAL5        { dr:map-from 12 ; }
+        dr:map LOCAL6        { dr:map-from 13 ; }
+        dr:map LOCAL7        { dr:map-from 14 ; }
+        dr:map UNKNOWN       { dr:map-from 15 ; }
+      }
+
+      augment logging/remote-servers/remote-server/selectors/selector/state/severity {
+        dr:fieldnum 52;
+        dr:source "severity";
+        dr:map EMERGENCY      { dr:map-from 0 ; }
+        dr:map ALERT          { dr:map-from 1 ; }
+        dr:map CRITICAL       { dr:map-from 2 ; }
+        dr:map ERROR          { dr:map-from 3 ; }
+        dr:map WARNING        { dr:map-from 4 ; }
+        dr:map NOTICE         { dr:map-from 5 ; }
+        dr:map INFORMATIONAL  { dr:map-from 6 ; }
+        dr:map DEBUG          { dr:map-from 7 ; }
+        dr:map ANY            { dr:map-from 8 ; }
+        dr:map UNKNOWN        { dr:map-from 9 ; }
+      }
+    }
+  }
+
+  grouping aaa-top {
+    uses oc-aaa:aaa-top {
+      augment aaa {
+        dr:fieldnum 57;
+        dr:source "aaa";
+      }
+
+      augment aaa/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment aaa/authentication {
+        dr:fieldnum 52;
+        dr:source "authentication";
+      }
+
+      augment aaa/authentication/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment aaa/authentication/state/authentication-method {
+        dr:fieldnum 51;
+        dr:source "authentication-method";
+      }
+
+      augment aaa/authentication/admin-user {
+        dr:fieldnum 52;
+        dr:source "admin-user";
+      }
+
+      augment aaa/authentication/admin-user/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment aaa/authentication/admin-user/state/admin-password-hashed {
+        dr:fieldnum 51;
+        dr:source "admin_password_hashed";
+      }
+
+      augment aaa/authentication/admin-user/state/admin-username {
+        dr:fieldnum 52;
+        dr:source "admin_username";
+      }
+
+      augment aaa/authentication/users {
+        dr:fieldnum 53;
+        dr:source "users";
+      }
+
+      augment aaa/authentication/users/user {
+        dr:fieldnum 51;
+        dr:source "user";
+      }
+
+      augment aaa/authentication/users/user/username {
+        dr:fieldnum 51;
+        dr:source "username";
+      }
+
+      augment aaa/authentication/users/user/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment aaa/authentication/users/user/state/username {
+        dr:fieldnum 51;
+        dr:source "username";
+      }
+
+      augment aaa/authentication/users/user/state/password-hashed {
+        dr:fieldnum 52;
+        dr:source "password_hashed";
+      }
+
+      augment aaa/authentication/users/user/state/role {
+        dr:fieldnum 53;
+        dr:source "role";
+      }
+
+      augment aaa/server-groups {
+        dr:fieldnum 53;
+        dr:source "server-groups";
+      }
+
+      augment aaa/server-groups/server-group {
+        dr:fieldnum 51;
+        dr:source "server-group";
+      }
+
+      augment aaa/server-groups/server-group/name {
+        dr:fieldnum 51;
+        dr:source "name";
+      }
+
+      augment aaa/server-groups/server-group/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment aaa/server-groups/server-group/state/name {
+        dr:fieldnum 51;
+        dr:source "name";
+      }
+
+      augment aaa/server-groups/server-group/state/type {
+        dr:fieldnum 52;
+        dr:source "type";
+      }
+
+      augment aaa/server-groups/server-group/servers {
+        dr:fieldnum 53;
+        dr:source "servers";
+      }
+
+      augment aaa/server-groups/server-group/servers/server {
+        dr:fieldnum 51;
+        dr:source "server";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/address {
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/state {
+        dr:fieldnum 52;
+        dr:source "state";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/state/name {
+        dr:fieldnum 51;
+        dr:source "name";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/state/address {
+        dr:fieldnum 52;
+        dr:source "address";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/state/timeout {
+        dr:fieldnum 53;
+        dr:source "timeout";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/tacacs {
+        dr:fieldnum 53;
+        dr:source "tacacs";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/tacacs/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/tacacs/state/port {
+        dr:fieldnum 51;
+        dr:source "port";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/tacacs/state/secret-key {
+        dr:fieldnum 52;
+        dr:source "tacacs_secret_key";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/tacacs/state/source-address {
+        dr:fieldnum 53;
+        dr:source "tacacs_source_address";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius {
+        dr:fieldnum 54;
+        dr:source "radius";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius/state {
+        dr:fieldnum 51;
+        dr:source "state";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius/state/auth-port {
+        dr:fieldnum 51;
+        dr:source "auth_port";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius/state/secret-key {
+        dr:fieldnum 53;
+        dr:source "radius_secret_key";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius/state/source-address {
+        dr:fieldnum 54;
+        dr:source "radius_source_address";
+      }
+
+      augment aaa/server-groups/server-group/servers/server/radius/state/retransmit-attempts {
+        dr:fieldnum 55;
+        dr:source "retransmit_attempts";
+      }
+    }
+  }
+
+  dr:command-app "sysd";
+  jnpr-proto:message-id "SYSD-JUNOS-OPENCONFIG-SYSTEM-RENDER-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container system {
+        dr:source "/system";
+        dr:fieldnum 51;
+        container state {
+          dr:source "state";
+          dr:fieldnum 51;
+
+          uses system-global-config;
+        }
+
+        uses system-clock-top;
+        uses system-dns-top;
+        uses system-ntp-top;
+        uses system-ssh-server-top;
+        uses logging-top;
+        uses aaa-top;
+      }
+    }
+  }
+}

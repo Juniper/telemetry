@@ -1,0 +1,23 @@
+module junos-smid-vc-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/smid-vc/annotations";
+    prefix "junos-smid-vc-ann";
+    import junos-smid-vc { prefix junos-smid-vc; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-11-15" {
+        description "Initial version to add native smid-vc model product support information";
+    }
+    augment "/junos-smid-vc:junos/junos-smid-vc:system/junos-smid-vc:mx-vc/" +
+            "junos-smid-vc:members/junos-smid-vc:member/junos-smid-vc:virtual-chassis-ports" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    }
+    augment "/junos-smid-vc:junos/junos-smid-vc:system/junos-smid-vc:mx-vc/" +
+            "junos-smid-vc:members/junos-smid-vc:member/junos-smid-vc:ddos-protocols" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    }
+    augment "/junos-smid-vc:junos/junos-smid-vc:system/junos-smid-vc:mx-vc/" +
+            "junos-smid-vc:members/junos-smid-vc:member/junos-smid-vc:heartbeat" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    }
+}

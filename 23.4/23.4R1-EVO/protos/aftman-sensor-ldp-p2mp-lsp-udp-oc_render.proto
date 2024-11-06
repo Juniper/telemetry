@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional ldp_p2mp_lsp_stats jnpr_ldp_p2mp_lsp_stats_ext = 155;
+}
+
+message ldp_p2mp_lsp_stats {
+   message ldp_p2mp_lsp_stats_records_list {
+      optional string root_address = 1 [(telemetry_options).is_key = true];
+      optional uint32 lsp_id = 2;
+      optional string source_ip = 3;
+      optional string group_ip = 4;
+      optional uint32 instance_identifier = 5;
+      optional string counter_name = 6;
+      message stats_list {
+         optional uint64 packets = 1;
+         optional uint64 bytes = 2;
+         optional uint64 packet_rate = 3;
+         optional uint64 byte_rate = 4;
+      }
+      repeated stats_list stats = 7;
+   }
+   repeated ldp_p2mp_lsp_stats_records_list ldp_p2mp_lsp_stats_records = 1;
+}

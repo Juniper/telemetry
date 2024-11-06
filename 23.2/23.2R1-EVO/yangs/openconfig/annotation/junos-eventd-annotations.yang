@@ -1,0 +1,24 @@
+module junos-eventd-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/eventd/annotations";
+    prefix "junos-eventd-ann";
+    import junos-eventd { prefix junos-eventd; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-09-22" {
+        description "Initial version to add eventd model product support information";
+    }
+    augment "/junos-eventd:junos/junos-eventd:events" {
+        junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C";
+        junos:product "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008";
+        junos:product-tvp "QFX5120-48YM QFX5120-48T QFX5210-64C";
+        junos:product-tvp "qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q";
+        junos:product-tvp "EX4100-48P EX4100-48T EX4100-24P EX4100-24T EX4100-F-48P EX4100-F-24P EX4100-F-48T EX4100-F-24T";
+        junos:product-tvp "EX4100-48MP EX4100-24MP EX4100-F-12P EX4100-F-12T";
+        junos:product-tvp "EX4400-24MP EX4400-24P EX4400-24T EX4400-48F EX4400-48MP EX4400-48P EX4400-48T";
+    }
+}

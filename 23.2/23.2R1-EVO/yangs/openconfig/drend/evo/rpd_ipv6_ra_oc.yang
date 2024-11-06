@@ -1,0 +1,91 @@
+/*
+ * Render tree for IPv6 RA(router advertisement) Openconfig 
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module rpd_ipv6_ra_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/rpd-ipv6-ra-augment";
+
+  prefix "ipv6-ra-oc";
+ 
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  
+  import jnx-aug-openconfig-if-ip { prefix jnx-oc-ip; }
+
+  description "
+	'OpenConfig' render tree for IPv6 RA(router advertisements) 
+  ";
+
+  revision "2016-06-21" {
+    description "Initial revision";
+  }
+
+  /*
+   * Daemon that handles this hierarchy
+   */
+  dr:command-app "rpd";
+  dr:sub-component "ipv6-ra";
+  jnpr-proto:message-id "RPD-IPV6-RA-OC-MESSAGE-ID";
+
+  grouping ipv6-ra-intf-group {
+    uses jnx-oc-ip:jnx-ipv6-ra-interface {
+      augment "name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "initial-adv-sent" {
+        dr:source "initial-adv-sent";
+        dr:fieldnum 52;
+      }
+      augment "adv-sent" {
+        dr:source "adv-sent";
+        dr:fieldnum 53;
+      }
+      augment "adv-received" {
+        dr:source "adv-received";
+        dr:fieldnum 54;
+      }
+      augment "solicits-received" {
+        dr:source "solicits-received";
+        dr:fieldnum 55;
+      }
+      augment "last-adv-time" {
+        dr:source "last-adv-time";
+        dr:fieldnum 56;
+      }
+      augment "last-solicit-time" {
+        dr:source "last-solicit-time";
+        dr:fieldnum 57;
+      }
+    }
+  }
+
+  
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/rpd/ipv6-ra";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc for /rpd/ipv6-ra";
+
+    output {
+      container ipv6-ra {
+        dr:source "/rpd/ipv6-ra";
+        list ipv6-ra-interface {
+          dr:source "/rpd/ipv6-ra/interface";
+          dr:fieldnum 151;
+          uses ipv6-ra-intf-group;
+    
+        }
+      }
+    }
+  }
+}
+

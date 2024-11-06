@@ -1,0 +1,619 @@
+/*
+* $Id$
+*
+* Copyright (c) 2018, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+ 
+module hwdre_oc {
+ 
+  yang-version "1";
+ 
+  // namespace
+  namespace "http://juniper.net/yang/hwdre";
+ 
+  prefix "hwdre-oc";
+ 
+  import openconfig-platform { prefix oc-pf; }
+  import openconfig-platform-fan { prefix oc-fan; }
+  import openconfig-platform-psu { prefix oc-psu; }
+  import drend { prefix dr; }
+  import openconfig-platform-linecard { prefix oc-linecard; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-platform-fabric {prefix oc-fabric; }
+  import openconfig-platform-controller-card {prefix oc-ctrl-card; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+ 
+  contact "www.juniper.net";
+
+  grouping chassisd-inventory {
+      uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:source-notification-name "hwd_module:fruE-event";
+        dr:source-notification-name "hwd_module:subcomponentE-event";
+        dr:fieldnum 151;
+        uses oc-linecard:linecard-top {
+          augment "linecard" {
+             dr:fieldnum 161;
+          }
+          augment "linecard/state" {
+            dr:fieldnum 151;
+          }
+          augment "linecard/state/power-admin-state" {
+              dr:source "telemetryFpcData/state";
+              dr:fieldnum 152;
+              dr:map POWER_ENABLED         { dr:map-from 3 ; } // Present
+              dr:map POWER_ENABLED         { dr:map-from 8 ; } // Online
+              dr:map POWER_DISABLED        { dr:map-from 10; } // Offline
+              dr:map POWER_ENABLED         { dr:map-from 14; } // Fault
+              dr:map POWER_DISABLED        { dr:map-from 15; } // Fault Power Off
+              dr:map POWER_DISABLED        { dr:map-from 18; } // Power off
+          }
+          augment "linecard/state/slot-id" {
+              dr:source "telemetryFpcData/slot";
+              dr:fieldnum 153;
+          }
+        }
+      }
+
+      /*fan data */
+      augment "components/component/fan" {
+        dr:fieldnum 153;
+      }
+      augment "components/component/fan/state" {
+        dr:fieldnum 151;
+        uses oc-fan:fan-state {
+          augment "speed" {
+            dr:zero-suppressed;
+            dr:source "fan_speed";
+            dr:fieldnum 51;
+          }
+        }
+      }
+
+      /*power-supply data */
+      augment "components/component/power-supply" {
+        dr:fieldnum 155;
+      }
+      augment "components/component/power-supply/state" {
+        dr:fieldnum 151;
+        uses oc-psu:psu-state {
+          augment "capacity" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/capacity_flt";
+            dr:fieldnum 51;
+          }
+          augment "input-current" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/input_current_flt";
+            dr:fieldnum 52;
+          }
+          augment "input-voltage" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/input_voltage_flt";
+            dr:fieldnum 53;
+          }
+          augment "output-current" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/output_current_flt";
+            dr:fieldnum 54;
+          }
+          augment "output-voltage" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/output_voltage_flt";
+            dr:fieldnum 55;
+          }
+          augment "output-power" {
+            dr:zero-suppressed;
+            dr:source "telemetryPsmData/output_power_flt";
+            dr:fieldnum 56;
+          }
+        }
+      }
+
+      augment "components/component/backplane" {
+        dr:fieldnum 165;
+      }
+      augment "components/component/backplane/state" {
+        dr:fieldnum 165;
+      }
+
+      augment "components/component/fabric" {
+        dr:fieldnum 166;
+      }
+      augment "components/component/fabric/state" {
+        dr:fieldnum 166;
+          uses oc-fabric:fabric-config {
+          augment "power-admin-state" {
+            dr:source "telemetrySibData/state";
+            dr:fieldnum 58;
+            dr:map POWER_DISABLED         { dr:map-from 2  ; } //EMPTY("Empty");
+            dr:map POWER_ENABLED          { dr:map-from 3  ; } //PRESENT("Present");
+            dr:map POWER_ENABLED          { dr:map-from 4  ; } //POWER_ON_WAIT("PowerOnWait");
+            dr:map POWER_ENABLED          { dr:map-from 5  ; } //POWER_ON_PERMISSION("PowerOnPermission");
+            dr:map POWER_ENABLED          { dr:map-from 6  ; } //POWER_ON_START("PowerOnStart");
+            dr:map POWER_ENABLED          { dr:map-from 7  ; } //POWER_ON("PowerOn");
+            dr:map POWER_ENABLED          { dr:map-from 8  ; } //ONLINE("ONLINE");
+            dr:map POWER_ENABLED          { dr:map-from 9  ; } //TRANSITION_ONLINE("TRANSITION_ONLINE");
+            dr:map POWER_DISABLED         { dr:map-from 10 ; } //OFFLINE("OFFLINE");
+            dr:map POWER_DISABLED         { dr:map-from 11 ; } //TRANSITION_OFFLINE("TRANSITION_OFFLINE");
+            dr:map POWER_ENABLED          { dr:map-from 12 ; } //STANDBY("STANDBY");
+            dr:map POWER_ENABLED          { dr:map-from 13 ; } //DIAGNOSTIC("DIAGNOSTIC");
+            dr:map POWER_ENABLED          { dr:map-from 14 ; } //FAULT("FAULT");
+            dr:map POWER_DISABLED         { dr:map-from 15 ; } //FAULT_POWER_OFF("FAULT_POWER_OFF");
+            dr:map POWER_DISABLED         { dr:map-from 17 ; } //POWER_OFF_START("PowerOffStart");
+            dr:map POWER_DISABLED         { dr:map-from 18 ; } //POWER_OFF("PowerOff");
+            dr:map POWER_ENABLED          { dr:map-from 19 ; } //PREINIT_START("PreinitStart");
+            dr:map POWER_ENABLED          { dr:map-from 20 ; } //PREINIT("Preinit");
+            dr:map POWER_DISABLED         { dr:map-from 21 ; } //PREINIT_FAILED("PreinitFailed");
+            dr:map POWER_ENABLED          { dr:map-from 22 ; } //INIT_START("InitStart");
+            dr:map POWER_ENABLED          { dr:map-from 23 ; } //INIT("Init");
+            dr:map POWER_DISABLED         { dr:map-from 24 ; } //INIT_FAILED("InitFailed");
+            dr:map POWER_ENABLED          { dr:map-from 25 ; } //ONLINE_START("OnlineStart");
+            dr:map POWER_DISABLED         { dr:map-from 26 ; } //ONLINE_FAILED("OnlineFailed");
+            dr:map POWER_ENABLED          { dr:map-from 27 ; } //POWERED("Powered");
+          }
+        }
+      }
+
+      augment "components/component/storage" {
+        dr:fieldnum 167;
+      }
+      augment "components/component/storage/state" {
+        dr:fieldnum 167;
+      }
+
+      augment "components/component/controller-card" {
+        dr:fieldnum 168;
+      }
+      augment "components/component/controller-card/state" {
+        dr:fieldnum 168;
+          uses oc-ctrl-card:controller-card-config {
+          augment "power-admin-state" {
+            dr:source "telemetryReData/state";
+            dr:fieldnum 58;
+            dr:map POWER_DISABLED         { dr:map-from 2  ; } //EMPTY("Empty");
+            dr:map POWER_ENABLED          { dr:map-from 3  ; } //PRESENT("Present");
+            dr:map POWER_ENABLED          { dr:map-from 4  ; } //POWER_ON_WAIT("PowerOnWait");
+            dr:map POWER_ENABLED          { dr:map-from 5  ; } //POWER_ON_PERMISSION("PowerOnPermission");
+            dr:map POWER_ENABLED          { dr:map-from 6  ; } //POWER_ON_START("PowerOnStart");
+            dr:map POWER_ENABLED          { dr:map-from 7  ; } //POWER_ON("PowerOn");
+            dr:map POWER_ENABLED          { dr:map-from 8  ; } //ONLINE("ONLINE");
+            dr:map POWER_ENABLED          { dr:map-from 9  ; } //TRANSITION_ONLINE("TRANSITION_ONLINE");
+            dr:map POWER_DISABLED         { dr:map-from 10 ; } //OFFLINE("OFFLINE");
+            dr:map POWER_DISABLED         { dr:map-from 11 ; } //TRANSITION_OFFLINE("TRANSITION_OFFLINE");
+            dr:map POWER_ENABLED          { dr:map-from 12 ; } //STANDBY("STANDBY");
+            dr:map POWER_ENABLED          { dr:map-from 13 ; } //DIAGNOSTIC("DIAGNOSTIC");
+            dr:map POWER_ENABLED          { dr:map-from 14 ; } //FAULT("FAULT");
+            dr:map POWER_DISABLED         { dr:map-from 15 ; } //FAULT_POWER_OFF("FAULT_POWER_OFF");
+            dr:map POWER_DISABLED         { dr:map-from 17 ; } //POWER_OFF_START("PowerOffStart");
+            dr:map POWER_DISABLED         { dr:map-from 18 ; } //POWER_OFF("PowerOff");
+            dr:map POWER_ENABLED          { dr:map-from 19 ; } //PREINIT_START("PreinitStart");
+            dr:map POWER_ENABLED          { dr:map-from 20 ; } //PREINIT("Preinit");
+            dr:map POWER_DISABLED         { dr:map-from 21 ; } //PREINIT_FAILED("PreinitFailed");
+            dr:map POWER_ENABLED          { dr:map-from 22 ; } //INIT_START("InitStart");
+            dr:map POWER_ENABLED          { dr:map-from 23 ; } //INIT("Init");
+            dr:map POWER_DISABLED         { dr:map-from 24 ; } //INIT_FAILED("InitFailed");
+            dr:map POWER_ENABLED          { dr:map-from 25 ; } //ONLINE_START("OnlineStart");
+            dr:map POWER_DISABLED         { dr:map-from 26 ; } //ONLINE_FAILED("OnlineFailed");
+            dr:map POWER_ENABLED          { dr:map-from 27 ; } //POWERED("Powered");
+          }
+        }
+      }
+
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+
+      augment "components/component/state" {
+          dr:fieldnum 151;
+      }
+
+      augment "components/component/state/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/type" {
+        dr:source "fruType";
+        dr:fieldnum 52;
+        dr:map CHASSIS          { dr:map-from 1 ; } // CHASSIS;
+        dr:map BACKPLANE        { dr:map-from 2 ; } // BACKPLANE;
+        dr:map FRU              { dr:map-from 3 ; } // FPM;
+        dr:map POWER_SUPPLY     { dr:map-from 4 ; } // PDU;
+        dr:map POWER_SUPPLY     { dr:map-from 5 ; } // PSM;
+        dr:map FRU              { dr:map-from 6 ; } // CCG;
+        dr:map CONTROLLER_CARD  { dr:map-from 7 ; } // RE;
+        dr:map FRU              { dr:map-from 8 ; } // CB;
+        dr:map LINECARD         { dr:map-from 9 ; } // FPC;
+        dr:map FRU              { dr:map-from 10; } // PIC;
+        dr:map LINECARD         { dr:map-from 11; } // SPMB;
+        dr:map FABRIC           { dr:map-from 12; } // SIB;
+        dr:map FRU              { dr:map-from 13; } // FTC; 
+        dr:map FRU              { dr:map-from 14; } // FAN;
+        dr:map PORT             { dr:map-from 15; } // PORT; 
+        dr:map FRU              { dr:map-from 16; } // MEZZ;
+        dr:map FABRIC           { dr:map-from 17; } // FEB;
+        dr:map SOFTWARE_MODULE  { dr:map-from 19; } // Software Module;
+        dr:map BIOS             { dr:map-from 20; } // BIOS;
+        dr:map BOOT_LOADER      { dr:map-from 21; } // BOOTLOADER;
+        dr:map FAN              { dr:map-from 24; } // SINGLEFAN;
+        dr:map OPERATING_SYSTEM { dr:map-from 25; } // OS_VERSION;
+        dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW;
+      }
+      augment "components/component/state/id" {
+        dr:source "serialNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 53;
+      }
+      augment "components/component/state/description" {
+        dr:source "description";
+        dr:fieldnum 54;
+      }
+      augment "components/component/state/serial-no" {
+        dr:source "serialNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 55;
+      }
+      augment "components/component/state/part-no" {
+        dr:source "oc_partNumber";
+        dr:zero-suppressed;
+        dr:fieldnum 56;
+      }
+      augment "components/component/state/hardware-version" {
+        dr:source "oc_hwVersion";
+        dr:zero-suppressed;
+        dr:fieldnum 57;
+      }
+      augment "components/component/state/oper-status" {
+        dr:source "state";
+        dr:fieldnum 58;
+        dr:map INACTIVE             { dr:map-from 3 ; } // Present
+        dr:map ACTIVE               { dr:map-from 8 ; } // Online
+        dr:map DISABLED             { dr:map-from 10; } // Offline
+        dr:map DISABLED             { dr:map-from 12; } // Standby
+        dr:map INACTIVE             { dr:map-from 14; } // Fault
+        dr:map INACTIVE             { dr:map-from 15; } // Fault Power Off
+        dr:map DISABLED             { dr:map-from 18; } // Power off
+      }
+      augment "components/component/state/location" {
+        dr:source "location";
+        dr:fieldnum 59;
+      }
+      augment "components/component/state/mfg-name" {
+        dr:source "oc_mfgName";
+        dr:zero-suppressed;
+        dr:fieldnum 60;
+      }
+      augment "components/component/state/mfg-date" {
+        dr:source "manufactureDate";
+        dr:zero-suppressed;
+        dr:fieldnum 61;
+      }
+      augment "components/component/state/firmware-version" {
+        dr:source "firmware_version";
+        dr:zero-suppressed;
+        dr:fieldnum 62;
+      }
+      augment "components/component/state/software-version" {
+        dr:source "software_version";
+        dr:zero-suppressed;
+        dr:fieldnum 63;
+      }
+      augment "components/component/state/removable" {
+        dr:source "is_removable";
+        dr:fieldnum 64;
+      }
+      augment "components/component/state/empty" {
+        dr:source "empty";
+        dr:fieldnum 65;
+      }
+      augment "components/component/state/parent" {
+        dr:source "parent";
+        dr:fieldnum 66;
+      }
+      augment "components/component/state/allocated-power" {
+        dr:source "allocated_power";
+        dr:fieldnum 67;
+      }
+      augment "components/component/state/used-power" {
+        dr:source "used_power";
+        dr:fieldnum 68;
+      }
+      augment "components/component/state/redundant-role" {
+        dr:source "telemetrySwitchoverData/redundancy_state";
+        dr:fieldnum 73;
+        dr:map PRIMARY          { dr:map-from 1 ; } // PRIMARY;
+        dr:map SECONDARY        { dr:map-from 2 ; } // SECONDARY;
+      }
+      augment "components/component/state/last-switchover-reason" {
+        dr:fieldnum 153;
+      }
+      augment "components/component/state/last-switchover-reason/trigger" {
+        dr:source "telemetrySwitchoverData/switchover_trigger";
+        dr:fieldnum 51;
+        dr:map USER_INITIATED   { dr:map-from 1 ; } // USER;
+        dr:map SYSTEM_INITIATED { dr:map-from 2 ; } // SYSTEM;
+      }
+      augment "components/component/state/last-switchover-reason/details" {
+        dr:source "telemetrySwitchoverData/switchover_details";
+        dr:fieldnum 52;
+      }
+      augment "components/component/state/last-switchover-time" {
+        dr:source "telemetrySwitchoverData/last_switch_time";
+        dr:fieldnum 74;
+      }
+      augment "components/component/state/last-reboot-reason" {
+        dr:source "telemetrySwitchoverData/last_reboot_reason";
+        dr:fieldnum 75;
+        dr:map REBOOT_USER_INITIATED  { dr:map-from 1 ; } // USER;
+        dr:map REBOOT_POWER_FAILURE   { dr:map-from 2 ; } // USER;
+        dr:map REBOOT_CRITICAL_ERROR  { dr:map-from 3 ; } // SYSTEM;
+      }
+      augment "components/component/state/last-reboot-time" {
+        dr:source "telemetrySwitchoverData/last_reboot_time";
+        dr:fieldnum 76;
+      }
+      augment "components/component/state/switchover-ready" {
+        dr:source "telemetrySwitchoverData/switchover_ready";
+        dr:fieldnum 77;
+      }
+      augment "components/component/state/temperature" {
+        dr:source "fruUtilization";
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/temperature/instant" {
+        dr:source "temperature";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory" {
+        dr:source "fruUtilization";
+        dr:fieldnum 152;
+      }
+      augment "components/component/state/memory/available" {
+        dr:source "memory_dram_size_bytes";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory/utilized" {
+        dr:source "memory_dram_used_bytes";
+        dr:fieldnum 52;
+      }
+      augment "components/component/properties" {
+        dr:fieldnum 152;
+      }
+      augment "components/component/properties/property" {
+        dr:source "propertyE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties/property/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/properties/property/state/value" {
+        dr:source "value";
+        dr:fieldnum 51;
+      }
+      augment "components/component/properties/property/state/configurable" {
+        dr:source "configurable";
+        dr:fieldnum 52;
+      }
+      augment "components/component/subcomponents" {
+        dr:fieldnum 154;
+      }
+      augment "components/component/subcomponents/subcomponent" {
+        dr:source "subcomponentE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents/subcomponent/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/state/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+
+    }
+  }
+
+  notification "oc-fru-state-change" {
+    dr:source-notification-name "hwd_module:fruE-event";
+    uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/notification/hwd_module:fruE-event/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/type" {
+        dr:source "fruType";
+        dr:map CHASSIS          { dr:map-from 1 ; } // CHASSIS;
+        dr:map BACKPLANE        { dr:map-from 2 ; } // BACKPLANE;
+        dr:map FRU              { dr:map-from 3 ; } // FPM;
+        dr:map POWER_SUPPLY     { dr:map-from 4 ; } // PDU;
+        dr:map POWER_SUPPLY     { dr:map-from 5 ; } // PSM;
+        dr:map FRU              { dr:map-from 6 ; } // CCG;
+        dr:map CONTROLLER_CARD  { dr:map-from 7 ; } // RE;
+        dr:map FRU              { dr:map-from 8 ; } // CB;
+        dr:map LINECARD         { dr:map-from 9 ; } // FPC;
+        dr:map FRU              { dr:map-from 10; } // PIC;
+        dr:map LINECARD         { dr:map-from 11; } // SPMB;
+        dr:map FABRIC           { dr:map-from 12; } // SIB;
+        dr:map FRU              { dr:map-from 13; } // FTC;
+        dr:map FRU              { dr:map-from 14; } // FAN;
+        dr:map PORT             { dr:map-from 15; } // PORT;
+        dr:map FRU              { dr:map-from 16; } // MEZZ;
+        dr:map LINECARD         { dr:map-from 17; } // FEB;
+        dr:map CPU              { dr:map-from 18; } // CPU;
+        dr:map SOFTWARE_MODULE  { dr:map-from 19; } // Software Module;
+        dr:map BIOS             { dr:map-from 20; } // BIOS;
+        dr:map BOOT_LOADER      { dr:map-from 21; } // BOOTLOADER;
+        dr:map FAN              { dr:map-from 24; } // SINGLEFAN;
+        dr:map OPERATING_SYSTEM { dr:map-from 25; } // OS_VERSION;
+        dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW;
+        dr:fieldnum 52;
+      }
+      augment "components/component/state/id" {
+        dr:source "serialNumber";
+        dr:fieldnum 53;
+      }
+      augment "components/component/state/description" {
+        dr:source "description";
+        dr:fieldnum 54;
+      }
+      augment "components/component/state/serial-no" {
+        dr:source "serialNumber";
+        dr:fieldnum 55;
+      }
+      augment "components/component/state/part-no" {
+        dr:source "partNumber";
+        dr:fieldnum 56;
+      }
+      augment "components/component/state/hardware-version" {
+        dr:source "version";
+        dr:fieldnum 57;
+      }
+      augment "components/component/state/oper-status" {
+        dr:source "state";
+        dr:fieldnum 58;
+        dr:map INACTIVE             { dr:map-from 3 ; } // Present
+        dr:map ACTIVE               { dr:map-from 8 ; } // Online
+        dr:map DISABLED             { dr:map-from 10; } // Offline
+        dr:map DISABLED             { dr:map-from 12; } // Standby
+        dr:map INACTIVE             { dr:map-from 14; } // Fault
+        dr:map INACTIVE             { dr:map-from 15; } // Fault Power Off
+        dr:map DISABLED             { dr:map-from 18; } // Power off
+      }
+      augment "components/component/state/location" {
+        dr:source "location";
+        dr:fieldnum 59;
+      }
+      augment "components/component/state/mfg-name" {
+        dr:source "mfg_name";
+        dr:fieldnum 60;
+      }
+      augment "components/component/state/mfg-date" {
+        dr:source "manufactureDate";
+        dr:fieldnum 61;
+      }
+      augment "components/component/state/firmware-version" {
+        dr:source "firmware_version";
+        dr:fieldnum 62;
+      }
+      augment "components/component/state/software-version" {
+        dr:source "software_version";
+        dr:fieldnum 63;
+      }
+      augment "components/component/state/removable" {
+        dr:source "is_removable";
+        dr:fieldnum 64;
+      }
+      augment "components/component/state/empty" {
+        dr:source "empty";
+        dr:fieldnum 65;
+      }
+      augment "components/component/state/parent" {
+        dr:source "parent";
+        dr:fieldnum 66;
+      }
+      augment "components/component/state/allocated-power" {
+        dr:source "allocated_power";
+        dr:fieldnum 67;
+      }
+      augment "components/component/state/temperature" {
+        dr:source "fruUtilization";
+        dr:fieldnum 151;
+      }
+      augment "components/component/state/temperature/instant" {
+        dr:source "temperature";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/switchover-ready" {
+        dr:source "telemetrySwitchoverData/switchover_ready";
+        dr:fieldnum 77;
+      }
+      augment "components/component/state/memory" {
+        dr:source "fruUtilization";
+        dr:fieldnum 152;
+      }
+      augment "components/component/state/memory/available" {
+        dr:source "memory_dram_size_bytes";
+        dr:fieldnum 51;
+      }
+      augment "components/component/state/memory/utilized" {
+        dr:source "memory_dram_used_bytes";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  notification "oc-subcomp-state-change" {
+    dr:source-notification-name "hwd_module:subcomponentE-event";
+    uses oc-pf:platform-component-top {
+      augment "components" {
+        dr:source "/notification/hwd_module:subcomponentE-event/evl_types:JunosOperState";
+        dr:fieldnum 151;
+      }
+      augment "components/component" {
+        dr:source "hwd_module:fruE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/name" {
+        dr:source "oc_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents" {
+        dr:fieldnum 154;
+      }
+      augment "components/component/subcomponents/subcomponent" {
+        dr:source "subcomponentE";
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+      augment "components/component/subcomponents/subcomponent/state" {
+        dr:fieldnum 151;
+      }
+      augment "components/component/subcomponents/subcomponent/state/name" {
+        dr:source "subcomp_name";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  dr:command-app "hwdre";
+  jnpr-proto:message-id "HWDRE-OC-MESSAGE-ID";
+  dr:sub-component "re";
+
+  rpc juniper-netconf-get {
+    output {
+        uses chassisd-inventory;
+    }
+  }
+}
+

@@ -1,0 +1,1702 @@
+/*
+ * $Id$
+ *
+ * Jdhcpd OC Yang file
+ *
+ * Author:
+ *     Ankit Gupta
+ *
+ * Abstract:
+ *     The OC.yang file is the J-Vision external data definition.
+ *     It also provides a mapping from the internal to external data representation.
+ *     The jdhcpd compilation of the oc.yang file generates a JSON file in the jdhcpd obj directory.
+ *
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module jdhcpd_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/jdhcpd";
+
+    prefix "jdhcpdoc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "jdhcpd";
+    dr:sub-component "dhcp";
+    jnpr-proto:message-id "JDHCPD-OC-MESSAGE-ID";
+
+
+    grouping jdhcpd-group-v4-stats {
+         leaf dropped-total {
+             type uint64;
+             dr:source dropped_total;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-bad-read {
+             type uint64;
+             dr:source dropped_bad_read;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-ip-header {
+             type uint64;
+             dr:source dropped_ip_header;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-short-packet {
+             type uint64;
+             dr:source dropped_short_packet;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-no-interface {
+             type uint64;
+             dr:source dropped_no_interface;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-no-routing-instance {
+             type uint64;
+             dr:source dropped_no_routing_instance;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-no-memory {
+             type uint64;
+             dr:source dropped_no_memory;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-recovery-in-progress {
+             type uint64;
+             dr:source dropped_recovery_in_progress;
+	     dr:fieldnum 58;
+         }
+    }
+
+    grouping jdhcpd-group-v6-stats {
+         leaf dropped-total {
+             type uint64;
+             dr:source dropped_total;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-bad-read {
+             type uint64;
+             dr:source dropped_bad_read;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-ip-header {
+             type uint64;
+             dr:source dropped_ip_header;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-short-packet {
+             type uint64;
+             dr:source dropped_short_packet;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-no-interface {
+             type uint64;
+             dr:source dropped_no_interface;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-no-routing-instance {
+             type uint64;
+             dr:source dropped_no_routing_instance;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-no-safd {
+             type uint64;
+             dr:source dropped_no_safd;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-no-memory {
+             type uint64;
+             dr:source dropped_no_memory;
+	     dr:fieldnum 58;
+         }
+         leaf dropped-recovery-in-progress {
+             type uint64;
+             dr:source dropped_recovery_in_progress;
+	     dr:fieldnum 59;
+         }
+    }
+
+    grouping jdhcpd-group-v4-era-stats {
+         leaf era-inflight-count {
+             type uint64;
+             dr:source era_inflight_count;
+             dr:fieldnum 61;
+         }
+         leaf era-reported-failures {
+             type uint64;
+             dr:source era_reported_failures;
+             dr:fieldnum 62;
+         }
+         leaf era-reported-successes {
+             type uint64;
+             dr:source era_reported_successes;
+             dr:fieldnum 63;
+         }
+    }
+
+    grouping jdhcpd-group-v6-era-stats {
+         leaf era-inflight-count {
+             type uint64;
+             dr:source era_inflight_count;
+             dr:fieldnum 61;
+         }
+         leaf era-reported-failures {
+             type uint64;
+             dr:source era_reported_failures;
+             dr:fieldnum 62;
+         }
+         leaf era-reported-successes {
+             type uint64;
+             dr:source era_reported_successes;
+             dr:fieldnum 63;
+         }
+    }
+
+    grouping jdhcpd-group-v4-server-stats {
+         leaf dropped-v4server-total{
+             type uint64;
+             dr:source dropped_v4server_total;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-v4server-bad-hware {
+             type uint64;
+             dr:source dropped_v4server_bad_hware;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-v4server-bootp-pkt {
+             type uint64;
+             dr:source dropped_v4server_bootp_pkt;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-v4server-bad-bootp-opcode {
+             type uint64;
+             dr:source dropped_v4server_bad_bootp_opcode;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-v4server-bad-options {
+             type uint64;
+             dr:source dropped_v4server_bad_options;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-v4server-bad-address {
+             type uint64;
+             dr:source dropped_v4server_bad_address;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-v4server-no-address {
+             type uint64;
+             dr:source dropped_v4server_no_address;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-v4server-no-interface-cfg {
+             type uint64;
+             dr:source dropped_v4server_no_interface_cfg;
+	     dr:fieldnum 58;
+         }
+         leaf dropped-v4server-no-local-address {
+             type uint64;
+             dr:source dropped_v4server_no_local_address;
+	     dr:fieldnum 59;
+         }
+         leaf dropped-v4server-short-pkt {
+             type uint64;
+             dr:source dropped_v4server_short_pkt;
+	     dr:fieldnum 60;
+         }
+         leaf dropped-v4server-no-bad-send {
+             type uint64;
+             dr:source dropped_v4server_no_bad_send;
+	     dr:fieldnum 61;
+         }
+         leaf dropped-v4server-no-option60 {
+             type uint64;
+             dr:source dropped_v4server_no_option60;
+	     dr:fieldnum 62;
+         }
+         leaf dropped-v4server-no-option82 {
+             type uint64;
+             dr:source dropped_v4server_no_option82;
+	     dr:fieldnum 63;
+         }
+         leaf dropped-v4server-authentication {
+             type uint64;
+             dr:source dropped_v4server_authentication;
+	     dr:fieldnum 64;
+         }
+         leaf dropped-v4server-dynamic-profile {
+             type uint64;
+             dr:source dropped_v4server_dynamic_profile;
+	     dr:fieldnum 65;
+         }
+         leaf dropped-v4server-no-license {
+             type uint64;
+             dr:source dropped_v4server_no_license;
+	     dr:fieldnum 66;
+         }
+         leaf dropped-v4server-no-bad-dhcp-opcode {
+             type uint64;
+             dr:source dropped_v4server_no_bad_dhcp_opcode;
+	     dr:fieldnum 67;
+         }
+         leaf dropped-v4server-no-options {
+             type uint64;
+             dr:source dropped_v4server_no_options;
+	     dr:fieldnum 68;
+         }
+         leaf dropped-v4server-hop-limit {
+             type uint64;
+             dr:source dropped_v4server_hop_limit;
+	     dr:fieldnum 69;
+         }
+         leaf dropped-v4server-ttl-expired {
+             type uint64;
+             dr:source dropped_v4server_ttl_expired;
+	     dr:fieldnum 70;
+         }
+         leaf dropped-v4server-bad_udp-checksum {
+             type uint64;
+             dr:source dropped_v4server_bad_udp_checksum;
+	     dr:fieldnum 71;
+         }
+         leaf dropped-v4server-inactive-vlan {
+             type uint64;
+             dr:source dropped_v4server_inactive_vlan;
+	     dr:fieldnum 72;
+         }
+         leaf dropped-v4server-era-start-failed {
+             type uint64;
+             dr:source dropped_v4server_era_start_failed;
+	     dr:fieldnum 73;
+         }
+         leaf dropped-v4server-client-lookup {
+             type uint64;
+             dr:source dropped_v4server_client_lookup;
+	     dr:fieldnum 74;
+         }
+         leaf dropped-v4server-lease-time-violation {
+             type uint64;
+             dr:source dropped_v4server_lease_time_violation;
+	     dr:fieldnum 75;
+         }
+         leaf offer-delayed {
+             type uint64;
+             dr:source offer_delayed;
+	     dr:fieldnum 76;
+         }
+         leaf offer-delay-in-progress {
+             type uint64;
+             dr:source offer_delay_in_progress;
+	     dr:fieldnum 77;
+         }
+         leaf offer-delay-total {
+             type uint64;
+             dr:source offer_delay_total;
+	     dr:fieldnum 78;
+         }
+         leaf msg-recv-v4server-boot-request {
+             type uint64;
+             dr:source msg_recv_v4server_boot_request;
+	     dr:fieldnum 79;
+         }
+         leaf msg-recv-v4server-decline {
+             type uint64;
+             dr:source msg_recv_v4server_decline;
+	     dr:fieldnum 80;
+         }
+         leaf msg-recv-v4server-discover {
+             type uint64;
+             dr:source msg_recv_v4server_discover;
+	     dr:fieldnum 81;
+         }
+         leaf msg-recv-v4server-inform {
+             type uint64;
+             dr:source msg_recv_v4server_inform;
+	     dr:fieldnum 82;
+         }
+         leaf msg-recv-v4server-release {
+             type uint64;
+             dr:source msg_recv_v4server_release;
+	     dr:fieldnum 83;
+         }
+         leaf msg-recv-v4server-request {
+             type uint64;
+             dr:source msg_recv_v4server_request;
+	     dr:fieldnum 84;
+         }
+         leaf msg-recv-v4server-renew {
+             type uint64;
+             dr:source msg_recv_v4server_renew;
+	     dr:fieldnum 85;
+         }
+         leaf msg-recv-v4server-rebind {
+             type uint64;
+             dr:source msg_recv_v4server_rebind;
+	     dr:fieldnum 86;
+         }
+         leaf msg-recv-v4server-lease-query {
+             type uint64;
+             dr:source msg_recv_v4server_lease_query;
+	     dr:fieldnum 87;
+         }
+         leaf msg-recv-v4server-bulklease-query {
+             type uint64;
+             dr:source msg_recv_v4server_bulklease_query;
+	     dr:fieldnum 88;
+         }
+         leaf msg-sent-v4server-boot-reply {
+             type uint64;
+             dr:source msg_sent_v4server_boot_reply;
+	     dr:fieldnum 89;
+         }
+         leaf msg-sent-v4server-offer {
+             type uint64;
+             dr:source msg_sent_v4server_offer;
+	     dr:fieldnum 90;
+         }
+         leaf msg-sent-v4server-boot-ack {
+             type uint64;
+             dr:source msg_sent_v4server_boot_ack;
+	     dr:fieldnum 91;
+         }
+         leaf msg-sent-v4server-nak {
+             type uint64;
+             dr:source msg_sent_v4server_nak;
+	     dr:fieldnum 92;
+         }
+         leaf msg-sent-v4server-force-renew {
+             type uint64;
+             dr:source msg_sent_v4server_force_renew;
+	     dr:fieldnum 93;
+         }
+         leaf msg-sent-v4server-unassigned {
+             type uint64;
+             dr:source msg_sent_v4server_unassigned;
+	     dr:fieldnum 94;
+         }
+         leaf msg-sent-v4server-unknown {
+             type uint64;
+             dr:source msg_sent_v4server_unknown;
+	     dr:fieldnum 95;
+         }
+         leaf msg-sent-v4server-active {
+             type uint64;
+             dr:source msg_sent_v4server_active;
+	     dr:fieldnum 96;
+         }
+         leaf msg-sent-v4server-query-done {
+             type uint64;
+             dr:source msg_sent_v4server_query_done;
+	     dr:fieldnum 97;
+         }
+    }
+
+
+    grouping jdhcpd-group-v6-server-stats {
+         leaf dropped-v6server-total {
+             type uint64;
+             dr:source dropped_v6server_total ;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-v6server-no-safd {
+	     type uint64;
+             dr:source dropped_v6server_no_safd ;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-v6server-no-routing-instance {
+             type uint64;
+             dr:source dropped_v6server_no_routing_instance ;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-v6server-bad-send {
+             type uint64;
+             dr:source dropped_v6server_bad_send ;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-v6server-short-packet {
+             type uint64;
+             dr:source dropped_v6server_short_packet ;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-v6server-bad-msgtype {
+             type uint64;
+             dr:source dropped_v6server_bad_msgtype ;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-v6server-bad-options {
+             type uint64;
+             dr:source dropped_v6server_bad_options ;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-v6server-bad-srcaddress {
+             type uint64;
+             dr:source dropped_v6server_bad_srcaddress ;
+	     dr:fieldnum 58;
+         }
+         leaf dropped-v6server-relay-hop-count {
+             type uint64;
+             dr:source dropped_v6server_relay_hop_count ;
+	     dr:fieldnum 59;
+         }
+         leaf dropped-v6server-bad-udp-checksum {
+             type uint64;
+             dr:source dropped_v6server_bad_udp_checksum ;
+	     dr:fieldnum 60;
+         }
+         leaf dropped-v6server-no-client-id {
+             type uint64;
+             dr:source dropped_v6server_no_client_id ;
+	     dr:fieldnum 61;
+         }
+         leaf dropped-v6server-strict-reconfigure {
+             type uint64;
+             dr:source dropped_v6server_strict_reconfigure ;
+	     dr:fieldnum 62;
+         }
+         leaf dropped-v6server-option-18 {
+             type uint64;
+             dr:source dropped_v6server_option_18 ;
+	     dr:fieldnum 63;
+         }
+         leaf dropped-v6server-authentication {
+             type uint64;
+             dr:source dropped_v6server_authentication ;
+	     dr:fieldnum 64;
+         }
+         leaf dropped-v6server-dynamic-profile {
+             type uint64;
+             dr:source dropped_v6server_dynamic_profile ;
+	     dr:fieldnum 65;
+         }
+         leaf dropped-v6server-license {
+             type uint64;
+             dr:source dropped_v6server_license ;
+	     dr:fieldnum 66;
+         }
+         leaf dropped-v6server-inactive-vlan {
+             type uint64;
+             dr:source dropped_v6server_inactive_vlan ;
+	     dr:fieldnum 67;
+         }
+         leaf dropped-v6server-era-start-failed {
+             type uint64;
+             dr:source dropped_v6server_era_start_failed ;
+	     dr:fieldnum 68;
+         }
+         leaf dropped-v6server-client-lookup {
+             type uint64;
+             dr:source dropped_v6server_client_lookup ;
+	     dr:fieldnum 69;
+         }
+         leaf dropped-v6server-lease-time-violation {
+             type uint64;
+             dr:source dropped_v6server_lease_time_violation ;
+	     dr:fieldnum 70;
+         }
+         leaf advertise-delayed {
+             type uint64;
+             dr:source advertise_delayed ;
+	     dr:fieldnum 71;
+         }
+	 leaf advertise-queued {
+             type uint64;
+             dr:source advertise_queued ;
+	     dr:fieldnum 72;
+         }
+    	 leaf advertise-total {
+             type uint64;
+             dr:source advertise_total ;
+	     dr:fieldnum 73;
+         }
+         leaf msg-recv-v6server-dhcpv6-decline {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_decline ;
+	     dr:fieldnum 74;
+         }
+         leaf msg-recv-v6server-dhcpv6-solicit {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_solicit ;
+	     dr:fieldnum 75;
+         }
+         leaf msg-recv-v6server-dhcpv6-information-request {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_information_request ;
+	     dr:fieldnum 76;
+         }
+         leaf msg-recv-v6server-dhcpv6-release {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_release ;
+	     dr:fieldnum 77;
+         }
+         leaf msg-recv-v6server-dhcpv6-request {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_request ;
+	     dr:fieldnum 78;
+         }
+         leaf msg-recv-v6server-dhcpv6-confirm {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_confirm ;
+	     dr:fieldnum 79;
+         }
+         leaf msg-recv-v6server-dhcpv6-renew {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_renew ;
+	     dr:fieldnum 80;
+         }
+         leaf msg-recv-v6server-dhcpv6-rebind {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_rebind ;
+	     dr:fieldnum 81;
+         }
+         leaf msg-recv-v6server-dhcpv6-relay-forw {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_relay_forw ;
+	     dr:fieldnum 82;
+         }
+         leaf msg-recv-v6server-dhcpv6-leasequery {
+             type uint64;
+             dr:source msg_recv_v6server_dhcpv6_leasequery ;
+	     dr:fieldnum 83;
+         }
+         leaf msg-sent-v6server-advertise {
+             type uint64;
+             dr:source msg_sent_v6server_advertise ;
+	     dr:fieldnum 84;
+         }
+         leaf msg-sent-v6server-reply {
+             type uint64;
+             dr:source msg_sent_v6server_reply ;
+	     dr:fieldnum 85;
+         }
+         leaf msg-sent-v6server-logical_nak {
+             type uint64;
+             dr:source msg_sent_v6server_logical_nak ;
+	     dr:fieldnum 86;
+         }
+         leaf msg-sent-v6server-reconfigure {
+             type uint64;
+             dr:source msg_sent_v6server_reconfigure ;
+	     dr:fieldnum 87;
+         }
+         leaf msg-sent-v6server-relay-repl {
+             type uint64;
+             dr:source msg_sent_v6server_relay_repl ;
+	     dr:fieldnum 88;
+         }
+         leaf msg-sent-v6server-leasequery-repl {
+             type uint64;
+             dr:source msg_sent_v6server_leasequery_repl ;
+	     dr:fieldnum 89;
+         }
+         leaf msg-sent-v6server-leasequery-data {
+             type uint64;
+             dr:source msg_sent_v6server_leasequery_data ;
+	     dr:fieldnum 90;
+         }
+         leaf msg-sent-v6server-leasequery-done {
+             type uint64;
+             dr:source msg_sent_v6server_leasequery_done ;
+	     dr:fieldnum 91;
+         }
+    }
+
+    grouping jdhcpd-group-v4-relay-stats {
+         leaf dropped-v4relay-total {
+             type uint64;
+             dr:source dropped_v4relay_total;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-v4relay-bad-hardware {
+             type uint64;
+             dr:source dropped_v4relay_bad_hardware;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-v4relay-bootp-packet {
+             type uint64;
+             dr:source dropped_v4relay_bootp_packet;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-v4relay-bad-bootp-opcode {
+             type uint64;
+             dr:source dropped_v4relay_bad_bootp_opcode;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-v4relay-bad-options {
+             type uint64;
+             dr:source dropped_v4relay-bad-options;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-v4relay-bad-address {
+             type uint64;
+             dr:source dropped_v4relay_bad_address;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-v4relay-no-address {
+             type uint64;
+             dr:source dropped_v4relay_no_address;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-v4relay-no-interface-cfg {
+             type uint64;
+             dr:source dropped_v4relay_no_interface_cfg;
+	     dr:fieldnum 58;
+         }
+         leaf dropped-v4relay-no-local-address {
+             type uint64;
+             dr:source dropped_v4relay_no_local_address;
+	     dr:fieldnum 59;
+         }
+         leaf dropped-v4relay-short-packet {
+             type uint64;
+             dr:source dropped_v4relay_short_packet;
+	     dr:fieldnum 60;
+         }
+         leaf dropped-v4relay-bad-send {
+             type uint64;
+             dr:source dropped_v4relay_bad_send;
+	     dr:fieldnum 61;
+         }
+         leaf dropped-v4relay-option-60 {
+             type uint64;
+             dr:source dropped_v4relay_option_60;
+	     dr:fieldnum 62;
+         }
+         leaf dropped-v4relay-relay-option {
+             type uint64;
+             dr:source dropped_v4relay_relay_option;
+	     dr:fieldnum 63;
+         }
+         leaf dropped-v4relay-option-82 {
+             type uint64;
+             dr:source dropped_v4relay_option_82;
+	     dr:fieldnum 64;
+         }
+         leaf dropped-v4relay-authentication {
+             type uint64;
+             dr:source dropped_v4relay_authentication;
+	     dr:fieldnum 65;
+         }
+         leaf dropped-v4relay-dynamic-profile {
+             type uint64;
+             dr:source dropped_v4relay_dynamic_profile;
+	     dr:fieldnum 66;
+         }
+         leaf dropped-v4relay-license {
+             type uint64;
+             dr:source dropped_v4relay_license;
+	     dr:fieldnum 67;
+         }
+         leaf dropped-v4relay-bad-dhcp-opcode {
+             type uint64;
+             dr:source dropped_v4relay_bad_dhcp_opcode;
+	     dr:fieldnum 68;
+         }
+         leaf dropped-v4relay-no-options {
+             type uint64;
+             dr:source dropped_v4relay_no_options;
+	     dr:fieldnum 69;
+         }
+         leaf dropped-v4relay-hop-limit {
+             type uint64;
+             dr:source dropped_v4relay_hop_limit;
+	     dr:fieldnum 70;
+         }
+         leaf dropped-v4relay-ttl-expired {
+             type uint64;
+             dr:source dropped_v4relay_ttl_expired;
+	     dr:fieldnum 71;
+         }
+         leaf dropped-v4relay-bad-udp-checksum {
+             type uint64;
+             dr:source dropped_v4relay_bad_udp_checksum;
+	     dr:fieldnum 72;
+         }
+         leaf dropped-v4relay-inactive-vlan {
+             type uint64;
+             dr:source dropped_v4relay_inactive_vlan;
+	     dr:fieldnum 73;
+         }
+         leaf dropped-v4relay-era-start-failed {
+             type uint64;
+             dr:source dropped_v4relay_era_start_failed;
+	     dr:fieldnum 74;
+         }
+         leaf dropped-v4relay-client-lookup {
+             type uint64;
+             dr:source dropped_v4relay_client_lookup;
+	     dr:fieldnum 75;
+         }
+         leaf dropped-v4relay-proxy-no-server-addr {
+             type uint64;
+             dr:source dropped_v4relay_proxy_no_server_addr;
+	     dr:fieldnum 76;
+         }
+         leaf dropped-v4relay-lease-time-violation {
+             type uint64;
+             dr:source dropped_v4relay_lease_time_violation;
+	     dr:fieldnum 77;
+         }
+         leaf dropped-v4relay-leasequery-repl-no-circuitid {
+             type uint64;
+             dr:source dropped_v4relay_leasequery_repl_no_circuitid;
+	     dr:fieldnum 78;
+         }
+         leaf dropped-v4relay-leasequery-repl-with-error-code {
+             type uint64;
+             dr:source dropped_v4relay_leasequery_repl_with_error_code;
+	     dr:fieldnum 79;
+         }
+         leaf dropped-v4relay-leasequery-repl-with-query-term {
+             type uint64;
+             dr:source dropped_v4relay_leasequery_repl_with_query_term;
+	     dr:fieldnum 80;
+         }
+         leaf dropped-v4relay-older-leasequery-reply {
+             type uint64;
+             dr:source dropped_v4relay_older_leasequery_reply;
+	     dr:fieldnum 81;
+         }
+         leaf dropped-v4relay-abort-leasequery-reply-proc {
+             type uint64;
+             dr:source dropped_v4relay_abort_leasequery_reply_proc;
+	     dr:fieldnum 82;
+         }
+         leaf dropped-v4relay-during-leasequery-reply {
+             type uint64;
+             dr:source dropped_v4relay_during_leasequery_reply;
+	     dr:fieldnum 83;
+         }
+         leaf dropped-v4relay-relay-source-no-lpbk-interface {
+             type uint64;
+             dr:source dropped_v4relay_relay_source_no_lpbk_interface;
+	     dr:fieldnum 84;
+         }
+         leaf v4relay-bootp-request-rcvd {
+             type uint64;
+             dr:source v4relay_bootp_request_rcvd;
+	     dr:fieldnum 85;
+         }
+         leaf msg-recv-v4relay-decline {
+             type uint64;
+             dr:source msg_recv_v4relay_decline;
+	     dr:fieldnum 86;
+         }
+         leaf msg-recv-v4relay-discover {
+             type uint64;
+             dr:source msg_recv_v4relay_discover;
+	     dr:fieldnum 87;
+         }
+         leaf msg-recv-v4relay-inform {
+             type uint64;
+             dr:source msg_recv_v4relay_inform;
+	     dr:fieldnum 88;
+         }
+         leaf msg-recv-v4relay-release {
+             type uint64;
+             dr:source msg_recv_v4relay_release;
+	     dr:fieldnum 89;
+         }
+         leaf msg-recv-v4relay-request {
+             type uint64;
+             dr:source msg_recv_v4relay_request;
+	     dr:fieldnum 90;
+         }
+         leaf msg-recv-v4relay-leaseactive {
+             type uint64;
+             dr:source msg_recv_v4relay_leaseactive;
+	     dr:fieldnum 91;
+         }
+         leaf msg-recv-v4relay-leaseunassigned {
+             type uint64;
+             dr:source msg_recv_v4relay_leaseunassigned;
+	     dr:fieldnum 92;
+         }
+         leaf msg-recv-v4relay-leaseunknown {
+             type uint64;
+             dr:source msg_recv_v4relay_leaseunknown;
+	     dr:fieldnum 93;
+         }
+         leaf msg-recv-v4relay-leasequerydone {
+             type uint64;
+             dr:source msg_recv_v4relay_leasequerydone;
+	     dr:fieldnum 94;
+         }
+         leaf v4relay-bootp-reply-rcvd {
+             type uint64;
+             dr:source v4relay_bootp_reply_rcvd;
+	     dr:fieldnum 95;
+         }
+         leaf msg-recv-v4relay-offer {
+             type uint64;
+             dr:source msg_recv_v4relay_offer;
+	     dr:fieldnum 96;
+         }
+         leaf msg-recv-v4relay-ack {
+             type uint64;
+             dr:source msg_recv_v4relay_ack;
+	     dr:fieldnum 97;
+         }
+         leaf msg-recv-v4relay-nak {
+             type uint64;
+             dr:source msg_recv_v4relay_nak;
+	     dr:fieldnum 98;
+         }
+         leaf msg-recv-v4relay-forcerenew {
+             type uint64;
+             dr:source msg_recv_v4relay_forcerenew;
+	     dr:fieldnum 99;
+         }
+         leaf v4relay-bootp-reply-sent {
+             type uint64;
+             dr:source v4relay_bootp_reply_sent;
+	     dr:fieldnum 100;
+         }
+         leaf msg-sent-v4relay-offer {
+             type uint64;
+             dr:source msg_sent_v4relay_offer;
+	     dr:fieldnum 101;
+         }
+         leaf msg-sent-v4relay-ack {
+             type uint64;
+             dr:source msg_sent_v4relay_ack;
+	     dr:fieldnum 102;
+         }
+         leaf msg-sent-v4relay-nak {
+             type uint64;
+             dr:source msg_sent_v4relay_nak;
+	     dr:fieldnum 103;
+         }
+         leaf msg-sent-v4relay-forcerenew {
+             type uint64;
+             dr:source msg_sent_v4relay_forcerenew;
+	     dr:fieldnum 104;
+         }
+         leaf msg-sent-v4relay-leasequery {
+             type uint64;
+             dr:source msg_sent_v4relay_leasequery;
+	     dr:fieldnum 105;
+         }
+         leaf msg-sent-v4relay-bulkleasequery {
+             type uint64;
+             dr:source msg_sent_v4relay_bulkleasequery;
+	     dr:fieldnum 106;
+         }
+         leaf v4relay-bootp-request-sent {
+             type uint64;
+             dr:source v4relay_bootp_request_sent;
+	     dr:fieldnum 107;
+         }
+         leaf msg-sent-v4relay-decline {
+             type uint64;
+             dr:source msg_sent_v4relay_decline;
+	     dr:fieldnum 108;
+         }
+         leaf msg-sent-v4relay-discover {
+             type uint64;
+             dr:source msg_sent_v4relay_discover;
+	     dr:fieldnum 109;
+         }
+         leaf msg-sent-v4relay-inform {
+             type uint64;
+             dr:source msg_sent_v4relay_inform;
+	     dr:fieldnum 110;
+         }
+         leaf msg-sent-v4relay-release {
+             type uint64;
+             dr:source msg_sent_v4relay_release;
+	     dr:fieldnum 111;
+         }
+         leaf msg-sent-v4relay-request {
+             type uint64;
+             dr:source msg_sent_v4relay_request;
+	     dr:fieldnum 112;
+         }
+         leaf v4relay-bootp-forwarded-total {
+             type uint64;
+             dr:source v4relay_bootp_forwarded_total;
+	     dr:fieldnum 113;
+         }
+         leaf v4relay-bootp-request-fwd {
+             type uint64;
+             dr:source v4relay_bootp_request_fwd;
+	     dr:fieldnum 114;
+         }
+         leaf v4relay-bootp-reply-fwd {
+             type uint64;
+             dr:source v4relay_bootp_reply_fwd;
+	     dr:fieldnum 115;
+         }
+    }
+
+    grouping jdhcpd-group-v6-relay-stats {
+
+         leaf dropped-v6relay-total {
+             type uint64;
+             dr:source dropped_v6relay_total;
+	     dr:fieldnum 51;
+         }
+         leaf dropped-v6relay-no-safd {
+             type uint64;
+             dr:source dropped_v6relay_no_safd;
+	     dr:fieldnum 52;
+         }
+         leaf dropped-v6relay-no-routing-instance {
+             type uint64;
+             dr:source dropped_v6relay_no_routing_instance;
+	     dr:fieldnum 53;
+         }
+         leaf dropped-v6relay-bad-send {
+             type uint64;
+             dr:source dropped_v6relay_bad_send;
+	     dr:fieldnum 54;
+         }
+         leaf dropped-v6relay-short-packet {
+             type uint64;
+             dr:source dropped_v6relay_short_packet;
+	     dr:fieldnum 55;
+         }
+         leaf dropped-v6relay-bad-msgtype {
+             type uint64;
+             dr:source dropped_v6relay_bad_msgtype;
+	     dr:fieldnum 56;
+         }
+         leaf dropped-v6relay-bad-options {
+             type uint64;
+             dr:source dropped_v6relay_bad_options;
+	     dr:fieldnum 57;
+         }
+         leaf dropped-v6relay-bad-srcaddress {
+             type uint64;
+             dr:source dropped_v6relay_bad_srcaddress;
+	     dr:fieldnum 58;
+         }
+         leaf dropped-v6relay-relay-hop-count {
+             type uint64;
+             dr:source dropped_v6relay_relay_hop_count;
+	     dr:fieldnum 59;
+         }
+         leaf dropped-v6relay-bad-udp-checksum {
+             type uint64;
+             dr:source dropped_v6relay_bad_udp_checksum;
+	     dr:fieldnum 60;
+         }
+         leaf dropped-v6relay-no-client-id {
+             type uint64;
+             dr:source dropped_v6relay_no_client_id;
+	     dr:fieldnum 61;
+         }
+         leaf dropped-v6relay-strict-reconfigure {
+             type uint64;
+             dr:source dropped_v6relay_strict_reconfigure;
+	     dr:fieldnum 62;
+         }
+         leaf dropped-v6relay-relay-option {
+             type uint64;
+             dr:source dropped_v6relay_relay_option;
+	     dr:fieldnum 63;
+         }
+         leaf dropped-v6relay-option-18 {
+             type uint64;
+             dr:source dropped_v6relay_option_18;
+	     dr:fieldnum 64;
+         }
+         leaf dropped-v6relay-option-37 {
+             type uint64;
+             dr:source dropped_v6relay_option_37;
+	     dr:fieldnum 65;
+         }
+         leaf dropped-v6relay-authentication {
+             type uint64;
+             dr:source dropped_v6relay_authentication;
+	     dr:fieldnum 66;
+         }
+         leaf dropped-v6relay-dynamic-profile {
+             type uint64;
+             dr:source dropped_v6relay_dynamic_profile;
+	     dr:fieldnum 67;
+         }
+         leaf dropped-v6relay-license {
+             type uint64;
+             dr:source dropped_v6relay_license;
+	     dr:fieldnum 68;
+         }
+         leaf dropped-v6relay-inactive-vlan {
+             type uint64;
+             dr:source dropped_v6relay_inactive_vlan;
+	     dr:fieldnum 69;
+         }
+         leaf dropped-v6relay-era-start-failed {
+             type uint64;
+             dr:source dropped_v6relay_era_start_failed;
+	     dr:fieldnum 70;
+         }
+         leaf dropped-v6relay-client-lookup {
+             type uint64;
+             dr:source dropped_v6relay_client_lookup;
+	     dr:fieldnum 71;
+         }
+         leaf dropped-v6relay-lease-time-violation {
+             type uint64;
+             dr:source dropped_v6relay_lease_time_violation;
+	     dr:fieldnum 72;
+         }
+         leaf dropped-v6relay-leasequery-repl-no-client-data {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_no_client_data;
+	     dr:fieldnum 73;
+         }
+         leaf dropped-v6relay-leasequery-repl-no-interfaceid {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_no_interfaceid;
+	     dr:fieldnum 74;
+         }
+         leaf dropped-v6relay-leasequery-repl-with-client-link {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_with_client_link;
+	     dr:fieldnum 75;
+         }
+         leaf dropped-v6relay-leasequery-repl-no-relay-data {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_no_relay_data;
+	     dr:fieldnum 76;
+         }
+         leaf dropped-v6relay-leasequery-repl-with-hop-cnt {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_with_hop_cnt;
+	     dr:fieldnum 77;
+         }
+         leaf dropped-v6relay-leasequery-repl-with-error-code {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_with_error_code;
+	     dr:fieldnum 78;
+         }
+         leaf dropped-v6relay-leasequery-repl-with-query-term {
+             type uint64;
+             dr:source dropped_v6relay_leasequery_repl_with_query_term;
+	     dr:fieldnum 79;
+         }
+         leaf dropped-v6relay-older-leasequery-reply {
+             type uint64;
+             dr:source dropped_v6relay_older_leasequery_reply;
+	     dr:fieldnum 80;
+         }
+         leaf dropped-v6relay-abort-leasequery-reply-proc {
+             type uint64;
+             dr:source dropped_v6relay_abort_leasequery_reply_proc;
+	     dr:fieldnum 81;
+         }
+         leaf dropped-v6relay-during-leasequery-reply {
+             type uint64;
+             dr:source dropped_v6relay_during_leasequery_reply;
+	     dr:fieldnum 82;
+         }
+         leaf dropped-v6relay-relay-source-no-lpbk-interface {
+             type uint64;
+             dr:source dropped_v6relay_relay_source_no_lpbk_interface;
+	     dr:fieldnum 83;
+         }
+         leaf msg-recv-v6relay-decline {
+             type uint64;
+             dr:source msg_recv_v6relay_decline;
+	     dr:fieldnum 84;
+         }
+         leaf msg-recv-v6relay-solicit {
+             type uint64;
+             dr:source msg_recv_v6relay_solicit;
+	     dr:fieldnum 85;
+         }
+         leaf msg-recv-v6relay-information-request {
+             type uint64;
+             dr:source msg_recv_v6relay_information_request;
+	     dr:fieldnum 86;
+         }
+         leaf msg-recv-v6relay-release {
+             type uint64;
+             dr:source msg_recv_v6relay_release;
+	     dr:fieldnum 87;
+         }
+         leaf msg-recv-v6relay-request {
+             type uint64;
+             dr:source msg_recv_v6relay_request;
+	     dr:fieldnum 88;
+         }
+         leaf msg-recv-v6relay-confirm {
+             type uint64;
+             dr:source msg_recv_v6relay_confirm;
+	     dr:fieldnum 89;
+         }
+         leaf msg-recv-v6relay-renew {
+             type uint64;
+             dr:source msg_recv_v6relay_renew;
+	     dr:fieldnum 90;
+         }
+         leaf msg-recv-v6relay-rebind {
+             type uint64;
+             dr:source msg_recv_v6relay_rebind;
+	     dr:fieldnum 91;
+         }
+         leaf msg-recv-v6relay-relay-forw {
+             type uint64;
+             dr:source msg_recv_v6relay_relay_forw;
+	     dr:fieldnum 92;
+         }
+         leaf msg-recv-v6relay-leasequery-repl {
+             type uint64;
+             dr:source msg_recv_v6relay_leasequery_repl;
+	     dr:fieldnum 93;
+         }
+         leaf msg-recv-v6relay-leasequery-data {
+             type uint64;
+             dr:source msg_recv_v6relay_leasequery_data;
+	     dr:fieldnum 94;
+         }
+         leaf msg-recv-v6relay-leasequery-done {
+             type uint64;
+             dr:source msg_recv_v6relay_leasequery_done;
+	     dr:fieldnum 95;
+         }
+         leaf msg-recv-v6relay-advertise {
+             type uint64;
+             dr:source msg_recv_v6relay_advertise;
+	     dr:fieldnum 96;
+         }
+         leaf msg-recv-v6relay-reply {
+             type uint64;
+             dr:source msg_recv_v6relay_reply;
+	     dr:fieldnum 97;
+         }
+         leaf msg-recv-v6relay-reconfigure {
+             type uint64;
+             dr:source msg_recv_v6relay_reconfigure;
+	     dr:fieldnum 98;
+         }
+         leaf msg-recv-v6relay-relay-repl {
+             type uint64;
+             dr:source msg_recv_v6relay_relay_repl;
+	     dr:fieldnum 99;
+         }
+	 leaf msg-recv-v6relay-leasequery {
+             type uint64;
+             dr:source msg_recv_v6relay_leasequery;
+	     dr:fieldnum 100;
+         }
+         leaf msg-sent-v6relay-reply {
+             type uint64;
+             dr:source msg_sent_v6relay_reply;
+	     dr:fieldnum 101;
+         }
+         leaf msg-sent-v6relay-reconfigure {
+             type uint64;
+             dr:source msg_sent_v6relay_reconfigur;
+	     dr:fieldnum 102;
+         }
+         leaf msg-sent-v6relay-relay-repl {
+             type uint64;
+             dr:source msg_sent_v6relay_relay_repl;
+	     dr:fieldnum 103;
+         }
+         leaf msg-sent-v6relay-leasequery {
+             type uint64;
+             dr:source msg_sent_v6relay_leasequery;
+	     dr:fieldnum 104;
+         }
+         leaf msg-sent-v6relay-decline {
+             type uint64;
+             dr:source msg_sent_v6relay_decline;
+	     dr:fieldnum 105;
+         }
+         leaf msg-sent-v6relay-solicit {
+             type uint64;
+             dr:source msg_sent_v6relay_solicit;
+	     dr:fieldnum 106;
+         }
+         leaf msg-sent-v6relay-information-request {
+             type uint64;
+             dr:source msg_sent_v6relay_information_request;
+	     dr:fieldnum 107;
+         }
+         leaf msg-sent-v6relay-release {
+             type uint64;
+             dr:source msg_sent_v6relay_release;
+	     dr:fieldnum 108;
+         }
+         leaf msg-sent-v6relay-request {
+             type uint64;
+             dr:source msg_sent_v6relay_request;
+	     dr:fieldnum 109;
+         }
+         leaf msg-sent-v6relay-confirm {
+             type uint64;
+             dr:source msg_sent_v6relay_confirm;
+	     dr:fieldnum 110;
+         }
+         leaf msg-sent-v6relay-renew {
+             type uint64;
+             dr:source msg_sent_v6relay_renew;
+	     dr:fieldnum 111;
+         }
+         leaf msg-sent-v6relay-rebind {
+             type uint64;
+             dr:source msg_sent_v6relay_rebind;
+	     dr:fieldnum 112;
+         }
+         leaf msg-sent-v6relay-relay-forw {
+             type uint64;
+             dr:source msg_sent_v6relay_relay_forw;
+	     dr:fieldnum 113;
+         }
+         leaf msg-sent-v6relay-leasequery-repl {
+             type uint64;
+             dr:source msg_sent_v6relay_leasequery_repl;
+	     dr:fieldnum 114;
+         }
+         leaf msg-sent-v6relay-leasequery-data {
+             type uint64;
+             dr:source msg_sent_v6relay_leasequery_data;
+	     dr:fieldnum 115;
+         }
+         leaf msg-sent-v6relay-leasequery-done {
+             type uint64;
+             dr:source msg_sent_v6relay_leasequery_done;
+	     dr:fieldnum 116;
+         }
+         leaf v6relay-fwd-total {
+             type uint64;
+             dr:source v6relay_fwd_total;
+	     dr:fieldnum 117;
+         }
+         leaf v6relay-fwd-request {
+             type uint64;
+             dr:source v6relay_fwd_request;
+	     dr:fieldnum 118;
+         }
+         leaf v6relay-fwd-reply {
+             type uint64;
+             dr:source v6relay_fwd_reply;
+	     dr:fieldnum 119;
+         }
+
+    }
+    grouping jdhcpd-group-v4-server-binding {
+
+         leaf binding-state-v4server-binding {
+             type uint64;
+             dr:source binding_state_v4server_binding;
+	     dr:fieldnum 51;
+         }
+         leaf binding-state-v4server-init {
+             type uint64;
+             dr:source binding_state_v4server_init;
+	     dr:fieldnum 52;
+         }
+         leaf binding-state-v4server-bound {
+             type uint64;
+             dr:source binding_state_v4server_bound;
+	     dr:fieldnum 53;
+         }
+         leaf binding-state-v4server-selecting {
+             type uint64;
+             dr:source binding_state_v4server_selecting;
+	     dr:fieldnum 54;
+         }
+         leaf binding-state-v4server-requesting {
+             type uint64;
+             dr:source binding_state_v4server_requesting;
+	     dr:fieldnum 55;
+         }
+         leaf binding-state-v4server-renew {
+             type uint64;
+             dr:source binding_state_v4server_renew;
+	     dr:fieldnum 56;
+         }
+         leaf binding-state-v4server-release {
+             type uint64;
+             dr:source binding_state_v4server_release;
+	     dr:fieldnum 57;
+         }
+         leaf binding-state-server-restoring {
+             type uint64;
+             dr:source binding_state_server_restoring;
+	     dr:fieldnum 58;
+         }
+
+    }
+
+    grouping jdhcpd-group-v6-server-binding {
+
+         leaf binding-state-v6server-binding {
+             type uint64;
+             dr:source binding_state_v6server_binding;
+	     dr:fieldnum 51;
+         }
+         leaf binding-state-v6server-init {
+             type uint64;
+             dr:source binding_state_v6server_init;
+	     dr:fieldnum 52;
+         }
+         leaf binding-state-v6server-bound {
+             type uint64;
+             dr:source binding_state_v6server_bound;
+	     dr:fieldnum 53;
+         }
+         leaf binding-state-v6server-selecting {
+             type uint64;
+             dr:source binding_state_v6server_selecting;
+	     dr:fieldnum 54;
+         }
+         leaf binding-state-v6server-requesting {
+             type uint64;
+             dr:source binding_state_v6server_requesting;
+	     dr:fieldnum 55;
+         }
+         leaf binding-state-v6server-renew {
+             type uint64;
+             dr:source binding_state_v6server_renew;
+	     dr:fieldnum 56;
+         }
+         leaf binding-state-v6server-release {
+             type uint64;
+             dr:source binding_state_v6server_release;
+	     dr:fieldnum 57;
+         }
+         leaf binding-state-server-restoring {
+             type uint64;
+             dr:source binding_state_server_restoring;
+	     dr:fieldnum 58;
+         }
+
+    }
+
+    grouping jdhcpd-group-v4-relay-binding {
+
+         leaf binding-state-v4relay-binding {
+             type uint64;
+             dr:source binding_state_v4relay_binding;
+	     dr:fieldnum 51;
+         }
+         leaf binding-state-v4relay-init {
+             type uint64;
+             dr:source binding_state_v4relay_init;
+	     dr:fieldnum 52;
+         }
+         leaf binding-state-v4relay-bound {
+             type uint64;
+             dr:source binding_state_v4relay_bound;
+	     dr:fieldnum 53;
+         }
+         leaf binding-state-v4relay-selecting {
+             type uint64;
+             dr:source binding_state_v4relay_selecting;
+	     dr:fieldnum 54;
+         }
+         leaf binding-state-v4relay-requesting {
+             type uint64;
+             dr:source binding_state_v4relay_requesting;
+	     dr:fieldnum 55;
+         }
+         leaf binding-state-v4relay-renew {
+             type uint64;
+             dr:source binding_state_v4relay_renew;
+	     dr:fieldnum 56;
+         }
+         leaf binding-state-v4relay-release {
+             type uint64;
+             dr:source binding_state_v4relay_release;
+	     dr:fieldnum 57;
+         }
+         leaf binding-state-v4relay-restoring {
+             type uint64;
+             dr:source binding_state_relay_restoring;
+	     dr:fieldnum 58;
+         }
+         leaf binding-state-v4relay-rebind {
+             type uint64;
+             description "Count of dhcpv4 relay bindings in rebind state";
+             dr:source binding_state_v4relay_rebind;
+             dr:fieldnum 59;
+         }
+
+    }
+
+    grouping jdhcpd-group-v6-relay-binding {
+
+         leaf binding-state-v6relay-binding {
+             type uint64;
+             dr:source binding_state_v6relay_binding;
+	     dr:fieldnum 51;
+         }
+         leaf binding-state-v6relay-init {
+             type uint64;
+             dr:source binding_state_v6relay_init;
+	     dr:fieldnum 52;
+         }
+         leaf binding-state-v6relay-bound {
+             type uint64;
+             dr:source binding_state_v6relay_bound;
+	     dr:fieldnum 53;
+         }
+         leaf binding-state-v6relay-selecting {
+             type uint64;
+             dr:source binding_state_v6relay_selecting;
+	     dr:fieldnum 54;
+         }
+         leaf binding-state-v6relay-requesting {
+             type uint64;
+             dr:source binding_state_v6relay_requesting;
+	     dr:fieldnum 55;
+         }
+         leaf binding-state-v6relay-renew {
+             type uint64;
+             dr:source binding_state_v6relay_renew;
+	     dr:fieldnum 56;
+         }
+         leaf binding-state-v6relay-release {
+             type uint64;
+             dr:source binding_state_v6relay_release;
+	     dr:fieldnum 57;
+         }
+         leaf binding-state-relay-restoring {
+             type uint64;
+             dr:source binding_state_relay_restoring;
+	     dr:fieldnum 58;
+         }
+         leaf binding-state-v6relay-rebind {
+             type uint64;
+             description "Count of dhcpv6 relay bindings in rebind state";
+             dr:source binding_state_v6relay_rebind;
+             dr:fieldnum 59;
+         }
+
+    }
+
+    grouping jdhcpd-v4-server-response-stats {
+         leaf one-minute-minimum-response-time {
+             type uint64;
+             dr:source server_response_1minute_min_resp_time;
+	     dr:fieldnum 51;
+         }
+         leaf one-minute-average-response-time {
+             type uint64;
+	     dr:source server_response_1minute_avg_resp_time;
+	     dr:fieldnum 52;
+         }
+         leaf one-minute-maximum-response-time {
+	     type uint64;
+       	     dr:source server_response_1minute_max_resp_time;
+	     dr:fieldnum 53;
+	 }
+         leaf one-minute-messages-sent {
+	     type uint64;
+             dr:source server_response_1minute_msgs_sent;
+	     dr:fieldnum 54;
+	 }
+         leaf one-minute-messages-received {
+             type uint64;
+	     dr:source server_response_1minute_msgs_recvd;
+	     dr:fieldnum 55;
+	 }
+         leaf one-minute-messages-no-response {
+	     type uint64;
+             dr:source server_response_1minute_msgs_no_resp;
+	     dr:fieldnum 56;
+         }
+    }
+
+    grouping jdhcpd-v6-server-response-stats {
+         leaf one-minute-minimum-response-time {
+             type uint64;
+             dr:source server_response_1minute_min_resp_time;
+	     dr:fieldnum 51;
+         }
+         leaf one-minute-average-response-time {
+             type uint64;
+	     dr:source server_response_1minute_avg_resp_time;
+	     dr:fieldnum 52;
+         }
+         leaf one-minute-maximum-response-time {
+	     type uint64;
+       	     dr:source server_response_1minute_max_resp_time;
+	     dr:fieldnum 53;
+	 }
+         leaf one-minute-messages-sent {
+	     type uint64;
+             dr:source server_response_1minute_msgs_sent;
+	     dr:fieldnum 54;
+	 }
+         leaf one-minute-messages-received {
+             type uint64;
+	     dr:source server_response_1minute_msgs_recvd;
+	     dr:fieldnum 55;
+	 }
+         leaf one-minute-messages-no-response {
+	     type uint64;
+             dr:source server_response_1minute_msgs_no_resp;
+	     dr:fieldnum 56;
+         }
+    }
+
+    rpc juniper-netconf-get{
+        dr:command-top-of-output "/oc-jdhcpd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+		    dr:fieldnum 151;
+                    container subscriber-management {
+			dr:fieldnum 151;
+                        container client-protocols {
+			    dr:fieldnum 151;
+                            container dhcp {
+				dr:fieldnum 151;
+                                container v4{
+				     dr:fieldnum 151;
+                                     container global-statistics {
+                                        dr:source "/junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics";
+                                        dr:fieldnum 152;
+                                        uses jdhcpd-group-v4-stats;
+                                        uses jdhcpd-group-v4-era-stats;
+                                     }
+                                     container routing-instances {
+					dr:fieldnum 151;
+                                        list routing-instance{
+                                            dr:source "/junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance";
+					    dr:fieldnum 151;
+                                            key ri-name;
+                                            leaf ri-name {
+                                              type string;
+                                              dr:source "ri_name";
+					      dr:fieldnum 51;
+                                            }
+                                            container server {
+						dr:fieldnum 151;
+                                                container statistics{
+						     dr:fieldnum 151;
+                                                     uses jdhcpd-group-v4-server-stats;
+                                                     dr:source "server/statistics";
+                                                }
+                                                container bindings{
+						     dr:fieldnum 152;
+                                                     uses jdhcpd-group-v4-server-binding;
+                                                     dr:source "server/bindings";
+                                                }
+                                            }
+                                            container relay{
+						dr:fieldnum 152;
+                                                container statistics{
+                                                    dr:source "relay/statistics";
+						    dr:fieldnum 151;
+                                                    uses jdhcpd-group-v4-relay-stats;
+                                                }
+                                                container bindings{
+                                                     uses jdhcpd-group-v4-relay-binding;
+                                                     dr:source "relay/bindings";
+						     dr:fieldnum 152;
+                                                }
+                                                container servers{
+						    dr:fieldnum 153;
+                                                    list server{
+                                                        key server-ip;
+                                                        dr:source "relay/servers/server";
+							dr:fieldnum 151;
+                                                        leaf server-ip{
+                                                          type string;
+                                                          dr:source "server_ip";
+							  dr:fieldnum 51;
+                                                        }
+                                                        container response-time{
+                                                            uses jdhcpd-v4-server-response-stats;
+                                                            dr:source "response-time";
+							    dr:fieldnum 151;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                container v6{
+				     dr:fieldnum 152;
+                                     container global-statistics {
+                                        dr:source "/junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics";
+                                        dr:fieldnum 152;
+                                        uses jdhcpd-group-v6-stats;
+                                        uses jdhcpd-group-v6-era-stats;
+                                     }
+                                    container routing-instances {
+					dr:fieldnum 151;
+                                        list routing-instance{
+                                            dr:source "/junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance";
+					    dr:fieldnum 151;
+                                            key ri-name;
+                                            leaf ri-name {
+                                              type string;
+                                              dr:source "ri_name";
+					      dr:fieldnum 51;
+                                            }
+                                            container server{
+						dr:fieldnum 151;
+                                                container statistics{
+                                                      uses jdhcpd-group-v6-server-stats;
+                                                      dr:source "server/statistics";
+						      dr:fieldnum 151;
+                                                }
+                                                container bindings{
+                                                     uses jdhcpd-group-v6-server-binding;
+                                                     dr:source "server/bindings";
+						     dr:fieldnum 152;
+                                                }
+                                            }
+                                            container relay{
+						dr:fieldnum 152;
+                                                container statistics{
+                                                    dr:source "relay/statistics";
+						    dr:fieldnum 151;
+                                                    uses jdhcpd-group-v6-relay-stats;
+                                                }
+                                                container bindings{
+                                                     uses jdhcpd-group-v6-relay-binding;
+                                                     dr:source "relay/bindings";
+						     dr:fieldnum 152;
+                                                }
+                                                container servers{
+						    dr:fieldnum 153;
+                                                    list server{
+                                                        key server-ipv6;
+                                                        dr:source "relay/servers/server";
+							dr:fieldnum 151;
+                                                        leaf server-ipv6{
+                                                          type string;
+                                                          dr:source "server_ipv6";
+							  dr:fieldnum 51;
+                                                        }
+                                                        container response-time{
+                                                            uses jdhcpd-v6-server-response-stats;
+                                                            dr:source "response-time";
+							    dr:fieldnum 151;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

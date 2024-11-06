@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional SrTeIpStats jnpr_SrTeIpStats_ext = 25;
+}
+
+message SrTeIpStats {
+   message SegmentRoutingTeIpRecord_list {
+      optional string to_ip_prefix = 2 [(telemetry_options).is_key = true];
+      optional uint32 color_identifier = 3;
+      optional uint32 instance_identifier = 4;
+      optional string counter_name = 5;
+      message SegmentRoutingTeIpStats_list {
+         optional uint64 packets = 1;
+         optional uint64 bytes = 2;
+         optional uint64 packet_rate = 3;
+         optional uint64 byte_rate = 4;
+      }
+      repeated SegmentRoutingTeIpStats_list SegmentRoutingTeIpStats = 6;
+   }
+   repeated SegmentRoutingTeIpRecord_list SegmentRoutingTeIpRecord = 1;
+}

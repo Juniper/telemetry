@@ -1,0 +1,28 @@
+module junos-openconfig-mpls-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/ni-mpls/annotations";
+  prefix "jnx-oc-mpls-ann";
+
+  import openconfig-network-instance { prefix oc-ni; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig ni-mpls model";
+
+  revision "2022-04-27" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:mpls/" +
+      "oc-ni:lsps/oc-ni:constrained-path/oc-ni:tunnels/oc-ni:tunnel/oc-ni:state/oc-ni:counters/oc-ni:packets" {
+      JUNOS_PRODUCT_EXCLUDE(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_EXCLUDE(EX_SERIES);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:mpls/" +
+      "oc-ni:lsps/oc-ni:constrained-path/oc-ni:tunnels/oc-ni:tunnel/oc-ni:state/oc-ni:counters/oc-ni:bytes" {
+      JUNOS_PRODUCT_EXCLUDE(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_EXCLUDE(EX_SERIES);
+  }
+}

@@ -1,0 +1,69 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2019, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_mpls_ldp_p2mp_if_ingress_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-mpls-ldp-p2mp-if-ingress-oc";
+
+  prefix "mpls-ldp-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-mpls { prefix jnx-aug-oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping mpls-ldp {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/ldp/p2mp/interface/receive/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/ldp/p2mp/interface/receive/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        dr:source "/junos/services/ldp/p2mp/interface/receive/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/ldp" {
+        uses jnx-aug-oc-mpls:jnx-ldp-p2mp-interface-container {
+          augment "p2mp-interfaces" {
+            dr:source "/junos/services/ldp/p2mp/interface/receive/usage/";
+            dr:fieldnum 151;
+          }
+          augment "p2mp-interfaces/p2mp-interface" {
+            dr:source "/junos/services/ldp/p2mp/interface/receive/usage/";
+            dr:fieldnum 151;
+          }
+        }
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-ldp-p2mp-if-ingress";
+  jnpr-proto:message-id "LDP-P2MP-IF-INGRESS-STATS-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses mpls-ldp;
+    }
+  }
+}
+
+

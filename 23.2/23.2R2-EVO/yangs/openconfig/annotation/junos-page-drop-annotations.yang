@@ -1,0 +1,15 @@
+module junos-page-drop-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/page-drop/annotations";
+    prefix "junos-page-drop-ann";
+    import junos-page-drop-stats { prefix junos-page-drop; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-09-07" {
+        description "Initial version to add native page drop supported list";
+    }
+    augment "/junos-page-drop:junos/junos-page-drop:system/junos-page-drop:linecard/junos-page-drop:page-drops" {
+        junos:product "ptx1000 ptx5000";
+        junos:product "ptx10003-160c ptx10003-80c qfx10016 qfx10008";
+    }
+}

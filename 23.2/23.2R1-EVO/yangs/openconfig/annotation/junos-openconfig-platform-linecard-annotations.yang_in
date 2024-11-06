@@ -1,0 +1,29 @@
+module junos-openconfig-platform-linecard-annotations {
+
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/yang/platform/linecard/annotations";
+
+    prefix "jnx-oc-linecard-ann";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-linecard { prefix oc-linecard; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-04-05" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-linecard:linecard/oc-linecard:state/oc-linecard:power-admin-state" {
+        JUNOS_PRODUCT(BRACKLA_PTX VALE_PTX);
+
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-linecard:linecard/oc-linecard:state/oc-linecard:slot-id" {
+        JUNOS_PRODUCT(BRACKLA_PTX VALE_PTX);
+
+    }
+}

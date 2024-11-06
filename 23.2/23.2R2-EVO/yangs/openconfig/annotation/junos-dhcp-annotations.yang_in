@@ -1,0 +1,44 @@
+module junos-dhcp-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/dhcp/annotations";
+
+    prefix "junos-dhcp-ann";
+
+    import junos-dhcp { prefix junos-dhcp; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-12-05" {
+        description "Initial version to add native jdhcpd model product support information";
+    }
+
+    augment "/junos-dhcp:junos/junos-dhcp:system/junos-dhcp:subscriber-management/" +
+            "junos-dhcp:client-protocols/junos-dhcp:dhcp" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+        JUNOS_PRODUCT(ACX_SERIES);
+        JUNOS_PRODUCT(AMX_SERIES);
+        JUNOS_PRODUCT(EX82_SERIES);
+        JUNOS_PRODUCT(EX62_SERIES);
+        JUNOS_PRODUCT(EX_SERIES_J);
+        JUNOS_PRODUCT(JAVA_LATTE);
+        JUNOS_PRODUCT(JAVA_TSUNAMI);
+        JUNOS_PRODUCT(EX_XRE);
+        JUNOS_PRODUCT(EX43XX);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EVO_BBE_SERIES);
+        JUNOS_PRODUCT(cbng);
+        JUNOS_PRODUCT(FX_SERIES_SI);
+        JUNOS_PRODUCT(J_SERIES_USP);
+        JUNOS_PRODUCT(JSSG_SERIES);
+        JUNOS_PRODUCT(JCS_SCE);
+        JUNOS_PRODUCT(JAVA_EX2200);
+        JUNOS_PRODUCT(JAVA_EX3300);
+        JUNOS_PRODUCT(JAVA_ESPRESSO);
+        JUNOS_PRODUCT(FX_SERIES_NG);
+    }
+}
+

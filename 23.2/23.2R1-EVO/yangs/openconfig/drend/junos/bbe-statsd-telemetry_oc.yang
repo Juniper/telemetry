@@ -1,0 +1,814 @@
+
+/*
+ * $Id$
+ *
+ * Copyright (c) 2018, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-statsd-telemetry {
+    yang-version "1";
+    namespace "http://juniper.net/yang/bbe-statsd";
+    prefix "bbe-statsd-telemetry";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "bbe-stats-daemon";
+
+    /* Proto Buf qualifiers */
+    dr:sub-component "statistics";
+    jnpr-proto:message-id "BBE-STATSD-TELEMETRY-OC-MESSAGE-ID";
+
+
+    typedef bbe-index {
+        type uint32;
+        description "A flow or container reference used by the forwarding component";
+    }
+    typedef vlan-tag {
+        type uint16 {
+            range "1..4094";
+        }
+        description "An 802.1Q VLAN tag";
+    }
+    typedef interfaceSetType {
+        type enumeration {
+            enum svlan {
+                value 0;
+            }
+            enum cvlan;
+            enum phyIfd;
+            enum ponId;
+            enum staticName;
+            enum opaque;
+            enum underlyingPhysicalDevice;
+        }
+        description 
+            "An interface-set type.  The type determines the construction or formatting of the interface-set name.";
+    }
+    typedef session-identifier {
+        type uint64;
+        description
+            "A unique identifier for a session in this intsance of subscriber-management";
+    }
+
+    typedef family-type {
+        type enumeration {
+            enum inet {
+                value 1;
+            }
+            enum inet6;
+            enum l2;
+        }
+        description
+            "The family type denotes the protocol family associated with service statistics.";
+    }
+
+    typedef client-session-type {
+        type enumeration {
+               enum none {
+                   value 0;
+               }
+               enum dhcp;
+               enum vlan;
+               enum generic;
+               enum mobileIp;
+               enum vplsPw;
+               enum ppp;
+               enum pppoe;
+               enum l2tp;
+               enum static;
+               enum mlppp;
+               enum xauth;
+               enum fwXauth;
+               enum dot1x;
+               enum essm;
+               enum l2ald;
+               enum gre;
+               enum vlanOob;
+               enum l2CktPw;
+               enum dynIp;
+               enum hagTunnel;
+               enum hagBundle;
+        }
+    }
+
+    grouping service-filter-statistics {
+        description
+            "Service accounting statistics for a service filter";
+        leaf packets {
+            description
+               "The number of packets matched and accepted by this filter";
+            type uint64;
+            dr:source "packets";
+            dr:fieldnum 59;
+        }
+        leaf bytes {
+            description
+               "The number of bytes matched and accepted by this filter";
+            type uint64;
+            dr:source "bytes";
+            dr:fieldnum 60;
+        }
+    }
+    typedef unix-time {
+	type uint32;
+	description
+	    "Timestamp expressed in seconds since January 1st 1970 UTC.";
+    }
+
+    grouping interface-information {
+        description 
+            "The set of meta-data for interface correlation";
+
+        leaf interface-index {
+            type bbe-index;
+            dr:source "interface_index";
+            dr:fieldnum 55;
+            description 
+                "The flow identifier for this interface.";
+        }
+
+        leaf session-type {
+            type client-session-type;
+            dr:source "session_type";
+            dr:fieldnum 56;
+            description "The type of client session (e.g VLAN, DHCP, PPPOE, etc.";
+        }
+
+        leaf user-name {
+            type string;
+            dr:source "user_name";
+            dr:fieldnum 57;
+            description "The login name for this interface/session.";
+        }
+
+        leaf profile-name {
+            type string;
+            dr:source "profile_name";
+            dr:fieldnum 58;
+            description "The name of the client profile used to create this interface";
+        }
+
+        leaf interface-name {
+            type string;
+            dr:source "interface_name";
+            dr:fieldnum 59;
+            description 
+                "The name of the associated interface";
+        }
+
+        leaf interface-set-name {
+            type string;
+            dr:source "interface_set_name";
+            dr:fieldnum 63;
+            description
+                "The name of the associated interface set name";
+        }
+
+        leaf underlying-interface-name {
+            type string;
+            dr:source "underlying_interface_name";
+            dr:fieldnum 60;
+            description 
+                "The name of the associated underlying interface";
+        }
+
+        leaf cvlan-tag {
+            type vlan-tag;
+            dr:source "cvlan_tag";
+            dr:fieldnum 61;
+            description 
+                "The innermost VLAN tag value associated with this interface or interface-set";
+        }
+
+        leaf svlan-tag {
+            type vlan-tag;
+            dr:source "svlan_tag";
+            dr:fieldnum 62;
+            description 
+                "The outermost VLAN tag value associated with this interface or interface-set";
+        }
+    }
+
+    grouping interface-set-information {
+        leaf interface-set-name {
+            type string;
+            dr:source "interface_set_name";
+            dr:fieldnum 55;
+            description 
+                "The name of the interface-set as supplied by AAA or as constructed by the topology 
+                 relationship (ACI string or interface stacking)";
+        }
+
+        leaf interface-set-type {
+            type interfaceSetType;
+            dr:source "interface_set_type";
+            dr:fieldnum 56;
+            description "The type of interface-set (determines structure of interface-set-name).";
+        }
+
+        leaf device-name {
+            type string;
+            dr:source "device_name";
+            dr:fieldnum 57;
+            description "The name of the underlying device or port, e.g. ge-1/0/0 
+                         or ae1. Empty if the interface-set type is not a 
+                         physical interface-set type.";
+        }
+
+        leaf stag {
+            type vlan-tag;
+            dr:source "stag";
+            dr:fieldnum 58;
+            description "The outer VLAN tag, 0 if interface-set type is not a VLAN type";
+        }
+
+        leaf ctag {
+            type vlan-tag;
+            dr:source "ctag";
+            dr:fieldnum 59;
+            description "The inner VLAN tag, 0 if interface-set type is not a VLAN type";
+        }
+
+        leaf cos-egress-tcp-name {
+            type string;
+            dr:source "tcp_name";
+            dr:fieldnum 60;
+            description "The egress traffic control profile associated with this interface-set";
+        }
+
+        leaf cos-egress-tcp-remainder-name {
+            type string;
+            dr:source "tcp_rem_name";
+            dr:fieldnum 61;
+            description "The egress remainder traffic control profile associated with this interface-set";
+        }
+
+        leaf interface-set-member-count {
+            type uint32;
+            dr:source "member_count";
+            dr:fieldnum 62;
+            description "number of members in the IFL set";
+        }
+
+    }
+
+    grouping queue-statistics {
+        description "The set of statistics reported for a queue.";
+
+        leaf transmitted-packets {
+            type uint64;
+            description "Total packets enqueued for this queue";
+            dr:source "transmitted_packets";
+            dr:fieldnum 52;
+        }
+        leaf transmitted-bytes {
+            type uint64;
+            description "Total bytes enqueued for this queue";
+            dr:source "transmitted_bytes";
+            dr:fieldnum 53;
+        }
+        leaf dropped-packets {
+            type uint64;
+            description 
+                "Total packets dropped (because of RED, rate-limited,    
+                 tail-drop, etc.) for this queue";
+            dr:source "dropped_packets";
+            dr:fieldnum 54;
+        }
+        leaf dropped-bytes {
+            type uint64;
+            description 
+                "Total bytes dropped (because of RED, rate-limited, tail-
+                 drop, etc.) for this queue";
+            dr:source "dropped_bytes";
+            dr:fieldnum 55;
+        }
+    }
+
+    grouping actual-transit-statistics {
+        description "The set of subscriber statistics for an interface.";
+
+        leaf ip-in-packets {
+            type uint64;
+            description
+                "The number of actual transit IPv4 and IPv6 packets received by this interface.";
+            dr:source "ip_in_packets";
+            dr:fieldnum 55;
+        }
+        leaf ip-out-packets {
+            type uint64;
+            description
+                "The number of actual transit IPv4 and IPv6 packets sent to this interface.";
+            dr:source "ip_out_packets";
+            dr:fieldnum 56;
+        }
+        leaf ip-in-bytes {
+            type uint64;
+            description
+                "The number of actual transit IPv4 and IPv6 bytes received by this interface.";
+            dr:source "ip_in_bytes";
+            dr:fieldnum 57;
+        }
+        leaf ip-out-bytes {
+            type uint64;
+            description
+                "The number of actual transit IPv4 and IPv6 bytes sent to this interface.";
+            dr:source "ip_out_bytes";
+            dr:fieldnum 58;
+        }
+        leaf ipv6-in-packets {
+            type uint64;
+            description
+                "The number of actual transit IPv6 packets received by this interface.";
+            dr:source "ipv6_in_packets";
+            dr:fieldnum 59;
+        }
+        leaf ipv6-out-packets {
+            type uint64;
+            description
+                "The number of actual transit IPv6 packets sent to this interface.";
+            dr:source "ipv6_out_packets";
+            dr:fieldnum 60;
+        }
+        leaf ipv6-in-bytes {
+            type uint64;
+            description
+                "The number of actual transit IPv6 bytes received by this interface.";
+            dr:source "ipv6_in_bytes";
+            dr:fieldnum 61;
+        }
+        leaf ipv6-out-bytes {
+            type uint64;
+            description
+                "The number of actual transit IPv6 bytes sent to this interface.";
+            dr:source "ipv6_out_bytes";
+            dr:fieldnum 62;
+        }
+    }
+
+    
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/bbe-statsd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                dr:fieldnum 151;
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container dynamic-interfaces {
+                            dr:source "/junos/system/subscriber_management/dynamic_interfaces";
+                            dr:fieldnum 151;
+                            container interfaces {
+                                dr:source "interfaces";
+                                dr:fieldnum 151;
+                                leaf max-polling-interfaces {
+                                    type uint32;
+                                    dr:source "max_polling_interfaces";
+                                    dr:fieldnum 51;
+                                }
+                                leaf current-polling-interfaces {
+                                    type uint32;
+                                    dr:source "current_polling_interfaces";
+                                    dr:fieldnum 52;
+                                }
+                                container meta-data {
+                                    dr:source "meta_data";
+                                    dr:fieldnum 151;
+                                    list interface { 
+                                        dr:source "interface";
+                                        dr:source-notification-name "interface_notify";
+                                        dr:fieldnum 151;
+                                        key sid;
+                                        leaf sid {
+                                            type session-identifier;
+                                            dr:source "sid";
+                                            dr:fieldnum 51;
+                                        }
+                                        uses interface-information;
+                                    }
+                                }
+                                container queue-statistics {
+                                    dr:source "queue_statistics";
+                                    dr:fieldnum 155;
+                                    list interface {
+                                        dr:source "interface";
+                                        dr:fieldnum 151;
+                                        key sid;
+                                        leaf sid {
+                                            type session-identifier;
+                                            description 
+                                                "The session-ID for this interface.";
+                                            dr:source "sid";
+                                            dr:fieldnum 51;
+                                        }
+                                        leaf polling-enabled {
+                                            type boolean;
+                                            description
+                                                "Whether polling is enabled for this interface";
+                                            dr:source "polling_enabled";
+                                            dr:fieldnum 52;
+                                        }
+                                        container fpcs {
+                                            dr:source "fpcs";
+                                            dr:fieldnum 151;
+                                            list fpc {
+                                                dr:source "fpc";
+                                                dr:fieldnum 151;
+                                                key slot;
+                                                leaf slot {
+                                                    type uint32;
+                                                    description
+                                                        "The slot number representing this entry";
+                                                    dr:source "slot";
+                                                    dr:fieldnum 51;
+                                                }
+                                                leaf last-update-time {
+                                                    type unix-time;
+                                                    description "Time whe fpc queue stats was last updated, expressed as Unix time; seconds since Jan 1st, 1970 UTC";
+                                                    dr:source "last_update_time";
+                                                    dr:fieldnum 52;
+                                                }
+                                                container queues {
+                                                    dr:source "queues";
+                                                    dr:fieldnum 151;
+                                                    list queue {
+                                                        dr:source "queue";
+                                                        dr:fieldnum 151;
+                                                        key queue-no;
+                                                        leaf queue-no {
+                                                            type uint8;
+                                                            description "The queue index (0..n) for this queue"; 
+                                                            dr:source "queue_no";
+                                                            dr:fieldnum 50;
+                                                        }
+                                                        uses queue-statistics;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } 
+                                } 
+                                container subscriber-statistics {
+                                    dr:source "subscriber_statistics";
+                                    dr:fieldnum 160;
+                                    list interface {
+                                        dr:source "interface";
+                                        dr:fieldnum 151;
+                                        key sid;
+                                        leaf sid {
+                                            type session-identifier;
+                                            description 
+                                                "The associated session ID for this interface";
+                                            dr:source "sid";
+                                            dr:fieldnum 50;
+                                        }
+                                        uses actual-transit-statistics;
+                                    }
+                                }
+                                container services {
+                                    dr:source "services";
+                                    dr:fieldnum 180;
+                                    list interface {
+                                        dr:source "interface";
+                                        dr:fieldnum 190;
+                                        key sid;
+                                        leaf sid {
+                                            type uint64;
+                                            description 
+                                                "The associated session ID for this interface";
+                                            dr:source "sid";
+                                            dr:fieldnum 50;
+                                        }    
+                                        container service-statistics {
+                                            dr:source "service_statistics";
+                                            dr:fieldnum 181;
+                                            list service {
+                                                dr:source "service";
+                                                dr:fieldnum 191;
+                                                key ssid;
+                                                leaf ssid {
+                                                    type uint64;
+                                                    description
+                                                        "The associated session ID for this service";
+                                                    dr:source "ssid";
+                                                    dr:fieldnum 192; 
+                                                }
+                                                leaf service-instance-name {
+                                                     type string;
+                                                     description 
+                                                        "The name of a service profile instance for this subscriber";
+                                                     dr:source "service_instance_name";
+                                                     dr:fieldnum 193; 
+                                                }
+                                                container families {
+                                                    dr:source "families";
+                                                    dr:fieldnum 194;
+                                                    list family {
+                                                        dr:source "family";
+                                                        dr:fieldnum 195;
+                                                        key families-present;
+                                                        leaf families-present {
+                                                            type family-type;
+                                                            dr:source "families_present";
+                                                            dr:fieldnum 196;
+                                                        } 
+                                                        container filter-directions {
+                                                            dr:source "filter_directions";
+                                                            dr:fieldnum 197;
+                                                            list filter-direction {
+                                                                dr:source "filter_direction";
+                                                                dr:fieldnum 198;
+                                                                key direction;
+                                                                leaf direction {
+                                                                    type uint8;
+                                                                    dr:source "direction";
+                                                                    dr:fieldnum 199;        
+                                                                } 
+                                                                uses service-filter-statistics;                                                             
+                                                            }
+                                                        }  
+                                                    }
+                                                }  
+                                            } 
+                                        }                                                              
+                                    }
+                                }
+                            } 
+                            container interface-sets {
+                                dr:source "interface_sets";
+                                dr:fieldnum 155;
+                                leaf max-polling-interfaces {
+                                    type uint32;
+                                    dr:source "max_polling_interfaces";
+                                    dr:fieldnum 51;
+                                }
+                                leaf current-polling-interfaces {
+                                    type uint32;
+                                    dr:source "current_polling_interfaces";
+                                    dr:fieldnum 52;
+                                }
+                                container meta-data {
+                                    dr:source "meta_data";
+                                    dr:fieldnum 151;
+                                    list interface-set {
+                                        dr:source "interface_set";
+                                        dr:source-notification-name "interface_set_notify";
+                                        dr:fieldnum 155;
+                                        key container-id;
+                                        leaf container-id {
+                                            type bbe-index;
+                                            dr:source "container_id";
+                                            dr:fieldnum 51;
+                                        }
+                                        uses interface-set-information;
+                                    }
+                                }
+                                container queue-statistics {
+                                    dr:source "queue_statistics";
+                                    dr:fieldnum 155;
+                                    list interface-set {
+                                        dr:source "interface_set";
+                                        dr:fieldnum 151;
+                                        key container-id;
+                                        leaf container-id {
+                                            type bbe-index;
+                                            description 
+                                                "The flow index for this interface-set";
+                                            dr:source "container_id";
+                                            dr:fieldnum 51;
+                                        }
+                                        leaf polling-enabled {
+                                            type boolean;
+                                            description
+                                                "Whether polling is enabled for this interface-set";
+                                            dr:source "polling_enabled";
+                                            dr:fieldnum 52;
+                                        }
+                                        container fpcs {
+                                            dr:source "fpcs";
+                                            dr:fieldnum 151;
+                                            list fpc {
+                                                dr:source "fpc";
+                                                dr:fieldnum 151;
+                                                key slot;
+                                                leaf slot {
+                                                    type uint32;
+                                                    description
+                                                        "The slot number representing this entry";
+                                                    dr:source "slot";
+                                                    dr:fieldnum 51;
+                                                }
+                                                leaf last-update-time {
+                                                    type unix-time;
+                                                    description "Time the fpc queue stats was last updated, expressed as Unix time; seconds since Jan 1st, 1970 UTC";
+                                                    dr:source "last_update_time";
+                                                    dr:fieldnum 52;
+                                                }
+                                                container queues {
+                                                    dr:source "queues";
+                                                    dr:fieldnum 151;
+                                                    list queue {
+                                                        dr:source "queue";
+                                                        dr:fieldnum 151;
+                                                        key queue-no;
+                                                        leaf queue-no {
+                                                            type uint8;
+                                                            description "The queue index (0..n) for this queue"; 
+                                                            dr:source "queue_no";
+                                                            dr:fieldnum 50;
+                                                        }
+                                                        uses queue-statistics;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } 
+                                } 
+                            } 
+                        } 
+                    }
+                }
+            }
+        }
+    } 
+
+    notification interface-notify {
+        description "An interface event (create/delete)";
+        dr:source-notification-name "interface_notify";
+        container junos {
+            dr:source "/notification/interface_notify/junos";
+            dr:fieldnum 151;
+            container system {
+                dr:source "system";
+                dr:fieldnum 151;
+                container subscriber-management {
+                    dr:source "subscriber_management";
+                    dr:fieldnum 151;
+                    container dynamic-interfaces {
+                        dr:source "dynamic_interfaces";
+                        dr:fieldnum 151;
+                        container interfaces {
+                            dr:source "interfaces";
+                            dr:fieldnum 151;
+                            container meta-data {
+                                dr:source "meta_data";
+                                dr:fieldnum 151;
+                                list interface {
+                                    dr:source "interface";
+                                    dr:fieldnum 151;
+                                    key sid;
+                                    leaf sid {
+                                        type session-identifier;
+                                        dr:source "sid";
+                                        dr:fieldnum 51;
+                                    }
+                                    leaf interface-index {
+                                        type bbe-index;
+                                        dr:source "interface_index";
+                                        dr:fieldnum 55;
+                                    }
+                                    leaf session-type {
+                                        type string;
+                                        dr:source "session_type";
+                                        dr:fieldnum 56;
+                                    }
+                                    leaf user-name {
+                                        type string;
+                                        dr:source "user_name";
+                                        dr:fieldnum 57;
+                                    }
+                                    leaf profile-name {
+                                        type string;
+                                        dr:source "profile_name";
+                                        dr:fieldnum 58;
+                                    }
+                                    leaf interface-name {
+                                        type string;
+                                        dr:source "interface_name";
+                                        dr:fieldnum 59;
+                                    }
+                                    leaf interface-set-name {
+                                        type string;
+                                        dr:source "interface_set_name";
+                                        dr:fieldnum 63;
+                                    }
+                                    leaf underlying-interface-name {
+                                        type string;
+                                        dr:source "underlying_interface_name";
+                                        dr:fieldnum 60;
+                                    }
+                                    leaf cvlan-tag {
+                                        type vlan-tag;
+                                        dr:source "cvlan_tag";
+                                        dr:fieldnum 61;
+                                    }
+                                    leaf svlan-tag {
+                                        type vlan-tag;
+                                        dr:source "svlan_tag";
+                                        dr:fieldnum 62;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+    }
+
+    notification interface-set-notify {
+        description "An interface-set event (create/delete)";
+        dr:source-notification-name "interface_set_notify";
+        container junos {
+            dr:source "/notification/interface_set_notify/junos";
+            dr:fieldnum 151;
+            container system {
+                dr:source "system";
+                dr:fieldnum 151;
+                container subscriber-management {
+                    dr:source "subscriber_management";
+                    dr:fieldnum 151;
+                    container dynamic-interfaces {
+                        dr:source "dynamic_interfaces";
+                        dr:fieldnum 151;
+                        container interface-sets {
+                            dr:source "interface_sets";
+                            dr:fieldnum 155;
+                            container meta-data {
+                                dr:source "meta_data";
+                                dr:fieldnum 151;
+                                list interface-set {
+                                    dr:source "interface_set";
+                                    dr:fieldnum 155;
+                                    key "container-id";
+                                    leaf container-id {
+                                        type bbe-index;
+                                        dr:source "container_id";
+                                        dr:fieldnum 51;
+                                    }
+                                    leaf interface-set-name {
+                                        type string;
+                                        dr:source "interface_set_name";
+                                        dr:fieldnum 55;
+                                    }
+                                    leaf interface-set-type {
+                                        type interfaceSetType;
+                                        dr:source "interface_set_type";
+                                        dr:fieldnum 56;
+                                    }
+                                    leaf device-name {
+                                        type string;
+                                        dr:source "device_name";
+                                        dr:fieldnum 57;
+                                    }
+                                    leaf stag {
+                                        type vlan-tag;
+                                        dr:source "stag";
+                                        dr:fieldnum 58;
+                                    }
+                                    leaf ctag {
+                                        type vlan-tag;
+                                        dr:source "ctag";
+                                        dr:fieldnum 59;
+                                    }
+                                    leaf cos-egress-tcp-name {
+                                        type string;
+                                        dr:source "tcp_name";
+                                        dr:fieldnum 60;
+                                    }
+                                    leaf cos-egress-tcp-remainder-name {
+                                        type string;
+                                        dr:source "tcp_rem_name";
+                                        dr:fieldnum 61;
+                                    }
+                                    leaf interface-set-member-count {
+                                        type uint32;
+                                        dr:source "member_count";
+                                        dr:fieldnum 62;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+} 

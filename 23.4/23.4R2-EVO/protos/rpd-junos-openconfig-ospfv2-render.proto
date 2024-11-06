@@ -1,0 +1,410 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_OSPFV2_247 jnpr_network_instances_OSPFV2_247_ext = 247;
+}
+
+message network_instances_OSPFV2_247 {
+   message network_instance_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional protocols_type protocols = 151;
+      message protocols_type {
+         message protocol_list {
+            optional string identifier = 51;
+            optional string name = 52;
+            optional ospfv2_type ospfv2 = 151;
+            message ospfv2_type {
+               optional global_type global = 151;
+               message global_type {
+                  optional state_type state = 151;
+                  message state_type {
+                     optional string router_id = 51;
+                     optional bool igp_shortcuts = 52;
+                     optional bool log_adjacency_changes = 53;
+                  }
+                  optional timers_type timers = 152;
+                  message timers_type {
+                     optional spf_type spf = 151;
+                     message spf_type {
+                        optional state_type state = 153;
+                        message state_type {
+                           optional uint32 initial_delay = 51;
+                        }
+                     }
+                     optional max_metric_type max_metric = 154;
+                     message max_metric_type {
+                        optional state_type state = 151;
+                        message state_type {
+                           optional bool set = 51;
+                           optional uint64 timeout = 52;
+                           repeated string include = 58;
+                        }
+                     }
+                  }
+                  optional graceful_restart_type graceful_restart = 154;
+                  message graceful_restart_type {
+                     optional state_type state = 151;
+                     message state_type {
+                        optional bool enabled = 51;
+                        optional bool helper_only = 52;
+                     }
+                  }
+                  optional mpls_type mpls = 155;
+                  message mpls_type {
+                     optional state_type state = 151;
+                     message state_type {
+                        optional bool traffic_engineering_extensions = 51;
+                     }
+                  }
+               }
+               optional areas_type areas = 152;
+               message areas_type {
+                  message area_list {
+                     optional string identifier = 51 [(telemetry_options).is_key = true];
+                     optional state_type state = 151;
+                     message state_type {
+                        optional string identifier = 51;
+                     }
+                     optional interfaces_type interfaces = 152;
+                     message interfaces_type {
+                        message interface_list {
+                           optional string id = 51 [(telemetry_options).is_key = true];
+                           optional state_type state = 151;
+                           message state_type {
+                              optional string id = 51;
+                              optional string network_type = 52;
+                              optional uint32 priority = 53;
+                              optional string authentication_type = 54;
+                              optional uint32 metric = 55;
+                              optional bool passive = 56;
+                           }
+                           optional timers_type timers = 152;
+                           message timers_type {
+                              optional state_type state = 51;
+                              message state_type {
+                                 optional uint32 dead_interval = 51;
+                                 optional uint32 hello_interval = 52;
+                                 optional uint32 retransmission_interval = 53;
+                              }
+                           }
+                           optional mpls_type mpls = 153;
+                           message mpls_type {
+                              optional state_type state = 151;
+                              message state_type {
+                                 optional uint32 traffic_engineering_metric = 51;
+                              }
+                              optional igp_ldp_sync_type igp_ldp_sync = 152;
+                              message igp_ldp_sync_type {
+                                 optional state_type state = 153;
+                                 message state_type {
+                                    optional bool enabled = 51;
+                                    optional uint32 post_session_up_delay = 52;
+                                    optional bool synchronized = 53;
+                                 }
+                              }
+                           }
+                           optional neighbors_type neighbors = 154;
+                           message neighbors_type {
+                              message neighbor_list {
+                                 optional string router_id = 51 [(telemetry_options).is_key = true];
+                                 optional state_type state = 151;
+                                 message state_type {
+                                    optional string router_id = 51;
+                                    optional uint32 metric = 52;
+                                    optional uint32 priority = 53;
+                                    optional uint64 dead_time = 54;
+                                    optional string designated_router = 55;
+                                    optional string backup_designated_router = 56;
+                                    optional string optional_capabilities = 57;
+                                    optional uint64 last_established_time = 58;
+                                    optional string adjacency_state = 59;
+                                    optional uint32 state_changes = 60;
+                                    optional uint32 retransmission_queue_length = 61;
+                                 }
+                              }
+                              repeated neighbor_list neighbor = 154;
+                           }
+                           optional enable_bfd_type enable_bfd = 155;
+                           message enable_bfd_type {
+                              optional state_type state = 151;
+                              message state_type {
+                                 optional bool enabled = 51;
+                              }
+                           }
+                        }
+                        repeated interface_list interface = 152;
+                     }
+                     optional lsdb_type lsdb = 153;
+                     message lsdb_type {
+                        optional state_type state = 151;
+                        message state_type {
+                           optional string identifier = 51;
+                        }
+                        optional lsa_types_type lsa_types = 152;
+                        message lsa_types_type {
+                           message lsa_type_list {
+                              optional string type = 51 [(telemetry_options).is_key = true];
+                              optional state_type state = 151;
+                              message state_type {
+                                 optional string type = 51;
+                              }
+                              optional lsas_type lsas = 152;
+                              message lsas_type {
+                                 message lsa_list {
+                                    optional string link_state_id = 51 [(telemetry_options).is_key = true];
+                                    optional state_type state = 151;
+                                    message state_type {
+                                       optional string link_state_id = 51;
+                                       optional string advertising_router = 52;
+                                       optional int32 sequence_number = 53;
+                                       optional uint32 checksum = 54;
+                                       optional uint32 age = 55;
+                                    }
+                                    optional router_lsa_type router_lsa = 152;
+                                    message router_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional string type = 51;
+                                          optional string link_id = 54;
+                                          optional string link_data = 55;
+                                          optional uint32 metric = 52;
+                                          optional uint32 number_links = 53;
+                                       }
+                                    }
+                                    optional network_lsa_type network_lsa = 153;
+                                    message network_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional uint32 network_mask = 51;
+                                          repeated string attached_router = 52;
+                                       }
+                                    }
+                                    optional summary_lsa_type summary_lsa = 154;
+                                    message summary_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional uint32 network_mask = 51;
+                                       }
+                                    }
+                                    optional as_external_lsa_type as_external_lsa = 157;
+                                    message as_external_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional uint32 mask = 51;
+                                          optional string metric_type = 52;
+                                          optional uint32 metric = 53;
+                                          optional string forwarding_address = 54;
+                                          optional uint32 external_route_tag = 55;
+                                       }
+                                    }
+                                    optional nssa_external_lsa_type nssa_external_lsa = 158;
+                                    message nssa_external_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional uint32 mask = 51;
+                                          optional string metric_type = 52;
+                                          optional uint32 metric = 53;
+                                          optional string forwarding_address = 54;
+                                          optional uint32 external_route_tag = 55;
+                                          optional bool propagate = 56;
+                                       }
+                                    }
+                                    optional opaque_lsa_type opaque_lsa = 155;
+                                    message opaque_lsa_type {
+                                       optional state_type state = 151;
+                                       message state_type {
+                                          optional string scope = 51;
+                                          optional string type = 52;
+                                       }
+                                       optional traffic_engineering_type traffic_engineering = 153;
+                                       message traffic_engineering_type {
+                                          optional tlvs_type tlvs = 151;
+                                          message tlvs_type {
+                                             message tlv_list {
+                                                optional state_type state = 151;
+                                                message state_type {
+                                                   optional string type = 51;
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      optional uint32 type = 51;
+                                                      optional uint32 length = 52;
+                                                      optional string value = 53;
+                                                   }
+                                                }
+                                                optional router_address_type router_address = 153;
+                                                message router_address_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      optional string address = 51;
+                                                   }
+                                                }
+                                                optional link_type link = 154;
+                                                message link_type {
+                                                   optional sub_tlvs_type sub_tlvs = 151;
+                                                   message sub_tlvs_type {
+                                                      message sub_tlv_list {
+                                                         optional state_type state = 151;
+                                                         message state_type {
+                                                            optional string type = 51;
+                                                         }
+                                                         optional unknown_subtlv_type unknown_subtlv = 154;
+                                                         message unknown_subtlv_type {
+                                                            optional state_type state = 151;
+                                                            message state_type {
+                                                               optional uint32 type = 51;
+                                                               optional uint32 length = 52;
+                                                               optional string value = 53;
+                                                            }
+                                                         }
+                                                         optional unreserved_bandwidths_type unreserved_bandwidths = 153;
+                                                         message unreserved_bandwidths_type {
+                                                            message unreserved_bandwidth_list {
+                                                               optional uint32 priority = 51 [(telemetry_options).is_key = true];
+                                                               optional state_type state = 152;
+                                                               message state_type {
+                                                                  optional uint32 priority = 52;
+                                                                  optional string unreserved_bandwidth = 53;
+                                                               }
+                                                            }
+                                                            repeated unreserved_bandwidth_list unreserved_bandwidth = 151;
+                                                         }
+                                                      }
+                                                      repeated sub_tlv_list sub_tlv = 152;
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 152;
+                                          }
+                                       }
+                                       optional router_information_type router_information = 152;
+                                       message router_information_type {
+                                          optional tlvs_type tlvs = 151;
+                                          message tlvs_type {
+                                             message tlv_list {
+                                                optional state_type state = 151;
+                                                message state_type {
+                                                   optional string type = 51;
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      optional uint32 type = 51;
+                                                      optional uint32 length = 52;
+                                                      optional string value = 53;
+                                                   }
+                                                }
+                                                optional segment_routing_algorithm_type segment_routing_algorithm = 152;
+                                                message segment_routing_algorithm_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      repeated string supported_algorithms = 51;
+                                                   }
+                                                }
+                                                optional segment_routing_sid_label_range_type segment_routing_sid_label_range = 153;
+                                                message segment_routing_sid_label_range_type {
+                                                   optional tlvs_type tlvs = 151;
+                                                   message tlvs_type {
+                                                      message tlv_list {
+                                                         optional unknown_tlv_type unknown_tlv = 153;
+                                                         message unknown_tlv_type {
+                                                            optional state_type state = 151;
+                                                            message state_type {
+                                                               optional uint32 type = 51;
+                                                               optional uint32 length = 52;
+                                                               optional string value = 53;
+                                                            }
+                                                         }
+                                                         optional state_type state = 151;
+                                                         message state_type {
+                                                            optional string type = 51;
+                                                            optional uint32 range_size = 52;
+                                                         }
+                                                         optional sid_label_type sid_label = 152;
+                                                         message sid_label_type {
+                                                            optional state_type state = 151;
+                                                            message state_type {
+                                                               optional string entry_type = 51;
+                                                               optional uint32 first_value = 52;
+                                                            }
+                                                         }
+                                                      }
+                                                      repeated tlv_list tlv = 152;
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 152;
+                                          }
+                                       }
+                                       optional extended_link_type extended_link = 156;
+                                       message extended_link_type {
+                                          optional state_type state = 151;
+                                          message state_type {
+                                             optional string link_type = 51;
+                                             optional string link_id = 52;
+                                             optional string link_data = 53;
+                                          }
+                                          optional tlvs_type tlvs = 152;
+                                          message tlvs_type {
+                                             message tlv_list {
+                                                optional state_type state = 151;
+                                                message state_type {
+                                                   optional string type = 51;
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      optional uint32 type = 51;
+                                                      optional uint32 length = 52;
+                                                      optional string value = 53;
+                                                   }
+                                                }
+                                                optional adjacency_sid_type adjacency_sid = 153;
+                                                message adjacency_sid_type {
+                                                   optional state_type state = 151;
+                                                   message state_type {
+                                                      optional bool backup = 51;
+                                                      optional bool group = 52;
+                                                      optional string sid_type = 53;
+                                                      optional uint32 sid_value = 54;
+                                                      optional uint32 weight = 55;
+                                                      optional uint32 multi_topology_identifier = 56;
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 151;
+                                          }
+                                       }
+                                       optional unknown_tlv_type unknown_tlv = 158;
+                                       message unknown_tlv_type {
+                                          optional state_type state = 151;
+                                          message state_type {
+                                             optional uint32 type = 51;
+                                             optional uint32 length = 52;
+                                             optional string value = 53;
+                                          }
+                                       }
+                                    }
+                                 }
+                                 repeated lsa_list lsa = 152;
+                              }
+                           }
+                           repeated lsa_type_list lsa_type = 152;
+                        }
+                     }
+                  }
+                  repeated area_list area = 151;
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

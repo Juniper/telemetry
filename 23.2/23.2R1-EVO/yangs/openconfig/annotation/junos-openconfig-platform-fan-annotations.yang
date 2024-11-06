@@ -1,0 +1,16 @@
+module junos-openconfig-platform-fan-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/yang/platform/fan/annotations";
+    prefix "jnx-oc-fan-ann";
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-fan { prefix oc-fan; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2022-04-05" {
+        description "Initial version to add platfrom supported list";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:fan/oc-platform:state/oc-fan:speed" {
+        junos:product "ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+}

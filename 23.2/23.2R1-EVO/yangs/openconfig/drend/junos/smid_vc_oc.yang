@@ -1,0 +1,319 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module smid_vc_oc {
+    yang-version "1";
+
+    //namespace for virtual chassis OC sensors
+    namespace "http://juniper.net/yang/smid-vc";
+    prefix "smid-vc-oc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "smid";
+    dr:sub-component "smi";
+    jnpr-proto:message-id "SMID-OC-MESSAGE-ID";
+
+    typedef role {
+        description
+            "Role for MX chassis or RE's";
+        type enumeration {
+            enum MASTER {
+                value 0;
+            }
+            enum BACKUP;
+            enum LINECARD; /** for future extensions of MXVC. unused as of 8/7/19 */
+        }
+    }
+
+    typedef member-id {
+        description
+            "A index value for chassis";
+        type uint8 {
+            range "0..1";
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-smid-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+                    dr:fieldnum 151;
+                    container mx-vc {
+                        dr:source "/junos/system/mx-vc";
+                        dr:fieldnum 152;
+                        container members {
+                            dr:source "members";
+                            dr:fieldnum 151;
+                            list member {
+                                dr:source "member";
+                                dr:fieldnum 151;
+                                key member-id;
+                                leaf member-id {
+                                    description "chassis member-id for mxvc systems";
+                                    type member-id;
+                                    dr:source "member_id";
+                                    dr:fieldnum 51;
+                                }
+                                container virtual-chassis-ports {
+                                    dr:source "virtual-chassis-ports";
+                                    dr:fieldnum 151;
+                                    description "In non-MXVC systems there will be no virtual chassis ports (VCPs)";
+                                    list virtual-chassis-port {
+                                        dr:source "virtual-chassis-port";
+                                        dr:fieldnum 151;
+                                        key vcp-interface-name;
+                                        leaf vcp-interface-name {
+                                            description "Interface name for virtual chasis ports used for inter-chassis communication; only available on MXVC, NA otherwise";
+                                            type string;
+                                            dr:source "vcp_interface_name";
+                                            dr:fieldnum 51;
+                                        }
+                                        leaf status {
+                                            description
+                                                "port status, up or down";
+                                            type string;
+                                            dr:source "status";
+                                            dr:fieldnum 52;
+                                        }
+                                        leaf adjacency {
+                                            description "port status, up or down";
+                                            type string;
+                                            dr:source "adjacency";
+                                            dr:fieldnum 53;
+                                        }
+                                        leaf neighbor-member-id {
+                                            description "Member ID of neighbor chassis this VCP is connected to";
+                                            type member-id;
+                                            dr:source "neighbor_member_id";
+                                            dr:fieldnum 54;
+                                        }
+                                        leaf neighbor-interface-name { 
+                                            description "VCP interface name of linked interface on neighboring chassis";
+                                            type string;
+                                            dr:source "neighbor_interface_name";
+                                            dr:fieldnum 55;
+                                        }
+                                        leaf input-packets{
+                                            description "Number of packets going received at the vcp-interface";
+                                            type uint64;
+                                            dr:source "input_packets";
+                                            dr:fieldnum 56;
+                                        }
+                                        leaf output-packets{
+                                            description "Number of packets sent from the vcp-interface";
+                                            type uint64;
+                                            dr:source "output_packets";
+                                            dr:fieldnum 57;
+                                        }
+                                        leaf input-bytes{
+                                            description "Number of bytes going received at the vcp-interface";
+                                            type uint64;
+                                            dr:source "input_bytes";
+                                            dr:fieldnum 58;
+                                        }
+                                        leaf output-bytes{
+                                            description "Number of bytes sent from the vcp-interface";
+                                            type uint64;
+                                            dr:source "output_bytes";
+                                            dr:fieldnum 59;
+                                        }
+                                        leaf input-errors{
+                                            description "Number of errors being received at the vcp-interface";
+                                            type uint64;
+                                            dr:source "input_errors";
+                                            dr:fieldnum 60;
+                                        }
+                                        leaf output-errors{
+                                            description "Number of errors in sending from the vcp-interface";
+                                            type uint64;
+                                            dr:source "output_errors";
+                                            dr:fieldnum 61;
+                                        }
+                                        leaf input-drops{
+                                            description "Number of drops being received at the vcp-interface";
+                                            type uint64;
+                                            dr:source "input_drops";
+                                            dr:fieldnum 62;
+                                        }
+                                        leaf output-drops{
+                                            description "Number of drops in sending from the vcp-interface";
+                                            type uint64;
+                                            dr:source "output_drops";
+                                            dr:fieldnum 63;
+                                        }
+                                        leaf carrier-transitions{
+                                            description "Number of carrier-transitions in the vcp-interface";
+                                            type uint64;
+                                            dr:source "carrier_transitions";
+                                            dr:fieldnum 64;
+                                        }
+                                    }
+                                }
+                                container ddos-protocols {
+                                    dr:source "ddos-protocols";
+                                    dr:fieldnum 152;
+                                    list ddos-protocol {
+                                        dr:source "ddos-protocol";
+                                        dr:fieldnum 151;
+                                        key packet-type;
+                                        leaf packet-type {
+                                            description
+                                                "chassis-HIGH or chassis-LOW packet type ";
+                                            type string;
+                                            dr:source "packet_type";
+                                            dr:fieldnum 51;
+                                        }
+                                        leaf state {
+                                            description
+                                                "Member state relating to DDOS";
+                                            type string;
+                                            dr:source "state";
+                                            dr:fieldnum 52;
+                                        }
+                                        leaf packets-received {
+                                            description
+                                                "Number of packets chassis has received";
+                                            type uint64;
+                                            dr:source "packets_received";
+                                            dr:fieldnum 53;
+                                        }
+                                        leaf packets-dropped {
+                                            description
+                                                "Number of packets the chassis is dropping";
+                                            type uint64;
+                                            dr:source "packets_dropped";
+                                            dr:fieldnum 54;
+                                        }
+                                        leaf rate {
+                                            description
+                                                "The Rate at which packets are being dropped";
+                                            type uint64;
+                                            dr:source "rate";
+                                            dr:fieldnum 55;
+                                        }
+                                        leaf violation-count {
+                                            description
+                                                "number of violations";
+                                            type uint64;
+                                            dr:source "violation_count";
+                                            dr:fieldnum 56;
+                                        }
+                                    }
+                                }
+                                container heartbeat {
+                                    description "VC heartbeat keeps track of last communications between VC's and whether they are aware of eachother";
+                                    dr:source "heartbeat";
+                                    dr:fieldnum 153;
+                                    leaf local-address {
+                                        description
+                                            "the local vc address";
+                                        type string;
+                                        dr:source "local_address";
+                                        dr:fieldnum 51;
+                                    }
+                                    leaf remote-address {
+                                        description
+                                            "remote vc address";
+                                        type string;
+                                        dr:source "remote_address";
+                                        dr:fieldnum 52;
+                                    }
+                                    leaf connection-state {
+                                        description
+                                            "MXVC connection state";
+                                        type string;
+                                        dr:source "connection_state";
+                                        dr:fieldnum 53;
+                                    }
+                                    leaf sent-counter {
+                                        description
+                                            "Counter for messages the local VC has sent a message to remote VC";
+                                        type uint64;
+                                        dr:source "sent_counter";
+                                        dr:fieldnum 54;
+                                    }
+                                    leaf receive-counter {
+                                        description
+                                            "Counter for messages received from remote VC";
+                                        type uint64;
+                                        dr:source "receive_counter";
+                                        dr:fieldnum 55;
+                                    }
+                                    leaf lost-missed-counter {
+                                        description
+                                            "counter for lost/missed messages";
+                                        type uint64;
+                                        dr:source "lost_missed_counter";
+                                        dr:fieldnum 56;
+                                    }
+                                    leaf last-message-sent-time {
+                                        description
+                                            "Timestamp for last message sent";
+                                        type string;
+                                        dr:source "last_message_sent_time";
+                                        dr:fieldnum 57;
+                                    }
+                                    leaf last-message-sent-length {
+                                        description
+                                            "Time since last message was sent";
+                                        type string;
+                                        dr:source "last_message_sent_length";
+                                        dr:fieldnum 58;
+                                    }
+                                    leaf last-message-received-time {
+                                        description
+                                            "Timestamp from last message received";
+                                        type string;
+                                        dr:source "last_message_received_time";
+                                        dr:fieldnum 59;
+                                    }
+                                    leaf last-message-received-length {
+                                        description
+                                            "Time since last message received";
+                                        type string;
+                                        dr:source "last_message_received_length";
+                                        dr:fieldnum 60;
+                                    }
+                                    leaf maximum-latency {
+                                        description
+                                            "Maximum latency between sent and received messages";
+                                        type uint64;
+                                        dr:source "maximum_latency";
+                                        dr:fieldnum 61;
+                                    }
+                                    leaf minimum-latency {
+                                        description
+                                            "Minimum latency between sent and received messages";
+                                        type uint64;
+                                        dr:source "minimum_latency";
+                                        dr:fieldnum 62;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

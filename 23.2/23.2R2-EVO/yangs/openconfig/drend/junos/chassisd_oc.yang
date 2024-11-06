@@ -1,0 +1,1142 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module chassisd_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/chassisd-oc";
+
+  prefix "chassisd-oc";
+
+  import openconfig-platform { prefix oc-pf; }
+  import openconfig-platform-transceiver { prefix oc-transceiver; }
+  import openconfig-platform-port { prefix oc-port; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping chassisd-component-state {
+      uses oc-pf:platform-component-config {
+        augment "name" {
+          dr:source "name";
+          dr:fieldnum 51;
+        }
+      }
+      uses oc-pf:platform-component-state {
+	augment "type" {
+          dr:source "cidx";
+	  dr:fieldnum 52;
+  	  dr:map CHASSIS  	{ dr:map-from 1 ; } // CIDX_CHAS;
+	  dr:map POWER_SUPPLY  	{ dr:map-from 2 ; } // CIDX_PS;
+	  dr:map BACKPLANE  	{ dr:map-from 3 ; } // CIDX_IMPL;
+	  dr:map FAN	  	{ dr:map-from 4 ; } // CIDX_FAN;
+	  dr:map CONTROLLER_CARD{ dr:map-from 5 ; } // CIDX_HCTL;  // host controller
+	  dr:map CONTROLLER_CARD{ dr:map-from 6 ; } // CIDX_SCB;
+	  dr:map LINECARD  	{ dr:map-from 7 ; } // CIDX_FPC;
+	  dr:map FRU	  	{ dr:map-from 8 ; } // CIDX_PIC;
+	  dr:map CONTROLLER_CARD{ dr:map-from 9 ; } // CIDX_RE;
+	  dr:map FRU	  	{ dr:map-from 10; } // CIDX_FPM;    // front panel module
+	  dr:map FRU	  	{ dr:map-from 11; } // CIDX_CG;     // clock module
+	  dr:map CONTROLLER_CARD{ dr:map-from 12; } // CIDX_CBD;
+	  dr:map LINECARD	{ dr:map-from 13; } // CIDX_CIP;
+	  dr:map LINECARD  	{ dr:map-from 14; } // CIDX_SPMB;
+	  dr:map FABRIC  	{ dr:map-from 15; } // CIDX_SIB;
+	  //dr:map XXX            { dr:map-from 16; } // CIDX_LCC;
+	  dr:map LINECARD       { dr:map-from 17; } // CIDX_FEB;
+	  dr:map LINECARD  	{ dr:map-from 18; } // CIDX_SFC;
+	  dr:map POWER_SUPPLY  	{ dr:map-from 19; } // CIDX_PSD;   // power supply
+	  dr:map FRU	  	{ dr:map-from 20; } // CIDX_MIC;
+	  dr:map POWER_SUPPLY  	{ dr:map-from 21; } // CIDX_PDU;
+	  dr:map POWER_SUPPLY  	{ dr:map-from 22; } // CIDX_PSM;
+	  dr:map FRU        	{ dr:map-from 23; } // CIDX_ADC;
+	  dr:map CPU	  	{ dr:map-from 24; } // CIDX_CPU;
+	  dr:map PORT	  	{ dr:map-from 25; } // CIDX_PORT;
+	  dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW
+	  //dr:map SENSOR  	{ dr:map-from xx; }
+	  dr:map FABRIC         { dr:map-from 28; } // CIDX_SFB
+	  dr:map FRU  	        { dr:map-from 29; } // CIDX_FTC;
+	  dr:map TRANSCEIVER    { dr:map-from 30; } // CIDX_TRANS
+          dr:map MEZZ           { dr:map-from 31; } // CIDX_MEZZ
+	  //dr:map OPERATING_SYSTEM { dr:map-from  xx; }
+	}
+	augment "id" {
+	  dr:source "serial_number";
+	  dr:fieldnum 53;
+	}
+	augment "location" {
+	  dr:source "location";
+	  dr:fieldnum 54;
+	}
+	augment "description" {
+	  dr:source "description";
+	  dr:fieldnum 55;
+	}
+ 	augment "mfg-name" {
+	  dr:source "vendor_name";
+	  dr:fieldnum 56;
+	}
+	augment "mfg-date" {
+	  dr:source "mfg_date";
+	  dr:fieldnum 57;
+	}
+	augment "hardware-version" {
+	  dr:source "version";
+	  dr:fieldnum 58;
+	}
+	augment "firmware-version" {
+	  dr:source "firmware_version";
+	  dr:fieldnum 59;
+	}
+	augment "software-version" {
+	  dr:source "software_version";
+	  dr:fieldnum 60;
+	}
+	augment "serial-no" {
+	  dr:source "serial_number";
+	  dr:fieldnum 61;
+	}
+	augment "part-no" {
+	  dr:source "part_number";
+	  dr:fieldnum 62;
+	}
+	augment "removable" {
+	  dr:source "removable";
+	  dr:fieldnum 63;
+	}
+	augment "oper-status" {
+	  dr:source "oper_status";
+	  dr:map ACTIVE  	    { dr:map-from 1 ; }
+	  dr:map INACTIVE    	{ dr:map-from 2 ; }
+	  dr:map DISABLED  	{ dr:map-from 3 ; }
+	  dr:fieldnum 64;
+	}
+	augment "empty" {
+	  dr:source "empty";
+	  dr:fieldnum 65;
+	}
+	augment "parent" {
+	  dr:source "parent";
+	  dr:fieldnum 66;
+	}
+      }
+  }
+
+  grouping chassisd-component-temp-state {
+      uses oc-pf:platform-component-temp-state {
+        augment "temperature" {
+          dr:fieldnum 160;
+        }
+        augment "temperature/instant" {
+          dr:source "temperature";
+          dr:fieldnum 81;
+        }
+      }
+  }
+
+  grouping chassisd-component-memory-state {
+      uses oc-pf:platform-component-memory-state {
+        augment "memory" {
+          dr:fieldnum 170;
+        }
+        augment "memory/available" {
+          dr:source "available_mem";
+          dr:fieldnum 91;
+        }
+        augment "memory/utilized" {
+          dr:source "utilized_mem";
+          dr:fieldnum 92;
+        }
+      }
+  }
+
+  grouping chassisd-component-power-state {
+      uses oc-pf:platform-component-power-state {
+        augment "allocated-power" {
+          dr:source "allocated_power";
+          dr:fieldnum 67;
+        }
+        /* Currently we dont have and CLI which shows used-power */
+        /*
+        augment "components/component/state/used-power" {
+          dr:source "used_power";
+          dr:fieldnum 68;
+        }
+        */
+      }
+  }
+
+  grouping chassisd-state-inventory {
+      container state {
+          dr:source "state";
+          dr:fieldnum 152;
+
+          uses chassisd-component-state;
+          uses chassisd-component-temp-state;
+          uses chassisd-component-memory-state;
+          uses chassisd-component-power-state;
+      }
+  }
+
+    grouping chassisd-component-port-inventory {
+      uses oc-port:port-breakout-top {
+
+      augment "breakout-mode" {
+        dr:fieldnum 151;
+      }
+      augment "breakout-mode/groups" {
+        dr:fieldnum 151;
+      }
+      augment "breakout-mode/groups/group" {
+        dr:source "group";
+        dr:fieldnum 151;
+      }
+      augment "breakout-mode/groups/group/index" {
+        dr:source "index";
+        dr:fieldnum 51;
+      }
+      augment "breakout-mode/groups/group/state" {
+        dr:fieldnum 151;
+      }
+      augment "breakout-mode/groups/group/state/index" {
+        dr:source "index";
+        dr:fieldnum 53;
+      }
+      augment "breakout-mode/groups/group/state/num-breakouts" {
+        dr:zero-suppressed;
+        dr:source "port_num_breakouts";
+        dr:fieldnum 54;
+      }
+      augment "breakout-mode/groups/group/state/breakout-speed" {
+        dr:zero-suppressed;
+        dr:source "port_breakout_speed";
+        dr:fieldnum 55;
+        dr:map SPEED_10MB  { dr:map-from 1; }
+        dr:map SPEED_100MB { dr:map-from 2; }
+        dr:map SPEED_1GB   { dr:map-from 3; }
+        dr:map SPEED_2500MB{ dr:map-from 4; }
+        dr:map SPEED_5GB   { dr:map-from 5; }
+        dr:map SPEED_10GB   { dr:map-from 6; }
+        dr:map SPEED_25GB   { dr:map-from 7; }
+        dr:map SPEED_40GB   { dr:map-from 8; }
+        dr:map SPEED_50GB   { dr:map-from 9; }
+        dr:map SPEED_100GB   { dr:map-from 10; }
+        dr:map SPEED_200GB   { dr:map-from 11; }
+        dr:map SPEED_400GB   { dr:map-from 12; }
+        dr:map SPEED_600GB   { dr:map-from 13; }
+        dr:map SPEED_800GB   { dr:map-from 14; }
+        dr:map SPEED_UNKNOWN   { dr:map-from *; }
+      }
+      augment "breakout-mode/groups/group/state/num-physical-channels" {
+        dr:zero-suppressed;
+        dr:source "port_num_physical_channels";
+        dr:fieldnum 56;
+      }
+    }
+  }
+
+
+  grouping chassisd-component-properties-inventory {
+      uses oc-pf:platform-component-properties-top {
+      augment "properties" {
+        dr:source "properties";
+	    dr:fieldnum 156;
+      }
+      augment "properties/property" {
+        dr:source "property";
+        dr:fieldnum 151;
+      }
+      augment "properties/property/name" {
+        dr:source "key_name";
+        dr:fieldnum 51;
+      }
+      augment "properties/property/state" {
+        dr:fieldnum 151;
+      }
+      augment "properties/property/state/value" {
+        dr:source "value";
+        dr:fieldnum 51;
+      }
+      augment "properties/property/state/configurable" {
+        dr:source "configurable";
+        dr:fieldnum 52;
+      }
+      }
+  }
+
+  grouping chassisd-subcomponent-inventory {
+      uses oc-pf:platform-subcomponent-ref-top {
+      augment "subcomponents" {
+        dr:source "chassis-submodules";
+        dr:fieldnum 153;
+      }
+      augment "subcomponents/subcomponent" {
+        dr:source "chassis-submodule";
+        dr:fieldnum 151;
+      }
+      augment "subcomponents/subcomponent/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "subcomponents/subcomponent/state" {
+        dr:fieldnum 151;
+      }
+      augment "subcomponents/subcomponent/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      }
+  }
+
+
+
+  grouping transceiver-inventory {
+    uses oc-transceiver:port-transceiver-top {
+        augment "transceiver" {
+            dr:source "transceiver";
+            dr:source-notification-name "fru-add";
+            dr:source-notification-name "fru-remove";
+            dr:source-notification-name "fru-power-on";
+            dr:source-notification-name "fru-power-off";
+            dr:fieldnum 161;
+        }
+
+        augment "transceiver/state" {
+            dr:fieldnum 162;
+        }
+
+        augment "transceiver/state/form-factor-preconf" {
+            dr:source "trans_form_factor_preconf";
+            dr:fieldnum 255;
+        }
+
+        augment "transceiver/state/ethernet-pmd-preconf" {
+            dr:source "trans_ethernet_pmd_preconf";
+            dr:fieldnum 256;
+       }
+
+       augment "transceiver/state/present" {
+           dr:source "trans_present";
+           dr:fieldnum 266;
+           dr:map PRESENT { dr:map-from 1; }
+           dr:map NOT_PRESENT { dr:map-from *; }
+      }
+
+       augment "transceiver/state/form-factor" {
+          dr:source "trans_form_factor";
+          dr:fieldnum 257;
+      }
+
+      augment "transceiver/state/connector-type" {
+        dr:source "trans_connector_type";
+        dr:fieldnum 258;
+      }
+
+      augment "transceiver/state/vendor" {
+        dr:source "trans_vendor";
+        dr:fieldnum 259;
+      }
+
+      augment "transceiver/state/vendor-part" {
+        dr:source "trans_vendor_part";
+        dr:fieldnum 260;
+      }
+
+      augment "transceiver/state/vendor-rev" {
+        dr:source "trans_vendor_rev";
+        dr:fieldnum 261;
+      }
+      augment "transceiver/state/ethernet-pmd" {
+        dr:source "trans_ethernet_pmd";
+        dr:fieldnum 262;
+      }
+
+      augment "transceiver/state/sonet-sdh-compliance-code" {
+        dr:source "trans_sonet_sdh_compliance_code";
+        dr:fieldnum 263;
+      }
+
+      augment "transceiver/state/otn-compliance-code" {
+        dr:source "trans_otn_compliance_code";
+        dr:fieldnum 264;
+      }
+
+      augment "transceiver/state/serial-no" {
+        dr:source "trans_serial_number";
+        dr:fieldnum 265;
+      }
+
+      augment "transceiver/state/date-code" {
+        dr:source "trans_code_date";
+        dr:fieldnum 286;
+      }
+    }
+  }
+
+  grouping transceiver-inventory-notification {
+    uses oc-transceiver:port-transceiver-top {
+        augment "transceiver" {
+            dr:source "transceiver";
+            dr:source-notification-name "fru-add";
+            dr:source-notification-name "fru-remove";
+            dr:source-notification-name "fru-power-on";
+            dr:source-notification-name "fru-power-off";
+            dr:fieldnum 161;
+        }
+
+        augment "transceiver/state" {
+            dr:source "state";
+            dr:fieldnum 162;
+        }
+
+        augment "transceiver/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+        }
+
+        augment "transceiver/state/form-factor-preconf" {
+            dr:source "form_factor_preconf";
+            dr:fieldnum 255;
+        }
+
+        augment "transceiver/state/ethernet-pmd-preconf" {
+            dr:source "ethernet_pmd_preconf";
+            dr:fieldnum 256;
+       }
+
+       augment "transceiver/state/present" {
+           dr:source "present";
+           dr:fieldnum 266;
+           dr:map PRESENT { dr:map-from 1; }
+           dr:map NOT_PRESENT { dr:map-from *; }
+      }
+
+       augment "transceiver/state/form-factor" {
+          dr:source "form_factor";
+          dr:fieldnum 257;
+      }
+
+      augment "transceiver/state/connector-type" {
+        dr:source "connector_type";
+        dr:fieldnum 258;
+      }
+
+      augment "transceiver/state/vendor" {
+        dr:source "vendor";
+        dr:fieldnum 259;
+      }
+
+      augment "transceiver/state/vendor-part" {
+        dr:source "vendor_part";
+        dr:fieldnum 260;
+      }
+
+      augment "transceiver/state/vendor-rev" {
+        dr:source "vendor_rev";
+        dr:fieldnum 261;
+      }
+      augment "transceiver/state/ethernet-pmd" {
+        dr:source "ethernet_pmd";
+        dr:fieldnum 262;
+      }
+
+      augment "transceiver/state/sonet-sdh-compliance-code" {
+        dr:source "sonet_sdh_compliance_code";
+        dr:fieldnum 263;
+      }
+
+      augment "transceiver/state/otn-compliance-code" {
+        dr:source "otn_compliance_code";
+        dr:fieldnum 264;
+      }
+
+      augment "transceiver/state/serial-no" {
+        dr:source "trans_serial_number";
+        dr:fieldnum 265;
+      }
+
+      augment "transceiver/state/date-code" {
+        dr:source "trans_code_date";
+        dr:fieldnum 286;
+      }
+
+      augment "transceiver/physical-channels"{
+        dr:source "physical_channels";
+        dr:fieldnum 191;
+      }
+      augment "transceiver/physical-channels/channel"{
+        dr:source "channel";
+        dr:fieldnum 91;
+      }
+
+      augment "transceiver/physical-channels/channel/index"{
+        dr:source "index";
+        dr:fieldnum 191;
+      }
+
+      augment "transceiver/physical-channels/channel/state"{
+        dr:source "state";
+        dr:fieldnum 849;
+      }
+
+      augment "transceiver/physical-channels/channel/state/index"{
+        dr:source "index";
+        dr:fieldnum 39;
+      }
+
+      augment "transceiver/physical-channels/channel/state/target-output-power"{
+        dr:source "target_output_power";
+        dr:fieldnum 43;
+      }
+
+      augment "transceiver/physical-channels/channel/state/description"{
+        dr:source "description";
+        dr:fieldnum 41;
+      }
+      augment "transceiver/physical-channels/channel/state/tx-laser"{
+        dr:source "tx_laser";
+        dr:fieldnum 42;
+      }
+    }
+  }
+
+  notification "oc-fru-add" {
+    dr:source-notification-name "fru-add";
+    container components {
+        dr:source "/notification/fru-add/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container state {
+                dr:source "state";
+                dr:fieldnum 152;
+
+                uses oc-pf:platform-component-config {
+                    augment "name" { 
+                        dr:source "name";
+                        dr:fieldnum 51;
+                    }
+                }
+                uses oc-pf:platform-component-state {
+                    augment "type" {
+                        dr:source "type";
+  	                    dr:map CHASSIS  	{ dr:map-from 1 ; } // CIDX_CHAS;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 2 ; } // CIDX_PS;
+	                    dr:map BACKPLANE  	{ dr:map-from 3 ; } // CIDX_IMPL;
+	                    dr:map FAN	  	{ dr:map-from 4 ; } // CIDX_FAN;
+	                    dr:map MODULE	  	{ dr:map-from 5 ; } // CIDX_HCTL;  // host controller
+	                    dr:map LINECARD	  	{ dr:map-from 6 ; } // CIDX_SCB;
+	                    dr:map LINECARD  	{ dr:map-from 7 ; } // CIDX_FPC;
+	                    dr:map MODULE	  	{ dr:map-from 8 ; } // CIDX_PIC;
+	                    dr:map MODULE	  	{ dr:map-from 9 ; } // CIDX_RE;
+	                    dr:map MODULE	  	{ dr:map-from 10; } // CIDX_FPM;    // front panel module
+	                    dr:map MODULE	  	{ dr:map-from 11; } // CIDX_CG;     // clock module
+	                    dr:map CONTROLLER_CARD{ dr:map-from 12; } // CIDX_CBD;
+	                    dr:map LINECARD	  	{ dr:map-from 13; } // CIDX_CIP;
+	                    dr:map LINECARD  	{ dr:map-from 14; } // CIDX_SPMB;
+	                    dr:map LINECARD  	{ dr:map-from 15; } // CIDX_SIB;
+	                    //dr:map XXX            { dr:map-from 16; } // CIDX_LCC;
+	                    dr:map LINECARD  	{ dr:map-from 17; } // CIDX_FEB;
+	                    dr:map LINECARD  	{ dr:map-from 18; } // CIDX_SFC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 19; } // CIDX_PSD;   // power supply
+	                    dr:map MODULE	  	{ dr:map-from 20; } // CIDX_MIC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 21; } // CIDX_PDU;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 22; } // CIDX_PSM;
+	                    dr:map MODULE        	{ dr:map-from 23; } // CIDX_ADC;
+	                    dr:map CPU	  	{ dr:map-from 24; } // CIDX_CPU;
+	                    dr:map PORT	  	{ dr:map-from 25; } // CIDX_PORT;
+	                    dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW
+	                    //dr:map SENSOR  	{ dr:map-from xx; }
+	                    dr:map TRANSCEIVER    { dr:map-from 30; } // CIDX_TRANS
+                        dr:map MEZZ           { dr:map-from 31; } // CIDX_MEZZ
+	                    //dr:map OPERATING_SYSTEM { dr:map-from  xx; }
+                        dr:fieldnum 52;
+                    }
+	      augment "id" {
+	        dr:source "id";
+	        dr:fieldnum 53;
+	      }
+	      augment "location" {
+	        dr:source "location";
+	        dr:fieldnum 54;
+	      }
+	      augment "mfg-date" {
+	        dr:source "mfg_date";
+	        dr:fieldnum 57;
+	      }
+	      augment "hardware-version" {
+	        dr:source "version";
+	        dr:fieldnum 58;
+	      }
+	      augment "firmware-version" {
+	        dr:source "firmware_version";
+	        dr:fieldnum 59;
+	      }
+	      augment "software-version" {
+	        dr:source "software_version";
+	        dr:fieldnum 60;
+	      }
+	      augment "removable" {
+	        dr:source "removable";
+	        dr:fieldnum 63;
+	      }
+	      augment "oper-status" {
+	        dr:source "oper_status";
+	        dr:map ACTIVE       { dr:map-from 1 ; }
+	        dr:map INACTIVE         { dr:map-from 2 ; }
+	        dr:map DISABLED         { dr:map-from 3 ; }
+	        dr:fieldnum 64;
+	      }
+	      augment "empty" {
+	        dr:source "empty";
+	        dr:fieldnum 65;
+	      }
+	      augment "parent" {
+	        dr:source "parent";
+	        dr:fieldnum 66;
+	      }
+              augment "description" {
+                dr:source "description";
+                dr:fieldnum 55;
+              }
+              augment "serial-no" {
+                dr:source "serial-no";
+                dr:fieldnum 61;
+              }
+              augment "part-no" {
+                dr:source "part-no";
+                dr:fieldnum 62;
+              }
+              }
+              uses oc-pf:platform-component-memory-state {
+	      augment "memory" {
+	        dr:fieldnum 170;
+	      }
+	      augment "memory/available" {
+	        dr:source "available_mem";
+	        dr:fieldnum 91;
+	      }
+	      augment "memory/utilized" {
+	        dr:source "utilized_mem";
+	        dr:fieldnum 92;
+	      }
+              }
+              uses oc-pf:platform-component-power-state {
+	      augment "allocated-power" {
+	        dr:source "allocated_power";
+	        dr:fieldnum 67;
+	      }
+              }
+            }
+            uses transceiver-inventory-notification;
+        }
+    }
+  }
+  
+  notification "oc-fru-remove" {
+    dr:source-notification-name "fru-remove";
+    container components {
+        dr:source "/notification/fru-remove/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container state {
+                dr:source "state";
+                dr:fieldnum 152;
+
+                uses oc-pf:platform-component-config {
+                     augment "name" { 
+                        dr:source "name";
+                        dr:fieldnum 51;
+                     }
+                }
+                uses oc-pf:platform-component-state {
+                    augment "type" {
+                        dr:source "type";
+  	                    dr:map CHASSIS  	{ dr:map-from 1 ; } // CIDX_CHAS;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 2 ; } // CIDX_PS;
+	                    dr:map BACKPLANE  	{ dr:map-from 3 ; } // CIDX_IMPL;
+	                    dr:map FAN	  	{ dr:map-from 4 ; } // CIDX_FAN;
+	                    dr:map MODULE	  	{ dr:map-from 5 ; } // CIDX_HCTL;  // host controller
+	                    dr:map LINECARD	  	{ dr:map-from 6 ; } // CIDX_SCB;
+	                    dr:map LINECARD  	{ dr:map-from 7 ; } // CIDX_FPC;
+	                    dr:map MODULE	  	{ dr:map-from 8 ; } // CIDX_PIC;
+	                    dr:map MODULE	  	{ dr:map-from 9 ; } // CIDX_RE;
+	                    dr:map MODULE	  	{ dr:map-from 10; } // CIDX_FPM;    // front panel module
+	                    dr:map MODULE	  	{ dr:map-from 11; } // CIDX_CG;     // clock module
+	                    dr:map CONTROLLER_CARD{ dr:map-from 12; } // CIDX_CBD;
+	                    dr:map LINECARD	  	{ dr:map-from 13; } // CIDX_CIP;
+	                    dr:map LINECARD  	{ dr:map-from 14; } // CIDX_SPMB;
+	                    dr:map LINECARD  	{ dr:map-from 15; } // CIDX_SIB;
+	                    //dr:map XXX            { dr:map-from 16; } // CIDX_LCC;
+	                    dr:map LINECARD  	{ dr:map-from 17; } // CIDX_FEB;
+	                    dr:map LINECARD  	{ dr:map-from 18; } // CIDX_SFC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 19; } // CIDX_PSD;   // power supply
+	                    dr:map MODULE	  	{ dr:map-from 20; } // CIDX_MIC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 21; } // CIDX_PDU;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 22; } // CIDX_PSM;
+	                    dr:map MODULE        	{ dr:map-from 23; } // CIDX_ADC;
+	                    dr:map CPU	  	{ dr:map-from 24; } // CIDX_CPU;
+	                    dr:map PORT	  	{ dr:map-from 25; } // CIDX_PORT;
+	                    dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW
+	                    //dr:map SENSOR  	{ dr:map-from xx; }
+	                    dr:map TRANSCEIVER    { dr:map-from 30; } // CIDX_TRANS
+                        dr:map MEZZ           { dr:map-from 31; } // CIDX_MEZZ
+	                    //dr:map OPERATING_SYSTEM { dr:map-from  xx; }
+                        dr:fieldnum 52;
+                }
+	      augment "id" {
+	        dr:source "id";
+	        dr:fieldnum 53;
+	      }
+	      augment "location" {
+	        dr:source "location";
+	        dr:fieldnum 54;
+	      }
+	      augment "hardware-version" {
+	        dr:source "version";
+	        dr:fieldnum 58;
+	      }
+	      augment "parent" {
+	        dr:source "parent";
+	        dr:fieldnum 66;
+	      }
+              augment "description" {
+                dr:source "description";
+                dr:fieldnum 55;
+              }
+              augment "serial-no" {
+                dr:source "serial-no";
+                dr:fieldnum 61;
+              }
+              augment "part-no" {
+                dr:source "part-no";
+                dr:fieldnum 62;
+              }
+              }
+            }
+            uses transceiver-inventory-notification;
+        }
+    }
+  }
+
+  notification "oc-fru-power-on" {
+    dr:source-notification-name "fru-power-on";
+    container components {
+        dr:source "/notification/fru-power-on/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container state {
+                dr:source "state";
+                dr:fieldnum 152;
+
+                uses oc-pf:platform-component-config {
+                    augment "name" { 
+                        dr:source "name";
+                        dr:fieldnum 51;
+                    }
+                } 
+                uses oc-pf:platform-component-state {
+                    augment "type" {
+                        dr:source "type";
+  	                    dr:map CHASSIS  	{ dr:map-from 1 ; } // CIDX_CHAS;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 2 ; } // CIDX_PS;
+	                    dr:map BACKPLANE  	{ dr:map-from 3 ; } // CIDX_IMPL;
+	                    dr:map FAN	  	{ dr:map-from 4 ; } // CIDX_FAN;
+	                    dr:map MODULE	  	{ dr:map-from 5 ; } // CIDX_HCTL;  // host controller
+	                    dr:map LINECARD	  	{ dr:map-from 6 ; } // CIDX_SCB;
+	                    dr:map LINECARD  	{ dr:map-from 7 ; } // CIDX_FPC;
+	                    dr:map MODULE	  	{ dr:map-from 8 ; } // CIDX_PIC;
+	                    dr:map MODULE	  	{ dr:map-from 9 ; } // CIDX_RE;
+	                    dr:map MODULE	  	{ dr:map-from 10; } // CIDX_FPM;    // front panel module
+	                    dr:map MODULE	  	{ dr:map-from 11; } // CIDX_CG;     // clock module
+	                    dr:map CONTROLLER_CARD{ dr:map-from 12; } // CIDX_CBD;
+	                    dr:map LINECARD	  	{ dr:map-from 13; } // CIDX_CIP;
+	                    dr:map LINECARD  	{ dr:map-from 14; } // CIDX_SPMB;
+	                    dr:map LINECARD  	{ dr:map-from 15; } // CIDX_SIB;
+	                    //dr:map XXX            { dr:map-from 16; } // CIDX_LCC;
+	                    dr:map LINECARD  	{ dr:map-from 17; } // CIDX_FEB;
+	                    dr:map LINECARD  	{ dr:map-from 18; } // CIDX_SFC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 19; } // CIDX_PSD;   // power supply
+	                    dr:map MODULE	  	{ dr:map-from 20; } // CIDX_MIC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 21; } // CIDX_PDU;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 22; } // CIDX_PSM;
+	                    dr:map MODULE        	{ dr:map-from 23; } // CIDX_ADC;
+	                    dr:map CPU	  	{ dr:map-from 24; } // CIDX_CPU;
+	                    dr:map PORT	  	{ dr:map-from 25; } // CIDX_PORT;
+	                    dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW
+	                    //dr:map SENSOR  	{ dr:map-from xx; }
+	                    dr:map TRANSCEIVER    { dr:map-from 30; } // CIDX_TRANS
+                        dr:map MEZZ           { dr:map-from 31; } // CIDX_MEZZ
+	                    //dr:map OPERATING_SYSTEM { dr:map-from  xx; }
+                        dr:fieldnum 52;
+                   }
+	      augment "id" {
+	        dr:source "id";
+	        dr:fieldnum 53;
+	      }
+	      augment "location" {
+	        dr:source "location";
+	        dr:fieldnum 54;
+	      }
+              augment "mfg-date" {
+                dr:source "mfg_date";
+                dr:fieldnum 57;
+              }
+	      augment "hardware-version" {
+	        dr:source "version";
+	        dr:fieldnum 58;
+	      }
+              augment "firmware-version" {
+                dr:source "firmware_version";
+                dr:fieldnum 59;
+              }
+              augment "software-version" {
+                dr:source "software_version";
+                dr:fieldnum 60;
+              }
+              augment "removable" {
+                dr:source "removable";
+                dr:fieldnum 63;
+              }
+              augment "oper-status" {
+                dr:source "oper_status";
+                dr:map ACTIVE       { dr:map-from 1 ; }
+                dr:map INACTIVE         { dr:map-from 2 ; }
+                dr:map DISABLED         { dr:map-from 3 ; }
+                dr:fieldnum 64;
+              }
+              augment "empty" {
+                dr:source "empty";
+                dr:fieldnum 65;
+              }
+	      augment "parent" {
+	        dr:source "parent";
+	        dr:fieldnum 66;
+	      }
+              augment "description" {
+                dr:source "description";
+                dr:fieldnum 55;
+              }
+              augment "serial-no" {
+                dr:source "serial-no";
+                dr:fieldnum 61;
+              }
+              augment "part-no" {
+                dr:source "part-no";
+                dr:fieldnum 62;
+              }
+              }
+              uses oc-pf:platform-component-memory-state {
+              augment "memory" {
+                dr:fieldnum 170;
+              }
+              augment "memory/available" {
+                dr:source "available_mem";
+                dr:fieldnum 91;
+              }
+              augment "memory/utilized" {
+                dr:source "utilized_mem";
+                dr:fieldnum 92;
+              }
+              }
+              uses oc-pf:platform-component-power-state {
+              augment "allocated-power" {
+                dr:source "allocated_power";
+                dr:fieldnum 67;
+              }
+              }
+              }
+            uses transceiver-inventory-notification;
+        }
+    }
+  }
+
+  notification "oc-fru-power-off" {
+    dr:source-notification-name "fru-power-off";
+    container components {
+        dr:source "/notification/fru-power-off/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container state {
+                dr:source "state";
+                dr:fieldnum 152;
+
+                uses oc-pf:platform-component-config {
+                    augment "name" { 
+                        dr:source "name";
+                        dr:fieldnum 51;
+                    }
+                }
+                uses oc-pf:platform-component-state {
+                    augment "type" {
+                        dr:source "type";
+  	                    dr:map CHASSIS  	{ dr:map-from 1 ; } // CIDX_CHAS;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 2 ; } // CIDX_PS;
+	                    dr:map BACKPLANE  	{ dr:map-from 3 ; } // CIDX_IMPL;
+	                    dr:map FAN	  	{ dr:map-from 4 ; } // CIDX_FAN;
+	                    dr:map MODULE	  	{ dr:map-from 5 ; } // CIDX_HCTL;  // host controller
+	                    dr:map LINECARD	  	{ dr:map-from 6 ; } // CIDX_SCB;
+	                    dr:map LINECARD  	{ dr:map-from 7 ; } // CIDX_FPC;
+	                    dr:map MODULE	  	{ dr:map-from 8 ; } // CIDX_PIC;
+	                    dr:map MODULE	  	{ dr:map-from 9 ; } // CIDX_RE;
+	                    dr:map MODULE	  	{ dr:map-from 10; } // CIDX_FPM;    // front panel module
+	                    dr:map MODULE	  	{ dr:map-from 11; } // CIDX_CG;     // clock module
+	                    dr:map CONTROLLER_CARD{ dr:map-from 12; } // CIDX_CBD;
+	                    dr:map LINECARD	  	{ dr:map-from 13; } // CIDX_CIP;
+	                    dr:map LINECARD  	{ dr:map-from 14; } // CIDX_SPMB;
+	                    dr:map LINECARD  	{ dr:map-from 15; } // CIDX_SIB;
+	                    //dr:map XXX            { dr:map-from 16; } // CIDX_LCC;
+	                    dr:map LINECARD  	{ dr:map-from 17; } // CIDX_FEB;
+	                    dr:map LINECARD  	{ dr:map-from 18; } // CIDX_SFC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 19; } // CIDX_PSD;   // power supply
+	                    dr:map MODULE	  	{ dr:map-from 20; } // CIDX_MIC;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 21; } // CIDX_PDU;
+	                    dr:map POWER_SUPPLY  	{ dr:map-from 22; } // CIDX_PSM;
+	                    dr:map MODULE        	{ dr:map-from 23; } // CIDX_ADC;
+	                    dr:map CPU	  	{ dr:map-from 24; } // CIDX_CPU;
+	                    dr:map PORT	  	{ dr:map-from 25; } // CIDX_PORT;
+	                    dr:map OPENCONFIG_HARDWARE_COMPONENT { dr:map-from 26; } // CIDX_STATIC_HW
+	                    //dr:map SENSOR  	{ dr:map-from xx; }
+	                    dr:map TRANSCEIVER    { dr:map-from 30; } // CIDX_TRANS
+                        dr:map MEZZ           { dr:map-from 31; } // CIDX_MEZZ
+	                    //dr:map OPERATING_SYSTEM { dr:map-from  xx; }
+                        dr:fieldnum 52;
+                    }
+	      augment "id" {
+	        dr:source "id";
+	        dr:fieldnum 53;
+	      }
+	      augment "location" {
+	        dr:source "location";
+	        dr:fieldnum 54;
+	      }
+	      augment "parent" {
+	        dr:source "parent";
+	        dr:fieldnum 66;
+	      }
+              augment "description" {
+                dr:source "description";
+                dr:fieldnum 55;
+              }
+              augment "hardware-version" {
+                dr:source "version";
+                dr:fieldnum 58;
+              }
+              augment "serial-no" {
+                dr:source "serial-no";
+                dr:fieldnum 61;
+              }
+              augment "part-no" {
+                dr:source "part-no";
+                dr:fieldnum 62;
+              }
+              augment "oper-status" {
+                dr:source "oper_status";
+                dr:map ACTIVE       { dr:map-from 1 ; }
+                dr:map INACTIVE     { dr:map-from 2 ; }
+                dr:map DISABLED     { dr:map-from 3 ; }
+                dr:fieldnum 64;
+              }
+              }
+            }
+            uses transceiver-inventory-notification;
+        }
+    }
+
+  }
+
+    grouping chassisd-port-notification {
+      uses oc-port:port-breakout-top {
+        augment "breakout-mode" {
+        dr:source "breakout_mode";
+          dr:fieldnum 151;
+        }
+        augment "breakout-mode/groups" {
+        dr:source "groups";
+          dr:fieldnum 151;
+        }
+        augment "breakout-mode/groups/group" {
+          dr:source "group";
+          dr:fieldnum 151;
+        }
+        augment "breakout-mode/groups/group/index" {
+          dr:source "port_index";
+          dr:fieldnum 51;
+        }
+        augment "breakout-mode/groups/group/state" {
+          dr:source "state";
+          dr:fieldnum 151;
+        }
+        augment "breakout-mode/groups/group/state/index" {
+          dr:source "port_index";
+          dr:fieldnum 53;
+        }
+        augment "breakout-mode/groups/group/state/num-breakouts" {
+          dr:zero-suppressed;
+          dr:source "num_breakouts";
+          dr:fieldnum 54;
+        }
+        augment "breakout-mode/groups/group/state/breakout-speed" {
+          dr:zero-suppressed;
+          dr:source "breakout_speed";
+          dr:fieldnum 55;
+          dr:map SPEED_10MB  { dr:map-from 1; }
+          dr:map SPEED_100MB { dr:map-from 2; }
+          dr:map SPEED_1GB   { dr:map-from 3; }
+          dr:map SPEED_2500MB{ dr:map-from 4; }
+          dr:map SPEED_5GB   { dr:map-from 5; }
+          dr:map SPEED_10GB   { dr:map-from 6; }
+          dr:map SPEED_25GB   { dr:map-from 7; }
+          dr:map SPEED_40GB   { dr:map-from 8; }
+          dr:map SPEED_50GB   { dr:map-from 9; }
+          dr:map SPEED_100GB   { dr:map-from 10; }
+          dr:map SPEED_200GB   { dr:map-from 11; }
+          dr:map SPEED_400GB   { dr:map-from 12; }
+          dr:map SPEED_600GB   { dr:map-from 13; }
+          dr:map SPEED_800GB   { dr:map-from 14; }
+          dr:map SPEED_UNKNOWN   { dr:map-from *; }
+        }
+        augment "breakout-mode/groups/group/state/num-physical-channels" {
+          dr:zero-suppressed;
+          dr:source "num_physical_channels";
+          dr:fieldnum 56;
+        }
+      }
+    }
+
+  notification "oc-port-breakout-delete" {
+    dr:source-notification-name "port-breakout-delete";
+    container components {
+        dr:source "/notification/port-breakout-delete/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container port {
+              dr:source "port";
+              dr:source-notification-name "port-breakout-delete";
+              dr:source-notification-name "port-breakout-create";
+              dr:fieldnum 151;
+              uses chassisd-port-notification;
+            }
+        }
+    }
+  }
+
+
+
+  notification "oc-port-breakout-create" {
+    dr:source-notification-name "port-breakout-create";
+    container components {
+        dr:source "/notification/port-breakout-create/components";
+        list component{
+            dr:source "component";
+            key "name";
+            dr:fieldnum 151;
+            leaf name {
+                dr:source "name";
+                type string;
+                dr:fieldnum 51;
+            }
+            container port {
+              dr:source "port";
+              dr:source-notification-name "port-breakout-delete";
+              dr:source-notification-name "port-breakout-create";
+              dr:fieldnum 151;
+              uses chassisd-port-notification;
+            }
+        }
+    }
+  }
+
+  dr:command-app "chassisd";
+  jnpr-proto:message-id "CHASSISD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        container components {
+            dr:source "/chassis-inventory/chassis-modules";
+            list component{
+                dr:source "chassis-module";
+                key "name";
+                dr:fieldnum 151;
+                dr:source-notification-name "fru-add";
+                dr:source-notification-name "fru-remove";
+                dr:source-notification-name "fru-power-on";
+                dr:source-notification-name "fru-power-off";
+                dr:source-notification-name "port-breakout-delete";
+                dr:source-notification-name "port-breakout-create";
+                leaf name {
+                    dr:source "name";
+                    dr:source-notification-name "fru-add";
+                    dr:source-notification-name "fru-remove";
+                    dr:source-notification-name "fru-power-on";
+                    dr:source-notification-name "fru-power-off";
+                    dr:source-notification-name "port-breakout-delete";
+                    dr:source-notification-name "port-breakout-create";
+                    type string;
+                    dr:fieldnum 51;
+            }
+            uses chassisd-state-inventory;
+
+            container port {
+             dr:source "port";
+             dr:source-notification-name "port-breakout-delete";
+             dr:source-notification-name "port-breakout-create";
+             dr:fieldnum 151;
+             uses chassisd-component-port-inventory;
+            }
+
+            uses chassisd-component-properties-inventory;
+            uses chassisd-subcomponent-inventory;
+            uses transceiver-inventory;
+
+            } //comp
+        } //components
+    } //output
+  } //rpc
+
+
+}

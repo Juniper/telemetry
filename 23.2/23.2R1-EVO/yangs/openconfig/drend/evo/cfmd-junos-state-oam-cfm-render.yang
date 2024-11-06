@@ -1,0 +1,2891 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2022 Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module cfmd-junos-state-oam-cfm-render {
+    yang-version "1.1";
+    namespace "http://yang.juniper.net/junos/state/oam/cfm/render";
+
+    prefix "js-cfm-rdr";
+
+    import junos-state-oam-cfm { prefix js-oam-cfm; }
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    organization "Juniper Networks Inc.";
+    contact "www.juniper.net";
+
+    grouping cfm-global-top {
+        uses js-oam-cfm:cfm-global-top {
+            augment "enhanced-cfm-mode" {
+                dr:fieldnum 51;
+            }
+        }
+    }
+
+    grouping cfm-interfaces-top {
+        uses js-oam-cfm:cfm-interfaces-top {
+            augment "interfaces" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface" {
+                dr:source "/cfmd/interface";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "name" {
+                dr:source "intf_name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain" {
+                dr:source "md";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "name" {
+                dr:source "md_name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "level" {
+                dr:source "level";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "format" {
+                dr:source "name_format";
+                dr:map NONE { dr:map-from 1; }
+                dr:map DNS { dr:map-from 2; }
+                dr:map MAC_ADDRESS_AND_UINT { dr:map-from 3; }
+                dr:map CHAR_STRING { dr:map-from 4; }
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association" {
+                dr:source "ma";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "name" {
+                dr:source "ma_name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "format" {
+                dr:source "name_format";
+                dr:fieldnum 52;
+                dr:map VLAN { dr:map-from 1; }
+                dr:map CHAR_STRING { dr:map-from 2; }
+                dr:map 2OCTET { dr:map-from 3; }
+                dr:map RFC2865_VPN_ID { dr:map-from 4; }
+                dr:map ICC { dr:map-from 32; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "ccm-interval" {
+                dr:source "interval";
+                dr:fieldnum 53;
+                dr:map NONE { dr:map-from 0; }
+                dr:map 300HZ { dr:map-from 1; }
+                dr:map 10MS { dr:map-from 2; }
+                dr:map 100MS { dr:map-from 3; }
+                dr:map 1SEC { dr:map-from 4; }
+                dr:map 10SEC { dr:map-from 5; }
+                dr:map 1MIN { dr:map-from 6; }
+                dr:map 10MIN { dr:map-from 7; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "loss-threshold" {
+                dr:source "loss_threshold";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "continuity-check-status" {
+                dr:source "status";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep" {
+                dr:source "mep";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "mac-address" {
+                dr:source "mac_address";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "direction" {
+                dr:source "direction";
+                dr:map DOWN { dr:map-from 1; }
+                dr:map UP { dr:map-from 2; }
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "auto-discovery" {
+                dr:source "auto_discovery";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "ccm-ltm-priority" {
+                dr:source "priority";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "interface-status" {
+                dr:source "intf_status";
+                dr:fieldnum 56;
+                dr:map DISABLED { dr:map-from 1; }
+                dr:map ACTIVE { dr:map-from 2; }
+                dr:map INACTIVE { dr:map-from 3; }
+                dr:map UNSUPPORTED { dr:map-from 4; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "link-status" {
+                dr:source "link_status";
+                dr:fieldnum 57;
+                dr:map DOWN { dr:map-from 1; }
+                dr:map UP { dr:map-from 2; }
+                dr:map OAM_DOWN { dr:map-from 3; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "port-status-tlv" {
+                dr:source "port_status_tlv";
+                dr:fieldnum 58;
+                dr:map NO_PORT_STATUS_TLV { dr:map-from 0; }
+                dr:map BLOCKED { dr:map-from 1; }
+                dr:map UP { dr:map-from 2; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "interface-status-tlv" {
+                dr:source "interface_status_tlv";
+                dr:fieldnum 59;
+                dr:map NO_INTERFACE_STATUS_TLV { dr:map-from 0; }
+                dr:map UP { dr:map-from 1; }
+                dr:map DOWN { dr:map-from 2; }
+                dr:map TESTING { dr:map-from 3; }
+                dr:map UNKNOWN { dr:map-from 4; }
+                dr:map DORMANT { dr:map-from 5; }
+                dr:map NOT_PRESENT { dr:map-from 6; }
+                dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "chassis-id" {
+                dr:source "chassis_addr";
+                dr:fieldnum 60;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "management-address" {
+                dr:source "mgnt_addr";
+                dr:fieldnum 61;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "send-id-tlv" {
+                dr:source "sendid_tlv";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep" {
+                dr:source "rmep";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "status" {
+                dr:source "state";
+                dr:fieldnum 52;
+                dr:map IDLE { dr:map-from 1; }
+                dr:map START { dr:map-from 2; }
+                dr:map FAILED { dr:map-from 3; }
+                dr:map OK { dr:map-from 4; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "interface" {
+                dr:source "interface";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "last-flapped" {
+                dr:source "last_flapped";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "continuity" {
+                dr:source "continuity";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "loss-threshold" {
+                dr:source "loss_threshold";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "rdi" {
+                dr:source "rdi";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "port-status-tlv" {
+                dr:source "port_status_tlv";
+                dr:fieldnum 60;
+                dr:map NO_PORT_STATUS_TLV { dr:map-from 0; }
+                dr:map BLOCKED { dr:map-from 1; }
+                dr:map UP { dr:map-from 2; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "interface-status-tlv" {
+                dr:source "interface_status_tlv";
+                dr:fieldnum 61;
+                dr:map NO_INTERFACE_STATUS_TLV { dr:map-from 0; }
+                dr:map UP { dr:map-from 1; }
+                dr:map DOWN { dr:map-from 2; }
+                dr:map TESTING { dr:map-from 3; }
+                dr:map UNKNOWN { dr:map-from 4; }
+                dr:map DORMANT { dr:map-from 5; }
+                dr:map NOT_PRESENT { dr:map-from 6; }
+                dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "rmep-type" {
+                dr:source "mep_type";
+                dr:map LEARNED { dr:map-from 1; }
+                dr:map CONFIGURED { dr:map-from 2; }
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "chassis-id" {
+                dr:source "chassis_addr";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "management-address" {
+                dr:source "mgnt_addr";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "send-id-tlv" {
+                dr:source "sendid_tlv";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "mac-address" {
+                dr:source "mac_address";
+                dr:fieldnum 66;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile" {
+                dr:source "ap";
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile/last-event" {
+                dr:source "last_event";
+                dr:map NONE { dr:map-from 0; }
+                dr:map ADJACENCY_LOSS { dr:map-from 8; }
+                dr:map INTERFACE_STATUS_TLV_DOWN { dr:map-from 1; }
+                dr:map INTERFACE_STATUS_TLV_LOWER_LAYER_DOWN { dr:map-from 2; }
+                dr:map PORT_STATUS_TLV_BLOCKED { dr:map-from 4; }
+                dr:map RDI { dr:map-from 16; }
+                dr:map CONNECTION_PROTECTION_TLV_USING_WORKING_PATH { dr:map-from 32; }
+                dr:map CONNECTION_PROTECTION_TLV_USING_PROTECTION_PATH { dr:map-from 64; }
+                dr:map RECEIVED_AIS { dr:map-from 512; }
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile/action" {
+                dr:source "action";
+                dr:map NONE { dr:map-from 0; }
+                dr:map INTERFACE_DOWN { dr:map-from 1; }
+                dr:map REVERTIVE_INTERFACE_DOWN { dr:map-from 8; }
+                dr:map NON_REVERTIVE_INTERFACE_DOWN { dr:map-from 16; }
+                dr:map INTERFACE_GROUP_DOWN { dr:map-from 32; }
+                dr:map ASYNCHRONOUS_NOTIFICATION { dr:map-from 64; }
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile/action-time" {
+                dr:source "action_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "action-profile/action-clear-time" {
+                dr:source "action_clear_time";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement" {
+                dr:source "pm/dm";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "measurement-type" {
+                dr:source "type";
+                dr:fieldnum 52;
+                dr:map DMM { dr:map-from 1; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "session-status" {
+                dr:source "session_status";
+                dr:fieldnum 53;
+                dr:map RUNNING { dr:map-from 0; }
+                dr:map STOPPED { dr:map-from 1; }
+                dr:map IDLE { dr:map-from 2; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "cycle-time" {
+                dr:source "cycle_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "iteration-period" {
+                dr:source "iter_period";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "infinite-iterations" {
+                dr:source "infinite_iter";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "reset-time" {
+                dr:source "reset_time";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "reset-reason" {
+                dr:source "reset_reason";
+                dr:map USER_INITIATED { dr:map-from 1; }
+                dr:map ADJACENCY_FLAP { dr:map-from 2; }
+                dr:map TCR_RECEIVED { dr:map-from 3; }
+                dr:map CONFIG_CHANGE { dr:map-from 4; }
+                dr:map TIMER_NOT_STARTED { dr:map-from 5; }
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/measurement-id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/suspect-status" {
+                dr:source "suspect_status";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/start-time" {
+                dr:source "start_time";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/elapsed-time" {
+                dr:source "elapsed_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-two-way-min" {
+                dr:source "fdtw_min";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-two-way-max" {
+                dr:source "fdtw_max";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-two-way-average" {
+                dr:source "fdtw_avg";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-forward-min" {
+                dr:source "fdf_min";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-forward-max" {
+                dr:source "fdf_max";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-forward-average" {
+                dr:source "fdf_avg";
+                dr:fieldnum 60;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-backward-min" {
+                dr:source "fdb_min";
+                dr:fieldnum 61;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-backward-max" {
+                dr:source "fdb_max";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-backward-average" {
+                dr:source "fdb_avg";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-forward-min" {
+                dr:source "ifdf_min";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-forward-max" {
+                dr:source "ifdf_max";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-forward-average" {
+                dr:source "ifdf_avg";
+                dr:fieldnum 66;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-backward-min" {
+                dr:source "ifdb_min";
+                dr:fieldnum 67;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-backward-max" {
+                dr:source "ifdb_max";
+                dr:fieldnum 68;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-backward-average" {
+                dr:source "ifdb_avg";
+                dr:fieldnum 69;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-two-way-min" {
+                dr:source "ifdtw_min";
+                dr:fieldnum 70;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-two-way-max" {
+                dr:source "ifdtw_max";
+                dr:fieldnum 71;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/inter-frame-delay-variation-two-way-average" {
+                dr:source "ifdtw_avg";
+                dr:fieldnum 72;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-forward-max" {
+                dr:source "fdrf_max";
+                dr:fieldnum 73;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-forward-average" {
+                dr:source "fdrf_avg";
+                dr:fieldnum 74;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-backward-max" {
+                dr:source "fdrb_max";
+                dr:fieldnum 75;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-backward-average" {
+                dr:source "fdrb_avg";
+                dr:fieldnum 76;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-two-way-max" {
+                dr:source "fdrtw_max";
+                dr:fieldnum 77;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/frame-delay-range-two-way-average" {
+                dr:source "fdrtw_avg";
+                dr:fieldnum 78;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/counters" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/counters/soam-pdus-sent" {
+                dr:source "soam_tx";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/counters/soam-pdus-received" {
+                dr:source "soam_rx";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay" {
+                dr:source "bin/fd";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_FRAME_DELAY { dr:map-from 1; }
+                dr:map FORWARD_FRAME_DELAY { dr:map-from 2; }
+                dr:map BACKWARD_FRAME_DELAY { dr:map-from 3; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "inter-frame-delay-variation" {
+                dr:source "bin/ifdv";
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "inter-frame-delay-variation/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_INTER_FRAME_DELAY_VARIATION { dr:map-from 4; }
+                dr:map FORWARD_INTER_FRAME_DELAY_VARIATION { dr:map-from 5; }
+                dr:map BACKWARD_INTER_FRAME_DELAY_VARIATION { dr:map-from 6; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "inter-frame-delay-variation/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "inter-frame-delay-variation/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "inter-frame-delay-variation/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay-range" {
+                dr:source "bin/fdr";
+                dr:fieldnum 153;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay-range/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_FRAME_DELAY_RANGE { dr:map-from 7; }
+                dr:map FORWARD_FRAME_DELAY_RANGE { dr:map-from 8; }
+                dr:map BACKWARD_FRAME_DELAY_RANGE { dr:map-from 9; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay-range/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay-range/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "current/bins/" +
+                    "frame-delay-range/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history" {
+                dr:source "history";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "id" {
+                dr:source "id";
+                dr:fieldnum 50;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "measurement-id" {
+                dr:source "type";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "suspect-status" {
+                dr:source "suspect_status";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "start-time" {
+                dr:source "start_time";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "elapsed-time" {
+                dr:source "elapsed_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-two-way-min" {
+                dr:source "cfm_5m_bestcase_twoway_delay";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-two-way-max" {
+                dr:source "cfm_5m_worstcase_twoway_delay";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-two-way-average" {
+                dr:source "cfm_5m_avge_twoway_delay";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-forward-min" {
+                dr:source "fdf_min";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-forward-max" {
+                dr:source "fdf_max";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-forward-average" {
+                dr:source "fdf_avg";
+                dr:fieldnum 60;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-backward-min" {
+                dr:source "fdb_min";
+                dr:fieldnum 61;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-backward-max" {
+                dr:source "fdb_max";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-backward-average" {
+                dr:source "fdb_avg";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-forward-min" {
+                dr:source "ifdf_min";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-forward-max" {
+                dr:source "ifdf_max";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-forward-average" {
+                dr:source "ifdf_avg";
+                dr:fieldnum 66;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-backward-min" {
+                dr:source "ifdb_min";
+                dr:fieldnum 67;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-backward-max" {
+                dr:source "ifdb_max";
+                dr:fieldnum 68;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-backward-average" {
+                dr:source "ifdb_avg";
+                dr:fieldnum 69;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-two-way-min" {
+                dr:source "ifdtw_min";
+                dr:fieldnum 70;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-two-way-max" {
+                dr:source "ifdtw_max";
+                dr:fieldnum 71;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "inter-frame-delay-variation-two-way-average" {
+                dr:source "ifdtw_avg";
+                dr:fieldnum 72;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-forward-max" {
+                dr:source "fdrf_max";
+                dr:fieldnum 73;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-forward-average" {
+                dr:source "fdrf_avg";
+                dr:fieldnum 74;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-backward-max" {
+                dr:source "fdrb_max";
+                dr:fieldnum 75;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-backward-average" {
+                dr:source "fdrb_avg";
+                dr:fieldnum 76;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-two-way-max" {
+                dr:source "fdrtw_max";
+                dr:fieldnum 77;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "frame-delay-range-two-way-average" {
+                dr:source "fdrtw_avg";
+                dr:fieldnum 78;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "end-time" {
+                dr:source "end_time";
+                dr:fieldnum 79;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "counters" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "counters/soam-pdus-sent" {
+                dr:source "soam_tx";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "counters/soam-pdus-received" {
+                dr:source "soam_rx";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay" {
+                dr:source "bin/fd";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_FRAME_DELAY { dr:map-from 1; }
+                dr:map FORWARD_FRAME_DELAY { dr:map-from 2; }
+                dr:map BACKWARD_FRAME_DELAY { dr:map-from 3; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "inter-frame-delay-variation" {
+                dr:source "bin/ifdv";
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "inter-frame-delay-variation/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_INTER_FRAME_DELAY_VARIATION { dr:map-from 4; }
+                dr:map FORWARD_INTER_FRAME_DELAY_VARIATION { dr:map-from 5; }
+                dr:map BACKWARD_INTER_FRAME_DELAY_VARIATION { dr:map-from 6; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "inter-frame-delay-variation/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "inter-frame-delay-variation/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "inter-frame-delay-variation/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay-range" {
+                dr:source "bin/fdr";
+                dr:fieldnum 153;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay-range/type" {
+                dr:source "type";
+                dr:fieldnum 51;
+                dr:map TWO_WAY_FRAME_DELAY_RANGE { dr:map-from 7; }
+                dr:map FORWARD_FRAME_DELAY_RANGE { dr:map-from 8; }
+                dr:map BACKWARD_FRAME_DELAY_RANGE { dr:map-from 9; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay-range/bin" {
+                dr:source "number";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay-range/lower-bound" {
+                dr:source "lower_bound";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/delay-measurements/delay-measurement/" +
+                    "histories/history/" +
+                    "bins/" +
+                    "frame-delay-range/complete-measurements" {
+                dr:source "counter";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement" {
+                dr:source "pm/lm";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "measurement-type" {
+                dr:source "type";
+                dr:fieldnum 52;
+                dr:map LMM { dr:map-from 2; }
+                dr:map SLM { dr:map-from 4; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "session-status" {
+                dr:source "session_status";
+                dr:fieldnum 53;
+                dr:map RUNNING { dr:map-from 0; }
+                dr:map STOPPED { dr:map-from 1; }
+                dr:map IDLE { dr:map-from 2; }
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "cycle-time" {
+                dr:source "cycle_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "iteration-period" {
+                dr:source "iter_period";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "infinite-iterations" {
+                dr:source "infinite_iter";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "reset-time" {
+                dr:source "reset_time";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "reset-reason" {
+                dr:source "reset_reason";
+                dr:map USER_INITIATED { dr:map-from 1; }
+                dr:map ADJACENCY_FLAP { dr:map-from 2; }
+                dr:map TCR_RECEIVED { dr:map-from 3; }
+                dr:map CONFIG_CHANGE { dr:map-from 4; }
+                dr:map TIMER_NOT_STARTED { dr:map-from 5; }
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/measurement-id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/suspect-status" {
+                dr:source "loss_stat_suspect_status";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/start-time" {
+                dr:source "loss_stat_start_time";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/elapsed-time" {
+                dr:source "loss_stat_elapsed_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/soam-pdus-sent" {
+                dr:source "soam_tx";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/soam-pdus-received" {
+                dr:source "soam_rx";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/forward-frames-sent" {
+                dr:source "fw_tx";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/forward-frames-received" {
+                dr:source "fw_rx";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/backward-frames-sent" {
+                dr:source "bk_tx";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/backward-frames-received" {
+                dr:source "bk_rx";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/forward-frames-lost" {
+                dr:source "frame_loss_fw";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/counters/backward-frames-lost" {
+                dr:source "frame_loss_bk";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/forward-min-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_min";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/forward-max-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_max";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/forward-average-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_avg";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/backward-min-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_min";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/backward-max-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_max";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/loss/backward-average-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_avg";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability" {
+                dr:fieldnum 153;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-high-loss" {
+                dr:source "high_loss_fw";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-high-loss" {
+                dr:source "high_loss_bk";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-consecutive-high-loss" {
+                dr:source "consecutive_high_loss_fw";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-consecutive-high-loss" {
+                dr:source "consecutive_high_loss_bk";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-available" {
+                dr:source "avail_fw";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-available" {
+                dr:source "avail_bk";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-unavailable" {
+                dr:source "unavail_fw";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-unavailable" {
+                dr:source "unavail_bk";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-min-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_min";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-max-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_max";
+                dr:fieldnum 60;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/forward-average-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_avg";
+                dr:fieldnum 61;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-min-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_min";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-max-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_max";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/backward-average-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_avg";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/measurement-id" {
+                dr:source "avail_stat_index";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/suspect-status" {
+                dr:source "avail_stat_suspect_status";
+                dr:fieldnum 66;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/start-time" {
+                dr:source "avail_stat_start_time";
+                dr:fieldnum 67;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/elapsed-time" {
+                dr:source "avail_stat_elapsed_time";
+                dr:fieldnum 68;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/last-forward-status" {
+                dr:source "avail_status_fw";
+                dr:map AVAILABLE { dr:map-from 1; }
+                dr:map UNAVAILABLE { dr:map-from 2; }
+                dr:map UNKNOWN { dr:map-from 3; }
+                dr:fieldnum 69;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/last-backward-status" {
+                dr:source "avail_status_bk";
+                dr:map AVAILABLE { dr:map-from 1; }
+                dr:map UNAVAILABLE { dr:map-from 2; }
+                dr:map UNKNOWN { dr:map-from 3; }
+                dr:fieldnum 70;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/last-forward-transition-time" {
+                dr:source "fw_avail_transition";
+                dr:fieldnum 71;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/availability/last-backward-transition-time" {
+                dr:source "bk_avail_transition";
+                dr:fieldnum 72;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters" {
+                dr:fieldnum 151;
+            }
+
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/soam-pdus-skipped-threshold" {
+                dr:source "lm_skipped_threshold";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/soam-pdus-skipped-threshold-window" {
+                dr:source "lm_skipped_threshold_window";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/soam-pdus-out-of-sequence" {
+                dr:source "lm_out_of_seq";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/local-tx-frames-last-sent" {
+                dr:source "lm_tx";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/local-rx-frames-last-sent" {
+                dr:source "lm_rx";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/forward-tx-frames-last-received" {
+                dr:source "lm_tx_lastpkt_rcv";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/backward-tx-frames-last-received" {
+                dr:source "lm_rx_lastpkt_rcv";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/counters/frame-loss-ratio-samples" {
+                dr:source "lm_pm_mi_calc";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/sample-size" {
+                dr:source "lm_sample_size";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/last-forward-frame-loss-ratio" {
+                dr:source "lm_last_fw_flr";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "current/iterator/last-backward-frame-loss-ratio" {
+                dr:source "lm_last_bk_flr";
+                dr:fieldnum 53;
+            }
+
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories" {
+                dr:fieldnum 152;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history" {
+                dr:source "history";
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/measurement-id" {
+                dr:source "loss_stat_index";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/suspect-status" {
+                dr:source "loss_stat_suspect_status";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/start-time" {
+                dr:source "loss_stat_start_time";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/elapsed-time" {
+                dr:source "loss_stat_elapsed_time";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters" {
+                dr:fieldnum 151;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/soam-pdus-sent" {
+                dr:source "soam_tx";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/soam-pdus-received" {
+                dr:source "soam_rx";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/forward-frames-sent" {
+                dr:source "fw_tx";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/forward-frames-received" {
+                dr:source "fw_rx";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/backward-frames-sent" {
+                dr:source "bk_tx";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/backward-frames-received" {
+                dr:source "bk_rx";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/forward-frames-lost" {
+                dr:source "frame_loss_fw";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/counters/backward-frames-lost" {
+                dr:source "frame_loss_bk";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/forward-min-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_min";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/forward-max-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_max";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/forward-average-frame-loss-ratio" {
+                dr:source "loss_stat_fw_flr_avg";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/backward-min-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_min";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/backward-max-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_max";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/backward-average-frame-loss-ratio" {
+                dr:source "loss_stat_bk_flr_avg";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "loss/end-time" {
+                dr:source "loss_stat_end_time";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability" {
+                dr:fieldnum 153;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-high-loss" {
+                dr:source "high_loss_fw";
+                dr:fieldnum 51;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-high-loss" {
+                dr:source "high_loss_bk";
+                dr:fieldnum 52;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-consecutive-high-loss" {
+                dr:source "consecutive_high_loss_fw";
+                dr:fieldnum 53;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-consecutive-high-loss" {
+                dr:source "consecutive_high_loss_bk";
+                dr:fieldnum 54;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-available" {
+                dr:source "avail_fw";
+                dr:fieldnum 55;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-available" {
+                dr:source "avail_bk";
+                dr:fieldnum 56;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-unavailable" {
+                dr:source "unavail_fw";
+                dr:fieldnum 57;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-unavailable" {
+                dr:source "unavail_bk";
+                dr:fieldnum 58;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-min-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_min";
+                dr:fieldnum 59;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-max-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_max";
+                dr:fieldnum 60;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/forward-average-frame-loss-ratio" {
+                dr:source "avail_stat_fw_flr_avg";
+                dr:fieldnum 61;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-min-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_min";
+                dr:fieldnum 62;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-max-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_max";
+                dr:fieldnum 63;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/backward-average-frame-loss-ratio" {
+                dr:source "avail_stat_bk_flr_avg";
+                dr:fieldnum 64;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/end-time" {
+                dr:source "avail_stat_end_time";
+                dr:fieldnum 65;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/measurement-id" {
+                dr:source "avail_stat_index";
+                dr:fieldnum 66;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/suspect-status" {
+                dr:source "avail_stat_suspect_status";
+                dr:fieldnum 67;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/start-time" {
+                dr:source "avail_stat_start_time";
+                dr:fieldnum 68;
+            }
+            augment "interfaces/interface/" +
+                    "maintenance-domains/maintenance-domain/" +
+                    "maintenance-associations/maintenance-association/" +
+                    "meps/mep/" +
+                    "rmeps/rmep/" +
+                    "performance-monitoring/loss-measurements/loss-measurement/" +
+                    "histories/history/" +
+                    "availability/elapsed-time" {
+                dr:source "avail_stat_elapsed_time";
+                dr:fieldnum 69;
+            }
+        }
+    }
+
+    grouping cfm-top {
+        container connectivity-fault-management {
+            dr:fieldnum 151;
+            uses js-oam-cfm:cfm-global-top {
+                augment "enhanced-cfm-mode" {
+                    dr:source "/cfmd/enhanced-cfm-mode";
+                    dr:fieldnum 51;
+                }
+            }
+            uses cfm-interfaces-top;
+        }
+    }
+
+    grouping cfm-global-top-group {
+        container state {
+            dr:fieldnum 151;
+            container protocols {
+                dr:fieldnum 151;
+                container oam {
+                    dr:fieldnum 151;
+                    container ethernet {
+                        dr:fieldnum 151;
+                        uses cfm-top;
+                    }
+                }
+            }
+        }
+    }
+
+    dr:command-app "cfmd";
+    jnpr-proto:message-id "OAM-CFM-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+        dr:command-full-name "drend juniper-netconf-get";
+        dr:command-help "default netconf <get> rpc";
+        output {
+            uses cfm-global-top-group;
+        }
+    }
+
+    rpc juniper-telemetry-get {
+        dr:command-full-name "drend juniper-telemetry-get";
+        dr:command-help "default telemetry <get> rpc";
+        output {
+            uses cfm-global-top-group;
+        }
+    }
+}

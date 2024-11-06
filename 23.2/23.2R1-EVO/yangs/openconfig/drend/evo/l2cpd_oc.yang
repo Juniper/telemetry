@@ -1,0 +1,957 @@
+module l2cpd {
+
+  yang-version "1";
+
+  namespace "http://openconfig.net/yang/lldp-oc";
+
+  prefix "lldpoc";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  import openconfig-lldp-types { prefix oc-lldp-types; }
+  import openconfig-lldp { prefix oc-lldp; }
+  import jnx-aug-openconfig-lldp { prefix jnx-oc-lldp; }
+
+    grouping  lldp_interface_config_group {
+     uses oc-lldp:lldp-interface-top {
+      augment "interfaces" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface" {
+        dr:source "/l2cpd/lldp/interfaces";
+        dr:fieldnum 151;
+        dr:source-notification-name "lldp-intf-chng";
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/state/name" {
+        dr:source "interface_name";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/state/enabled" {
+        dr:source "interface_lldp_enable_status";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/state" {
+        dr:fieldnum 151;
+        leaf loc-port-id {
+          type string;
+          description
+            "The string value used to identify the port component
+            associated with a given port in the local system.";
+          dr:source "interface_port_id";
+          dr:fieldnum 55;
+        }
+      }
+      augment "interfaces/interface/state" {
+        leaf loc-port-description {
+          type string;
+          description
+             "The string value used to identify the IEEE 802 LAN station's port
+             description associated with the local system. If the local
+             agent supports IETF RFC 2863, lldpLocPortDesc object should
+             have the same value of ifDescr object.";
+          dr:source "interface_desc";
+          dr:fieldnum 56;
+        }
+      }
+      augment "interfaces/interface/state" {
+        uses jnx-oc-lldp:jnx-local-dest-mac-type {
+          augment "jnx-local-dest-mac-type" {
+            dr:source "local_dest_mac_type";
+            dr:fieldnum 94;
+            dr:source-notification-name "lldp-jnx-local-dest-mac-type-chng";
+          }
+        }
+      }
+      augment "interfaces/interface/state/counters" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/counters/frame-in" {
+        dr:zero-suppressed;
+        dr:source "interface_in_frame_counter";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/state/counters/frame-out" {
+        dr:zero-suppressed;
+        dr:source "interface_out_frame_counter";
+        dr:fieldnum 58;
+      }
+      augment "interfaces/interface/state/counters/frame-error-in" {
+        dr:zero-suppressed;
+        dr:source "interface_in_error_frame_counter";
+        dr:fieldnum 59;
+      }
+      augment "interfaces/interface/state/counters/frame-discard" {
+        dr:zero-suppressed;
+        dr:source "interface_discard_frame_counter";
+        dr:fieldnum 60;
+      }
+      augment "interfaces/interface/state/counters/tlv-discard" {
+        dr:zero-suppressed;
+        dr:source "interface_discard_tlv_counter";
+        dr:fieldnum 61;
+      }
+      augment "interfaces/interface/state/counters/tlv-unknown" {
+        dr:zero-suppressed;
+        dr:source "interface_unknown_tlv_counter";
+        dr:fieldnum 62;
+      }
+      augment "interfaces/interface/state/counters/last-clear" {
+        dr:source "interface_counter_last_clear_time";
+        dr:fieldnum 63;
+      }
+      augment "interfaces/interface/state/counters/frame-error-out" {
+        dr:zero-suppressed;
+        dr:source "interface_in_error_frame_counter";
+        dr:fieldnum 64;
+      }
+      augment "interfaces/interface/neighbors" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+        dr:source-notification-name "lldp-neighbor-chng";
+      }
+      augment "interfaces/interface/neighbors/neighbor/id" {
+        dr:source "neighbor_msap_id";
+        dr:fieldnum 66;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/system-name" {
+        dr:source "neighbor_sys_name";
+        dr:fieldnum 67;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/system-description" {
+        dr:source "neighbor_sys_desc";
+        dr:fieldnum 68;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/chassis-id" {
+        dr:source "neighbor_chassis_id";
+        dr:fieldnum 69;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/chassis-id-type" {
+        dr:source "neighbor_chassis_id_subtype";
+        dr:fieldnum 70;
+        dr:map CHASSIS_COMPONENT { dr:map-from 1;}
+        dr:map INTERFACE_ALIAS { dr:map-from 2;}
+        dr:map PORT_COMPONENT { dr:map-from 3;} 
+        dr:map MAC_ADDRESS { dr:map-from 4;}
+        dr:map NETWORK_ADDRESS { dr:map-from 5;}
+        dr:map INTERFACE_NAME { dr:map-from 6;}
+        dr:map LOCAL { dr:map-from 7;} 
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/id" {
+        dr:source "neighbor_msap_id";
+        dr:fieldnum 71;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/age" {
+        dr:source "neighbor_age";
+        dr:fieldnum 72;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/last-update" {
+        dr:source "neighbor_last_update";
+        dr:fieldnum 73;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/port-id" {
+        dr:source "neighbor_port_id";
+        dr:fieldnum 74;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/port-id-type" {
+        dr:source "neighbor_port_id_subtype";
+        dr:fieldnum 75;
+        dr:map INTERFACE_ALIAS { dr:map-from 1;}
+        dr:map PORT_COMPONENT { dr:map-from 2;}
+        dr:map MAC_ADDRESS { dr:map-from 3;}
+        dr:map NETWORK_ADDRESS { dr:map-from 4;}
+        dr:map INTERFACE_NAME { dr:map-from 5;}
+        dr:map AGENT_CIRCUIT_ID { dr:map-from 6;}
+        dr:map LOCAL { dr:map-from 7;}
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/port-description" {
+        dr:source "neighbor_port_desc";
+        dr:fieldnum 76;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/management-address" {
+        dr:source "neighbor_man_addr";
+        dr:fieldnum 77;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/management-address-type" {
+        dr:source "neighbor_man_addr_subtype";
+        dr:fieldnum 78;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/ttl" {
+        dr:source "neighbor_pdu_ttl";
+        dr:fieldnum 79;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv" {
+        dr:source "tlv";
+        dr:fieldnum 79;
+        dr:source-notification-name "lldp-neighbor-custom-tlvs-chng";
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/type" {
+        dr:source "type";
+        dr:fieldnum 80;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui" {
+        dr:source "oui";
+        dr:fieldnum 81;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui-subtype" {
+        dr:source "subtype";
+        dr:fieldnum 82;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 83;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui" {
+        dr:source "oui";
+        dr:fieldnum 84;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui-subtype" {
+        dr:source "subtype";
+        dr:fieldnum 85;
+      }
+      augment "interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 86;
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities" {
+        dr:fieldnum 153;
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities/capability" {
+        dr:source "capabilities";
+        dr:fieldnum 151;
+        dr:source-notification-name "lldp-neighbor-caps-chng";
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities/capability/name" {
+        dr:source "neighbor_sys_cap_type";
+        dr:fieldnum 88;
+        dr:map OTHER { dr:map-from 0;}
+        dr:map REPEATER { dr:map-from 1;}
+        dr:map MAC_BRIDGE { dr:map-from 2;}
+        dr:map WLAN_ACCESS_POINT { dr:map-from 3;}
+        dr:map ROUTER { dr:map-from 4;}
+        dr:map TELEPHONE { dr:map-from 5;}
+        dr:map DOCSIS_CABLE_DEVICE { dr:map-from 6;}
+        dr:map STATION_ONLY { dr:map-from 7;}
+        dr:map C_VLAN { dr:map-from 8;}
+        dr:map S_VLAN { dr:map-from 9;}
+        dr:map TWO_PORT_MAC_RELAY { dr:map-from 10;}
+        dr:map NO_CAP { dr:map-from *;}
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities/capability/state"
+      {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities/capability/state/name" {
+        dr:source "neighbor_sys_cap_type";
+        dr:fieldnum 89;
+        dr:map OTHER { dr:map-from 0;}
+        dr:map REPEATER { dr:map-from 1;}
+        dr:map MAC_BRIDGE { dr:map-from 2;}
+        dr:map WLAN_ACCESS_POINT { dr:map-from 3;}
+        dr:map ROUTER { dr:map-from 4;}
+        dr:map TELEPHONE { dr:map-from 5;}
+        dr:map DOCSIS_CABLE_DEVICE { dr:map-from 6;}
+        dr:map STATION_ONLY { dr:map-from 7;}
+        dr:map C_VLAN { dr:map-from 8;}
+        dr:map S_VLAN { dr:map-from 9;}
+        dr:map TWO_PORT_MAC_RELAY { dr:map-from 10;}
+        dr:map NO_CAP { dr:map-from *;}
+      }
+      augment "interfaces/interface/neighbors/neighbor/capabilities/capability/state/enabled" {
+        dr:source "neighbor_sys_cap_enabled_status";
+        dr:fieldnum 90;
+      }
+    }
+   }
+
+  grouping lldp_config_group {
+    uses oc-lldp:lldp-config {
+      augment "enabled" {
+        dr:source "global_lldp_enable_status";
+        dr:fieldnum 91;
+        dr:source-notification-name "lldp-enable-status-chng";
+      }
+      augment "hello-timer" {
+        dr:source "global_hello_timer";
+        dr:fieldnum 92;
+        dr:source-notification-name "lldp-hello-timer-chng";
+      }
+      augment "suppress-tlv-advertisement" {
+        dr:source "global_suppress_tlv_advertisement";
+        dr:fieldnum 93;
+        dr:source-notification-name "lldp-suppress-tlv-advertisement-chng";
+      }
+    }
+  }
+
+
+  grouping lldp_system_info_group {
+    uses oc-lldp:lldp-system-info-config {
+      augment "system-name" {
+        dr:source "local_sys_name";
+        dr:fieldnum 51;
+        dr:source-notification-name "lldp-sys-name-chng";
+      }
+      augment "system-description" {
+        dr:source "local_sys_desc";
+        dr:fieldnum 52;
+        dr:source-notification-name "lldp-sys-desc-chng";
+      }
+      augment "chassis-id" {
+        dr:source "local_chassis_id";
+        dr:fieldnum 53;
+        dr:source-notification-name "lldp-chassis-id-chng";
+      }
+      augment "chassis-id-type" {
+        dr:source "local_chassis_id_subtype";
+        dr:fieldnum 54;
+        dr:source-notification-name "lldp-chassis-id-type-chng";
+        dr:map CHASSIS_COMPONENT { dr:map-from 1;}
+        dr:map INTERFACE_ALIAS { dr:map-from 2;}
+        dr:map PORT_COMPONENT { dr:map-from 3;}
+        dr:map MAC_ADDRESS { dr:map-from 4;}
+        dr:map NETWORK_ADDRESS { dr:map-from 5;}
+        dr:map INTERFACE_NAME { dr:map-from 6;}
+        dr:map LOCAL { dr:map-from 7;} 
+      }
+    }
+    uses jnx-oc-lldp:jnx-global-dest-mac-type {
+      augment "jnx-global-dest-mac-type" {
+        dr:source "global_dest_mac_type";
+        dr:fieldnum 95;
+        dr:source-notification-name "lldp-jnx-global-dest-mac-type-chng";
+      }
+    }
+  }
+
+  grouping lldp_global_counters_group {
+    uses oc-lldp:lldp-state {
+
+      augment "counters" {
+        dr:fieldnum 151;
+      }
+      augment "counters/frame-in" {
+        dr:zero-suppressed;
+        dr:source "global_in_frame_counter";
+        dr:fieldnum 51;
+      }
+      augment "counters/frame-out" {
+        dr:zero-suppressed;
+        dr:source "global_out_frame_counter";
+        dr:fieldnum 52;
+      }
+      augment "counters/frame-error-in" {
+        dr:zero-suppressed;
+        dr:source "global_error_frame_counter";
+        dr:fieldnum 53;
+      }
+      augment "counters/frame-discard" {
+        dr:zero-suppressed;
+        dr:source "global_discard_frame_counter";
+        dr:fieldnum 54;
+      }
+      augment "counters/tlv-discard" {
+        dr:zero-suppressed;
+        dr:source "global_discard_tlv_counter";
+        dr:fieldnum 55;
+      }
+      augment "counters/tlv-unknown" {
+        dr:zero-suppressed;
+        dr:source "global_unknown_tlv_counter";
+        dr:fieldnum 56;
+      }
+      augment "counters/last-clear" {
+        dr:source "global_counter_last_clear_time";
+        dr:fieldnum 57;
+      }
+      augment "counters/tlv-accepted" {
+        dr:zero-suppressed;
+        dr:source "global_accepted_tlv_counter";
+        dr:fieldnum 58;
+      }
+      augment "counters/entries-aged-out" {
+        dr:zero-suppressed;
+        dr:source "global_aged_out_entries_counter";
+        dr:fieldnum 59;
+      }
+    }
+  }
+
+  dr:command-app "l2cpd";
+  dr:sub-component "l2cp";
+  jnpr-proto:message-id "L2CPD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-lldp-information";
+    dr:command-full-name "request l2cpd lldp juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+    output {
+      container lldp {
+        dr:fieldnum 151;
+         container state {
+           dr:source "/l2cpd/lldp";
+           dr:fieldnum 151;
+           uses lldp_config_group;
+           uses lldp_system_info_group;
+           uses lldp_global_counters_group;
+           leaf loc-port-id-type {
+             type oc-lldp-types:port-id-type;
+             description
+               "The type of port identifier encoding used in the associated
+               'lldpLocPortId' object.Refered from the lldp standard mib";
+         
+             dr:source "local_port_id_subtype";
+             dr:fieldnum 101;
+             dr:source-notification-name "lldp-port-id-type-chng";
+             dr:map INTERFACE_ALIAS { dr:map-from 1;}
+             dr:map PORT_COMPONENT { dr:map-from 2;}
+             dr:map MAC_ADDRESS { dr:map-from 3;}
+             dr:map NETWORK_ADDRESS { dr:map-from 4;}
+             dr:map INTERFACE_NAME { dr:map-from 5;}
+             dr:map AGENT_CIRCUIT_ID { dr:map-from 6;}
+             dr:map LOCAL { dr:map-from 7;}
+           }
+         }
+         uses lldp_interface_config_group;
+      }
+    }
+  }
+
+  notification oc-lldp-chassis-id-type-chng {
+    dr:source-notification-name "lldp-chassis-id-type-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-chassis-id-type-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/chassis-id-type" {
+          dr:source "local_chassis_id_subtype";
+          dr:fieldnum 54;
+          dr:map CHASSIS_COMPONENT { dr:map-from 1;}
+          dr:map INTERFACE_ALIAS { dr:map-from 2;}
+          dr:map PORT_COMPONENT { dr:map-from 3;} 
+          dr:map MAC_ADDRESS { dr:map-from 4;}
+          dr:map NETWORK_ADDRESS { dr:map-from 5;}
+          dr:map INTERFACE_NAME { dr:map-from 6;}
+          dr:map LOCAL { dr:map-from 7;} 
+      }
+    }
+  }
+
+  notification oc-lldp-chassis-id-chng {
+    dr:source-notification-name "lldp-chassis-id-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-chassis-id-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/chassis-id" {
+          dr:source "local_chassis_id";
+          dr:fieldnum 53;
+      }
+    }
+  }
+
+  notification oc-lldp-sys-name-chng {
+    dr:source-notification-name "lldp-sys-name-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-sys-name-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/system-name" {
+          dr:source "local_sys_name";
+          dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification oc-lldp-sys-desc-chng {
+    dr:source-notification-name "lldp-sys-desc-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-sys-desc-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/system-description" {
+          dr:source "local_sys_desc";
+          dr:fieldnum 52;
+      }
+    }
+  }
+
+  notification oc-lldp-port-id-type-chng {
+    dr:source-notification-name "lldp-port-id-type-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-port-id-type-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+        dr:fieldnum 151;
+        leaf loc-port-id-type {
+          type string;
+          dr:source "local_port_id_subtype";
+          dr:fieldnum 101;
+          dr:map INTERFACE_ALIAS { dr:map-from 1;} 
+          dr:map PORT_COMPONENT { dr:map-from 2;} 
+          dr:map MAC_ADDRESS { dr:map-from 3;} 
+          dr:map NETWORK_ADDRESS { dr:map-from 4;} 
+          dr:map INTERFACE_NAME { dr:map-from 5;} 
+          dr:map AGENT_CIRCUIT_ID { dr:map-from 6;} 
+          dr:map LOCAL { dr:map-from 7;} 
+        }
+      }
+    }
+  }
+
+  notification oc-lldp-enable-status-chng {
+    dr:source-notification-name "lldp-enable-status-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-enable-status-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/enabled" {
+          dr:source "global_lldp_enable_status";
+          dr:fieldnum 91;
+      }
+    }
+  }
+
+  notification oc-lldp-hello-timer-chng {
+    dr:source-notification-name "lldp-hello-timer-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-hello-timer-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/hello-timer" {
+          dr:source "global_hello_timer";
+          dr:fieldnum 92;
+      }
+    }
+  }
+
+  notification oc-lldp-intf-chng {
+    dr:source-notification-name "lldp-intf-chng";
+    uses oc-lldp:lldp-top {  
+      augment "lldp" {
+         dr:source "/notification/lldp-intf-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+      }
+      augment "lldp/interfaces/interface/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/state/name" {
+          dr:fieldnum 53;
+      }
+      augment "lldp/interfaces/interface/state/enabled" {
+          dr:source "interface_lldp_enable_status";
+          dr:fieldnum 54;
+      }
+      augment "lldp/interfaces/interface/state" {
+        leaf loc-port-id {
+          type string;
+          dr:source "interface_port_id";
+          dr:fieldnum 55;
+        }
+      }
+      augment "lldp/interfaces/interface/state" {
+        leaf loc-port-description {
+          type string;
+          dr:source "interface_desc";
+          dr:fieldnum 56;
+        }
+      }
+      augment "lldp/interfaces/interface/state" {
+        uses jnx-oc-lldp:jnx-local-dest-mac-type {
+          augment "jnx-local-dest-mac-type" {
+            dr:source "local_dest_mac_type";
+            dr:fieldnum 94;
+          }
+        }
+      }
+      augment "lldp/interfaces/interface/state/counters" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/state/counters/frame-in" {
+        dr:source "interface_in_frame_counter";
+        dr:fieldnum 57;
+      }
+      augment "lldp/interfaces/interface/state/counters/frame-out" {
+        dr:source "interface_out_frame_counter";
+        dr:fieldnum 58;
+      }
+      augment "lldp/interfaces/interface/state/counters/frame-error-in" {
+        dr:source "interface_in_error_frame_counter";
+        dr:fieldnum 59;
+      }
+      augment "lldp/interfaces/interface/state/counters/frame-discard" {
+        dr:source "interface_discard_frame_counter";
+        dr:fieldnum 60;
+      }
+      augment "lldp/interfaces/interface/state/counters/tlv-discard" {
+        dr:source "interface_discard_tlv_counter";
+        dr:fieldnum 61;
+      }
+      augment "lldp/interfaces/interface/state/counters/tlv-unknown" {
+        dr:source "interface_unknown_tlv_counter";
+        dr:fieldnum 62;
+      }
+      augment "lldp/interfaces/interface/state/counters/last-clear" {
+        dr:source "interface_counter_last_clear_time";
+        dr:fieldnum 63;
+      }
+      augment "lldp/interfaces/interface/state/counters/frame-error-out" {
+        dr:source "interface_in_error_frame_counter";
+        dr:fieldnum 64;
+      }
+    }
+  }
+
+  notification oc-lldp-neighbor-chng {
+    dr:source-notification-name "lldp-neighbor-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+         dr:source "/notification/lldp-neighbor-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+      }
+      augment "lldp/interfaces/interface/neighbors" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor" {
+          dr:source "neighbor";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/id" {
+          dr:source "neighbor_msap_id";
+          dr:fieldnum 66;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/id" {
+          dr:fieldnum 71;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/chassis-id-type" {
+          dr:source "neighbor_chassis_id_subtype";
+          dr:fieldnum 70;
+          dr:map CHASSIS_COMPONENT { dr:map-from 1;}
+          dr:map INTERFACE_ALIAS { dr:map-from 2;}
+          dr:map PORT_COMPONENT { dr:map-from 3;} 
+          dr:map MAC_ADDRESS { dr:map-from 4;}
+          dr:map NETWORK_ADDRESS { dr:map-from 5;}
+          dr:map INTERFACE_NAME { dr:map-from 6;}
+          dr:map LOCAL { dr:map-from 7;} 
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/chassis-id" {
+          dr:source "neighbor_chassis_id";
+          dr:fieldnum 69;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/port-id-type" {
+          dr:source "neighbor_port_id_subtype";
+          dr:fieldnum 75;
+          dr:map INTERFACE_ALIAS { dr:map-from 1;}
+          dr:map PORT_COMPONENT { dr:map-from 2;}
+          dr:map MAC_ADDRESS { dr:map-from 3;}
+          dr:map NETWORK_ADDRESS { dr:map-from 4;}
+          dr:map INTERFACE_NAME { dr:map-from 5;}
+          dr:map AGENT_CIRCUIT_ID { dr:map-from 6;}
+          dr:map LOCAL { dr:map-from 7;}
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/age" {
+        dr:source "neighbor_age";
+        dr:fieldnum 72;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/last-update" {
+        dr:source "neighbor_last_update";
+        dr:fieldnum 73;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/port-id" {
+          dr:source "neighbor_port_id";
+          dr:fieldnum 74;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/port-description" {
+          dr:source "neighbor_port_desc";
+          dr:fieldnum 76;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/system-name" {
+          dr:source "neighbor_sys_name";
+          dr:fieldnum 67;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/system-description" {
+          dr:source "neighbor_sys_desc";
+          dr:fieldnum 68;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/management-address-type" {
+          dr:source "neighbor_man_addr_subtype";
+          dr:fieldnum 78;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/state/management-address" {
+          dr:source "neighbor_man_addr";
+          dr:fieldnum 77;
+      }
+    }
+  }
+
+  notification oc-lldp-neighbor-custom-tlvs-chnge {
+    dr:source-notification-name "lldp-neighbor-custom-tlvs-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+         dr:source "/notification/lldp-neighbor-custom-tlvs-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+      }
+      augment "lldp/interfaces/interface/neighbors" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor" {
+          dr:source "neighbor";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/id" {
+          dr:source "neighbor_msap_id";
+          dr:fieldnum 66;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv" {
+          dr:source "tlv";
+          dr:fieldnum 79;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/type" {
+          dr:source "type";
+          dr:fieldnum 80;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui" {
+          dr:source "oui";
+          dr:fieldnum 81;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui-subtype" {
+          dr:source "subtype";
+          dr:fieldnum 82;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state" {
+        dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/type" {
+        dr:source "type";
+        dr:fieldnum 83;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui" {
+        dr:source "oui";
+        dr:fieldnum 84;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui-subtype" {
+        dr:source "subtype";
+        dr:fieldnum 85;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/value" {
+        dr:source "value";
+        dr:fieldnum 86;
+      }
+    }
+  }
+
+  notification oc-lldp-neighbor-caps-chng {
+    dr:source-notification-name "lldp-neighbor-caps-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+         dr:source "/notification/lldp-neighbor-caps-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+      }
+      augment "lldp/interfaces/interface/neighbors" {
+          dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor" {
+          dr:source "neighbor";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/id" {
+          dr:source "neighbor_msap_id";
+          dr:fieldnum 66;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities" {
+          dr:fieldnum 153;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities/capability" {
+          dr:source "capabilities";
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/name" {
+          dr:source "neighbor_sys_cap_type";
+          dr:fieldnum 88;
+          dr:map OTHER { dr:map-from 0;}
+          dr:map REPEATER { dr:map-from 1;}
+          dr:map MAC_BRIDGE { dr:map-from 2;}
+          dr:map WLAN_ACCESS_POINT { dr:map-from 3;}
+          dr:map ROUTER { dr:map-from 4;}
+          dr:map TELEPHONE { dr:map-from 5;}
+          dr:map DOCSIS_CABLE_DEVICE { dr:map-from 6;}
+          dr:map STATION_ONLY { dr:map-from 7;}
+          dr:map C_VLAN { dr:map-from 8;}
+          dr:map S_VLAN { dr:map-from 9;}
+          dr:map TWO_PORT_MAC_RELAY { dr:map-from 10;}
+          dr:map NO_CAP { dr:map-from *;}
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state/name" {
+          dr:fieldnum 89;
+      }
+      augment "lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state/enabled" {
+          dr:source "neighbor_sys_cap_enabled_status";
+          dr:fieldnum 90;
+      }
+    }
+  }
+
+  notification oc-lldp-suppress-tlv-advertisement-chng {
+    dr:source-notification-name "lldp-suppress-tlv-advertisement-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+         dr:source "/notification/lldp-suppress-tlv-advertisement-chng/l2cpd/lldp";
+         dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+          dr:fieldnum 151;
+      }
+      augment "lldp/state/suppress-tlv-advertisement" {
+            dr:source "global_suppress_tlv_advertisement";
+            dr:fieldnum 93;
+      }
+    }
+  }
+
+  notification oc-lldp-jnx-local-dest-mac-type-chng {
+    dr:source-notification-name "lldp-local-dest-mac-type-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+        dr:source "/notification/lldp-local-dest-mac-type-chng/l2cpd/lldp";
+      dr:fieldnum 151;
+      }
+      augment "lldp/interfaces" {
+        dr:fieldnum 152;
+      }
+      augment "lldp/interfaces/interface" {
+        dr:source "interfaces";
+        dr:fieldnum 151;
+      }
+      augment "lldp/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 52;
+      }
+      augment "lldp/interfaces/interface/state" {
+        dr:fieldnum 151;
+        uses jnx-oc-lldp:jnx-local-dest-mac-type {
+          augment "jnx-local-dest-mac-type" {
+            dr:source "local_dest_mac_type";
+            dr:fieldnum 94;
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lldp-jnx-global-dest-mac-type-chng {
+    dr:source-notification-name "lldp-global-dest-mac-type-chng";
+    uses oc-lldp:lldp-top {
+      augment "lldp" {
+        dr:source "/notification/lldp-global-dest-mac-type-chng/l2cpd/lldp";
+        dr:fieldnum 151;
+      }
+      augment "lldp/state" {
+        dr:fieldnum 151;
+        uses jnx-oc-lldp:jnx-global-dest-mac-type {
+          augment "jnx-global-dest-mac-type" {
+            dr:source "global_dest_mac_type";
+            dr:fieldnum 95;
+          }
+        }
+      }
+    }
+  }
+}

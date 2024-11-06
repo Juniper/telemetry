@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_pfe_239 jnpr_components_pfe_239_ext = 239;
+}
+
+message components_pfe_239 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional string type = 52;
+      optional string parent = 53;
+      optional state_type state = 151;
+      message state_type {
+         optional string type = 51;
+         optional string parent = 52;
+      }
+      optional subcomponents_type subcomponents = 152;
+      message subcomponents_type {
+         message subcomponent_list {
+            optional string name = 51;
+         }
+         repeated subcomponent_list subcomponent = 151;
+      }
+      optional integrated_circuit_type integrated_circuit = 153;
+      message integrated_circuit_type {
+         optional state_type state = 151;
+         message state_type {
+            optional uint64 node_id = 51;
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

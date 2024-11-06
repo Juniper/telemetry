@@ -1,0 +1,602 @@
+/*
+ * Render tree for L2ALD Forwarding Database  
+ *
+ * Sep 2019, Mohammad Mustaq 
+ *
+ * Copyright (c) 2019-24, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module l2ald_fdb_render {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/l2ald_fdb";
+
+  prefix "fdb";
+
+  import drend {
+      prefix dr;
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+  description  "Example of L2ALD MAC and MAC-IP table";
+
+  // meta data 
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping l2ni-fdb-mac-info {
+    container mac-table-info {
+      dr:fieldnum 171;
+      dr:source "mac_db";
+      dr:source-notification-name "mac-table-info-change";
+      description
+        "Parameters relating to FDB behaviour relating to MAC
+         addresses";
+
+    leaf learning {
+      type boolean;
+      dr:source "learning_enable"; 
+      dr:fieldnum 71;
+      description
+        "When this leaf is set to true, MAC learning is enabled for
+        the network instance, such that MAC addresses are learned
+        from ingress frames and added to the FDB.";
+    }
+
+    leaf aging-time {
+      type uint32;
+      units seconds;
+      dr:source "aging_time";
+      dr:fieldnum 72;
+      description
+        "The number of seconds of inactivity after which the entry
+        in the local FDB is timed out.";
+    }
+
+    leaf table-size {
+      type uint32;
+      dr:fieldnum 73;
+      dr:source "table_size";
+      description
+        "The maximum number of MAC address entries that should be
+        accepted into the FDB";
+    }
+
+    leaf num-local-entries {
+      type uint32;
+      dr:fieldnum 74;
+      dr:source "num_local_entries";
+      description
+        "The number of local MAC entries learned in the FDB";
+    }
+
+   }
+  }
+
+  typedef mac-event-type {
+    type enumeration {
+      enum LOCAL-ADD {
+        description
+          "Mac entry added";
+      }
+      enum LOCAL-DELETE {
+        description
+          "MAC entry deleted";
+      }
+      enum LOCAL-IFL-CHANGE {
+        description
+          "Mac move between local interface";
+      }
+    }
+    description
+      "Indicates whether the entry was locally learned, deleted or moved."; 
+  }
+
+  grouping l2ni-mac-entry-state {
+    description
+      "Operational state data for MAC table entries";
+
+    leaf mac-address {
+      type string;
+      dr:fieldnum 51;
+      dr:source "mac_address";
+      description
+        "MAC address for the dynamic or static MAC table
+        entry";
+    }
+
+    leaf vlan-id {
+      type uint32;
+      dr:source "vid";
+      dr:fieldnum 52;
+      description
+        "VLAN id from which this MAC address was received";
+    }
+
+    leaf vni {
+      type uint32;
+      dr:source "vni_id";
+      dr:fieldnum 53;
+      description
+        "VXLAN VNI id from which this MAC address was received";
+    }
+
+    leaf vlan-name {
+      type string;
+      dr:source "vlan_name";
+      dr:fieldnum 54;
+      description
+        "VLAN name from which this MAC address was received";
+    }
+
+    leaf interface {
+      type string;
+      dr:source "src_interface";
+      dr:fieldnum 55;
+      description
+        "Reference to the base and/or subinterface for the
+         MAC table entry";
+    }
+
+    leaf entry-type {
+      type entry-type;
+      dr:source "entry_type";
+      dr:fieldnum 56;
+      dr:map STATIC  { dr:map-from 0; }
+      dr:map DYNAMIC  { dr:map-from 1; }
+      description
+        "Indicates whether the entry was statically configured, or
+        dynamically learned.";
+    }
+
+    leaf event-type {
+      type mac-event-type;
+      dr:source "event_type";
+      dr:fieldnum 57;
+      dr:map LOCAL-ADD  { dr:map-from 1; }
+      dr:map LOCAL-DELETE { dr:map-from 3; }
+      dr:map LOCAL-IFL-CHANGE { dr:map-from 4; }
+      default LOCAL-ADD;
+      description
+        "Indicates whether the entry was locally learned, deleted or moved."; 
+    }
+
+    leaf ethernet-tag-id {
+      type uint32; 
+      dr:source "vni_id"; 
+      dr:fieldnum 58;
+      description
+        "Ethernet Tag Id VLAN/VNI used in EVPN MPLS/VXLAN";
+    }
+
+    leaf active-source {
+      type string;
+      dr:source "active_source";
+      dr:fieldnum 59;
+      description
+        "IP address or Ethernet segment identifier (ESI) of remote entity on which MAC address is learned";
+    }
+
+  }
+
+  grouping l2ni-mac-table-top {
+    description
+      "Top-level grouping for MAC table list";
+
+    container mac-table {
+      dr:fieldnum 151;
+      dr:source "mac_db";
+      description
+        "Table of learned or statically configured MAC addresses and
+        corresponding VLANs in the bridge domain";
+
+      container entries {
+        dr:fieldnum 151;
+        dr:source "entries";
+        description
+          "Enclosing container for list of MAC table entries";
+
+        list entry {
+          key "vlan-name";
+          //unique "mac-address vlan-name";
+          dr:fieldnum 151;
+          dr:source "entry";
+          dr:source-notification-name "mac-address-change";
+          description
+            "List of learned MAC addresses";
+
+          uses l2ni-mac-entry-state;
+
+        }
+      }
+    }
+  }
+
+  // MAC IP  
+  grouping l2ni-fdb-macip-info {
+    container macip-table-info {
+      dr:fieldnum 181;
+      dr:source "macip_db";
+      description
+        "Parameters relating to FDB behaviour relating to MACIP
+         addresses";
+
+    leaf learning {
+      type boolean;
+      dr:source "learning_enable"; 
+      dr:fieldnum 81;
+      description
+        "When this leaf is set to true, MACIP learning is enabled for
+        the network instance, such that MACIP addresses are learned
+        from ingress frames and added to the FDB.";
+    }
+
+    leaf aging-time {
+      type uint32;
+      units seconds;
+      dr:source "aging_time";
+      dr:fieldnum 82;
+      description
+        "The number of seconds of inactivity after which the entry
+        in the local FDB is timed out.";
+    }
+
+    leaf table-size {
+      type uint32;
+      dr:fieldnum 83;
+      dr:source "table_size";
+      description
+        "The maximum number of MACIP address entries that should be
+        accepted into the FDB";
+    }
+
+    leaf proxy-macip {
+      type boolean;
+      dr:fieldnum 84;
+      dr:source "proxy_macip";
+      dr:map Enabled { dr:map-from 1; }
+      dr:map Disabled { dr:map-from 0; }
+      description
+        "Proxy MAC IP learning enabled ";
+    }
+
+    leaf num-local-entries {
+      type uint32;
+      dr:fieldnum 85;
+      dr:source "num_local_entries";
+      description
+        "The number of local MACIP entries learned in the FDB";
+    }
+
+   }
+  }
+
+  typedef entry-type {
+    type enumeration {
+      enum STATIC {
+        description
+          "Statically programmed MAC table entry";
+      }
+      enum DYNAMIC {
+        description
+          "Dynamically learned MAC table entry";
+      }
+    }
+    description
+      "Indicates whether the entry was statically configured, or
+        dynamically learned."; 
+  }
+
+  typedef macip-entry-type {
+    type enumeration {
+      enum STATIC {
+        description
+          "Statically programmed MACIP table entry";
+      }
+      enum DYNAMIC {
+        description
+          "Dynamically learned MACIP table entry";
+      }
+      enum VIRTUAL-GATEWAY {
+        description
+          "Virtual Gateway learned MACIP table entry";
+      }
+      enum LOCAL-GATEWAY {
+        description
+          "Local IRB learned MACIP table entry";
+      }
+    }
+    description
+      "Indicates whether the entry was statically configured, or
+        dynamically learned."; 
+  }
+
+  typedef macip-event-type {
+    type enumeration {
+      enum LOCAL-ADD {
+        description
+          "Mac-ip entry added";
+      }
+      enum LOCAL-DELETE {
+        description
+          "Mac-ip entry deleted";
+      }
+      enum LOCAL-IFL-CHANGE {
+        description
+          "Mac-ip move between local interface";
+      }
+    }
+    description
+      "Indicates whether the entry was locally learned, deleted or moved."; 
+  }
+
+  grouping l2ni-macip-entry-state {
+    description
+      "Operational state data for MACIP table entries";
+
+    leaf ip-address {
+      type string;
+      dr:fieldnum 51;
+      dr:source "ip_address";
+      description
+        "IP address for the dynamic or static MACIP table
+        entry";
+    }
+
+    leaf mac-address {
+      type string;
+      dr:fieldnum 52;
+      dr:source "mac_address";
+      description
+        "MAC address for the dynamic or static MACIP table
+        entry";
+    }
+
+    leaf vlan-id {
+      type uint32;
+      dr:source "vid";
+      dr:fieldnum 53;
+      description
+        "VLAN id from which this MACIP address was received";
+    }
+
+    leaf vni {
+      type uint32;
+      dr:source "vni_id";
+      dr:fieldnum 54;
+      description
+        "VXLAN VNI id from which this MACIP address was received";
+    }
+
+    leaf vlan-name {
+      type string;
+      dr:source "vlan_name";
+      dr:fieldnum 55;
+      description
+        "VLAN name from which this MACIP address was received";
+    }
+
+    leaf interface {
+      type string;
+      dr:source "src_interface";
+      dr:fieldnum 56;
+      description
+        "Reference to the base and/or subinterface for the
+         MACIP table entry";
+    }
+
+    leaf l3-interface {
+      type string;
+      dr:source "irb_interface";
+      dr:fieldnum 57;
+      description
+        "Reference to the IRB interface for the
+         MACIP table entry";
+    }
+
+    leaf entry-type {
+      type macip-entry-type;
+      dr:source "entry_type";
+      dr:fieldnum 58;
+      dr:map STATIC  { dr:map-from 0; }
+      dr:map DYNAMIC  { dr:map-from 1; }
+      dr:map VIRTUAL-GATEWAY  { dr:map-from 2; }
+      dr:map LOCAL-GATEWAY  { dr:map-from 3; }
+      description
+        "Indicates whether the entry was statically configured, or
+        dynamically learned.";
+    }
+
+    leaf event-type {
+      type macip-event-type;
+      dr:source "event_type";
+      dr:fieldnum 59;
+      dr:map LOCAL-ADD  { dr:map-from 1; }
+      dr:map LOCAL-DELETE { dr:map-from 3; }
+      dr:map LOCAL-IFL-CHANGE { dr:map-from 4; }
+      description
+        "Indicates last activity on this entry like add, delete, change due to move";
+    }
+
+    leaf ethernet-tag-id {
+      type uint32; 
+      dr:source "vni_id"; 
+      dr:fieldnum 60;
+      description
+        "Ethernet Tag Id VLAN/VNI used in EVPN MPLS/VXLAN";
+    }
+
+    leaf active-source {
+      type string;
+      dr:source "active_source";
+      dr:fieldnum 61;
+      description
+        "IP address or Ethernet segment identifier (ESI) of remote entity on which MACIP address is learned";
+    }
+
+  }
+
+  grouping l2ni-macip-table-top {
+    description
+      "Top-level grouping for MACIP table list";
+
+    container macip-table {
+      dr:fieldnum 161;
+      dr:source "macip_db";
+      description
+        "Table of learned or statically configured MACIP addresses and
+        corresponding VLANs in the bridge domain";
+
+      container entries {
+        dr:fieldnum 161;
+        dr:source "entries";
+        description
+          "Enclosing container for list of MACIP table entries";
+
+        list entry {
+          key "vlan-name";
+          //unique "ip-address vlan-name";
+          dr:fieldnum 161;
+          dr:source "entry";
+          dr:source-notification-name "macip-address-change";
+          description
+            "List of learned MACIP addresses";
+
+          uses l2ni-macip-entry-state;
+
+        }
+      }
+    }
+  }
+
+  // Daemon that handles this hierarchy
+  dr:command-app "l2ald";
+  dr:sub-component "fdb";
+  jnpr-proto:message-id "L2ALD-FDB-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container network-instances { 
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+              description
+              "Routing instance name";
+          }
+
+          uses l2ni-fdb-mac-info;
+          uses l2ni-mac-table-top;
+
+          uses l2ni-fdb-macip-info;
+          uses l2ni-macip-table-top;
+        }
+      } 
+    }
+  }
+
+   notification mac-address-change {
+     dr:source-notification-name "mac-address-change";
+
+     container network-instances {
+       dr:source "/notification/mac-address-change/rt-instances";
+       dr:fieldnum 151;
+       list network-instance {
+         dr:source "rt-instance";
+         dr:fieldnum 151;
+         key name;
+
+         leaf name {
+           dr:source "instance-name";
+           dr:fieldnum 51;
+           type string;
+         }
+
+         container mac-table {
+           dr:source "mac_db";
+           dr:fieldnum 151;
+
+           container entries {
+             dr:source "entries";
+             dr:fieldnum 151;
+
+             list entry {
+               dr:source "entry";
+               key "vlan-name";
+               dr:fieldnum 151;
+
+               uses l2ni-mac-entry-state;
+             }
+           }
+         }
+       }
+     }
+   }
+
+   notification mac-table-info-change {
+     dr:source-notification-name "mac-table-info-change";
+
+     container network-instances {
+       dr:source "/notification/mac-table-info-change/rt-instances";
+       dr:fieldnum 151;
+       list network-instance {
+         dr:source "rt-instance";
+         dr:fieldnum 151;
+         key name;
+
+         leaf name {
+           dr:source "instance-name";
+           dr:fieldnum 51;
+           type string;
+         }
+         uses l2ni-fdb-mac-info;
+       }
+     }
+   }
+
+   notification macip-address-change {
+     dr:source-notification-name "macip-address-change";
+
+     container network-instances {
+       list network-instance {
+         dr:source "/notification/macip-address-change/rt-instances/rt-instance";
+         dr:fieldnum 151;
+         key name;
+
+         leaf name {
+           dr:source "instance-name";
+           dr:fieldnum 51;
+           type string;
+         }
+
+         container macip-table {
+           dr:source "macip_db";
+           dr:fieldnum 161;
+
+           container entries {
+             dr:source "entries";
+             dr:fieldnum 161;
+
+             list entry {
+               dr:source "entry";
+               key "vlan-name";
+               //unique "ip-address vlan-id";
+               dr:fieldnum 161;
+
+               uses l2ni-macip-entry-state;
+             }
+           }
+         }
+       }
+     }
+   }
+}

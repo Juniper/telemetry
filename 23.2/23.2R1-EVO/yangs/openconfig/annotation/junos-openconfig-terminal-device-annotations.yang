@@ -1,0 +1,73 @@
+module junos-openconfig-terminal-device-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/yang/terminal-device/annotations";
+    prefix "jnx-oc-opt-term-ann";
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-terminal-device { prefix oc-opt-term; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2022-04-05" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:config/oc-opt-term:frequency" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:frequency" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:line-port" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:output-power" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:input-power" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:laser-bias-current" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:chromatic-dispersion" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:osnr" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:esnr" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:carrier-frequency-offset" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:pre-fec-ber" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-xi" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-xq" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-yi" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-yq" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-x-phase" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:modulator-bias-y-phase" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:sop-roc" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:second-order-polarization-mode-dispersion" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-opt-term:optical-channel/oc-opt-term:state/oc-opt-term:polarization-dependent-loss" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+}

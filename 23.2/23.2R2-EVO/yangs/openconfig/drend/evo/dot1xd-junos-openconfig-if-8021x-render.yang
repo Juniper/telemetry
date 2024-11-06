@@ -1,0 +1,626 @@
+module dot1xd-junos-openconfig-if-8021x-render {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/if/8021x/render";
+
+  prefix "jnx-oc-1x-rdr";
+
+  import drend {
+    prefix dr;
+  }
+
+  import openconfig-if-8021x { prefix oc-1x; }
+  import openconfig-interfaces { prefix oc-if; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  grouping dot1xd-vlan-map-top {
+    uses oc-1x:vlan-map-top {
+       augment "dot1x-vlan-map" {
+            dr:fieldnum 153;
+       }
+       augment "dot1x-vlan-map/vlan-name" {
+            dr:source "dot1xd-vlan";
+            dr:fieldnum 153;
+       }
+       augment "dot1x-vlan-map/vlan-name/vlan-name" {
+            dr:source "vlan-name";
+            dr:fieldnum 71;
+       }
+       augment "dot1x-vlan-map/vlan-name/state" {
+            dr:fieldnum 153;
+       }
+       augment "dot1x-vlan-map/vlan-name/state/vlan-name" {
+            dr:source "vlan-name";
+            dr:fieldnum 72;
+            dr:source-notification-name "dot1xd-latest-vlan-name-chng";
+       }
+       augment "dot1x-vlan-map/vlan-name/state/id" {
+            dr:source "vlan-id";
+            dr:fieldnum 73;
+            dr:source-notification-name "dot1xd-latest-vlan-id-chng";
+       }
+    }
+  }
+  grouping dot1xd-state {
+    uses oc-1x:dot1x-top {
+
+      augment "dot1x" {
+        dr:fieldnum 151;
+      }
+      augment "dot1x/state" {
+        dr:fieldnum 151;
+      }
+      augment "dot1x/state/authenticate-port" {
+        dr:source "authenticate-port";
+        dr:fieldnum 53;
+        dr:source-notification-name "dot1xd-latest-authport-change";
+      }
+      augment "dot1x/state/reauthenticate-interval" {
+        dr:source "reauthenticate-interval";
+        dr:fieldnum 54;
+        dr:source-notification-name "dot1xd-latest-reauth-change";
+      }
+      augment "dot1x/state/retransmit-interval" {
+        dr:source "retransmit-interval";
+        dr:fieldnum 55;
+        dr:source-notification-name "dot1xd-latest-retransmit-change";
+      }
+      augment "dot1x/state/supplicant-timeout" {
+        dr:source "supplicant-timeout";
+        dr:fieldnum 56;
+        dr:source-notification-name "dot1xd-latest-supp-timeout-change";
+      }
+      augment "dot1x/state/max-requests" {
+        dr:source "max-requests";
+        dr:fieldnum 57;
+        dr:source-notification-name "dot1xd-latest-max-req-change";
+      }
+      augment "dot1x/state/host-mode" {
+        dr:source "host-mode";
+        dr:fieldnum 58;
+        dr:map SINGLE_HOST { dr:map-from 0;}
+        dr:map MULTI_HOST { dr:map-from 1;}
+        dr:map MULTI_DOMAIN { dr:map-from 2;}
+        dr:source-notification-name "dot1xd-latest-host-mode-change";
+      }
+      augment "dot1x/state/auth-fail-vlan" {
+        dr:source "auth-fail-vlan";
+        dr:fieldnum 59;
+        dr:source-notification-name "dot1xd-latest-authfail-vlan-change";
+      }
+      augment "dot1x/state/server-fail-vlan" {
+        dr:source "server-fail-vlan";
+        dr:fieldnum 60;
+        dr:source-notification-name "dot1xd-latest-serverfail-vlan-change";
+      }
+
+       augment "authenticated-sessions" {
+            dr:fieldnum 152;
+       }
+        augment "authenticated-sessions/authenticated-session" {
+            dr:source "authenticated-session";
+            dr:fieldnum 152;
+        }
+
+        augment "authenticated-sessions/authenticated-session/mac" {
+            dr:fieldnum 63;
+            dr:source  "mac";
+        }
+        augment "authenticated-sessions/authenticated-session/state" {
+            dr:fieldnum 152;
+        }
+        augment "authenticated-sessions/authenticated-session/state/mac" {
+            dr:fieldnum 64;
+            dr:source  "mac";
+            dr:source-notification-name "dot1xd-latest-auth-mac-chng";
+        }
+        augment "authenticated-sessions/authenticated-session/state/session-id" {
+            dr:fieldnum 65;
+            dr:source  "session-id";
+            dr:source-notification-name "dot1xd-latest-auth-session-id-chng";
+        }
+        augment "authenticated-sessions/authenticated-session/state/status" {
+            dr:fieldnum 66;
+            dr:source  "status";
+            dr:map AUTHENTICATING { dr:map-from 0;}
+            dr:map AUTHENTICATED { dr:map-from 1;}
+            dr:map FAILED_AUTHENTICATION { dr:map-from 2;}
+            dr:source-notification-name "dot1xd-latest-auth-state-chng";
+        }
+    }
+  }
+
+dr:command-app "dot1xd";
+dr:sub-component "pnac";
+jnpr-proto:message-id "8021X-OC-MESSAGE-ID";
+
+ rpc juniper-netconf-get {
+   dr:command-top-of-output "/oc-dot1xd-information";
+   dr:command-full-name "request dot1xd macsec juniper-netconf-get";
+   dr:command-help "Default <get> rpc";
+   output {
+        container interfaces {
+          list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/dot1xd/interface";
+
+            leaf name {
+              type string;
+              dr:fieldnum 52;
+              dr:source "interface_name";
+            }
+
+            container ethernet {
+              dr:fieldnum 151;
+              uses dot1xd-state;
+              container switched-vlan{
+                dr:fieldnum 153;
+                uses dot1xd-vlan-map-top;
+              }
+            }
+         }
+       }
+   }
+ }
+
+notification oc-dot1xd-latest-vlan-name-chng {
+    dr:source-notification-name "dot1xd-latest-vlan-name-chng";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-vlan-name-chng/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                container switched-vlan {
+                    dr:fieldnum 153;
+                    uses oc-1x:vlan-map-top {
+                       augment "dot1x-vlan-map" {
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name" {
+                            dr:source "dot1xd-vlan";
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/vlan-name" {
+                            dr:source "vlan-name";
+                            dr:fieldnum 71;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/state" {
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/state/vlan-name" {
+                            dr:source "vlan-name";
+                            dr:fieldnum 72;
+                       }
+                    }
+
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-vlan-id-chng {
+    dr:source-notification-name "dot1xd-latest-vlan-id-chng";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-vlan-id-chng/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                container switched-vlan {
+                    dr:fieldnum 153;
+                    uses oc-1x:vlan-map-top {
+                       augment "dot1x-vlan-map" {
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name" {
+                            dr:source "dot1xd-vlan";
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/vlan-name" {
+                            dr:source "vlan-name";
+                            dr:fieldnum 71;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/state" {
+                            dr:fieldnum 153;
+                       }
+                       augment "dot1x-vlan-map/vlan-name/state/id" {
+                            dr:source "vlan-id";
+                            dr:fieldnum 73;
+                       }
+                    }
+
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-authport-change {
+    dr:source-notification-name "dot1xd-latest-authport-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-authport-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/authenticate-port" {
+                      dr:source "authenticate-port";
+                      dr:fieldnum 53;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-reauth-change {
+    dr:source-notification-name "dot1xd-latest-reauth-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-reauth-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/reauthenticate-interval" {
+                        dr:source "reauthenticate-interval";
+                        dr:fieldnum 54;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-retransmit-change {
+    dr:source-notification-name "dot1xd-latest-retransmit-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-retransmit-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/retransmit-interval" {
+                      dr:source "retransmit-interval";
+                      dr:fieldnum 55;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-supp-timeout-change {
+    dr:source-notification-name "dot1xd-latest-supp-timeout-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-supp-timeout-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/supplicant-timeout" {
+                      dr:source "supplicant-timeout";
+                      dr:fieldnum 56;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-max-req-change {
+    dr:source-notification-name "dot1xd-latest-max-req-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-max-req-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/max-requests" {
+                      dr:source "max-requests";
+                      dr:fieldnum 57;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-host-mode-change {
+    dr:source-notification-name "dot1xd-latest-host-mode-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-host-mode-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/host-mode" {
+                      dr:source "host-mode";
+                      dr:fieldnum 58;
+                      dr:map SINGLE_HOST { dr:map-from 0;}
+                      dr:map MULTI_HOST { dr:map-from 1;}
+                      dr:map MULTI_DOMAIN { dr:map-from 2;}
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-authfail-vlan-change {
+    dr:source-notification-name "dot1xd-latest-authfail-vlan-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-authfail-vlan-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/auth-fail-vlan" {
+                      dr:source "auth-fail-vlan";
+                      dr:fieldnum 59;
+                    }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-serverfail-vlan-change {
+    dr:source-notification-name "dot1xd-latest-serverfail-vlan-change";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-serverfail-vlan-change/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                    augment "dot1x" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state" {
+                        dr:fieldnum 151;
+                    }
+                    augment "dot1x/state/server-fail-vlan" {
+                      dr:source "server-fail-vlan";
+                      dr:fieldnum 60;
+                    }
+                }
+            }
+        }
+    }
+}
+
+notification oc-dot1xd-latest-auth-state-chng {
+    dr:source-notification-name "dot1xd-latest-auth-state-chng";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-auth-state-chng/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                augment "authenticated-sessions" {
+                     dr:fieldnum 152;
+                }
+                 augment "authenticated-sessions/authenticated-session" {
+                     dr:source "authenticated-session";
+                     dr:fieldnum 152;
+                 }
+                 augment "authenticated-sessions/authenticated-session/mac" {
+                     dr:fieldnum 63;
+                     dr:source  "mac";
+                 }
+                 augment "authenticated-sessions/authenticated-session/state" {
+                     dr:fieldnum 152;
+                 }
+                 augment "authenticated-sessions/authenticated-session/state/status" {
+                     dr:fieldnum 66;
+                     dr:source  "status";
+                     dr:map AUTHENTICATING { dr:map-from 0;}
+                     dr:map AUTHENTICATED { dr:map-from 1;}
+                     dr:map FAILED_AUTHENTICATION { dr:map-from 2;}
+                 }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-auth-mac-chng {
+    dr:source-notification-name "dot1xd-latest-auth-mac-chng";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-auth-mac-chng/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                augment "authenticated-sessions" {
+                     dr:fieldnum 152;
+                }
+                 augment "authenticated-sessions/authenticated-session" {
+                     dr:source "authenticated-session";
+                     dr:fieldnum 152;
+                 }
+                 augment "authenticated-sessions/authenticated-session/mac" {
+                     dr:fieldnum 63;
+                     dr:source  "mac";
+                 }
+                 augment "authenticated-sessions/authenticated-session/state" {
+                     dr:fieldnum 152;
+                 }
+                 augment "authenticated-sessions/authenticated-session/state/mac" {
+                     dr:fieldnum 64;
+                     dr:source  "mac";
+                }
+                }
+            }
+        }
+    }
+}
+notification oc-dot1xd-latest-auth-session-id-chng {
+    dr:source-notification-name "dot1xd-latest-auth-session-id-chng";
+    container interfaces {
+        list interface {
+            dr:fieldnum 151;
+            key "name";
+            dr:source "/notification/dot1xd-latest-auth-session-id-chng/dot1xd/interface";
+
+            leaf name {
+                type string;
+                dr:fieldnum 52;
+                dr:source "interface_name";
+            }
+            container ethernet {
+                dr:fieldnum 151;
+                uses oc-1x:dot1x-top {
+                augment "authenticated-sessions" {
+                     dr:fieldnum 152;
+                }
+                 augment "authenticated-sessions/authenticated-session" {
+                     dr:source "authenticated-session";
+                     dr:fieldnum 152;
+                 }
+                 augment "authenticated-sessions/authenticated-session/mac" {
+                     dr:fieldnum 63;
+                     dr:source  "mac";
+                 }
+                 augment "authenticated-sessions/authenticated-session/state" {
+                     dr:fieldnum 152;
+                 }
+                augment "authenticated-sessions/authenticated-session/state/session-id" {
+                    dr:fieldnum 65;
+                    dr:source  "session-id";
+                }
+                }
+            }
+        }
+    }
+}
+}

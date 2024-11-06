@@ -1,0 +1,29 @@
+module junos-openconfig-lldp-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/lldp/annotations";
+  prefix "jnx-oc-lldp-ann";
+
+  import openconfig-lldp { prefix oc-lldp; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig system lldp model";
+
+  revision "2022-04-25" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-lldp:lldp" {
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT_TVP(ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t);
+      JUNOS_PRODUCT_TVP(ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t);
+      JUNOS_PRODUCT_TVP(ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+  }
+}

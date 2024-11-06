@@ -1,0 +1,15 @@
+module junos-fabric-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/fabric/annotations";
+    prefix "junos-fabric-ann";
+    import junos-fabric { prefix junos-fabric; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2023-10-20" {
+        description "Initial version to add native fabric sensor list";
+    }
+    augment "/junos-fabric:junos/junos-fabric:system/junos-fabric:linecard/junos-fabric:fabric" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    }
+}

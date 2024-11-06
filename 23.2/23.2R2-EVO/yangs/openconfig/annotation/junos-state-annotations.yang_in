@@ -1,0 +1,28 @@
+module junos-state-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/junos/state/annotations";
+
+    prefix "js-ann";
+
+    import junos-state { prefix js; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2023-02-14" {
+        description "Initial version to add junos state model product support information";
+    }
+
+    augment "/js:state" {
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES EX_SERIES FX_SERIES JSSG_SRX5K PVI_MODEL);
+        JUNOS_PRODUCT(JSSG_SRX5K vsrx);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT_TVP(TVP_EX2300_ALL TVP_EX3400_ALL TVP_EX4100_ALL TVP_EX4300_ALL TVP_EX4400_ALL TVP_EX4650_ALL);
+        JUNOS_PRODUCT_TVP(TVP_QFX5K_ALL TVP_QFX10K_ALL);
+        JUNOS_PRODUCT_TVP(TVP_SRX_ALL TVP_ACX_ALL TVP_MX_ALL);
+    }
+}

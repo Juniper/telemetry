@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_235 jnpr_state_235_ext = 235;
+}
+
+message state_235 {
+   optional system_type system = 151;
+   message system_type {
+      optional anomalies_type anomalies = 151;
+      message anomalies_type {
+         optional fib_type fib = 151;
+         message fib_type {
+            optional route_tables_type route_tables = 151;
+            message route_tables_type {
+               message route_table_list {
+                  optional string name = 151 [(telemetry_options).is_key = true];
+                  optional routes_type routes = 152;
+                  message routes_type {
+                     optional inet_type inet = 151;
+                     message inet_type {
+                        message inet_entry_list {
+                           optional string prefix = 51 [(telemetry_options).is_key = true];
+                           optional string status = 52;
+                           optional uint64 timestamp = 53;
+                           optional string module = 54;
+                        }
+                        repeated inet_entry_list inet_entry = 151;
+                     }
+                     optional inet6_type inet6 = 152;
+                     message inet6_type {
+                        message inet6_entry_list {
+                           optional string prefix = 51 [(telemetry_options).is_key = true];
+                           optional string status = 52;
+                           optional uint64 timestamp = 53;
+                           optional string module = 54;
+                        }
+                        repeated inet6_entry_list inet6_entry = 151;
+                     }
+                  }
+               }
+               repeated route_table_list route_table = 151;
+            }
+         }
+      }
+   }
+}

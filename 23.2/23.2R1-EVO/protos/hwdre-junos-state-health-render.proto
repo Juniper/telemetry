@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_241 jnpr_state_241_ext = 241;
+}
+
+message state_241 {
+   optional chassis_type chassis = 151;
+   message chassis_type {
+      optional modules_type modules = 151;
+      message modules_type {
+         message module_list {
+            optional string name = 51 [(telemetry_options).is_key = true];
+            optional health_type health = 151;
+            message health_type {
+               optional string status = 51;
+               optional uint64 last_unhealthy = 52;
+               optional uint64 unhealthy_count = 53;
+            }
+         }
+         repeated module_list module = 151;
+      }
+   }
+}

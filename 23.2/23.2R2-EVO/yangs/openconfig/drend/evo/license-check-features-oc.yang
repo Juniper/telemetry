@@ -1,0 +1,102 @@
+/*
+ * yang for generating OC equivalent of internal meta tree
+ */
+
+module license-check-features-oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/system/license";
+
+    prefix "license_check_features_oc";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import openconfig-license { prefix oc-license; }
+
+    // meta
+    organization "Juniper Networks, Inc.";
+
+    contact "www.juniper.net";
+
+    grouping system-license-state {
+        uses oc-license:license-top {
+            augment "license" {
+                dr:fieldnum 151;
+            }
+
+            augment "license/licenses" {
+                dr:source "/system/license";
+                dr:fieldnum 151;
+            }
+
+            augment "license/licenses/license" {
+                dr:source "license-key";
+                dr:fieldnum 151;
+            }
+
+            augment "license/licenses/license/license-id" {
+                dr:source "license-id";
+                dr:fieldnum 151;
+            }
+
+            augment "license/licenses/license/state" {
+                dr:fieldnum 152;
+            }
+
+            augment "license/licenses/license/state/license-id" {
+                dr:source "license-id";
+                dr:fieldnum 51;
+            }
+
+            augment "license/licenses/license/state/license-data" {
+                dr:source "license-key";
+                dr:fieldnum 52;
+            }
+
+            augment "license/licenses/license/state/active" {
+                dr:source "active";
+                dr:fieldnum 53;
+            }
+
+            augment "license/licenses/license/state/description" {
+                dr:source "key-feature-description";
+                dr:fieldnum 54;
+            }
+
+            augment "license/licenses/license/state/expiration-date" {
+                dr:source "end-date";
+                dr:fieldnum 55;
+            }
+
+            augment "license/licenses/license/state/in-use" {
+                dr:source "in-use";
+                dr:fieldnum 56;
+            }
+
+            augment "license/licenses/license/state/expired" {
+                dr:source "expired";
+                dr:fieldnum 57;
+            }
+
+            augment "license/licenses/license/state/valid" {
+                dr:source "validity";
+                dr:fieldnum 58;
+            }
+        }
+    }
+
+    // Daemon which handles this hierarchy
+    dr:command-app "license-check";
+    dr:sub-component "license";
+    jnpr-proto:message-id "LICENSE-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+        output {
+            container system {
+                dr:fieldnum 151;
+                uses system-license-state;
+            }
+        }
+    }
+}
+

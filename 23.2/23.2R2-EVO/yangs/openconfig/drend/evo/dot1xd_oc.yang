@@ -1,0 +1,718 @@
+module dot1xd_oc {
+
+  yang-version "1";
+
+  namespace "http://openconfig.net/yang/dot1xd_oc";
+
+  prefix "macsecoc";
+
+  import drend {
+    prefix dr;
+  }
+
+  import openconfig-macsec { prefix oc-macsec; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import jnx-aug-openconfig-macsec { prefix jnx-oc-macsec; }
+
+  grouping macsec-policy-mka-state {
+    uses oc-macsec:macsec-mka-policy-top {
+      augment "policies" {
+        dr:fieldnum 151;
+      }
+      augment "policies/policy" {
+        dr:source "policy";
+        dr:fieldnum 151;
+      }
+      augment "policies/policy/name" {
+        dr:source "policy_name";
+        dr:fieldnum 51;
+      }
+      augment "policies/policy/state" {
+        dr:fieldnum 151;
+      }
+      augment "policies/policy/state/name" {
+        dr:source "policy-state-name";
+        dr:fieldnum 52;
+      }
+      augment "policies/policy/state/key-server-priority" {
+        dr:source "key-server-priority";
+        dr:fieldnum 53;
+      }
+      augment "policies/policy/state/macsec-cipher-suite" {
+        dr:source "macsec-cipher-suite";
+        dr:fieldnum 54;
+        dr:map GCM_AES_128 { dr:map-from 0; }
+        dr:map GCM_AES_256 { dr:map-from 1; }
+        dr:map GCM_AES_XPN_128 { dr:map-from 2; }
+        dr:map GCM_AES_XPN_256 { dr:map-from 3; }
+      }
+      augment "policies/policy/state/confidentiality-offset" {
+        dr:source "confidentiality-offset";
+        dr:fieldnum 55;
+        dr:map 0_BYTES { dr:map-from 0; }
+        dr:map 30_BYTES { dr:map-from 30; }
+        dr:map 50_BYTES { dr:map-from 50; }
+      }
+      augment "policies/policy/state/delay-protection" {
+        dr:source "delay-protection";
+        dr:fieldnum 56;
+      }
+      augment "policies/policy/state/include-icv-indicator" {
+        dr:source "include-icv-indicator";
+        dr:fieldnum 57;
+      }
+      augment "policies/policy/state/sak-rekey-interval" {
+        dr:source "sak-rekey-interval";
+        dr:fieldnum 58;
+      }
+      augment "policies/policy/state/use-updated-eth-header" {
+        dr:source "use-updated-eth-header";
+        dr:fieldnum 59;
+      }
+    }
+  }
+
+  grouping macsec-interface-state-counters {
+    uses oc-macsec:macsec-interface-top {
+      augment "interfaces" {
+        dr:fieldnum 152;   
+      }
+      augment "interfaces/interface" {
+        dr:source "/dot1xd/macsec/interface";
+        dr:fieldnum 151;   
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state" {
+       dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/name" {
+        dr:source "name";
+        dr:fieldnum 106;
+      }
+      augment "interfaces/interface/state/enable" {
+        dr:source "enable";
+        dr:fieldnum 107;
+      }
+      augment "interfaces/interface/state/replay-protection" {
+        dr:zero-suppressed;
+        dr:source "replay-protection";
+        dr:fieldnum 108;
+      }
+      augment "interfaces/interface/state/counters" {
+       dr:fieldnum 151;
+       uses jnx-oc-macsec:macsec_interface_state_tx_sc {
+         augment "jnx-tx-toolong-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-tx-toolong-packets";
+            dr:fieldnum 105;
+          }
+       }
+       uses jnx-oc-macsec:macsec_interface_state_rx_sc {
+         augment "jnx-rx-notag-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-notag-packets";
+            dr:fieldnum 67;
+          }
+         augment "jnx-rx-control-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-control-packets";
+            dr:fieldnum 68;
+          }
+         augment "jnx-rx-tagged-miss-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-tagged-miss-packets";
+            dr:fieldnum 69;
+          }
+         augment "jnx-rx-untagged-hit-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-untagged-hit-packets";
+            dr:fieldnum 70;
+          }
+         augment "jnx-rx-control-pass-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-control-pass-packets";
+            dr:fieldnum 71;
+          }
+         augment "jnx-rx-control-fail-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-control-fail-packets";
+            dr:fieldnum 72;
+          }
+         augment "jnx-rx-uncontrol-pass-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-uncontrol-pass-packets";
+            dr:fieldnum 73;
+          }
+         augment "jnx-rx-uncontrol-fail-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-uncontrol-fail-packets";
+            dr:fieldnum 74;
+          }
+         augment "jnx-rx-hit-dropped-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-hit-dropped-packets";
+            dr:fieldnum 75;
+          }
+         augment "jnx-rx-late-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-late-packets";
+            dr:fieldnum 76;
+          }
+         augment "jnx-rx-delayed-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-delayed-packets";
+            dr:fieldnum 77;
+          }
+         augment "jnx-rx-unchecked-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-unchecked-packets";
+            dr:fieldnum 78;
+          }
+          augment "jnx-rx-notvalid-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-notvalid-packets";
+            dr:fieldnum 79;
+          }
+         augment "jnx-rx-notusing-sa-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-notusing-sa-packets";
+            dr:fieldnum 80;
+          }
+         augment "jnx-rx-unused-sa-packets" {
+            dr:zero-suppressed;
+            dr:source "jnx-rx-unused-sa-packets";
+            dr:fieldnum 81;
+          }
+       }
+      }
+      augment "interfaces/interface/state/counters/tx-untagged-pkts" {
+        dr:zero-suppressed;
+        dr:source "tx-untagged-pkts";
+        dr:fieldnum 104;
+      }
+      augment "interfaces/interface/state/counters/rx-untagged-pkts" {
+        dr:zero-suppressed;
+        dr:source "rx-untagged-pkts";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/state/counters/rx-badtag-pkts" {
+        dr:zero-suppressed;
+        dr:source "rx-badtag-pkts";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/state/counters/rx-unknownsci-pkts" {
+        dr:zero-suppressed;
+        dr:source "rx-unknownsci-pkts";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/state/counters/rx-nosci-pkts" {
+        dr:zero-suppressed;
+        dr:source "rx-nosci-pkts";
+        dr:fieldnum 55;
+      }
+      augment "interfaces/interface/mka" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/mka/state" {
+        dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+         augment "jnx-latest-sak-an" {
+            dr:source "jnx-latest-sak-an";
+            dr:fieldnum 82;
+	    dr:source-notification-name "macsec-latest-sak-an-chng";
+          }
+         augment "jnx-key-server" {
+            dr:source "jnx-key-server";
+            dr:fieldnum 91;
+	    dr:source-notification-name "macsec-interface-ks-chng";
+          }
+         augment "jnx-fail-open-mode" {
+              dr:source "jnx-fail-open-mode";
+              dr:fieldnum 92;
+          }
+         augment "jnx-latest-sak-ki" {
+              dr:source "jnx-latest-sak-ki";
+              dr:fieldnum 93;
+              dr:source-notification-name "macsec-mka-latest-sak-ki-chng";
+          }
+         augment "jnx-cak-type" {
+              dr:source "jnx-cak-type";
+              dr:fieldnum 94;
+              dr:source-notification-name "macsec-mka-cak-type-chng";
+          }
+         augment "jnx-cak-name" {
+              dr:source "jnx-cak-name";
+              dr:fieldnum 95;
+              dr:source-notification-name "macsec-mka-cak-name-chng";
+          }
+         augment "jnx-member-id" {
+              dr:source "jnx-member-id";
+              dr:fieldnum 96;
+              dr:source-notification-name "macsec-mka-member-id-chng";
+          }
+         augment "jnx-cipher-suit" {
+              dr:source "jnx-cipher-suit";
+              dr:fieldnum 97;
+              dr:source-notification-name "macsec-mka-cipher-suit-chng";
+          }
+      }
+      }
+      augment "interfaces/interface/mka/state/counters" {
+        dr:fieldnum 151;
+       uses jnx-oc-macsec:macsec_interface_mka_counters {
+          augment "jnx-version-error" {
+              dr:zero-suppressed;
+              dr:source "jnx-version-error";
+              dr:fieldnum 58;
+          }
+         augment "jnx-cak-error" {
+            dr:zero-suppressed;
+            dr:source "jnx-cak-error";
+            dr:fieldnum 83;
+          }
+         augment "jnx-integrity-check-value-mismatch" {
+            dr:zero-suppressed;
+            dr:source "jnx-integrity-check-value-mismatch";
+            dr:fieldnum 84;
+          }
+         augment "jnx-duplicate-message-identifier" {
+            dr:zero-suppressed;
+            dr:source "jnx-duplicate-message-identifier";
+            dr:fieldnum 85;
+          }
+         augment "jnx-duplicate-message-number" {
+            dr:zero-suppressed;
+            dr:source "jnx-duplicate-message-number";
+            dr:fieldnum 86;
+          }
+         augment "jnx-duplicate-address" {
+            dr:zero-suppressed;
+            dr:source "jnx-duplicate-address";
+            dr:fieldnum 87;
+          }
+         augment "jnx-invalid-destination" {
+            dr:zero-suppressed;
+            dr:source "jnx-invalid-destination";
+            dr:fieldnum 88;
+          }
+         augment "jnx-format-error" {
+            dr:zero-suppressed;
+            dr:source "jnx-format-error";
+            dr:fieldnum 89;
+          }
+      augment "jnx-old-message-number" {
+            dr:zero-suppressed;
+            dr:source "jnx-old-message-number";
+            dr:fieldnum 90;
+          }
+      }
+      }
+      augment "interfaces/interface/mka/state/counters/in-mkpdu" {
+        dr:zero-suppressed;
+        dr:source "in-mkpdu";
+        dr:fieldnum 56;
+      }
+      augment "interfaces/interface/mka/state/counters/out-mkpdu" {
+        dr:zero-suppressed;
+        dr:source "out-mkpdu";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/scsa-tx" {
+        dr:fieldnum 153;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx" {
+        dr:source "/dot1xd/macsec/interface/scsa-tx";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/sci-tx" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/sci-tx" {
+	dr:source "sci-tx";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/counters" {
+        dr:fieldnum 152;
+	uses jnx-oc-macsec:macsec_interface_scsa_tx_counters {
+          augment "jnx-tx-encrypted-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-tx-encrypted-bytes";
+              dr:fieldnum 102;
+          }
+          augment "jnx-tx-protected-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-tx-protected-bytes";
+              dr:fieldnum 103;
+          }
+	}
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/counters/sc-auth-only" {
+        dr:zero-suppressed;
+        dr:source "sc-auth-only";
+        dr:fieldnum 59;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/counters/sc-encrypted" {
+        dr:zero-suppressed;
+        dr:source "sc-encrypted";
+        dr:fieldnum 60;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/counters/sa-auth-only" {
+        dr:zero-suppressed;
+        dr:source "sa-auth-only";
+        dr:fieldnum 61;
+      }
+      augment "interfaces/interface/scsa-tx/scsa-tx/state/counters/sa-encrypted" {
+        dr:zero-suppressed;
+        dr:source "sa-encrypted";
+        dr:fieldnum 62;
+      }
+      augment "interfaces/interface/scsa-rx" {
+        dr:fieldnum 154;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx" {
+        dr:source "/dot1xd/macsec/interface/scsa-rx";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/sci-rx" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state" {
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/sci-rx" {
+	dr:source "sci-rx";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/counters" {
+        dr:fieldnum 152;
+	uses jnx-oc-macsec:macsec_interface_scsa_rx_counters {
+          augment "jnx-rx-sc-validated-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-rx-sc-validated-bytes";
+              dr:fieldnum 98;
+          }
+          augment "jnx-rx-sc-decrypted-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-rx-sc-decrypted-bytes";
+              dr:fieldnum 99;
+          }
+          augment "jnx-rx-sa-validated-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-rx-sa-validated-bytes";
+              dr:fieldnum 100;
+          }
+          augment "jnx-rx-sa-decrypted-bytes" {
+              dr:zero-suppressed;
+              dr:source "jnx-rx-sa-decrypted-bytes";
+              dr:fieldnum 101;
+          }
+	}
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/counters/sc-invalid" {
+        dr:zero-suppressed;
+        dr:source "sc-invalid";
+        dr:fieldnum 63;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/counters/sc-valid" {
+        dr:zero-suppressed;
+        dr:source "sc-valid";
+        dr:fieldnum 64;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/counters/sa-invalid" {
+        dr:zero-suppressed;
+        dr:source "sa-invalid";
+        dr:fieldnum 65;
+      }
+      augment "interfaces/interface/scsa-rx/scsa-rx/state/counters/sa-valid" {
+        dr:zero-suppressed;
+        dr:source "sa-valid";
+        dr:fieldnum 66;
+      }
+    }
+  }
+
+
+dr:command-app "dot1xd";
+dr:sub-component "macsec";
+jnpr-proto:message-id "DOT1XD-OC-MESSAGE-ID";
+
+ rpc juniper-netconf-get {
+   dr:command-top-of-output "/oc-macsec-information";
+   dr:command-full-name "request dot1xd macsec juniper-netconf-get";
+   dr:command-help "Default <get> rpc";
+   output {
+        container macsec {
+	  dr:fieldnum 151;
+          uses macsec-interface-state-counters;
+
+          container mka {
+            dr:source "/dot1xd/macsec/mka";
+            dr:fieldnum 151;
+            uses macsec-policy-mka-state;
+          }
+        }
+   }
+ }
+
+  notification oc-macsec-latest-sak-an-chng {
+    dr:source-notification-name "macsec-latest-sak-an-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-latest-sak-an-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+        dr:fieldnum 151;
+        uses jnx-oc-macsec:macsec_interface_mka_state {
+         augment "jnx-latest-sak-an" {
+            dr:source "jnx-latest-sak-an";
+            dr:fieldnum 82;
+          }
+        }
+       }
+    }
+  }
+  notification oc-macsec-sci-tx-chng {
+    dr:source-notification-name "macsec-sci-tx-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-sci-tx-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/scsa-tx" {
+        dr:fieldnum 153;
+      }
+      augment "macsec/interfaces/interface/scsa-tx/scsa-tx" {
+        dr:source "scsa-tx";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/scsa-tx/scsa-tx/sci-tx" {
+            dr:source "sci-tx";
+            dr:fieldnum 151;
+      }
+    }
+  }
+  notification oc-macsec-interface-ks-chng {
+    dr:source-notification-name "macsec-interface-ks-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-interface-ks-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+       dr:fieldnum 151;
+       uses jnx-oc-macsec:macsec_interface_mka_state {
+         augment "jnx-key-server" {
+            dr:source "jnx-key-server";
+            dr:fieldnum 91;
+          }
+       }
+      }
+    }
+  }
+  notification oc-macsec-mka-latest-sak-ki-chng {
+    dr:source-notification-name "macsec-mka-latest-sak-ki-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-mka-latest-sak-ki-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+       dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+         augment "jnx-latest-sak-ki" {
+            dr:source "jnx-latest-sak-ki";
+            dr:fieldnum 93;
+          }
+      }
+     }
+    }
+  }
+  notification oc-macsec-mka-cak-type-chng {
+    dr:source-notification-name "macsec-mka-cak-type-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-mka-cak-type-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+       dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+          augment "jnx-cak-type" {
+            dr:source "jnx-cak-type";
+            dr:fieldnum 94;
+          }
+      }
+     }
+    }
+  }
+  notification oc-macsec-mka-cak-name-chng {
+    dr:source-notification-name "macsec-mka-cak-name-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-mka-cak-name-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+       dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+          augment "jnx-cak-name" {
+            dr:source "jnx-cak-name";
+            dr:fieldnum 95;
+          }
+      }
+     }
+    }
+  }
+  notification oc-macsec-mka-member-id-chng {
+    dr:source-notification-name "macsec-mka-member-id-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-mka-member-id-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+       dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+          augment "jnx-member-id" {
+            dr:source "jnx-member-id";
+            dr:fieldnum 96;
+          }
+      }
+     }
+    }
+  }
+  notification oc-macsec-mka-cipher-suit-chng {
+    dr:source-notification-name "macsec-mka-cipher-suit-chng";
+    uses oc-macsec:macsec-top {
+      augment "macsec" {
+         dr:source "/notification/macsec-mka-cipher-suit-chng/dot1xd/macsec";
+         dr:fieldnum 151;
+      }
+      augment "macsec/interfaces" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "macsec/interfaces/interface/name" {
+        dr:source "interface_name";
+        dr:fieldnum 51;
+      }
+      augment "macsec/interfaces/interface/mka" {
+          dr:fieldnum 152;
+      }
+      augment "macsec/interfaces/interface/mka/state" {
+      dr:fieldnum 151;
+      uses jnx-oc-macsec:macsec_interface_mka_state {
+         augment "jnx-cipher-suit" {
+            dr:source "jnx-cipher-suit";
+            dr:fieldnum 97;
+          }
+      }
+     }
+     }
+  }
+}

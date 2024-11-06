@@ -1,0 +1,176 @@
+/*
+ * Example yang for generating OC equivalent of internal meta tree
+ */
+
+module junos-xmlproxyd_show_local_interface_OC {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/interface";
+
+  prefix "interface";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+import ietf-yang-types { prefix yang; }
+import jnx-aug-openconfig-interfaces { prefix jnx-oc-interfaces; }
+
+grouping extended-input-err-jnx_counters {
+  uses  jnx-oc-interfaces:jnx-interface-in-errors {
+    augment "in-drops" {
+      dr:source "input-error-list/input-drops";
+      dr:fieldnum 71;
+    }
+    augment "in-frame-errors" {
+      dr:source "input-error-list/framing-errors";
+      dr:fieldnum 72;
+    }
+    augment "in-runts" {
+      dr:source "input-error-list/input-runts";
+      dr:fieldnum 73;
+    }
+    augment "in-giants" {
+      dr:source "input-error-list/input-giants";
+      dr:fieldnum 74;
+    }
+    augment "in-resource-errors" {
+      dr:source "input-error-list/input-resource-errors";
+      dr:fieldnum 75;
+    }
+  }
+}
+
+grouping extended-output-err-jnx_counters {
+  uses  jnx-oc-interfaces:jnx-interface-out-errors {
+        augment "out-drops" {
+          dr:source "output-error-list/output-drops";
+	  dr:fieldnum 91;
+        }
+        augment "mtu-errors" {
+          dr:source "output-error-list/mtu-errors";
+	  dr:fieldnum 93;
+        }
+        augment "out-resource-errors" {
+          dr:source "output-error-list/output-resource-errors";
+	  dr:fieldnum 94;
+        }
+  }
+}
+
+grouping subinterfaces-state {
+  uses interface-counters-state;
+}
+
+grouping subinterfaces-top {
+  container subinterfaces {
+    dr:fieldnum 152;
+    list subinterface { 
+          key index;
+      dr:source "logical-interface";
+      dr:fieldnum 151;
+      leaf index {
+        type uint32;
+        dr:source "subunit";
+        dr:fieldnum 51;
+      }
+      container state {
+        dr:fieldnum 151;
+        uses subinterfaces-state;
+      }
+   }
+  }
+}
+
+grouping interface-counters-state {
+  container counters {
+    dr:fieldnum 151;
+    leaf in-octets {
+      type yang:counter64;
+      dr:source "traffic-statistics/input-bytes";
+      dr:fieldnum 51;
+    }
+    leaf in-pkts {
+      type yang:counter64;
+      dr:source "traffic-statistics/input-packets";
+      dr:fieldnum 61;
+    }
+    leaf in-discards {
+      type yang:counter64;
+      dr:source "input-error-list/input-discards";
+      dr:fieldnum 52;
+    }
+    leaf in-errors {
+      type yang:counter64;
+      dr:source "input-error-list/input-errors";
+      dr:fieldnum 53;
+    }
+   uses extended-input-err-jnx_counters; 
+    leaf out-octets {
+      type yang:counter64;
+      dr:source "traffic-statistics/output-bytes";
+      dr:fieldnum 54;
+    }
+    leaf out-pkts {
+      type yang:counter64;
+      dr:source "traffic-statistics/output-packets";
+      dr:fieldnum 81;
+    }
+    leaf out-discards {
+      type yang:counter64;
+      dr:source "output-error-list/output-discards";
+      dr:fieldnum 55;
+    }
+    leaf out-errors {
+      type yang:counter64;
+      dr:source "output-error-list/output-errors";
+      dr:fieldnum 56;
+    }
+    leaf carrier-transitions {
+      type yang:counter64;
+      dr:source "output-error-list/carrier-transitions";
+      dr:fieldnum 92;
+    }
+   uses extended-output-err-jnx_counters; 
+}
+}
+
+grouping physical-interface-group {
+  list interface {
+    key name;
+    dr:source "physical-interface";
+    dr:fieldnum 151;
+    description
+          "The list of named interfaces on the device.";
+
+    leaf name {
+    type string;
+    dr:source "name";
+    dr:fieldnum 51;
+    }
+    container state {
+      dr:fieldnum 151;
+      uses interface-counters-state;
+   }
+   uses subinterfaces-top; 
+ }
+}
+
+  dr:command-app "xmlproxyd";
+  dr:sub-component "local-interface";
+  jnpr-proto:message-id "RE-LOCAL-INTERFACE-OC-MESSAGE-ID";
+
+rpc juniper-netconf-get {
+  dr:command-top-of-output "/oc-interface";
+  dr:command-full-name "drend juniper-netconf-get";
+  dr:cli-command "show interfaces extensive-local-interfaces-zero-suppress";
+  dr:command-help "default <get> rpc";
+  output {
+    container interfaces {
+      dr:source "/interface-information";
+      uses physical-interface-group;
+    }
+  }
+}
+}

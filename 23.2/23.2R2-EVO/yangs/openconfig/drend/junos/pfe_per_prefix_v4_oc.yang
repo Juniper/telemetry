@@ -1,0 +1,100 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2021, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module pfe_per_prefix_v4_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/afts";
+
+  prefix "per-prefix-v4-oc";
+
+  import openconfig-yang-types { prefix "oc-yang"; }
+  import openconfig-inet-types { prefix "oc-inet"; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping v4-unicast {
+
+      container "network-instances" {
+          dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+	  dr:fieldnum 200;
+
+          list network-instance {
+	      dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+	      dr:fieldnum 200;
+	      key name;
+
+	      leaf name {
+	          dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+		  dr:fieldnum 201;
+		  type string;
+	      }
+
+              container afts {
+	          dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+		  dr:fieldnum 200;
+
+		  container ipv4-unicast {
+		      dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+		      dr:fieldnum 200;
+
+		      list ipv4-entry {
+		          dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+			  dr:fieldnum 200;
+			  key prefix;
+
+			  leaf prefix {
+			      dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+			      dr:fieldnum 202;
+			      type oc-inet:ipv4-prefix;
+			  }
+			  container state {
+			      dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+			      dr:fieldnum 200;
+
+                              container counters {
+                                  dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+                                  dr:fieldnum 200;
+
+                                  leaf packets-forwarded {
+			              dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+				      dr:fieldnum 203;
+				      type oc-yang:counter64;
+		  	          }
+
+                                  leaf octets-forwarded {
+			              dr:source "/junos/services/ipv4-unicast/prefix/usage/";
+				      dr:fieldnum 204;
+				      type oc-yang:counter64;
+			          }
+                              }
+			  }
+		      }
+		  }
+	      }
+	  }
+      }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-per-prefix-v4";
+  jnpr-proto:message-id "PFE-PER-PREFIX-V4-OC-MESSAGE-ID";
+
+   rpc juniper-netconf-get {
+       output {
+         uses v4-unicast;
+       }
+   }
+}

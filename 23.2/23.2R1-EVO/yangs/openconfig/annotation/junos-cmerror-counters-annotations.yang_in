@@ -1,0 +1,25 @@
+module junos-cmerror-counters-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos-cmerror-counters/annotations";
+
+    prefix "junos-cmerror-counters-ann";
+
+    import junos-cmerror-counters { prefix junos-cmerror-counters; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-12-20" {
+        description "Initial version to add eventd model product support information";
+    }
+
+    augment "/junos-cmerror-counters:junos/junos-cmerror-counters:system/junos-cmerror-counters:cmerror/junos-cmerror-counters:counters" {
+        JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008 ptx10016);
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+}
+

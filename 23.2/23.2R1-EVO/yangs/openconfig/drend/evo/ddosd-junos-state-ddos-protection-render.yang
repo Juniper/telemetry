@@ -1,0 +1,275 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2022 Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module ddosd-junos-state-ddos-protection-render {
+    yang-version "1.1";
+    namespace "http://yang.juniper.net/junos/state/ddos-protection/render";
+
+    prefix "js-ddos-rdr";
+
+    import junos-state-ddos-protection { prefix js-ddos; }
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    jnpr-proto:message-id "EVO-DDOS-OC-MESSAGE-ID";
+
+    organization "Juniper Networks Inc.";
+    contact "www.juniper.net";
+
+    grouping evo-ddos-telemetry-oc {
+        container state {
+            dr:fieldnum 151;
+            container system {
+                dr:fieldnum 151;
+                uses js-ddos:ddos-top {
+                    augment "ddos-protection" {
+                        dr:fieldnum 151;
+                    }
+                    augment "ddos-protection/instances" {
+                        dr:source "/evl_types:JunosOperState";
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance" {
+                        dr:source "input_ddl:DdosPfeViolO";
+                        dr:source-notification-name "input_ddl:DdosPfeViolO-event";
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/slot" {
+                        dr:source "slot";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/protocol-name" {
+                        dr:source "group_name";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/packet-type" {
+                        dr:source "packet_type";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/locale" {
+                        dr:source "loc";
+                        dr:map FPC {dr:map-from 0;}
+                        dr:map RE {dr:map-from 255;}
+                        dr:fieldnum 54;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations" {
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/status" {
+                        dr:source "violation_state";
+                        dr:map NEVER_VIOLATED {dr:map-from 0;}
+                        dr:map WAS_VIOLATED {dr:map-from 2;}
+                        dr:map IS_VIOLATED {dr:map-from 4;}
+                        dr:map WAS_AND_IS_VIOLATED {dr:map-from 6;}
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/violated-time-start" {
+                        dr:source "violated_t_start";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/violated-time-end" {
+                        dr:source "violated_t_last";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/counters" {
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/counters/violation-count" {
+                        dr:source "violation_cnt";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters" {
+                        dr:fieldnum 152;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/in-packets" {
+                        dr:source "pkts_rcvd";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/dropped-packets" {
+                        dr:source "pkts_drop";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/policer-dropped-packets" {
+                        dr:source "pkts_drop_policers";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/other-dropped-packets" {
+                        dr:source "pkts_drop_other";
+                        dr:fieldnum 54;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/flows-dropped-packets" {
+                        dr:source "pkts_drop_flows";
+                        dr:fieldnum 55;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/rate-arrival" {
+                        dr:source "rate_arvl";
+                        dr:fieldnum 56;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/rate-arrival-max" {
+                        dr:source "rate_arvl_max";
+                        dr:fieldnum 57;
+                    }
+                }
+            }
+        }
+    }
+
+    dr:command-app "ddosd";
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/evl_types:JunosOperState";
+        dr:command-full-name "drend juniper-netconf-get";
+        dr:command-help "default netconf <get> rpc";
+        output {
+            uses evo-ddos-telemetry-oc;
+        }
+    }
+
+    rpc juniper-telemetry-get {
+        dr:command-top-of-output "/evl_types:JunosOperState";
+        dr:command-full-name "drend juniper-telemetry-get";
+        dr:command-help "default telemetry <get> rpc";
+        output {
+            uses evo-ddos-telemetry-oc;
+        }
+    }
+
+    notification "oc-ddos-pfe-violation-state-change" {
+        dr:source-notification-name "input_ddl:DdosPfeViolO-event";
+        container state {
+            dr:fieldnum 151;
+            container system {
+                dr:fieldnum 151;
+                uses js-ddos:ddos-top {
+                    augment "ddos-protection" {
+                        dr:fieldnum 151;
+                    }
+                    augment "ddos-protection/instances" {
+                        dr:source "/notification/input_ddl:DdosPfeViolO-event/evl_types:JunosOperState";
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance" {
+                        dr:source "input_ddl:DdosPfeViolO";
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/slot" {
+                        dr:source "slot";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/protocol-name" {
+                        dr:source "group_name";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/packet-type" {
+                        dr:source "packet_type";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/locale" {
+                        dr:source "loc";
+                        dr:map FPC {dr:map-from 0;}
+                        dr:map RE {dr:map-from 255;}
+                        dr:fieldnum 54;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations" {
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/status" {
+                        dr:source "violation_state";
+                        dr:map NEVER_VIOLATED {dr:map-from 0;}
+                        dr:map WAS_VIOLATED {dr:map-from 2;}
+                        dr:map IS_VIOLATED {dr:map-from 4;}
+                        dr:map WAS_AND_IS_VIOLATED {dr:map-from 6;}
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/violated-time-start" {
+                        dr:source "violated_t_start";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/violated-time-end" {
+                        dr:source "violated_t_last";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/counters" {
+                        dr:fieldnum 151;
+                    }
+
+                    augment "ddos-protection/instances/instance/violations/counters/violation-count" {
+                        dr:source "violation_cnt";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters" {
+                        dr:fieldnum 152;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/in-packets" {
+                        dr:source "pkts_rcvd";
+                        dr:fieldnum 51;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/dropped-packets" {
+                        dr:source "pkts_drop";
+                        dr:fieldnum 52;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/policer-dropped-packets" {
+                        dr:source "pkts_drop_policers";
+                        dr:fieldnum 53;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/other-dropped-packets" {
+                        dr:source "pkts_drop_other";
+                        dr:fieldnum 54;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/flows-dropped-packets" {
+                        dr:source "pkts_drop_flows";
+                        dr:fieldnum 55;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/rate-arrival" {
+                        dr:source "rate_arvl";
+                        dr:fieldnum 56;
+                    }
+
+                    augment "ddos-protection/instances/instance/counters/rate-arrival-max" {
+                        dr:source "rate_arvl_max";
+                        dr:fieldnum 57;
+                    }
+                }
+            }
+        }
+    }
+}

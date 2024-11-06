@@ -1,0 +1,27 @@
+module jnx-tel-top-annotations {
+    yang-version 1;
+
+    // namespace
+    namespace "http://yang.juniper.net/yang/jnx-telemetry-top/annotations";
+
+    prefix "jnx-tel-top-ann";
+
+    import jnx-tel-top { prefix jnx-tel-top; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Networks";
+
+    contact "support@juniper.net";
+
+    description "Yang definition for top Junos hierarchy";
+    revision "2017-05-17" {
+        description "Initial revision";
+    }
+
+    augment "/jnx-tel-top:junos" {
+        JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+    }
+}

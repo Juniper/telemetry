@@ -1,0 +1,220 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2018, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module "kernel-ifstate-render" {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/kod";
+
+  prefix "kernel-ifstate-render"; 
+
+  import drend {
+    prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  dr:command-app "kernel-offload-service";
+  dr:sub-component "kernel-ifstate";
+  jnpr-proto:message-id "KERNEL-IFSTATE-MESSAGE-ID";
+
+  grouping kernel-ifstate-rate-group {
+	list stats {
+	    dr:source "kernel-stats";
+	    dr:fieldnum 141;
+	    key record-time;
+
+	    leaf record-time {
+		type uint32;
+		dr:source "record-time";
+		dr:fieldnum 121;
+	    }
+	    leaf record-seq-num {
+		type uint32;
+		dr:source "seq-num";
+		dr:fieldnum 122;
+	    }
+	container churn-rate {
+	    dr:source "ifs-churn-rate";
+	    dr:fieldnum 151;
+	    leaf overall-churn-rate 
+	    { 
+		type uint32;
+		dr:source "overall-churn-rate";
+		dr:fieldnum 51;
+	    }
+	    leaf route-add-rate  
+	    { 
+		type uint32;
+		dr:source "ifs-route-add-rate";
+		dr:fieldnum 52;
+	    }
+	    leaf route-change-rate
+	    {
+		type uint32;
+		dr:source "ifs-route-chg-rate";
+		dr:fieldnum 53;
+	    }
+	    leaf route-delete-rate
+	    {
+		type uint32;
+		dr:source "ifs-route-del-rate";
+		dr:fieldnum 54;
+	    }
+	    leaf nexthop-add-rate
+	    { 
+		type uint32;
+		dr:source "ifs-nh-add-rate";
+		dr:fieldnum 55;
+	    }
+	    leaf nexthop-delete-rate
+	    {
+		type uint32;
+		dr:source "ifs-nh-del-rate";
+		dr:fieldnum 56;
+	    }
+	    leaf nexthop-change-rate
+	    {
+		type uint32;
+		dr:source "ifs-nh-chg-rate";
+		dr:fieldnum 57;
+	    }
+	}
+
+	list peer-consumption-rate
+	{
+	    key peer-index;
+	    dr:source "ifs-peer-consump-rate";
+	    dr:fieldnum 152;
+	
+	    leaf peer-index
+	    {
+		type uint32;
+		dr:source "ifs-peer-index";
+		dr:fieldnum 51;
+	    }
+	    leaf consumption-rate-counter
+	    {
+		type uint32;
+		dr:source "ifs-consmp-rate-ctr";
+		dr:fieldnum 52;
+	    }
+	    leaf consumption-route-add-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-route-add-rate";
+		dr:fieldnum 53;
+	    }
+	    leaf consumption-route-change-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-route-chg-rate";
+		dr:fieldnum 54;
+	    }
+	    leaf consumption-route-delete-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-route-del-rate";
+		dr:fieldnum 55;
+	    }
+	    leaf consumption-nexthop-add-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-nh-add-rate";
+		dr:fieldnum 56; 
+	    }
+	    leaf consumption-nexthop-change-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-nh-chg-rate";
+		dr:fieldnum 57;
+	    }
+	    leaf consumption-nexthop-delete-rate
+	    {
+		type uint32;
+		dr:source "ifs-consmp-nh-del-rate";
+		dr:fieldnum 58;
+	    }
+	}
+
+	container vetos-statistics 
+	{
+	    dr:source "ifs-vetos-stat-list";
+	    dr:fieldnum 153;
+
+	    leaf veto-vm-page-count-severe
+	    {
+		type uint32;
+		dr:source "veto-vm-page-count-severe";
+		dr:fieldnum 51;
+	    }
+	    leaf veto-ifstate-memory
+	    {
+		type uint32;
+		dr:source "veto-ifstate-memory";
+		dr:fieldnum 52;
+	    }
+	    leaf veto-memory-overconsumed
+	    {
+		type uint32;
+		dr:source "veto-memory-overconsumed";
+		dr:fieldnum 53;
+	    }
+	    leaf veto-pfe-veto-max-routes
+	    {
+		type uint32;
+		dr:source "veto-pfe-veto-max-routes";
+		dr:fieldnum 54;
+	    }
+	    leaf veto-too-many-delayed-unrefs
+	    {
+		type uint32;
+		dr:source "veto-too-many-delayed-unrefs";
+		dr:fieldnum 55;
+	    }
+	    leaf veto-nh-memory-usage
+	    {
+		type uint32;
+		dr:source "veto-nh-memory-usage";
+		dr:fieldnum 56;
+	    }
+	    leaf veto-mbuf-cluster
+	    {
+		type uint32;
+		dr:source "veto-mbuf-cluster";
+	    	dr:fieldnum 57;
+	    }
+	    leaf veto-flabel-space-exhaustion
+	    {
+		type uint32;
+		dr:source "veto-flabel-space-exhaustion";
+		dr:fieldnum 58;
+	    }
+	    leaf veto-flabel-space-consumption
+	    {
+		type uint32;
+		dr:source "veto-flabel-space-consumption";
+		dr:fieldnum 59;
+	    }
+	}
+    }
+    }   
+
+rpc juniper-netconf-get {
+	dr:command-top-of-output "/kernel-ifstate-telemetry";
+	dr:command-help "Default <get> rpc";
+	output {
+	    container junos {
+		container kernel-ifstate {
+		    dr:source "/ifstate";
+		    dr:fieldnum 181;
+		    uses kernel-ifstate-rate-group;
+		}
+	    }
+	}
+    }
+ }

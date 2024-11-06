@@ -1,0 +1,493 @@
+/*
+* $Id$
+*
+* Copyright (c) 2020, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module cosd_oc{
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/cosd-oc";
+
+    prefix "cos-oc";
+
+    import openconfig-qos { prefix oc-qos; }
+    import jnx-aug-openconfig-qos { prefix jnx-qos; }
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    grouping cosd-interface-table {
+        uses oc-qos:qos-interfaces-top {
+            augment "interfaces" {
+                dr:source "/cosd/class-of-service/interfaces";
+                dr:fieldnum 151;
+            }
+
+            augment "interfaces/interface" {
+                dr:source "interface";
+                dr:fieldnum 151;
+            }
+
+            augment "interfaces/interface/interface-id" {
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            augment "interfaces/interface/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "interfaces/interface/state/interface-id" {
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            augment "interfaces/interface/interface-ref" {
+                dr:source "interface-ref";
+                dr:fieldnum 152;
+            }
+
+            augment "interfaces/interface/interface-ref/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+                uses jnx-qos:jnx-iflset-interface {
+                    augment "jnx-iflsetinterface" {
+                        dr:source "ifset-name";
+                        dr:fieldnum 52;
+                    }
+                }
+            }
+
+            augment "interfaces/interface/interface-ref/state/interface" {
+                dr:source "interface";
+                dr:fieldnum 51;
+            }
+
+            augment "interfaces/interface/interface-ref/state/subinterface" {
+                dr:source "subinterface";
+                dr:fieldnum 53;
+            }
+
+	    augment "interfaces/interface/input" {
+                dr:source "input";
+                dr:fieldnum 153;
+	    }
+
+	    augment "interfaces/interface/input/classifiers" {
+                dr:source "classifiers";
+                dr:fieldnum 151;
+	    }
+
+	    augment "interfaces/interface/input/classifiers/classifier" {
+                dr:source "classifier";
+                dr:fieldnum 151;
+	    }
+	    // enum for classifier type refer cosd_drend_helper.h
+	    augment "interfaces/interface/input/classifiers/classifier/type" {
+                dr:source "class_type";
+                dr:fieldnum 51;
+		dr:map	IPV4 { dr:map-from 4 ; }
+		dr:map	IPV6 { dr:map-from 6 ; }
+		dr:map	MPLS { dr:map-from 7 ; }
+	    }
+
+	    augment "interfaces/interface/input/classifiers/classifier/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "interfaces/interface/input/classifiers/classifier/state/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+	    }
+
+	    // enum for classifier type refer cosd_drend_helper.h
+	    augment "interfaces/interface/input/classifiers/classifier/state/type" {
+                dr:source "class_type";
+                dr:fieldnum 52;
+		dr:map	IPV4 { dr:map-from 4 ; }
+		dr:map	IPV6 { dr:map-from 6 ; }
+		dr:map	MPLS { dr:map-from 7 ; }
+	    }
+
+	    augment "interfaces/interface/output" {
+                dr:source "output";
+                dr:fieldnum 154;
+	    }
+
+            augment "interfaces/interface/output/classifiers" {
+                dr:source "classifiers";
+                dr:fieldnum 152;
+            }
+
+            augment "interfaces/interface/output/classifiers/classifier" {
+                dr:source "classifier";
+                dr:fieldnum 151;
+             }
+
+            // enum for classifier type refer cosd_drend_helper.h
+            augment "interfaces/interface/output/classifiers/classifier/type" {
+                dr:source "class_type";
+                dr:fieldnum 51;
+                dr:map  IPV4 { dr:map-from 4 ; }
+                dr:map  IPV6 { dr:map-from 6 ; }
+                dr:map  MPLS { dr:map-from 7 ; }
+            }
+
+            augment "interfaces/interface/output/classifiers/classifier/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "interfaces/interface/output/classifiers/classifier/state/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+
+            // enum for classifier type refer cosd_drend_helper.h
+            augment "interfaces/interface/output/classifiers/classifier/state/type" {
+                dr:source "class_type";
+                dr:fieldnum 52;
+                dr:map  IPV4 { dr:map-from 4 ; }
+                dr:map  IPV6 { dr:map-from 6 ; }
+                dr:map  MPLS { dr:map-from 7 ; }
+            }
+
+	    augment "interfaces/interface/output/scheduler-policy" {
+                dr:source "scheduler-policy";
+                dr:fieldnum 151;
+	    }
+
+	    augment "interfaces/interface/output/scheduler-policy/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "interfaces/interface/output/scheduler-policy/state/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+	    }
+        }
+    }
+
+    grouping cosd-fc-table {
+        uses oc-qos:qos-forwarding-group-top {
+            augment "forwarding-groups" {
+                dr:source "/cosd/class-of-service/forwarding-classes";
+                dr:fieldnum 152;
+            }
+
+            augment "forwarding-groups/forwarding-group" {
+                dr:source "/cosd/class-of-service/forwarding-classes/forwarding-class";
+                dr:fieldnum 151;
+            }
+
+            augment "forwarding-groups/forwarding-group/name" {
+                dr:source "fc-name";
+                dr:fieldnum 51;
+            }
+
+            augment "forwarding-groups/forwarding-group/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "forwarding-groups/forwarding-group/state/name" {
+                dr:source "fc-name";
+                dr:fieldnum 51;
+            }
+
+            augment "forwarding-groups/forwarding-group/state/output-queue" {
+                dr:source "output-queue";
+                dr:fieldnum 52;
+            }
+
+            augment "forwarding-groups/forwarding-group/state/fabric-priority" {
+                dr:source "fabric-priority";
+                dr:fieldnum 53;
+            }
+        }
+    }
+
+    grouping cosd-classifier-table {
+        uses oc-qos:qos-classifier-top {
+            augment "classifiers" {
+                dr:source "/cosd/class-of-service/classifiers";
+                dr:fieldnum 153;
+            }
+
+	    augment "classifiers/classifier" {
+                dr:source "classifier";
+                dr:fieldnum 151;
+	    }
+
+            augment "classifiers/classifier/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+
+	    augment "classifiers/classifier/terms" {
+                dr:source "terms";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term" {
+                dr:source "term";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+	    }
+
+	    augment "classifiers/classifier/terms/term/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term/state/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+	    }
+
+	    augment "classifiers/classifier/terms/term/conditions" {
+                dr:source "conditions";
+                dr:fieldnum 152;
+	    }
+
+	    augment "classifiers/classifier/terms/term/conditions/ipv4" {
+                dr:source "ipv4";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term/conditions/ipv4/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term/conditions/ipv4/state/dscp" {
+                dr:source "dscp_ipv4";
+                dr:fieldnum 51;
+	    }
+
+            augment "classifiers/classifier/terms/term/conditions/ipv6" {
+                dr:source "ipv6";
+                dr:fieldnum 152;
+            }
+
+            augment "classifiers/classifier/terms/term/conditions/ipv6/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "classifiers/classifier/terms/term/conditions/ipv6/state/dscp" {
+                dr:source "dscp_ipv6";
+                dr:fieldnum 51;
+            }
+
+            augment "classifiers/classifier/terms/term/conditions/mpls" {
+                dr:source "mpls";
+                dr:fieldnum 153;
+            }
+
+            augment "classifiers/classifier/terms/term/conditions/mpls/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "classifiers/classifier/terms/term/conditions/mpls/state/traffic-class" {
+                dr:source "exp";
+                dr:fieldnum 51;
+            }
+
+	    augment "classifiers/classifier/terms/term/actions" {
+                dr:source "actions";
+                dr:fieldnum 153;
+	    }
+
+            augment "classifiers/classifier/terms/term/actions/remark" {
+                dr:source "remark";
+                dr:fieldnum 152;
+            }
+
+            augment "classifiers/classifier/terms/term/actions/remark/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+            }
+
+            augment "classifiers/classifier/terms/term/actions/remark/state/set-dscp" {
+                dr:source "set-dscp";
+                dr:fieldnum 51;
+            }
+
+            augment "classifiers/classifier/terms/term/actions/remark/state/set-dot1p" {
+                dr:source "set-dot1p";
+                dr:fieldnum 52;
+            }
+
+            augment "classifiers/classifier/terms/term/actions/remark/state/set-mpls-tc" {
+                dr:source "set-mpls-tc";
+                dr:fieldnum 53;
+            }
+
+	    augment "classifiers/classifier/terms/term/actions/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "classifiers/classifier/terms/term/actions/state/target-group" {
+                dr:source "target-group";
+                dr:fieldnum 151;
+	    }
+
+            augment "classifiers/classifier/state" {
+                dr:source "state";
+                dr:fieldnum 152;
+            }
+
+            augment "classifiers/classifier/state/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+            }
+            augment "classifiers/classifier/state/type" {
+                dr:source "type";
+                dr:fieldnum 52;
+		dr:map	IPV4 { dr:map-from 4 ; }
+		dr:map	IPV6 { dr:map-from 6 ; }
+		dr:map	MPLS { dr:map-from 7 ; }
+            }
+	}
+   }
+
+    grouping cosd-scheduler-table {
+	uses oc-qos:qos-scheduler-top {
+	    augment "scheduler-policies" {
+                dr:source "/cosd/class-of-service/scheduler-policies";
+                dr:fieldnum 154;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy" {
+                dr:source "scheduler-policy";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/state/name" {
+                dr:source "name";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers" {
+                dr:source "schedulers";
+                dr:fieldnum 152;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler" {
+                dr:source "scheduler";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/sequence" {
+                dr:source "sequence";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/state/sequence" {
+                dr:source "sequence";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/state/priority" {
+                dr:source "priority";
+                dr:fieldnum 52;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/output" {
+                dr:source "output";
+                dr:fieldnum 152;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/output/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/output/state/output-fwd-group" {
+                dr:source "output-fwd-group";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color" {
+                dr:source "two-rate-three-color";
+                dr:fieldnum 153;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color/state" {
+                dr:source "state";
+                dr:fieldnum 151;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color/state/cir" {
+                dr:source "cir";
+                dr:fieldnum 51;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color/state/cir-pct" {
+                dr:source "cir-pct";
+                dr:fieldnum 52;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color/state/pir" {
+                dr:source "pir";
+                dr:fieldnum 53;
+	    }
+
+	    augment "scheduler-policies/scheduler-policy/schedulers/scheduler/two-rate-three-color/state/pir-pct" {
+                dr:source "pir-pct";
+                dr:fieldnum 54;
+	    }
+	}
+    }
+
+   dr:command-app "cosd";
+   jnpr-proto:message-id "COSD-OC-MAPPING-MESSAGE-ID";
+
+   rpc juniper-netconf-get {
+       output {
+           container "qos"{
+            dr:source "/cosd/class-of-service";
+            dr:fieldnum 151;
+
+            uses cosd-interface-table;
+            uses cosd-fc-table;
+	    uses cosd-classifier-table;
+            uses cosd-scheduler-table;
+           }
+       }
+   }
+}

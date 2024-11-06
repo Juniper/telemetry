@@ -1,0 +1,24 @@
+module junos-state-system-controller-annotations {
+  yang-version 1.1;
+  prefix "js-system-controller-ann";
+  namespace "http://juniper.net/yang/junos/state/system/controller";
+  import junos-state {prefix js; }
+  import junos-state-system { prefix js-sys; }
+  import junos-state-system-controller { prefix js-sys-ctlr; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Network Inc.";
+  revision "2022-12-02" {
+      description "Initial version to add eventd model product support information";
+  }
+  augment "/js:state/js-sys:system/js-sys-ctlr:controller-connectivity" {
+      junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+      junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+      junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+      junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C";
+      junos:product "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008";
+      junos:product-tvp "qfx5120-48ym qfx5120-48t qfx5210-64c";
+      junos:product-tvp "ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t";
+      junos:product-tvp "ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t";
+      junos:product-tvp "ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t";
+  }
+}

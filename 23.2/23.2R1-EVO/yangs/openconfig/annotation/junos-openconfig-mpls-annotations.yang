@@ -1,0 +1,24 @@
+module junos-openconfig-mpls-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/ni-mpls/annotations";
+  prefix "jnx-oc-mpls-ann";
+  import openconfig-network-instance { prefix oc-ni; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig ni-mpls model";
+  revision "2022-04-27" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:mpls/" +
+      "oc-ni:lsps/oc-ni:constrained-path/oc-ni:tunnels/oc-ni:tunnel/oc-ni:state/oc-ni:counters/oc-ni:packets" {
+      junos:product-exclude "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008";
+      junos:product-exclude "ex2200-c-12p-2g ex2200-c-12t-2g ex2200-24p-4g ex2200-24t-4g ex2200-24p-4g ex2200-24t-4g ex2200-48p-4g ex2200-48t-4g ex2200-24t-dc-4g ex3200-24t ex3200-24p ex3200-48t ex3200-48p ex4200-24f ex4200-24t ex4200-24p ex4200-48t ex4200-48p ex4200-48px ex4200-24px ex4500-40f ex4550-32f ex4550-32t ex3300-24t ex3300-24p ex3300-48p ex3300-48t ex3300-24t-dc ex3300-48t-bf ex8208 ex8216 ex6210 ex-xre";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:mpls/" +
+      "oc-ni:lsps/oc-ni:constrained-path/oc-ni:tunnels/oc-ni:tunnel/oc-ni:state/oc-ni:counters/oc-ni:bytes" {
+      junos:product-exclude "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008";
+      junos:product-exclude "ex2200-c-12p-2g ex2200-c-12t-2g ex2200-24p-4g ex2200-24t-4g ex2200-24p-4g ex2200-24t-4g ex2200-48p-4g ex2200-48t-4g ex2200-24t-dc-4g ex3200-24t ex3200-24p ex3200-48t ex3200-48p ex4200-24f ex4200-24t ex4200-24p ex4200-48t ex4200-48p ex4200-48px ex4200-24px ex4500-40f ex4550-32f ex4550-32t ex3300-24t ex3300-24p ex3300-48p ex3300-48t ex3300-24t-dc ex3300-48t-bf ex8208 ex8216 ex6210 ex-xre";
+  }
+}

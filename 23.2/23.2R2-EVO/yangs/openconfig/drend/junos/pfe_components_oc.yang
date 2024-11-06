@@ -1,0 +1,158 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_components_oc{
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe_components";
+
+  prefix "pfe_components_oc";
+
+  import openconfig-platform { prefix oc-pf; }
+  import openconfig-platform-transceiver { prefix oc-transceiver; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+  grouping pfe-components{
+      uses oc-pf:platform-component-top{
+          augment "components" {
+              dr:backup-supported;
+              dr:source "/junos/system/linecard/transceiver/";
+              dr:fieldnum 151;
+          }
+          augment "components/component" {
+              dr:source "/junos/system/linecard/transceiver/";
+              dr:fieldnum 151;
+          }
+      }
+  }
+   grouping transceiver-inventory {
+       uses oc-transceiver:port-transceiver-top {
+           augment "transceiver" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 161;
+           }
+           augment "transceiver/state" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 162;
+           }
+           augment "transceiver/state/enabled" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 163;
+           }
+           augment "transceiver/state/output-power" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 751;
+           }
+           augment "transceiver/state/output-power/instant" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 68;
+           }
+           augment "transceiver/state/input-power" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 280;
+           }
+           augment "transceiver/state/input-power/instant" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 180;
+           }
+           augment "transceiver/state/laser-bias-current" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 154;
+           }
+           augment "transceiver/state/laser-bias-current/instant" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 180;
+           }
+           augment "transceiver/physical-channels" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 191;
+           }
+           augment "transceiver/physical-channels/channel" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 91;
+           }
+           augment "transceiver/physical-channels/channel/index" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 191;
+           }
+           augment "transceiver/physical-channels/channel/state" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 849;
+           }
+           augment "transceiver/physical-channels/channel/state/output-power" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 151;
+           }
+           augment "transceiver/physical-channels/channel/state/output-power/instant"{
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 10;
+           }
+           augment "transceiver/physical-channels/channel/state/input-power" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 280;
+           }
+           augment "transceiver/physical-channels/channel/state/input-power/instant" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 180;
+           }
+           augment "transceiver/physical-channels/channel/state/laser-bias-current" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 154;
+           }
+           augment "transceiver/physical-channels/channel/state/laser-bias-current/instant" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 180;
+           }
+           augment "transceiver/physical-channels/channel/state/index" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 39;
+           }
+           augment "transceiver/physical-channels/channel/state/target-output-power" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 43;
+           }
+           augment "transceiver/physical-channels/channel/state/output-frequency" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 44;
+           }
+           augment "transceiver/physical-channels/channel/state/description" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 41;
+           }
+           augment "transceiver/physical-channels/channel/state/tx-laser" {
+               dr:source "/junos/system/linecard/transceiver/";
+               dr:fieldnum 42;
+           }
+       }
+   }
+  dr:command-app "agentd";
+  dr:sub-component "pfe-component";
+  jnpr-proto:message-id "PFE-COMPONENT-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+      output {
+        //uses pfe-components;
+        container components {
+            dr:source "/junos/system/linecard/transceiver/";
+            dr:fieldnum 51;
+            list component {
+                dr:source "/junos/system/linecard/transceiver/";
+                dr:fieldnum 151;
+                uses transceiver-inventory;
+            }
+        }
+      }
+  }
+}

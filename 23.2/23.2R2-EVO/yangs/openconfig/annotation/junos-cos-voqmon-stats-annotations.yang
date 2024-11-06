@@ -1,0 +1,15 @@
+module junos-cos-voqmon-stats-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/cos-voqmon-stats/annotations";
+    prefix "junos-cos-voqmon-stats-ann";
+    import interface-cos-voqmon-stats { prefix interface-cos-voqmon-stats; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-04-29" {
+        description "Initial version to add native cos voqmon stats supported list";
+    }
+    augment "/interface-cos-voqmon-stats:junos/interface-cos-voqmon-stats:system/interface-cos-voqmon-stats:linecard/interface-cos-voqmon-stats:qmon-sw" {
+        junos:product "ptx1000 ptx5000 ptx10001-36mr";
+        junos:product "ptx10003-160c ptx10003-80c qfx10016 qfx10008 ptx10016 ptx10008 ptx10004";
+    }
+}

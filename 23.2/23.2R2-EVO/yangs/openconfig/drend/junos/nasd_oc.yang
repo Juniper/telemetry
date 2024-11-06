@@ -1,0 +1,489 @@
+module nasd_oc {
+
+     yang-version "1";
+     namespace "http://juniper.net/yang/nasd";
+     prefix "nasd";
+
+     import drend {
+          prefix "dr";
+     }
+
+     import jnpr-proto { prefix jnpr-proto; }
+     import junos-nasd {
+          prefix "jnasd";
+     }
+
+     // meta
+     organization "Juniper Networks Inc.";
+
+     description
+          "This module provides rendering for agf nas operational state and statistics";
+
+     revision "2021-09-30" {
+          description
+               "Initial definition of agf nas rendering model";
+          reference "1.0.0";
+     }
+
+     /*
+      * Daemon that handles this hierarchy
+      */
+
+     dr:command-app "nas";
+
+     /* Protocol Buffer qualifiers */
+     jnpr-proto:message-id "NASD-OC-MESSAGE-ID";
+
+     // grouping statements
+
+     grouping nasd-group-n1-total-stats {
+       uses jnasd:nasd-group-n1-total-stats {
+          augment "registration-request-sent" {
+               dr:source reg_request_sent;
+               dr:fieldnum 51;
+          }
+          augment "registration-complete-sent" {
+               dr:source reg_complete_sent;
+               dr:fieldnum 52;
+          }
+          augment "deregistration-request-sent" {
+               dr:source dereg_request_sent;
+               dr:fieldnum 53;
+          }
+          augment "deregistration-accept-sent" {
+               dr:source dereg_accept_sent;
+               dr:fieldnum 54;
+          }
+          augment "identity-response-sent" {
+               dr:source identity_response_sent;
+               dr:fieldnum 55;
+          }
+          augment "authentication-response-sent" {
+               dr:source authen_response_sent;
+               dr:fieldnum 56;
+          }
+          augment "authentication-failure-sent" {
+               dr:source authen_failure_sent;
+               dr:fieldnum 57;
+          }
+          augment "security-mode-complete-sent" {
+               dr:source secmode_complete_sent;
+               dr:fieldnum 58;
+          }
+          augment "security-mode-reject-sent" {
+               dr:source secmode_reject_sent;
+               dr:fieldnum 59;
+          }
+          augment "service-request-sent" {
+               dr:source service_request_sent;
+               dr:fieldnum 60;
+          }
+          augment "uplink-nas-transport-sent" {
+               dr:source ulnas_transport_sent;
+               dr:fieldnum 61;
+          }
+          augment "mobility-5gmm-status-sent" {
+               dr:source mm5g_status_sent;
+               dr:fieldnum 62;
+          }
+          augment "pdu-session-est-request-sent" {
+               dr:source pdusession_est_request_sent;
+               dr:fieldnum 63;
+          }
+          augment "pdu-session-mod-complete-sent" {
+               dr:source pdusession_mod_complete_sent;
+               dr:fieldnum 64;
+          }
+          augment "pdu-session-mod-reject-sent" {
+               dr:source pdusession_mod_reject_sent;
+               dr:fieldnum 65;
+          }
+          augment "pdu-session-release-request-sent" {
+               dr:source pdusession_rel_request_sent;
+               dr:fieldnum 66;
+          }
+          augment "pdu-session-release-complete-sent" {
+               dr:source pdusession_rel_complete_sent;
+               dr:fieldnum 67;
+          }
+          augment "pdu-session-5gsm-status-sent" {
+               dr:source sm5g_status_sent;
+               dr:fieldnum 68;
+          }
+          augment "registration-accept-rcvd" {
+               dr:source reg_accept_rcvd;
+               dr:fieldnum 69;
+          }
+          augment "registration-reject-rcvd" {
+               dr:source reg_reject_rcvd;
+               dr:fieldnum 70;
+          }
+          augment "deregistration-accept-rcvd" {
+               dr:source dereg_accept_rcvd;
+               dr:fieldnum 71;
+          }
+          augment "deregistration-request-rcvd" {
+               dr:source dereg_request_rcvd;
+               dr:fieldnum 72;
+          }
+          augment "identity-request-rcvd" {
+               dr:source identity_request_rcvd;
+               dr:fieldnum 73;
+          }
+          augment "authentication-request-rcvd" {
+               dr:source authen_request_rcvd;
+               dr:fieldnum 74;
+          }
+          augment "authentication-result-rcvd" {
+               dr:source authen_result_rcvd;
+               dr:fieldnum 75;
+          }
+          augment "authentication-reject-rcvd" {
+               dr:source authen_reject_rcvd;
+               dr:fieldnum 76;
+          }
+          augment "security-mode-command-rcvd" {
+               dr:source secmode_command_rcvd;
+               dr:fieldnum 77;
+          }
+          augment "service-accept-rcvd" {
+               dr:source service_accept_rcvd;
+               dr:fieldnum 78;
+          }
+          augment "service-reject-rcvd" {
+               dr:source service_reject_sent;
+               dr:fieldnum 79;
+          }
+          augment "downlink-nas-transport-rcvd" {
+               dr:source dlnas_transport_rcvd;
+               dr:fieldnum 80;
+          }
+          augment "mobility-5gmm-status-rcvd" {
+               dr:source mm5g_status_rcvd;
+               dr:fieldnum 81;
+          }
+          augment "pdu-session-est-accept-rcvd" {
+               dr:source pdusession_est_accept_rcvd;
+               dr:fieldnum 82;
+          }
+          augment "pdu-session-est-reject-rcvd" {
+               dr:source pdusession_est_reject_rcvd;
+               dr:fieldnum 83;
+          }
+          augment "pdu-session-mod-command-rcvd" {
+               dr:source pdusession_mod_command_rcvd;
+               dr:fieldnum 84;
+          }
+          augment "pdu-session-release-cmd-rcvd" {
+               dr:source pdusession_rel_command_rcvd;
+               dr:fieldnum 85;
+          }
+          augment "pdu-session-release-reject-rcvd" {
+               dr:source pdusession_rel_reject_rcvd;
+               dr:fieldnum 86;
+          }
+          augment "pdu-session-5gsm-status-rcvd" {
+               dr:source sm5g_status_rcvd;
+               dr:fieldnum 87;
+          }
+       }
+     }
+
+     grouping nasd-group-total-ue-summary {
+       uses jnasd:nasd-group-total-ue-summary {
+          augment "ue-total-count" {
+               dr:source ue_total_count;
+               dr:fieldnum 88;
+          }
+          augment "ue-initial-count" {
+               dr:source initial;
+               dr:fieldnum 89;
+          }
+          augment "ue-registering-count" {
+               dr:source registering;
+               dr:fieldnum 90;
+          }
+          augment "ue-registered-count" {
+               dr:source registered;
+               dr:fieldnum 91;
+          }
+          augment "ue-deregistering-count" {
+               dr:source deregistering;
+               dr:fieldnum 92;
+          }
+          augment "ue-deregistered-count" {
+               dr:source deregistered;
+               dr:fieldnum 93;
+          }
+       }
+     }
+
+     grouping nasd-group-n1-fnrg-stats {
+       uses jnasd:nasd-group-n1-fnrg-stats {
+          augment "registration-request-sent" {
+               dr:source reg_request_sent;
+               dr:fieldnum 94;
+          }
+          augment "registration-complete-sent" {
+               dr:source reg_complete_sent;
+               dr:fieldnum 95;
+          }
+          augment "deregistration-request-sent" {
+               dr:source dereg_request_sent;
+               dr:fieldnum 96;
+          }
+          augment "deregistration-accept-sent" {
+               dr:source dereg_accept_sent;
+               dr:fieldnum 97;
+          }
+          augment "identity-response-sent" {
+               dr:source identity_response_sent;
+               dr:fieldnum 98;
+          }
+          augment "authentication-response-sent" {
+               dr:source authen_response_sent;
+               dr:fieldnum 99;
+          }
+          augment "authentication-failure-sent" {
+               dr:source authen_failure_sent;
+               dr:fieldnum 100;
+          }
+          augment "security-mode-complete-sent" {
+               dr:source secmode_complete_sent;
+               dr:fieldnum 101;
+          }
+          augment "security-mode-reject-sent" {
+               dr:source secmode_reject_sent;
+               dr:fieldnum 102;
+          }
+          augment "service-request-sent" {
+               dr:source service_request_sent;
+               dr:fieldnum 103;
+          }
+          augment "uplink-nas-transport-sent" {
+               dr:source ulnas_transport_sent;
+               dr:fieldnum 104;
+          }
+          augment "mobility-5gmm-status-sent" {
+               dr:source mm5g_status_sent;
+               dr:fieldnum 105;
+          }
+          augment "pdu-session-est-request-sent" {
+               dr:source pdusession_est_request_sent;
+               dr:fieldnum 106;
+          }
+          augment "pdu-session-mod-complete-sent" {
+               dr:source pdusession_mod_complete_sent;
+               dr:fieldnum 107;
+          }
+          augment "pdu-session-mod-reject-sent" {
+               dr:source pdusession_mod_reject_sent;
+               dr:fieldnum 108;
+          }
+          augment "pdu-session-release-request-sent" {
+               dr:source pdusession_rel_request_sent;
+               dr:fieldnum 109;
+          }
+          augment "pdu-session-release-complete-sent" {
+               dr:source pdusession_rel_complete_sent;
+               dr:fieldnum 110;
+          }
+          augment "pdu-session-5gsm-status-sent" {
+               dr:source sm5g_status_sent;
+               dr:fieldnum 111;
+          }
+          augment "registration-accept-rcvd" {
+               dr:source reg_accept_rcvd;
+               dr:fieldnum 112;
+          }
+          augment "registration-reject-rcvd" {
+               dr:source reg_reject_rcvd;
+               dr:fieldnum 113;
+          }
+          augment "deregistration-accept-rcvd" {
+               dr:source dereg_accept_rcvd;
+               dr:fieldnum 114;
+          }
+          augment "deregistration-request-rcvd" {
+               dr:source dereg_request_rcvd;
+               dr:fieldnum 115;
+          }
+          augment "identity-request-rcvd" {
+               dr:source identity_request_rcvd;
+               dr:fieldnum 116;
+          }
+          augment "authentication-request-rcvd" {
+               dr:source authen_request_rcvd;
+               dr:fieldnum 117;
+          }
+          augment "authentication-result-rcvd" {
+               dr:source authen_result_rcvd;
+               dr:fieldnum 118;
+          }
+          augment "authentication-reject-rcvd" {
+               dr:source authen_reject_rcvd;
+               dr:fieldnum 119;
+          }
+          augment "security-mode-command-rcvd" {
+               dr:source secmode_command_rcvd;
+               dr:fieldnum 120;
+          }
+          augment "service-accept-rcvd" {
+               dr:source service_accept_rcvd;
+               dr:fieldnum 121;
+          }
+          augment "service-reject-rcvd" {
+               dr:source service_reject_sent;
+               dr:fieldnum 122;
+          }
+          augment "downlink-nas-transport-rcvd" {
+               dr:source dlnas_transport_rcvd;
+               dr:fieldnum 123;
+          }
+          augment "mobility-5gmm-status-rcvd" {
+               dr:source mm5g_status_rcvd;
+               dr:fieldnum 124;
+          }
+          augment "pdu-session-est-accept-rcvd" {
+               dr:source pdusession_est_accept_rcvd;
+               dr:fieldnum 125;
+          }
+          augment "pdu-session-est-reject-rcvd" {
+               dr:source pdusession_est_reject_rcvd;
+               dr:fieldnum 126;
+          }
+          augment "pdu-session-mod-command-rcvd" {
+               dr:source pdusession_mod_command_rcvd;
+               dr:fieldnum 127;
+          }
+          augment "pdu-session-release-cmd-rcvd" {
+               dr:source pdusession_rel_command_rcvd;
+               dr:fieldnum 128;
+          }
+          augment "pdu-session-release-reject-rcvd" {
+               dr:source pdusession_rel_reject_rcvd;
+               dr:fieldnum 129;
+          }
+          augment "pdu-session-5gsm-status-rcvd" {
+               dr:source sm5g_status_rcvd;
+               dr:fieldnum 130;
+          }
+       }
+     }
+
+     grouping nasd-group-fnrg-ue-summary {
+       uses jnasd:nasd-group-fnrg-ue-summary {
+          augment "ue-total-count" {
+               dr:source ue_total_count;
+               dr:fieldnum 131;
+          }
+          augment "ue-initial-count" {
+               dr:source initial;
+               dr:fieldnum 132;
+          }
+          augment "ue-registering-count" {
+               dr:source registering;
+               dr:fieldnum 133;
+          }
+          augment "ue-registered-count" {
+               dr:source registered;
+               dr:fieldnum 134;
+          }
+          augment "ue-deregistering-count" {
+               dr:source deregistering;
+               dr:fieldnum 135;
+          }
+          augment "ue-deregistered-count" {
+               dr:source deregistered;
+               dr:fieldnum 136;
+          }
+       }
+     }
+
+     grouping nasd-group-pdu-session {
+       uses jnasd:nasd-group-pdu-session {
+          augment "session-total-count" {
+               dr:source session_total_count;
+               dr:fieldnum 137;
+          }
+          augment "session-inactive-count" {
+               dr:source inactive;
+               dr:fieldnum 138;
+          }
+          augment "session-activating-count" {
+               dr:source activating;
+               dr:fieldnum 139;
+          }
+          augment "session-active-count" {
+               dr:source active;
+               dr:fieldnum 140;
+          }
+          augment "session-deactivating-count" {
+               dr:source deactivating;
+               dr:fieldnum 141;
+          }
+       }
+     }
+
+     // rpc statements
+
+     rpc juniper-netconf-get {
+          dr:command-top-of-output "/oc-nasd-information";
+          dr:command-help "Default <get> rpc";
+          output {
+               container junos {
+                    dr:fieldnum 151;
+                    container system {
+                         dr:fieldnum 151;
+                         container subscriber-management {
+                              dr:fieldnum 151;
+                              container agf{
+                                   dr:fieldnum 151;
+                                   container nas {
+                                        dr:fieldnum 151;
+                                        container n1 {
+                                             dr:fieldnum 151;
+                                             container statistics {
+                                                  dr:source "/junos/system/subscriber-management/agf/nas/n1/statistics";
+                                                  dr:fieldnum 151;
+                                                  uses nasd-group-n1-total-stats;
+                                             }
+				             container fn-rg {
+				                  dr:fieldnum 152;
+                                                  container statistics {
+                                                       dr:source "/junos/system/subscriber-management/agf/nas/n1/fn-rg/statistics";
+                                                       dr:fieldnum 151;
+                                                       uses nasd-group-n1-fnrg-stats;
+                                                  }
+				             }
+                                        }
+                                        container user-equipment {
+                                             dr:fieldnum 152;
+                                             container ue-summary {
+                                                  dr:source "/junos/system/subscriber-management/agf/nas/user-equipment/ue-summary";
+                                                  dr:fieldnum 151;
+                                                  uses nasd-group-total-ue-summary;
+                                             }
+                                             container fn-rg {
+                                                  dr:fieldnum 152;
+                                                  container ue-summary {
+                                                       dr:source "/junos/system/subscriber-management/agf/nas/user-equipment/fn-rg/ue-summary";
+                                                       dr:fieldnum 151;
+                                                       uses nasd-group-fnrg-ue-summary;
+                                                  }
+                                             }
+                                             container pdu-session-state {
+                                                  dr:source "/junos/system/subscriber-management/agf/nas/user-equipment/pdu-session-state";
+                                                  dr:fieldnum 153;
+                                                  uses nasd-group-pdu-session;
+                                             }
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               }
+          }
+     }
+}
+

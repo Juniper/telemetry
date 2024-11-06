@@ -1,0 +1,25 @@
+module junos-state-oam-annotations {
+  yang-version 1;
+
+  namespace "http://yang.juniper.net/junos/state/oam/annotations";
+
+  prefix "js-oam-ann";
+
+  import junos-state { prefix js; }
+  import junos-state-protocols { prefix js-pro; }
+  import junos-state-oam { prefix js-oam; }
+  import junos-extension { prefix junos; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  revision "2023-01-13" {
+    description "Initial version to add oam model product support information";
+  }
+
+  augment "/js:state/js-pro:protocols/js-oam:oam" {
+    JUNOS_PRODUCT(MX_SERIES);
+    JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX AVENGERS_ACX);
+  }
+}

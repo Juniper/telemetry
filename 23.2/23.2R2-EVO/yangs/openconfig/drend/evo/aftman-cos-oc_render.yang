@@ -1,0 +1,207 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module aftman-cos-oc_render {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/aftman_cos_oc";
+
+    prefix "aftman_cos_oc";
+
+    import drend {
+      prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    dr:command-app "evo-aftmand-bt";
+
+    organization "Juniper Network Inc.";
+
+    jnpr-proto:message-id "AFT-PFE-PORT-QSTATS-OC-MESSAGE-ID";
+    dr:sub-component "aft_cos";
+
+    grouping interface-qstat-jv-group {
+      leaf name {
+            type string;
+            dr:source "ifname";
+            dr:fieldnum 51;
+        }
+        leaf index {
+            type uint32;
+            dr:source "index";
+            dr:fieldnum 53;
+        }
+        leaf egress-queues {
+            type uint8;
+            dr:source "eq";
+            dr:fieldnum 54;
+        }
+        leaf init-time {
+            type uint64;
+            dr:source "ifdInitTime";
+            dr:fieldnum 55;
+        }
+
+    }
+
+    grouping interface-qstat-jv-state-group {
+         leaf parent-ae-name {
+            type string;
+            dr:source "parentAeName";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping interface-qstat-jv-detail-group {
+        leaf queue-number {
+            type uint8;
+            dr:source "queue";
+            dr:fieldnum 51;
+        }
+        leaf pkts {
+            type uint64;
+            dr:source "txPkts";
+            dr:fieldnum 52;
+        }
+        leaf bytes {
+            type uint64;
+            dr:source "txBytes";
+            dr:fieldnum 53;
+        }
+        leaf tail-drop-pkts {
+            type uint64;
+            dr:source "tailDropPkts";
+            dr:fieldnum 54;
+        }
+        leaf tail-drop-bytes {
+            type uint64;
+            dr:source "tailDropBytes";
+            dr:fieldnum 55;
+        }
+        leaf rl-drop-pkts {
+            type uint64;
+            dr:source "rlDropPkts";
+            dr:fieldnum 56;
+        }
+        leaf rl-drop-bytes {
+            type uint64;
+            dr:source "rlDropBytes";
+            dr:fieldnum 57;
+        }
+        leaf red-drop-pkts {
+            type uint64;
+            dr:source "redDropPkts";
+            dr:fieldnum 58;
+        }
+        leaf red-drop-bytes {
+            type uint64;
+            dr:source "redDropBytes";
+            dr:fieldnum 59;
+        }
+        leaf avg-buffer-occupancy {
+            type uint64;
+            dr:source "depthAverage";
+            dr:fieldnum 60;
+        }
+        leaf cur-buffer-occupancy{
+            type uint64;
+            dr:source "depthCurrent";
+            dr:fieldnum 61;
+        }
+        leaf peak-buffer-occupancy {
+            type uint64;
+            dr:source "depthPeak";
+            dr:fieldnum 62;
+        }
+        leaf allocated-buffer-size {
+            type uint64;
+            dr:source "allocatedBuffer";
+            dr:fieldnum 63;
+        }
+    }
+
+    grouping ifl-qstat-jv-group {
+        leaf index {
+            type uint32;
+            dr:source "subUnit";
+            dr:fieldnum 51;
+        }
+    }
+
+    grouping ifl-qstat-state-jv-group {
+        leaf index {
+            type uint32;
+            dr:source "subUnit";
+            dr:fieldnum 51;
+        }
+        leaf ifIndex {
+            type uint32;
+            dr:source "iflIndex";
+            dr:fieldnum 52;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-help "Print the netconf output for Interface Queue Stats";
+        output {
+            container interfaces {
+                dr:source "/aftman_cos";
+                dr:zero-suppressed;
+                dr:fieldnum 151;
+                list interface {
+                    dr:source "interface-qstat-jv";
+                    dr:fieldnum 151;
+                    dr:atomic-data;
+                    uses interface-qstat-jv-group;
+                    key name;
+                    list state {
+                        dr:source "interface-qstat-jv-state";
+                        dr:fieldnum 151;
+                        uses interface-qstat-jv-state-group;
+                        list counters {
+                            dr:source "interface-qstat-jv-counters";
+                            dr:fieldnum 151;
+                            list out-queue {
+                                dr:source "interface-qstat-jv-out-queue";
+                                dr:fieldnum 151;
+                                dr:suppress-prefix;
+                                uses interface-qstat-jv-detail-group;
+                                key queue-number;
+                            }
+                        }
+                    }
+                    list subinterfaces {
+                        dr:source "logical-interface-qstat-jv";
+                        dr:fieldnum 152;
+                        list subinterface { 
+                            dr:source "logical-interface-info-jv";
+                            dr:fieldnum 151;
+                            uses ifl-qstat-jv-group;
+                            key index;
+                            list state {
+                                dr:source "logical-interface-qstat-jv-state";
+                                dr:fieldnum 151;
+                                uses ifl-qstat-state-jv-group;
+                                list counters {
+                                    dr:source "logical-interface-qstat-jv-counters";
+                                    dr:fieldnum 151;
+                                    list out-queue {
+                                        dr:source "logical-interface-qstat-jv-out-queue";
+                                        dr:fieldnum 151;
+                                        uses interface-qstat-jv-detail-group;
+                                        key queue-number;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

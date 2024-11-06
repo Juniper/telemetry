@@ -1,0 +1,471 @@
+/**
+ * @copyright  Copyright Juniper Networks 2019. All rights reserved
+ * @file       oc_interface_render.yang
+ * @author     Lohith Nayak
+ * @date       July, 2019
+ * @brief      picd - Open config - Interface sensor data
+ */
+
+module picd_oc_interface_render {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/picd_oc_interface_render";
+
+    prefix "oc_interface_render";
+
+    import drend {
+        prefix "dr";
+    }
+
+    //For UDP streaming
+    import jnpr-proto { prefix jnpr-proto; }
+    import jnx-aug-openconfig-interfaces { prefix jnx-aug-oc-interfaces; }
+    jnpr-proto:message-id "PORT-ID";
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+
+    dr:command-app "picd";
+    dr:sub-component "optics";
+
+    grouping ifd-group {
+        leaf "name" {
+            type string;
+            dr:source "name";
+            dr:fieldnum 1;
+        }
+    }
+
+    grouping ifd-state-group {
+        leaf hardware-port {
+            type string;
+            dr:source "portString";
+            dr:fieldnum 52;
+        }
+        leaf transceiver {
+            type string;
+            dr:source "XcvrString";
+            dr:fieldnum 53;
+        }
+        leaf-list physical-channel {
+            type uint16;
+            dr:source "index_list";
+            dr:fieldnum 54;
+        }
+    }
+
+    grouping picd-mtip-stat-counters {
+        leaf "in-unicast-pkts" {
+            type uint64;
+            dr:source "ifInUcastPkts";
+            dr:fieldnum 1;
+        }
+        leaf "in-broadcast-pkts" {
+            type uint64;
+            dr:source "etherStatsBroadcastPkts";
+            dr:fieldnum 2;
+        }
+        leaf "in-multicast-pkts" {
+            type uint64;
+            dr:source "etherStatsMulticastPkts";
+            dr:fieldnum 3;
+        }
+        leaf "in-pause-pkts" {
+            type uint64;
+            dr:source "aPAUSEMACCtrlFramesReceived";
+            dr:fieldnum 4;
+        }
+        leaf "in-errors" {
+            type uint64;
+            dr:source "ifInErrors";
+            dr:fieldnum 5;
+        }
+        leaf "in-fcs-errors" {
+            type uint64;
+            dr:source "ifFcsErrors";
+            dr:fieldnum 6;
+        }
+        leaf "in-discards" {
+            type uint64;
+            dr:source "ifInDiscards";
+            dr:fieldnum 7;
+        }
+        leaf "out-unicast-pkts" {
+            type uint64;
+            dr:source "ifOutUcastPkts";
+            dr:fieldnum 8;
+        }
+        leaf "out-broadcast-pkts" {
+            type uint64;
+            dr:source "ifOutBroadcastPkts";
+            dr:fieldnum 9;
+        }
+        leaf "out-multicast-pkts" {
+            type uint64;
+            dr:source "ifOutMulticastPkts";
+            dr:fieldnum 10;
+        }
+        leaf "out-pause-pkts" {
+            type uint64;
+            dr:source "aPauseMACCtrlFramesTransmitted";
+            dr:fieldnum 11;
+        }
+        leaf "out-errors" {
+            type uint64;
+            dr:source "ifOutErrors";
+            dr:fieldnum 12;
+        }
+        leaf "out-discards" {
+            type uint64;
+            dr:source "ifOutDiscards";
+            dr:fieldnum 13;
+        }
+    }
+
+    grouping picd-ethernet {
+          leaf "mac-address" {
+              type string;
+              dr:source "mac_address";
+              dr:fieldnum 1;
+          }
+          leaf "auto-negotiate" {
+              type boolean;
+              dr:source "auto_negotiate";
+              dr:fieldnum 2;
+              dr:map false { dr:map-from 0; }
+              dr:map true { dr:map-from *; }
+          }
+          leaf "duplex-mode" {
+              type string;
+              dr:source "duplex_mode";
+              dr:fieldnum 3;
+              dr:map FULL  { dr:map-from 3; }
+              dr:map HALF  { dr:map-from 2; }
+              dr:map NOT-NEGOTIATED  { dr:map-from *; }
+          }
+          leaf "port-speed" {
+              type string;
+              dr:source "port_speed";
+              dr:fieldnum 4;
+              dr:map SPEED_10MB  { dr:map-from 1; }
+              dr:map SPEED_100MB { dr:map-from 2; }
+              dr:map SPEED_1GB   { dr:map-from 3; }
+              dr:map SPEED_2500MB{ dr:map-from 4; }
+              dr:map SPEED_5GB   { dr:map-from 5; }
+              dr:map SPEED_10GB   { dr:map-from 6; }
+              dr:map SPEED_25GB   { dr:map-from 7; }
+              dr:map SPEED_40GB   { dr:map-from 8; }
+              dr:map SPEED_50GB   { dr:map-from 9; }
+              dr:map SPEED_100GB   { dr:map-from 10; }
+              dr:map SPEED_200GB   { dr:map-from 11; }
+              dr:map SPEED_400GB   { dr:map-from 12; }
+              dr:map SPEED_600GB   { dr:map-from 13; }
+              dr:map SPEED_800GB   { dr:map-from 14; }
+              dr:map SPEED_UNKNOWN   { dr:map-from *; }
+          }
+          leaf "enable-flow-control" {
+              type boolean;
+              dr:source "enable_flow_control";
+              dr:fieldnum 5;
+              dr:map false { dr:map-from 0; }
+              dr:map true { dr:map-from *; }
+          }
+          leaf "hw-mac-address" {
+              type string;
+              dr:source "hw_mac_address";
+              dr:fieldnum 6;
+          }
+          leaf "negotiated-duplex-mode" {
+              type string;
+              dr:source "duplex_mode";
+              dr:fieldnum 7;
+              dr:map FULL  { dr:map-from 3; }
+              dr:map HALF  { dr:map-from 2; }
+              dr:map NOT-NEGOTIATED  { dr:map-from *; }
+          }
+          leaf "negotiated-port-speed" {
+              type string;
+              dr:source "port_speed";
+              dr:fieldnum 8;
+              dr:map SPEED_10MB  { dr:map-from 1; }
+              dr:map SPEED_100MB { dr:map-from 2; }
+              dr:map SPEED_1GB   { dr:map-from 3; }
+              dr:map SPEED_2500Mb{ dr:map-from 4; }
+              dr:map SPEED_5GB   { dr:map-from 5; }
+              dr:map SPEED_10GB   { dr:map-from 6; }
+              dr:map SPEED_25GB   { dr:map-from 7; }
+              dr:map SPEED_40GB   { dr:map-from 8; }
+              dr:map SPEED_50GB   { dr:map-from 9; }
+              dr:map SPEED_100GB   { dr:map-from 10; }
+              dr:map SPEED_200GB   { dr:map-from 11; }
+              dr:map SPEED_400GB   { dr:map-from 12; }
+              dr:map SPEED_600GB   { dr:map-from 13; }
+              dr:map SPEED_800GB   { dr:map-from 14; }
+              dr:map SPEED_UNKNOWN   { dr:map-from *; }
+          }
+    }
+
+    grouping picd-ethernet-counters {
+        leaf "in-mac-control-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/aMACControlFramesReceived";
+            dr:fieldnum 1;
+        }
+        leaf "in-mac-pause-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/aMACPauseFramesReceived";
+            dr:fieldnum 2;
+        }
+        leaf "in-oversize-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsPkts1519toX";
+            dr:fieldnum 3;
+        }
+        leaf "in-undersize-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsUndersizePkts";
+            dr:fieldnum 4;
+        }
+        leaf "in-jabber-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsJabber";
+            dr:fieldnum 5;
+        }
+        leaf "in-fragment-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsFragments";
+            dr:fieldnum 6;
+        }
+        leaf "in-crc-errors" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsCRCAlignErrors";
+            dr:fieldnum 7;
+        }
+        leaf "in-block-errors" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/inBlockErrors";
+            dr:fieldnum 8;
+        }
+        leaf "out-mac-control-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/aMACControlFramesTransmitted";
+            dr:fieldnum 9;
+        }
+        leaf "out-mac-pause-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/aMACPauseFramesTransmitted";
+            dr:fieldnum 10;
+        }
+        leaf "in-8021q-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/VLANTaggedFramesIn";
+            dr:fieldnum 11;
+        }
+        leaf "out-8021q-frames" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/VLANTaggedFramesOut";
+            dr:fieldnum 12;
+        }
+        leaf "in-maxsize-exceeded" {
+            type uint64;
+            dr:zero-suppressed;
+            dr:source "eth-state-counters-group/etherStatsOversizePkts";
+            dr:fieldnum 13;
+        }
+        container in-distribution {
+            dr:fieldnum 151;
+            leaf "in-frames-64-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts64Octets";
+                dr:fieldnum 51;
+            }
+            leaf "in-frames-65-127-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts65to127Octets";
+                dr:fieldnum 52;
+            }
+            leaf "in-frames-128-255-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts128to255Octets";
+                dr:fieldnum 53;
+            }
+            leaf "in-frames-256-511-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts256to511Octets";
+                dr:fieldnum 54;
+            }
+            leaf "in-frames-512-1023-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts512to1023Octets";
+                dr:fieldnum 55;
+            }
+            leaf "in-frames-1024-1518-octets" {
+                type uint64;
+                dr:zero-suppressed;
+                dr:source "eth-state-counters-group/etherStatsPkts1024to1518Octets";
+                dr:fieldnum 56;
+            }
+        }
+    }
+
+    grouping jnx-pfc-statistics-group {
+        uses jnx-aug-oc-interfaces:jnx-pfc-stats-data {
+            augment "jnx-pfc-statistics" {
+                dr:source "pfc-statistics";
+                dr:fieldnum 14;
+            }
+            augment "jnx-pfc-statistics/priority" {
+                dr:source "priority";
+                dr:fieldnum 1;
+            }
+            augment "jnx-pfc-statistics/in-mac-pause-frames" {
+                dr:source "priorityMACPauseFramesReceived";
+                dr:fieldnum 2;
+            }
+            augment "jnx-pfc-statistics/out-mac-pause-frames" {
+                dr:source "priorityMACPauseFramesTransmitted";
+                dr:fieldnum 3;
+            }
+        }
+    }
+
+    /// junos/system/linecard/interfaces/   <==> /interfaces/interface[name='et-0/0/0']/state/counters/
+    rpc juniper-netconf-get {
+        output {
+            container interfaces {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                list interface {
+                    dr:atomic-data;
+                    dr:source "intf-interface-info";
+                    dr:fieldnum 1;
+                    uses ifd-group;
+                    key name;
+                    list state {
+                        dr:source "interface-state";
+                        dr:fieldnum 3;
+                        uses ifd-state-group;
+                    }
+                    list ethernet {
+                        dr:source "interface-state";
+                        dr:fieldnum 4;
+                        list state {
+                            dr:source "interface-ethernet-state";
+                            dr:fieldnum 1;
+                            uses picd-ethernet;
+                            list counters {
+                                dr:source "ethernet-state-counters";
+                                dr:fieldnum 9;
+                                uses picd-ethernet-counters;
+                                uses jnx-pfc-statistics-group;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    rpc juniper-telemetry-get {
+        output {
+            container interfaces {
+                dr:source "/picd-telemetry";
+                dr:fieldnum 1;
+                list interface {
+                    dr:atomic-data;
+                    dr:source "intf-interface-info";
+                    dr:fieldnum 1;
+                    uses ifd-group;
+                    key name;
+                    list state {
+                        dr:source "interface-state";
+                        dr:fieldnum 3;
+                        uses ifd-state-group;
+                    }
+                    list ethernet {
+                        dr:source "interface-state";
+                        dr:fieldnum 4;
+                        list state {
+                            dr:source "interface-ethernet-state";
+                            dr:fieldnum 1;
+                            uses picd-ethernet;
+                            list counters {
+                                dr:source "ethernet-state-counters";
+                                dr:fieldnum 9;
+                                uses picd-ethernet-counters;
+                                uses jnx-pfc-statistics-group;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //IFD State - Event
+    notification oc-ethernet {
+        dr:source-notification-name "ethernet";
+
+        container interfaces {
+            dr:source "/notification/ethernet/interfaces";
+            dr:fieldnum 1;
+            list interface {
+                dr:source "interface";
+                dr:fieldnum 1;
+                key name;
+                uses ifd-group;
+                container ethernet {
+                    dr:source "intf-eth-data";
+                    dr:fieldnum 4;
+                    container state {
+                        dr:source "state";
+                        dr:fieldnum 1;
+                        uses picd-ethernet;
+                    }
+                }
+            }
+        }
+    }
+  
+    //Event for state/counters
+    notification oc-state {
+        dr:source-notification-name "state";
+
+        container interfaces {
+            dr:source "/notification/state";
+            dr:fieldnum 1;
+            list interface {
+                dr:source "interface";
+                dr:fieldnum 1;
+                key name;
+                uses ifd-group;
+                container state {
+                    dr:source "interface-state";
+                    dr:fieldnum 3;
+                }
+            }
+        }
+    }
+
+}

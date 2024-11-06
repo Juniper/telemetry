@@ -1,0 +1,17 @@
+module junos-state-health-annotations {
+    yang-version "1";
+    prefix "js-health-ann";
+    namespace "http://yang.juniper.net/junos/state/health/annotations";
+    import junos-state { prefix js; }
+    import junos-state-chassis {prefix js-chas; }
+    import junos-state-health {prefix js-health; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    description "Augmenting the chassis health supported list";
+    revision "2022-09-07" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/js:state/js-chas:chassis/js-chas:modules/js-chas:module/js-health:health" {
+        junos:product "ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+}

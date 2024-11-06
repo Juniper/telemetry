@@ -1,0 +1,156 @@
+module junos-openconfig-aft-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/aft/annotations";
+  prefix "jnx-oc-ni-ann";
+  import openconfig-network-instance { prefix oc-ni; }
+  import openconfig-aft-network-instance { prefix oc-aftni; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig aft model";
+  revision "2022-05-18" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" {
+      junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "acx7509 ACX7024";
+      junos:product "mx2008 mx104 mx480 mx2010 mx304";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:prefix" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:prefix" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:prefix" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-ni:prefix" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:label" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-ni:label" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-ni:popped-mpls-label-stack" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:next-hop-groups" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:next-hops" {
+      junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+      junos:product "mx2020 mx960 mx240";
+      junos:product "ptx5000 ptx1000";
+      junos:product "acx7509 ACX7024";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:counters/oc-ni:packets-forwarded" {
+      junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:counters/oc-ni:octets-forwarded" {
+      junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state/oc-ni:counters/oc-ni:packets-forwarded" {
+      junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state/oc-ni:counters/oc-ni:octets-forwarded" {
+      junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+      junos:product-tvp "mx10004 mx10008 mx10016";
+  }
+}

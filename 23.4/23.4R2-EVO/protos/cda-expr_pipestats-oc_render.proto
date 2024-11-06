@@ -1,0 +1,47 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_pipestats jnpr_components_cda_pipestats_ext = 207;
+}
+
+message components_cda_pipestats {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional packet_type packet = 151;
+            message packet_type {
+               optional queueing_block_type queueing_block = 151;
+               message queueing_block_type {
+                  message state_list {
+                     optional uint64 in_packets = 51;
+                     optional uint64 out_packets = 52;
+                     optional uint64 queue_memory = 53;
+                     optional uint64 queue_memory_used = 54;
+                     optional uint64 loopback_packets = 55;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+            optional drop_type drop = 152;
+            message drop_type {
+               optional queueing_block_type queueing_block = 151;
+               message queueing_block_type {
+                  message state_list {
+                     optional uint64 oversubscription = 51;
+                     optional uint64 memory_limit = 52;
+                     optional uint64 incorrect_state = 53;
+                     optional uint64 lookup_queue = 54;
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

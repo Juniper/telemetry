@@ -1,0 +1,172 @@
+module junos-openconfig-network-instance-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/network-instance/annotations";
+
+  prefix "jnx-oc-netinst-ann";
+
+  import openconfig-network-instance { prefix oc-ni; }
+  import jnx-aug-openconfig-l2-fdb { prefix jnx-oc-l2-fdb; }
+  import jnx-aug-openconfig-evpn { prefix jnx-oc-evpn; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig network instance model";
+
+  revision "2022-04-04" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT(EX92XX_SERIES);
+      JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+      JUNOS_PRODUCT_TVP(ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t);
+      JUNOS_PRODUCT_TVP(ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t);
+      JUNOS_PRODUCT_TVP(ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+      JUNOS_PRODUCT(srx5400 srx5600 srx5800 vsrx);
+      JUNOS_PRODUCT_TVP(srx1500 srx4100 srx4200 srx4600 srx4800);
+      JUNOS_PRODUCT(crpd);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "oc-ni:fdb/oc-ni:state" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "oc-ni:interfaces/oc-ni:interface/oc-ni:config/oc-ni:mac-pinning" {
+      JUNOS_PRODUCT(MX_SERIES);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:mac-table" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:mac-table/jnx-oc-l2-fdb:entries/jnx-oc-l2-fdb:entry/jnx-oc-l2-fdb:vni" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:mac-table/jnx-oc-l2-fdb:entries/jnx-oc-l2-fdb:entry/jnx-oc-l2-fdb:ethernet-tag-id" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:mac-table-info" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:macip-table" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-l2-fdb:macip-table-info" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/" +
+      "jnx-oc-evpn:jnx-evpn/jnx-oc-evpn:vxlan-tunnel-end-point" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:policy-forwarding" {
+      JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX ptx10016 ptx10008);
+      JUNOS_PRODUCT_EXCLUDE(ptx1000 ptx5000 ptx21000 ptx10004 BRACKLA_QFX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:mpls/oc-ni:signaling-protocols/oc-ni:segment-routing" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol/oc-ni:local-aggregates" {
+      JUNOS_PRODUCT_EXCLUDE(crpd);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol/oc-ni:pim" {
+      JUNOS_PRODUCT_EXCLUDE(crpd);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol/oc-ni:igmp" {
+      JUNOS_PRODUCT_EXCLUDE(crpd);
+  }
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol/oc-ni:pcep" {
+      JUNOS_PRODUCT_EXCLUDE(crpd);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:segment-routing/oc-ni:te-policies/oc-ni:te-policy" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:protocols/oc-ni:protocol/oc-ni:bgp/" +
+              "oc-ni:rib/oc-ni:afi-safis/oc-ni:afi-safi/oc-ni:l2vpn-evpn" {
+      JUNOS_PRODUCT(MX_SERIES olive PTX_SERIES ACX_SERIES EX_SERIES_NG);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT_TVP(qfx10008 qfx10016 qfx10001-l-20c);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+      JUNOS_PRODUCT_TVP(ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+      JUNOS_PRODUCT(FX_SERIES FX_SERIES_NG);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(BRACKLA_ALL);
+      JUNOS_PRODUCT_EXCLUDE(EX43XX);
+      JUNOS_PRODUCT_EXCLUDE(SAPPHIRE_128C SAPPHIRE_32CD DCF_PINNACLE);
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+}

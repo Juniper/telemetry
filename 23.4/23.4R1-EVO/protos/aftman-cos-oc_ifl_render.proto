@@ -1,0 +1,48 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_aft_cos jnpr_interfaces_aft_cos_ext = 199;
+}
+
+message interfaces_aft_cos {
+   message interface_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional uint32 index = 53;
+      optional uint32 egress_queues = 54;
+      optional uint64 init_time = 55;
+      optional subinterfaces_type subinterfaces = 152;
+      message subinterfaces_type {
+         message subinterface_list {
+            optional uint32 index = 51 [(telemetry_options).is_key = true];
+            optional state_type state = 151;
+            message state_type {
+               optional uint32 index = 51;
+               optional uint32 ifIndex = 52;
+               optional counters_type counters = 151;
+               message counters_type {
+                  message out_queue_list {
+                     optional uint32 queue_number = 51 [(telemetry_options).is_key = true];
+                     optional uint64 pkts = 52;
+                     optional uint64 bytes = 53;
+                     optional uint64 tail_drop_pkts = 54;
+                     optional uint64 tail_drop_bytes = 55;
+                     optional uint64 rl_drop_pkts = 56;
+                     optional uint64 rl_drop_bytes = 57;
+                     optional uint64 red_drop_pkts = 58;
+                     optional uint64 red_drop_bytes = 59;
+                     optional uint64 avg_buffer_occupancy = 60;
+                     optional uint64 cur_buffer_occupancy = 61;
+                     optional uint64 peak_buffer_occupancy = 62;
+                     optional uint64 allocated_buffer_size = 63;
+                  }
+                  repeated out_queue_list out_queue = 151;
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+   }
+   repeated interface_list interface = 151;
+}

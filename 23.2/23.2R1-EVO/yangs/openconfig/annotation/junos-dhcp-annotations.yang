@@ -1,0 +1,36 @@
+module junos-dhcp-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/dhcp/annotations";
+    prefix "junos-dhcp-ann";
+    import junos-dhcp { prefix junos-dhcp; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-12-05" {
+        description "Initial version to add native jdhcpd model product support information";
+    }
+    augment "/junos-dhcp:junos/junos-dhcp:system/junos-dhcp:subscriber-management/" +
+            "junos-dhcp:client-protocols/junos-dhcp:dhcp" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product "ex9204 ex9208 ex9214 ex9251 ex9253";
+        junos:product "acx1000 acx2000 acx4000 acx2100 acx2200 acx1100 acx500-o-poe-dc acx500-o-poe-ac acx500-o-dc acx500-o-ac acx500-dc acx500-ac acx5048 acx5096 acx753 r6273 acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348";
+        junos:product "mx104 mxtsr80";
+        junos:product "ex8208 ex8216";
+        junos:product "ex6210";
+        junos:product "ex8208-j ex8216-j";
+        junos:product "ex4200-24f ex4200-24t ex4200-24p ex4200-48t ex4200-48p ex4200-48px ex4200-24px";
+        junos:product "ex4500-40f ex4550-32f ex4550-32t";
+        junos:product "ex-xre";
+        junos:product "ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f";
+        junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+        junos:product "ACX7100-48L ACX7100-32C";
+        junos:product "cbng";
+        junos:product "dc_olive fx-jvre qfx3500 qfx3008-i qfx3600-16q qfx3600-i qfx5100-24q-2pf qfx5100-48s-6qf qfx5100-48t-6qf qfx5100-24q-2pi";
+        junos:product "jsr2300 jsr4300 jsr6300 jsr2320 jsr2350 jsr4350 jsr6350 srx100b srx100h srx100h2 srx110b-va srx110h-va srx110b-vb srx110h-vb srx110b-wl srx110h-wl srx110h-va-wl srx110h-vb-wl srx110h2-va srx110h2-vb srx210b srx210h srx210h-poe srx210h-p-m srx210be srx210he srx210he-poe srx210he-p-m srx210he2 srx210he2-poe srx220h srx220h-poe srx220h-p-m srx220h2 srx220h2-poe srx240b srx240h srx240h-poe srx240h-p-m srx240h-dc srx240b2 srx240h2 srx240h2-poe srx240h2-dc srx300 srx300-lem srx320 srx320-lem srx320-poe srx320-poe-lem srx340 srx340-lem srx345 srx345-lem srx345-dual-ac srx345-dc srx320-lte-aa srx320-lte-ae srx320-poe-lte-aa srx320-poe-lte-ae srx380-poe-ac srx550 srx550m srx630 srx650 srx680 ln1000-v ln2600 vjx1000 vsrx srxtvp csrx";
+        junos:product "srx5800 srx5600 srx5400 srx3600 srx3400 srx1400";
+        junos:product "sce";
+        junos:product "ex2200-c-12p-2g ex2200-c-12t-2g ex2200-24p-4g ex2200-24t-4g ex2200-24p-4g ex2200-24t-4g ex2200-48p-4g ex2200-48t-4g ex2200-24t-dc-4g";
+        junos:product "ex3300-24t ex3300-24p ex3300-48p ex3300-48t ex3300-24t-dc ex3300-48t-bf";
+        junos:product "ex3200-24t ex3200-24p ex3200-48t ex3200-48p";
+        junos:product "qfx3500s qfx3600-16qs qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx10000-elit vqfx-10000 pvi-model qfx10004 qfx10008 qfx10016 qfx10004 qfx10008 qfx10016 dc_olive";
+    }
+}

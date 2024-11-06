@@ -1,0 +1,33 @@
+module junos-spu-cpu-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/spu-cpu/annotations";
+
+    prefix "junos-spu-cpu-ann";
+
+    import junos-spu-cpu { prefix junos-security; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-11-10" {
+        description "Initial version to add spu-cpu model product support information";
+    }
+
+      augment "/junos-security:junos/junos-security:security/junos-security:spu" {
+         JUNOS_PRODUCT_TVP(NFX_SERIES);
+         JUNOS_PRODUCT_TVP(srx4100 srx4200 srx4600);
+         JUNOS_PRODUCT(mx240 mx480 mx960);
+         JUNOS_PRODUCT_TVP(VSRX_SERIES);
+         JUNOS_PRODUCT(srxtvp);
+     }
+      augment "/junos-security:junos/junos-security:security/junos-security:spu/junos-security:cpu" {
+         JUNOS_PRODUCT_TVP(NFX_SERIES);
+         JUNOS_PRODUCT_TVP(srx4100 srx4200 srx4600);
+         JUNOS_PRODUCT(mx240 mx480 mx960);
+         JUNOS_PRODUCT_TVP(VSRX_SERIES);
+         JUNOS_PRODUCT(srxtvp);
+     }
+}
+

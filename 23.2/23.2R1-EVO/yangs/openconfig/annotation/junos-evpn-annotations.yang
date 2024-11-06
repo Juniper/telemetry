@@ -1,0 +1,30 @@
+module junos-evpn-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/evpn/annotations";
+    prefix "junos-evpn-ann";
+    import junos-evpn { prefix junos-evpn; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-12-14" {
+        description "Initial version for EVPN information kept at global level";
+ reference "0.0.1";
+    }
+    augment "/junos-evpn:junos/junos-evpn:evpn/junos-evpn:evpn-smet-forwarding" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr olive ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008 acx1000 acx2000 acx4000 acx2100 acx2200 acx1100 acx500-o-poe-dc acx500-o-poe-ac acx500-o-dc acx500-o-ac acx500-dc acx500-ac acx5048 acx5096 acx753 r6273 acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 ex8208-j ex8216-j ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f ex9204 ex9208 ex9214 ex9251 ex9253 qfx3500s qfx3600-16qs qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx10000-elit vqfx-10000 pvi-model qfx10004 qfx10008 qfx10016 qfx10004 qfx10008 qfx10016 dc_olive dc_olive";
+ junos:product "dc_olive fx1600_48 fx2160_48 qfx3500 qfx3008-i fx-jvre qfx3600-16q qfx3600-i qfx5100-24q-2pf qfx5100-48s-6qf qfx5100-48t-6qf qfx5100-24q-2pi qfx3500s qfx3600-16qs qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx10000-elit vqfx-10000 pvi-model qfx10004 qfx10008 qfx10016 qfx10004 qfx10008 qfx10016 dc_olive";
+ junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+ junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c";
+ junos:product-exclude "ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f";
+ junos:product-exclude "qfx5220-128c qfx5220-32cd qfx5200-32c-32q";
+ junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+    }
+    augment "/junos-evpn:junos/junos-evpn:evpn/junos-evpn:l3-context/junos-evpn:ip-prefix-database" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr olive ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008 acx1000 acx2000 acx4000 acx2100 acx2200 acx1100 acx500-o-poe-dc acx500-o-poe-ac acx500-o-dc acx500-o-ac acx500-dc acx500-ac acx5048 acx5096 acx753 r6273 acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 ex8208-j ex8216-j ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f ex9204 ex9208 ex9214 ex9251 ex9253 qfx3500s qfx3600-16qs qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx10000-elit vqfx-10000 pvi-model qfx10004 qfx10008 qfx10016 qfx10004 qfx10008 qfx10016 dc_olive dc_olive";
+ junos:product "dc_olive fx1600_48 fx2160_48 qfx3500 qfx3008-i fx-jvre qfx3600-16q qfx3600-i qfx5100-24q-2pf qfx5100-48s-6qf qfx5100-48t-6qf qfx5100-24q-2pi qfx3500s qfx3600-16qs qfx5100-24q-2p qfx5100-48s-6q qfx5100-96s-8q ex4600-40f qfx5100-48t-6q qfx5100-24q-aa pvi-model qfx5200-32c-32q qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm qfx10000-elit vqfx-10000 pvi-model qfx10004 qfx10008 qfx10016 qfx10004 qfx10008 qfx10016 dc_olive";
+ junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+ junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c";
+ junos:product-exclude "ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f";
+ junos:product-exclude "qfx5220-128c qfx5220-32cd qfx5200-32c-32q";
+ junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+    }
+}
