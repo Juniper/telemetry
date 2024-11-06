@@ -1,0 +1,26 @@
+module junos-bbe-smg-cpd-pppoe-stats-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/bbe-smg-cpd-pppoe-stats/annotations";
+
+    prefix "junos-bbe-smg-cpd-pppoe-stats-ann";
+
+    import junos-bbe-smg-cpd-pppoe-stats { prefix junos-bbe-smg-cpd-pppoe-stats; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add native bbe smg cpd pppoe statistics
+                     related information";
+    }
+
+    augment "/junos-bbe-smg-cpd-pppoe-stats:junos/junos-bbe-smg-cpd-pppoe-stats:system/" +
+            "junos-bbe-smg-cpd-pppoe-stats:subscriber-management/" +
+            "junos-bbe-smg-cpd-pppoe-stats:client-protocols/junos-bbe-smg-cpd-pppoe-stats:pppoe/" +
+            "junos-bbe-smg-cpd-pppoe-stats:statistics" {
+        JUNOS_PRODUCT(cbng);
+    }
+}
+

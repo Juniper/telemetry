@@ -1,0 +1,18 @@
+module junos-resiliency-interface-annotations {
+  yang-version 1;
+  namespace "http://juniper.net/yang/junos/resiliency-interface/annotations";
+  prefix "junos-resiliency-interface-ann";
+  import junos-resiliency-interface { prefix jri; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks Inc.";
+  revision "2023-01-18" {
+    description
+      "Initial version to add native junos resiliency interface product support information";
+  }
+  augment "/jri:junos/jri:exception-profiles"
+  {
+    junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+    junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+  }
+}

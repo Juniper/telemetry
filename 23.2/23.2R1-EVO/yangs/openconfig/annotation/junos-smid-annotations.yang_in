@@ -1,0 +1,55 @@
+module junos-smid-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/smid/annotations";
+
+    prefix "junos-smid-ann";
+
+    import junos-smid { prefix junos-smid; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add native smid model product support information";
+    }
+
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:sdb/junos-smid:statistics/junos-smid:state" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:sdb/junos-smid:statistics/junos-smid:client-type" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:sdb/junos-smid:statistics/junos-smid:subsystem" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:resource-monitor/junos-smid:chassis" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:resource-monitor/junos-smid:fpcs/junos-smid:fpc/" +
+            "junos-smid:statistics" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:infra/junos-smid:resource-monitor/junos-smid:fpcs/junos-smid:fpc/" +
+            "junos-smid:pics" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+    augment "/junos-smid:junos/junos-smid:system/junos-smid:subscriber-management/" +
+            "junos-smid:chassis/junos-smid:routing-engines/junos-smid:routing-engine" {
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_NG);
+        JUNOS_PRODUCT_EXCLUDE(FX_SERIES_SI);
+    }
+}

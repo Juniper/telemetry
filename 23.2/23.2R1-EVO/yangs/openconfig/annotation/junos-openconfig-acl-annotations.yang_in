@@ -1,0 +1,23 @@
+module junos-openconfig-acl-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/acl/annotations";
+
+  prefix "jnx-oc-acl-ann";
+
+  import openconfig-acl { prefix oc-acl; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig acl model";
+
+  revision "2022-07-24" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-acl:acl" {
+      JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX ptx10016 ptx10008 VALE_PTX ARDBEG_ALL);
+  }
+}

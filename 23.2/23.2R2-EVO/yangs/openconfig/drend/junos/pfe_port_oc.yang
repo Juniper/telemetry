@@ -1,0 +1,116 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_port_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/mib2d/pfe-port-oc";
+
+  prefix "pfe-port-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-interfaces { prefix ocif; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-port {
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+	dr:backup-supported;
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/counters" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/counters/in-octets" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state/counters/in-unicast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/state/counters/in-broadcast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/state/counters/in-multicast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/state/counters/in-discards" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 55;
+      }
+      augment "interfaces/interface/state/counters/in-errors" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 56;
+      }
+      augment "interfaces/interface/state/counters/in-unknown-protos" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/state/counters/out-octets" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 58;
+      }
+      augment "interfaces/interface/state/counters/out-unicast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 59;
+      }
+      augment "interfaces/interface/state/counters/out-broadcast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 60;
+      }
+      augment "interfaces/interface/state/counters/out-multicast-pkts" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 61;
+      }
+      augment "interfaces/interface/state/counters/out-discards" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 62;
+      }
+      augment "interfaces/interface/state/counters/out-errors" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 63;
+      }
+      augment "interfaces/interface/state/counters/last-clear" {
+        dr:source "/junos/system/linecard/interface/traffic/";
+        dr:fieldnum 64;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-port";
+  jnpr-proto:message-id "PFE-PORT-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses pfe-port;
+    }
+  }
+}

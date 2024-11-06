@@ -1,0 +1,349 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ * developer : amitarora@juniper.net
+ */
+
+module jkhmd_resiliency_render {
+  yang-version "1";
+
+  namespace "http://juniper.net/yang/kernel-resiliency";
+
+  prefix "kerneljri";
+
+  import drend {
+    prefix dr;
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+  import openconfig-types { prefix oc-types; }
+  import junos-resiliency-interface { prefix jri; }
+
+  // meta
+  organization "Juniper Networks Inc.";
+
+  description
+    "This module provides rendering for JUNOS Kernel exceptions version 1.0.0";
+
+  revision "2020-04-13" {
+    description
+      "Initial version of Kernel Resiliency Interface rendering";
+    reference "1.0.0";
+  }
+
+  dr:command-app "jkhmd";
+  dr:sub-component "kernel";
+  jnpr-proto:message-id "KERNEL-RESILIENCY-MESSAGE-ID";
+
+  grouping common-incident-group {
+    uses jri:common-incident-descriptor {
+      augment "incident-descriptor" {
+        dr:fieldnum 151;
+        dr:source "incident-descriptor";
+      }
+      augment "incident-descriptor/id" {
+        dr:fieldnum 51;
+        dr:source "id";
+      }
+      augment "incident-descriptor/exception-code" {
+        dr:fieldnum 52;
+        dr:source "exception-code";
+      }
+      augment "incident-descriptor/description" {
+        dr:fieldnum 53;
+        dr:source "description";
+      }
+      augment "incident-descriptor/host-id" {
+        dr:fieldnum 54;
+        dr:source "host-id";
+      }
+      augment "incident-descriptor/resource-id" {
+        dr:fieldnum 55;
+        dr:source "resource-id";
+      }
+      augment "incident-descriptor/timestamp" {
+        dr:fieldnum 56;
+        dr:source "timestamp";
+      }
+    }
+  }
+
+  grouping common-exception-group {
+    uses jri:common-exception-descriptor {
+      augment "exception-type" {
+        dr:fieldnum 52;
+        dr:source "exception-type";
+        dr:map EXCEPTION_OS_COUNTER { dr:map-from 1; }
+      }
+      augment "exception-owner" {
+        dr:fieldnum 53;
+        dr:source "exception-owner";
+        dr:map ROUTING { dr:map-from 1; }
+        dr:map FORWARDING { dr:map-from 2; }
+        dr:map KERNEL { dr:map-from 3; }
+      }
+    }
+  }
+
+  grouping os-counters-group {
+    uses jri:os-counters-state {
+      augment "os-counters" {
+        dr:fieldnum 152;
+        dr:source "os-counters";
+      }
+      augment "os-counters/isrs-low-on-mbuf-clusters" {
+        dr:fieldnum 51;
+        dr:source "isrs-low-on-mbuf-clusters";
+      }
+      augment "os-counters/isrs-mbuf-alloc-failures" {
+        dr:fieldnum 52;
+        dr:source "isrs-mbuf-alloc-failures";
+      }
+      augment "os-counters/isrs-mbuf-cluster-alloc-failures" {
+        dr:fieldnum 53;
+        dr:source "isrs-mbuf-cluster-alloc-failures";
+      }
+      augment "os-counters/nw-queue-drops-ether" {
+        dr:fieldnum 54;
+        dr:source "nw-queue-drops-ether";
+      }
+      augment "os-counters/nw-queue-drops-ip" {
+        dr:fieldnum 55;
+        dr:source "nw-queue-drops-ip";
+      }
+      augment "os-counters/nw-queue-drops-ipv6" {
+        dr:fieldnum 56;
+        dr:source "nw-queue-drops-ipv6";
+      }
+      augment "os-counters/nw-queue-drops-arp" {
+        dr:fieldnum 57;
+        dr:source "nw-queue-drops-arp";
+      }
+      augment "os-counters/nw-queue-drops-bgp" {
+        dr:fieldnum 58;
+        dr:source "nw-queue-drops-bgp";
+      }
+      augment "os-counters/nw-queue-drops-ospf" {
+        dr:fieldnum 59;
+        dr:source "nw-queue-drops-ospf";
+      }
+      augment "os-counters/nw-queue-drops-rsvp" {
+        dr:fieldnum 60;
+        dr:source "nw-queue-drops-rsvp";
+      }
+      augment "os-counters/nw-queue-drops-isis" {
+        dr:fieldnum 61;
+        dr:source "nw-queue-drops-isis";
+      }
+      augment "os-counters/nw-queue-drops-mpls" {
+        dr:fieldnum 62;
+        dr:source "nw-queue-drops-mpls";
+      }
+      augment "os-counters/nw-queue-drops-tcp" {
+        dr:fieldnum 63;
+        dr:source "nw-queue-drops-tcp";
+      }
+      augment "os-counters/nw-queue-drops-udp" {
+        dr:fieldnum 64;
+        dr:source "nw-queue-drops-udp";
+      }
+      augment "os-counters/nw-queue-drops-icmp" {
+        dr:fieldnum 65;
+        dr:source "nw-queue-drops-icmp";
+      }
+      augment "os-counters/nw-queue-drops-icmp6" {
+        dr:fieldnum 66;
+        dr:source "nw-queue-drops-icmp6";
+      }
+      augment "os-counters/nw-queue-drops-ttp" {
+        dr:fieldnum 67;
+        dr:source "nw-queue-drops-ttp";
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/jnx-kernel-resiliency";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container junos {
+        dr:fieldnum 151;
+        container exception-profiles {
+          dr:source "/junos/exception-profiles";
+          dr:fieldnum 151;
+          container os-profile {
+            dr:source "os-profile";
+            dr:fieldnum 152;
+            dr:source-notification-name "os-counters-exception";
+            uses common-incident-group;
+            uses common-exception-group;
+            uses os-counters-group;
+          }
+        }
+      }
+    }
+  }
+
+  notification os-counters-exception {
+    dr:source-notification-name "os-counters-exception";
+    dr:fieldnum 151;
+    container junos {
+      dr:source "/notification/os-counters-exception/junos";
+      dr:fieldnum 151;
+      container exception-profiles {
+        dr:source "exception-profiles";
+        dr:fieldnum 151;
+        container os-profile {
+          dr:fieldnum 152;
+          dr:source "os-profile";
+          container incident-descriptor {
+            dr:source "incident-descriptor";
+            dr:fieldnum 151;
+            leaf id {
+              dr:fieldnum 51;
+              type uint64;
+              dr:source "id";
+            }
+            leaf exception-code {
+              dr:fieldnum 52;
+              type string;
+              dr:source "exception-code";
+            }
+            leaf description {
+              dr:fieldnum 53;
+              type string;
+              dr:source "description";
+            }
+            leaf host-id {
+              dr:fieldnum 54;
+              type string;
+              dr:source "host-id";
+            }
+            leaf resource-id {
+              dr:fieldnum 55;
+              type string;
+              dr:source "resource-id";
+            }
+            leaf timestamp {
+              dr:fieldnum 56;
+              type oc-types:timeticks64;
+              dr:source "timestamp";
+            }
+          }
+          leaf exception-type {
+            dr:fieldnum 52;
+            type identityref {
+              base jri:EXCEPTION_TYPE;
+            }
+            dr:source "exception-type";
+            dr:map EXCEPTION_OS_COUNTER { dr:map-from 1; }
+          }
+          leaf exception-owner {
+            type identityref {
+              base jri:OWNER_TYPE;
+            }
+            dr:fieldnum 53;
+            dr:source "exception-owner";
+            dr:map ROUTING { dr:map-from 1; }
+            dr:map FORWARDING { dr:map-from 2; }
+            dr:map KERNEL { dr:map-from 3; }
+          }
+          container os-counters {
+            dr:fieldnum 152;
+            dr:source "os-counters";
+            leaf isrs-low-on-mbuf-clusters {
+              dr:fieldnum 51;
+              type uint32;
+              dr:source "isrs-low-on-mbuf-clusters";
+            }
+            leaf isrs-mbuf-alloc-failures {
+              dr:fieldnum 52;
+              type uint64;
+              dr:source "isrs-mbuf-alloc-failures";
+            }
+            leaf isrs-mbuf-cluster-alloc-failures {
+              dr:fieldnum 53;
+              type uint64;
+              dr:source "isrs-mbuf-cluster-alloc-failures";
+            }
+            leaf nw-queue-drops-ether {
+              dr:fieldnum 54;
+              type uint32;
+              dr:source "nw-queue-drops-ether";
+            }
+            leaf nw-queue-drops-ip {
+              dr:fieldnum 55;
+              type uint32;
+              dr:source "nw-queue-drops-ip";
+            }
+            leaf nw-queue-drops-ipv6 {
+              dr:fieldnum 56;
+              type uint32;
+              dr:source "nw-queue-drops-ipv6";
+            }
+            leaf nw-queue-drops-arp {
+              dr:fieldnum 57;
+              type uint32;
+              dr:source "nw-queue-drops-arp";
+            }
+            leaf nw-queue-drops-bgp {
+              dr:fieldnum 58;
+              type uint64;
+              dr:source "nw-queue-drops-bgp";
+            }
+            leaf nw-queue-drops-ospf {
+              dr:fieldnum 59;
+              type uint64;
+              dr:source "nw-queue-drops-ospf";
+            }
+            leaf nw-queue-drops-rsvp {
+              dr:fieldnum 60;
+              type uint64;
+              dr:source "nw-queue-drops-rsvp";
+            }
+            leaf nw-queue-drops-isis {
+              dr:fieldnum 61;
+              type uint64;
+              dr:source "nw-queue-drops-isis";
+            }
+            leaf nw-queue-drops-mpls {
+              dr:fieldnum 62;
+              type uint64;
+              dr:source "nw-queue-drops-mpls";
+            }
+            leaf nw-queue-drops-tcp {
+              dr:fieldnum 63;
+              type uint64;
+              dr:source "nw-queue-drops-tcp";
+            }
+            leaf nw-queue-drops-udp {
+              dr:fieldnum 64;
+              type uint64;
+              dr:source "nw-queue-drops-udp";
+            }
+            leaf nw-queue-drops-icmp {
+              dr:fieldnum 65;
+              type uint64;
+              dr:source "nw-queue-drops-icmp";
+            }
+            leaf nw-queue-drops-icmp6 {
+              dr:fieldnum 66;
+              type uint64;
+              dr:source "nw-queue-drops-icmp6";
+            }
+            leaf nw-queue-drops-ttp {
+              dr:fieldnum 67;
+              type uint64;
+              dr:source "nw-queue-drops-ttp";
+            }
+          }
+        }
+      }
+    }
+  }
+}

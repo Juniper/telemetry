@@ -1,0 +1,24 @@
+module junos-kernel-ifstate-stats-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/kod/annotations";
+
+    prefix "jnx-junos-kernel-ifstate-stats-ann";
+
+    import junos-kernel-ifstate-stats { prefix junos-kernel-ifstate-stats; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-10-14" {
+        description "Initial version to add kernel ifstate model product support information";
+    }
+
+    augment "/junos-kernel-ifstate-stats:junos/junos-kernel-ifstate-stats:kernel-ifstate" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+}

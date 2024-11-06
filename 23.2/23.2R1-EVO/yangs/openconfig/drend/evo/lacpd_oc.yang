@@ -1,0 +1,473 @@
+module lacpd_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/lacpd_oc";
+
+  prefix "lacpoc";
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  import openconfig-lacp { prefix oc-lacp; }
+  import jnx-aug-openconfig-lacp { prefix jnx-oc-lacp; }
+
+  grouping aggregation-lacp-global-config {
+    uses oc-lacp:aggregation-lacp-global-config {
+      augment "system-priority" {
+        dr:source "/lacpd/global_sys_priority";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  grouping lacp-interfaces-top {
+    uses oc-lacp:lacp-interfaces-top {
+      augment "interfaces" {
+	dr:fieldnum 152;
+      }
+      augment "interfaces/interface" {
+        dr:source "/lacpd/ae";
+        dr:fieldnum 151;
+        dr:source-notification-name "lacp-ae-change";
+      }
+      augment "interfaces/interface/name" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state" {
+	dr:fieldnum 151;
+      }
+      augment "interfaces/interface/state/name" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state/interval"  {
+        dr:source "interval";
+        dr:fieldnum 52;
+        dr:map FAST { dr:map-from 2; } //LACP_PERIODIC_FAST
+        dr:map SLOW { dr:map-from 3; } //LACP_PERIODIC_SLOW
+      }
+      augment "interfaces/interface/state/lacp-mode" {
+        dr:source "lacp_mode";
+        dr:fieldnum 53;
+        dr:map ACTIVE  { dr:map-from 2; } //LACP_MODE_ACTIVE
+        dr:map PASSIVE { dr:map-from 3; } //LACP_MODE_PASSIVE
+      }
+      augment "interfaces/interface/state/system-id-mac" {
+        dr:source "system_id_mac";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/state/system-priority" {
+        dr:source "system_priority";
+        dr:fieldnum 55;
+      }
+
+      // member interfaces state
+      augment "interfaces/interface/members" {
+	dr:fieldnum 152;
+      }
+      augment "interfaces/interface/members/member" {
+        dr:source "member";
+        dr:fieldnum 151;
+        dr:source-notification-name "lacp-member-change";
+      }
+      augment "interfaces/interface/members/member/interface" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/members/member/state" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/members/member/state/interface" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/members/member/state/activity"  {
+        dr:source "activity";
+        dr:fieldnum 52;
+        // actor_oper_port_state: PS_LACP_ACTIVITY bit is not set.
+        dr:map PASSIVE { dr:map-from 0; }
+        // actor_oper_port_state: PS_LACP_ACTIVITY bit is set.
+        dr:map ACTIVE  { dr:map-from *; }
+      }
+      augment "interfaces/interface/members/member/state/timeout"  {
+        dr:source "timeout";
+        dr:fieldnum 53;
+        //actor_oper_port_state: PS_LACP_TIMEOUT bit is not set.
+        dr:map LONG  { dr:map-from 0; }
+        //actor_oper_port_state: PS_LACP_TIMEOUT bit is set.
+        dr:map SHORT { dr:map-from *; }
+      }
+      augment "interfaces/interface/members/member/state/synchronization"  {
+        dr:source "sync";
+        dr:fieldnum 54;
+        //actor_oper_port_state: PS_SYNCHRONIZATION bit is not set.
+        dr:map OUT_SYNC { dr:map-from 0; }
+        //actor_oper_port_state: PS_SYNCHRONIZATION bit is set
+        dr:map IN_SYNC  { dr:map-from *; }
+      }
+      augment "interfaces/interface/members/member/state/aggregatable" {
+        dr:source "aggregate";
+        dr:fieldnum 55;
+      }
+      augment "interfaces/interface/members/member/state/collecting" {
+        dr:source "collecting";
+        dr:fieldnum 56;
+      }
+      augment "interfaces/interface/members/member/state/distributing" {
+        dr:source "distributing";
+        dr:fieldnum 57;
+      }
+      augment "interfaces/interface/members/member/state/system-id" {
+        dr:source "system_id";
+        dr:fieldnum 58;
+      }
+      augment "interfaces/interface/members/member/state/oper-key" {
+        dr:source "oper_key";
+        dr:fieldnum 59;
+      }
+      augment "interfaces/interface/members/member/state/port-num" {
+          dr:source "actor_port_num";
+          dr:fieldnum 60;
+      }
+      augment "interfaces/interface/members/member/state/partner-id" {
+        dr:source "partner_id";
+        dr:fieldnum 61;
+      }
+      augment "interfaces/interface/members/member/state/partner-key" {
+        dr:source "partner_key";
+        dr:fieldnum 62;
+      }
+      augment "interfaces/interface/members/member/state/partner-port-num" {
+          dr:source "partner_port_num";
+          dr:fieldnum 63;
+      }
+      // render leaf part of jnx-oc-lacp
+      augment "interfaces/interface/members/member/state" {
+        leaf mux-state {
+          type jnx-oc-lacp:lacp-mux-state-type;
+          description
+            "Indicates LACP mux machine state of the participant";
+          dr:source "mux_state";
+          dr:fieldnum 64;
+          dr:map DETACHED { dr:map-from 0; }
+          dr:map WAITING { dr:map-from 1; }
+          dr:map ATTACHED { dr:map-from 2; }
+          dr:map COLLECTING_DISTRIBUTING { dr:map-from 3; }
+          dr:map COLLECTING { dr:map-from 4; }
+          dr:map DISTRIBUTING { dr:map-from 5; }
+        }
+        uses jnx-oc-lacp:lacp_partner_states {
+          augment "partner-timeout" {
+            dr:source "partner_timeout";
+            dr:fieldnum 65;
+            //partner_oper_port_state: PS_LACP_TIMEOUT bit is not set.
+            dr:map LONG  { dr:map-from 0; }
+            //partner_oper_port_state: PS_LACP_TIMEOUT bit is set.
+            dr:map SHORT { dr:map-from *; }
+          }
+          augment "partner-synchronization" {
+            dr:source "partner_sync";
+            dr:fieldnum 66;
+            //partner_oper_port_state: PS_SYNCHRONIZATION bit is not set.
+            dr:map OUT_SYNC { dr:map-from 0; }
+            //partner_oper_port_state: PS_SYNCHRONIZATION bit is set
+            dr:map IN_SYNC  { dr:map-from *; }
+          }
+          augment "partner-aggregatable" {
+            dr:source "partner_aggregate";
+            dr:fieldnum 67;
+          }
+          augment "partner-collecting" {
+            dr:source "partner_collecting";
+            dr:fieldnum 68;
+          }
+          augment "partner-distributing" {
+            dr:source "partner_distributing";
+            dr:fieldnum 69;
+          }
+        }
+      }
+      augment "interfaces/interface/members/member/state/last-change" {
+          dr:source "last_change";
+          dr:fieldnum 70;
+      }
+      augment "interfaces/interface/members/member/state/counters" {
+	dr:fieldnum 151;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-in-pkts" {
+        dr:zero-suppressed;
+        dr:source "lacp_in_pkts";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-out-pkts" {
+        dr:zero-suppressed;
+        dr:source "lacp_out_pkts";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-rx-errors" {
+        dr:zero-suppressed;
+        dr:source "lacp_rx_errors";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-tx-errors" {
+        dr:zero-suppressed;
+        dr:source "lacp_tx_errors";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-unknown-errors" {
+        dr:zero-suppressed;
+        dr:source "lacp_unknown_pkts";
+        dr:fieldnum 55;
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-errors" {
+        dr:zero-suppressed;
+        dr:source "lacp_illegal_pkts";
+        dr:fieldnum 56;
+      }
+      // render leaf part of jnx-oc-lacp
+      augment "interfaces/interface/members/member/state/counters" {
+        leaf collection-time {
+          type string;
+          description
+            "Indicates the time when the counters were captured inside the device";
+          dr:source "stats_update_time";
+          dr:fieldnum 57;
+        }
+      }
+      augment "interfaces/interface/members/member/state/counters/lacp-timeout-transitions" {
+        dr:source "lacp_timeout_transitions";
+        dr:fieldnum 58;
+      }
+    }
+  }
+
+  // Daemon that handles this hierarchy
+  dr:command-app "lacpd";
+  dr:sub-component "lacp";
+  jnpr-proto:message-id "LACPD-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container lacp {
+	dr:fieldnum 151;
+        container state {
+	  dr:fieldnum 151;
+          uses aggregation-lacp-global-config;
+        }
+        uses lacp-interfaces-top;
+      }
+    }
+  }
+
+  notification oc-lacp-member-change {
+    dr:source-notification-name "lacp-member-change";
+    uses oc-lacp:aggregation-lacp-top {
+      augment "lacp" {
+        dr:source "/notification/lacp-member-change/lacpd";
+      }
+      augment "lacp/interfaces/interface" {
+        dr:source "ae";
+        dr:fieldnum 151;
+      }
+      augment "lacp/interfaces/interface/name" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "lacp/interfaces/interface/members/member" {
+        dr:source "member";
+        dr:fieldnum 151;
+      }
+      augment "lacp/interfaces/interface/members/member/interface" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "lacp/interfaces/interface/members/member/state/activity" {
+        dr:source "activity";
+        dr:map PASSIVE { dr:map-from 0; }
+        dr:map ACTIVE  { dr:map-from *; }
+        dr:fieldnum 52;
+      }
+      augment "lacp/interfaces/interface/members/member/state/timeout" {
+        dr:source "timeout";
+        dr:map LONG  { dr:map-from 0; }
+        dr:map SHORT { dr:map-from *; }
+        dr:fieldnum 53;
+      }
+      augment "lacp/interfaces/interface/members/member/state/synchronization" {
+        dr:source "sync";
+        dr:map OUT_SYNC { dr:map-from 0; }
+        dr:map IN_SYNC  { dr:map-from *; }
+        dr:fieldnum 54;
+      }
+      augment "lacp/interfaces/interface/members/member/state/aggregatable" {
+        dr:source "aggregate";
+        dr:fieldnum 55;
+      }
+      augment "lacp/interfaces/interface/members/member/state/collecting" {
+        dr:source "collecting";
+        dr:fieldnum 56;
+      }
+      augment "lacp/interfaces/interface/members/member/state/distributing" {
+        dr:source "distributing";
+        dr:fieldnum 57;
+      }
+      augment "lacp/interfaces/interface/members/member/state/oper-key" {
+        dr:source "oper_key";
+        dr:fieldnum 59;
+      }
+      augment "lacp/interfaces/interface/members/member/state/partner-id" {
+        dr:source "partner_id";
+        dr:fieldnum 61;
+      }
+      augment "lacp/interfaces/interface/members/member/state/partner-key" {
+        dr:source "partner_key";
+        dr:fieldnum 62;
+      }
+      augment "lacp/interfaces/interface/members/member/state/system-id" {
+        dr:source "system_id";
+        dr:fieldnum 58;
+      }
+      augment "lacp/interfaces/interface/members/member/state/port-num" {
+        dr:source "actor_port_num";
+        dr:fieldnum 60;
+      }
+      augment "lacp/interfaces/interface/members/member/state/partner-port-num" {
+        dr:source "partner_port_num";
+        dr:fieldnum 63;
+      }
+      augment "lacp/interfaces/interface/members/member/state" {
+        leaf mux-state {
+          type jnx-oc-lacp:lacp-mux-state-type;
+          description
+            "Indicates LACP mux machine state of the participant";
+          dr:source "mux_state";
+          dr:fieldnum 64; 
+          dr:map DETACHED { dr:map-from 0; }
+          dr:map WAITING { dr:map-from 1; }
+          dr:map ATTACHED { dr:map-from 2; }
+          dr:map COLLECTING_DISTRIBUTING { dr:map-from 3; }
+        }
+        uses jnx-oc-lacp:lacp_partner_states {
+          augment "partner-timeout" {
+            dr:source "partner_timeout";
+            dr:map LONG  { dr:map-from 0; }
+            dr:map SHORT { dr:map-from *; }
+            dr:fieldnum 65;
+          }
+          augment partner-synchronization {
+            dr:source "partner_sync";
+            dr:map OUT_SYNC { dr:map-from 0; }
+            dr:map IN_SYNC  { dr:map-from *; }
+            dr:fieldnum 66;
+          }
+          augment partner-aggregatable {
+            dr:source "partner_aggregate";
+            dr:fieldnum 67;
+          }
+          augment partner-collecting {
+            dr:source "partner_collecting";
+            dr:fieldnum 68;
+          }
+          augment partner-distributing {
+            dr:source "partner_distributing";
+            dr:fieldnum 69;
+          }
+        }
+      }
+      augment "lacp/interfaces/interface/members/member/state/last-change" {
+          dr:source "last_change";
+          dr:fieldnum 70;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters" {
+        dr:fieldnum 151;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-in-pkts" {
+        dr:source "lacp_in_pkts";
+        dr:fieldnum 51;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-out-pkts" {
+        dr:source "lacp_out_pkts";
+        dr:fieldnum 52;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-rx-errors" {
+        dr:source "lacp_rx_errors";
+        dr:fieldnum 53;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-tx-errors" {
+        dr:source "lacp_tx_errors";
+        dr:fieldnum 54;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-unknown-errors" {
+        dr:source "lacp_unknown_pkts";
+        dr:fieldnum 55;
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-errors" {
+        dr:source "lacp_illegal_pkts";
+        dr:fieldnum 56;
+      }  
+      // render leaf part of jnx-oc-lacp
+      augment "lacp/interfaces/interface/members/member/state/counters" {
+        leaf collection-time {
+          type string;
+          description
+            "Indicates the time when the counters were captured inside the device";
+          dr:source "stats_update_time";
+          dr:fieldnum 57;
+        }
+      }
+      augment "lacp/interfaces/interface/members/member/state/counters/lacp-timeout-transitions" {
+        dr:source "lacp_timeout_transitions";
+        dr:fieldnum 58;
+      }
+    }
+  } /* notification oc-lacp-member-change */
+
+  notification oc-lacp-ae-change {
+    dr:source-notification-name "lacp-ae-change";
+    uses oc-lacp:aggregation-lacp-top {
+      augment "lacp" {
+        dr:source "/notification/lacp-ae-change/lacpd";
+      }
+      augment "lacp/interfaces/interface" {
+        dr:source "ae";
+        dr:fieldnum 151;
+      }
+      augment "lacp/interfaces/interface/name" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "lacp/interfaces/interface/state" {
+	dr:fieldnum 151;
+      }
+      augment "lacp/interfaces/interface/state/name" {
+        dr:source "intf_name";
+        dr:fieldnum 51;
+      }
+      augment "lacp/interfaces/interface/state/interval"  {
+        dr:source "interval";
+        dr:fieldnum 52;
+        dr:map FAST { dr:map-from 2; } //LACP_PERIODIC_FAST
+        dr:map SLOW { dr:map-from 3; } //LACP_PERIODIC_SLOW
+      }
+      augment "lacp/interfaces/interface/state/lacp-mode" {
+        dr:source "lacp_mode";
+        dr:fieldnum 53;
+        dr:map ACTIVE  { dr:map-from 2; } //LACP_MODE_ACTIVE
+        dr:map PASSIVE { dr:map-from 3; } //LACP_MODE_PASSIVE
+      }
+      augment "lacp/interfaces/interface/state/system-id-mac" {
+        dr:source "system_id_mac";
+        dr:fieldnum 54;
+      }
+
+      augment "lacp/interfaces/interface/state/system-priority" {
+        dr:source "system_priority";
+        dr:fieldnum 55;
+      }
+    }
+  } /* notification oc-lacp-ae-change */
+
+}

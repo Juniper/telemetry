@@ -1,0 +1,16 @@
+module junos-state-sflow-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/state/sflow/annotations";
+    prefix "js-sflow-ann";
+    import junos-state {prefix js; }
+    import junos-state-protocols {prefix js-pro; }
+    import junos-state-sflow { prefix js-sflow; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-11-09" {
+        description "Initial version to add sampling sflow model product support information";
+    }
+    augment "/js:state/js-pro:protocols/js-sflow:sflow" {
+        junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+    }
+}

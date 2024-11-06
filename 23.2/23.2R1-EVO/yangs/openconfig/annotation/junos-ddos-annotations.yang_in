@@ -1,0 +1,28 @@
+module junos-ddos-annotations {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/junos/ddos/annotations";
+
+  prefix "junos-ddos-ann";
+
+  import junos-ddos { prefix junos-ddos; }
+  import junos-extension { prefix junos; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  revision "2022-10-17" {
+    description "Initial version to add ddos model product support information";
+  }
+
+  augment "/junos-ddos:ddos-stats" {
+    JUNOS_PRODUCT(MX_SERIES);
+    JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    JUNOS_PRODUCT(BRACKLA_PTX ptx10008);
+  }
+
+  augment "/junos-ddos:ddos-stats/junos-ddos:group/junos-ddos:protocol-stats/junos-ddos:protocol/junos-ddos:flow-stats" {
+    JUNOS_PRODUCT(MX_SERIES);
+    JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+  }
+}

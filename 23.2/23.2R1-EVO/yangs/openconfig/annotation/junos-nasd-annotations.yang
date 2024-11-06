@@ -1,0 +1,15 @@
+module junos-nasd-annotations {
+ yang-version 1;
+ namespace "http://juniper.net/yang/junos/nasd/annotations";
+ prefix "junos-nasd-ann";
+ import junos-nasd { prefix jnasd; }
+ import junos-extension { prefix junos; }
+ organization "JuniperNetworks Inc.";
+ revision "2022-09-28" {
+     description "Initial version to add nasd model product support information";
+ }
+    augment "/jnasd:junos/jnasd:system/jnasd:subscriber-management/jnasd:agf/jnasd:nas" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    }
+}

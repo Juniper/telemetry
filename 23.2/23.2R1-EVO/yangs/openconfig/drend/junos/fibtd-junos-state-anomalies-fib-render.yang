@@ -1,0 +1,259 @@
+module fibtd-junos-state-anomalies-fib-render {
+    yang-version "1.1";
+
+    // namespace
+    namespace "http://yang.juniper.net/junos/state/anomalies/fib/render";
+    prefix "fibtd-js-anom-fib-rdr";
+
+    import drend {
+	prefix "dr";
+    }
+   
+    import jnpr-proto { prefix jnpr-proto; }
+    
+    import junos-state-anomalies-fib {
+        prefix js-anom-fib;
+    }
+    // meta
+    organization "Juniper Networks";
+
+    description "None";
+
+    revision "2022-02-27" {
+	description "None";
+    }
+
+    grouping fib_anomalies_group {
+      uses js-anom-fib:fib-anomalies-top {
+        augment "fib" {
+            dr:source "fib";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables" {
+            dr:source "route-tables";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table" {
+            dr:source "route-table";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table/name" {
+            dr:source "name";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table/routes" {
+            dr:source "routes";
+            dr:fieldnum 152;
+        }
+        augment "fib/route-tables/route-table/routes/inet" {
+            dr:source "inet";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table/routes/inet/inet-entry" {
+            dr:source "inet-entry";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table/routes/inet/inet-entry/prefix" {
+            dr:source "prefix";
+            dr:fieldnum 51;
+        }
+        augment "fib/route-tables/route-table/routes/inet/inet-entry/status" {
+            dr:source "status";
+            dr:fieldnum 52;
+        }
+        augment "fib/route-tables/route-table/routes/inet/inet-entry/timestamp" {
+            dr:source "timestamp";
+            dr:fieldnum 53;
+        }
+        augment "fib/route-tables/route-table/routes/inet/inet-entry/module" {
+            dr:source "module";
+            dr:fieldnum 54;
+        }
+        augment "fib/route-tables/route-table/routes/inet6" {
+            dr:source "inet6";
+            dr:fieldnum 152;
+        }
+        augment "fib/route-tables/route-table/routes/inet6/inet6-entry" {
+            dr:source "inet6-entry";
+            dr:fieldnum 151;
+        }
+        augment "fib/route-tables/route-table/routes/inet6/inet6-entry/prefix" {
+            dr:source "prefix";
+            dr:fieldnum 51;
+        }
+        augment "fib/route-tables/route-table/routes/inet6/inet6-entry/status" {
+            dr:source "status";
+            dr:fieldnum 52;
+        }
+        augment "fib/route-tables/route-table/routes/inet6/inet6-entry/timestamp" {
+            dr:source "timestamp";
+            dr:fieldnum 53;
+        }
+        augment "fib/route-tables/route-table/routes/inet6/inet6-entry/module" {
+            dr:source "module";
+            dr:fieldnum 54;
+        }
+      }
+    }
+
+    dr:command-app "fib-streaming";
+    jnpr-proto:message-id "FIBTD-TELEMETRY-NATIVE-FIB-ERROR-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+	dr:command-help "Show FIB errors in Native format";
+
+	output {
+	    container state {
+		dr:source "/state";
+                dr:fieldnum 151;
+                container system {
+                    dr:source "system";
+                    dr:fieldnum 151;
+                    container anomalies {
+                        dr:source "anomalies";
+                        dr:fieldnum 151;
+
+                        uses fib_anomalies_group;
+                    }
+                }
+            }
+        }
+    }
+
+    grouping inet-route-anomaly-grp-chg {
+        uses js-anom-fib:fib-anomalies-top {
+            augment "fib" {
+                dr:source "fib";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables" {
+                dr:source "route-tables";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table" {
+                dr:source "route-table";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/name" {
+                dr:source "name";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/routes" {
+                dr:source "routes";
+                dr:fieldnum 152;
+            }
+            augment "fib/route-tables/route-table/routes/inet" {
+                dr:source "inet";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/routes/inet/inet-entry" {
+                dr:source "inet-entry";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/routes/inet/inet-entry/prefix" {
+                dr:source "prefix";
+                dr:fieldnum 51;
+            }
+            augment "fib/route-tables/route-table/routes/inet/inet-entry/status" {
+                dr:source "status";
+                dr:fieldnum 52;
+            }
+            augment "fib/route-tables/route-table/routes/inet/inet-entry/timestamp" {
+                dr:source "timestamp";
+                dr:fieldnum 53;
+            }
+            augment "fib/route-tables/route-table/routes/inet/inet-entry/module" {
+                dr:source "module";
+                dr:fieldnum 54;
+            }
+
+        }
+    }
+
+    grouping inet6-route-anomaly-grp-chg {
+        uses js-anom-fib:fib-anomalies-top {
+            augment "fib" {
+                dr:source "fib";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables" {
+                dr:source "route-tables";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table" {
+                dr:source "route-table";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/name" {
+                dr:source "name";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/routes" {
+                dr:source "routes";
+                dr:fieldnum 152;
+            }
+            augment "fib/route-tables/route-table/routes/inet6" {
+                dr:source "inet6";
+                dr:fieldnum 152;
+            }
+            augment "fib/route-tables/route-table/routes/inet6/inet6-entry" {
+                dr:source "inet6-entry";
+                dr:fieldnum 151;
+            }
+            augment "fib/route-tables/route-table/routes/inet6/inet6-entry/prefix" {
+                dr:source "prefix";
+                dr:fieldnum 51;
+            }
+            augment "fib/route-tables/route-table/routes/inet6/inet6-entry/status" {
+                dr:source "status";
+                dr:fieldnum 52;
+            }
+            augment "fib/route-tables/route-table/routes/inet6/inet6-entry/timestamp" {
+                dr:source "timestamp";
+                dr:fieldnum 53;
+            }
+            augment "fib/route-tables/route-table/routes/inet6/inet6-entry/module" {
+                dr:source "module";
+                dr:fieldnum 54;
+            }
+
+        }
+
+    }
+
+    notification nat-inet-route-anomaly-chg {
+        dr:source-notification-name "inet-route-anomaly-chg";
+        container state {
+            dr:fieldnum 151;
+            dr:source "/notification/inet-route-anomaly-chg/state";
+            container system {
+                dr:fieldnum 151;
+                dr:source "system";
+                container anomalies {
+                    dr:source "anomalies";
+                    dr:fieldnum 151;
+
+                    uses inet-route-anomaly-grp-chg;
+                }
+            }
+        }
+    }
+
+    notification nat-inet6-route-anomaly-chg {
+        dr:source-notification-name "inet6-route-anomaly-chg";
+        container state {
+            dr:fieldnum 151;
+            dr:source "/notification/inet6-route-anomaly-chg/state";
+            container system {
+                dr:fieldnum 151;
+                dr:source "system";
+                container anomalies {
+                    dr:source "anomalies";
+                    dr:fieldnum 151;
+
+                    uses inet6-route-anomaly-grp-chg;
+                }
+            }
+        }
+    }
+}

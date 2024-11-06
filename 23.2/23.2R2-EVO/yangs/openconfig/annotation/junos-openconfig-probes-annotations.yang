@@ -1,0 +1,31 @@
+module junos-openconfig-probes-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/yang/probes/annotations";
+    prefix "jnx-oc-probes-ann";
+    import junos-extension { prefix junos; }
+    import openconfig-probes { prefix oc-probes; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2023-01-31" {
+        description "Adding product annotations at augment probes level along with other additions";
+    }
+    revision "2022-12-01" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/oc-probes:probes" {
+        junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+        junos:product "acx7908 acx7509 ACX7024 ACX7100-48L ACX7100-32C";
+    }
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:state" {
+        junos:product-exclude "ptx10002-36qdd qfx10003-160c qfx10003-80c";
+    }
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:target/oc-probes:state" {
+        junos:product-exclude "ptx10002-36qdd qfx10003-160c qfx10003-80c";
+    }
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:results/oc-probes:state" {
+        junos:product-exclude "ptx10002-36qdd qfx10003-160c qfx10003-80c";
+    }
+    augment "/oc-probes:probes/oc-probes:probe/oc-probes:tests/oc-probes:test/oc-probes:results/oc-probes:history" {
+        junos:product-exclude "ptx10002-36qdd qfx10003-160c qfx10003-80c";
+    }
+}

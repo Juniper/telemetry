@@ -1,0 +1,17 @@
+module junos-state-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/junos/state/annotations";
+    prefix "js-ann";
+    import junos-state { prefix js; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2023-02-14" {
+        description "Initial version to add junos state model product support information";
+    }
+    augment "/js:state" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016";
+        junos:product "mx2020 mx960 mx240";
+        junos:product "ptx5000 ptx1000";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C acx7908";
+    }
+}

@@ -1,0 +1,66 @@
+module junos-openconfig-platform-pipeline-counters-annotations {
+ 
+    yang-version "1";
+
+    prefix "jnx-oc-ppc-ann";
+
+    namespace "http://yang.juniper.net/yang/platform-pipeline-counters/annotations";
+
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-pipeline-counters  { prefix oc-ppc; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-03-25" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/oc-ppc:pipeline-counters" {
+        JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008 ptx10016);
+        JUNOS_PRODUCT(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/oc-ppc:pipeline-counters/oc-ppc:errors" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:lookup-block" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:queueing-block" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:fabric-block" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:lookup-block" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:queueing-block" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:host-interface-block/" +
+            "oc-ppc:state/oc-ppc:rate-limit" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:host-interface-block/" +
+            "oc-ppc:state/oc-ppc:host-aggregate" {
+        JUNOS_PRODUCT_EXCLUDE(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+    }
+}

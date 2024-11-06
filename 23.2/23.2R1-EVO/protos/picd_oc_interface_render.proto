@@ -1,0 +1,66 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_optics jnpr_interfaces_optics_ext = 3;
+}
+
+message interfaces_optics {
+   message interface_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional uint64 init_time = 2;
+      message state_list {
+         optional string parent_ae_name = 1;
+         optional string hardware_port = 52;
+         optional string transceiver = 53;
+         repeated uint32 physical_channel = 54;
+      }
+      repeated state_list state = 3;
+      message ethernet_list {
+         message state_list {
+            optional string mac_address = 1;
+            optional bool auto_negotiate = 2;
+            optional string duplex_mode = 3;
+            optional string port_speed = 4;
+            optional bool enable_flow_control = 5;
+            optional string hw_mac_address = 6;
+            optional string negotiated_duplex_mode = 7;
+            optional string negotiated_port_speed = 8;
+            optional counters_type counters = 9;
+            message counters_type {
+               optional uint64 in_mac_control_frames = 1;
+               optional uint64 in_mac_pause_frames = 2;
+               optional uint64 in_oversize_frames = 3;
+               optional uint64 in_undersize_frames = 4;
+               optional uint64 in_jabber_frames = 5;
+               optional uint64 in_fragment_frames = 6;
+               optional uint64 in_crc_errors = 7;
+               optional uint64 in_block_errors = 8;
+               optional uint64 out_mac_control_frames = 9;
+               optional uint64 out_mac_pause_frames = 10;
+               optional uint64 in_8021q_frames = 11;
+               optional uint64 out_8021q_frames = 12;
+               message jnx_pfc_statistics_list {
+                  optional uint32 priority = 1 [(telemetry_options).is_key = true];
+                  optional uint64 in_mac_pause_frames = 2;
+                  optional uint64 out_mac_pause_frames = 3;
+               }
+               repeated jnx_pfc_statistics_list jnx_pfc_statistics = 14;
+               optional in_distribution_type in_distribution = 151;
+               message in_distribution_type {
+                  optional uint64 in_frames_64_octets = 51;
+                  optional uint64 in_frames_65_127_octets = 52;
+                  optional uint64 in_frames_128_255_octets = 53;
+                  optional uint64 in_frames_256_511_octets = 54;
+                  optional uint64 in_frames_512_1023_octets = 55;
+                  optional uint64 in_frames_1024_1518_octets = 56;
+               }
+            }
+         }
+         repeated state_list state = 1;
+      }
+      repeated ethernet_list ethernet = 4;
+   }
+   repeated interface_list interface = 1;
+}

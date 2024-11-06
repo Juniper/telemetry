@@ -1,0 +1,449 @@
+module rpd_gribi_stats_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/gribi_oc_render";
+
+  prefix "gribioc";
+
+  import drend { prefix "dr"; }
+  import jnpr-proto { prefix jnpr-proto; }
+  import jnx-aug-openconfig-gribi-statistics { prefix oc-gribi-stats; }
+
+  description
+    "
+      Rendering Junos GRIBI State in OpenConfig GRIBI Schema terms
+    ";
+
+  revision "2021-08-06" {
+    description
+      "Initial revision";
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "gribi-stats";
+  jnpr-proto:message-id "RPD-GRIBI-OC-MESSAGE-ID";
+
+  grouping rend-gribi-state {
+    uses oc-gribi-stats:gribi-stats-state {
+      augment "stats-aggregation-interval" {
+        dr:source "stats-aggregation-interval";
+        dr:fieldnum 301;
+      }
+      augment "stats-sampling-interval" {
+        dr:source "stats-sampling-interval";
+        dr:fieldnum 302;
+      }
+      augment "num-clients" {
+        dr:source "num-clients";
+        dr:fieldnum 102;
+      }
+      augment "client-flaps" {
+        dr:source "client-flaps";
+        dr:fieldnum 103;
+      }
+      augment "programmed-route-count" {
+        dr:source "programmed-route-count";
+        dr:fieldnum 104;
+      }
+      augment "connection-termination-errors" {
+        dr:source "connection-termination-errors";
+        dr:fieldnum 105;
+      }
+      augment "fib-ack-failures" {
+        dr:source "fib-ack-failures";
+        dr:fieldnum 106;
+      }
+      augment "add-operations" {
+        dr:fieldnum 107;
+      }
+      augment "add-operations/ipv4" {
+        dr:source "add-operations-ipv4";
+        dr:fieldnum 108;
+      }
+      augment "add-operations/ipv6" {
+        dr:source "add-operations-ipv6";
+        dr:fieldnum 109;
+      }
+      augment "add-operations/next-hop" {
+        dr:source "add-operations-next-hop";
+        dr:fieldnum 110;
+      }
+      augment "add-operations/next-hop-group" {
+        dr:source "add-operations-next-hop-group";
+        dr:fieldnum 111;
+      }
+      augment "replace-operations" {
+        dr:fieldnum 112;
+      }
+      augment "replace-operations/ipv4" {
+        dr:source "replace-operations-ipv4";
+        dr:fieldnum 113;
+      }
+      augment "replace-operations/ipv6" {
+        dr:source "replace-operations-ipv6";
+        dr:fieldnum 114;
+      }
+      augment "replace-operations/next-hop" {
+        dr:source "replace-operations-next-hop";
+        dr:fieldnum 115;
+      }
+      augment "replace-operations/next-hop-group" {
+        dr:source "replace-operations-next-hop-group";
+        dr:fieldnum 116;
+      }
+      augment "delete-operations" {
+        dr:fieldnum 117;
+      }
+      augment "delete-operations/ipv4" {
+        dr:source "delete-operations-ipv4";
+        dr:fieldnum 118;
+      }
+      augment "delete-operations/ipv6" {
+        dr:source "delete-operations-ipv6";
+        dr:fieldnum 119;
+      }
+      augment "delete-operations/next-hop" {
+        dr:source "delete-operations-next-hop";
+        dr:fieldnum 120;
+      }
+      augment "delete-operations/next-hop-group" {
+        dr:source "delete-operations-next-hop-group";
+        dr:fieldnum 121;
+      }
+      augment "get-operations" {
+        dr:fieldnum 122;
+      }
+      augment "get-operations/ipv4" {
+        dr:source "get-operations-ipv4";
+        dr:fieldnum 123;
+      }
+      augment "get-operations/ipv6" {
+        dr:source "get-operations-ipv6";
+        dr:fieldnum 124;
+      }
+      augment "get-operations/next-hop" {
+        dr:source "get-operations-next-hop";
+        dr:fieldnum 125;
+      }
+      augment "get-operations/next-hop-group" {
+        dr:source "get-operations-next-hop-group";
+        dr:fieldnum 126;
+      }
+      augment "mod-req-queue-size" {
+        dr:fieldnum 127;
+      }
+      augment "mod-req-queue-size/min" {
+        dr:source "mod-req-queue-size-min";
+        dr:fieldnum 128;
+      }
+      augment "mod-req-queue-size/max" {
+        dr:source "mod-req-queue-size-max";
+        dr:fieldnum 129;
+      }
+      augment "mod-req-queue-size/mean" {
+        dr:source "mod-req-queue-size-mean";
+        dr:fieldnum 130;
+      }
+      augment "get-req-queue-size" {
+        dr:fieldnum 131;
+      }
+      augment "get-req-queue-size/min" {
+        dr:source "get-req-queue-size-min";
+        dr:fieldnum 132;
+      }
+      augment "get-req-queue-size/max" {
+        dr:source "get-req-queue-size-max";
+        dr:fieldnum 133;
+      }
+      augment "get-req-queue-size/mean" {
+        dr:source "get-req-queue-size-mean";
+        dr:fieldnum 134;
+      }
+      augment "add-operation-batch-size" {
+        dr:fieldnum 135;
+      }
+      augment "add-operation-batch-size/min" {
+        dr:source "add-operation-batch-size-min";
+        dr:fieldnum 136;
+      }
+      augment "add-operation-batch-size/max" {
+        dr:source "add-operation-batch-size-max";
+        dr:fieldnum 137;
+      }
+      augment "add-operation-batch-size/mean" {
+        dr:source "add-operation-batch-size-mean";
+        dr:fieldnum 138;
+      }
+      augment "replace-operation-batch-size" {
+        dr:fieldnum 139;
+      }
+      augment "replace-operation-batch-size/min" {
+        dr:source "replace-operation-batch-size-min";
+        dr:fieldnum 140;
+      }
+      augment "replace-operation-batch-size/max" {
+        dr:source "replace-operation-batch-size-max";
+        dr:fieldnum 141;
+      }
+      augment "replace-operation-batch-size/mean" {
+        dr:source "replace-operation-batch-size-mean";
+        dr:fieldnum 142;
+      }
+      augment "delete-operation-batch-size" {
+        dr:fieldnum 143;
+      }
+      augment "delete-operation-batch-size/min" {
+        dr:source "delete-operation-batch-size-min";
+        dr:fieldnum 144;
+      }
+      augment "delete-operation-batch-size/max" {
+        dr:source "delete-operation-batch-size-max";
+        dr:fieldnum 145;
+      }
+      augment "delete-operation-batch-size/mean" {
+        dr:source "delete-operation-batch-size-mean";
+        dr:fieldnum 146;
+      }
+      augment "fib-response-time" {
+        dr:fieldnum 147;
+      }
+      augment "fib-response-time/min" {
+        dr:source "fib-response-time-min";
+        dr:fieldnum 148;
+      }
+      augment "fib-response-time/max" {
+        dr:source "fib-response-time-max";
+        dr:fieldnum 149;
+      }
+      augment "fib-response-time/mean" {
+        dr:source "fib-response-time-mean";
+        dr:fieldnum 150;
+      }
+    }
+  }
+
+  grouping rend-gribi-clients {
+    uses oc-gribi-stats:clients-stats-top {
+      augment "client" {
+        dr:source "client";
+        dr:fieldnum 201;
+      }
+      augment "client/client-id" {
+        dr:source "client-id";
+        dr:fieldnum 202;
+      }
+      augment "client/state" {
+        dr:source "state";
+        dr:fieldnum 203;
+      }
+      augment "client/state/up-time" {
+        dr:source "up-time";
+        dr:fieldnum 205;
+      }
+      augment "client/state/client-flaps" {
+        dr:source "client-flaps";
+        dr:fieldnum 206;
+      }
+      augment "client/state/programmed-route-count" {
+        dr:source "programmed-route-count";
+        dr:fieldnum 207;
+      }
+      augment "client/state/connection-termination-errors" {
+        dr:source "connection-termination-errors";
+        dr:fieldnum 208;
+      }
+      augment "client/state/fib-ack-failures" {
+        dr:source "fib-ack-failures";
+        dr:fieldnum 209;
+      }
+      augment "client/state/add-operations" {
+        dr:fieldnum 210;
+      }
+      augment "client/state/add-operations/ipv4" {
+        dr:source "add-operations-ipv4";
+        dr:fieldnum 211;
+      }
+      augment "client/state/add-operations/ipv6" {
+        dr:source "add-operations-ipv6";
+        dr:fieldnum 212;
+      }
+      augment "client/state/add-operations/next-hop" {
+        dr:source "add-operations-next-hop";
+        dr:fieldnum 213;
+      }
+      augment "client/state/add-operations/next-hop-group" {
+        dr:source "add-operations-next-hop-group";
+        dr:fieldnum 214;
+      }
+      augment "client/state/replace-operations" {
+        dr:fieldnum 215;
+      }
+      augment "client/state/replace-operations/ipv4" {
+        dr:source "replace-operations-ipv4";
+        dr:fieldnum 216;
+      }
+      augment "client/state/replace-operations/ipv6" {
+        dr:source "replace-operations-ipv6";
+        dr:fieldnum 217;
+      }
+      augment "client/state/replace-operations/next-hop" {
+        dr:source "replace-operations-next-hop";
+        dr:fieldnum 218;
+      }
+      augment "client/state/replace-operations/next-hop-group" {
+        dr:source "replace-operations-next-hop-group";
+        dr:fieldnum 219;
+      }
+      augment "client/state/delete-operations" {
+        dr:fieldnum 220;
+      }
+      augment "client/state/delete-operations/ipv4" {
+        dr:source "delete-operations-ipv4";
+        dr:fieldnum 221;
+      }
+      augment "client/state/delete-operations/ipv6" {
+        dr:source "delete-operations-ipv6";
+        dr:fieldnum 222;
+      }
+      augment "client/state/delete-operations/next-hop" {
+        dr:source "delete-operations-next-hop";
+        dr:fieldnum 223;
+      }
+      augment "client/state/delete-operations/next-hop-group" {
+        dr:source "delete-operations-next-hop-group";
+        dr:fieldnum 224;
+      }
+      augment "client/state/get-operations" {
+        dr:fieldnum 225;
+      }
+      augment "client/state/get-operations/ipv4" {
+        dr:source "get-operations-ipv4";
+        dr:fieldnum 226;
+      }
+      augment "client/state/get-operations/ipv6" {
+        dr:source "get-operations-ipv6";
+        dr:fieldnum 227;
+      }
+      augment "client/state/get-operations/next-hop" {
+        dr:source "get-operations-next-hop";
+        dr:fieldnum 228;
+      }
+      augment "client/state/get-operations/next-hop-group" {
+        dr:source "get-operations-next-hop-group";
+        dr:fieldnum 229;
+      }
+      augment "client/state/mod-req-queue-size" {
+        dr:fieldnum 230;
+      }
+      augment "client/state/mod-req-queue-size/min" {
+        dr:source "mod-req-queue-size-min";
+        dr:fieldnum 231;
+      }
+      augment "client/state/mod-req-queue-size/max" {
+        dr:source "mod-req-queue-size-max";
+        dr:fieldnum 232;
+      }
+      augment "client/state/mod-req-queue-size/mean" {
+        dr:source "mod-req-queue-size-mean";
+        dr:fieldnum 233;
+      }
+      augment "client/state/get-req-queue-size" {
+        dr:fieldnum 234;
+      }
+      augment "client/state/get-req-queue-size/min" {
+        dr:source "get-req-queue-size-min";
+        dr:fieldnum 235;
+      }
+      augment "client/state/get-req-queue-size/max" {
+        dr:source "get-req-queue-size-max";
+        dr:fieldnum 236;
+      }
+      augment "client/state/get-req-queue-size/mean" {
+        dr:source "get-req-queue-size-mean";
+        dr:fieldnum 237;
+      }
+      augment "client/state/add-operation-batch-size" {
+        dr:fieldnum 238;
+      }
+      augment "client/state/add-operation-batch-size/min" {
+        dr:source "add-operation-batch-size-min";
+        dr:fieldnum 239;
+      }
+      augment "client/state/add-operation-batch-size/max" {
+        dr:source "add-operation-batch-size-max";
+        dr:fieldnum 240;
+      }
+      augment "client/state/add-operation-batch-size/mean" {
+        dr:source "add-operation-batch-size-mean";
+        dr:fieldnum 241;
+      }
+      augment "client/state/replace-operation-batch-size" {
+        dr:fieldnum 242;
+      }
+      augment "client/state/replace-operation-batch-size/min" {
+        dr:source "replace-operation-batch-size-min";
+        dr:fieldnum 243;
+      }
+      augment "client/state/replace-operation-batch-size/max" {
+        dr:source "replace-operation-batch-size-max";
+        dr:fieldnum 244;
+      }
+      augment "client/state/replace-operation-batch-size/mean" {
+        dr:source "replace-operation-batch-size-mean";
+        dr:fieldnum 245;
+      }
+      augment "client/state/delete-operation-batch-size" {
+        dr:fieldnum 246;
+      }
+      augment "client/state/delete-operation-batch-size/min" {
+        dr:source "delete-operation-batch-size-min";
+        dr:fieldnum 247;
+      }
+      augment "client/state/delete-operation-batch-size/max" {
+        dr:source "delete-operation-batch-size-max";
+        dr:fieldnum 248;
+      }
+      augment "client/state/delete-operation-batch-size/mean" {
+        dr:source "delete-operation-batch-size-mean";
+        dr:fieldnum 249;
+      }
+      augment "client/state/fib-response-time" {
+        dr:fieldnum 250;
+      }
+      augment "client/state/fib-response-time/min" {
+        dr:source "fib-response-time-min";
+        dr:fieldnum 251;
+      }
+      augment "client/state/fib-response-time/max" {
+        dr:source "fib-response-time-max";
+        dr:fieldnum 252;
+      }
+      augment "client/state/fib-response-time/mean" {
+        dr:source "fib-response-time-mean";
+        dr:fieldnum 253;
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-gribi-statistics-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container gribi-statistics {
+        dr:source "/gribi-statistics";
+        container state {
+          dr:fieldnum 1;
+          uses rend-gribi-state;
+        }
+        container clients {
+          dr:source "/gribi-statistics/clients";
+          dr:fieldnum 2;
+          uses rend-gribi-clients;
+        }
+      }
+    }
+  }
+}
+

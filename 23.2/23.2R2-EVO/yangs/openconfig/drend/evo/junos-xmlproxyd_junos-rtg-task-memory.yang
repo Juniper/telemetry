@@ -1,0 +1,322 @@
+/*
+ * Render Tree definition for task memory information
+ *
+ * March 2016, Venkata Chaitanya Munukutla
+ *
+ * Copyright (c) 1998-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+module junos-xmlproxyd_junos-rtg-task-memory {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/";
+
+  prefix "task_memory";
+
+  import drend {
+    prefix dr;
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  dr:command-app "xmlproxyd";
+  dr:sub-component "task-memory";
+  jnpr-proto:message-id "JUNOS-XMLPROXYD-JUNOS-RTG-TASK-MEMORY-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/junos";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:cli-command "show task memory detail";
+    dr:command-help "default <get> rpc";
+    output {
+      container junos {
+        container task-memory-information {
+          dr:source "/task-memory-information";
+	  dr:fieldnum 151;
+ 
+          container task-memory-overall-report {
+            dr:source "task-memory-overall-report";
+	    dr:fieldnum 151;
+            container task-size-block-list {
+              dr:source "task-size-block-list";
+	      dr:fieldnum 151;
+              list "task-size-block" {
+                key "tsb-size";
+                dr:source "task-size-block";
+                dr:fieldnum 151;
+                leaf "tsb-size" {
+                  type uint32;
+                  dr:source "tsb-size";
+                  dr:fieldnum 51;
+                }
+                leaf "tsb-alloc-bytes" {
+                  type uint32;
+                  dr:source "tsb-alloc-bytes";
+                  dr:fieldnum 52;
+                }
+                leaf "tsb-allocs" {
+                  type uint32;
+                  dr:source "tsb-allocs";
+                  dr:fieldnum 53;
+                }
+                leaf "tsb-max-allocs" {
+                  type uint32;
+                  dr:source "tsb-max-allocs";
+                  dr:fieldnum 54;
+                }
+                leaf "tsb-max-bytes" {
+                  type uint64;
+                  dr:source "tsb-max-bytes";
+                  dr:fieldnum 55;
+                }
+                leaf "tsb-free-bytes" {
+                  type uint64;
+                  dr:source "tsb-free-bytes";
+                  dr:fieldnum 56;
+                }
+              }
+            }
+            
+            container task-memory-stats-list {
+              dr:source "task-memory-stats-list";
+	      dr:fieldnum 152;
+              list "task-memory-stats" {
+                key "tms-name";
+                dr:source "task-memory-stats";
+                dr:fieldnum 151;
+                leaf "tms-name" {
+                  type string;
+                  dr:source "tms-name";
+                  dr:fieldnum 51;
+                }
+                leaf "tms-allocs" {
+                  type uint32;
+                  dr:source "tms-allocs";
+                  dr:fieldnum 52;
+                }
+                leaf "tms-alloc-bytes" {
+                  type uint64;
+                  dr:source "tms-alloc-bytes";
+                  dr:fieldnum 53;
+                }
+                leaf "tms-max-allocs" {
+                  type uint32;
+                  dr:source "tms-max-allocs";
+                  dr:fieldnum 54;
+                }
+                leaf "tms-max-bytes" {
+                  type uint64;
+                  dr:source "tms-max-bytes";
+                  dr:fieldnum 55;
+                }
+              }
+            }
+            leaf "task-memory-total-bytes" {
+              type uint64;
+              dr:source "task-memory-total-bytes";
+              dr:fieldnum 51;
+            }
+            leaf "task-memory-total-max-bytes" {
+              type uint64;
+              dr:source "task-memory-total-max-bytes";
+              dr:fieldnum 52;
+            }
+            leaf "task-memory-total-free-bytes" {
+              type uint64;
+              dr:source "task-memory-total-free-bytes";
+              dr:fieldnum 53;
+            }
+          }
+        
+          container task-memory-allocator-report {
+            dr:source "task-memory-allocator-report";
+	    dr:fieldnum 152;
+            container task-block-list {
+              dr:source "task-block-list";
+	      dr:fieldnum 151;
+              list "task-block" {
+                key "tb-name";
+                dr:source "task-block";
+                dr:fieldnum 151;
+                leaf "tb-name" {
+                  type string;
+                  dr:source "tb-name";
+                  dr:fieldnum 51;
+                }
+                leaf "tb-size" {
+                  type uint32;
+                  dr:source "tb-size";
+                  dr:fieldnum 52;
+                }
+                leaf "tb-alloc-size" {
+                  type uint32;
+                  dr:source "tb-alloc-size";
+                  dr:fieldnum 53;
+                }
+                leaf "tb-alloc-blocks" {
+                  type uint32;
+                  dr:source "tb-alloc-blocks";
+                  dr:fieldnum 54;
+                }
+                leaf "tb-alloc-bytes" {
+                  type uint64;
+                  dr:source "tb-alloc-bytes";
+                  dr:fieldnum 55;
+                }
+                leaf "tb-max-alloc-blocks" {
+                  type uint32;
+                  dr:source "tb-max-alloc-blocks";
+                  dr:fieldnum 56;
+                }
+                leaf "tb-max-alloc-bytes" {
+                  type uint64;
+                  dr:source "tb-max-alloc-bytes";
+                  dr:fieldnum 57;
+                }
+              }
+            }
+            container task-lite-page-list {
+              dr:source "task-lite-page-list";
+	      dr:fieldnum 152;
+              list "task-lite-page" {
+                key "tlp-name";
+                dr:source "task-lite-page";
+                dr:fieldnum 151;
+                leaf "tlp-name" {
+                  type string;
+                  dr:source "tlp-name";
+                  dr:fieldnum 51;
+                }
+                leaf "tlp-alloc-bytes" {
+                  type uint64;
+                  dr:source "tlp-alloc-bytes";
+                  dr:fieldnum 52;
+                }
+                leaf "tlp-max-alloc-bytes" {
+                  type uint64;
+                  dr:source "tlp-max-alloc-bytes";
+                  dr:fieldnum 53;
+                }
+              }
+            }
+            leaf "task-memory-total-bytes" {
+              type uint64;
+              dr:source "task-memory-total-bytes";
+              dr:fieldnum 52;
+            }
+            leaf "task-memory-total-max-bytes" {
+              type uint64;
+              dr:source "task-memory-total-max-bytes";
+              dr:fieldnum 53;
+            }
+          }
+
+          container task-memory-malloc-usage-report {
+            dr:source "task-memory-malloc-usage-report";
+	    dr:fieldnum 153;
+            container task-malloc-list {
+              dr:source "task-malloc-list";
+	      dr:fieldnum 151;
+              list "task-malloc" {
+                key "tm-name";
+                dr:source "task-malloc";
+                dr:fieldnum 151;
+                leaf "tm-name" {
+                  type string;
+                  dr:source "tm-name";
+                  dr:fieldnum 51;
+                }
+                leaf "tm-allocs" {
+                  type uint32;
+                  dr:source "tm-allocs";
+                  dr:fieldnum 52;
+                }
+                leaf "tm-alloc-bytes" {
+                  type uint64;
+                  dr:source "tm-alloc-bytes";
+                  dr:fieldnum 53;
+                }
+                leaf "tm-max-allocs" {
+                  type uint32;
+                  dr:source "tm-max-allocs";
+                  dr:fieldnum 54;
+                }
+                leaf "tm-max-alloc-bytes" {
+                  type uint64;
+                  dr:source "tm-max-alloc-bytes";
+                  dr:fieldnum 55;
+                }
+                leaf "tm-function-calls" {
+                  type uint32;
+                  dr:source "tm-function-calls";
+                  dr:fieldnum 56;
+                }
+              }
+            }
+            leaf "task-memory-total-bytes" {
+              type uint64;
+              dr:source "task-memory-total-bytes";
+              dr:fieldnum 57;
+            }
+            leaf "task-memory-total-max-bytes" {
+              type uint64;
+              dr:source "task-memory-total-max-bytes";
+              dr:fieldnum 58;
+            }
+          }
+
+          leaf "task-memory-dynamic-allocs" {
+            type uint64;
+            dr:source "task-memory-dynamic-allocs";
+            dr:fieldnum 51;
+          }
+          leaf "task-memory-max-dynamic-allocs" {
+            type uint64;
+            dr:source "task-memory-max-dynamic-allocs";
+            dr:fieldnum 52;
+          }
+          leaf "task-memory-bss-bytes" {
+            type uint64;
+            dr:source "task-memory-bss-bytes";
+            dr:fieldnum 53;
+          }
+          leaf "task-memory-max-bss-bytes" {
+            type uint64;
+            dr:source "task-memory-max-bss-bytes";
+            dr:fieldnum 54;
+          }
+          leaf "task-memory-page-data-bytes" {
+            type uint64;
+            dr:source "task-memory-page-data-bytes";
+            dr:fieldnum 55;
+          }
+          leaf "task-memory-max-page-data-bytes" {
+            type uint64;
+            dr:source "task-memory-max-page-data-bytes";
+            dr:fieldnum 56;
+          }
+          leaf "task-memory-dir-bytes" {
+            type uint64;
+            dr:source "task-memory-dir-bytes";
+            dr:fieldnum 57;
+          }
+          leaf "task-memory-max-dir-bytes" {
+            type uint64;
+            dr:source "task-memory-max-dir-bytes";
+            dr:fieldnum 58;
+          }
+          leaf "task-memory-total-bytes-in-use" {
+            type uint64;
+            dr:source "task-memory-total-bytes-in-use";
+            dr:fieldnum 59;
+          }
+          leaf "task-memory-total-bytes-percent" {
+            type uint32;
+            dr:source "task-memory-total-bytes-percent";
+            dr:fieldnum 60;
+          }
+        }
+      }
+    }
+  }
+}

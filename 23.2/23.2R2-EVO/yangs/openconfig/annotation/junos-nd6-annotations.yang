@@ -1,0 +1,22 @@
+module junos-nd6-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/junos/nd6/annotations";
+    prefix "jnx-nd6-ann";
+    import junos-nd6 { prefix jnx-nd6; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-11-30" {
+        description "Initial version";
+    }
+    augment "/jnx-nd6:nd6-information" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "ptx5000 ptx9000 ptx3000 sng_olive ptx1000 ptx21000 qfx10002-60c ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10002-36qdd ptx10016 ptx10008 ptx10004 qfx10016 qfx10008";
+        junos:product "acx7509 ACX7024 ACX7100-48L ACX7100-32C";
+        junos:product "qfx5130-32cd qfx5220-128c qfx5220-32cd qfx5700 qfx10002-60c qfx10016 qfx10008";
+        junos:product-tvp "QFX5120-48YM QFX5120-48T QFX5210-64C";
+        junos:product-tvp "EX4100-48P EX4100-48T EX4100-24P EX4100-24T EX4100-F-48P EX4100-F-24P EX4100-F-48T EX4100-F-24T";
+        junos:product-tvp "EX4100-48MP EX4100-24MP EX4100-F-12P EX4100-F-12T";
+        junos:product-tvp "EX4400-24MP EX4400-24P EX4400-24T EX4400-48F EX4400-48MP EX4400-48P EX4400-48T";
+    }
+}

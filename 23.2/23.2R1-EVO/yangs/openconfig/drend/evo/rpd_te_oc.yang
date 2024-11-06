@@ -1,0 +1,3171 @@
+module rpd_te_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/te_oc_render";
+
+  prefix "teoc";
+
+  import drend {
+    prefix "dr";
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  import openconfig-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import jnx-aug-openconfig-ni-mpls { prefix jnx-aug-oc-ni-mpls; }
+
+
+  description "
+    Rendering Junos TE State in OpenConfig TE Schema terms
+  ";
+
+  revision "2016-06-28" {
+    description "Initial revision";
+  }
+
+  dr:command-app "rpd";
+  dr:sub-component "te";
+  jnpr-proto:message-id "RPD-TE-OC-MESSAGE-ID";
+
+  /*
+   * Add deviations here
+   */
+
+  /* 
+   * preference is defined as uint8 in OC model. Internally, preference is
+   * uint32. Deviate to uint32 to avoid issues with GNMI.
+   */
+  deviation /juniper-netconf-get/output/network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/preference {
+    deviate replace {
+      type uint32;
+    }
+  }
+
+  deviation /juniper-netconf-get/output/network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/preference {
+    deviate replace {
+      type uint32;
+    }
+  }
+
+  deviation /juniper-netconf-get/output/network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/preference {
+    deviate replace {
+      type uint32;
+    }
+  }
+
+  /*
+   * End deviations
+   */
+
+  grouping rend-mpls-te-srlg-top {
+    uses oc-mpls:mpls-te-srlg-top {
+      augment "srlgs" {
+        dr:fieldnum 151;
+      }
+      augment "srlgs/srlg" {
+        dr:source "srlgs/srlg";
+        dr:fieldnum 151;
+      }
+      augment "srlgs/srlg/name" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "srlgs/srlg/state" {
+        dr:fieldnum 151;
+      }
+      augment "srlgs/srlg/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "srlgs/srlg/state/value" {
+        dr:source "value";
+        dr:fieldnum 52;
+      }
+      augment "srlgs/srlg/state/cost" {
+        dr:source "cost";
+        dr:fieldnum 53;
+      }
+      augment "srlgs/srlg/state/flooding-type" {
+        dr:source "static";
+        dr:fieldnum 54;
+        dr:map FLOODED_SRLG { dr:map-from 0; }
+        dr:map STATIC_SRLG { dr:map-from 1; }
+      }
+    }
+  }
+
+  grouping rend-mpls-admin-groups-top {
+    uses oc-mpls:mpls-admin-groups-top {
+      augment "mpls-admin-groups" {
+        dr:fieldnum 152;
+      }
+      augment "mpls-admin-groups/admin-group" {
+        dr:source "admin-groups/admin-group";
+        dr:fieldnum 151;
+      }
+      augment "mpls-admin-groups/admin-group/admin-group-name" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "mpls-admin-groups/admin-group/state" {
+        dr:fieldnum 151;
+      }
+      augment "mpls-admin-groups/admin-group/state/admin-group-name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "mpls-admin-groups/admin-group/state/bit-position" {
+        dr:source "bit-position";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping rend-mpls-te-lsp-timers {
+    uses oc-mpls:mpls-te-lsp-timers {
+      augment "te-lsp-timers" {
+        dr:fieldnum 153;
+      }
+      augment "te-lsp-timers/state" {
+        dr:fieldnum 151;
+      }
+      augment "te-lsp-timers/state/install-delay" {
+        dr:source "lsp-timers/optimize-switchover-delay";
+        dr:fieldnum 51;
+      }
+      augment "te-lsp-timers/state/cleanup-delay" {
+        dr:source "lsp-timers/optimize-hold-dead-delay";
+        dr:fieldnum 52;
+      }
+      augment "te-lsp-timers/state/reoptimize-timer" {
+        dr:source "lsp-timers/optimize-timer";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-te-interface-attributes-top {
+    uses oc-mpls:te-interface-attributes-top {
+      augment "interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interface/interface-id" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "interface/state" {
+        dr:fieldnum 151;
+      }
+      augment "interface/state/interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "interface/state/srlg-membership" {
+        dr:source "srlgs";
+        dr:fieldnum 52;
+      }
+      augment "interface/state/admin-group" {
+        dr:source "admin-groups";
+        dr:fieldnum 53;
+      }
+      augment "interface/interface-ref" {
+        dr:fieldnum 152;
+      }
+      augment "interface/interface-ref/state" {
+        dr:fieldnum 151;
+      }
+      augment "interface/interface-ref/state/interface" {
+        dr:source "physical-name";
+        dr:fieldnum 51;
+      }
+      augment "interface/interface-ref/state/subinterface" {
+        dr:source "logical-unit";
+        dr:fieldnum 52;
+      }
+      augment "interface/igp-flooding-bandwidth" {
+        dr:fieldnum 153;
+      }
+      augment "interface/igp-flooding-bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "interface/igp-flooding-bandwidth/state/threshold-type" {
+        dr:source "update-threshold";
+        dr:fieldnum 51;
+        dr:map DELTA { dr:map-from *; }
+      }
+      augment "interface/igp-flooding-bandwidth/state/delta-percentage" {
+        dr:source "update-threshold";
+        dr:fieldnum 52;
+      }
+      augment "interface" {
+        container bandwidth-measurement {
+          dr:fieldnum 154;
+          container state {
+            dr:fieldnum 151;
+            leaf last-calculated-sr-utilisation {
+              type uint64;
+              dr:source "last-calculated-sr-util";
+              dr:fieldnum 51;
+            }
+            leaf last-sample-measured-sr-util {
+              type uint64;
+              dr:source "last-sample-measured-sr-util";
+              dr:fieldnum 52;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  grouping rend-explicit-paths-top {
+    uses oc-mpls:explicit-paths-top {
+      augment "named-explicit-paths" {
+        dr:fieldnum 151;
+      }
+      augment "named-explicit-paths/named-explicit-path" {
+        dr:source "te/paths/path";
+        dr:fieldnum 151;
+      }
+      augment "named-explicit-paths/named-explicit-path/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "named-explicit-paths/named-explicit-path/state" {
+        dr:fieldnum 151;
+      }
+      augment "named-explicit-paths/named-explicit-path/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects" {
+        dr:fieldnum 152;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object" {
+        dr:source "path-element";
+        dr:fieldnum 151;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/index" {
+        dr:source "index";
+        dr:fieldnum 51;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state" {
+        dr:fieldnum 151;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/address" {
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/hop-type" {
+        dr:source "strict";
+        dr:fieldnum 52;
+        dr:map STRICT { dr:map-from 1; }
+        dr:map LOOSE { dr:map-from 0; }
+      }
+      augment "named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/index" {
+        dr:source "index";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-te-tunnels-top {
+    uses oc-mpls:te-tunnels-top {
+      augment "tunnels" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel" {
+        dr:source-notification-name "lsp-delete";
+        dr:source "te/tunnels/tunnel";
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/state" {
+        dr:fieldnum 53;
+        uses jnx-aug-oc-ni-mpls:jnx-mpls-tunnel-state {
+          augment inherited-metric {
+            dr:source "inherited-metric";
+            dr:fieldnum 62;
+          }
+          augment tunnel-id {
+            dr:source-notification-name "tunnel-id-change";
+            dr:source "tunnel-id";
+            dr:fieldnum 52;
+          }
+        }
+      }
+      augment "tunnels/tunnel/state/name" {
+        dr:source "name";
+        dr:fieldnum 54;
+      }
+      augment "tunnels/tunnel/state/type" {
+        dr:source "type";
+        dr:fieldnum 55;
+        dr:map P2P { dr:map-from 1; }
+        dr:map P2MP { dr:map-from 2; }
+      }
+      augment "tunnels/tunnel/state/signaling-protocol" {
+        dr:source "setup-protocol";
+        dr:fieldnum 56;
+        dr:map PATH_SETUP_RSVP { dr:map-from 1; }
+        dr:map PATH_SETUP_SR { dr:map-from 2; }
+      }
+      augment "tunnels/tunnel/state/description" {
+        dr:source "description";
+        dr:fieldnum 57;
+      }
+      augment "tunnels/tunnel/state/admin-status" {
+        dr:source "admin-status";
+        dr:fieldnum 58;
+        dr:map ADMIN_UP { dr:map-from 1; }
+        dr:map ADMIN_DOWN { dr:map-from 0; }
+      }
+      augment "tunnels/tunnel/state/preference" {
+        dr:source "preference";
+        dr:fieldnum 59;
+      }
+      augment "tunnels/tunnel/state/metric-type" {
+        dr:source "metric-type";
+        dr:map LSP_METRIC_ABSOLUTE { dr:map-from 1; }
+        dr:map LSP_METRIC_INHERITED { dr:map-from 2; }
+        dr:fieldnum 60;
+      }
+      augment "tunnels/tunnel/state/metric" {
+        dr:source "metric";
+        dr:fieldnum 61;
+      }
+      augment "tunnels/tunnel/state/protection-style-requested" {
+        dr:source "protection-style-requested";
+        dr:fieldnum 63;
+        dr:map UNPROTECTED { dr:map-from 1; }
+        dr:map LINK_PROTECTION_REQUIRED { dr:map-from 2; }
+        dr:map LINK_NODE_PROTECTION_REQUESTED { dr:map-from 3; }
+      }
+      augment "tunnels/tunnel/state/reoptimize-timer" {
+        dr:source "optimize-timer";
+        dr:fieldnum 64;
+      }
+      augment "tunnels/tunnel/state/source" {
+        dr:source "source";
+        dr:fieldnum 65;
+      }
+      augment "tunnels/tunnel/state/soft-preemption" {
+        dr:source "soft-preemption";
+        dr:fieldnum 66;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+
+      }
+      augment "tunnels/tunnel/state/setup-priority" {
+        dr:source "setup-priority";
+        dr:fieldnum 67;
+      }
+      augment "tunnels/tunnel/state/hold-priority" {
+        dr:source "hold-priority";
+        dr:fieldnum 68;
+      }
+      augment "tunnels/tunnel/state/oper-status" {
+        dr:source "oper-status";
+        dr:fieldnum 69;
+        dr:map UP { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 0; }
+      }
+      augment "tunnels/tunnel/state/auto-generated" {
+        dr:source "dynamically-created";
+        dr:fieldnum 70;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "tunnels/tunnel/state/counters" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/state/counters/path-changes" {
+        dr:source "path-changes";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/state/counters/state-changes" {
+        dr:source "transitions";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/state/counters/online-time" {
+        dr:source "transition-up-time";
+        dr:fieldnum 53;
+      }
+      augment "tunnels/tunnel/state/counters/current-path-time" {
+        dr:source "last-path-change-time";
+        dr:fieldnum 54;
+      }
+      augment "tunnels/tunnel/state/counters/next-reoptimization-time" {
+        dr:source "next-active-path-reoptimization-time";
+        dr:fieldnum 55;
+      }
+      augment "tunnels/tunnel/state/counters" {
+        leaf last-transition-time {
+          type yang:date-and-time; 
+          dr:source "last-transition-time";
+          dr:fieldnum 56;
+        }
+      }
+      augment "tunnels/tunnel/bandwidth" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/bandwidth/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/bandwidth/state/specification-type" {
+        dr:source "configured-bw";
+        dr:fieldnum 51;
+        dr:map AUTO { dr:map-from 0; }
+        dr:map SPECIFIED { dr:map-from *; }
+      }
+      augment "tunnels/tunnel/bandwidth/state/set-bandwidth" {
+        dr:source "configured-bw";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/bandwidth/state/signaled-bandwidth" {
+        dr:source "bw";
+        dr:fieldnum 53;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state" {
+        dr:fieldnum 151; 
+        leaf max-average-bw {
+          type uint64;
+          units "Bytes per second";
+          dr:source "auto-bw-max-average-bandwidth";
+          dr:fieldnum 61;
+        }
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state/enabled" {
+        dr:source "auto-bw-enabled";
+        dr:fieldnum 51;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state/min-bw" {
+        dr:source "auto-bw-minimum-bandwidth";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state/max-bw" {
+        dr:source "auto-bw-maximum-bandwidth";
+        dr:fieldnum 53;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state/adjust-interval" {
+        dr:source "auto-bw-adjust-interval";
+        dr:fieldnum 54;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/state/adjust-threshold" {
+        dr:source "auto-bw-adjust-threshold";
+        dr:fieldnum 55;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/overflow" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state/enabled" {
+        dr:source "auto-bw-max-overflow-samples";
+        dr:fieldnum 51;
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state/trigger-event-count" {
+        dr:source "auto-bw-max-overflow-samples";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/underflow" {
+        dr:fieldnum 153;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state/enabled" {
+        dr:source "auto-bw-max-underflow-samples";
+        dr:fieldnum 51;
+        dr:map false { dr:map-from 0; }
+        dr:map true { dr:map-from *; }
+      }
+      augment "tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state/trigger-event-count" {
+        dr:source "auto-bw-max-underflow-samples";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes" {
+        dr:fieldnum 153;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/state/destination" {
+        dr:source "p2p-tunnel-attributes/destination";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path" {
+        dr:source "primary-paths/primary-path";
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state" {
+      dr:fieldnum 151;
+	leaf notify-status {
+	  dr:source-notification-name "select-active-path";
+	  dr:source-notification-name "deselect-active-path";
+	  dr:source-notification-name "change-active-path";
+	  dr:source-notification-name "originate-mbb";
+	  dr:source-notification-name "cspf-noroute";
+	  dr:source-notification-name "cspf-success";
+	  dr:source-notification-name "gr-recovery-fail";
+
+	  type string;
+	  dr:fieldnum 81;
+	}
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/use-cspf" {
+        dr:source "nocspf";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 0; }
+        dr:map false { dr:map-from 1; }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/cspf-tiebreaker" {
+        dr:source "cspf-tiebreaker";
+        dr:fieldnum 53;
+        dr:map RANDOM { dr:map-from 1; }
+        dr:map LEAST_FILL { dr:map-from 2; }
+        dr:map MOST_FILL { dr:map-from 3; }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state" {
+        leaf cspf-status {
+          type enumeration {
+            enum CSPF_REOPTIMIZATION_PENDING {
+            description
+            "CSPF reoptimization pending";
+            }
+            enum CSPF_ENQUEUED {
+            description
+            "CSPF already enqueued";
+            }
+            enum CSPF_WILL_BE_ENQUEUED {
+            description
+            "CSPF will be enqueued";
+            }
+            enum CSPF_NO_COMPUTED_ERO {
+            description
+            "CSPF ERO not available";
+            }
+            enum CSPF_COMPUTED_ERO_AVAILABLE {
+            description
+            "CSPF ERO computed successfully";
+            }
+          }
+          dr:source "cspf-status";
+          dr:fieldnum 54;
+          dr:map CSPF_REOPTIMIZATION_PENDING { dr:map-from 1; }
+          dr:map CSPF_ENQUEUED { dr:map-from 2; }
+          dr:map CSPF_WILL_BE_ENQUEUED { dr:map-from 3; }
+          dr:map CSPF_NO_COMPUTED_ERO { dr:map-from 4; }
+          dr:map CSPF_COMPUTED_ERO_AVAILABLE { dr:map-from 5; }
+        }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/cspf-metric" {
+          dr:source "cspf-metric";
+          dr:fieldnum 55;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/explicit-path-name" {
+        dr:source "explicit-name";
+        dr:fieldnum 56;
+        dr:source-notification-name "path-name-change";
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path" {
+        list lsp-instances {
+          dr:fieldnum 153;
+          leaf "local-index" {
+            type uint32;
+            dr:source "value";
+            dr:fieldnum 51;
+          }
+          container state {
+            dr:fieldnum 151;
+            leaf "local-index" {
+              type uint32;
+              dr:source "value";
+              dr:fieldnum 51;
+            }
+            leaf notify-status {
+              type string;
+              dr:source-notification-name "initiated";
+              dr:source-notification-name "lsp-up";
+              dr:source-notification-name "lsp-down";
+              dr:source-notification-name "self-ping-status";
+              dr:source-notification-name "lp-available";
+              dr:source-notification-name "lp-unavailable";
+              dr:source-notification-name "autobw-success";
+              dr:source-notification-name "autobw-fail";
+              dr:source-notification-name "patherr-recv";
+              dr:source-notification-name "tunnel-local-repaired";
+              dr:fieldnum 52;
+            }
+            leaf metric {
+              type int32;
+              dr:source-notification-name "metric-change";
+              dr:fieldnum 53;
+            }
+            leaf bandwidth {
+              type uint64;
+              dr:source-notification-name "bandwidth-change";
+              dr:fieldnum 54;
+            }
+            leaf max-avg-bandwidth {
+              type uint64;
+              dr:source-notification-name "max-avg-bw-change";
+              dr:fieldnum 55;
+            }
+          }
+        }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/preference" {
+        dr:source "preference";
+        dr:fieldnum 61;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/setup-priority" {
+        dr:source "setup-priority";
+        dr:fieldnum 62;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/hold-priority" {
+        dr:source "hold-priority";
+        dr:fieldnum 63;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/retry-timer" {
+        dr:source "retry-timer";
+        dr:fieldnum 64;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/associated-rsvp-sessions" {
+        dr:source "associated-rsvp-path-states";
+        dr:fieldnum 59;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/exclude-group" {
+        dr:source "path-ag-exclude-group";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/include-all-group" {
+        dr:source "path-ag-include-all-group";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/include-any-group" {
+        dr:source "path-ag-include-any-group";
+        dr:fieldnum 53;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths" {
+        dr:fieldnum 153;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path" {
+        dr:source "secondary-paths/secondary-path";
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/name" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/use-cspf" {
+        dr:source "nocspf";
+        dr:fieldnum 52;
+        dr:map true { dr:map-from 0; }
+        dr:map false { dr:map-from 1; }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/cspf-tiebreaker" {
+        dr:source "cspf-tiebreaker";
+        dr:fieldnum 53;
+        dr:map RANDOM { dr:map-from 1; }
+        dr:map LEAST_FILL { dr:map-from 2; }
+        dr:map MOST_FILL { dr:map-from 3; }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/explicit-path-name" {
+        dr:source "explicit-name";
+        dr:fieldnum 54;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path" {
+        uses jnx-aug-oc-ni-mpls:jnx-mpls-tunnel-p2p-sec-path-lsp-instances-state {
+          augment lsp-instances {
+            dr:source "lsp-instances";
+            dr:fieldnum 153;
+          }
+          augment "lsp-instances/local-index" {
+            dr:source "local-index";
+            dr:fieldnum 51;
+          }
+          augment "lsp-instances/state" {
+            dr:fieldnum 151;
+          }
+          augment "lsp-instances/state/notify-status" {
+            dr:source "status";
+            dr:fieldnum 52;
+          }
+          augment "lsp-instances/state/reason" {
+            dr:source "reason";
+            dr:fieldnum 56;
+          }
+          augment "lsp-instances/lsp-id" {
+            dr:source "lspid";
+            dr:fieldnum 52;
+          }
+        }
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/preference" {
+        dr:source "preference";
+        dr:fieldnum 55;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/setup-priority" {
+        dr:source "setup-priority";
+        dr:fieldnum 56;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/hold-priority" {
+        dr:source "hold-priority";
+        dr:fieldnum 57;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/retry-timer" {
+        dr:source "retry-timer";
+        dr:fieldnum 58;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/associated-rsvp-sessions" {
+        dr:source "associated-rsvp-path-states";
+        dr:fieldnum 59;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/cspf-metric" {
+        dr:source "cspf-metric";
+        dr:fieldnum 60;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups" {
+        dr:fieldnum 152;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state" {
+        dr:fieldnum 151;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/exclude-group" {
+        dr:source "path-ag-exclude-group";
+        dr:fieldnum 51;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/include-all-group" {
+        dr:source "path-ag-include-all-group";
+        dr:fieldnum 52;
+      }
+      augment "tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/include-any-group" {
+        dr:source "path-ag-include-any-group";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-te-container-tunnels-top {
+    uses jnx-aug-oc-ni-mpls:jnx-container-tunnels {
+      augment "container-tunnels" {
+        dr:fieldnum 153;
+      }
+      augment "container-tunnels/container-tunnel" {
+        dr:source "te/container-tunnels/container-tunnel";
+        dr:fieldnum 151;
+      }
+      augment "container-tunnels/container-tunnel/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "container-tunnels/container-tunnel/state" {
+        dr:fieldnum 151;
+      }
+      augment "container-tunnels/container-tunnel/state/name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "container-tunnels/container-tunnel/state/oper-state" {
+        dr:source "oper-state";
+        dr:fieldnum 52;
+        dr:map CONTAINER_TUNNEL_UP { dr:map-from 1; }
+        dr:map CONTAINER_TUNNEL_DOWN { dr:map-from 0; }
+      }
+      augment "container-tunnels/container-tunnel/state/normalization-status" {
+        dr:source-notification-name "normalize-init";
+        dr:source-notification-name "normalize-complete";
+        dr:source-notification-name "avoid-normalize";
+        dr:fieldnum 53;
+      }
+      augment "container-tunnels/container-tunnel/state/member-count" {
+        dr:source "member-count";
+        dr:fieldnum 54;
+      }
+      augment "container-tunnels/container-tunnel/state/minimum-lsp-count" {
+        dr:source "minimum-lsp-count";
+        dr:fieldnum 55;
+      }
+      augment "container-tunnels/container-tunnel/state/maximum-lsp-count" {
+        dr:source "maximum-lsp-count";
+        dr:fieldnum 56;
+      }
+      augment "container-tunnels/container-tunnel/state/normalize-timer" {
+        dr:source "normalize-interval";
+        dr:fieldnum 57;
+      }
+      augment "container-tunnels/container-tunnel/state/normalize-threshold" {
+        dr:source "normalize-threshold";
+        dr:fieldnum 58;
+      }
+      augment "container-tunnels/container-tunnel/state/aggregate-bandwidth" {
+        dr:source "aggregate-bandwidth";
+        dr:fieldnum 59;
+      }
+      augment "container-tunnels/container-tunnel/state/sampled-aggregate-bandwidth" {
+        dr:source "sampled-aggregate-bandwidth";
+        dr:fieldnum 60;
+      }
+      augment "container-tunnels/container-tunnel/state/max-signaling-bandwidth" {
+        dr:source "max-signaling-bandwidth";
+        dr:fieldnum 61;
+      }
+      augment "container-tunnels/container-tunnel/state/min-signaling-bandwidth" {
+        dr:source "min-signaling-bandwidth";
+        dr:fieldnum 62;
+      }
+      augment "container-tunnels/container-tunnel/state/splitting-bandwidth" {
+        dr:source "splitting-bandwidth";
+        dr:fieldnum 63;
+      }
+      augment "container-tunnels/container-tunnel/state/merging-bandwidth" {
+        dr:source "merging-bandwidth";
+        dr:fieldnum 64;
+      }
+      augment "container-tunnels/container-tunnel/state/time-to-normalize" {
+        dr:source "time-to-normalize";
+        dr:fieldnum 65;
+      }
+      augment "container-tunnels/container-tunnel/state/incremental-normalization" {
+        dr:source "incremental-normalization";
+        dr:fieldnum 66;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "container-tunnels/container-tunnel/state/failover-normalization" {
+        dr:source "failover-normalization";
+        dr:fieldnum 67;
+        dr:map true { dr:map-from 1; }
+        dr:map false { dr:map-from 0; }
+      }
+      augment "container-tunnels/container-tunnel/state/sampling" {
+        dr:fieldnum 151;
+      }
+      augment "container-tunnels/container-tunnel/state/sampling/sampling-outlier-cutoff" {
+        dr:source "sampling-outlier-cutoff";
+        dr:fieldnum 51;
+      }
+      augment "container-tunnels/container-tunnel/state/sampling/sampling-mode" {
+        dr:source "sampling-mode";
+        dr:fieldnum 52;
+        dr:map SAMPLE_MODE_NONE { dr:map-from -1; }
+        dr:map SAMPLE_MODE_AVERAGE_AGGREGATE { dr:map-from 0; }
+        dr:map SAMPLE_MODE_MAX_AGGREGATE { dr:map-from 1; }
+        dr:map SAMPLE_MODE_PERCENTILE_BASED { dr:map-from 2; }
+      }
+      augment "container-tunnels/container-tunnel/state/sampling/sampling-percentile" {
+        dr:source "sampling-percentile";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  grouping rend-static-lsp-top {
+    uses oc-mpls:static-lsp-top {
+      augment "static-lsp" {
+        dr:fieldnum 151;
+        dr:source "te/static-lsps/static-lsp";
+      }
+      augment "static-lsp/name" {
+        dr:fieldnum 51;
+        dr:source "name";
+      }
+      augment "static-lsp/state" {
+        dr:fieldnum 151;
+      }
+      augment "static-lsp/state/name" {
+        dr:fieldnum 51;
+        dr:source "name";
+      }
+      augment "static-lsp/ingress" {
+        dr:fieldnum 152;
+        dr:source "ingress";
+      }
+      augment "static-lsp/ingress/state" {
+        dr:fieldnum 151;
+      }
+      augment "static-lsp/ingress/state/next-hop" {
+        dr:fieldnum 51;
+        dr:source "next-hop";
+      }
+      augment "static-lsp/ingress/state/incoming-label" {
+        dr:fieldnum 52;
+        dr:source "incoming-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+
+      }
+      augment "static-lsp/ingress/state/push-label" {
+        dr:fieldnum 53;
+        dr:source "push-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "static-lsp/transit" {
+        dr:fieldnum 153;
+        dr:source "transit";
+      }
+      augment "static-lsp/transit/state" {
+        dr:fieldnum 151;
+      }
+      augment "static-lsp/transit/state/next-hop" {
+        dr:fieldnum 51;
+        dr:source "next-hop";
+      }
+      augment "static-lsp/transit/state/incoming-label" {
+        dr:fieldnum 52;
+        dr:source "incoming-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "static-lsp/transit/state/push-label" {
+        dr:fieldnum 53;
+        dr:source "push-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "static-lsp/egress" {
+        dr:fieldnum 154;
+        dr:source "egress";
+      }
+      augment "static-lsp/egress/state" {
+        dr:fieldnum 151;
+      }
+      augment "static-lsp/egress/state/next-hop" {
+        dr:fieldnum 51;
+        dr:source "next-hop";
+      }
+      augment "static-lsp/egress/state/incoming-label" {
+        dr:fieldnum 52;
+        dr:source "incoming-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+      augment "static-lsp/egress/state/push-label" {
+        dr:fieldnum 53;
+        dr:source "push-label";
+        dr:map IPV4_EXPLICIT_NULL { dr:map-from 0; }
+        dr:map ROUTER_ALERT { dr:map-from 1; }
+        dr:map IPV6_EXPLICIT_NULL { dr:map-from 2; }
+        dr:map IMPLICIT_NULL { dr:map-from 3; }
+        dr:map NO_LABEL { dr:map-from 4294967295; }
+        dr:map * { dr:map-from *; }
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-te-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+        list network-instance {
+          key "name";
+          dr:source "/rt-instances/rt-instance";
+          dr:fieldnum 151;
+
+          leaf name {
+            type string;
+            dr:source "instance_name";
+            dr:fieldnum 51;
+          }
+          container mpls {
+            dr:fieldnum 151;
+            container te-global-attributes {
+              dr:source "te/globals";
+              dr:fieldnum 151;
+              uses rend-mpls-te-srlg-top;
+              uses rend-mpls-admin-groups-top;
+              uses rend-mpls-te-lsp-timers;
+            }
+            container te-interface-attributes {
+              dr:source "te/interfaces";
+              dr:fieldnum 152;
+              uses rend-te-interface-attributes-top;
+            }
+            container lsps {
+              dr:fieldnum 153;
+              container constrained-path {
+                dr:fieldnum 151;
+                uses rend-explicit-paths-top;
+                uses rend-te-tunnels-top;
+                uses rend-te-container-tunnels-top;
+              }
+              container static-lsps {
+                dr:fieldnum 152;
+                uses rend-static-lsp-top;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-initiated {
+    dr:source-notification-name "initiated";
+
+    container network-instances {
+      dr:source "/notification/initiated/network-instances";
+      dr:fieldnum 152;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              } 
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lsp-up {
+    dr:source-notification-name "lsp-up";
+
+    container network-instances {
+      dr:source "/notification/lsp-up/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }   
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lsp-down {
+    dr:source-notification-name "lsp-down";
+
+    container network-instances {
+      dr:source "/notification/lsp-down/network-instances";
+      dr:fieldnum 154;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps { 
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }   
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lsp-delete {
+    dr:source-notification-name "lsp-delete";
+
+    container network-instances {
+      dr:source "/notification/lsp-delete/network-instances";
+      dr:fieldnum 154;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps { 
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+ notification oc-tunnel-id-change {
+   dr:source-notification-name "tunnel-id-change";
+
+   container network-instances {
+     dr:source "/notification/tunnel-id-change/network-instances";
+     dr:fieldnum 154;
+     list network-instance {
+       dr:source "network-instance";
+       dr:fieldnum 151;
+       key name;
+       leaf name {
+         type string;
+         dr:source instance-name;
+         dr:fieldnum 51;
+       }
+       container mpls {
+         dr:fieldnum 151;
+         container lsps { 
+           dr:fieldnum 153;
+           container constrained-path {
+             dr:fieldnum 151;
+             container tunnels {
+               dr:source "tunnels";
+               dr:fieldnum 152;
+
+               list tunnel {
+                 key "name";
+                 dr:source "tunnel";
+                 dr:fieldnum 151;
+
+                 leaf name {
+                   type string;
+                   dr:source "name";
+                   dr:fieldnum 51;
+                 }
+
+                  container state {
+                    dr:fieldnum 53;
+ 
+                    leaf tunnel-id {
+                      type uint32;
+                      dr:source "tunnelid";
+                      dr:fieldnum 52;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lp-available {
+    dr:source-notification-name "lp-available";
+
+    container network-instances {
+      dr:source "/notification/lp-available/network-instances";
+      dr:fieldnum 155;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+    
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-lp-unavailable {
+    dr:source-notification-name "lp-unavailable";
+
+    container network-instances {
+      dr:source "/notification/lp-unavailable/network-instances";
+      dr:fieldnum 156;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-autobw-success {
+    dr:source-notification-name "autobw-success";
+
+    container network-instances {
+      dr:fieldnum 157;
+      dr:source "/notification/autobw-success/network-instances";
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-autobw-fail {
+    dr:source-notification-name "autobw-fail";
+
+    container network-instances {
+      dr:source "/notification/autobw-fail/network-instances";
+      dr:fieldnum 158;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+    
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-select-active-path {
+    dr:source-notification-name "select-active-path";
+
+    container network-instances {
+      dr:source "/notification/select-active-path/network-instances";
+      dr:fieldnum 159;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-deselect-active-path {
+    dr:source-notification-name "deselect-active-path";
+
+    container network-instances {
+      dr:source "/notification/deselect-active-path/network-instances";
+      dr:fieldnum 160;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+    
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-change-active-path {
+    dr:source-notification-name "change-active-path";
+
+    container network-instances {
+      dr:source "/notification/change-active-path/network-instances";
+      dr:fieldnum 161;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-originate-mbb {
+    dr:source-notification-name "originate-mbb";
+
+    container network-instances {
+      dr:source "/notification/originate-mbb/network-instances";
+      dr:fieldnum 162;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-cspf-noroute {
+    dr:source-notification-name "cspf-noroute";
+
+    container network-instances {
+      dr:source "/notification/cspf-noroute/network-instances";
+      dr:fieldnum 163;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-cspf-success {
+    dr:source-notification-name "cspf-success";
+
+    container network-instances {
+      dr:source "/notification/cspf-success/network-instances";
+      dr:fieldnum 164;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state { 
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-gr-recovery-fail {
+    dr:source-notification-name "gr-recovery-fail";
+
+    container network-instances {
+      dr:source "/notification/gr-recovery-fail/network-instances";
+      dr:fieldnum 165;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;  
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf notify-status {
+                            type string;
+                            dr:source "status";
+                            dr:fieldnum 81;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-patherr-recv {
+   dr:source-notification-name "patherr-recv";
+
+    container network-instances {
+      dr:source "/notification/patherr-recv/network-instances";
+      dr:fieldnum 166;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf subcode {
+                            type string;
+                            dr:source "subcode";
+                            dr:fieldnum 53;
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  notification oc-tunnel-local-repaired {
+    dr:source-notification-name "tunnel-local-repaired";
+
+    container network-instances {
+      dr:source "/notification/tunnel-local-repaired/network-instances";
+      dr:fieldnum 167;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-bandwidth-change {
+    dr:source-notification-name "bandwidth-change";
+
+    container network-instances {
+      dr:source "/notification/bandwidth-change/network-instances";
+      dr:fieldnum 168;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf bandwidth {
+                              type uint64;
+                              dr:source "bandwidth";
+                              dr:fieldnum 54;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-metric-change {
+    dr:source-notification-name "metric-change";
+
+    container network-instances {
+      dr:source "/notification/metric-change/network-instances";
+      dr:fieldnum 169;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf metric {
+                              type uint32;
+                              dr:source "metric";
+                              dr:fieldnum 53;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-path-name-change {
+    dr:source-notification-name "path-name-change";
+
+    container network-instances {
+      dr:source "/notification/path-name-change/network-instances";
+      dr:fieldnum 170;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        container state {
+                          dr:fieldnum 151;
+                          leaf explicit-path-name {
+                            type string;
+                            dr:source "name";
+                            dr:fieldnum 56;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-max-avg-bw-change {
+    dr:source-notification-name "max-avg-bw-change";
+
+    container network-instances {
+      dr:source "/notification/max-avg-bw-change/network-instances";
+      dr:fieldnum 171;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf max-avg-bandwidth {
+                              type uint64;
+                              dr:source "max-avg-bw";
+                              dr:fieldnum 55;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-self-ping-status {
+    dr:source-notification-name "self-ping-status";
+
+    container network-instances {
+      dr:source "/notification/self-ping-status/network-instances";
+      dr:fieldnum 172;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container tunnels {
+                dr:source "tunnels";
+                dr:fieldnum 152;
+
+                list tunnel {
+                  key "name";
+                  dr:source "tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  leaf source {
+                    type string;
+                    dr:source "source";
+                    dr:fieldnum 52;
+                  }
+                  container p2p-tunnel-attributes {
+                    dr:fieldnum 153;
+                    container p2p-primary-path {
+                      dr:fieldnum 152;
+                      list p2p-primary-path {
+                        key name;
+                        dr:source "p2p-primary-paths";
+                        dr:fieldnum 151;
+
+                        leaf name {
+                          type string;
+                          dr:source "name";
+                          dr:fieldnum 51;
+                        }
+                        list lsp-instances {
+                          key local-index;
+                          dr:source "lsp-instances";
+                          dr:fieldnum 153;
+
+                          leaf local-index {
+                            type uint32;
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          container state {
+                            dr:fieldnum 151;
+                            leaf notify-status {
+                              type string;
+                              dr:source "status";
+                              dr:fieldnum 52;
+                            }
+                            leaf reason {
+                              type string;
+                              dr:source "reason";
+                              dr:fieldnum 56;
+                            }
+                          }
+                          leaf lsp-id {
+                            type uint32;
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                    uses oc-mpls:p2p-secondary-paths-top {
+                      augment p2p-secondary-paths {
+                        dr:fieldnum 153;
+                      }
+                      augment "p2p-secondary-paths/p2p-secondary-path" {
+                        dr:source "p2p-secondary-paths";
+                        dr:fieldnum 151;
+                      }
+                      augment "p2p-secondary-paths/p2p-secondary-path/name" {
+                        dr:source "name";
+                        dr:fieldnum 52;
+                      }
+                      augment "p2p-secondary-paths/p2p-secondary-path" {
+                        uses jnx-aug-oc-ni-mpls:jnx-mpls-tunnel-p2p-sec-path-lsp-instances-state {
+                          augment lsp-instances {
+                            dr:source "lsp-instances";
+                            dr:fieldnum 153;
+                          }
+                          augment "lsp-instances/local-index" {
+                            dr:source "local-index";
+                            dr:fieldnum 51;
+                          }
+                          augment "lsp-instances/state" {
+                            dr:fieldnum 151;
+                          }
+                          augment "lsp-instances/state/notify-status" {
+                            dr:source "status";
+                            dr:fieldnum 52;
+                          }
+                          augment "lsp-instances/state/reason" {
+                            dr:source "reason";
+                            dr:fieldnum 56;
+                          }
+                          augment "lsp-instances/lsp-id" {
+                            dr:source "lspid";
+                            dr:fieldnum 52;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-normalize-init {
+    dr:source-notification-name "normalize-init";
+
+    container network-instances {
+      dr:source "/notification/normalize-init/network-instances";
+      dr:fieldnum 173;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container container-tunnels {
+                dr:source "container-tunnels";
+                dr:fieldnum 153;
+
+                list container-tunnel {
+                  key "name";
+                  dr:source "container-tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:fieldnum 151;
+                    leaf normalization-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 53;
+                    }
+                    leaf aggregate-bandwidth {
+                      type uint64;
+                      dr:source "aggregate-bw";
+                      dr:fieldnum 59;
+                    }
+                    leaf member-count {
+                      type uint32;
+                      dr:source "member-count";
+                      dr:fieldnum 54;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-normalize-complete {
+    dr:source-notification-name "normalize-complete";
+
+    container network-instances {
+      dr:source "/notification/normalize-complete/network-instances";
+      dr:fieldnum 174;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container container-tunnels {
+                dr:source "container-tunnels";
+                dr:fieldnum 153;
+
+                list container-tunnel {
+                  key "name";
+                  dr:source "container-tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:fieldnum 151;
+                    leaf normalization-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 53;
+                    }
+                    leaf aggregate-bandwidth {
+                      type uint64;
+                      dr:source "aggregate-bw";
+                      dr:fieldnum 59;
+                    }
+                    leaf member-count {
+                      type uint32;
+                      dr:source "member-count";
+                      dr:fieldnum 54;
+                    }
+                    leaf reason {
+                      type string;
+                      dr:source "reason";
+                      dr:fieldnum 68;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  notification oc-avoid-normalize {
+    dr:source-notification-name "avoid-normalize";
+
+    container network-instances {
+      dr:source "/notification/avoid-normalize/network-instances";
+      dr:fieldnum 175;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source instance-name;
+          dr:fieldnum 51;
+        }
+        container mpls {
+          dr:fieldnum 151;
+          container lsps {
+            dr:fieldnum 153;
+            container constrained-path {
+              dr:fieldnum 151;
+              container container-tunnels {
+                dr:source "container-tunnels";
+                dr:fieldnum 153;
+
+                list container-tunnel {
+                  key "name";
+                  dr:source "container-tunnel";
+                  dr:fieldnum 151;
+
+                  leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                  }
+                  container state {
+                    dr:fieldnum 151;
+                    leaf normalization-status {
+                      type string;
+                      dr:source "status";
+                      dr:fieldnum 53;
+                    }
+                    leaf aggregate-bandwidth {
+                      type uint64;
+                      dr:source "aggregate-bw";
+                      dr:fieldnum 59;
+                    }
+                    leaf member-count {
+                      type uint32;
+                      dr:source "member-count";
+                      dr:fieldnum 54;
+                    }
+                    leaf reason {
+                      type string;
+                      dr:source "reason";
+                      dr:fieldnum 68;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

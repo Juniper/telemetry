@@ -1,0 +1,111 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2019, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module jkdsd_cpu_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/jkdsd";
+
+  prefix "jkdsd";
+
+  import drend { prefix "dr"; }
+  import jnpr-proto { prefix jnpr-proto; }
+  jnpr-proto:message-id "JKDSD-CPU-OC-MESSAGE-ID";
+  dr:command-app "jkdsd";
+  dr:sub-component "debug";
+  
+  description "None";
+  revision "2019-01-01" {
+    description "";
+  }
+
+    grouping cpu-group {
+    container components {
+    dr:source "/main/components";
+    dr:fieldnum 151;
+    list component {
+    dr:source "/main/components/component";
+    key "name";
+    dr:fieldnum 151;
+
+    leaf name {
+	type string;
+	dr:source "name";
+	dr:fieldnum 51;
+    }
+    
+    container cpu {
+    dr:fieldnum 151;
+    container utilization {
+    dr:fieldnum 151;
+    container state {
+    dr:fieldnum 151;
+
+    leaf instant {
+	type uint8;
+	dr:source "instant";
+	dr:fieldnum 52;
+    }
+
+    leaf avg {
+	type uint8;
+	dr:source "avg";
+	dr:fieldnum 53;
+    }
+
+    leaf min {
+	type uint8;
+	dr:source "min";
+	dr:fieldnum 54;
+    }
+
+
+    leaf max {
+	type uint8;
+	dr:source "max";
+	dr:fieldnum 55;
+    }
+
+    leaf interval {
+	type uint64;
+	dr:source "interval";
+	dr:fieldnum 56;
+    }
+
+
+    leaf min-time {
+	type uint64;
+	dr:source "mintime";
+	dr:fieldnum 57;
+    }
+
+    leaf max-time {
+	type uint64;
+	dr:source "maxtime";
+	dr:fieldnum 58;
+    }
+    }
+    }
+    }
+
+    }
+
+    }
+    }
+
+
+
+  rpc juniper-netconf-get {
+    dr:command-help "Default <get> rpc";
+    output {
+	uses cpu-group;
+    }
+  }
+}
+
+

@@ -1,0 +1,3120 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module mib2d_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/mib2d-oc";
+
+  prefix "mib2d-oc";
+
+  import openconfig-interfaces { prefix ocif; }
+  import openconfig-if-ip { prefix oc-ip; }
+  import jnx-aug-openconfig-if-ip { prefix jnx-oc-ip; }
+  import openconfig-if-tunnel { prefix oc-tun; }
+  import openconfig-if-ethernet { prefix oceth; }
+  import openconfig-if-ethernet-ext { prefix oc-eth-ext; }
+  import openconfig-platform-transceiver { prefix oc-transceiver; }
+  import openconfig-platform { prefix oc-platform; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+  // augment statements
+
+  grouping mib2d-ethernet_oc {
+        uses oceth:ethernet-top {
+            augment "ethernet" {
+                dr:source-notification-name "ifl-oper";
+                dr:source-notification-name "ifd-oper";
+                dr:source-notification-name "ifd-admin";
+                dr:source-notification-name "ifl-admin";
+		dr:source-notification-name "ifl-del";
+                dr:source "ethernet";
+                dr:fieldnum 153; 
+            }    
+            augment "ethernet/state" {
+                dr:source "state";
+                dr:fieldnum 151; 
+            }    
+            augment "ethernet/state/mac-address" { 
+                dr:source "mac_address";
+                dr:fieldnum 51;
+            }    
+
+            augment "ethernet/state/auto-negotiate" { 
+                dr:source "auto_negotiate";
+                dr:fieldnum 52;
+                dr:map false { dr:map-from 0; } 
+                dr:map true { dr:map-from *; } 
+            }
+           
+            augment "ethernet/state/duplex-mode" { 
+                dr:source "duplex_mode";
+                dr:fieldnum 53;
+                dr:map FULL  { dr:map-from 3; } 
+                dr:map HALF  { dr:map-from 2; }
+                dr:map NOT-NEGOTIATED  { dr:map-from *; }
+            }    
+            augment "ethernet/state/port-speed" { 
+                dr:source "port_speed";
+                dr:fieldnum 54;
+                dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                dr:map SPEED_100MB { dr:map-from 2; }
+                dr:map SPEED_1GB   { dr:map-from 3; }
+                dr:map SPEED_2500MB{ dr:map-from 4; }
+                dr:map SPEED_5GB   { dr:map-from 5; }
+                dr:map SPEED_10GB   { dr:map-from 6; }
+                dr:map SPEED_25GB   { dr:map-from 7; }
+                dr:map SPEED_40GB   { dr:map-from 8; }
+                dr:map SPEED_50GB   { dr:map-from 9; }
+                dr:map SPEED_100GB   { dr:map-from 10; }
+                dr:map SPEED_200GB   { dr:map-from 11; }
+                dr:map SPEED_400GB   { dr:map-from 12; }
+                dr:map SPEED_600GB   { dr:map-from 13; }
+                dr:map SPEED_800GB   { dr:map-from 14; }
+                dr:map SPEED_UNKNOWN   { dr:map-from *; }
+            }
+            augment "ethernet/state/enable-flow-control" {
+                dr:source "enable_flow_control";
+                dr:fieldnum 55;
+                dr:map false { dr:map-from 0; }
+                dr:map true  { dr:map-from *; }
+            }
+            augment "ethernet/state/hw-mac-address" {
+                dr:source "hw_mac_address";
+                dr:fieldnum 56;
+            }
+            augment "ethernet/state/negotiated-duplex-mode" {
+                dr:source "negotiated_duplex_mode";
+                dr:fieldnum 57;
+                dr:map FULL  { dr:map-from 3; } 
+                dr:map HALF  { dr:map-from 2; }
+                dr:map NOT-NEGOTIATED  { dr:map-from *; }
+            }
+            augment "ethernet/state/negotiated-port-speed" {
+                dr:source "negotiated_port_speed";
+                dr:fieldnum 58;
+                dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                dr:map SPEED_100MB { dr:map-from 2; }
+                dr:map SPEED_1GB   { dr:map-from 3; }
+                dr:map SPEED_2500MB{ dr:map-from 4; }
+                dr:map SPEED_5GB   { dr:map-from 5; }
+                dr:map SPEED_10GB   { dr:map-from 6; }
+                dr:map SPEED_25GB   { dr:map-from 7; }
+                dr:map SPEED_40GB   { dr:map-from 8; }
+                dr:map SPEED_50GB   { dr:map-from 9; }
+                dr:map SPEED_100GB   { dr:map-from 10; }
+                dr:map SPEED_200GB   { dr:map-from 11; }
+                dr:map SPEED_400GB   { dr:map-from 12; }
+                dr:map SPEED_600GB   { dr:map-from 13; }
+                dr:map SPEED_800GB   { dr:map-from 14; }
+                dr:map SPEED_UNKNOWN   { dr:map-from *; }
+            }
+            augment "ethernet/state/counters" {
+                dr:source "eth_oob_states";
+                dr:zero-suppressed;
+                dr:fieldnum 151;
+            }
+            augment "ethernet/state/counters/in-mac-control-frames" {
+                dr:source "in_mac_control_frames";
+                dr:fieldnum 51;
+            }
+            augment "ethernet/state/counters/in-mac-pause-frames" {
+                dr:source "in_mac_pause_frames";
+                dr:fieldnum 52;
+            }
+            augment "ethernet/state/counters/in-oversize-frames" {
+                dr:source "in_oversize_frames";
+                dr:fieldnum 53;
+            }
+            augment "ethernet/state/counters/in-jabber-frames" {
+                dr:source "in_jabber_frames";
+                dr:fieldnum 54;
+            }
+            augment "ethernet/state/counters/in-fragment-frames" {
+                dr:source "in_fragment_frames";
+                dr:fieldnum 55;
+            }
+            augment "ethernet/state/counters/in-8021q-frames" {
+                dr:source "in_8021q_frames";
+                dr:fieldnum 56;
+            }
+            augment "ethernet/state/counters/in-crc-errors" {
+                dr:source "in_crc_errors";
+                dr:fieldnum 57;
+            }
+            augment "ethernet/state/counters/in-block-errors" {
+                dr:source "in_block_errors";
+                dr:fieldnum 58;
+            }
+            augment "ethernet/state/counters/out-mac-pause-frames" {
+                dr:source "out_mac_pause_frames";
+                dr:fieldnum 59;
+            }
+            augment "ethernet/state/counters/out-mac-control-frames" {
+                dr:source "out_mac_control_frames";
+                dr:fieldnum 60;
+            }
+            augment "ethernet/state/counters" {
+                uses oc-eth-ext:ethernet-in-frames-size-dist {
+                    augment "in-distribution" {
+                        dr:source "eth_in_distribution";
+                        dr:zero-suppressed;
+                        dr:fieldnum 151;
+                    }
+                    augment "in-distribution/in-frames-64-octets" {
+                        dr:source "in_frames_64_octets";
+                        dr:fieldnum 51;
+                    }
+                    augment "in-distribution/in-frames-65-127-octets" {
+                        dr:source "in_frames_65_127_octets";
+                        dr:fieldnum 52;
+                    }
+                    augment "in-distribution/in-frames-128-255-octets" {
+                        dr:source "in_frames_128_255_octets";
+                        dr:fieldnum 53;
+                    }
+                    augment "in-distribution/in-frames-256-511-octets" {
+                        dr:source "in_frames_256_511_octets";
+                        dr:fieldnum 54;
+                    }
+                    augment "in-distribution/in-frames-512-1023-octets" {
+                        dr:source "in_frames_512_1023_octets";
+                        dr:fieldnum 55;
+                    }
+                    augment "in-distribution/in-frames-1024-1518-octets" {
+                        dr:source "in_frames_1024_1518_octets";
+                        dr:fieldnum 56;
+                    }
+                }
+            }
+        }    
+  }
+
+  grouping mib2d-hold-time-states {
+    uses ocif:interface-phys-holdtime-top {
+      augment "hold-time" {
+        dr:fieldnum 155;
+      }
+      augment "hold-time/state" {
+        dr:fieldnum 151;
+      }
+      augment "hold-time/state/up" {
+        dr:source "hold_time_up";
+        dr:fieldnum 51;
+      }
+      augment "hold-time/state/down" {
+        dr:source "hold_time_down";
+        dr:fieldnum 52;
+      }
+    }
+  }
+
+  grouping mib2d-if-phy-config {
+    uses ocif:interface-phys-config {
+      augment "name" {
+        dr:source "name";
+      }
+      augment "type" {
+        // same as ietf ifType
+        dr:source "type";
+        dr:map ethernetCsmacd { dr:map-from 6; }
+        dr:map ethernetCsmacd { dr:map-from 7; }
+        dr:map softwareLoopback { dr:map-from 24; }  // Identityref is not supported in Junos
+        dr:map ieee8023adLag    { dr:map-from 161; } // see oc-if:type
+        dr:map other            { dr:map-from *; }
+      }
+    }
+  }
+
+  grouping mib2d-if-phy-state {
+    uses ocif:interface-phys-config {
+      augment "name" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "type" {
+        // same as ietf ifType
+        dr:source "type";
+        dr:fieldnum 52;
+        dr:map ethernetCsmacd { dr:map-from 6; }
+        dr:map ethernetCsmacd { dr:map-from 7; }
+        dr:map softwareLoopback { dr:map-from 24; }  // Identityref is not supported in Junos
+        dr:map ieee8023adLag    { dr:map-from 161; } // see oc-if:type
+        dr:map other            { dr:map-from *; }
+      }
+      augment "mtu" {
+        dr:source "mtu";
+        dr:fieldnum 53;
+      }
+      augment "description" {
+        dr:source "description";
+        dr:fieldnum 54;
+      }
+      augment "enabled" {
+        dr:source "enabled";
+        dr:fieldnum 55;
+        dr:map true   { dr:map-from 1; } // enabled if admin-status is up
+        dr:map false  { dr:map-from *; } // disable otherwise
+      }
+      augment "loopback-mode" {
+        dr:source "loopback_mode";
+        dr:fieldnum 56;
+        dr:map true   { dr:map-from 1; }
+        dr:map false  { dr:map-from *; }
+      }
+    }
+  }
+
+  grouping mib2d-if-states { // rfc2863a ifAdminStatus
+    uses ocif:interface-common-state {
+      augment "ifindex" {
+        dr:source "snmp_index";
+        dr:fieldnum 61;
+      }
+      augment "admin-status" {
+        dr:source "admin_status";
+        dr:fieldnum 62;
+        // same as VAL_ifAdminStatus_up etc.
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+      }
+      augment "oper-status" {  // rfc2863a ifOperStatus
+        dr:source "oper_status";
+        dr:fieldnum 63;
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+        dr:map DORMANT { dr:map-from 5; }
+        dr:map NOT_PRESENT { dr:map-from 6; }
+        dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+        dr:map UNKNOWN { dr:map-from *; }
+      }
+      augment "last-change" {
+        dr:source "last_change";
+        dr:fieldnum 64;
+      }
+      augment "logical" {
+        dr:source "logical";
+        dr:fieldnum 65;
+        dr:map true   { dr:map-from 1; }
+        dr:map false  { dr:map-from *; }
+      }
+
+     }
+     leaf hardware-port {
+         type leafref {
+             path "/oc-platform:components/oc-platform:component/" +
+                  "oc-platform:name";
+         }
+         dr:source "hwd_name";
+         dr:fieldnum 66;
+         description
+            "For non-channelized interfaces, references the hardware port
+             corresponding to the base interface.";
+     }
+
+     leaf transceiver {
+         type leafref {
+             path "/oc-platform:components/" +
+                  "oc-platform:component[oc-platform:name=current()/../hardware-port]/" +
+                  "oc-platform:subcomponents/oc-platform:subcomponent/" +
+                  "oc-platform:name";
+        }
+        dr:source "transceiver_intf_name";
+        dr:fieldnum 67;
+        description
+           "Provides a reference to the transceiver subcomponent that
+            corresponds to the physical port component for this interface.
+            The device must only populate this leaf with a reference to
+            a component of type TRANSCEIVER.";
+     }
+     leaf-list physical-channel {
+         type leafref {
+             path "/oc-platform:components/" +
+                  "oc-platform:component[oc-platform:name=current()/../transceiver]/" +
+                  "oc-transceiver:transceiver/" +
+                  "oc-transceiver:physical-channels/oc-transceiver:channel/" +
+                  "oc-transceiver:index";
+         }
+         dr:source "physical_channel_list";
+         dr:fieldnum 68;
+         description
+            "For a channelized interface, list of references to the
+             physical channels (lanes) corresponding to the interface.
+             The physical channels are elements of a transceiver component
+             in the platform model.";
+     }
+}
+
+  grouping mib2d-ifd-counters {
+    uses ocif:interface-counters-state {
+      augment "counters" {
+        dr:source "oob_states";
+        dr:fieldnum 151;
+      }
+      augment "counters/in-octets" {
+        dr:source "in_octets";
+        dr:fieldnum 51;
+      }
+      augment "counters/in-unicast-pkts" {
+        dr:source "in_unicast_pkts";
+        dr:fieldnum 52;
+      }
+      augment "counters/in-broadcast-pkts" {
+        dr:source "in_broadcast_pkts";
+        dr:fieldnum 53;
+      }
+      augment "counters/in-multicast-pkts" {
+        dr:source "in_multicast_pkts";
+        dr:fieldnum 54;
+      }
+      //augment "counters/in-discards" {
+      //  dr:source "in_discards";
+      //  dr:fieldnum 55;
+      //}
+      augment "counters/in-errors" {
+        dr:source "in_errors";
+        dr:fieldnum 56;
+      }
+      augment "counters/in-unknown-protos" {
+        dr:source "in_unknown_protos";
+        dr:fieldnum 57;
+      }
+      augment "counters/out-octets" {
+        dr:source "out_octets";
+        dr:fieldnum 58;
+      }
+      augment "counters/out-unicast-pkts" {
+        dr:source "out_unicast_pkts";
+        dr:fieldnum 59;
+      }
+      augment "counters/out-broadcast-pkts" {
+        dr:source "out_broadcast_pkts";
+        dr:fieldnum 60;
+      }
+      augment "counters/out-multicast-pkts" {
+        dr:source "out_multicast_pkts";
+        dr:fieldnum 61;
+      }
+      //augment "counters/out-discards" {
+      //  dr:source "out_discards";
+      //  dr:fieldnum 62;
+      //}
+      augment "counters/out-errors" {
+        dr:source "out_errors";
+        dr:fieldnum 63;
+      }
+      //augment "counters/last-clear" {
+      //  dr:source "last_clear";
+      //  dr:fieldnum 64;
+      //}
+    }
+  }
+
+  grouping mib2d-tun {
+    container tunnel {
+      dr:fieldnum 154;
+      dr:source-notification-name "tun-change";
+      container state {
+        dr:fieldnum 154;
+        uses oc-tun:tunnel-config {
+          augment src {
+            dr:source "tunnel/state/src";
+            dr:fieldnum 51;
+          }
+          augment dst {
+            dr:source "tunnel/state/dst";
+            dr:fieldnum 52;
+          }
+          augment ttl {
+            dr:source "tunnel/state/ttl";
+            dr:fieldnum 53;
+          }
+          augment gre-key {
+            dr:source "tunnel/state/gre-key";
+            dr:fieldnum 54;
+          }
+        }
+      }
+    }
+  }
+
+  grouping mib2d-ipv4 {
+    uses oc-ip:ipv4-top {
+      augment "ipv4" {
+        dr:fieldnum 152;
+      }
+      augment "ipv4/addresses" {
+        dr:source "ipv4/addresses";
+        dr:fieldnum 151;
+      }
+      augment "ipv4/addresses/address" {
+        dr:source "address";
+        dr:fieldnum 151;
+        dr:source-notification-name "ipv4-address-change";
+      }
+      augment "ipv4/addresses/address/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv4/addresses/address/state" {
+        dr:fieldnum 151;
+      }
+      augment "ipv4/addresses/address/state/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv4/addresses/address/state/prefix-length" {
+        dr:source "prefix-length";
+        dr:fieldnum 52;
+      }
+      augment "ipv4/addresses/address/state/origin" {
+        dr:source "origin";
+        dr:fieldnum 53;
+        dr:map STATIC { dr:map-from 1; }
+        dr:map DHCP { dr:map-from 2; }
+        dr:map LINK_LAYER { dr:map-from 3; }
+        dr:map RANDOM { dr:map-from 4; }
+        dr:map OTHER { dr:map-from 0; }
+      }
+      augment "ipv4/neighbors" {
+        dr:source "ipv4/neighbors";
+        dr:fieldnum 152;
+      }
+      augment "ipv4/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+        dr:source-notification-name "ipv4-arp-change";
+      }
+      augment "ipv4/neighbors/neighbor/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv4/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "ipv4/neighbors/neighbor/state/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv4/neighbors/neighbor/state/link-layer-address" {
+        dr:source "link-layer-address";
+        dr:fieldnum 52;
+      }
+      augment "ipv4/neighbors/neighbor/state/origin" {
+        dr:source "origin";
+        dr:fieldnum 53;
+        dr:map STATIC { dr:map-from 1; }
+        dr:map DYNAMIC { dr:map-from 2; }
+        dr:map OTHER { dr:map-from 0; }
+      }
+      augment "ipv4/neighbors/neighbor/state" {
+        uses jnx-oc-ip:jnx-ipv4-state-neighbor {
+          augment "host-name" {
+            dr:source "host-name";
+            dr:fieldnum 54;
+          }
+          augment "table-id" {
+            dr:source "rtb-id";
+            dr:fieldnum 55;
+          }
+          augment "neighbor-state" {
+            dr:source "state";
+            dr:fieldnum 56;
+            dr:map INCOMPLETE { dr:map-from 0; }
+            dr:map REACHABLE { dr:map-from 1; }
+            dr:map PROBE { dr:map-from 2; }
+            dr:map PERM { dr:map-from 3; }
+          }
+          augment "expiry" {
+            dr:source "expiry";
+            dr:fieldnum 57;
+          }
+          augment "is-publish" {
+            dr:source "ispublish";
+            dr:fieldnum 58;
+            dr:map false { dr:map-from 0; }
+            dr:map true  { dr:map-from 1; }
+          }
+          augment "interface-name" {
+            dr:source "interface-name";
+            dr:fieldnum 59;
+          }
+          augment "logical-router-id" {
+            dr:source "logical-router-id";
+            dr:fieldnum 60;
+          }
+        }
+     }
+     augment "ipv4/unnumbered" {
+       dr:source "ipv4/unnumbered";
+       dr:fieldnum 153;
+     }
+     augment "ipv4/unnumbered/state" {
+       dr:source "state";
+       dr:fieldnum 151;
+     }
+     augment "ipv4/unnumbered/state/enabled" {
+       dr:source "enabled";
+       dr:fieldnum 51;
+       dr:map true   { dr:map-from 1; }
+       dr:map false  { dr:map-from 0; }
+     }
+     augment "ipv4/unnumbered/interface-ref" {
+       dr:source "interface-ref";
+       dr:fieldnum 152;
+     }
+     augment "ipv4/unnumbered/interface-ref/state" {
+       dr:source "state";
+       dr:fieldnum 151;
+     }
+     augment "ipv4/unnumbered/interface-ref/state/interface" {
+       dr:source "interface";
+       dr:fieldnum 51;
+     }
+     augment "ipv4/unnumbered/interface-ref/state/subinterface" {
+       dr:source "subinterface";
+       dr:fieldnum 52;
+     }
+     augment "ipv4/state" {
+       dr:source "ipv4/state";
+       dr:fieldnum 154;
+     }
+     augment "ipv4/state/enabled" {
+       dr:source "enabled";
+       dr:fieldnum 51;
+       dr:map true   { dr:map-from 1; }
+       dr:map false  { dr:map-from 0; }
+     }
+     augment "ipv4/state/mtu" {
+       dr:source "mtu";
+       dr:fieldnum 52;
+     }
+     augment "ipv4/proxy-arp" {
+       dr:source "ipv4/proxy-arp";
+       dr:fieldnum 155;
+     }
+     augment "ipv4/proxy-arp/state" {
+       dr:source "state";
+       dr:fieldnum 154;
+     }
+     augment "ipv4/proxy-arp/state/mode" {
+       dr:source "mode";
+       dr:fieldnum 53;
+       dr:map "DISABLE" { dr:map-from 0;}
+       dr:map "ALL" { dr:map-from 1;}
+       dr:map "REMOTE_ONLY" { dr:map-from 2;}
+     }
+     augment "ipv4/state/counters" {
+       dr:source "counters";
+       dr:fieldnum 151;
+     }
+     augment "ipv4/state/counters/in-forwarded-pkts" {
+       dr:source "in-forwarded-pkts";
+       dr:fieldnum 51;
+     }
+     augment "ipv4/state/counters/in-forwarded-octets" {
+       dr:source "in-forwarded-octets";
+       dr:fieldnum 52;
+     }
+     augment "ipv4/state/counters/out-forwarded-pkts" {
+       dr:source "out-forwarded-pkts";
+       dr:fieldnum 53;
+     }
+     augment "ipv4/state/counters/out-forwarded-octets" {
+       dr:source "out-forwarded-octets";
+       dr:fieldnum 54;
+     }
+    }
+  }
+
+  grouping mib2d-ipv6 {
+    uses oc-ip:ipv6-top {
+      augment "ipv6" {
+        dr:fieldnum 153;
+      }
+      augment "ipv6/addresses" {
+        dr:source "ipv6/addresses";
+        dr:fieldnum 151;
+      }
+      augment "ipv6/addresses/address" {
+        dr:source "address";
+        dr:fieldnum 151;
+        dr:source-notification-name "ipv6-address-change";
+      }
+      augment "ipv6/addresses/address/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv6/addresses/address/state" {
+        dr:fieldnum 151;
+      }
+      augment "ipv6/addresses/address/state/ip" {
+        dr:source "ip";
+        dr:fieldnum 51;
+      }
+      augment "ipv6/addresses/address/state/prefix-length" {
+        dr:source "prefix-length";
+        dr:fieldnum 52;
+      }
+      augment "ipv6/addresses/address/state/origin" {
+        dr:source "origin";
+        dr:fieldnum 53;
+        dr:map STATIC { dr:map-from 1; }
+        dr:map DHCP { dr:map-from 2; }
+        dr:map LINK_LAYER { dr:map-from 3; }
+        dr:map RANDOM { dr:map-from 4; }
+        dr:map OTHER { dr:map-from 0; }
+      }
+     augment "ipv6/addresses/address/state/status" {
+       dr:source "status";
+       dr:fieldnum 54;
+       dr:map PREFERRED { dr:map-from 0; }
+       dr:map DEPRECATED { dr:map-from 1; }
+       dr:map INVALID {dr:map-from 2; }
+       dr:map INACCESSIBLE {dr:map-from 3; }
+       dr:map UNKNOWN {dr:map-from 4; }
+       dr:map TENTATIVE {dr:map-from 5; }
+       dr:map DUPLICATE {dr:map-from 6; }
+       dr:map OPTIMISTIC {dr:map-from 7; }
+     }
+     augment "ipv6/neighbors" {
+       dr:source "ipv6/neighbors";
+       dr:fieldnum 152;
+     }
+     augment "ipv6/neighbors/neighbor" {
+       dr:source "neighbor";
+       dr:fieldnum 151;
+       dr:source-notification-name "ipv6-nd6-change";
+     }
+     augment "ipv6/neighbors/neighbor/ip" {
+       dr:source "ip";
+       dr:fieldnum 51;
+     }
+     augment "ipv6/neighbors/neighbor/state" {
+       dr:fieldnum 151;
+     }
+     augment "ipv6/neighbors/neighbor/state/ip" {
+       dr:source "ip";
+       dr:fieldnum 51;
+     }
+     augment "ipv6/neighbors/neighbor/state/link-layer-address" {
+       dr:source "link-layer-address";
+       dr:fieldnum 52;
+     }
+     augment "ipv6/neighbors/neighbor/state/origin" {
+       dr:source "origin";
+       dr:fieldnum 53;
+       dr:map STATIC { dr:map-from 1; }
+       dr:map DYNAMIC { dr:map-from 2; }
+       dr:map OTHER { dr:map-from 0; }
+     }
+     augment "ipv6/neighbors/neighbor/state/is-router" {
+       dr:source "isrouter";
+       dr:fieldnum 54;
+       dr:map true   { dr:map-from 1; }
+       dr:map false  { dr:map-from 0; }
+     }
+     augment "ipv6/neighbors/neighbor/state/neighbor-state" {
+       dr:source "state";
+       dr:fieldnum 55;
+       dr:map INCOMPLETE { dr:map-from 0; }
+       dr:map REACHABLE { dr:map-from 1; }
+       dr:map STALE { dr:map-from 2; }
+       dr:map DELAY { dr:map-from 3; }
+       dr:map PROBE { dr:map-from 4; }
+     }
+     augment "ipv6/neighbors/neighbor/state" {
+       uses jnx-oc-ip:jnx-ipv6-state-neighbor {
+         augment "table-id" {
+           dr:source "rtb-id";
+           dr:fieldnum 56;
+         }
+         augment "is-secure" {
+           dr:source "issecure";
+           dr:fieldnum 57;
+           dr:map false { dr:map-from 0; }
+           dr:map true  { dr:map-from 1; }
+         }
+         augment "is-publish" {
+           dr:source "ispublish";
+           dr:fieldnum 58;
+           dr:map false { dr:map-from 0; }
+           dr:map true  { dr:map-from 1; }
+         }
+         augment "expiry" {
+           dr:source "expiry";
+           dr:fieldnum 59;
+         }
+         augment "interface-name" {
+           dr:source "interface-name";
+           dr:fieldnum 60;
+         }
+         augment "logical-router-id" {
+           dr:source "logical-router-id";
+           dr:fieldnum 61;
+         }
+       }
+     }
+    augment "ipv6/unnumbered" {
+      dr:source "ipv6/unnumbered";
+      dr:fieldnum 153;
+    }
+    augment "ipv6/unnumbered/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "ipv6/unnumbered/state/enabled" {
+      dr:source "enabled";
+      dr:fieldnum 51;
+      dr:map true   { dr:map-from 1; }
+      dr:map false  { dr:map-from 0; }
+    }
+    augment "ipv6/unnumbered/interface-ref" {
+      dr:source "interface-ref";
+      dr:fieldnum 152;
+    }
+    augment "ipv6/unnumbered/interface-ref/state" {
+      dr:source "state";
+      dr:fieldnum 151;
+    }
+    augment "ipv6/unnumbered/interface-ref/state/interface" {
+      dr:source "interface";
+      dr:fieldnum 51;
+    }
+    augment "ipv6/unnumbered/interface-ref/state/subinterface" {
+      dr:source "subinterface";
+      dr:fieldnum 52;
+    }
+    augment "ipv6/state" {
+      dr:source "ipv6/state";
+      dr:fieldnum 154;
+    }
+    augment "ipv6/state/enabled" {
+      dr:source "enabled";
+      dr:fieldnum 51;
+      dr:map true   { dr:map-from 1; }
+      dr:map false  { dr:map-from 0; }
+    }
+    augment "ipv6/state/mtu" {
+      dr:source "mtu";
+      dr:fieldnum 52;
+    }
+    augment "ipv6/state/dup-addr-detect-transmits" {
+      dr:source "dup-addr-detect-transmits";
+      dr:fieldnum 53;
+    }
+    augment "ipv6/state/counters" {
+      dr:source "counters";
+      dr:fieldnum 151;
+    }
+    augment "ipv6/state/counters/in-forwarded-pkts" {
+      dr:source "in-forwarded-pkts";
+      dr:fieldnum 51;
+    }
+    augment "ipv6/state/counters/in-forwarded-octets" {
+      dr:source "in-forwarded-octets";
+      dr:fieldnum 52;
+    }
+    augment "ipv6/state/counters/out-forwarded-pkts" {
+      dr:source "out-forwarded-pkts";
+      dr:fieldnum 53;
+    }
+    augment "ipv6/state/counters/out-forwarded-octets" {
+      dr:source "out-forwarded-octets";
+      dr:fieldnum 54;
+    }
+   }
+  }
+
+  grouping mib2d-subinterfaces {
+    uses ocif:subinterfaces-top {
+      // subinterfae mapping
+      augment "subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+
+        uses mib2d-tun;
+
+        uses oc-ip:ipv4-top {
+          augment "ipv4" {
+            dr:fieldnum 152;
+          }
+
+          augment "ipv4/addresses" {
+            dr:source "ipv4/addresses";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/addresses/address" {
+            dr:source "address";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/addresses/address/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv4/addresses/address/state" {
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/addresses/address/state/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv4/addresses/address/state/prefix-length" {
+            dr:source "prefix-length";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv4/addresses/address/state/origin" {
+            dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DHCP { dr:map-from 2; }
+            dr:map LINK_LAYER { dr:map-from 3; }
+            dr:map RANDOM { dr:map-from 4; }
+            dr:map OTHER { dr:map-from 0; }
+          }
+
+          augment "ipv4/neighbors" {
+            dr:source "ipv4/neighbors";
+            dr:fieldnum 152;
+          }
+
+          augment "ipv4/neighbors/neighbor" {
+            dr:source "neighbor";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/neighbors/neighbor/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv4/neighbors/neighbor/state/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv4/neighbors/neighbor/state/link-layer-address" {
+            dr:source "link-layer-address";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv4/neighbors/neighbor/state/origin" {
+            dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DYNAMIC { dr:map-from 2; }
+            dr:map OTHER { dr:map-from 0; }
+          }
+          augment "ipv4/neighbors/neighbor/state" {
+            dr:fieldnum 151;
+            uses jnx-oc-ip:jnx-ipv4-state-neighbor {
+              augment "host-name" {
+                dr:source "host-name";
+                dr:fieldnum 54;
+              }
+              augment "table-id" {
+                dr:source "rtb-id";
+                dr:fieldnum 55;
+              }
+              augment "neighbor-state" {
+                dr:source "state";
+                dr:fieldnum 56;
+                dr:map INCOMPLETE { dr:map-from 0; }
+                dr:map REACHABLE { dr:map-from 1; }
+                dr:map PROBE { dr:map-from 2; }
+                dr:map PERM { dr:map-from 3; }
+              }
+              augment "expiry" {
+                dr:source "expiry";
+                dr:fieldnum 57;
+              }
+              augment "is-publish" {
+                dr:source "ispublish";
+                dr:fieldnum 58;
+                dr:map false { dr:map-from 0; }
+                dr:map true  { dr:map-from 1; }
+              }
+              augment "interface-name" {
+                dr:source "interface-name";
+                dr:fieldnum 59;
+              }
+              augment "logical-router-id" {
+                dr:source "logical-router-id";
+                dr:fieldnum 60;
+              }
+            }
+          }
+
+          augment "ipv4/unnumbered" {
+            dr:source "ipv4/unnumbered";
+            dr:fieldnum 153;
+          }
+
+          augment "ipv4/unnumbered/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/unnumbered/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv4/unnumbered/interface-ref" {
+            dr:source "interface-ref";
+            dr:fieldnum 152;
+          }
+
+          augment "ipv4/unnumbered/interface-ref/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv4/unnumbered/interface-ref/state/interface" {
+            dr:source "interface";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv4/unnumbered/interface-ref/state/subinterface" {
+            dr:source "subinterface";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv4/state" {
+            dr:source "ipv4/state";
+            dr:fieldnum 154;
+          }
+
+          augment "ipv4/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv4/state/mtu" {
+            dr:source "mtu";
+            dr:fieldnum 52;
+          }
+
+         augment "ipv4/proxy-arp" {
+            dr:source "ipv4/proxy-arp";
+            dr:fieldnum 155;
+          }
+         augment "ipv4/proxy-arp/state" {
+            dr:source "state";
+            dr:fieldnum 154;
+          }
+         augment "ipv4/proxy-arp/state/mode" {
+            dr:source "mode";
+            dr:fieldnum 53;
+            dr:map "DISABLE" { dr:map-from 0;}
+            dr:map "ALL" { dr:map-from 1;}
+            dr:map "REMOTE_ONLY" { dr:map-from 2;}
+          }
+          augment "ipv4/state/counters" {
+            dr:source "counters";
+            dr:fieldnum 151;
+          }
+          augment "ipv4/state/counters/in-forwarded-pkts" {
+            dr:source "in-forwarded-pkts";
+            dr:fieldnum 51;
+          }
+          augment "ipv4/state/counters/in-forwarded-octets" {
+            dr:source "in-forwarded-octets";
+            dr:fieldnum 52;
+          }
+          augment "ipv4/state/counters/out-forwarded-pkts" {
+            dr:source "out-forwarded-pkts";
+            dr:fieldnum 53;
+          }
+          augment "ipv4/state/counters/out-forwarded-octets" {
+            dr:source "out-forwarded-octets";
+            dr:fieldnum 54;
+          }
+        }
+
+        uses oc-ip:ipv6-top {
+
+          augment "ipv6" {
+            dr:fieldnum 153;
+          }
+
+          augment "ipv6/addresses" {
+            dr:source "ipv6/addresses";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/addresses/address" {
+            dr:source "address";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/addresses/address/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv6/addresses/address/state" {
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/addresses/address/state/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv6/addresses/address/state/prefix-length" {
+            dr:source "prefix-length";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv6/addresses/address/state/origin" {
+            dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DHCP { dr:map-from 2; }
+            dr:map LINK_LAYER { dr:map-from 3; }
+            dr:map RANDOM { dr:map-from 4; }
+            dr:map OTHER { dr:map-from 0; }
+          }
+
+          augment "ipv6/addresses/address/state/status" {
+            dr:source "status";
+            dr:fieldnum 54;
+            dr:map PREFERRED { dr:map-from 0; }
+            dr:map DEPRECATED { dr:map-from 1; }
+            dr:map INVALID {dr:map-from 2; }
+            dr:map INACCESSIBLE {dr:map-from 3; }
+            dr:map UNKNOWN {dr:map-from 4; }
+            dr:map TENTATIVE {dr:map-from 5; }
+            dr:map DUPLICATE {dr:map-from 6; }
+            dr:map OPTIMISTIC {dr:map-from 7; }
+          }
+
+          augment "ipv6/neighbors" {
+            dr:source "ipv6/neighbors";
+            dr:fieldnum 152;
+          }
+
+          augment "ipv6/neighbors/neighbor" {
+            dr:source "neighbor";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/neighbors/neighbor/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv6/neighbors/neighbor/state/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv6/neighbors/neighbor/state/link-layer-address" {
+            dr:source "link-layer-address";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv6/neighbors/neighbor/state/origin" {
+            dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DYNAMIC { dr:map-from 2; }
+            dr:map OTHER { dr:map-from 0; }
+          }
+
+          augment "ipv6/neighbors/neighbor/state/is-router" {
+            dr:source "isrouter";
+            dr:fieldnum 54;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv6/neighbors/neighbor/state/neighbor-state" {
+            dr:source "state";
+            dr:fieldnum 55;
+            dr:map INCOMPLETE { dr:map-from 0; }
+            dr:map REACHABLE { dr:map-from 1; }
+            dr:map STALE { dr:map-from 2; }
+            dr:map DELAY { dr:map-from 3; }
+            dr:map PROBE { dr:map-from 4; }
+          }
+
+          augment "ipv6/neighbors/neighbor/state" {
+            dr:fieldnum 151;
+            uses jnx-oc-ip:jnx-ipv6-state-neighbor {
+              augment "table-id" {
+                dr:source "rtb-id";
+                dr:fieldnum 56;
+              }
+              augment "is-secure" {
+                dr:source "issecure";
+                dr:fieldnum 57;
+                dr:map false { dr:map-from 0; }
+                dr:map true  { dr:map-from 1; }
+              }
+              augment "is-publish" {
+                dr:source "ispublish";
+                dr:fieldnum 58;
+                dr:map false { dr:map-from 0; }
+                dr:map true  { dr:map-from 1; }
+              }
+              augment "expiry" {
+                dr:source "expiry";
+                dr:fieldnum 59;
+              }
+              augment "interface-name" {
+                dr:source "interface-name";
+                dr:fieldnum 60;
+              }
+              augment "logical-router-id" {
+                dr:source "logical-router-id";
+                dr:fieldnum 61;
+              }
+            }
+          }
+
+          augment "ipv6/unnumbered" {
+            dr:source "ipv6/unnumbered";
+            dr:fieldnum 153;
+          }
+
+          augment "ipv6/unnumbered/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/unnumbered/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv6/unnumbered/interface-ref" {
+            dr:source "interface-ref";
+            dr:fieldnum 152;
+          }
+
+          augment "ipv6/unnumbered/interface-ref/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+
+          augment "ipv6/unnumbered/interface-ref/state/interface" {
+            dr:source "interface";
+            dr:fieldnum 51;
+          }
+
+          augment "ipv6/unnumbered/interface-ref/state/subinterface" {
+            dr:source "subinterface";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv6/state" {
+            dr:source "ipv6/state";
+            dr:fieldnum 154;
+          }
+
+          augment "ipv6/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv6/state/mtu" {
+            dr:source "mtu";
+            dr:fieldnum 52;
+          }
+
+          augment "ipv6/state/dup-addr-detect-transmits" {
+            dr:source "dup-addr-detect-transmits";
+            dr:fieldnum 53;
+          }
+          augment "ipv6/state/counters" {
+            dr:source "counters";
+            dr:fieldnum 151;
+          }
+          augment "ipv6/state/counters/in-forwarded-pkts" {
+            dr:source "in-forwarded-pkts";
+            dr:fieldnum 51;
+          }
+          augment "ipv6/state/counters/in-forwarded-octets" {
+            dr:source "in-forwarded-octets";
+            dr:fieldnum 52;
+          }
+          augment "ipv6/state/counters/out-forwarded-pkts" {
+            dr:source "out-forwarded-pkts";
+            dr:fieldnum 53;
+          }
+          augment "ipv6/state/counters/out-forwarded-octets" {
+            dr:source "out-forwarded-octets";
+            dr:fieldnum 54;
+          }
+       }
+    }
+
+      augment "subinterfaces/subinterface/index" {
+        dr:source "subunit"; // key
+        dr:fieldnum 51;
+      }
+      augment "subinterfaces/subinterface/state" {
+        dr:fieldnum 151;
+      }
+      augment "subinterfaces/subinterface/state/index" {
+        dr:source "subunit";
+        dr:fieldnum 51;
+      }
+      augment "subinterfaces/subinterface/state/name" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "subinterfaces/subinterface/state/description" {
+        dr:source "description";
+        dr:fieldnum 53;
+      }
+      augment "subinterfaces/subinterface/state/enabled" {
+        dr:source "enabled";
+        dr:fieldnum 54;
+        dr:map true   { dr:map-from 1; } // enabled if admin-status is up
+        dr:map false  { dr:map-from *; } // disable otherwise
+      }
+      augment "subinterfaces/subinterface/state/ifindex" {
+        dr:source "snmp_index";
+        dr:fieldnum 55;
+      }
+      augment "subinterfaces/subinterface/state/admin-status" {
+        dr:source "admin_status";
+        dr:fieldnum 56;
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+      }
+      augment "subinterfaces/subinterface/state/oper-status" {
+        dr:source "oper_status";
+        dr:fieldnum 57;
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+        dr:map DORMANT { dr:map-from 5; }
+        dr:map NOT_PRESENT { dr:map-from 6; }
+        dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+        dr:map UNKNOWN { dr:map-from *; }
+      }
+      augment "subinterfaces/subinterface/state/last-change" {
+        dr:source "last_change";
+        dr:fieldnum 58;
+      }
+      augment "subinterfaces/subinterface/state/logical" {
+        dr:source "logical";
+        dr:fieldnum 65;
+      }
+
+      augment "subinterfaces/subinterface/state/counters" {
+        dr:source "oob_states";
+        dr:fieldnum 151;
+      }
+      augment "subinterfaces/subinterface/state/counters/in-octets" {
+        dr:source "in_octets";
+        dr:fieldnum 51;
+      }
+      augment "subinterfaces/subinterface/state/counters/in-unicast-pkts" {
+        dr:source "in_unicast_pkts";
+        dr:fieldnum 52;
+      }
+      //augment "subinterfaces/subinterface/state/counters/in-broadcast-pkts" {
+      //  dr:source "in_broadcast_pkts";
+      //  dr:fieldnum 53;
+      //}
+      augment "subinterfaces/subinterface/state/counters/in-multicast-pkts" {
+        dr:source "in_multicast_pkts";
+        dr:fieldnum 54;
+      }
+      //augment "subinterfaces/subinterface/state/counters/in-discards" {
+      //  dr:source "in_discards";
+      //  dr:fieldnum 55;
+      //}
+      //augment "subinterfaces/subinterface/state/counters/in-errors" {
+      //  dr:source "in_errors";
+      //  dr:fieldnum 56;
+      //}
+      //augment "subinterfaces/subinterface/state/counters/in-unknown-protos" {
+      //  dr:source "in_unknown_protos";
+      //  dr:fieldnum 57;
+      //}
+      augment "subinterfaces/subinterface/state/counters/out-octets" {
+        dr:source "out_octets";
+        dr:fieldnum 58;
+      }
+      augment "subinterfaces/subinterface/state/counters/out-unicast-pkts" {
+        dr:source "out_unicast_pkts";
+        dr:fieldnum 59;
+      }
+      //augment "subinterfaces/subinterface/state/counters/out-broadcast-pkts" {
+      //  dr:source "out_broadcast_pkts";
+      //  dr:fieldnum 60;
+      //}
+      augment "subinterfaces/subinterface/state/counters/out-multicast-pkts" {
+        dr:source "out_multicast_pkts";
+        dr:fieldnum 61;
+      }
+      //augment "subinterfaces/subinterface/state/counters/out-discards" {
+      //  dr:source "out_discards";
+      //  dr:fieldnum 62;
+      //}
+      //augment "subinterfaces/subinterface/state/counters/out-errors" {
+      //  dr:source "out_errors";
+      //  dr:fieldnum 63;
+      //}
+      //augment "subinterfaces/subinterface/state/counters/last-clear" {
+      //  dr:source "last_clear";
+      //  dr:fieldnum 64;
+      //}
+    }
+  }
+
+  grouping mib2d-telemetry-subinterfaces {
+    uses ocif:subinterfaces-top {
+      // subinterfae mapping
+      augment "subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+        dr:source-notification-name "ipv4-change";
+        dr:source-notification-name "ipv6-change";
+        dr:source-notification-name "ifl-descr-change";
+        dr:source-notification-name "ifl-admin";
+	dr:source-notification-name "ifl-del";
+        dr:source-notification-name "ifl-oper";
+        dr:source-notification-name "ipv4-proxy-arp-change";
+        uses mib2d-tun;
+        uses mib2d-ipv4;
+        uses mib2d-ipv6;
+      }
+      augment "subinterfaces/subinterface/index" {
+        dr:source "subunit"; // key
+        dr:fieldnum 51;
+      }
+      augment "subinterfaces/subinterface/state" {
+        dr:fieldnum 151;
+      }
+      augment "subinterfaces/subinterface/state/index" {
+        dr:source "subunit";
+        dr:fieldnum 51;
+      }
+      augment "subinterfaces/subinterface/state/name" {
+        dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "subinterfaces/subinterface/state/description" {
+        dr:source "description";
+        dr:fieldnum 53;
+      }
+      augment "subinterfaces/subinterface/state/enabled" {
+        dr:source "enabled";
+        dr:fieldnum 54;
+        dr:map true   { dr:map-from 1; } // enabled if admin-status is up
+        dr:map false  { dr:map-from *; } // disable otherwise
+      }
+      augment "subinterfaces/subinterface/state/ifindex" {
+        dr:source "snmp_index";
+        dr:fieldnum 55;
+      }
+      augment "subinterfaces/subinterface/state/admin-status" {
+        dr:source "admin_status";
+        dr:fieldnum 56;
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+      }
+      augment "subinterfaces/subinterface/state/oper-status" {
+        dr:source "oper_status";
+        dr:fieldnum 57;
+        dr:map UP   { dr:map-from 1; }
+        dr:map DOWN { dr:map-from 2; }
+        dr:map TESTING { dr:map-from 3; }
+        dr:map DORMANT { dr:map-from 5; }
+        dr:map NOT_PRESENT { dr:map-from 6; }
+        dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+        dr:map UNKNOWN { dr:map-from *; }
+      }
+      augment "subinterfaces/subinterface/state/last-change" {
+        dr:source "last_change";
+        dr:fieldnum 58;
+      }
+      augment "subinterfaces/subinterface/state/logical" {
+        dr:source "logical";
+        dr:fieldnum 65;
+      }
+    }
+  }
+  grouping mib2d-ifd-common {
+    container state {
+      dr:fieldnum 151;
+      uses mib2d-if-phy-state;
+      uses mib2d-if-states;
+      uses mib2d-ifd-counters;
+    }
+  }
+
+  grouping mib2d-telemetry-if-common {
+    container state {
+      dr:fieldnum 151;
+      uses mib2d-if-phy-state;
+      uses mib2d-if-states;
+    }
+  }
+
+  dr:command-app "mib2d";
+  dr:sub-component "mib";
+  jnpr-proto:message-id "MIB2D-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container interfaces {
+        dr:source "/JuniperNetworksSensors/interfaces";
+        list interface {
+          dr:source "interface";
+          dr:source-notification-name "descr-change";
+          dr:source-notification-name "ifd-admin";
+          dr:source-notification-name "ifd-oper";
+          dr:source-notification-name "ifd-del";
+          dr:fieldnum 151;
+          key "name";
+          leaf name {
+            type string;
+            dr:source "name";
+            dr:fieldnum 51;
+          }
+          uses mib2d-ifd-common;
+          uses mib2d-hold-time-states;
+//          uses mib2d-ethernet;
+          uses mib2d-subinterfaces;
+          uses mib2d-ethernet_oc;
+        }
+      }
+    }
+  }
+  rpc juniper-telemetry-get {
+    output {
+      container interfaces {
+        dr:source "/JuniperNetworksSensors/interfaces";
+        list interface {
+          dr:source "interface";
+          dr:fieldnum 151;
+          key "name";
+          leaf name {
+            type string;
+            dr:source "name";
+            dr:fieldnum 51;
+          }
+          uses mib2d-telemetry-if-common;
+          uses mib2d-telemetry-subinterfaces;
+          uses mib2d-hold-time-states;
+//          uses mib2d-ethernet;
+          uses mib2d-ethernet_oc;
+        }
+      }
+    }
+  }
+
+  notification "oc-tun-change" {
+    dr:source-notification-name "tun-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/tun-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+        container tunnel {
+          dr:fieldnum 154;
+          container state {
+            dr:fieldnum 154;
+            uses oc-tun:tunnel-config {
+              augment src {
+                dr:source "tunnel/state/src";
+                dr:fieldnum 51;
+              }
+              augment dst {
+                dr:source "tunnel/state/dst";
+                dr:fieldnum 52;
+              }
+              augment ttl {
+                dr:source "tunnel/state/ttl";
+                dr:fieldnum 53;
+              }
+              augment gre-key {
+                dr:source "tunnel/state/gre-key";
+                dr:fieldnum 54;
+              }
+            }
+          }
+        }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+        dr:source "subunit";
+        dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv4-address-change" {
+    dr:source-notification-name "ipv4-address-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv4-address-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv4-top {
+          augment "ipv4" {
+              dr:fieldnum 152;
+          }
+	  augment "ipv4/addresses" {
+	    dr:source "ipv4/addresses";
+            dr:fieldnum 151;
+	  }
+	  augment "ipv4/addresses/address" {
+	    dr:source "address";
+            dr:fieldnum 151;
+	  }
+	  augment "ipv4/addresses/address/ip" {
+	    dr:source "ip";
+            dr:fieldnum 51;
+	  }
+          augment "ipv4/addresses/address/state" {
+              dr:fieldnum 151;
+          }
+	  augment "ipv4/addresses/address/state/ip" {
+	    dr:source "state-ip";
+            dr:fieldnum 51;
+	  }
+	  augment "ipv4/addresses/address/state/prefix-length" {
+	    dr:source "prefix-length";
+            dr:fieldnum 52;
+	  }
+	  augment "ipv4/addresses/address/state/origin" {
+	    dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DHCP { dr:map-from 2; }
+            dr:map LINK_LAYER { dr:map-from 3; }
+            dr:map RANDOM { dr:map-from 4; }
+            dr:map OTHER { dr:map-from 0; }
+	  }
+      }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+	          dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv4-change" {
+    dr:source-notification-name "ipv4-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv4-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv4-top {
+          augment "ipv4" {
+              dr:fieldnum 152;
+          }
+          augment "ipv4/state" {
+            dr:source "ipv4/state";
+            dr:fieldnum 154;
+          }
+          augment "ipv4/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+          }
+          augment "ipv4/state/mtu" {
+            dr:source "mtu";
+            dr:fieldnum 52;
+          }
+          augment "ipv4/unnumbered" {
+            dr:source "ipv4/unnumbered";
+            dr:fieldnum 153;
+          }
+          augment "ipv4/unnumbered/state" {
+              dr:fieldnum 151;
+          }
+          augment "ipv4/unnumbered/state/enabled" {
+            dr:source "state/enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+          augment "ipv4/unnumbered/interface-ref" {
+              dr:fieldnum 152;
+          }
+          augment "ipv4/unnumbered/interface-ref/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+          augment "ipv4/unnumbered/interface-ref/state/interface" {
+            dr:source "interface";
+            dr:fieldnum 51;
+          }
+          augment "ipv4/unnumbered/interface-ref/state/subinterface" {
+            dr:source "subinterface";
+            dr:fieldnum 52;
+          }
+        }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+                  dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv6-change" {
+    dr:source-notification-name "ipv6-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv6-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv6-top {
+          augment "ipv6" {
+              dr:fieldnum 153;
+          }
+          augment "ipv6/state" {
+            dr:source "ipv6/state";
+            dr:fieldnum 154;
+          }
+          augment "ipv6/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+          }
+          augment "ipv6/state/mtu" {
+            dr:source "mtu";
+            dr:fieldnum 52;
+          }
+          augment "ipv6/state/dup-addr-detect-transmits" {
+            dr:source "dup-addr-detect-transmits";
+            dr:fieldnum 53;
+          }
+          augment "ipv6/unnumbered" {
+            dr:source "ipv6/unnumbered";
+            dr:fieldnum 153;
+          }
+          augment "ipv6/unnumbered/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+          augment "ipv6/unnumbered/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+          augment "ipv6/unnumbered/interface-ref" {
+              dr:fieldnum 152;
+          }
+          augment "ipv6/unnumbered/interface-ref/state" {
+            dr:source "state";
+            dr:fieldnum 151;
+          }
+          augment "ipv6/unnumbered/interface-ref/state/interface" {
+            dr:source "interface";
+            dr:fieldnum 51;
+          }
+          augment "ipv6/unnumbered/interface-ref/state/subinterface" {
+            dr:source "subinterface";
+            dr:fieldnum 52;
+          }
+        }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+                  dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv4-arp-change" {
+    dr:source-notification-name "ipv4-arp-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv4-arp-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv4-top {
+          augment "ipv4" {
+            dr:fieldnum 152;
+          }
+          augment "ipv4/neighbors" {
+            dr:source "ipv4/neighbors";
+            dr:fieldnum 152;
+          }
+          augment "ipv4/neighbors/neighbor" {
+            dr:source "neighbor";
+            dr:fieldnum 151;
+          }
+          augment "ipv4/neighbors/neighbor/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+          augment "ipv4/neighbors/neighbor/state" {
+            dr:fieldnum 151;
+          }
+          augment "ipv4/neighbors/neighbor/state/ip" {
+            dr:source "state-ip";
+            dr:fieldnum 51;
+          }
+          augment "ipv4/neighbors/neighbor/state/link-layer-address" {
+                    dr:source "link-layer-address";
+                    dr:fieldnum 52;
+                }
+
+                augment "ipv4/neighbors/neighbor/state/origin" {
+                    dr:source "origin";
+                    dr:fieldnum 53;
+                    dr:map STATIC { dr:map-from 1; }
+                    dr:map DYNAMIC { dr:map-from 2; }
+                    dr:map OTHER { dr:map-from 0; }
+                }
+                augment "ipv4/neighbors/neighbor/state" {
+                    uses jnx-oc-ip:jnx-ipv4-state-neighbor {
+                        augment host-name {
+                            dr:source "host-name";
+                            dr:fieldnum 54;
+                        }
+
+                        augment table-id {
+                            dr:source "rtb-id";
+                            dr:fieldnum 55;
+                        }
+
+                        augment neighbor-state {
+                            dr:source "state";
+                            dr:fieldnum 56;
+                            dr:map INCOMPLETE { dr:map-from 0; }
+                            dr:map REACHABLE { dr:map-from 1; }
+                            dr:map PROBE { dr:map-from 2; }
+                            dr:map PERM { dr:map-from 3; }
+                        }
+
+                        augment expiry {
+                            dr:source "expiry";
+                            dr:fieldnum 57;
+                        }
+
+                        augment is-publish {
+                            dr:source "ispublish";
+                            dr:fieldnum 58;
+                            dr:map false { dr:map-from 0; }
+                            dr:map true  { dr:map-from 1; }
+                        }
+
+                        augment interface-name {
+                            dr:source "interface-name";
+                            dr:fieldnum 59;
+                        }
+
+                        augment logical-router-id {
+                            dr:source "logical-router-id";
+                            dr:fieldnum 60;
+                        }
+                    }
+                }
+            }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+                  dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv6-address-change" {
+    dr:source-notification-name "ipv6-address-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv6-address-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv6-top {
+          augment "ipv6" {
+            dr:fieldnum 153;
+          }
+	  augment "ipv6/addresses" {
+	    dr:source "ipv6/addresses";
+            dr:fieldnum 151;
+	  }
+	  augment "ipv6/addresses/address" {
+	    dr:source "address";
+            dr:fieldnum 151;
+	  }
+	  augment "ipv6/addresses/address/ip" {
+	    dr:source "ip";
+            dr:fieldnum 51;
+	  }
+          augment "ipv6/addresses/address/state" {
+            dr:fieldnum 151;
+          }
+	  augment "ipv6/addresses/address/state/ip" {
+	    dr:source "state-ip";
+            dr:fieldnum 51;
+	  }
+	  augment "ipv6/addresses/address/state/prefix-length" {
+	    dr:source "prefix-length";
+            dr:fieldnum 52;
+	  }
+	  augment "ipv6/addresses/address/state/origin" {
+	    dr:source "origin";
+            dr:fieldnum 53;
+        dr:map STATIC { dr:map-from 1; }
+        dr:map DHCP { dr:map-from 2; }
+        dr:map LINK_LAYER { dr:map-from 3; }
+        dr:map RANDOM { dr:map-from 4; }
+        dr:map OTHER { dr:map-from 0; }
+	  }
+      augment "ipv6/addresses/address/state/status" {
+       dr:source "status";
+       dr:fieldnum 54;
+       dr:map PREFERRED { dr:map-from 0; }
+       dr:map DEPRECATED { dr:map-from 1; }
+       dr:map INVALID {dr:map-from 2; }
+       dr:map INACCESSIBLE {dr:map-from 3; }
+       dr:map UNKNOWN {dr:map-from 4; }
+       dr:map TENTATIVE {dr:map-from 5; }
+       dr:map DUPLICATE {dr:map-from 6; }
+       dr:map OPTIMISTIC {dr:map-from 7; }
+     }
+      }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+	          dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv6-state-change" {
+    dr:source-notification-name "ipv6-state-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv6-state-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv6-top {
+          augment "ipv6" {
+            dr:fieldnum 153;
+          }
+          augment "ipv6/state" {
+            dr:source "ipv6/state";
+            dr:fieldnum 154;
+          }
+          augment "ipv6/state/enabled" {
+            dr:source "enabled";
+            dr:fieldnum 51;
+          }
+        }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+                  dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+  }
+
+  notification "oc-ipv6-nd6-change" {
+    dr:source-notification-name "ipv6-nd6-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv6-nd6-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      uses oc-ip:ipv6-top {
+          augment "ipv6" {
+            dr:fieldnum 153;
+          }
+          augment "ipv6/neighbors" {
+            dr:source "ipv6/neighbors";
+            dr:fieldnum 152;
+          }
+          augment "ipv6/neighbors/neighbor" {
+            dr:source "neighbor";
+            dr:fieldnum 151;
+          }
+          augment "ipv6/neighbors/neighbor/ip" {
+            dr:source "ip";
+            dr:fieldnum 51;
+          }
+          augment "ipv6/neighbors/neighbor/state" {
+            dr:fieldnum 151;
+          }
+          augment "ipv6/neighbors/neighbor/state/ip" {
+            dr:source "state-ip";
+            dr:fieldnum 51;
+          }
+          augment "ipv6/neighbors/neighbor/state/link-layer-address" {
+                    dr:source "link-layer-address";
+                    dr:fieldnum 52;
+          }
+
+          augment "ipv6/neighbors/neighbor/state/origin" {
+            dr:source "origin";
+            dr:fieldnum 53;
+            dr:map STATIC { dr:map-from 1; }
+            dr:map DYNAMIC { dr:map-from 2; }
+            dr:map OTHER { dr:map-from 0; }
+          }
+
+          augment "ipv6/neighbors/neighbor/state/is-router" {
+            dr:source "isrouter";
+            dr:fieldnum 54;
+            dr:map true   { dr:map-from 1; }
+            dr:map false  { dr:map-from 0; }
+          }
+
+          augment "ipv6/neighbors/neighbor/state/neighbor-state" {
+            dr:source "state";
+            dr:fieldnum 55;
+            dr:map INCOMPLETE { dr:map-from 0; }
+            dr:map REACHABLE { dr:map-from 1; }
+            dr:map STALE { dr:map-from 2; }
+            dr:map DELAY { dr:map-from 3; }
+            dr:map PROBE { dr:map-from 4; }
+          }
+
+                augment "ipv6/neighbors/neighbor/state" {
+                    uses jnx-oc-ip:jnx-ipv6-state-neighbor {
+                        augment table-id {
+                            dr:source "rtb-id";
+                            dr:fieldnum 56;
+                        }
+
+                        augment "is-secure" {
+                            dr:source "issecure";
+                            dr:fieldnum 57;
+                            dr:map false { dr:map-from 0; }
+                            dr:map true  { dr:map-from 1; }
+                        }
+
+                        augment "is-publish" {
+                            dr:source "ispublish";
+                            dr:fieldnum 58;
+                            dr:map false { dr:map-from 0; }
+                            dr:map true  { dr:map-from 1; }
+                        }
+
+                        augment expiry {
+                            dr:source "expiry";
+                            dr:fieldnum 59;
+                        }
+
+                        augment interface-name {
+                            dr:source "interface-name";
+                            dr:fieldnum 60;
+                        }
+
+                        augment logical-router-id {
+                            dr:source "logical-router-id";
+                            dr:fieldnum 61;
+                        }
+                    }
+                }
+            }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+                  dr:source "subunit"; // key
+                  dr:fieldnum 51;
+      }
+    }
+ }
+
+ notification "oc-ifd-admin" {
+   dr:source-notification-name "ifd-admin";
+   container interfaces {
+       dr:source "/notification/ifd-admin/interfaces";
+
+       list interface {
+           dr:source "interface";
+           dr:fieldnum 151;
+           key "name";
+
+            leaf name {
+                type string;
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            container "state" {
+                dr:fieldnum 151;
+                uses ocif:interface-common-state {
+                    augment "ifindex" {
+                        dr:source "snmp_index";
+                        dr:fieldnum 61;
+                    }
+                    augment "admin-status" {
+                        dr:source "admin_status";
+                        dr:fieldnum 62;
+                        // same as VAL_ifAdminStatus_up etc.
+                        dr:map UP   { dr:map-from 1; }
+                        dr:map DOWN { dr:map-from 2; }
+                        dr:map TESTING { dr:map-from 3; }
+                    }
+                    augment "oper-status" {
+                        dr:source "oper_status";
+                        dr:fieldnum 63;
+                        dr:map UP   { dr:map-from 1; }
+                        dr:map DOWN { dr:map-from 2; }
+                        dr:map TESTING { dr:map-from 3; }
+                        dr:map DORMANT { dr:map-from 5; }
+                        dr:map NOT_PRESENT { dr:map-from 6; }
+                        dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+                        dr:map UNKNOWN { dr:map-from *; }
+                    }
+                    augment "logical" {
+                        dr:source "logical";
+                        dr:fieldnum 65;
+                        dr:map true   { dr:map-from 1; }
+                        dr:map false  { dr:map-from *; }
+                    }
+                }
+                uses ocif:interface-phys-config {
+                    augment "name" {
+                        dr:source "interface-name";
+                        dr:fieldnum 51;
+                    }
+                    augment "loopback-mode" {
+                        dr:source "loopback_mode";
+                        dr:fieldnum 56;
+                        dr:map true   { dr:map-from 1; }
+                        dr:map false  { dr:map-from *; }
+                    }
+                }
+            }
+        
+            uses oceth:ethernet-top {
+                augment "ethernet" {
+                    dr:source "ethernet";
+                    dr:fieldnum 153; 
+                }
+                augment "ethernet/state" {
+                    dr:source "state";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/mac-address" {
+                    dr:source "mac_address";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/auto-negotiate" {
+                    dr:source "auto_negotiate";
+                    dr:fieldnum 52;
+                    dr:map false { dr:map-from 0; }
+                    dr:map true { dr:map-from *; }
+                }
+
+                augment "ethernet/state/duplex-mode" {
+                    dr:source "duplex_mode";
+                    dr:fieldnum 53;
+                    dr:map FULL  { dr:map-from 3; }
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/port-speed" {
+                    dr:source "port_speed";
+                    dr:fieldnum 54;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/enable-flow-control" {
+                    dr:source "enable_flow_control";
+                    dr:fieldnum 55;
+                    dr:map false    { dr:map-from 0; }
+                    dr:map true  { dr:map-from *; }
+                }
+                augment "ethernet/state/hw-mac-address" {
+                    dr:source "hw_mac_address";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/negotiated-duplex-mode" {
+                    dr:source "negotiated_duplex_mode";
+                    dr:fieldnum 57;
+                    dr:map FULL  { dr:map-from 3; }
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/negotiated-port-speed" {
+                    dr:source "negotiated_port_speed";
+                    dr:fieldnum 58;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/counters" {
+                    dr:source "counters";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/counters/in-mac-control-frames" {
+                    dr:source "in_mac_control_frames";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/counters/in-mac-pause-frames" {
+                    dr:source "in_mac_pause_frames";
+                    dr:fieldnum 52;
+                }
+                augment "ethernet/state/counters/in-oversize-frames" {
+                    dr:source "in_oversize_frames";
+                    dr:fieldnum 53;
+                }
+                augment "ethernet/state/counters/in-jabber-frames" {
+                    dr:source "in_jabber_frames";
+                    dr:fieldnum 54;
+                }
+                augment "ethernet/state/counters/in-fragment-frames" {
+                    dr:source "in_fragment_frames";
+                    dr:fieldnum 55;
+                }
+                augment "ethernet/state/counters/in-8021q-frames" {
+                    dr:source "in_8021q_frames";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/counters/in-crc-errors" {
+                    dr:source "in_crc_errors";
+                    dr:fieldnum 57;
+                }
+                augment "ethernet/state/counters/in-block-errors" {
+                    dr:source "in_block_errors";
+                    dr:fieldnum 58;
+                }
+                augment "ethernet/state/counters/out-mac-pause-frames" {
+                    dr:source "out_mac_pause_frames";
+                    dr:fieldnum 59;
+                }
+                augment "ethernet/state/counters/out-mac-control-frames" {
+                    dr:source "out_mac_control_frames";
+                    dr:fieldnum 60;
+                }
+            }
+        }
+    }
+ }
+
+ notification "oc-ifd-oper" {
+   dr:source-notification-name "ifd-oper";
+   container interfaces {
+       dr:source "/notification/ifd-oper/interfaces";
+
+       list interface {
+           dr:source "interface";
+           dr:fieldnum 151;
+           key "name";
+
+            leaf name {
+                type string;
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            container "state" {
+                dr:fieldnum 151;
+                uses ocif:interface-common-state {
+                    augment "ifindex" {
+                        dr:source "snmp_index";
+                        dr:fieldnum 61;
+                    }
+                    augment "admin-status" {
+                        dr:source "admin_status";
+                        dr:fieldnum 62;
+                        // same as VAL_ifAdminStatus_up etc.
+                        dr:map UP   { dr:map-from 1; }
+                        dr:map DOWN { dr:map-from 2; }
+                        dr:map TESTING { dr:map-from 3; }
+                    }
+                    augment "oper-status" {
+                        dr:source "oper_status";
+                        dr:fieldnum 63;
+                        dr:map UP   { dr:map-from 1; }
+                        dr:map DOWN { dr:map-from 2; }
+                        dr:map TESTING { dr:map-from 3; }
+                        dr:map DORMANT { dr:map-from 5; }
+                        dr:map NOT_PRESENT { dr:map-from 6; }
+                        dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+                        dr:map UNKNOWN { dr:map-from *; }
+                    }
+                    augment "logical" {
+                        dr:source "logical";
+                        dr:fieldnum 65;
+                        dr:map true   { dr:map-from 1; }
+                        dr:map false  { dr:map-from *; }
+                    }
+                }
+                uses ocif:interface-phys-config {
+                    augment "name" {
+                        dr:source "interface-name";
+                        dr:fieldnum 51;
+                    }
+                    augment "loopback-mode" {
+                        dr:source "loopback_mode";
+                        dr:fieldnum 56;
+                        dr:map true   { dr:map-from 1; }
+                        dr:map false  { dr:map-from *; }
+                    }
+                }
+            }
+        
+            uses oceth:ethernet-top {
+                augment "ethernet" {
+                    dr:source "ethernet";
+                    dr:fieldnum 153; 
+                }
+                augment "ethernet/state" {
+                    dr:source "state";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/mac-address" {
+                    dr:source "mac_address";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/auto-negotiate" {
+                    dr:source "auto_negotiate";
+                    dr:fieldnum 52;
+                    dr:map false { dr:map-from 0; }
+                    dr:map true { dr:map-from *; }
+                }
+
+                augment "ethernet/state/duplex-mode" {
+                    dr:source "duplex_mode";
+                    dr:fieldnum 53;
+                    dr:map FULL  { dr:map-from 3; }
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/port-speed" {
+                    dr:source "port_speed";
+                    dr:fieldnum 54;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/enable-flow-control" {
+                    dr:source "enable_flow_control";
+                    dr:fieldnum 55;
+                    dr:map false    { dr:map-from 0; }
+                    dr:map true  { dr:map-from *; }
+                }
+                augment "ethernet/state/hw-mac-address" {
+                    dr:source "hw_mac_address";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/negotiated-duplex-mode" {
+                    dr:source "negotiated_duplex_mode";
+                    dr:fieldnum 57;
+                    dr:map FULL  { dr:map-from 3; }
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/negotiated-port-speed" {
+                    dr:source "negotiated_port_speed";
+                    dr:fieldnum 58;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/counters" {
+                    dr:source "counters";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/counters/in-mac-control-frames" {
+                    dr:source "in_mac_control_frames";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/counters/in-mac-pause-frames" {
+                    dr:source "in_mac_pause_frames";
+                    dr:fieldnum 52;
+                }
+                augment "ethernet/state/counters/in-oversize-frames" {
+                    dr:source "in_oversize_frames";
+                    dr:fieldnum 53;
+                }
+                augment "ethernet/state/counters/in-jabber-frames" {
+                    dr:source "in_jabber_frames";
+                    dr:fieldnum 54;
+                }
+                augment "ethernet/state/counters/in-fragment-frames" {
+                    dr:source "in_fragment_frames";
+                    dr:fieldnum 55;
+                }
+                augment "ethernet/state/counters/in-8021q-frames" {
+                    dr:source "in_8021q_frames";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/counters/in-crc-errors" {
+                    dr:source "in_crc_errors";
+                    dr:fieldnum 57;
+                }
+                augment "ethernet/state/counters/in-block-errors" {
+                    dr:source "in_block_errors";
+                    dr:fieldnum 58;
+                }
+                augment "ethernet/state/counters/out-mac-pause-frames" {
+                    dr:source "out_mac_pause_frames";
+                    dr:fieldnum 59;
+                }
+                augment "ethernet/state/counters/out-mac-control-frames" {
+                    dr:source "out_mac_control_frames";
+                    dr:fieldnum 60;
+                }
+            }
+        }
+    }
+  }
+
+notification "oc-descr-change" {
+   dr:source-notification-name "descr-change";
+   uses ocif:interfaces-top {
+       augment "interfaces" {
+           dr:source "/notification/descr-change/interfaces";
+       }
+
+       augment "interfaces/interface" {
+           dr:source "interface";
+           dr:fieldnum 151;
+       }
+
+        augment "interfaces/interface/name" {
+            dr:source "interface-name";
+            dr:fieldnum 51;
+        }
+
+        augment "interfaces/interface/state" {
+            dr:fieldnum 151;
+        }
+        augment "interfaces/interface/state/description" {
+            dr:source "description";
+            dr:fieldnum 54;
+        }
+    }
+}
+
+notification "oc-ifl-admin" {
+    dr:source-notification-name "ifl-admin";
+    container interfaces {
+        dr:source "/notification/ifl-admin/interfaces";
+       list interface {
+           dr:source "interface";
+           dr:fieldnum 151;
+           key "name";
+
+            leaf name {
+                type string;
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            uses ocif:subinterfaces-top {
+                augment "subinterfaces" {
+                    dr:source "subinterfaces";
+                    dr:fieldnum 152;
+                }
+
+                augment "subinterfaces/subinterface" {
+                    dr:source "subinterface";
+                    dr:fieldnum 151;
+                }
+                augment "subinterfaces/subinterface/index" {
+                    dr:source "subunit"; // key
+                    dr:fieldnum 51;
+                }
+                augment "subinterfaces/subinterface/state" {
+                    dr:fieldnum 151;
+                }
+                augment "subinterfaces/subinterface/state/index" {
+                    dr:source "subunit";
+                    dr:fieldnum 51;
+                }
+                augment "subinterfaces/subinterface/state/name" {
+                    dr:source "name";
+                    dr:fieldnum 52;
+                }
+                augment "subinterfaces/subinterface/state/ifindex" {
+                    dr:source "snmp_index";
+                    dr:fieldnum 55;
+                }   
+                augment "subinterfaces/subinterface/state/admin-status" {
+                    dr:source "admin_status";
+                    dr:fieldnum 56;
+                    dr:map UP   { dr:map-from 1; }
+                    dr:map DOWN { dr:map-from 2; }
+                    dr:map TESTING { dr:map-from 3; }
+                }
+                augment "subinterfaces/subinterface/state/oper-status" {
+                    dr:source "oper_status";
+                    dr:fieldnum 57;
+                    dr:map UP   { dr:map-from 1; }
+                    dr:map DOWN { dr:map-from 2; }
+                    dr:map TESTING { dr:map-from 3; }
+                    dr:map DORMANT { dr:map-from 5; }
+                    dr:map NOT_PRESENT { dr:map-from 6; }
+                    dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+                    dr:map UNKNOWN { dr:map-from *; }
+                }
+                augment "subinterfaces/subinterface/state/logical" {
+                    dr:source "logical";
+                    dr:fieldnum 65;
+                    dr:map true   { dr:map-from 1; }
+                    dr:map false  { dr:map-from *; }
+                }
+            }
+            uses oceth:ethernet-top {
+                augment "ethernet" {
+                    dr:source "ethernet";
+                    dr:fieldnum 153; 
+                }    
+                augment "ethernet/state" {
+                    dr:source "state";
+                    dr:fieldnum 151; 
+                }    
+                augment "ethernet/state/mac-address" { 
+                    dr:source "mac_address";
+                    dr:fieldnum 51;
+                }    
+                augment "ethernet/state/auto-negotiate" { 
+                    dr:source "auto_negotiate";
+                    dr:fieldnum 52;
+                    dr:map false { dr:map-from 0; } 
+                    dr:map true  { dr:map-from *; } 
+                }
+                augment "ethernet/state/duplex-mode" { 
+                    dr:source "duplex_mode";
+                    dr:fieldnum 53;
+                    dr:map FULL  { dr:map-from 3; } 
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }    
+                augment "ethernet/state/port-speed" { 
+                    dr:source "port_speed";
+                    dr:fieldnum 54;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/enable-flow-control" {
+                    dr:source "enable_flow_control";
+                    dr:fieldnum 55;
+                    dr:map false { dr:map-from 0; }
+                    dr:map true  { dr:map-from *; }
+                }
+                augment "ethernet/state/hw-mac-address" {
+                    dr:source "hw_mac_address";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/negotiated-duplex-mode" {
+                    dr:source "negotiated_duplex_mode";
+                    dr:fieldnum 57;
+                    dr:map FULL  { dr:map-from 3; } 
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/negotiated-port-speed" {
+                    dr:source "negotiated_port_speed";
+                    dr:fieldnum 58;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_200GB   { dr:map-from 11; }
+                    dr:map SPEED_400GB   { dr:map-from 12; }
+                    dr:map SPEED_600GB   { dr:map-from 13; }
+                    dr:map SPEED_800GB   { dr:map-from 14; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/counters" {
+                    dr:source "counters";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/counters/in-mac-control-frames" {
+                    dr:source "in_mac_control_frames";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/counters/in-mac-pause-frames" {
+                    dr:source "in_mac_pause_frames";
+                    dr:fieldnum 52;
+                }
+                augment "ethernet/state/counters/in-oversize-frames" {
+                    dr:source "in_oversize_frames";
+                    dr:fieldnum 53;
+                }
+                augment "ethernet/state/counters/in-jabber-frames" {
+                    dr:source "in_jabber_frames";
+                    dr:fieldnum 54;
+                }
+                augment "ethernet/state/counters/in-fragment-frames" {
+                    dr:source "in_fragment_frames";
+                    dr:fieldnum 55;
+                }
+                augment "ethernet/state/counters/in-8021q-frames" {
+                    dr:source "in_8021q_frames";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/counters/in-crc-errors" {
+                    dr:source "in_crc_errors";
+                    dr:fieldnum 57;
+                }
+                augment "ethernet/state/counters/in-block-errors" {
+                    dr:source "in_block_errors";
+                    dr:fieldnum 58;
+                }
+                augment "ethernet/state/counters/out-mac-pause-frames" {
+                    dr:source "out_mac_pause_frames";
+                    dr:fieldnum 59;
+                }
+                augment "ethernet/state/counters/out-mac-control-frames" {
+                    dr:source "out_mac_control_frames";
+                    dr:fieldnum 60;
+                }
+            }    
+        }
+    }
+}
+
+ notification "oc-ifl-oper" {
+    dr:source-notification-name "ifl-oper";
+
+    container interfaces {
+       dr:source "/notification/ifl-oper/interfaces";
+       list interface {
+           dr:source "interface";
+           dr:fieldnum 151;
+           key "name";
+
+            leaf name {
+                type string;
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+
+            uses ocif:subinterfaces-top {
+                augment "subinterfaces" {
+                    dr:source "subinterfaces";
+                    dr:fieldnum 152;
+                }
+
+                augment "subinterfaces/subinterface" {
+                    dr:source "subinterface";
+                    dr:fieldnum 151;
+                }
+                augment "subinterfaces/subinterface/index" {
+                    dr:source "subunit"; // key
+                    dr:fieldnum 51;
+                }
+                augment "subinterfaces/subinterface/state" {
+                    dr:fieldnum 151;
+                }
+                augment "subinterfaces/subinterface/state/oper-status" {
+                    dr:source "oper_status";
+                    dr:fieldnum 57;
+                    dr:map UP   { dr:map-from 1; }
+                    dr:map DOWN { dr:map-from 2; }
+                    dr:map TESTING { dr:map-from 3; }
+                    dr:map DORMANT { dr:map-from 5; }
+                    dr:map NOT_PRESENT { dr:map-from 6; }
+                    dr:map LOWER_LAYER_DOWN { dr:map-from 7; }
+                    dr:map UNKNOWN { dr:map-from *; }
+                }
+                augment "subinterfaces/subinterface/state/logical" {
+                    dr:source "logical";
+                    dr:fieldnum 65;
+                    dr:map true   { dr:map-from 1; }
+                    dr:map false  { dr:map-from *; }
+                }
+            }
+            uses oceth:ethernet-top {
+                augment "ethernet" {
+                    dr:source "ethernet";
+                    dr:fieldnum 153; 
+                }    
+                augment "ethernet/state" {
+                    dr:source "state";
+                    dr:fieldnum 151; 
+                }    
+                augment "ethernet/state/mac-address" { 
+                    dr:source "mac_address";
+                    dr:fieldnum 51;
+                }    
+                augment "ethernet/state/auto-negotiate" { 
+                    dr:source "auto_negotiate";
+                    dr:fieldnum 52;
+                    dr:map false { dr:map-from 0; } 
+                    dr:map true  { dr:map-from *; } 
+                }
+                augment "ethernet/state/duplex-mode" { 
+                    dr:source "duplex_mode";
+                    dr:fieldnum 53;
+                    dr:map FULL  { dr:map-from 3; } 
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }    
+                augment "ethernet/state/port-speed" { 
+                    dr:source "port_speed";
+                    dr:fieldnum 54;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_400GB   { dr:map-from 11; }
+                    dr:map SPEED_600GB   { dr:map-from 12; }
+                    dr:map SPEED_800GB   { dr:map-from 13; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/enable-flow-control" {
+                    dr:source "enable_flow_control";
+                    dr:fieldnum 55;
+                    dr:map false { dr:map-from 0; }
+                    dr:map true  { dr:map-from *; }
+                }
+                augment "ethernet/state/hw-mac-address" {
+                    dr:source "hw_mac_address";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/negotiated-duplex-mode" {
+                    dr:source "negotiated_duplex_mode";
+                    dr:fieldnum 57;
+                    dr:map FULL  { dr:map-from 3; } 
+                    dr:map HALF  { dr:map-from 2; }
+                    dr:map NOT-NEGOTIATED  { dr:map-from *; }
+                }
+                augment "ethernet/state/negotiated-port-speed" {
+                    dr:source "negotiated_port_speed";
+                    dr:fieldnum 58;
+                    dr:map SPEED_10MB  { dr:map-from 1; } // match if_drend_helper.c
+                    dr:map SPEED_100MB { dr:map-from 2; }
+                    dr:map SPEED_1GB   { dr:map-from 3; }
+                    dr:map SPEED_2500MB{ dr:map-from 4; }
+                    dr:map SPEED_5GB   { dr:map-from 5; }
+                    dr:map SPEED_10GB   { dr:map-from 6; }
+                    dr:map SPEED_25GB   { dr:map-from 7; }
+                    dr:map SPEED_40GB   { dr:map-from 8; }
+                    dr:map SPEED_50GB   { dr:map-from 9; }
+                    dr:map SPEED_100GB   { dr:map-from 10; }
+                    dr:map SPEED_400GB   { dr:map-from 11; }
+                    dr:map SPEED_600GB   { dr:map-from 12; }
+                    dr:map SPEED_800GB   { dr:map-from 13; }
+                    dr:map SPEED_UNKNOWN   { dr:map-from *; }
+                }
+                augment "ethernet/state/counters" {
+                    dr:source "counters";
+                    dr:fieldnum 151;
+                }
+                augment "ethernet/state/counters/in-mac-control-frames" {
+                    dr:source "in_mac_control_frames";
+                    dr:fieldnum 51;
+                }
+                augment "ethernet/state/counters/in-mac-pause-frames" {
+                    dr:source "in_mac_pause_frames";
+                    dr:fieldnum 52;
+                }
+                augment "ethernet/state/counters/in-oversize-frames" {
+                    dr:source "in_oversize_frames";
+                    dr:fieldnum 53;
+                }
+                augment "ethernet/state/counters/in-jabber-frames" {
+                    dr:source "in_jabber_frames";
+                    dr:fieldnum 54;
+                }
+                augment "ethernet/state/counters/in-fragment-frames" {
+                    dr:source "in_fragment_frames";
+                    dr:fieldnum 55;
+                }
+                augment "ethernet/state/counters/in-8021q-frames" {
+                    dr:source "in_8021q_frames";
+                    dr:fieldnum 56;
+                }
+                augment "ethernet/state/counters/in-crc-errors" {
+                    dr:source "in_crc_errors";
+                    dr:fieldnum 57;
+                }
+                augment "ethernet/state/counters/in-block-errors" {
+                    dr:source "in_block_errors";
+                    dr:fieldnum 58;
+                }
+                augment "ethernet/state/counters/out-mac-pause-frames" {
+                    dr:source "out_mac_pause_frames";
+                    dr:fieldnum 59;
+                }
+                augment "ethernet/state/counters/out-mac-control-frames" {
+                    dr:source "out_mac_control_frames";
+                    dr:fieldnum 60;
+                }
+            }    
+        }
+    }
+ }
+
+ notification "oc-ifl-descr-change" {
+    dr:source-notification-name "ifl-descr-change";
+
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ifl-descr-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+          dr:source "subunit"; // key
+          dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/state" {
+          dr:fieldnum 151;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/state/description" {
+        dr:source "description";
+        dr:fieldnum 53;
+      }
+   }
+}
+
+notification "oc-ifd-del" {
+    dr:source-notification-name "ifd-del";
+
+   container interfaces {
+       dr:source "/notification/ifd-del/interfaces";
+       list interface {
+           dr:source "interface";
+           dr:fieldnum 151;
+           key "name";
+           leaf name {
+               type string;
+               dr:source "interface-name";
+               dr:fieldnum 51;
+           }
+       }
+   }
+}
+
+notification "oc-ifl-del" {
+    dr:source-notification-name "ifl-del";
+
+    container interfaces {
+        dr:source "/notification/ifl-del/interfaces";
+        list interface {
+            dr:source "interface";
+            dr:fieldnum 151;
+            key "name";
+            leaf name {
+                type string;
+                dr:source "interface-name";
+                dr:fieldnum 51;
+            }
+            container subinterfaces {
+		dr:source "subinterfaces";
+		dr:fieldnum 152;
+                list subinterface {
+		    dr:source "subinterface";
+		    dr:fieldnum 151;
+                    key index;
+                    leaf index {
+                        type uint32;
+			dr:source "subunit";
+			dr:fieldnum 51;
+                    }
+                    leaf name {
+                        type string;
+			dr:source "name";
+			dr:fieldnum 52;
+                    }
+                    leaf snmp_index {
+                        type uint32;
+			dr:source "snmp_index";
+			dr:fieldnum 55;
+                    }
+                    leaf logical {
+                        type uint32;
+			dr:source "logical";
+			dr:fieldnum 65;
+                    }
+                }
+            }
+        }
+    }
+}
+
+  notification "oc-ipv4-proxy-arp-change" {
+    dr:source-notification-name "ipv4-proxy-arp-change";
+    uses ocif:interfaces-top {
+      augment "interfaces" {
+        dr:source "/notification/ipv4-proxy-arp-change/interfaces";
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/name" {
+        dr:source "interface-name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/subinterfaces" {
+        dr:source "subinterfaces";
+        dr:fieldnum 152;
+      }
+      augment "interfaces/interface/subinterfaces/subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 151;
+        uses oc-ip:ipv4-top {
+          augment "ipv4" {
+            dr:fieldnum 152;
+          }
+          augment "ipv4/proxy-arp" {
+            dr:source "ipv4/proxy-arp";
+              dr:fieldnum 155;
+            }
+          augment "ipv4/proxy-arp/state" {
+            dr:source "state";
+              dr:fieldnum 154;
+            }
+          augment "ipv4/proxy-arp/state/mode" {
+            dr:source "mode";
+            dr:fieldnum 53;
+            dr:map "DISABLE" { dr:map-from 0;}
+            dr:map "ALL" { dr:map-from 1;}
+            dr:map "REMOTE_ONLY" { dr:map-from 2;}
+          }
+        }
+      }
+      augment "interfaces/interface/subinterfaces/subinterface/index" {
+        dr:source "subunit";
+        dr:fieldnum 51;
+      }
+    }
+  }
+}

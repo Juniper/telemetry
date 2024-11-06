@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_process jnpr_system_process_ext = 93;
+}
+
+message system_process {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      message process_list {
+         optional string processName = 51 [(telemetry_options).is_key = true];
+         optional uint32 processCpu = 52;
+         optional uint32 processMem = 53;
+         message thread_list {
+            optional string threadName = 51 [(telemetry_options).is_key = true];
+            optional uint32 threadCpu = 52;
+         }
+         repeated thread_list thread = 151;
+      }
+      repeated process_list process = 151;
+   }
+   repeated component_list component = 151;
+   message cpu_usage_list {
+      optional uint32 cpuName = 61 [(telemetry_options).is_key = true];
+      optional uint32 cpuUsage = 62;
+   }
+   repeated cpu_usage_list cpu_usage = 152;
+}

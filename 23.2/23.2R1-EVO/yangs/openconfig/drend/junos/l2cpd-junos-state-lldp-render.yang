@@ -1,0 +1,589 @@
+module l2cpd-junos-state-lldp-render {
+
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/junos/state/lldp/render";
+
+    prefix "js-lldp-rdr";
+
+    import drend {
+      prefix dr;
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+    import junos-state { prefix js; }
+    import junos-state-system { prefix js-sys; }
+    import junos-state-protocols { prefix js-pro; }
+    import junos-state-system-controller { prefix js-sys-ctlr; }
+    import junos-state-lldp { prefix js-lldp; }
+    import junos-state-mist { prefix js-mist; }
+
+
+    grouping  mist_local_group {
+      uses js-sys:system-top {
+        augment "system" {
+          dr:fieldnum 156;
+        }
+        augment "system" {
+          uses js-sys-ctlr:controller-top {
+            augment "controller-connectivity" {
+              dr:fieldnum 155;
+            }
+          }
+        }
+        augment "system/controller-connectivity" {
+          uses js-mist:controller-connectivity-top {
+            augment "mist" {
+              dr:fieldnum 154;
+            }
+          }
+        }
+        augment "system/controller-connectivity/mist/connectivity-state" {
+          dr:source "/l2cpd/lldp/cc_state";
+          dr:fieldnum 96;
+          dr:source-notification-name "lldp-cc-state-chng";
+          dr:map DAY0_PHC_CONNECTING { dr:map-from 1;}
+          dr:map DAY0_NO_IP_ADDRESS_ASSIGNED { dr:map-from 2;}
+          dr:map DAY0_NO_DEFAULT_GATEWAY { dr:map-from 3;}
+          dr:map DAY0_DEFAULT_GATEWAY_UNREACHABLE { dr:map-from 4;}
+          dr:map DAY0_NO_DNS { dr:map-from 5;}
+          dr:map DAY0_NO_DNS_RESPONSE { dr:map-from 6;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE { dr:map-from 7;}
+          dr:map DAY0_CLOUD_UNREACHABLE { dr:map-from 8;}
+          dr:map DAY0_NO_RESPONSE_FROM_PHS { dr:map-from 9;}
+          dr:map DAY0_CLOUD_CERTIFICATE_NOT_FOUND { dr:map-from 10;}
+          dr:map DAY0_CLOUD_CERTIFICATE_INVALID { dr:map-from 11;}
+          dr:map DAY0_ACTIVATION_CODE_FAILURE { dr:map-from 12;}
+          dr:map DAY0_CONFIG_NOT_FOUND { dr:map-from 13;}
+          dr:map DAY0_CONFIGURATION_COMMIT_FAILURE { dr:map-from 14;}
+          dr:map DAY0_BOOT_CONFIG_SAVE_FAILURE { dr:map-from 15;}
+          dr:map DAY0_PHS_REACHABLE { dr:map-from 16;}
+          dr:map DAY0_BOOTSTRAP_COMPLETED { dr:map-from 17;}
+          dr:map DAY0_PHC_UPGRADING { dr:map-from 18;}
+          dr:map DAY0_PHCD_UPGRADE_FAILURE { dr:map-from 19;}
+          dr:map DAY0_BOOT_COMPLETE { dr:map-from 21; }
+          dr:map DAY0_DNS_LOOKUP_FAILED { dr:map-from 22; }
+          dr:map DAY0_NO_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 23;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 24;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_REDIRECT.JUNIPER.NET { dr:map-from 25;}
+          dr:map DAY0_PING_AVAILABLE_BUT_TCP_PORT_2200_OR_443_DOES_NOT_GO_THROUGH { dr:map-from 26;}
+          dr:map DAY0_PHC_CONNECTED_TO_REDIRECT_SERVER { dr:map-from 27;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_CONFIG_SERVER_DETAILS { dr:map-from 28;}
+          dr:map DAY0_REDIRECT_SERVER_DID_NOT_PROVIDE_VALID_CONFIG_SERVER_DETAILS { dr:map-from 29;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_TRUST_ANCHOR { dr:map-from 30;}
+          dr:map DAY0_PHC_RECEIVED_CERTIFICATE_WITH_BAD_TIME { dr:map-from 31;}
+          dr:map DAY0_SERVER_CERTIFICATE_VALIDATION_FAILED { dr:map-from 32;}
+          dr:map DAY0_DNS_FAILURE_WITH_CONFIG_SERVER { dr:map-from 33;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FROM_CONFIG_SERVER { dr:map-from 34;}
+          dr:map DAY0_PHC_CONNECTED_TO_CONFIG_SERVER { dr:map-from 35;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_CONFIG_SERVER_URL { dr:map-from 36;}
+          dr:map DAY0_PHC_RECEIVED_INVALID_OR_CORRUPTED_CONFIGURATION_FILE { dr:map-from 37;}
+          dr:map DAY0_SW_DOWNLOAD_FAILURE { dr:map-from 38;}
+          dr:map DAY0_SW_DOWNLOAD_SUCCESS { dr:map-from 39;}
+          dr:map BOOT_COMPLETE { dr:map-from 101;}
+          dr:map NO_DHCP_LEASE_RECEIVED_ON_ANY_INTERFACE { dr:map-from 102;}
+          dr:map NO_DEFAULT_GATEWAY { dr:map-from 103;}
+          dr:map GATEWAY_UNREACHABLE { dr:map-from 104;}
+          dr:map NO_DNS_SERVER { dr:map-from 105;}
+          dr:map DNS_LOOKUP_FAILED { dr:map-from 106;}
+          dr:map AGENT_CONNECT_SENT_TO_CONTROLLER { dr:map-from 107;}
+          dr:map AGENT_CAN_NOT_CONNECT_TO_CONTROLLER { dr:map-from 108;}
+          dr:map AUTHENTICATION_FAILED { dr:map-from 109;}
+          dr:map UNDERLYING_SERVICES_IS_DOWN { dr:map-from 110;}
+          dr:map AGENT_CONNECTED_TO_CONTROLLER { dr:map-from 111;}
+          dr:map PACKET_LOSS_OR_LATENCY_ON_CONNECTION_TO_CONTROLLER { dr:map-from 112;}
+          dr:map DNS_FAILURE_WITH_MIST_CLOUD { dr:map-from 113;}
+          dr:map EMPTY_DNS_RESPONSE_WITH_MIST_CLOUD { dr:map-from 114;}
+          dr:map SOFTWARE_DOWNLOAD_FAILURE { dr:map-from 115;}
+          dr:map SOFTWARE_INSTALL_FAILURE { dr:map-from 116;}
+          dr:map SOFTWARE_UPGRADE_IN_PROGRESS { dr:map-from 117;}
+          dr:map SOFTWARE_DOWNLOAD_SUCCESS { dr:map-from 118;}
+          dr:map UNDEFINED_STATE { dr:map-from *;}
+        }
+        augment "system/controller-connectivity/mist/error-code" {
+          dr:source "/l2cpd/lldp/error_code";
+          dr:fieldnum 97;
+        }
+      }
+    }
+
+    grouping  mist_interface_config_group {
+      uses js-pro:protocols-top {
+        augment "protocols" {
+          dr:fieldnum 153;
+        }
+        augment "protocols" {
+          uses js-lldp:lldp-top {
+            augment "lldp" {
+              dr:fieldnum 152;
+            }
+          }
+        }
+        augment "protocols/lldp/interfaces" {
+          dr:fieldnum 151;
+        }
+        augment "protocols/lldp/interfaces/interface" {
+          dr:source "/l2cpd/lldp/interfaces";
+          dr:source-notification-name "lldp-intf-chng";
+          dr:fieldnum 150;
+        }
+        augment "protocols/lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+        }
+        augment "protocols/lldp/interfaces/interface/local-port-id" {
+          dr:source "local_port_id";
+          dr:fieldnum 53;
+        }
+        augment "protocols/lldp/interfaces/interface/local-port-description" {
+          dr:source "local_port_description";
+          dr:fieldnum 54;
+        }
+        augment "protocols/lldp/interfaces/interface/counters" {
+          dr:fieldnum 150;
+        }
+        augment "protocols/lldp/interfaces/interface/counters/frame-in" {
+          dr:zero-suppressed;
+          dr:source "interface_in_frame_counter";
+          dr:fieldnum 57;
+        }
+        augment "protocols/lldp/interfaces/interface/counters/frame-out" {
+          dr:zero-suppressed;
+          dr:source "interface_out_frame_counter";
+          dr:fieldnum 58;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors" {
+          dr:fieldnum 151;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor" {
+          dr:source "neighbor";
+          dr:fieldnum 150;
+          dr:source-notification-name "lldp-neighbor-chng";
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/id" {
+          dr:source "neighbor_msap_id";
+          dr:fieldnum 66;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/system-name" {
+          dr:source "neighbor_sys_name";
+          dr:fieldnum 67;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/system-description" {
+          dr:source "neighbor_sys_desc";
+          dr:fieldnum 68;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/chassis-id" {
+          dr:source "neighbor_chassis_id";
+          dr:fieldnum 69;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/port-id" {
+          dr:source "neighbor_port_id";
+          dr:fieldnum 74;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/port-description" {
+          dr:source "neighbor_port_desc";
+          dr:fieldnum 76;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/ttl" {
+          dr:source "neighbor_pdu_ttl";
+          dr:fieldnum 79;
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor" {
+          uses js-sys-ctlr:controller-top {
+            augment "controller-connectivity" {
+              dr:fieldnum 149;
+            }
+          }
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity" {
+          uses js-mist:controller-connectivity-top {
+            augment "mist" {
+              dr:fieldnum 148;
+            }
+          }
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/connectivity-state" {
+          dr:source "neighbor_cc_state";
+          dr:fieldnum 98;
+          dr:map DAY0_PHC_CONNECTING { dr:map-from 1;}
+          dr:map DAY0_NO_IP_ADDRESS_ASSIGNED { dr:map-from 2;}
+          dr:map DAY0_NO_DEFAULT_GATEWAY { dr:map-from 3;}
+          dr:map DAY0_DEFAULT_GATEWAY_UNREACHABLE { dr:map-from 4;}
+          dr:map DAY0_NO_DNS { dr:map-from 5;}
+          dr:map DAY0_NO_DNS_RESPONSE { dr:map-from 6;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE { dr:map-from 7;}
+          dr:map DAY0_CLOUD_UNREACHABLE { dr:map-from 8;}
+          dr:map DAY0_NO_RESPONSE_FROM_PHS { dr:map-from 9;}
+          dr:map DAY0_CLOUD_CERTIFICATE_NOT_FOUND { dr:map-from 10;}
+          dr:map DAY0_CLOUD_CERTIFICATE_INVALID { dr:map-from 11;}
+          dr:map DAY0_ACTIVATION_CODE_FAILURE { dr:map-from 12;}
+          dr:map DAY0_CONFIG_NOT_FOUND { dr:map-from 13;}
+          dr:map DAY0_CONFIGURATION_COMMIT_FAILURE { dr:map-from 14;}
+          dr:map DAY0_BOOT_CONFIG_SAVE_FAILURE { dr:map-from 15;}
+          dr:map DAY0_PHS_REACHABLE { dr:map-from 16;}
+          dr:map DAY0_BOOTSTRAP_COMPLETED { dr:map-from 17;}
+          dr:map DAY0_PHC_UPGRADING { dr:map-from 18;}
+          dr:map DAY0_PHCD_UPGRADE_FAILURE { dr:map-from 19;}
+          dr:map DAY0_BOOT_COMPLETE { dr:map-from 21; }
+          dr:map DAY0_DNS_LOOKUP_FAILED { dr:map-from 22; }
+          dr:map DAY0_NO_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 23;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 24;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_REDIRECT.JUNIPER.NET { dr:map-from 25;}
+          dr:map DAY0_PING_AVAILABLE_BUT_TCP_PORT_2200_OR_443_DOES_NOT_GO_THROUGH { dr:map-from 26;}
+          dr:map DAY0_PHC_CONNECTED_TO_REDIRECT_SERVER { dr:map-from 27;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_CONFIG_SERVER_DETAILS { dr:map-from 28;}
+          dr:map DAY0_REDIRECT_SERVER_DID_NOT_PROVIDE_VALID_CONFIG_SERVER_DETAILS { dr:map-from 29;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_TRUST_ANCHOR { dr:map-from 30;}
+          dr:map DAY0_PHC_RECEIVED_CERTIFICATE_WITH_BAD_TIME { dr:map-from 31;}
+          dr:map DAY0_SERVER_CERTIFICATE_VALIDATION_FAILED { dr:map-from 32;}
+          dr:map DAY0_DNS_FAILURE_WITH_CONFIG_SERVER { dr:map-from 33;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FROM_CONFIG_SERVER { dr:map-from 34;}
+          dr:map DAY0_PHC_CONNECTED_TO_CONFIG_SERVER { dr:map-from 35;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_CONFIG_SERVER_URL { dr:map-from 36;}
+          dr:map DAY0_PHC_RECEIVED_INVALID_OR_CORRUPTED_CONFIGURATION_FILE { dr:map-from 37;}
+          dr:map DAY0_SW_DOWNLOAD_FAILURE { dr:map-from 38;}
+          dr:map DAY0_SW_DOWNLOAD_SUCCESS { dr:map-from 39;}
+          dr:map BOOT_COMPLETE { dr:map-from 101;}
+          dr:map NO_DHCP_LEASE_RECEIVED_ON_ANY_INTERFACE { dr:map-from 102;}
+          dr:map NO_DEFAULT_GATEWAY { dr:map-from 103;}
+          dr:map GATEWAY_UNREACHABLE { dr:map-from 104;}
+          dr:map NO_DNS_SERVER { dr:map-from 105;}
+          dr:map DNS_LOOKUP_FAILED { dr:map-from 106;}
+          dr:map AGENT_CONNECT_SENT_TO_CONTROLLER { dr:map-from 107;}
+          dr:map AGENT_CAN_NOT_CONNECT_TO_CONTROLLER { dr:map-from 108;}
+          dr:map AUTHENTICATION_FAILED { dr:map-from 109;}
+          dr:map UNDERLYING_SERVICES_IS_DOWN { dr:map-from 110;}
+          dr:map AGENT_CONNECTED_TO_CONTROLLER { dr:map-from 111;}
+          dr:map PACKET_LOSS_OR_LATENCY_ON_CONNECTION_TO_CONTROLLER { dr:map-from 112;}
+          dr:map DNS_FAILURE_WITH_MIST_CLOUD { dr:map-from 113;}
+          dr:map EMPTY_DNS_RESPONSE_WITH_MIST_CLOUD { dr:map-from 114;}
+          dr:map SOFTWARE_DOWNLOAD_FAILURE { dr:map-from 115;}
+          dr:map SOFTWARE_INSTALL_FAILURE { dr:map-from 116;}
+          dr:map SOFTWARE_UPGRADE_IN_PROGRESS { dr:map-from 117;}
+          dr:map SOFTWARE_DOWNLOAD_SUCCESS { dr:map-from 118;}
+          dr:map UNDEFINED_STATE { dr:map-from *;}
+        }
+        augment "protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/error-code" {
+          dr:source "neighbor_error_code";
+          dr:fieldnum 99;
+        }
+      }
+    }
+
+    dr:command-app "l2cpd";
+    dr:sub-component "mist";
+    jnpr-proto:message-id "L2CPD-MIST-LLDP-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+      dr:command-top-of-output "/js-lldp-information";
+      dr:command-full-name "request l2cpd lldp juniper-netconf-get";
+      dr:command-help "Default <get> rpc";
+      output {
+        container state {
+          uses mist_local_group; 
+          uses mist_interface_config_group;
+        }
+      }
+    }
+
+    notification js-lldp-cc-state-chng {
+      dr:source-notification-name "lldp-cc-state-chng";
+      uses js:state-top {
+        augment "state" {
+          dr:fieldnum 157;
+        }
+        augment "state" {
+          uses js-sys:system-top {
+            augment "system" {
+              dr:fieldnum 156;
+            }
+          }
+        }
+        augment "state/system" {
+          uses js-sys-ctlr:controller-top {
+            augment "controller-connectivity" {
+              dr:fieldnum 155;
+            }
+          }
+        }
+        augment "state/system/controller-connectivity" {
+          uses js-mist:controller-connectivity-top {
+            augment "mist" {
+              dr:fieldnum 154;
+            }
+          }
+        }
+        augment "state/system/controller-connectivity/mist/connectivity-state" {
+          dr:source "/notification/lldp-cc-state-chng/l2cpd/lldp/controller-connectivity/mist/cc_state";
+          dr:fieldnum 96;
+          dr:map DAY0_PHC_CONNECTING { dr:map-from 1;}
+          dr:map DAY0_NO_IP_ADDRESS_ASSIGNED { dr:map-from 2;}
+          dr:map DAY0_NO_DEFAULT_GATEWAY { dr:map-from 3;}
+          dr:map DAY0_DEFAULT_GATEWAY_UNREACHABLE { dr:map-from 4;}
+          dr:map DAY0_NO_DNS { dr:map-from 5;}
+          dr:map DAY0_NO_DNS_RESPONSE { dr:map-from 6;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE { dr:map-from 7;}
+          dr:map DAY0_CLOUD_UNREACHABLE { dr:map-from 8;}
+          dr:map DAY0_NO_RESPONSE_FROM_PHS { dr:map-from 9;}
+          dr:map DAY0_CLOUD_CERTIFICATE_NOT_FOUND { dr:map-from 10;}
+          dr:map DAY0_CLOUD_CERTIFICATE_INVALID { dr:map-from 11;}
+          dr:map DAY0_ACTIVATION_CODE_FAILURE { dr:map-from 12;}
+          dr:map DAY0_CONFIG_NOT_FOUND { dr:map-from 13;}
+          dr:map DAY0_CONFIGURATION_COMMIT_FAILURE { dr:map-from 14;}
+          dr:map DAY0_BOOT_CONFIG_SAVE_FAILURE { dr:map-from 15;}
+          dr:map DAY0_PHS_REACHABLE { dr:map-from 16;}
+          dr:map DAY0_BOOTSTRAP_COMPLETED { dr:map-from 17;}
+          dr:map DAY0_PHC_UPGRADING { dr:map-from 18;}
+          dr:map DAY0_PHCD_UPGRADE_FAILURE { dr:map-from 19;}
+          dr:map DAY0_BOOT_COMPLETE { dr:map-from 21; }
+          dr:map DAY0_DNS_LOOKUP_FAILED { dr:map-from 22; }
+          dr:map DAY0_NO_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 23;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 24;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_REDIRECT.JUNIPER.NET { dr:map-from 25;}
+          dr:map DAY0_PING_AVAILABLE_BUT_TCP_PORT_2200_OR_443_DOES_NOT_GO_THROUGH { dr:map-from 26;}
+          dr:map DAY0_PHC_CONNECTED_TO_REDIRECT_SERVER { dr:map-from 27;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_CONFIG_SERVER_DETAILS { dr:map-from 28;}
+          dr:map DAY0_REDIRECT_SERVER_DID_NOT_PROVIDE_VALID_CONFIG_SERVER_DETAILS { dr:map-from 29;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_TRUST_ANCHOR { dr:map-from 30;}
+          dr:map DAY0_PHC_RECEIVED_CERTIFICATE_WITH_BAD_TIME { dr:map-from 31;}
+          dr:map DAY0_SERVER_CERTIFICATE_VALIDATION_FAILED { dr:map-from 32;}
+          dr:map DAY0_DNS_FAILURE_WITH_CONFIG_SERVER { dr:map-from 33;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FROM_CONFIG_SERVER { dr:map-from 34;}
+          dr:map DAY0_PHC_CONNECTED_TO_CONFIG_SERVER { dr:map-from 35;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_CONFIG_SERVER_URL { dr:map-from 36;}
+          dr:map DAY0_PHC_RECEIVED_INVALID_OR_CORRUPTED_CONFIGURATION_FILE { dr:map-from 37;}
+          dr:map DAY0_SW_DOWNLOAD_FAILURE { dr:map-from 38;}
+          dr:map DAY0_SW_DOWNLOAD_SUCCESS { dr:map-from 39;}
+          dr:map BOOT_COMPLETE { dr:map-from 101;}
+          dr:map NO_DHCP_LEASE_RECEIVED_ON_ANY_INTERFACE { dr:map-from 102;}
+          dr:map NO_DEFAULT_GATEWAY { dr:map-from 103;}
+          dr:map GATEWAY_UNREACHABLE { dr:map-from 104;}
+          dr:map NO_DNS_SERVER { dr:map-from 105;}
+          dr:map DNS_LOOKUP_FAILED { dr:map-from 106;}
+          dr:map AGENT_CONNECT_SENT_TO_CONTROLLER { dr:map-from 107;}
+          dr:map AGENT_CAN_NOT_CONNECT_TO_CONTROLLER { dr:map-from 108;}
+          dr:map AUTHENTICATION_FAILED { dr:map-from 109;}
+          dr:map UNDERLYING_SERVICES_IS_DOWN { dr:map-from 110;}
+          dr:map AGENT_CONNECTED_TO_CONTROLLER { dr:map-from 111;}
+          dr:map PACKET_LOSS_OR_LATENCY_ON_CONNECTION_TO_CONTROLLER { dr:map-from 112;}
+          dr:map DNS_FAILURE_WITH_MIST_CLOUD { dr:map-from 113;}
+          dr:map EMPTY_DNS_RESPONSE_WITH_MIST_CLOUD { dr:map-from 114;}
+          dr:map SOFTWARE_DOWNLOAD_FAILURE { dr:map-from 115;}
+          dr:map SOFTWARE_INSTALL_FAILURE { dr:map-from 116;}
+          dr:map SOFTWARE_UPGRADE_IN_PROGRESS { dr:map-from 117;}
+          dr:map SOFTWARE_DOWNLOAD_SUCCESS { dr:map-from 118;}
+          dr:map UNDEFINED_STATE { dr:map-from *;}
+        }
+        augment "state/system/controller-connectivity/mist/error-code" {
+          dr:source "/notification/lldp-cc-state-chng/l2cpd/lldp/controller-connectivity/mist/error_code";
+          dr:fieldnum 97;
+        }
+      }
+    }
+
+    notification js-lldp-intf-chng {
+      dr:source-notification-name "lldp-intf-chng";
+      uses js:state-top {
+        augment "state" {
+          dr:fieldnum 157;
+        }
+        augment "state" {
+          uses js-pro:protocols-top {
+            augment "protocols" {
+              dr:fieldnum 153;
+            }
+          }
+        }
+        augment "state/protocols" {
+          uses js-lldp:lldp-top {
+            augment "lldp" {
+              dr:source "/notification/lldp-intf-chng/l2cpd/lldp";
+              dr:fieldnum 152;
+            }
+          }
+        }
+        augment "state/protocols/lldp/interfaces" {
+         dr:fieldnum 151;
+        }
+        augment "state/protocols/lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 150;
+        }
+        augment "state/protocols/lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+        }
+        augment "state/protocols/lldp/interfaces/interface/local-port-id" {
+          dr:source "local_port_id";
+          dr:fieldnum 53;
+        }
+        augment "state/protocols/lldp/interfaces/interface/local-port-description" {
+          dr:source "local_port_description";
+          dr:fieldnum 54;
+        }
+        augment "state/protocols/lldp/interfaces/interface/counters" {
+          dr:fieldnum 150;
+        }
+        augment "state/protocols/lldp/interfaces/interface/counters/frame-in" {
+          dr:zero-suppressed;
+          dr:source "interface_in_frame_counter";
+          dr:fieldnum 57;
+        }
+        augment "state/protocols/lldp/interfaces/interface/counters/frame-out" {
+          dr:zero-suppressed;
+          dr:source "interface_out_frame_counter";
+          dr:fieldnum 58;
+        }
+      }
+    }
+
+    notification js-lldp-neighbor-chng {
+      dr:source-notification-name "lldp-neighbor-chng";
+      uses js:state-top {
+        augment "state" {
+          dr:fieldnum 157;
+        }
+        augment "state" {
+          uses js-pro:protocols-top {
+            augment "protocols" {
+              dr:fieldnum 153;
+            }
+          }
+        }
+        augment "state/protocols" {
+          uses js-lldp:lldp-top {
+            augment "lldp" {
+              dr:source "/notification/lldp-neighbor-chng/l2cpd/lldp";
+              dr:fieldnum 152;
+            }
+          }
+        }
+        augment "state/protocols/lldp/interfaces" {
+         dr:fieldnum 151;
+        }
+        augment "state/protocols/lldp/interfaces/interface" {
+          dr:source "interfaces";
+          dr:fieldnum 150;
+        }
+        augment "state/protocols/lldp/interfaces/interface/name" {
+          dr:source "interface_name";
+          dr:fieldnum 52;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors" {
+          dr:fieldnum 151;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor" {
+          dr:source "neighbor";
+          dr:fieldnum 150;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/id" {
+          dr:source "neighbor_msap_id";
+          dr:fieldnum 66;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/system-name" {
+          dr:source "neighbor_sys_name";
+          dr:fieldnum 67;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/system-description" {
+          dr:source "neighbor_sys_desc";
+          dr:fieldnum 68;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/chassis-id" {
+          dr:source "neighbor_chassis_id";
+          dr:fieldnum 69;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/port-id" {
+          dr:source "neighbor_port_id";
+          dr:fieldnum 74;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/port-description" {
+          dr:source "neighbor_port_desc";
+          dr:fieldnum 76;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/ttl" {
+          dr:source "neighbor_pdu_ttl";
+          dr:fieldnum 79;
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor" {
+          uses js-sys-ctlr:controller-top {
+            augment "controller-connectivity" {
+              dr:fieldnum 149;
+            }
+          }
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity" {
+          uses js-mist:controller-connectivity-top {
+            augment "mist" {
+              dr:fieldnum 148;
+            }
+          }
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/connectivity-state" {
+          dr:source "neighbor_cc_state";
+          dr:fieldnum 98;
+          dr:map DAY0_PHC_CONNECTING { dr:map-from 1;}
+          dr:map DAY0_NO_IP_ADDRESS_ASSIGNED { dr:map-from 2;}
+          dr:map DAY0_NO_DEFAULT_GATEWAY { dr:map-from 3;}
+          dr:map DAY0_DEFAULT_GATEWAY_UNREACHABLE { dr:map-from 4;}
+          dr:map DAY0_NO_DNS { dr:map-from 5;}
+          dr:map DAY0_NO_DNS_RESPONSE { dr:map-from 6;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE { dr:map-from 7;}
+          dr:map DAY0_CLOUD_UNREACHABLE { dr:map-from 8;}
+          dr:map DAY0_NO_RESPONSE_FROM_PHS { dr:map-from 9;}
+          dr:map DAY0_CLOUD_CERTIFICATE_NOT_FOUND { dr:map-from 10;}
+          dr:map DAY0_CLOUD_CERTIFICATE_INVALID { dr:map-from 11;}
+          dr:map DAY0_ACTIVATION_CODE_FAILURE { dr:map-from 12;}
+          dr:map DAY0_CONFIG_NOT_FOUND { dr:map-from 13;}
+          dr:map DAY0_CONFIGURATION_COMMIT_FAILURE { dr:map-from 14;}
+          dr:map DAY0_BOOT_CONFIG_SAVE_FAILURE { dr:map-from 15;}
+          dr:map DAY0_PHS_REACHABLE { dr:map-from 16;}
+          dr:map DAY0_BOOTSTRAP_COMPLETED { dr:map-from 17;}
+          dr:map DAY0_PHC_UPGRADING { dr:map-from 18;}
+          dr:map DAY0_PHCD_UPGRADE_FAILURE { dr:map-from 19;}
+          dr:map DAY0_BOOT_COMPLETE { dr:map-from 21; }
+          dr:map DAY0_DNS_LOOKUP_FAILED { dr:map-from 22; }
+          dr:map DAY0_NO_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 23;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FOR_REDIRECT_SERVER { dr:map-from 24;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_REDIRECT.JUNIPER.NET { dr:map-from 25;}
+          dr:map DAY0_PING_AVAILABLE_BUT_TCP_PORT_2200_OR_443_DOES_NOT_GO_THROUGH { dr:map-from 26;}
+          dr:map DAY0_PHC_CONNECTED_TO_REDIRECT_SERVER { dr:map-from 27;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_CONFIG_SERVER_DETAILS { dr:map-from 28;}
+          dr:map DAY0_REDIRECT_SERVER_DID_NOT_PROVIDE_VALID_CONFIG_SERVER_DETAILS { dr:map-from 29;}
+          dr:map DAY0_REDIRECT_SERVER_PROVIDED_TRUST_ANCHOR { dr:map-from 30;}
+          dr:map DAY0_PHC_RECEIVED_CERTIFICATE_WITH_BAD_TIME { dr:map-from 31;}
+          dr:map DAY0_SERVER_CERTIFICATE_VALIDATION_FAILED { dr:map-from 32;}
+          dr:map DAY0_DNS_FAILURE_WITH_CONFIG_SERVER { dr:map-from 33;}
+          dr:map DAY0_EMPTY_DNS_RESPONSE_FROM_CONFIG_SERVER { dr:map-from 34;}
+          dr:map DAY0_PHC_CONNECTED_TO_CONFIG_SERVER { dr:map-from 35;}
+          dr:map DAY0_PHC_CANNOT_MAKE_CONNECTION_TO_CONFIG_SERVER_URL { dr:map-from 36;}
+          dr:map DAY0_PHC_RECEIVED_INVALID_OR_CORRUPTED_CONFIGURATION_FILE { dr:map-from 37;}
+          dr:map DAY0_SW_DOWNLOAD_FAILURE { dr:map-from 38;}
+          dr:map DAY0_SW_DOWNLOAD_SUCCESS { dr:map-from 39;}
+          dr:map BOOT_COMPLETE { dr:map-from 101;}
+          dr:map NO_DHCP_LEASE_RECEIVED_ON_ANY_INTERFACE { dr:map-from 102;}
+          dr:map NO_DEFAULT_GATEWAY { dr:map-from 103;}
+          dr:map GATEWAY_UNREACHABLE { dr:map-from 104;}
+          dr:map NO_DNS_SERVER { dr:map-from 105;}
+          dr:map DNS_LOOKUP_FAILED { dr:map-from 106;}
+          dr:map AGENT_CONNECT_SENT_TO_CONTROLLER { dr:map-from 107;}
+          dr:map AGENT_CAN_NOT_CONNECT_TO_CONTROLLER { dr:map-from 108;}
+          dr:map AUTHENTICATION_FAILED { dr:map-from 109;}
+          dr:map UNDERLYING_SERVICES_IS_DOWN { dr:map-from 110;}
+          dr:map AGENT_CONNECTED_TO_CONTROLLER { dr:map-from 111;}
+          dr:map PACKET_LOSS_OR_LATENCY_ON_CONNECTION_TO_CONTROLLER { dr:map-from 112;}
+          dr:map DNS_FAILURE_WITH_MIST_CLOUD { dr:map-from 113;}
+          dr:map EMPTY_DNS_RESPONSE_WITH_MIST_CLOUD { dr:map-from 114;}
+          dr:map SOFTWARE_DOWNLOAD_FAILURE { dr:map-from 115;}
+          dr:map SOFTWARE_INSTALL_FAILURE { dr:map-from 116;}
+          dr:map SOFTWARE_UPGRADE_IN_PROGRESS { dr:map-from 117;}
+          dr:map SOFTWARE_DOWNLOAD_SUCCESS { dr:map-from 118;}
+          dr:map UNDEFINED_STATE { dr:map-from *;}
+        }
+        augment "state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/error-code" {
+          dr:source "neighbor_error_code";
+          dr:fieldnum 99;
+        }
+      }
+    }
+}

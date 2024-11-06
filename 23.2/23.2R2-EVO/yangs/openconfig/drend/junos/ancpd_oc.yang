@@ -1,0 +1,110 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module ancpd_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/ancpd";
+
+    prefix "ancpd-oc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "ancpd";
+    dr:sub-component "ancp";
+    jnpr-proto:message-id "ANCPD-OC-MESSAGE-ID";
+
+    grouping ancp-protocol-statistics-group {
+        description
+            "Statistics associated with ANCP protocol";
+        leaf configured-neighbor-count {
+            type uint32;
+            description "Number of neighbors configured";
+            dr:source configured_neighbor_count;
+            dr:fieldnum 51;
+        }
+        leaf establishing-neighbor-count {
+            type uint32;
+            description "Number of neighbors in the process of establishing adjacency";
+            dr:source establishing_neighbor_count;
+            dr:fieldnum 52;
+        }
+        leaf established-neighbor-count {
+            type uint32;
+            description "Number of established neighbors";
+            dr:source established_neighbor_count;
+            dr:fieldnum 53;
+        }
+        leaf not-established-neighbor-count {
+            type uint32;
+            description "Number of neighbors that have lost adjacency";
+            dr:source not_established_neighbor_count;
+            dr:fieldnum 54;
+        }
+        leaf total-neighbor-count {
+            type uint32;
+            description "Total number of neighbors in all states";
+            dr:source total_neighbor_count;
+            dr:fieldnum 55;
+        }
+        leaf mapped-static-subscriber-count {
+            type uint32;
+            description "Number of ANCP subscribers mapped to static interfaces by ANCP protocol";
+            dr:source mapped_static_subscriber_count;
+            dr:fieldnum 56;
+        }
+        leaf port-up-count {
+            type uint64;
+            description "Total number of port ups received";
+            dr:source port_up_count;
+            dr:fieldnum 57;
+        }
+        leaf port-down-count {
+            type uint64;
+            description "Total number of port downs received";
+            dr:source port_down_count;
+            dr:fieldnum 58;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-ancpd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container access-network {
+                            dr:fieldnum 151;
+                            container ancp {
+                                dr:fieldnum 151;
+                                container protocol {
+                                    dr:source "/junos/system/subscriber-management/access-network/ancp/protocol";
+                                    dr:fieldnum 151;
+                                    uses ancp-protocol-statistics-group;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

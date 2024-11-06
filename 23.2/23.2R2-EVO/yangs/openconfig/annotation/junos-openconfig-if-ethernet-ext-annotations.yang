@@ -1,0 +1,44 @@
+module junos-openconfig-if-ethernet-ext-annotations {
+    yang-version "1";
+    prefix "jnx-oc-eth-ext-ann";
+    namespace "http://yang.juniper.net/yang/interfaces/ethernet/ext/annotations";
+    import junos-extension { prefix junos; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+    import openconfig-if-ethernet-ext { prefix oc-eth-ext; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2022-09-08" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-64-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-65-127-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-128-255-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-256-511-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-512-1023-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth-ext:in-distribution/oc-eth-ext:in-frames-1024-1518-octets" {
+        junos:product "mx240 mx304 mx480 mx960 mx2010 mx2020";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx10001-36mr ptx10003-160c ptx10003-80c ptx10016 ptx10008 ptx10004";
+    }
+}

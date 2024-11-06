@@ -1,0 +1,25 @@
+module jnx-tel-RE-local-interfaces-stats-annotations {
+    yang-version 1;
+
+    namespace "http://yang.juniper.net/telemetry/jnx-tel-RE-local-interfaces-stats/annotations";
+
+    prefix "jnx-tel-li-ann";
+
+    import jnx-tel-RE-local-interfaces-stats { prefix jnx-tel-li; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-11-08" {
+        description "Initial version to add RE local interface stats model product support information";
+    }
+
+    augment "/jnx-tel-li:interfaces/jnx-tel-li:interface/jnx-tel-li:state/jnx-tel-li:counters" {
+        JUNOS_PRODUCT(PRODUCTS_SUPPORTING_TELEMETRY);
+    }
+    augment "/jnx-tel-li:interfaces/jnx-tel-li:interface/jnx-tel-li:subinterfaces/" +
+            "jnx-tel-li:subinterface/jnx-tel-li:state/jnx-tel-li:counters" {
+        JUNOS_PRODUCT(PRODUCTS_SUPPORTING_TELEMETRY);
+    }
+}

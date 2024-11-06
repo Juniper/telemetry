@@ -1,0 +1,207 @@
+module junos-openconfig-if-ethernet-annotations {
+
+    yang-version "1";
+
+    prefix "jnx-oc-eth-ann";
+
+    namespace "http://yang.juniper.net/yang/interfaces/ethernet/annotations";
+
+    import junos-extension { prefix junos; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+
+    organization "Juniper Networks";
+
+    description "Augmenting the platform supported list";
+
+    revision "2022-03-28" {
+        description "Initial version to add platform supported list";
+    }
+
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:config" {
+        JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008 BRACKLA_PTX ptx10016);
+        JUNOS_PRODUCT(mx240 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX GAMORA_ACX AVENGERS_FIXTURE);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:mac-address" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:auto-negotiate" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:duplex-mode" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:port-speed" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:enable-flow-control" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:hw-mac-address" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:negotiated-duplex-mode" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:negotiated-port-speed" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-mac-control-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-mac-pause-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-oversize-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-jabber-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-fragment-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-8021q-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-crc-errors" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-block-errors" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:out-mac-control-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:out-mac-pause-frames" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:out-8021q-frames" {
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state/oc-eth:counters/oc-eth:in-maxsize-exceeded" {
+        JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008);
+        JUNOS_PRODUCT(EVO_QFX_MS_ALL);
+    }
+}

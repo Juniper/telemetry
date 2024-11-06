@@ -1,0 +1,87 @@
+
+/*
+ * OC definition for smgd rsmon debug sensor.
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-smgd_rsmon_dbg_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/bbe-smgd_rsmon_dbg_tree";
+    prefix "bbe-smgd_rsmon_dbg_oc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    /*
+     * Daemon socket that handles this hierarchy
+     */
+    dr:command-app "smg-service";
+    dr:sub-component "rsmon-debug";
+    jnpr-proto:message-id "BBE-SMGD-RSMON-DEBUG-OC-MESSAGE-ID";
+
+    grouping debug-rtt-state {
+        leaf average-rtt {
+            type uint32;
+            description "The average RE to FPC round-trip delay";
+            dr:source average_rtt;
+            dr:fieldnum 61;
+        }
+
+        leaf current-rtt {
+            type uint32;
+            description "The last measured RE to FPC round-trip delay";
+            dr:source current_rtt;
+            dr:fieldnum 62;
+        }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/bbe-smgd/infra/rsmon_debug";
+        dr:command-help "Default <get> rpc";
+        output{ 
+            container debug {
+                dr:fieldnum 151;
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container infra {
+                            dr:fieldnum 151;
+                            container resource-monitor {
+                                dr:source "/debug/system/subscriber-management/infra/resource-monitor";
+                                dr:fieldnum 151;
+                                container fpcs {
+                                    dr:fieldnum 151;
+                                    list fpc {
+                                        dr:source "fpcs/fpc";
+                                        dr:fieldnum 151;
+                                        key slot;
+                                        leaf slot {
+                                            type uint32;
+                                            dr:source slot;
+                                            dr:fieldnum 61;
+                                        }
+                                        container statistics {
+                                            dr:source "statistics";
+                                            dr:fieldnum 151;
+                                            uses debug-rtt-state;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

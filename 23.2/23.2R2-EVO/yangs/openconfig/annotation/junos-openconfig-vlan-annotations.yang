@@ -1,0 +1,29 @@
+module junos-openconfig-vlan-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/openconfig/vlan/annotations";
+    prefix "jnx-oc-vlan-ann";
+    import openconfig-vlan { prefix oc-vlan; }
+    import openconfig-vlan-types { prefix oc-vlan-types; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+    import openconfig-if-aggregate { prefix oc-lag; }
+    import iana-if-type { prefix ianaift; }
+    import openconfig-extensions { prefix oc-ext; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    description
+       "This module contains JUNOS annotations for openConfig-vlan product model";
+    revision "2022-04-28" {
+        description "Initial revision";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/" +
+        "oc-vlan:switched-vlan/oc-vlan:state" {
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product-exclude "ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f";
+    }
+    augment "/oc-if:interfaces/oc-if:interface/oc-lag:aggregation/" +
+        "oc-vlan:switched-vlan/oc-vlan:state" {
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product-exclude "ex4300-24p ex4300-24t ex4300-48p ex4300-48t ex4300-48t-bf ex4300-48t-dc ex4300-48t-dc-bf ex4300-32f";
+    }
+}

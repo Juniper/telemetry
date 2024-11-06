@@ -1,0 +1,198 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_ddos_oc {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/dynamic-rendering/ddos";
+
+    prefix "pfe-ddos-oc";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import junos-ddos { prefix oc-ddos; }
+    jnpr-proto:message-id "PFE-DDOS-OC-MESSAGE-ID";
+
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    contact "www.juniper.net";
+
+    grouping pfe-ddos {
+        uses oc-ddos:pfe-ddos {
+        augment "ddos-stats" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 151;
+        }
+        augment "ddos-stats/group"{
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 152;
+        }
+        augment "ddos-stats/group/group-name" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 153;
+        }
+        augment "ddos-stats/group/group-id" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 154;
+        }
+        augment "ddos-stats/group/protocol-stats" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 155;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 156;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/protocol-name" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 157;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/protocol-id" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 158;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 159;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 160;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 161;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/location" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 162;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/received" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 163;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/arrived-policer" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 164;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-individual-policer" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 165;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-aggregate-policer" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 166;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-individual-flow" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 167;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-aggregate-flow" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 168;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/total-dropped" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 169;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/final-passed" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 170;
+         }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/arrival-rate" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 171;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/pass-rate" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 172;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/max-arrival-rate" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 173;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 174;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-state" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 175;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-count" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 176;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-start-time" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 177;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-end-time" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 178;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-duration" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 179;
+        }
+
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 180;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-type" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 181;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-count" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 182;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 183;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 184;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/ifl" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 185;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/time-found" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 186;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/time-last-violated" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 187;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/rate" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 188;
+        }
+        augment "ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/packets" {
+            dr:source "/junos/system/linecard/ddos/";
+            dr:fieldnum 189;
+        }
+     }
+  }
+    dr:command-app "agentd";
+
+    rpc juniper-netconf-get {
+        output {
+            uses pfe-ddos;
+        }
+    }
+}
+

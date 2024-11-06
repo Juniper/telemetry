@@ -1,0 +1,43 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional JunosInfo_resiliencyd_cfg jnpr_JunosInfo_resiliencyd_cfg_ext = 20;
+}
+
+message JunosInfo_resiliencyd_cfg {
+   optional uint32 wrap_cycle_marker = 2;
+   optional uint64 last_configuration_change = 3;
+   optional uint32 fru_slot = 4;
+   optional string fru_type = 5;
+   message error_item_list {
+      optional string identifier = 1;
+      optional string name = 2 [(telemetry_options).is_key = true];
+      optional uint32 component_id = 3;
+      optional string fru_type = 4;
+      optional uint32 fru_slot = 5;
+      optional string scope = 6;
+      optional string category = 7;
+      optional string severity = 8;
+      optional uint32 threshold = 9;
+      optional uint32 limit = 10;
+      optional uint32 raising_threshold = 11;
+      optional uint32 clearing_threshold = 12;
+      optional uint32 action = 13;
+      optional uint32 action_handling_type = 14;
+      optional uint32 configured_threshold = 15;
+      optional uint32 configured_limit = 16;
+      optional uint32 configured_action = 17;
+      optional uint32 configured_clear_action = 18;
+   }
+   repeated error_item_list error_item = 1;
+   message global_configuration_item_list {
+      optional string scope = 1;
+      optional string category = 2;
+      optional string severity = 3;
+      optional uint32 threshold = 4;
+      optional uint32 action = 5;
+   }
+   repeated global_configuration_item_list global_configuration_item = 6;
+}

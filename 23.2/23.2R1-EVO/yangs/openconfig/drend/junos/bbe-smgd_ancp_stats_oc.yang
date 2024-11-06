@@ -1,0 +1,65 @@
+/*
+    * OC definition for ancp statistics
+    *
+    * Copyright (c) 2017, Juniper Networks, Inc.
+    * All rights reserved.
+*/
+
+/**
+  * @file
+  * OC Render Tree.
+*/
+
+module bbe-smgd_ancp_stats_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/bbe-smgd_ancp_stats_oc";
+    prefix "bbe-smgd_ancp_stats_oc";
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+   
+    /*
+     * Daemon socket that handles this hierarchy
+     */	 
+
+    dr:command-app "smg-service";
+    dr:sub-component "ancp-stats";
+    jnpr-proto:message-id "BBE-SMGD-ANCP-STATS-OC-MESSAGE-ID";
+
+    grouping ancp-adapter-statistics-group {
+        description
+            "Statistics associated with ANCP adapter";
+        leaf mapped-dynamic-subscriber-count {
+            type uint32;
+            description "Number of ANCP subscribers mapped to dynamic interfaces by ANCP adapter";
+            dr:source mapped_dynamic_subscriber_count;
+            dr:fieldnum 51;
+        }
+    }
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-bbe-smgd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container access-network {
+                            dr:fieldnum 151;
+                            container ancp {
+                                dr:fieldnum 151;
+                                container adapter {
+                                    dr:source "/junos/system/subscriber-management/access-network/ancp/adapter";
+                                    dr:fieldnum 151;
+                                    uses ancp-adapter-statistics-group;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+module junos-openconfig-if-aggregate-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/openconfig/if/aggregate/annotations";
+    prefix "jnx-oc-lag-ann";
+    import openconfig-if-aggregate { prefix oc-lag; }
+    import openconfig-interfaces { prefix oc-if; }
+    import openconfig-if-ethernet { prefix oc-eth; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    description
+       "This module contains JUNOS annotations to OpenConfig if-aggregate  product model";
+    revision "2022-04-27" {
+        description "Initial revision";
+    }
+}

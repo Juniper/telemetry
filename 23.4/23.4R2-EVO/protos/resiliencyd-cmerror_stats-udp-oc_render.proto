@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional JunosInfo_resiliencyd_data jnpr_JunosInfo_resiliencyd_data_ext = 21;
+}
+
+message JunosInfo_resiliencyd_data {
+   message counters_list {
+      optional string name = 17 [(telemetry_options).is_key = true];
+      optional string description = 15;
+      optional string help = 16;
+      optional string identifier = 1;
+      optional uint64 count = 2;
+      optional uint64 last_updated = 3;
+      optional bool enabled = 4;
+      optional uint32 error_module_id = 5;
+      optional uint32 component_id = 6;
+      optional uint32 error_code = 7;
+      optional uint32 occur_count = 8;
+      optional uint32 cleared_count = 9;
+      optional uint64 last_cleared_at = 10;
+      optional uint32 action_count = 11;
+      optional uint64 last_action_taken_at = 12;
+      optional string fru_type = 13;
+      optional uint32 fru_slot = 14;
+   }
+   repeated counters_list counters = 1;
+}

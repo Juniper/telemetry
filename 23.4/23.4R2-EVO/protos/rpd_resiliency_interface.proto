@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_rpd_krt jnpr_junos_rpd_krt_ext = 121;
+}
+
+message junos_rpd_krt {
+   optional exception_profiles_type exception_profiles = 151;
+   message exception_profiles_type {
+      message routing_profile_list {
+         optional uint64 id = 51 [(telemetry_options).is_key = true];
+         optional incident_descriptor_type incident_descriptor = 151;
+         message incident_descriptor_type {
+            optional string exception_code = 52;
+            optional string description = 53;
+            optional string host_id = 54;
+            optional string resource_id = 55;
+            optional uint64 timestamp = 56;
+            optional uint64 id = 51;
+         }
+         optional string exception_type = 52;
+         optional string exception_owner = 53;
+         optional download_path_descriptor_type download_path_descriptor = 153;
+         message download_path_descriptor_type {
+            optional uint64 object_id = 51;
+            optional string krt_status = 52;
+            optional string error_number = 53;
+            optional string route_prefix = 54;
+            optional uint32 nexthop_index = 55;
+            optional string krtq_op = 56;
+            optional string nexthop_handle = 57;
+            optional uint32 sequence_number = 58;
+         }
+      }
+      repeated routing_profile_list routing_profile = 151;
+   }
+}

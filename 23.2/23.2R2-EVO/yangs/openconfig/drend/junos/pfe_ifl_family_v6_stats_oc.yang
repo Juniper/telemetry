@@ -1,0 +1,114 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2021, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_ifl_family_v6_stats_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfe-ifl-family-v6-stats-oc";
+
+  prefix "pfe-ifl-family-v6-stats-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  //import openconfig-interfaces { prefix oc-if; }
+  import openconfig-if-ip { prefix ocip; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-ifl-family-v6 {
+    uses ocip:ipv6-top {
+      augment "ipv6" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 151;
+      }
+      augment "ipv6/state" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 151;
+      }
+      augment "ipv6/state/counters" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 151;
+      }
+      augment "ipv6/state/counters/in-pkts" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 51;
+      }
+      augment "ipv6/state/counters/in-octets" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 52;
+      }
+      augment "ipv6/state/counters/in-multicast-pkts" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 53;
+      }
+      augment "ipv6/state/counters/in-multicast-octets" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 54;
+      }
+      augment "ipv6/state/counters/out-pkts" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 55;
+      }
+      augment "ipv6/state/counters/out-octets" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 56;
+      }
+      augment "ipv6/state/counters/out-multicast-pkts" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 57;
+      }
+      augment "ipv6/state/counters/out-multicast-octets" {
+        dr:source "/junos/system/linecard/interface/logical/family/ipv6/usage/";
+        dr:fieldnum 58;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-ifl-family-v6";
+  jnpr-proto:message-id "PFE-IFL-FAMILY-V6-STATS-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container interfaces {
+        dr:source "/junos/system/linecard/interface/logical/usage/";
+        dr:fieldnum 151;
+        list interface {
+          dr:source "/junos/system/linecard/interface/logical/usage/";
+          dr:fieldnum 151;
+          key "name" ;
+          leaf name {
+            type string;
+            dr:fieldnum 51;
+          }
+          container subinterfaces {
+            dr:source "/junos/system/linecard/interface/logical/usage/";
+            dr:fieldnum 151;
+            list subinterface {
+              dr:source "/junos/system/linecard/interface/logical/usage/";
+              dr:fieldnum 151;
+              key "index" ;
+              leaf index {
+                type uint32;
+                dr:fieldnum 51;
+              }
+              uses pfe-ifl-family-v6;
+            }
+          }
+        }
+      }
+    }
+  }
+}

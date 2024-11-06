@@ -1,0 +1,227 @@
+module junos-openconfig-platform-annotations {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/platform/annotations";
+
+    prefix "jnx-oc-platform-ann";
+
+    import openconfig-platform-linecard { prefix oc-linecard; }
+    import openconfig-platform { prefix oc-platform; }
+    import jnx-aug-openconfig-platform { prefix jnx-oc-platform; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS augments to OpenConfig components product model";
+
+    revision "2022-01-13" {
+        description "Initial revision";
+    }
+
+    augment "/oc-platform:components" {
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(srx5400 srx5600 srx5800 vsrx);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT_TVP(srx1500 srx4100 srx4200 srx4600 srx4800);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:state" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(EVO_PTX_ALL);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:integrated-circuit" {
+        JUNOS_PRODUCT_EXCLUDE(EVO_QFX_MS_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:integrated-circuit/oc-platform:state" {
+        JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008 ptx10016);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:integrated-circuit/oc-platform:state/jnx-oc-platform:properties/jnx-oc-platform:property" {
+        JUNOS_PRODUCT(BRACKLA_ALL);
+        JUNOS_PRODUCT(VALE_PTX);
+        JUNOS_PRODUCT(ARDBEG_ALL);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" +
+        "oc-platform:integrated-circuit/oc-platform:state/jnx-oc-platform:properties/jnx-oc-platform:property/jnx-oc-platform:state" {
+        JUNOS_PRODUCT(BRACKLA_PTX);
+        JUNOS_PRODUCT(BRACKLA_QFX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:location" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:mfg-date" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:hardware-version" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:firmware-version" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:software-version" {
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(mx960);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:removable" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:oper-status" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:empty" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:parent" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:allocated-power" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:temperature/oc-platform:instant" {
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(mx960);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:memory/oc-platform:available" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:memory/oc-platform:utilized" {
+        JUNOS_PRODUCT(mx304 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx1000 ptx5000 ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:properties/oc-platform:property/oc-platform:state/oc-platform:configurable" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" + "oc-linecard:linecard/oc-linecard:state" {
+        JUNOS_PRODUCT(ptx10008 ptx10016);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:properties/oc-platform:property/oc-platform:state/oc-platform:value" {
+        JUNOS_PRODUCT(ptx10008 ptx10016);
+        JUNOS_PRODUCT(GUARDIAN XMEN_ALL AVENGERS_ACX ULTRON_ACX GAMORA_ALL);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/" + "oc-platform:chassis" {
+        JUNOS_PRODUCT(ptx10008 ptx10016);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:power-supply/oc-platform:state" {
+        JUNOS_PRODUCT(ptx10004 ptx10008 ptx10016);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:fan/oc-platform:state" {
+        JUNOS_PRODUCT(ptx10004 ptx10008 ptx10016);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:used-power" {
+        JUNOS_PRODUCT(EVO_PTX_ALL);
+        JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:state/oc-platform:type" {
+        JUNOS_PRODUCT(mx240 mx480 mx960 mx2010 mx2020 mx304);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+        JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+        JUNOS_PRODUCT_TVP(ex2300-24t ex2300-48p ex2300-48t ex2300c-12t ex2300c-12p ex2300-24t-dc);
+        JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+        JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+        JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+        JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+        JUNOS_PRODUCT_TVP(ex4300-48mp);
+        JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+        JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+        JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c qfx5120-48y-8c ex4650-48y-8c qfx5120-32c);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(qfx5200-48y qfx5200-32c);
+    }
+
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/oc-platform:config" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10004 ptx10008 ptx10016);
+    }
+}

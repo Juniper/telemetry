@@ -1,0 +1,632 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module smid_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/smid";
+    prefix "smid-oc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "smid";
+    dr:sub-component "smi";
+    jnpr-proto:message-id "SMID-OC-MESSAGE-ID";
+
+    grouping sdb-statistics-state-group {
+        leaf init-state-count {
+            type uint32;
+            dr:source init_state_count;
+            dr:fieldnum 51;
+        }
+        leaf configured-state-count {
+            type uint32;
+            dr:source configured_state_count;
+            dr:fieldnum 52;
+        }
+        leaf active-state-count {
+            type uint32;
+            dr:source active_state_count;
+            dr:fieldnum 53;
+        }
+        leaf terminating-state-count {
+            type uint32;
+            dr:source terminating_state_count;
+            dr:fieldnum 54;
+        }
+        leaf terminated-state-count {
+            type uint32;
+            dr:source terminated_state_count;
+            dr:fieldnum 55;
+        }
+        leaf total-state-count {
+            type uint32;
+            dr:source total_state_count;
+            dr:fieldnum 56;
+        }
+    }
+
+    grouping sdb-statistics-client-group {
+        leaf dhcp-client-count {
+            type uint32;
+            dr:source dhcp_client_count;
+            dr:fieldnum 61;
+        }
+        leaf vlan-client-count {
+            type uint32;
+            dr:source vlan_client_count;
+            dr:fieldnum 62;
+        }
+        leaf ppp-client-count {
+            type uint32;
+            dr:source ppp_client_count;
+            dr:fieldnum 63;
+        }
+        leaf pppoe-client-count {
+            type uint32;
+            dr:source pppoe_client_count;
+            dr:fieldnum 64;
+        }
+        leaf l2tp-client-count {
+            type uint32;
+            dr:source l2tp_client_count;
+            dr:fieldnum 65;
+        }
+        leaf static-client-count {
+            type uint32;
+            dr:source static_client_count;
+            dr:fieldnum 66;
+        }
+        leaf vpls-pw-client-count {
+            type uint32;
+            dr:source vpls_pw_client_count;
+            dr:fieldnum 67;
+        }
+        leaf mlppp-client-count {
+            type uint32;
+            dr:source mlppp_client_count;
+            dr:fieldnum 68;
+        }
+        leaf essm-client-count {
+            type uint32;
+            dr:source essm_client_count;
+            dr:fieldnum 69;
+        }
+        leaf total-client-count {
+            type uint32;
+            dr:source total_client_count;
+            dr:fieldnum 70;
+        }
+    }
+
+    grouping sdb-statistics-subsystem-group {
+        leaf session-subsystem-agf {
+            type uint32;
+            dr:source agf_subsystem_count;
+            dr:fieldnum 71;
+        }
+        leaf session-subsystem-bng {
+            type uint32;
+            dr:source bng_subsystem_count;
+            dr:fieldnum 72;
+        }
+    }
+
+    grouping smid-rsmon-fpc-statistics {
+        leaf heap-memory-used {
+            type uint32;
+            dr:source heap_memory_used;
+            dr:fieldnum 81;
+        }
+        leaf client-session-denied-count {
+            type uint32;
+            dr:source client_session_denied_count;
+            dr:fieldnum 82;
+        }
+        leaf service-session-denied-count {
+            type uint32;
+            dr:source service_session_denied_count;
+            dr:fieldnum 83;
+        }
+        leaf rtt-throttled-sub-count-client {
+             type uint32;
+             dr:source rtt_throttled_sub_count_client;
+             dr:fieldnum 84;
+        }
+        leaf rtt-throttled-sub-count-service {
+             type uint32;
+             dr:source rtt_throttled_sub_count_service;
+             dr:fieldnum 85;
+        }
+    }
+    grouping smid-rsmon-fpc-thresholds {
+        description "Counts of FPC memory threshold crossing events - above(exceeded) and below(nominal)";
+        leaf mem-heap-exceeded {
+            type uint32;
+            description "Count of FPC heap-memory threshold exceeded crossing events";
+            dr:source mem_heap_exceeded;
+            dr:fieldnum 91;
+        }
+        leaf mem-heap-nominal {
+            type uint32;
+            description "Count of FPC heap-memory threshold nominal crossing events";
+            dr:source mem_heap_nominal;
+            dr:fieldnum 92;
+        }
+    }
+
+    grouping smid-rsmon-pfe-statistics {
+        leaf filter-memory-used {
+            type uint32;
+            dr:source filter_memory_used;
+            dr:fieldnum 101;
+        }
+        leaf ifl-memory-used {
+            type uint32;
+            dr:source ifl_memory_used;
+            dr:fieldnum 102;
+        }
+        leaf expansion-memory-used {
+            type uint32;
+            dr:source expansion_memory_used;   
+            dr:fieldnum 103;
+        }
+        leaf nh-memory-free {
+            type uint32;
+            dr:source nh_memory_free;   
+            dr:fieldnum 104;
+        }
+        leaf fw-memory-free {
+            type uint32;
+            dr:source fw_memory_free;   
+            dr:fieldnum 105;
+        }
+    }
+
+    grouping smid-rsmon-pfe-thresholds {
+        description "Counts of PFE memory threshold crossing events - above(exceeded) and below(nominal)";
+        leaf mem-ifl-exceeded {
+            type uint32;
+            description "Count of IFL-memory threshold exceeded crossing events";
+            dr:source mem_ifl_exceeded;
+            dr:fieldnum 111;
+        }
+        leaf mem-ifl-nominal {
+            type uint32;
+            description "Count of IFL-memory threshold nominal crossing events";
+            dr:source mem_ifl_nominal;
+            dr:fieldnum 112;
+        }
+        leaf mem-expansion-exceeded {
+            type uint32;
+            description "Count of expansion-memory threshold exceeded crossing events";
+            dr:source mem_expansion_exceeded;   
+            dr:fieldnum 113;
+        }
+        leaf mem-expansion-nominal {
+            type uint32;
+            description "Count of expansion-memory threshold nominal crossing events";
+            dr:source mem_expansion_nominal;   
+            dr:fieldnum 114;
+        }
+    }
+
+    grouping smid-rsmon-sched-block-statistics {
+        description 
+            "Statistics associated with queue utilization for a PFE's scheduler block";
+        leaf queues-max {
+            type uint32;
+            description "The total number of queues in this scheduler block";
+            dr:source queues_max;
+            dr:fieldnum 121;
+        }
+        leaf queues-allocated {
+            type uint32;
+            description "The total number of queues in use from this scheduler block";
+            dr:source queues_allocated;
+            dr:fieldnum 122;
+        }
+    }
+
+    grouping smid-subscriber-limit-statistics {
+        description
+            "Statistics associated with subscriber usage against provisioned subscriber limits";
+        leaf configured-subscriber-limit {
+            type uint32;
+            description 
+                "The configured number of subscribers allowed for this hardware container. A value 
+                 of 0 indicates that no limit has been configured for this hardware container.";
+            dr:source configured_subscriber_limit;
+            dr:fieldnum 131;
+        }
+        leaf current-subscriber-count {
+            type uint32;
+            description "The current number of subscribers associated with this hardware container";
+            dr:source current_subscriber_count;
+            dr:fieldnum 132;
+        }
+    }
+
+    grouping smid-rsmon-sched-block-thresholds {
+        description "Counts of CoS utilization threshold crossing events - above(exceeded) and below(nominal)";
+        leaf cos-utilization-exceeded {
+            type uint32;
+            description "Count of CoS utilization threshold exceeded crossing events";
+            dr:source cos-utilization-exceeded;
+            dr:fieldnum 141;
+        }
+        leaf cos-utilization-nominal {
+            type uint32;
+            description "Count of CoS utilization threshold nominal crossing events";
+            dr:source cos-utilization-nominal;
+            dr:fieldnum 142;
+        }
+    }
+
+    grouping smid-subscriber-limit-threshold-statistics {
+        description "Counts of subscriber limit threshold crossing events - above(exceeded) and below(nominal)";
+        leaf subscriber-limit-exceeded {
+            type uint32;
+            description "Count of subscriber limit threshold exceeded crossing events";
+            dr:source subscriber_limit_exceeded;
+            dr:fieldnum 201;
+        }
+        leaf subscriber-limit-nominal {
+            type uint32;
+            description "Count of subscriber limit threshold nominal crossing events";
+            dr:source subscriber_limit_nominal;
+            dr:fieldnum 202;
+        }
+    }
+
+    typedef role {
+        description 
+            "Role for MX chassis or RE's";
+        type enumeration {
+            enum MASTER {
+                value 0;
+            }
+            enum BACKUP;
+            enum LINECARD; /** for future extensions of MXVC. unused as of 8/7/19 */
+        }
+    }
+    
+    typedef member-id {
+        description
+            "A index value for chassis";
+        type uint8 {
+            range "0..1";
+        }
+    }
+
+    typedef re-index {
+        description
+            "A index value for routing engines";
+        type uint8 {
+            range "0..1";
+        }
+    }
+
+    typedef percent {
+        description
+            "percent 0.0 to 100.0";
+        type decimal64 {
+            fraction-digits 3;
+            range "0.0..100.0";
+        }
+    }
+    
+
+    grouping process-statistics {
+        description
+            "health/utilization statistics to collect for daemons";
+        leaf cpu-utilization {
+            description
+                "CPU utilization";
+            type percent;
+            dr:source "cpu_utilization";
+            dr:fieldnum 51;
+        }
+        leaf memory-utilization {
+            description
+                "utilization";
+            type percent;
+            dr:source "memory_utilization";
+            dr:fieldnum 52;
+        }
+    }
+
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-smid-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container infra {
+                            dr:fieldnum 151;
+                            container sdb {
+                                dr:fieldnum 151;
+                                container statistics {
+                                    dr:fieldnum 151;
+                                    container state {
+                                        dr:source "/junos/system/subscriber-management/infra/sdb/statistics/state";
+                                        dr:fieldnum 151;
+                                        uses sdb-statistics-state-group;
+                                    }
+                                    container client-type {
+                                        dr:source "/junos/system/subscriber-management/infra/sdb/statistics/client-type";
+                                        dr:fieldnum 152;
+                                        uses sdb-statistics-client-group;
+                                    }
+                                    container subsystem {
+                                        dr:source "/junos/system/subscriber-management/infra/sdb/statistics/subsystem";
+                                        dr:fieldnum 153;
+                                        uses sdb-statistics-subsystem-group;
+                                    }
+                                }
+                            }
+                            container resource-monitor {
+                                dr:source "/junos/system/subscriber-management/infra/resource-monitor";
+                                dr:fieldnum 152;
+                                container chassis {
+                                    dr:source "chassis";
+                                    dr:fieldnum 151;
+                                    uses smid-subscriber-limit-statistics;
+                                    uses smid-subscriber-limit-threshold-statistics;
+                                }
+                                container fpcs {
+                                    dr:source "fpcs";
+                                    dr:fieldnum 152;
+                                    list fpc {
+                                        dr:source "fpc";
+                                        dr:fieldnum 151;
+                                        key slot;
+                                        leaf slot { 
+                                            type uint32; 
+                                            dr:source "slot"; 
+                                            dr:fieldnum 51;
+                                        }
+                                        container statistics {
+                                            dr:source "statistics";
+                                            dr:fieldnum 151;
+                                            uses smid-rsmon-fpc-statistics;
+                                            uses smid-subscriber-limit-statistics;
+                                            uses smid-rsmon-fpc-thresholds;
+                                            uses smid-subscriber-limit-threshold-statistics;
+                                            container pfes {
+                                                dr:source "pfes";
+                                                dr:fieldnum 151;
+                                                list pfe {
+                                                    dr:source "pfe";
+                                                    dr:fieldnum 151;
+                                                    key pfe-no;
+                                                    leaf pfe-no { 
+                                                        type uint32;
+                                                        dr:source "pfe_no";
+                                                        dr:fieldnum 51;
+                                                    }
+                                                    uses smid-rsmon-pfe-statistics;
+                                                    uses smid-rsmon-pfe-thresholds;
+                                                    container sched-blocks {
+                                                        dr:source "sched-blocks";
+                                                        dr:fieldnum 151;
+                                                        list sched-block {
+                                                            dr:source "sched-block";
+                                                            dr:fieldnum 151;
+                                                            key sblock-no;
+                                                            leaf sblock-no {
+                                                                type uint32;
+                                                                dr:source "sblock_no";
+                                                                dr:fieldnum 51;
+                                                            }
+                                                            uses smid-rsmon-sched-block-statistics;
+                                                            uses smid-rsmon-sched-block-thresholds;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        container pics {
+                                            dr:source "pics";
+                                            dr:fieldnum 152;
+                                            list pic {
+                                                dr:source "pic";
+                                                dr:fieldnum 151;
+                                                key pic-no;
+                                                leaf pic-no { 
+                                                    type uint32;
+                                                    dr:source "pic_no";
+                                                    dr:fieldnum 51;
+                                                }
+                                                uses smid-subscriber-limit-statistics;
+                                                uses smid-subscriber-limit-threshold-statistics;
+                                                container ports {
+                                                    dr:source "ports";
+                                                    dr:fieldnum 151;
+                                                    list port {
+                                                        dr:source "port";
+                                                        dr:fieldnum 151;
+                                                        key port-no;
+                                                        leaf port-no { 
+                                                            type uint32; 
+                                                            dr:source "port_no"; 
+                                                            dr:fieldnum 51;
+                                                        }
+                                                        uses smid-subscriber-limit-statistics;
+                                                        uses smid-subscriber-limit-threshold-statistics;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } //resource-monitor
+                        } //infra
+                        list chassis {
+                            dr:source "/junos/system/subscriber-management/chassis";
+                            dr:fieldnum 152;
+                            key member-id;
+                            leaf member-id {
+                                type member-id;
+                                description "In non-MXVC systems there will only be one index with value '0'";
+                                dr:source "chassis_member_id";
+                                dr:fieldnum 51;
+                            } 
+                            leaf role {
+                                 type role;
+                                 description "In non-MXVC systems there will only be one role with value 'master'";
+                                 dr:source "role";
+                                 dr:fieldnum 52;
+                            }
+                            container routing-engines {
+                                dr:source "routing-engines";
+                                dr:fieldnum 151;
+                                list routing-engine {
+                                    dr:source "routing-engine";
+                                    dr:fieldnum 151;
+                                    key re-index;
+                                    leaf re-index {
+                                        description "The RE index in this chassis";
+                                        type re-index;
+                                        dr:source "re_index";
+                                        dr:fieldnum 51;
+                                    }
+                                    leaf role {
+                                        description "Role of the RE";
+                                        type role;
+                                        dr:source "role";
+                                        dr:fieldnum 52;
+                                    }
+                                    leaf db-synced {
+                                        description "Whether the current RE DB is synced and ready for a graceful switchover";
+                                        type boolean;
+                                        dr:source "db_synced";
+                                        dr:fieldnum 53;
+                                    }
+                                    container process-status {
+                                        dr:source "process-status";
+                                        dr:fieldnum 151;
+                                        container subscriber-management-processes {
+                                            dr:source "subscriber-management-processes";
+                                            dr:fieldnum 151;
+                                            list subscriber-management-process {
+                                                dr:source "subscriber-management-process";
+                                                dr:fieldnum 151;
+                                                key process-name;
+                                                leaf process-name {
+                                                    description "Name of the process/daemon";
+                                                    type string;
+                                                    dr:source "process_name";
+                                                    dr:fieldnum 51;
+                                                }
+                                                leaf pid{
+                                                    description "Process ID of process/daemon running";
+                                                    type uint64;
+                                                    dr:source "pid";
+                                                    dr:fieldnum 52;
+                                                }
+                                                leaf runtime {
+                                                    description "Real runtime in microsec";
+                                                    type uint64;
+                                                    dr:source "runtime";
+                                                    dr:fieldnum 53;
+
+                                                }
+                                                leaf cpu-utilization {
+                                                    description "CPU utilization";
+                                                    type decimal64 {
+                                                        fraction-digits 3;
+                                                        range "0.0..100.0";
+                                                    }
+                                                    dr:source "cpu_utilization";
+                                                    dr:fieldnum 54;
+                                                }
+                                                leaf memory-utilization {
+                                                    description "Memory utilization";
+                                                    type decimal64 {
+                                                        fraction-digits 3;
+                                                        range "0.0..100.0";
+                                                    }
+                                                    dr:source "memory_utilization";
+                                                    dr:fieldnum 55;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } //chassis
+                    }
+                }
+            }
+        }
+    }
+
+
+    notification re-db-notify {
+        dr:source-notification-name "re-db-notify";
+        description  "A routing engine DB synchronization change event; applicable to both single chassis, and MXVC deployments.";
+        container junos {
+            dr:fieldnum 151;
+            container system {
+                dr:fieldnum 151;
+                container subscriber-management {
+                    dr:fieldnum 151;
+                    list chassis {
+                        dr:source "/notification/re-db-notify/junos/system/subscriber-management/chassis";
+                        dr:fieldnum 152;
+                        key member-id;
+                        leaf member-id {
+                            description "Index for multiple chassis, if non-MXVC this will always be 0";
+                            type member-id;
+                            dr:source "chassis_member_id";
+                            dr:fieldnum 51;
+                        }
+                        container routing-engines {
+                            dr:source "routing-engines";
+                            dr:fieldnum 151;
+                            list routing-engine {
+                                dr:source "routing-engine";
+                                dr:fieldnum 151;
+                                key re-index;
+                                leaf re-index {
+                                    description "The RE index in this chassis";
+                                    type re-index;
+                                    dr:source "re_index";
+                                    dr:fieldnum 51;
+                                }
+                                leaf db-synced {
+                                    description "Whether the current RE DB is synced and ready for a graceful switchover";
+                                    type boolean;
+                                    dr:source "db_synced";
+                                    dr:fieldnum 53;
+                                }
+                            }
+                        }
+                    }
+                }
+            } 
+        }
+    }
+
+}

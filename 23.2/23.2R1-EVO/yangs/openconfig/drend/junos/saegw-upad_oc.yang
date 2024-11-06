@@ -1,0 +1,649 @@
+
+/*
+ * $Id$
+ *
+ * Copyright (c) 2021, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module saegw-upad_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/saegw-upad";
+    prefix "saegw-upad-oc";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    import junos-saegw-upad {
+        prefix "jupad";
+    }
+
+    // meta
+    organization "Juniper Networks Inc.";
+
+    description
+        "This module provides rendering for mobile-edge CUPS operational state and statistics";
+
+    revision "2021-08-23" {
+        description
+            "Initial definition of mobile-edge saegw upad rendering model";
+        reference "1.0.0";
+    }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+    dr:command-app "saegw-upad";
+
+    /* Protocol Buffer qualifiers */
+    jnpr-proto:message-id "SAEGW-UPAD-OC-MESSAGE-ID";
+    dr:sub-component "saegw";
+
+    grouping ip-addr-common {
+      uses jupad:ip-addr-common {
+        augment "ip-addr" {
+            dr:source ip_addr;
+            dr:fieldnum 51;
+        }
+      }
+    }
+    grouping slot-common {
+      uses jupad:slot-common {
+        augment "pfe" {
+            dr:source slot_num;
+            dr:fieldnum 52;
+        }
+      }
+    }
+    grouping pic-common {
+      uses jupad:pic-common {
+        augment "pfe" {
+            dr:source pic_num;
+            dr:fieldnum 53;
+        }
+      }
+    }
+    grouping apfe-common {
+      uses jupad:apfe-common {
+        augment "apfe-name" {
+            dr:source apfe_name;
+            dr:fieldnum 54;
+        }
+        augment "apfe-role" {
+            dr:source apfe_role;
+            dr:fieldnum 55;
+        }
+        augment "apfe-sync" {
+            dr:source apfe_sync;
+            dr:fieldnum 56;
+        }
+      }
+    }
+    grouping apn-common {
+      uses jupad:apn-common {
+        augment "apn-name" {
+            dr:source apn_name;
+            dr:fieldnum 57;
+        }
+      }
+    }
+
+    grouping stats-by-state {
+      uses jupad:stats-by-state {
+        augment "established" {
+            dr:source established;
+            dr:fieldnum 58;
+        }
+        augment "wait" {
+            dr:source wait;
+            dr:fieldnum 59;
+        }
+        augment "invalid" {
+            dr:source invalid;
+            dr:fieldnum 60;
+        }
+        augment "deleting" {
+            dr:source deleting;
+            dr:fieldnum 61;
+        }
+        augment "init" {
+            dr:source init;
+            dr:fieldnum 62;
+        }
+
+        augment "total" {
+            dr:source total;
+            dr:fieldnum 63;
+        }
+      }
+    }
+
+    grouping dlfar-bearer-stats {
+      uses jupad:dlfar-bearer-stats {
+        augment "forward" {
+            dr:source dlf_active;
+            dr:fieldnum 64;
+        }
+        augment "idle" {
+            dr:source dlf_idle;
+            dr:fieldnum 65;
+        }
+        augment "buffering" {
+            dr:source dlf_buff;
+            dr:fieldnum 66;
+        }
+        augment "drop" {
+            dr:source dlf_drop;
+            dr:fieldnum 67;
+        }
+        augment "total" {
+            dr:source dlf_total;
+            dr:fieldnum 68;
+        }
+      }
+    }
+
+    grouping qos-flow-stats {
+      uses jupad:qos-flow-stats {
+        augment "established" {
+            dr:source qf_established;
+            dr:fieldnum 69;
+        }
+        augment "wait" {
+            dr:source qf_wait;
+            dr:fieldnum 70;
+        }
+        augment invalid {
+            dr:source qf_invalid;
+            dr:fieldnum 71;
+        }
+        augment "total" {
+            dr:source qf_total;
+            dr:fieldnum 72;
+        }
+      }
+    }
+
+    grouping system-stats {
+      uses jupad:system-stats {
+        augment "system-state" {
+            dr:source system_state;
+            dr:fieldnum 73;
+        }
+        augment "cur-inflight" {
+            dr:source cur_inflight;
+            dr:fieldnum 74;
+        }
+        augment "sync-status" {
+            dr:source sync_status;
+            dr:fieldnum 75;
+        }
+        augment "shared-memory" {
+            dr:source shared_memory;
+            dr:fieldnum 76;
+        }
+        augment "heap-memory" {
+            dr:source heap_memory;
+            dr:fieldnum 77;
+        }
+      }
+    }
+
+    grouping peers-summary {
+      uses jupad:peers-summary {
+        augment "total-control-peers" {
+            dr:source total_control_peers;
+            dr:fieldnum 81;
+        }
+        augment "total-access-peers" {
+            dr:source total_access_peers;
+            dr:fieldnum 82;
+        }
+        augment "total-core-peers" {
+            dr:source total_core_peers;
+            dr:fieldnum 83;
+        }
+        augment "total-cpfu-peers" {
+            dr:source total_cpfu_peers;
+            dr:fieldnum 84;
+        }
+      }
+    }
+
+    grouping control-peer-stats {
+      uses jupad:control-peer-stats {
+        augment "routing-instance" {
+            dr:source routing_instance;
+            dr:fieldnum 86;
+        }
+        augment "heartbeat-request-received" {
+            dr:source heartbeat_request_received;
+            dr:fieldnum 87;
+        }
+        augment "heartbeat-response-sent" {
+            dr:source heartbeat_response_sent;
+            dr:fieldnum 88;
+        }
+        augment "heartbeat-request-sent" {
+            dr:source heartbeat_request_sent;
+            dr:fieldnum 89;
+        }
+        augment "heartbeat-response-received" {
+            dr:source heartbeat_response_received;
+            dr:fieldnum 90;
+        }
+        augment "association-setup-request-received" {
+            dr:source association_setup_request_received;
+            dr:fieldnum 91;
+        }
+        augment "association-setup_response-sent" {
+            dr:source association_setup_response_sent;
+            dr:fieldnum 92;
+        }
+        augment "association-release-request-received" {
+            dr:source association_release_request_received;
+            dr:fieldnum 93;
+        }
+        augment "association-release-response-sent" {
+            dr:source association_release_response_sent;
+            dr:fieldnum 94;
+        }
+        augment "session-establishment-request-received" {
+            dr:source session_establishment_request_received;
+            dr:fieldnum 95;
+        }
+        augment "session-establishment-request-accepted" {
+            dr:source session_establishment_request_accepted;
+            dr:fieldnum 96;
+        }
+        augment "session-establishment-request-rejected" {
+            dr:source session_establishment_request_rejected;
+            dr:fieldnum 97;
+        }
+        augment "session-modification-request-received" {
+            dr:source session_modification_request_received;
+            dr:fieldnum 98;
+        }
+        augment "session-modification-request-accepted" {
+            dr:source session_modification_request_accepted;
+            dr:fieldnum 99;
+        }
+        augment "session-modification-request-rejected" {
+            dr:source session_modification_request_rejected;
+            dr:fieldnum 100;
+        }
+        augment "session-deletion-request-received" {
+            dr:source session_deletion_request_received;
+            dr:fieldnum 101;
+        }
+        augment "session-deletion-request-accepted" {
+            dr:source session_deletion_request_accepted;
+            dr:fieldnum 102;
+        }
+        augment "session-deletion-request-rejected" {
+            dr:source session_deletion_request_rejected;
+            dr:fieldnum 103;
+        }
+      }
+    }
+
+    grouping access-peer-stats {
+      uses jupad:access-peer-stats {
+        augment "routing-instance" {
+            dr:source routing_instance;
+            dr:fieldnum 106;
+        }
+        augment "echo-request-received" {
+            dr:source echo_request_received;
+            dr:fieldnum 109;
+        }
+        augment "echo-response-sent" {
+            dr:source echo_response_sent;
+            dr:fieldnum 110;
+        }
+        augment "error-indication-received" {
+            dr:source error_indication_received;
+            dr:fieldnum 111;
+        }
+       augment "end-marker-sent" {
+            dr:source end_marker_sent;
+            dr:fieldnum 112;
+        }
+      }
+    }
+
+    grouping core-peer-stats {
+      uses jupad:core-peer-stats {
+        augment "routing-instance" {
+            dr:source routing_instance;
+            dr:fieldnum 114;
+        }
+        augment "echo-request-received" {
+            dr:source echo_request_received;
+            dr:fieldnum 115;
+        }
+        augment "echo-response-sent" {
+            dr:source echo_response_sent;
+            dr:fieldnum 116;
+        }
+      }
+    }
+
+    grouping notify-events {
+        uses jupad:upad-events {
+            augment "association" {
+                dr:source "association";
+                dr:fieldnum 121;
+            }
+            augment "peer" {
+                dr:source "peer";
+                dr:fieldnum 122;
+            }
+            augment "apfe" {
+                dr:source "apfe";
+                dr:fieldnum 123;
+            }
+            augment "ha-sync" {
+                dr:source "ha-sync";
+                dr:fieldnum 124;
+            }
+            augment "load-control" {
+                dr:source "load-control";
+                dr:fieldnum 125;
+            }
+        }
+    }
+
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/saegw-upad-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                dr:fieldnum 151;
+                container services {
+                    dr:fieldnum 151;
+                    container mobile-edge {
+                        dr:fieldnum 151;
+                        container system-stats {
+                            description "saegw-upad general system statistics";
+                            dr:fieldnum 152;
+                            dr:source "/junos/services/mobile-edge/system-stats";
+                            uses system-stats;
+                        }
+                        container sessions {
+                            dr:fieldnum 151;
+                            container summary {
+                                description "saegw-upad sessions summary statistics";
+                                dr:source "/junos/services/mobile-edge/sessions/summary";
+                                dr:fieldnum 153;
+                                container session {
+                                    description "saegw-upad sessions summary session statistics";
+                                    dr:source "session";
+                                    dr:fieldnum 154;
+                                    uses stats-by-state;
+                                }
+                                container bearer {
+                                    description "saegw-upad sessions summary bearer statistics";
+                                    dr:source "bearer";
+                                    dr:fieldnum 155;
+                                    uses stats-by-state;
+                                }
+                                container dlfar-bearer {
+                                    description "saegw-upad sessions summary down-link FAR bearer statistics";
+                                    dr:source "dlfar-bearer";
+                                    dr:fieldnum 156;
+                                    uses dlfar-bearer-stats;
+                                }
+                                container qos-flow {
+                                    description "saegw-upad sessions summary 5G QoS flow statistics";
+                                    dr:source "qos-flow";
+                                    dr:fieldnum 157;
+                                    uses qos-flow-stats;
+                                }
+                                container control-peers {
+                                    description "saegw-upad sessions summary control-peer statistics";
+                                    dr:source "control-peers";
+                                    dr:fieldnum 158;
+                                    list control-peer {
+                                        uses ip-addr-common;
+                                        dr:source "control-peer";
+                                        dr:fieldnum 159;
+                                        key ip-addr;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 160;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 161;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container access-peers {
+                                    description "saegw-upad sessions summary access-peer statistics";
+                                    dr:source "access-peers";
+                                    dr:fieldnum 162;
+                                    list access-peer {
+                                        uses ip-addr-common;
+                                        dr:source "access-peer";
+                                        dr:fieldnum 163;
+                                        key ip-addr;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 164;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 165;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container core-peers {
+                                    description "saegw-upad sessions summary core-peer statistics";
+                                    dr:source "core-peers";
+                                    dr:fieldnum 167;
+                                    list core-peer {
+                                        uses ip-addr-common;
+                                        dr:source "core-peer";
+                                        dr:fieldnum 168;
+                                        key ip-addr;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 169;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 170;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container slots {
+                                    description "saegw-upad sessions summary statistics for each slot";
+                                    dr:source "slots";
+                                    dr:fieldnum 171;
+                                    list slot {
+                                        uses slot-common;
+                                        dr:source "slot";
+                                        dr:fieldnum 172;
+                                        key pfe;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 173;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 174;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container pics {
+                                    description "saegw-upad sessions summary statistics for each PIC";
+                                    dr:source "pics";
+                                    dr:fieldnum 175;
+                                    list pic {
+                                        uses pic-common;
+                                        dr:source "pic";
+                                        dr:fieldnum 176;
+                                        key pfe;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 177;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 178;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container apfes {
+                                    description "saegw-upad sessions summary statistics for each APFE";
+                                    dr:source "apfes";
+                                    dr:fieldnum 179;
+                                    list apfe {
+                                        uses apfe-common;
+                                        dr:source "apfe";
+                                        dr:fieldnum 180;
+                                        key apfe-name;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 181;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 182;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                                container apns {
+                                    description "saegw-upad sessions summary statistics for each apn";
+                                    dr:source "apns";
+                                    dr:fieldnum 183;
+                                    list apn {
+                                        uses apn-common;
+                                        dr:source "apn";
+                                        dr:fieldnum 184;
+                                        key apn-name;
+                                        container session {
+                                            dr:source "session-by-state";
+                                            dr:fieldnum 185;
+                                            uses stats-by-state;
+                                        }
+                                        container bearer {
+                                            dr:source "bearer-by-state";
+                                            dr:fieldnum 186;
+                                            uses stats-by-state;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        container peers {
+                            description "saegw-upad peers statistics";
+                            dr:fieldnum 190;
+                            container summary {
+                                description "saegw-upad peers summary statistics";
+                                dr:source "/junos/services/mobile-edge/peers/summary";
+                                dr:fieldnum 191;
+                                uses peers-summary;
+                            }
+                            container control-peers {
+                                description "saegw-upad control-peers statistics";
+                                dr:source "/junos/services/mobile-edge/peers/control-peers";
+                                dr:fieldnum 192;
+                                list control-peer {
+                                    uses control-peer-stats;
+                                    uses ip-addr-common;
+                                    dr:source "control-peer";
+                                    dr:fieldnum 193;
+                                    key ip-addr;
+                                }
+                            }
+                            container access-peers {
+                                description "saegw-upad access-peers statistics";
+                                dr:source "/junos/services/mobile-edge/peers/access-peers";
+                                dr:fieldnum 194;
+                                list access-peer {
+                                    uses access-peer-stats;
+                                    uses ip-addr-common;
+                                    dr:source "access-peer";
+                                    dr:fieldnum 195;
+                                    key ip-addr;
+                                }
+                            }
+                            container core-peers {
+                                description "saegw-upad core-peers statistics";
+                                dr:source "/junos/services/mobile-edge/peers/core-peers";
+                                dr:fieldnum 196;
+                                list core-peer {
+                                    uses core-peer-stats;
+                                    uses ip-addr-common;
+                                    dr:source "core-peer";
+                                    dr:fieldnum 197;
+                                    key ip-addr;
+                                }
+                            }
+                            container cpfu-peers {
+                                description "saegw-upad cpfu-peers statistics";
+                                dr:source "/junos/services/mobile-edge/peers/cpfu-peers";
+                                dr:fieldnum 198;
+                                list cpfu-peer {
+                                    uses core-peer-stats;
+                                    uses ip-addr-common;
+                                    dr:source "cpfu-peer";
+                                    dr:fieldnum 199;
+                                    key ip-addr;
+                                }
+                            }
+                        }
+                        container events {
+                            description "saegw-upad notification events";
+                            dr:source "/junos/services/mobile-edge/events";
+                            dr:fieldnum 201;
+                            uses notify-events;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    notification saegw-upad-notify {
+        description "A saegw-upad event notification";
+        dr:source-notification-name "saegw-upad-notify";
+        container junos {
+            dr:fieldnum 151;
+            container services {
+                dr:fieldnum 151;
+                container mobile-edge {
+                    dr:fieldnum 151;
+                    container events {
+                        description "Events notification";
+                        dr:source "/notification/saegw-upad-notify/junos/services/mobile-edge/events";
+                        dr:fieldnum 201;
+                        uses notify-events;
+                    }
+                }
+            }
+        }
+    }
+}

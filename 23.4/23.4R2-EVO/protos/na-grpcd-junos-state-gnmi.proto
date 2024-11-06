@@ -1,0 +1,51 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_native_stats_287 jnpr_state_native_stats_287_ext = 287;
+}
+
+message state_native_stats_287 {
+   optional system_type system = 151;
+   message system_type {
+      optional services_type services = 151;
+      message services_type {
+         optional http_type http = 151;
+         message http_type {
+            optional servers_type servers = 151;
+            message servers_type {
+               message server_list {
+                  optional string name = 51 [(telemetry_options).is_key = true];
+                  optional grpc_type grpc = 151;
+                  message grpc_type {
+                     optional gnmi_type gnmi = 151;
+                     message gnmi_type {
+                        optional subscriptions_type subscriptions = 151;
+                        message subscriptions_type {
+                           message subscription_list {
+                              optional string client_address = 151;
+                              optional uint32 client_port = 152;
+                              optional string mode = 153;
+                              optional string encoding = 154;
+                              optional paths_type paths = 155;
+                              message paths_type {
+                                 message path_list {
+                                    optional string name = 151 [(telemetry_options).is_key = true];
+                                    optional string subscription_mode = 152;
+                                    optional uint64 sample_interval = 153;
+                                 }
+                                 repeated path_list path = 151;
+                              }
+                           }
+                           repeated subscription_list subscription = 151;
+                        }
+                     }
+                  }
+               }
+               repeated server_list server = 151;
+            }
+         }
+      }
+   }
+}

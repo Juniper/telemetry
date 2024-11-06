@@ -1,0 +1,97 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module aftman-qos-stats-oc_render {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/aftman_qos_stats_cos_oc";
+
+    prefix "aftman_qos_stats_cos_oc";
+
+    import drend {
+      prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    dr:command-app "evo-aftmand-bt";
+
+    organization "Juniper Network Inc.";
+
+    jnpr-proto:message-id "PFE-QOS-STATS-OC-MESSAGE-ID";
+
+    grouping qos-interface-jv-group {
+      leaf interface-id {
+            type string;
+            dr:source "ifname";
+            dr:fieldnum 51;
+        }
+    }
+
+grouping qos-interface-jv-state-group {
+    leaf transmit-pkts {
+            type uint32;
+            dr:source "transmitPkts";
+            dr:fieldnum 51;
+        }
+        leaf transmit-octets {
+            type uint8;
+            dr:source "transmitOctets";
+            dr:fieldnum 52;
+        }
+        leaf dropped-pkts {
+            type uint8;
+            dr:source "droppedPkts";
+            dr:fieldnum 53;
+        }
+
+}
+    grouping qos-interface-jv-queue-group {
+        leaf name {
+            type uint8;
+            dr:source "queue";
+            dr:fieldnum 51;
+        }
+       }
+
+
+    rpc juniper-netconf-get {
+        dr:command-help "Print the netconf output for Interface Queue Stats";
+        output {
+            container qos {
+                dr:source "/aftman_cos";
+                dr:zero-suppressed;
+                dr:fieldnum 151;
+                container interfaces {
+                     dr:fieldnum 151;
+                list interface {
+                    dr:source "qos-interface-jv";
+                    dr:fieldnum 151;
+                    uses qos-interface-jv-group;
+                    key interface-id;
+                    container output {
+                        dr:fieldnum 151;
+                        container queues {
+                            dr:fieldnum 151;
+                                 list queue {
+                                dr:source "qos-interface-jv-queue";
+                                dr:fieldnum 151;
+                                uses qos-interface-jv-queue-group;
+                                key name;
+                                   container state {
+                                     dr:fieldnum 151;
+                                     uses qos-interface-jv-state-group;
+                                }
+                             }
+                          }
+                       }
+                    }
+                }
+            }
+        }
+    }
+}

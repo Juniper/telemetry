@@ -1,0 +1,267 @@
+/*
+ * $Id$
+ *
+ * vrrpd_oc.yang - Defines mapping from vrrpd operational state meta tree to
+ * oc vrrp rendering tree
+ *
+ * May 2016, Tarun Kawatra
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+module vrrpd_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/vrrpd";
+
+  prefix "vrrp-oc";
+
+  import drend {
+    prefix "dr";
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  // import some basic types
+  import ietf-inet-types { prefix inet; }
+  import openconfig-if-ip { prefix oc-ip; }
+
+  // meta
+  organization "Juniper Networks";
+
+  contact "tarunk@juniper.net";
+
+  description "yang model that defines mapping from vrrpd operational state " +
+              "meta tree to oc vrrp rendering tree";
+
+  revision "2016-05-16" {
+    description "Junos VRRP OC model";
+  }
+
+  dr:command-app "vrrpd";
+  dr:sub-component "vrrp";
+  jnpr-proto:message-id "VRRPD-OC-MESSAGE-ID";
+
+  grouping group-vrrpd-address-list {
+    list address {
+      dr:source "ifa";
+      dr:fieldnum 151;
+      key "ip";
+
+      leaf ip {
+        type inet:ip-address;
+        dr:source "address";
+        dr:fieldnum 51;
+      }
+
+      uses oc-ip:ip-vrrp-top {
+	augment "vrrp"
+	        { dr:fieldnum 151;}
+        augment "vrrp/vrrp-group"
+                { dr:source "vrrp-interface";
+                  dr:fieldnum 151;}
+	augment "vrrp/vrrp-group/state"
+	        { dr:fieldnum 151;}
+        augment "vrrp/vrrp-group/state/virtual-router-id"
+                { dr:source "group";
+                  dr:fieldnum 62;}
+        augment "vrrp/vrrp-group/state/virtual-address"
+                { dr:source "vip-address";
+                  dr:fieldnum 63;}
+        augment "vrrp/vrrp-group/state/priority"
+                { dr:source "configured-priority";
+                  dr:fieldnum 64;}
+        augment "vrrp/vrrp-group/state/preempt"
+                { dr:source "preempt";
+                  dr:fieldnum 65;}
+        augment "vrrp/vrrp-group/state/preempt-delay"
+                { dr:source "preempt-hold-time";
+                  dr:fieldnum 66;}
+        augment "vrrp/vrrp-group/state/accept-mode"
+                { dr:source "accept-data-mode";
+                  dr:fieldnum 67;}
+        augment "vrrp/vrrp-group/state/advertisement-interval"
+                { dr:source "advertisement-interval";
+                  dr:fieldnum 68;}
+        augment "vrrp/vrrp-group/state/current-priority"
+                { dr:source "current-priority";
+                  dr:fieldnum 69;}
+	augment "vrrp/vrrp-group/interface-tracking"
+	        { dr:fieldnum 152;}
+	augment "vrrp/vrrp-group/interface-tracking/state"
+	        { dr:fieldnum 151;}
+        augment "vrrp/vrrp-group/interface-tracking/state/track-interface"
+                { dr:source "first-tracked-interface";
+                  dr:fieldnum 70;}
+        augment "vrrp/vrrp-group/interface-tracking/state/priority-decrement"
+                { dr:source "first-down-priority-cost";
+                  dr:fieldnum 71;}
+      }
+    }
+  }
+
+  grouping group-vrrpd-ipv6-address-list {
+    list address {
+      dr:source "ifa";
+      dr:fieldnum 151;
+      key "ip";
+
+      leaf ip {
+        type inet:ip-address;
+        dr:fieldnum 51;
+        dr:source "address";
+      }
+
+      container vrrp {
+	dr:fieldnum 151;
+        list vrrp-group {
+          dr:source "vrrp-interface";
+          dr:fieldnum 151;
+
+          container state {
+	    dr:fieldnum 151;
+            uses oc-ip:ip-vrrp-config {
+              augment "virtual-router-id"
+                      { dr:source "group";
+                        dr:fieldnum 80;}
+              augment "virtual-address"
+                      { dr:source "vip-address";
+                        dr:fieldnum 81;}
+              augment "priority"
+                      { dr:source "configured-priority";
+                        dr:fieldnum 82;}
+              augment "preempt"
+                      { dr:source "preempt";
+                        dr:fieldnum 83;}
+              augment "preempt-delay"
+                      { dr:source "preempt-hold-time";
+                        dr:fieldnum 84;}
+              augment "accept-mode"
+                      { dr:source "accept-data-mode";
+                        dr:fieldnum 85;}
+              augment "advertisement-interval"
+                      { dr:source "advertisement-interval";
+                        dr:fieldnum 86;}
+            }
+            uses oc-ip:ip-vrrp-state {
+              augment "current-priority"
+                      { dr:source "current-priority";
+                        dr:fieldnum 87;}
+            }
+            uses oc-ip:ip-vrrp-ipv6-state {
+              augment "virtual-link-local"
+                      { dr:source "vll";
+                        dr:fieldnum 88;}
+            }
+          }
+          container interface-tracking {
+	    dr:fieldnum 152;
+            container state {
+	      dr:fieldnum 151;
+              uses oc-ip:ip-vrrp-tracking-config {
+                augment "track-interface"
+                        { dr:source "first-tracked-interface";
+                          dr:fieldnum 89;}
+                augment "priority-decrement"
+                        { dr:source "first-down-priority-cost";
+                          dr:fieldnum 90;}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/vrrpd/cmd1/vrrpd-information";
+    dr:command-help "Prints oc specific junos vrrp operational state";
+    output {
+      container interfaces {
+        dr:source "/vrrpd/oc";
+	dr:fieldnum 151;
+      
+        list interface {
+          dr:source "ifd";
+          dr:fieldnum 151;
+          key "name";
+      
+          leaf name {
+              type string;
+              dr:source "name";
+              dr:fieldnum 51;
+          }
+      
+          container subinterfaces {
+	    dr:fieldnum 151;
+            list subinterface {
+              dr:source "ifl";
+              dr:fieldnum 151;
+              key "index";
+      
+              leaf index {
+                type uint32;
+                dr:source "unit";
+                dr:fieldnum 51;
+              }
+      
+              container ipv4 {
+                dr:source "ipv4";
+		dr:fieldnum 151;
+
+                container addresses {
+		  dr:fieldnum 151;
+                  uses group-vrrpd-address-list;
+                }
+              }
+      
+              container ipv6 {
+                dr:source "ipv6";
+		dr:fieldnum 152;
+      
+                container addresses {
+		  dr:fieldnum 151;
+                  uses group-vrrpd-ipv6-address-list;
+                }
+              }
+            }
+          }
+      
+          container routed-vlan {
+            dr:source "irb";
+	    dr:fieldnum 152;
+      
+            container ipv4 {
+              dr:source "ipv4";
+	      dr:fieldnum 151;
+      
+              container addresses {
+		dr:fieldnum 151;
+                uses group-vrrpd-address-list;
+              }
+            }
+      
+            container ipv6 {
+              dr:source "ipv6";
+	      dr:fieldnum 152;
+      
+              container addresses {
+		dr:fieldnum 151;
+                uses group-vrrpd-ipv6-address-list;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  rpc juniper-telemetry-get {
+    output {
+        container __jnpr_telemetry_empty__ {
+        }
+    }
+  }
+}

@@ -1,0 +1,769 @@
+module fibtd-telemetry_oc {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/fibtd";
+    prefix "fibtd-telemetry_oc";
+
+    import drend {
+	prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+    import openconfig-aft { prefix oc-aft; }
+    import openconfig-aft-network-instance {prefix oc-aftni; }
+
+    // meta
+    organization "Juniper Networks";
+
+    description "None";
+
+    revision "2019-02-01" {
+	description "None";
+    }
+
+    grouping afts_nh_group {
+        uses oc-aftni:aft-entry-nexthop-group-state {
+            augment "next-hop-group" {
+                dr:source "nexthop_id";
+                dr:fieldnum 52;
+            }
+
+            augment "next-hop-group-network-instance" {
+                dr:source "nhg-network-instance";
+                dr:fieldnum 53;
+            }
+        }
+    }
+
+
+    grouping afts_instance_grp {
+	uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast" {
+		dr:source "ipv4-unicast";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry" {
+		dr:source "ipv4-entry";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/prefix" {
+		dr:source "prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state/prefix" {
+		dr:source "state_prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state/origin-protocol" {
+                dr:source "origin-protocol";
+                dr:fieldnum 54;
+            }
+		augment "afts/ipv4-unicast/ipv4-entry/state" {
+			uses afts_nh_group;
+		}
+
+	    augment "afts/ipv6-unicast" {
+		dr:source "ipv6-unicast";
+		dr:fieldnum 152;
+	    }
+
+            augment "afts/ipv6-unicast/ipv6-entry" {
+	        dr:source "ipv6-entry";
+                dr:atomic-data;
+	        dr:fieldnum 151;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/prefix" {
+		dr:source "prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/state" {
+		dr:fieldnum 151;
+	    }
+
+	    augment "afts/ipv6-unicast/ipv6-entry/state/prefix" {
+		dr:source "prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/state/origin-protocol" {
+                dr:source "origin-protocol";
+                dr:fieldnum 54;
+            }
+		augment "afts/ipv6-unicast/ipv6-entry/state" {
+			uses afts_nh_group;
+		}
+
+	    augment "afts/mpls" {
+		dr:source "mpls";
+		dr:fieldnum 153;
+	    }   
+	    augment "afts/mpls/label-entry" {
+		dr:source "label-entry";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/mpls/label-entry/label" {
+		dr:source "label";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/mpls/label-entry/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/mpls/label-entry/state/label" {
+		dr:source "label";
+		dr:fieldnum 51;
+	    }
+
+        augment "afts/mpls/label-entry/state" {
+            uses afts_nh_group;
+        }
+	    augment "afts/mpls/label-entry/state/popped-mpls-label-stack" {
+		dr:source "popped_mpls_label_stack";
+		dr:fieldnum 54;
+	    }
+	    augment "afts/next-hop-groups" {
+		dr:source "next-hop-groups";
+		dr:fieldnum 154;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group" {
+		dr:atomic-data;
+		dr:source "next-hop-group";
+		dr:fieldnum 151;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/id" {
+		dr:source "nh_group_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/state/id" {
+		dr:source "state_nh_group_id";
+		dr:fieldnum 51;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/state/programmed-id" {
+		dr:source "programmed_id";
+		dr:fieldnum 52;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/next-hops" {
+		dr:source "next-hops";
+		dr:fieldnum 152;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop" {
+		dr:source "child_nexthops";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/index" {
+		dr:source "nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/index" {
+		dr:source "state_nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/weight" {
+		dr:source "weight";
+		dr:fieldnum 52;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/conditional" {
+		dr:source "conditional";
+		dr:fieldnum 53;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition" {
+		dr:source "condition";
+		dr:fieldnum 54;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/id" {
+		dr:source "id";
+		dr:fieldnum 55;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state" {
+		dr:fieldnum 56;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/id" {
+		dr:source "state_id";
+		dr:fieldnum 57;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/dscp" {
+		dr:source "dscp_list";
+		dr:fieldnum 58;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/next-hop-group" {
+		dr:source "nexthop_id";
+		dr:fieldnum 59;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces" {
+		dr:source "input_interfaces";
+		dr:fieldnum 60;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface" {
+		dr:source "input_interface";
+		dr:fieldnum 61;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/id" {
+		dr:source "id";
+		dr:fieldnum 62;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state" {
+		dr:fieldnum 63;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/id" {
+		dr:source "state_id";
+		dr:fieldnum 64;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/interface" {
+		dr:source "interface_name";
+		dr:fieldnum 65;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/subinterface" {
+		dr:source "sub_int_idx";
+		dr:fieldnum 66;
+	    }
+
+	    augment "afts/next-hops" {
+		dr:source "nexthops";
+		dr:fieldnum 155;
+	    }
+	    augment "afts/next-hops/next-hop" {
+		dr:source "nexthop";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/index" {
+		dr:source "nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop" {
+		container juniper {
+		    dr:fieldnum 152;
+	
+		    container state {
+			dr:fieldnum 151;
+
+			leaf unmapped-nexthop {
+			    type boolean;
+			    dr:source "unsupported_nexthop";
+			    dr:fieldnum 51;
+			}
+
+			leaf-list mapped-next-hop-index {
+			    type uint64;
+			    dr:source "mapped_next_hop_indices";
+			    dr:fieldnum 52;
+			}
+
+			leaf lsp-id {
+			    type uint32;
+			    dr:source "lsp_id";
+			    dr:fieldnum 53;
+			}
+		    }
+		}
+	    }
+	    augment "afts/next-hops/next-hop/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/state/index" {
+		dr:source "state_nexthop_id";
+		dr:fieldnum 54;
+	    }
+	    augment "afts/next-hops/next-hop/state/programmed-index" {
+		dr:source "programmed_index";
+		dr:fieldnum 55;
+	    }
+	    augment "afts/next-hops/next-hop/state/ip-address" {
+		dr:source "ip_address";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop/state/mac-address" {
+		dr:source "mac_address";
+		dr:fieldnum 52;
+	    }
+	    augment "afts/next-hops/next-hop/state/pushed-mpls-label-stack" {
+		dr:source "pushed_mpls_label_stack";
+		dr:fieldnum 53;
+	    }
+	    augment "afts/next-hops/next-hop/state/encapsulate-header" {
+		dr:source "encapsulate_header";
+		dr:fieldnum 57;
+	    }
+	    augment "afts/next-hops/next-hop/state/lsp-name" {
+		dr:source "lsp_name";
+		dr:fieldnum 56;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref" {
+		dr:fieldnum 153;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state/interface" {
+		dr:source "interface_name";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state/subinterface" {
+		dr:source "sub_int_idx";
+		dr:fieldnum 52;
+	    }
+	}
+    }
+
+    dr:command-app "fib-streaming";
+    jnpr-proto:message-id "FIBTD-TELEMETRY-OC-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+	dr:command-help "Show FIB in OC-AFT format";
+
+	output {
+	    container network-instances {
+		dr:source "/network-instances";
+		list network-instance {
+		    dr:source "network-instance";
+		    dr:fieldnum 151;
+		    key name;
+
+		    leaf name {
+			type string;
+			dr:source "name";
+			dr:fieldnum 51;
+		    }
+		    uses afts_instance_grp;
+		 }
+	    }
+	}
+    }
+
+    grouping ipv4_instance_grp_chg {
+        uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast" {
+		dr:source "ipv4-unicast";
+		dr:fieldnum 151;
+	    }
+
+	    augment "afts/ipv4-unicast/ipv4-entry" {
+		dr:source "ipv4-entry";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/prefix" {
+		dr:source "prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state/prefix" {
+		dr:source "state_prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv4-unicast/ipv4-entry/state/origin-protocol" {
+                dr:source "origin-protocol";
+                dr:fieldnum 54;
+            }
+
+        augment "afts/ipv4-unicast/ipv4-entry/state" {
+            uses afts_nh_group;
+        }
+	}
+    }
+
+
+    grouping ipv6_instance_grp_chg {
+        uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv6-unicast" {
+		dr:source "ipv6-unicast";
+		dr:fieldnum 152;
+	    }
+
+	    augment "afts/ipv6-unicast/ipv6-entry" {
+		dr:source "ipv6-entry";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/prefix" {
+		dr:source "prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/state/prefix" {
+		dr:source "state_prefix";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/ipv6-unicast/ipv6-entry/state/origin-protocol" {
+                dr:source "origin-protocol";
+                dr:fieldnum 54;
+            }
+
+        augment "afts/ipv6-unicast/ipv6-entry/state" {
+            uses afts_nh_group;
+        }
+        }
+    }
+
+    grouping mpls_instance_grp_chg {
+        uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/mpls" {
+                dr:source "mpls";
+                dr:fieldnum 153;
+	    }
+	    augment "afts/mpls/label-entry" {
+                dr:source "label-entry";
+                dr:atomic-data;
+                dr:fieldnum 151;
+	    }
+	    augment "afts/mpls/label-entry/label" {
+                dr:source "label";
+                dr:fieldnum 51;
+	    }
+	    augment "afts/mpls/label-entry/state" {
+                dr:fieldnum 151;
+	    }
+	    augment "afts/mpls/label-entry/state/label" {
+                dr:source "state_label";
+                dr:fieldnum 51;
+	    }
+        augment "afts/mpls/label-entry/state" {
+            uses afts_nh_group;
+        }
+
+	    augment "afts/mpls/label-entry/state/popped-mpls-label-stack" {
+		dr:source "popped_mpls_label_stack";
+		dr:fieldnum 54;
+	    }
+        }
+    }
+
+    grouping next_hop_group_instance {
+	uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups" {
+		dr:source "next-hop-groups";
+		dr:fieldnum 154;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group" {
+		dr:atomic-data;
+		dr:source "next-hop-group";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/id" {
+		dr:source "nh_group_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/state/id" {
+		dr:source "state_nh_group_id";
+		dr:fieldnum 51;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/state/programmed-id" {
+		dr:source "programmed_id";
+		dr:fieldnum 52;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops" {
+                dr:source "next-hops";
+                dr:fieldnum 152;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop" {
+		dr:source "child_nexthops";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/index" {
+		dr:source "nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/index" {
+		dr:source "state_nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/weight" {
+		dr:source "weight";
+		dr:fieldnum 52;
+	    }
+
+	    augment "afts/next-hop-groups/next-hop-group/conditional" {
+		dr:source "conditional";
+		dr:fieldnum 53;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition" {
+		dr:source "condition";
+		dr:fieldnum 54;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/id" {
+		dr:source "id";
+		dr:fieldnum 55;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state" {
+		dr:fieldnum 56;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/id" {
+		dr:source "state_id";
+		dr:fieldnum 57;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/dscp" {
+		dr:source "dscp_list";
+		dr:fieldnum 58;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/state/next-hop-group" {
+		dr:source "nexthop_id";
+		dr:fieldnum 59;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces" {
+		dr:source "input_interfaces";
+		dr:fieldnum 60;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface" {
+		dr:source "input_interface";
+		dr:fieldnum 61;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/id" {
+		dr:source "id";
+		dr:fieldnum 62;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state" {
+		dr:fieldnum 63;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/id" {
+		dr:source "state_id";
+		dr:fieldnum 64;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/interface" {
+		dr:source "interface_name";
+		dr:fieldnum 65;
+	    }
+	    augment "afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/subinterface" {
+		dr:source "sub_int_idx";
+		dr:fieldnum 66;
+	    }
+	}
+    }
+
+    grouping next_hop_instance {
+	uses oc-aft:aft-top {
+	    augment "afts" {
+		dr:source "afts";
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops" {
+		dr:source "nexthops";
+		dr:fieldnum 155;
+	    }
+	    augment "afts/next-hops/next-hop" {
+		dr:source "nexthop";
+                dr:atomic-data;
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/index" {
+		dr:source "nexthop_id";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/state/index" {
+		dr:source "state_nexthop_id";
+		dr:fieldnum 54;
+	    }
+	    augment "afts/next-hops/next-hop/state/ip-address" {
+		dr:source "ip_address";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop/state/mac-address" {
+		dr:source "mac_address";
+		dr:fieldnum 52;
+	    }
+	    augment "afts/next-hops/next-hop/state/pushed-mpls-label-stack" {
+		dr:source "pushed_mpls_label_stack";
+		dr:fieldnum 53;
+	    }
+	    augment "afts/next-hops/next-hop/state/encapsulate-header" {
+		dr:source "encapsulate_header";
+		dr:fieldnum 57;
+	    }
+	    augment "afts/next-hops/next-hop/state/programmed-index" {
+		dr:source "programmed_index";
+		dr:fieldnum 55;
+	    }
+	    augment "afts/next-hops/next-hop/state/lsp-name" {
+		dr:source "lsp_name";
+		dr:fieldnum 56;
+	    }
+	    augment "afts/next-hops/next-hop" {
+		container juniper {
+		    dr:fieldnum 152;
+
+		    container state {
+			dr:fieldnum 151;
+		    
+			leaf unmapped-nexthop {
+			    type boolean;
+			    dr:source "unsupported_nexthop";
+			    dr:fieldnum 51;
+			}
+		    
+			leaf-list mapped-next-hop-index {
+			    type uint64;
+			    dr:source "mapped_next_hop_indices";
+			    dr:fieldnum 52;
+			}
+
+			leaf lsp-id {
+			    type uint32;
+			    dr:source "lsp_id";
+			    dr:fieldnum 53;
+			}
+		    }
+		}
+	    }
+
+	    augment "afts/next-hops/next-hop/interface-ref" {
+		dr:fieldnum 153;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state" {
+		dr:fieldnum 151;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state/interface" {
+		dr:source "interface_name";
+		dr:fieldnum 51;
+	    }
+	    augment "afts/next-hops/next-hop/interface-ref/state/subinterface" {
+		dr:source "sub_int_idx";
+		dr:fieldnum 52;
+	    }
+	}
+    }
+ 
+
+    notification oc-ipv4-unicast-chg {
+	dr:source-notification-name "aft-ipv4-unicast-chg";
+	container network-instances {
+	    dr:fieldnum 151;
+	    dr:source "/notification/aft-ipv4-unicast-chg/network-instances";
+	    list network-instance {
+		dr:source "network-instance";
+		dr:fieldnum 151;
+		key name;
+		leaf name {
+		    type string;
+		    dr:source "name";
+		    dr:fieldnum 51;
+		}
+		uses ipv4_instance_grp_chg;
+	    }
+	}
+    }
+
+    notification oc-ipv6-unicast-chg {
+        dr:source-notification-name "aft-ipv6-unicast-chg";
+        container network-instances {
+	    dr:fieldnum 151;
+	    dr:source "/notification/aft-ipv6-unicast-chg/network-instances";
+	    list network-instance {
+		dr:source "network-instance";
+		dr:fieldnum 151;
+		key name;
+		leaf name {
+		    type string;
+		    dr:source "name";
+		    dr:fieldnum 51;
+		}
+		uses ipv6_instance_grp_chg;
+	    }
+        }
+    }
+
+    notification oc-mpls-chg {
+        dr:source-notification-name "aft-mpls-chg";
+        container network-instances {
+	    dr:fieldnum 151;
+	    dr:source "/notification/aft-mpls-chg/network-instances";
+	    list network-instance {
+		dr:source "network-instance";
+		dr:fieldnum 151;
+		key name;
+		leaf name {
+		    type string;
+		    dr:source "name";
+		    dr:fieldnum 51;
+		}
+		uses mpls_instance_grp_chg;
+	    }
+	}
+    }
+
+    notification oc-next-hop-group-chg {
+	dr:source-notification-name "aft-next-hop-group-chg";
+	container network-instances {
+	    dr:fieldnum 151;
+	    dr:source "/notification/aft-next-hop-group-chg/network-instances";
+	    list network-instance {
+		dr:source "network-instance";
+		dr:fieldnum 151;
+		key name;
+		leaf name {
+		    type string;
+		    dr:source "name";
+		    dr:fieldnum 51;
+		}
+		uses next_hop_group_instance;
+	    }
+	}
+    }
+
+    notification oc-next-hop-chg {
+        dr:source-notification-name "aft-next-hop-chg";
+        container network-instances {
+            dr:fieldnum 151;
+            dr:source "/notification/aft-next-hop-chg/network-instances";
+            list network-instance {
+                dr:source "network-instance";
+                dr:fieldnum 151;
+                key name;
+                leaf name {
+                    type string;
+                    dr:source "name";
+                    dr:fieldnum 51;
+                }
+                uses next_hop_instance;
+            }
+        }
+    }    
+}

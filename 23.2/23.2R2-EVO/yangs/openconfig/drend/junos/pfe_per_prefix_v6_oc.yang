@@ -1,0 +1,100 @@
+/*
+* $Id$
+*
+* Copyright (c) 2006-2021, Juniper Networks, Inc.
+* All rights reserved.
+*
+*/
+
+module pfe_per_prefix_v6_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/afts/pfe-per-prefix-v6-oc";
+
+  prefix "per-prefix-v6-oc";
+
+  import openconfig-yang-types { prefix "oc-yang"; }
+  import openconfig-inet-types { prefix "oc-inet"; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping v6-unicast {
+
+      container "network-instances" {
+          dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+          dr:fieldnum 205;
+
+          list network-instance {
+              dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+              dr:fieldnum 205;
+              key name;
+
+              leaf name {
+                  dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                  dr:fieldnum 206;
+		  type string;
+              }
+
+              container afts {
+                  dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                  dr:fieldnum 205;
+
+                  container ipv6-unicast {
+                      dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                      dr:fieldnum 205;
+
+                      list ipv6-entry {
+                          dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                          dr:fieldnum 205;
+                          key prefix;
+
+                          leaf prefix {
+                              dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                              dr:fieldnum 207;
+			      type oc-inet:ipv4-prefix;
+                          }
+                          container state {
+                              dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                              dr:fieldnum 205;
+
+                              container counters {
+                                  dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                                  dr:fieldnum 205;
+
+                                  leaf packets-forwarded {
+                                      dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                                      dr:fieldnum 208;
+                                      type oc-yang:counter64;
+                                  }
+
+                                  leaf octets-forwarded {
+                                      dr:source "/junos/services/ipv6-unicast/prefix/usage/";
+                                      dr:fieldnum 209;
+                                      type oc-yang:counter64;
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-per-prefix-v6";
+  jnpr-proto:message-id "PFE-PER-PREFIX-V6-OC-MESSAGE-ID";
+
+   rpc juniper-netconf-get {
+       output {
+         uses v6-unicast;
+       }
+   }
+}

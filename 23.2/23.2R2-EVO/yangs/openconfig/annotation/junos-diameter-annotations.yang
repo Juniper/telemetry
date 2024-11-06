@@ -1,0 +1,19 @@
+module junos-diameter-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/diameter/annotations";
+    prefix "junos-diameter-ann";
+    import junos-diameter { prefix junos-diameter; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-10-17" {
+        description "Initial version to add diameter model product support information";
+    }
+    augment "/junos-diameter:junos/junos-diameter:system/junos-diameter:subscriber-management/" +
+            "junos-diameter:aaa/junos-diameter:diameter" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "ACX7100-48L ACX7100-32C";
+        junos:product "cbng";
+        junos:product "mx10001 mx10002 mx960 mx480 mx240 mx2020 mx2010 mx2008 vmx vrr m320 m120 t320 t640 srx5800 srx5600 srx5400 srx3600 srx3400 srx1400 srx100h srx100h2 srx110h-va srx110h-vb srx110h-wl srx110h-va-wl srx110h-vb-wl srx110h2-va srx110h2-vb srx210h srx210h-poe srx210h-p-m srx210he srx210he-poe srx210he2 srx210he2-poe srx220h srx220h-poe srx220h-p-m srx220h2 srx220h2-poe srx240h srx240h-poe srx240h-p-m srx240h-dc srx240h2 srx240h2-poe srx240h2-dc srx300 srx300-lem srx320 srx320-lem srx320-poe srx320-poe-lem srx340 srx340-lem srx345 srx345-lem srx345-dual-ac srx345-dc srx320-lte-aa srx320-lte-ae srx320-poe-lte-aa srx320-poe-lte-ae srx380-poe-ac srx550 srx550m srx630 srx650 srx680 vsrx csrx srxtvp pvi-model ln2600";
+    }
+}

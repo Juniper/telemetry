@@ -1,0 +1,18 @@
+module jnx-tel-top-annotations {
+    yang-version 1;
+    namespace "http://yang.juniper.net/yang/jnx-telemetry-top/annotations";
+    prefix "jnx-tel-top-ann";
+    import jnx-tel-top { prefix jnx-tel-top; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    contact "support@juniper.net";
+    description "Yang definition for top Junos hierarchy";
+    revision "2017-05-17" {
+        description "Initial revision";
+    }
+    augment "/jnx-tel-top:junos" {
+        junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+        junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+    }
+}

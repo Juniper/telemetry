@@ -1,0 +1,165 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module na-grpcd_stats_oc {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/nagrpcd";
+
+  prefix "na-stats-oc";
+
+  import openconfig-telemetry { prefix oc-telemetry; }
+  import jnx-aug-openconfig-telemetry { prefix jnx-oc-telemetry; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+
+  // augment statements
+
+  grouping na_sensor_paths {
+    uses oc-telemetry:telemetry-sensor-path-config {
+      augment "path" {
+        dr:source "path";
+        dr:fieldnum 51;
+      }
+    }
+    uses jnx-oc-telemetry:telemetry-sensor-path-state-sample-interval {
+      augment "sample-interval" {
+        dr:source "reporting_interval";
+        dr:fieldnum 52;
+      }
+    }
+    uses jnx-oc-telemetry:telemetry-sensor-path-counters-state {
+      /**/augment "counters" {
+        dr:source "counters";
+        dr:fieldnum 151;
+      }
+      augment "counters/counter" {
+        dr:source "counter";
+        dr:fieldnum 151;
+      }
+      augment "counters/counter/severity" {
+        dr:source "severity";
+        dr:fieldnum 51;
+      }
+      augment "counters/counter/state" {
+        dr:fieldnum 151;
+      }
+      augment "counters/counter/state/severity" {
+        dr:source "severity";
+        dr:fieldnum 51;
+      }
+      augment "counters/counter/state/id" {
+        dr:source "id";
+        dr:fieldnum 52;
+      }
+      augment "counters/counter/state/value" {
+        dr:source "value";
+        dr:fieldnum 53;
+      }
+      augment "counters/counter/state/unit" {
+        dr:source "unit";
+        dr:fieldnum 54;
+      }/**/
+    }
+  }
+
+  grouping na_subscription_state {
+    uses oc-telemetry:telemetry-subscription-config {
+      augment "id" {
+        dr:source "subscription_id";
+        dr:fieldnum 51;
+      }
+    }
+    uses oc-telemetry:telemetry-stream-destination-config {
+      augment "destination-address" {
+        dr:source "destination_address";
+        dr:fieldnum 52;
+      }
+      augment "destination-port" {
+        dr:source port;
+        dr:fieldnum 53;
+      }
+    }
+    uses oc-telemetry:telemetry-stream-protocol-config {
+      augment "protocol" {
+        dr:source protocol;
+        dr:fieldnum 54;
+      }
+    }
+    uses oc-telemetry:telemetry-stream-encoding-config {
+      augment "encoding" {
+        dr:source encoding;
+        dr:fieldnum 55;
+      }
+    }
+  }
+
+  dr:command-app "na-grpcd";
+  dr:sub-component "stats";
+  jnpr-proto:message-id "NAGRPCD-STATS-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container telemetry-system {
+        dr:fieldnum 151;
+
+        container subscriptions {
+          dr:fieldnum 151;
+
+          container dynamic-subscriptions {
+            dr:fieldnum 151;
+
+            list dynamic-subscription {
+              dr:source "/telemetry-system/subscriptions/subscription";
+              dr:fieldnum 151;
+              key "id";
+
+              leaf id {
+                type uint32;
+                dr:source "subscription_id";
+                dr:fieldnum 51;
+              }
+              container state {
+                dr:fieldnum 151;
+                uses na_subscription_state;
+              }
+              container sensor-paths {
+                dr:fieldnum 152;
+
+                list sensor-path {
+                  dr:source "sensor-paths";
+                  dr:fieldnum 151;
+                  key "path";
+
+                  leaf path {
+                    type string;
+                    dr:source "path";
+                    dr:fieldnum 51;
+                  }
+
+                  container state {
+                    dr:fieldnum 151;
+                    uses na_sensor_paths;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

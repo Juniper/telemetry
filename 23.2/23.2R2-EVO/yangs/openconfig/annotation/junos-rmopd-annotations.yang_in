@@ -1,0 +1,24 @@
+module junos-rmopd-render-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/rmopd/annotations";
+
+    prefix "junos-rmopd-ann";
+
+    import junos-rmopd { prefix junos-rmopd; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2023-02-15" {
+        description "Initial version to add rmopd product support information";
+    }
+
+    augment "/junos-rmopd:junos/junos-rmopd:rpm" {
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX ptx10004 ptx10008 ptx10016);
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX ULTRON_ACX);
+    }
+}

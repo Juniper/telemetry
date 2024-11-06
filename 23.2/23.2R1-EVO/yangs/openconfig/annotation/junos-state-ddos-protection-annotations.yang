@@ -1,0 +1,16 @@
+module junos-state-ddos-protection-annotations {
+    yang-version 1;
+    namespace "http://yang.juniper.net/junos/state/ddos-protection/annotations";
+    prefix "js-ddos-ann";
+    import junos-state { prefix js; }
+    import junos-state-system { prefix js-sys; }
+    import junos-state-ddos-protection { prefix js-ddos-protection; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks Inc.";
+    revision "2022-11-21" {
+        description "Initial revision to add native ddos-protection model product support information";
+    }
+    augment "/js:state/js-sys:system/js-ddos-protection:ddos-protection" {
+        junos:product "ptx1000 ptx5000 ptx21000 ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10003-81cd ptx10001-36mr ptx10001-27cd ptx10016 ptx10008 ptx10004 qfx5220-32cd qfx5220-128c qfx5130-32cd qfx5009 qfx5700 qfx5230-64cd qfx5130-48c qfx5130-48cm acx753 r6273 ACX7100-48L ACX7100-32C acx7509 wbonl acx7908 ACX7024 acx7332 acx7348 QFX7100-48L ptx10002-36qdd";
+    }
+}

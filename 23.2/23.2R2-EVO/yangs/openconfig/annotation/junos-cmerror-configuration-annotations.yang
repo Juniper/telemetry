@@ -1,0 +1,18 @@
+module junos-cmerror-configuration-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos-cmerror-configuration/annotations";
+    prefix "junos-cmerror-configuration-ann";
+    import junos-cmerror-configuration { prefix junos-cmerror-configuration; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-12-20" {
+        description "Initial version to add eventd model product support information";
+    }
+    augment "/junos-cmerror-configuration:junos/junos-cmerror-configuration:system/junos-cmerror-configuration:cmerror/junos-cmerror-configuration:configuration" {
+        junos:product "ptx10001-36mr ptx10004 ptx10008 ptx10016";
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product "ex9204 ex9208 ex9214 ex9251 ex9253";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "acx7908 acx7509 ACX7100-48L ACX7100-32C";
+    }
+}

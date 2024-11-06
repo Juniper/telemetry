@@ -1,0 +1,317 @@
+/*
+ * OC definition for smgd subscriber-management network stats.
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+/**
+ * @file
+ * OC Render Tree.
+ */
+
+module bbe-smgd_sub_mgmt_network_stats_oc {
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/bbemg-sub-mgmt-network";
+
+    prefix "bbe-smgd-sub-mgmt-network-stats-oc";
+
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    /*
+     * Daemon socket that handles this hierarchy
+     */
+    dr:command-app "smg-service";
+    dr:sub-component "network-stats";
+    jnpr-proto:message-id "BBE-SMGD-SUB-MGMT-NETWORK-STATS-OC-MESSAGE-ID";
+
+    grouping network-io-basic-stats {
+         leaf l2-rx-packets-cnt                          { type uint64; dr:source l2_rx_packets_cnt; dr:fieldnum 51; }
+         leaf l2-rx-packets-failed                       { type uint64; dr:source l2_rx_packets_failed; dr:fieldnum 52; }
+         leaf l2-rx-malformed-cnt                        { type uint64; dr:source l2_rx_malformed_cnt; dr:fieldnum 53; }
+         leaf l2-rx-ifd-invalid                          { type uint64; dr:source l2_rx_ifd_invalid; dr:fieldnum 54; }
+         leaf l2-rx-ifl-invalid                          { type uint64; dr:source l2_rx_ifl_invalid; dr:fieldnum 55; }
+         leaf l2-rx-no-iff-cnt                           { type uint64; dr:source l2_rx_no_iff_cnt; dr:fieldnum 56; }
+         leaf l2-rx-if-create-failed                     { type uint64; dr:source l2_rx_if_create_failed; dr:fieldnum 57; }
+         leaf l2-bbe-io-rcv-l3-unknown-address-family    { type uint64; dr:source l2_bbe_io_rcv_l3_unknown_address_family; dr:fieldnum 58; }
+         leaf l2-rx-unsupported-inet-protocol            { type uint64; dr:source l2_rx_unsupported_inet_protocol; dr:fieldnum 59; }
+         leaf l2-rx-unsupported-inet6-protocol           { type uint64; dr:source l2_rx_unsupported_inet6_protocol; dr:fieldnum 60; }
+         leaf l2-rx-unsupported-udp-protocol             { type uint64; dr:source l2_rx_unsupported_udp_protocol; dr:fieldnum 61; }
+         leaf l2-rx-unsupported-punt-af                  { type uint64; dr:source l2_rx_unsupported_punt_af; dr:fieldnum 62; }
+         leaf l2-rx-v4-data-path-punt-pkt                { type uint64; dr:source l2_rx_v4_data_path_punt_pkt; dr:fieldnum 63; }
+         leaf l2-rx-v4-data-path-punt-pkt-drop           { type uint64; dr:source l2_rx_v4_data_path_punt_pkt_drop; dr:fieldnum 64; }
+         leaf l2-rx-v6-data-path-punt-pkt                { type uint64; dr:source l2_rx_v6_data_path_punt_pkt; dr:fieldnum 65; }
+         leaf l2-rx-v6-data-path-punt-pkt-drop           { type uint64; dr:source l2_rx_v6_data_path_punt_pkt_drop; dr:fieldnum 66; }
+         leaf l2-tx-packets-cnt                          { type uint64; dr:source l2_tx_packets_cnt; dr:fieldnum 67; }
+         leaf l2-tx-malformed-cnt                        { type uint64; dr:source l2_tx_malformed_cnt; dr:fieldnum 68; }
+         leaf l2-tx-no-ifd-cnt                           { type uint64; dr:source l2_tx_no_ifd_cnt; dr:fieldnum 69; }
+         leaf l2-tx-ifl-invalid                          { type uint64; dr:source l2_tx_ifl_invalid; dr:fieldnum 70; }
+         leaf l2-bbe-io-send-tx-failed                   { type uint64; dr:source l2_bbe_io_send_tx_failed; dr:fieldnum 71; }
+         leaf l2-bbe-io-send-tx-failed-partial           { type uint64; dr:source l2_bbe_io_send_tx_failed_partial; dr:fieldnum 72; }
+         leaf l2-tx-v4-out-error-local-intf              { type uint64; dr:source l2_tx_v4_out_error_local_intf; dr:fieldnum 73; }
+         leaf l2-tx-v6-out-error-local-intf              { type uint64; dr:source l2_tx_v6_out_error_local_intf; dr:fieldnum 74; }
+         leaf l3-rx-packet-cnt                           { type uint64; dr:source l3_rx_packet_cnt; dr:fieldnum 75; }
+         leaf l3-rx-unsupported-protocol                 { type uint64; dr:source l3_rx_unsupported_protocol; dr:fieldnum 76; }
+         leaf l3-tx-packet-cnt                           { type uint64; dr:source l3_tx_packet_cnt; dr:fieldnum 77; }
+         leaf l3-tx-send-failed                          { type uint64; dr:source l3_tx_send_failed; dr:fieldnum 78; }
+         leaf l3-tx-v4-kernel-forward                    { type uint64; dr:source l3_tx_v4_kernel_forward; dr:fieldnum 79; }
+         leaf l3-tx-v4-kernel-forward-drops              { type uint64; dr:source l3_tx_v4_kernel_forward_drops; dr:fieldnum 80; }
+         leaf l3-tx-v6-kernel-forward                    { type uint64; dr:source l3_tx_v6_kernel_forward; dr:fieldnum 81; }
+         leaf l3-tx-v6-kernel-forward-drops              { type uint64; dr:source l3_tx_v6_kernel_forward_drops; dr:fieldnum 82; }
+    }
+
+    grouping network-dhcp-stats {
+         leaf rx-packet-cnt                              { type uint64; dr:source rx_packet_cnt; dr:fieldnum 51; }
+         leaf era-drops                                  { type uint64; dr:source era_drops; dr:fieldnum 52; }
+         leaf rx-no-connection                           { type uint64; dr:source rx_no_connection; dr:fieldnum 53; }
+         leaf rx-malformed-cnt                           { type uint64; dr:source rx_malformed_cnt; dr:fieldnum 54; }
+         leaf rx-no-if-cnt                               { type uint64; dr:source rx_no_if_cnt; dr:fieldnum 55; }
+         leaf rx-ifl-invalid                             { type uint64; dr:source rx_ifl_invalid; dr:fieldnum 56; }
+         leaf rx-send-failed                             { type uint64; dr:source rx_send_failed; dr:fieldnum 57; }
+         leaf tx-packet-cnt                              { type uint64; dr:source tx_packet_cnt; dr:fieldnum 58; }
+         leaf packets-transmitted                        { type uint64; dr:source packets_transmitted; dr:fieldnum 59; }
+         leaf tx-malformed-cnt                           { type uint64; dr:source tx_malformed_cnt; dr:fieldnum 60; }
+         leaf tx-null-pkt                                { type uint64; dr:source tx_null_pkt; dr:fieldnum 61; }
+         leaf tx-no-if-cnt                               { type uint64; dr:source tx_no_if_cnt; dr:fieldnum 62; }
+         leaf tx-no-iff-cnt                              { type uint64; dr:source tx_no_iff_cnt; dr:fieldnum 63; }
+         leaf tx-no-rtt-cnt                              { type uint64; dr:source tx_no_rtt_cnt; dr:fieldnum 64; }
+         leaf tx-arp-failed                              { type uint64; dr:source tx_arp_failed; dr:fieldnum 65; }
+         leaf tx-if-invalid                              { type uint64; dr:source tx_if_invalid; dr:fieldnum 66; }
+         leaf tx-send-failed                             { type uint64; dr:source tx_send_failed; dr:fieldnum 67; }
+         leaf rx-while-not-connected                     { type uint64; dr:source rx_while_not_connected; dr:fieldnum 68; }
+    }
+
+    grouping network-pppoe-stats {
+         leaf rx-cnt                                     { type uint64; dr:source rx_cnt; dr:fieldnum 51; }
+         leaf rx-padi-cnt                                { type uint64; dr:source rx_padi_cnt; dr:fieldnum 52; }
+         leaf rx-padr-cnt                                { type uint64; dr:source rx_padr_cnt; dr:fieldnum 53; }
+         leaf rx-ppp-cnt                                 { type uint64; dr:source rx_ppp_cnt; dr:fieldnum 54; }
+         leaf rx-malformed-cnt                           { type uint64; dr:source rx_malformed_cnt; dr:fieldnum 55; }
+         leaf rx-no-if-cnt                               { type uint64; dr:source rx_no_if_cnt; dr:fieldnum 56; }
+         leaf rx-unsupported                             { type uint64; dr:source rx_unsupported; dr:fieldnum 57; }
+         leaf rx-padi-era-discards                       { type uint64; dr:source rx_padi_era_discards; dr:fieldnum 58; }
+         leaf tx-cnt                                     { type uint64; dr:source tx_cnt; dr:fieldnum 59; }
+         leaf tx-send-failed                             { type uint64; dr:source tx_send_failed; dr:fieldnum 60; }
+    }
+
+    grouping network-ppp-stats {
+         leaf rx-network-pkt-cnt                         { type uint64; dr:source rx_network_pkt_cnt; dr:fieldnum 51; }
+         leaf rx-plugin-pkt-cnt                          { type uint64; dr:source rx_plugin_pkt_cnt; dr:fieldnum 52; }
+         leaf rx-lcp-conf-req-cnt                        { type uint64; dr:source rx_lcp_conf_req_cnt; dr:fieldnum 53; }
+         leaf rx-lcp-conf-ack-cnt                        { type uint64; dr:source rx_lcp_conf_ack_cnt; dr:fieldnum 54; }
+         leaf rx-lcp-conf-nack-cnt                       { type uint64; dr:source rx_lcp_conf_nack_cnt; dr:fieldnum 55; }
+         leaf rx-lcp-conf-rej-cnt                        { type uint64; dr:source rx_lcp_conf_rej_cnt; dr:fieldnum 56; }
+         leaf rx-lcp-term-req-cnt                        { type uint64; dr:source rx_lcp_term_req_cnt; dr:fieldnum 57; }
+         leaf rx-lcp-term-ack-cnt                        { type uint64; dr:source rx_lcp_term_ack_cnt; dr:fieldnum 58; }
+         leaf rx-lcp-code-rej-cnt                        { type uint64; dr:source rx_lcp_code_rej_cnt; dr:fieldnum 59; }
+         leaf rx-lcp-protocol-rej-cnt                    { type uint64; dr:source rx_lcp_protocol_rej_cnt; dr:fieldnum 60; }
+         leaf rx-lcp-echo-req-cnt                        { type uint64; dr:source rx_lcp_echo_req_cnt; dr:fieldnum 61; }
+         leaf rx-lcp-echo-reply-cnt                      { type uint64; dr:source rx_lcp_echo_reply_cnt; dr:fieldnum 62; }
+         leaf rx-lcp-discard-req-cnt                     { type uint64; dr:source rx_lcp_discard_req_cnt; dr:fieldnum 63; }
+         leaf rx-pap-req-cnt                             { type uint64; dr:source rx_pap_req_cnt; dr:fieldnum 64; }
+         leaf rx-pap-ack-cnt                             { type uint64; dr:source rx_pap_ack_cnt; dr:fieldnum 65; }
+         leaf rx-pap-nack-cnt                            { type uint64; dr:source rx_pap_nack_cnt; dr:fieldnum 66; }
+         leaf rx-chap-challenge-cnt                      { type uint64; dr:source rx_chap_challenge_cnt; dr:fieldnum 67; }
+         leaf rx-chap-resp-cnt                           { type uint64; dr:source rx_chap_resp_cnt; dr:fieldnum 68; }
+         leaf rx-chap-success-cnt                        { type uint64; dr:source rx_chap_success_cnt; dr:fieldnum 69; }
+         leaf rx-chap-failure-cnt                        { type uint64; dr:source rx_chap_failure_cnt; dr:fieldnum 70; }
+         leaf rx-ipcp-req-cnt                            { type uint64; dr:source rx_ipcp_req_cnt; dr:fieldnum 71; }
+         leaf rx-ipcp-ack-cnt                            { type uint64; dr:source rx_ipcp_ack_cnt; dr:fieldnum 72; }
+         leaf rx-ipcp-nack-cnt                           { type uint64; dr:source rx_ipcp_nack_cnt; dr:fieldnum 73; }
+         leaf rx-ipv6cp-req-cnt                          { type uint64; dr:source rx_ipv6cp_req_cnt; dr:fieldnum 74; }
+         leaf rx-ipv6cp-ack-cnt                          { type uint64; dr:source rx_ipv6cp_ack_cnt; dr:fieldnum 75; }
+         leaf rx-ipv6cp-nack-cnt                         { type uint64; dr:source rx_ipv6cp_nack_cnt; dr:fieldnum 76; }
+         leaf rx-malformed-cnt                           { type uint64; dr:source rx_malformed_cnt; dr:fieldnum 77; }
+         leaf rx-no-if-cnt                               { type uint64; dr:source rx_no_if_cnt; dr:fieldnum 78; }
+         leaf rx-unsupported                             { type uint64; dr:source rx_unsupported; dr:fieldnum 79; }
+         leaf tx-cnt                                     { type uint64; dr:source tx_cnt; dr:fieldnum 80; }
+         leaf tx-lcp-conf-req-cnt                        { type uint64; dr:source tx_lcp_conf_req_cnt; dr:fieldnum 81; }
+         leaf tx-lcp-conf-ack-cnt                        { type uint64; dr:source tx_lcp_conf_ack_cnt; dr:fieldnum 82; }
+         leaf tx-lcp-conf-nack-cnt                       { type uint64; dr:source tx_lcp_conf_nack_cnt; dr:fieldnum 83; }
+         leaf tx-lcp-conf-rej-cnt                        { type uint64; dr:source tx_lcp_conf_rej_cnt; dr:fieldnum 84; }
+         leaf tx-lcp-echo-req-cnt                        { type uint64; dr:source tx_lcp_echo_req_cnt; dr:fieldnum 85; }
+         leaf tx-lcp-echo-reply-cnt                      { type uint64; dr:source tx_lcp_echo_reply_cnt; dr:fieldnum 86; }
+         leaf tx-lcp-discard-req-cnt                     { type uint64; dr:source tx_lcp_discard_req_cnt; dr:fieldnum 87; }
+         leaf tx-lcp-term-req-cnt                        { type uint64; dr:source tx_lcp_term_req_cnt; dr:fieldnum 88; }
+         leaf tx-lcp-term-ack-cnt                        { type uint64; dr:source tx_lcp_term_ack_cnt; dr:fieldnum 89; }
+         leaf tx-pap-req-cnt                             { type uint64; dr:source tx_pap_req_cnt; dr:fieldnum 90; }
+         leaf tx-pap-ack-cnt                             { type uint64; dr:source tx_pap_ack_cnt; dr:fieldnum 91; }
+         leaf tx-pap-nack-cnt                            { type uint64; dr:source tx_pap_nack_cnt; dr:fieldnum 92; }
+         leaf tx-chap-challenge-cnt                      { type uint64; dr:source tx_chap_challenge_cnt; dr:fieldnum 93; }
+         leaf tx-chap-resp-cnt                           { type uint64; dr:source tx_chap_resp_cnt; dr:fieldnum 94; }
+         leaf tx-chap-success-cnt                        { type uint64; dr:source tx_chap_success_cnt; dr:fieldnum 95; }
+         leaf tx-chap-failure-cnt                        { type uint64; dr:source tx_chap_failure_cnt; dr:fieldnum 96; }
+         leaf tx-ipcp-req-cnt                            { type uint64; dr:source tx_ipcp_req_cnt; dr:fieldnum 97; }
+         leaf tx-ipcp-ack-cnt                            { type uint64; dr:source tx_ipcp_ack_cnt; dr:fieldnum 98; }
+         leaf tx-ipcp-nack-cnt                           { type uint64; dr:source tx_ipcp_nack_cnt; dr:fieldnum 99; }
+         leaf tx-ipv6cp-req-cnt                          { type uint64; dr:source tx_ipv6cp_req_cnt; dr:fieldnum 100; }
+         leaf tx-ipv6cp-ack-cnt                          { type uint64; dr:source tx_ipv6cp_ack_cnt; dr:fieldnum 101; }
+         leaf tx-ipv6cp-nack-cnt                         { type uint64; dr:source tx_ipv6cp_nack_cnt; dr:fieldnum 102; }
+         leaf tx-unknown-pkt-cnt                         { type uint64; dr:source tx_unknown_pkt_cnt; dr:fieldnum 103; }
+         leaf tx-send-failed                             { type uint64; dr:source tx_send_failed; dr:fieldnum 104; }
+         leaf tx-malformed-cnt                           { type uint64; dr:source tx_malformed_cnt; dr:fieldnum 105; }
+    }
+
+    grouping network-dvlan-stats {
+         leaf rx-packet-cnt                              { type uint64; dr:source rx_packet_cnt; dr:fieldnum 51; }
+    }
+
+    grouping network-l2tp-stats {
+         leaf rx-cnt                                     { type uint64; dr:source rx_cnt; dr:fieldnum 51; }
+         leaf rx-pkt-cnt                                 { type uint64; dr:source rx_pkt_cnt; dr:fieldnum 52; }
+         leaf ppp-rx-pkt-cnt                             { type uint64; dr:source ppp_rx_pkt_cnt; dr:fieldnum 53; }
+         leaf tx-pkt-cnt                                 { type uint64; dr:source tx_pkt_cnt; dr:fieldnum 54; }
+         leaf ppp-rx-lcp-conf-req-count                  { type uint64; dr:source ppp_rx_lcp_conf_req_count; dr:fieldnum 55; }
+         leaf ppp-rx-lcp-conf-ack-count                  { type uint64; dr:source ppp_rx_lcp_conf_ack_count; dr:fieldnum 56; }
+         leaf ppp-rx-lcp-conf-nack-count                 { type uint64; dr:source ppp_rx_lcp_conf_nack_count; dr:fieldnum 57; }
+         leaf ppp-rx-lcp-term-req-count                  { type uint64; dr:source ppp_rx_lcp_term_req_count; dr:fieldnum 58; }
+         leaf ppp-rx-lcp-term-ack-count                  { type uint64; dr:source ppp_rx_lcp_term_ack_count; dr:fieldnum 59; }
+         leaf ppp-rx-lcp-echo-req-count                  { type uint64; dr:source ppp_rx_lcp_echo_req_count; dr:fieldnum 60; }
+         leaf ppp-rx-lcp-echo-resp-count                 { type uint64; dr:source ppp_rx_lcp_echo_resp_count; dr:fieldnum 61; }
+         leaf ppp-rx-pap-req-count                       { type uint64; dr:source ppp_rx_pap_req_count; dr:fieldnum 62; }
+         leaf ppp-rx-pap-ack-count                       { type uint64; dr:source ppp_rx_pap_ack_count; dr:fieldnum 63; }
+         leaf ppp-rx-pap-nack-count                      { type uint64; dr:source ppp_rx_pap_nack_count; dr:fieldnum 64; }
+         leaf ppp-rx-chap-challenge-count                { type uint64; dr:source ppp_rx_chap_challenge_count; dr:fieldnum 65; }
+         leaf ppp-rx-chap-resp-count                     { type uint64; dr:source ppp_rx_chap_resp_count; dr:fieldnum 66; }
+         leaf ppp-rx-chap-success-count                  { type uint64; dr:source ppp_rx_chap_success_count; dr:fieldnum 67; }
+         leaf ppp-rx-chap-fail-count                     { type uint64; dr:source ppp_rx_chap_fail_count; dr:fieldnum 68; }
+         leaf ppp-rx-ipcp-conf-req-count                 { type uint64; dr:source ppp_rx_ipcp_conf_req_count; dr:fieldnum 69; }
+         leaf ppp-rx-ipcp-conf-ack-count                 { type uint64; dr:source ppp_rx_ipcp_conf_ack_count; dr:fieldnum 70; }
+         leaf ppp-rx-ipcp-conf-nack-count                { type uint64; dr:source ppp_rx_ipcp_conf_nack_count; dr:fieldnum 71; }
+         leaf rx-malformed-cnt                           { type uint64; dr:source rx_malformed_cnt; dr:fieldnum 72; }
+         leaf ppp-rx-unknown-protocol                    { type uint64; dr:source ppp_rx_unknown_protocol; dr:fieldnum 73; }
+         leaf rx-msg-cnt                                 { type uint64; dr:source rx_msg_cnt; dr:fieldnum 74; }
+         leaf rx-msg-processd-cnt                        { type uint64; dr:source rx_msg_processd_cnt; dr:fieldnum 75; }
+         leaf rx-msg-err                                 { type uint64; dr:source rx_msg_err; dr:fieldnum 76; }
+         leaf rx-invalid-msg-cnt                         { type uint64; dr:source rx_invalid_msg_cnt; dr:fieldnum 77; }
+         leaf tx-cnt                                     { type uint64; dr:source tx_cnt; dr:fieldnum 78; }
+         leaf ppp-tx-lcp-conf-req-count                  { type uint64; dr:source ppp_tx_lcp_conf_req_count; dr:fieldnum 79; }
+         leaf ppp-tx-lcp-conf-ack-count                  { type uint64; dr:source ppp_tx_lcp_conf_ack_count; dr:fieldnum 80; }
+         leaf ppp-tx-lcp-conf-nack-count                 { type uint64; dr:source ppp_tx_lcp_conf_nack_count; dr:fieldnum 81; }
+         leaf ppp-tx-lcp-echo-req-count                  { type uint64; dr:source ppp_tx_lcp_echo_req_count; dr:fieldnum 82; }
+         leaf ppp-tx-lcp-echo-resp-count                 { type uint64; dr:source ppp_tx_lcp_echo_resp_count; dr:fieldnum 83; }
+         leaf ppp-tx-lcp-term-req-count                  { type uint64; dr:source ppp_tx_lcp_term_req_count; dr:fieldnum 84; }
+         leaf ppp-tx-lcp-term-ack-count                  { type uint64; dr:source ppp_tx_lcp_term_ack_count; dr:fieldnum 85; }
+         leaf ppp-tx-pap-req-count                       { type uint64; dr:source ppp_tx_pap_req_count; dr:fieldnum 86; }
+         leaf ppp-tx-pap-ack-count                       { type uint64; dr:source ppp_tx_pap_ack_count; dr:fieldnum 87; }
+         leaf ppp-tx-pap-nack-count                      { type uint64; dr:source ppp_tx_pap_nack_count; dr:fieldnum 88; }
+         leaf ppp-tx-chap-challenge-count                { type uint64; dr:source ppp_tx_chap_challenge_count; dr:fieldnum 89; }
+         leaf ppp-tx-chap-resp-count                     { type uint64; dr:source ppp_tx_chap_resp_count; dr:fieldnum 90; }
+         leaf ppp-tx-chap-success-count                  { type uint64; dr:source ppp_tx_chap_success_count; dr:fieldnum 91; }
+         leaf ppp-tx-chap-fail-count                     { type uint64; dr:source ppp_tx_chap_fail_count; dr:fieldnum 92; }
+         leaf ppp-tx-ipcp-conf-req-count                 { type uint64; dr:source ppp_tx_ipcp_conf_req_count; dr:fieldnum 93; }
+         leaf ppp-tx-ipcp-conf-ack-count                 { type uint64; dr:source ppp_tx_ipcp_conf_ack_count; dr:fieldnum 94; }
+         leaf ppp-tx-ipcp-conf-nack-count                { type uint64; dr:source ppp_tx_ipcp_conf_nack_count; dr:fieldnum 95; }
+         leaf ppp-tx-unknown-protocol                    { type uint64; dr:source ppp_tx_unknown_protocol; dr:fieldnum 96; }
+         leaf tx-pkt-send-failed                         { type uint64; dr:source tx_pkt_send_failed; dr:fieldnum 97; }
+         leaf tx-pkt-err                                 { type uint64; dr:source tx_pkt_err; dr:fieldnum 98; }
+         leaf tx-msg-cnt                                 { type uint64; dr:source tx_msg_cnt; dr:fieldnum 99; }
+         leaf tx-msg-err                                 { type uint64; dr:source tx_msg_err; dr:fieldnum 100; }
+    }
+
+    grouping network-hag-stats {
+         leaf rx-network-pkt-cnt                         { type uint64; dr:source rx_network_pkt_cnt; dr:fieldnum 51; }
+         leaf rx-malformed-pkt-cnt                       { type uint64; dr:source rx_malformed_pkt_cnt; dr:fieldnum 52; }
+         leaf rx-no-if-pkt-cnt                           { type uint64; dr:source rx_no_if_pkt_cnt; dr:fieldnum 53; }
+         leaf rx-send-succeeded-pkt-cnt                  { type uint64; dr:source rx_send_succeeded_pkt_cnt; dr:fieldnum 54; }
+         leaf rx-send-failed-pkt-cnt                     { type uint64; dr:source rx_send_failed_pkt_cnt; dr:fieldnum 55; }
+         leaf rx-unsupported-pkt-cnt                     { type uint64; dr:source rx_unsupported_pkt_cnt; dr:fieldnum 56; }
+         leaf rx-setup-request-cnt                       { type uint64; dr:source rx_setup_request_cnt; dr:fieldnum 57; }
+         leaf rx-hello-pkt-cnt                           { type uint64; dr:source rx_hello_pkt_cnt; dr:fieldnum 58; }
+         leaf rx-tear-down-pkt-cnt                       { type uint64; dr:source rx_tear_down_pkt_cnt; dr:fieldnum 59; }
+         leaf rx-notify-pkt-cnt                          { type uint64; dr:source rx_notify_pkt_cnt; dr:fieldnum 60; }
+         leaf tx-network-pkt-cnt                         { type uint64; dr:source tx_network_pkt_cnt; dr:fieldnum 61; }
+         leaf tx-null-pkt-cnt                            { type uint64; dr:source tx_null_pkt_cnt; dr:fieldnum 62; }
+         leaf tx-no-if-pkt-cnt                           { type uint64; dr:source tx_no_if_pkt_cnt; dr:fieldnum 63; }
+         leaf tx-send-succeeded-pkt-cnt                  { type uint64; dr:source tx_send_succeeded_pkt_cnt; dr:fieldnum 64; }
+         leaf tx-send-failed-pkt-cnt                     { type uint64; dr:source tx_send_failed_pkt_cnt; dr:fieldnum 65; }
+         leaf tx-setup-request-pkt-cnt                   { type uint64; dr:source tx_setup_request_pkt_cnt; dr:fieldnum 66; }
+         leaf tx-setup-accept-pkt-cnt                    { type uint64; dr:source tx_setup_accept_pkt_cnt; dr:fieldnum 67; }
+         leaf tx-setup-deny-pkt-cnt                      { type uint64; dr:source tx_setup_deny_pkt_cnt; dr:fieldnum 68; }
+         leaf tx-hello-pkt-cnt                           { type uint64; dr:source tx_hello_pkt_cnt; dr:fieldnum 69; }
+         leaf tx-tear-down-pkt-cnt                       { type uint64; dr:source tx_tear_down_pkt_cnt; dr:fieldnum 70; }
+         leaf tx-notify-pkt-cnt                          { type uint64; dr:source tx_notify_pkt_cnt; dr:fieldnum 71; }
+         leaf inflight-hag-sessions-cnt                  { type uint64; dr:source inflight_hag_sessions_cnt; dr:fieldnum 72; }
+         leaf successful-hag-sessions-cnt                { type uint64; dr:source successful_hag_sessions_cnt; dr:fieldnum 73; }
+         leaf failed_hag-sessions-cnt                    { type uint64; dr:source failed_hag_sessions_cnt; dr:fieldnum 74; }
+    }
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-smgd-sys-sub_mgmt-information";
+        dr:command-help "Default <get> rpc";
+        output{ 
+            container junos { 
+                container system {
+		    dr:fieldnum 151;
+                    container subscriber-management {
+		        dr:fieldnum 151;
+                        container uplanes {
+                            dr:source "/junos/system/subscriber-management/uplanes";
+                            dr:fieldnum 151;
+                            list uplane {
+                                dr:source "uplane";
+                                dr:fieldnum 151;
+                                key uplane-id;
+                                leaf uplane-id {
+                                    description
+                                        "user plane identification number";
+                                    type uint32;
+                                    dr:source "uplane_id";
+                                    dr:fieldnum 51;
+                                }
+                                container infra {
+                                    dr:source "infra";
+                                    dr:fieldnum 151;
+                                    container network {
+                                        dr:source "network";
+                                        dr:fieldnum 151;
+                                        container io {
+                                           dr:source "io";
+                                           dr:fieldnum 151;
+                                           uses network-io-basic-stats;
+                                        }
+                                        container dhcp {
+                                            dr:source "dhcp";
+                                            dr:fieldnum 152;
+                                            uses network-dhcp-stats;
+                                        }
+                                        container ppp {
+                                            dr:source "ppp";
+                                            dr:fieldnum 153;
+                                            uses network-ppp-stats;
+                                        }
+                                        container pppoe {
+                                            dr:source "pppoe";
+                                            dr:fieldnum 154;
+                                            uses network-pppoe-stats;
+                                        }
+                                        container dvlan {
+                                            dr:source "dvlan";
+                                            dr:fieldnum 156;
+                                            uses network-dvlan-stats;
+                                        }
+                                        container l2tp {
+                                            dr:source "l2tp";
+                                            dr:fieldnum 155;
+                                            uses network-l2tp-stats;
+                                        }
+                                        container hag {
+                                            dr:source "hag";
+                                            dr:fieldnum 157;
+                                            uses network-hag-stats;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

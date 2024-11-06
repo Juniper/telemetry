@@ -1,0 +1,22 @@
+module junos-nasd-annotations {
+	yang-version 1;
+
+	namespace "http://juniper.net/yang/junos/nasd/annotations";
+
+	prefix "junos-nasd-ann";
+
+	import junos-nasd { prefix jnasd; }
+	import junos-extension { prefix junos; }
+
+	//meta
+	organization "JuniperNetworks Inc.";
+
+	revision "2022-09-28" {
+	    description "Initial version to add nasd model product support information";
+	}
+
+    augment "/jnasd:junos/jnasd:system/jnasd:subscriber-management/jnasd:agf/jnasd:nas" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    }
+}

@@ -1,0 +1,32 @@
+module junos-eventd-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/eventd/annotations";
+
+    prefix "junos-eventd-ann";
+
+    import junos-eventd { prefix junos-eventd; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-22" {
+        description "Initial version to add eventd model product support information";
+    }
+
+    augment "/junos-eventd:junos/junos-eventd:events" {
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT_TVP(mx10003 mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+        JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+        JUNOS_PRODUCT_TVP(QFX5120-48YM QFX5120-48T QFX5210-64C);
+        JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+        JUNOS_PRODUCT_TVP(EX4100-48P EX4100-48T EX4100-24P EX4100-24T EX4100-F-48P EX4100-F-24P EX4100-F-48T EX4100-F-24T);
+        JUNOS_PRODUCT_TVP(EX4100-48MP EX4100-24MP EX4100-F-12P EX4100-F-12T);
+        JUNOS_PRODUCT_TVP(EX4400-24MP EX4400-24P EX4400-24T EX4400-48F EX4400-48MP EX4400-48P EX4400-48T);
+    }
+}

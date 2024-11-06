@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional SrTeBsidStats jnpr_SrTeBsidStats_ext = 24;
+}
+
+message SrTeBsidStats {
+   message SegmentRoutingTeBsidRecord_list {
+      optional uint64 bsid_identifier = 1;
+      optional string to_ip_prefix = 2;
+      optional uint32 color_identifier = 3;
+      optional uint32 instance_identifier = 4;
+      optional string counter_name = 5;
+      message SegmentRoutingTeBsidStats_list {
+         optional uint64 packets = 1;
+         optional uint64 bytes = 2;
+         optional uint64 packet_rate = 3;
+         optional uint64 byte_rate = 4;
+      }
+      repeated SegmentRoutingTeBsidStats_list SegmentRoutingTeBsidStats = 6;
+   }
+   repeated SegmentRoutingTeBsidRecord_list SegmentRoutingTeBsidRecord = 1;
+}

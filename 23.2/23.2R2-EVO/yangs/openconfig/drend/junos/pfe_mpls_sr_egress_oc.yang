@@ -1,0 +1,67 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+ 	
+module pfe_mpls_sr_egress_oc {
+ 	
+  yang-version "1";
+ 	
+  // namespace
+  namespace "http://juniper.net/yang/sr";
+ 	
+  prefix "mpls-sr-oc";
+	
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+ 	
+  contact "www.juniper.net";
+ 	
+  grouping mpls-sr {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/interfaces" {
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/interfaces/interface" {
+        dr:fieldnum 151;
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+      }
+      augment "mpls/signaling-protocols/segment-routing/interfaces/interface/state" {
+        dr:fieldnum 151;
+        dr:source "/junos/services/segment-routing/interface/egress/usage/";
+      }
+    }
+  }
+ 	
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-sr-egress";
+  jnpr-proto:message-id "SR-STATS-IF?EGRESS-ID";
+ 	
+  rpc juniper-netconf-get {
+    output {
+        uses mpls-sr;
+    }
+  }
+}
+

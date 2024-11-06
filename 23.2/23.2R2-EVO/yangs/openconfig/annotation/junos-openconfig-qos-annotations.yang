@@ -1,0 +1,59 @@
+module junos-openconfig-qos-annotations {
+    yang-version "1";
+    namespace "http://yang.juniper.net/openconfig/qos/annotations";
+    prefix "jnx-oc-qos-ann";
+    import openconfig-qos { prefix oc-qos; }
+    import jnx-aug-openconfig-qos { prefix jnx-oc-qos; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    description
+       "This module contains JUNOS augments to OpenConfig qos product model";
+    revision "2022-04-13" {
+        description "Initial revision";
+    }
+    augment "/oc-qos:qos" {
+        junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+ junos:product-tvp "mx10003 mx10004 mx10008 mx10016";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+    }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv4/oc-qos:config/oc-qos:dscp-set" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv4/oc-qos:state/oc-qos:dscp-set" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv6/oc-qos:config/oc-qos:dscp-set" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv6/oc-qos:state/oc-qos:dscp-set" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:scheduler-policies/oc-qos:scheduler-policy/oc-qos:schedulers/oc-qos:scheduler/oc-qos:config/oc-qos:type" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:scheduler-policies/oc-qos:scheduler-policy/oc-qos:schedulers/oc-qos:scheduler/oc-qos:one-rate-two-color" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:queue-management-profiles" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:input/oc-qos:virtual-output-queues" {
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:config"{
+      junos:product-exclude "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:state/oc-qos:max-queue-len"{
+      junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:state/oc-qos:avg-queue-len"{
+      junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:input/oc-qos:queues" {
+      junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:interface-ref/oc-qos:state/jnx-oc-qos:jnx-iflsetinterface" {
+      junos:product-exclude "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+  }
+}

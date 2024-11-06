@@ -1,0 +1,114 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2019, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module jkdsd_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/jkdsd-oc";
+
+  prefix "jkdsd";
+
+  import drend {
+    prefix "dr";
+  }
+  import openconfig-system { prefix oc-sys; }
+  import openconfig-procmon { prefix oc-proc; }
+  import jnpr-proto { prefix jnpr-proto; }
+  jnpr-proto:message-id "JKDSD-OC-MESSAGE-ID";
+  
+  dr:command-app "jkdsd";
+  dr:sub-component "debug";
+  
+  description "None";
+  revision "2019-01-01" {
+    description "";
+  }
+
+  grouping system-group {
+
+    uses oc-proc:procmon-processes-top {
+	augment "processes" {
+	    dr:source "/main/system/processes";
+	    dr:fieldnum 151;
+	}
+
+	augment "processes/process" { 
+	    dr:source "process";
+	    dr:fieldnum 151; 
+	}
+	    
+	augment "processes/process/pid" { 
+	    dr:source "pid";
+	    dr:fieldnum 51; 
+	}
+
+	augment "processes/process/state" { 
+	    dr:fieldnum 151; 
+	}
+
+	augment "processes/process/state/pid" { 
+	    dr:source "pid";
+	    dr:fieldnum 51; 
+	}
+
+	augment "processes/process/state/name" { 
+	    dr:source "tdname";
+	    dr:fieldnum 52; 
+	}
+
+	augment "processes/process/state/start-time" { 
+	    dr:source "starttime";
+	    dr:fieldnum 53; 
+	}
+
+	augment "processes/process/state/uptime" { 
+	    dr:source "uptime";
+	    dr:fieldnum 54; 
+	}
+		
+	augment "processes/process/state/cpu-usage-user" { 
+	    dr:source "pu_utime";
+	    dr:fieldnum 55; 
+	}
+
+	augment "processes/process/state/cpu-usage-system" { 
+	    dr:source "pu_stime";
+	    dr:fieldnum 56; 
+	}
+
+	augment "processes/process/state/cpu-utilization" { 
+	    dr:source "cpuutil";
+	    dr:fieldnum 57; 
+	}
+
+	augment "processes/process/state/memory-usage" { 
+	    dr:source "memusage";
+	    dr:fieldnum 58; 
+	}
+
+	augment "processes/process/state/memory-utilization" { 
+	    dr:source "memutil";
+	    dr:fieldnum 59; 
+	}
+	
+      }
+		
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-help "Default <get> rpc";
+    output {
+	container system {
+	    dr:fieldnum 151;
+	    uses system-group;
+        }
+    }
+  }
+}
+
+

@@ -1,0 +1,18 @@
+module jnx-tel-PFE-dynamic-tunnel-stats-annotations {
+    yang-version 1;
+    namespace "http://yang.juniper.net/openconfig/jnx-tel-PFE-dynamic-tunnel-stats/annotations";
+    prefix "jnx-tel-PFE-dynamic-tunnel-stats-ann";
+    import jnx-tel-PFE-dynamic-tunnel-stats { prefix jnx-tel-dynamic-tunnel;}
+    import jnx-tel-top { prefix jnx-tel-top; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+    contact "support@juniper.net";
+    description "streaming PFE dynamic iptunnel stats counters";
+    revision "2017-07-21" {
+        description "";
+    }
+    augment "/jnx-tel-top:junos/jnx-tel-dynamic-tunnel:dynamic-tunnel-information" {
+        junos:product "mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240";
+        junos:product-tvp "mx10004 mx10008 mx10016";
+    }
+}

@@ -1,0 +1,114 @@
+/*
+    * OC definition for l2tp summary
+    *
+    * Copyright (c) 2017, Juniper Networks, Inc.
+    * All rights reserved.
+*/
+
+/**
+    * @file
+    * OC Render Tree.
+*/
+
+module jl2tpd_oc {
+    yang-version "1";
+    namespace "http://juniper.net/yang/jl2tpd";
+    prefix "jl2tpd_oc";
+    import drend {
+        prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    dr:command-app "jl2tpd";
+    dr:sub-component "l2tp";
+    jnpr-proto:message-id "JL2TPD-OC-MESSAGE-ID";
+    
+    grouping l2tp-summary-group {
+        leaf l2tp-stats-total-tunnels {
+            type uint32;
+            dr:source l2tp-stats-total-tunnels;
+            dr:fieldnum 51;
+        }
+        leaf l2tp-stats-total-sessions {
+            type uint32;
+            dr:source l2tp-stats-total-sessions;
+            dr:fieldnum 52;
+        }
+        leaf l2tp-stats-control-rx-packets {
+            type uint32;
+            dr:source l2tp-stats-control-rx-packets;
+            dr:fieldnum 53;
+        }
+        leaf l2tp-stats-control-rx-bytes {
+            type uint32;
+            dr:source l2tp-stats-control-rx-bytes;
+            dr:fieldnum 54;
+        }
+        leaf l2tp-stats-control-tx-packets {
+            type uint32;
+            dr:source l2tp-stats-control-tx-packets;
+            dr:fieldnum 55;
+        }
+        leaf l2tp-stats-control-tx-bytes {
+            type uint32;
+            dr:source l2tp-stats-control-tx-bytes;
+            dr:fieldnum 56;
+        }
+        leaf l2tp-era-type-icrq-inflight-count {
+            type uint32;
+            dr:source l2tp-era-type-icrq-inflight-count;
+            dr:fieldnum 57;
+        }
+        leaf l2tp-era-type-icrq-reported-successes {
+            type uint32;
+            dr:source l2tp-era-type-icrq-reported-successes;
+            dr:fieldnum 58;
+        }
+        leaf l2tp-era-type-icrq-reported-failures {
+            type uint32;
+            dr:source l2tp-era-type-icrq-reported-failures;
+            dr:fieldnum 59;
+        }
+        leaf l2tp-era-type-sccrq-inflight-count {
+            type uint32;
+            dr:source l2tp-era-type-sccrq-inflight-count;
+            dr:fieldnum 60;
+        }
+        leaf l2tp-era-type-sccrq-reported-successes {
+            type uint32;
+            dr:source l2tp-era-type-sccrq-reported-successes;
+            dr:fieldnum 61;
+        }
+        leaf l2tp-era-type-sccrq-reported-failures {
+            type uint32;
+            dr:source l2tp-era-type-sccrq-reported-failures;
+            dr:fieldnum 62;
+        }
+    }
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-jl2tpd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                container system {
+		   dr:fieldnum 151;
+                   container subscriber-management {
+		       dr:fieldnum 151;
+                       container client-protocols {
+			    dr:fieldnum 151;
+                            container l2tp {
+				dr:fieldnum 151;
+                                container summary {
+                                    dr:source "/junos/system/subscriber-management/client-protocols/l2tp/summary";
+				    dr:fieldnum 151;
+                                    uses l2tp-summary-group;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

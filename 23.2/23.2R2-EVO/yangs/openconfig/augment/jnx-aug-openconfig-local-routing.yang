@@ -1,0 +1,40 @@
+module jnx-aug-openconfig-local-routing {
+
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/augment/local-routing";
+
+  prefix "jnx-oc-loc-rt";
+
+  import openconfig-interfaces { prefix oc-if; }
+  import openconfig-local-routing { prefix oc-loc-rt; }
+  import openconfig-policy-types { prefix oc-pt; }
+  import junos-extension { prefix junos; }
+  import openconfig-network-instance { prefix oc-ni; }
+
+  // meta
+  organization "Juniper Networks";
+
+  description
+    "This module contains JUNOS augments to OpenConfig Local Routing model";
+
+  revision "2021-07-10" {
+      description "Added next-table, retain and no-readvertise nexthop types";
+      reference "0.0.3";
+  }
+
+  revision "2017-06-09" {
+    description "Added set-tag leaf as next-hop attribute.";
+    reference "0.0.2";
+  }
+
+  revision "2016-09-14" {
+    description "Initial version";
+    reference "0.0.1";
+  }
+
+  augment "/oc-loc-rt:local-routes" {
+    junos:translation-script "openconfig-local-routing.slax";
+  }
+}
+

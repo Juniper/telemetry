@@ -1,0 +1,22 @@
+module jnx-tel-RE-rsvp-interface-annotations {
+    yang-version 1;
+
+    namespace "http://yang.juniper.net/openconfig/jnx-tel-RE-rsvp-interface/annotations";
+
+    prefix "jnx-tel-rsvp-intf-ann";
+
+    import jnx-tel-top { prefix jnx-tel-top; }
+    import jnx-tel-RE-rsvp-interface { prefix jnx-tel-rsvp-intf; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-12-07" {
+        description "Initial version to add internal RSVP Interfaces model product support information";
+    }
+
+    augment "/jnx-tel-top:junos/jnx-tel-rsvp-intf:rsvp-interface-information" {
+        JUNOS_PRODUCT(PRODUCTS_SUPPORTING_TELEMETRY);
+    }
+}

@@ -1,0 +1,169 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2019, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module alarmd_oc {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/alarmd";
+
+    prefix "alarmd-oc";
+
+    import drend { prefix dr; }
+    import openconfig-system { prefix oc-sys; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import openconfig-alarms { prefix oc-alarms; }
+
+    // meta
+    organization "Juniper Networks, Inc.";
+
+    contact "www.juniper.net";
+
+    grouping system-alarm-state {
+        uses oc-alarms:alarms-top {
+            augment "alarms" {
+                dr:source "/alarmd/alarms";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm" {
+                dr:source "alarm";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm/id" {
+                dr:source "id";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm/state" {
+                dr:source "state";
+                dr:fieldnum 152;
+            }
+
+            augment "alarms/alarm/state/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+
+            augment "alarms/alarm/state/text" {
+                dr:source "text";
+                dr:fieldnum 52;
+            }
+
+            augment "alarms/alarm/state/resource" {
+                dr:source "resource";
+                dr:fieldnum 53;
+            }
+
+            augment "alarms/alarm/state/time-created" {
+                dr:source "time-created";
+                dr:fieldnum 54;
+            }
+
+            augment "alarms/alarm/state/severity" {
+                dr:source "severity";
+                dr:map UNKNOWN    { dr:map-from 0 ; } // ALARM_IGNORE;
+                dr:map MAJOR      { dr:map-from 1 ; } // ALARM_MAJOR;
+                dr:map MINOR      { dr:map-from 2 ; } // ALARM_MINOR;
+                //dr:map WARNING   NA
+                //dr:map CRITICAL  NA
+                dr:fieldnum 55;
+            }
+
+            augment "alarms/alarm/state/type-id" {
+                dr:source "type-id";
+                dr:fieldnum 56;
+            }
+        }
+    }
+
+    // Daemon which handles this hierarchy
+    dr:command-app "alarmd";
+    dr:sub-component "alarm";
+    jnpr-proto:message-id "ALARMD-OC-MESSAGE-ID";
+
+    rpc juniper-netconf-get {
+        output {
+            container system {
+                dr:fieldnum 151;
+                uses system-alarm-state;
+            }
+        }
+    }
+
+    grouping alarm-state-change-obj {
+        uses oc-alarms:alarms-top {
+            augment "alarms" {
+                dr:source "/notification/alarm-change/alarms";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm" {
+                dr:source "alarm";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm/id" {
+                dr:source "id";
+                dr:fieldnum 151;
+            }
+
+            augment "alarms/alarm/state" {
+                dr:source "state";
+                dr:fieldnum 152;
+            }
+
+            augment "alarms/alarm/state/id" {
+                dr:source "id";
+                dr:fieldnum 51;
+            }
+
+            augment "alarms/alarm/state/text" {
+                dr:source "text";
+                dr:fieldnum 52;
+            }
+
+            augment "alarms/alarm/state/resource" {
+                dr:source "resource";
+                dr:fieldnum 53;
+            }
+
+            augment "alarms/alarm/state/time-created" {
+                dr:source "time-created";
+                dr:fieldnum 54;
+            }
+
+            augment "alarms/alarm/state/severity" {
+                dr:source "severity";
+                dr:map UNKNOWN    { dr:map-from 0 ; } // ALARM_IGNORE;
+                dr:map MAJOR      { dr:map-from 1 ; } // ALARM_MAJOR;
+                dr:map MINOR      { dr:map-from 2 ; } // ALARM_MINOR;
+                //dr:map WARNING   NA
+                //dr:map CRITICAL  NA
+                dr:fieldnum 55;
+            }
+
+            augment "alarms/alarm/state/type-id" {
+                dr:source "type-id";
+                dr:fieldnum 56;
+            }
+        }
+    }
+
+
+    notification oc-alarm-change {
+        dr:source-notification-name "alarm-change";
+        container system {
+            dr:fieldnum 151;
+            uses alarm-state-change-obj;
+        }
+    }
+}
+

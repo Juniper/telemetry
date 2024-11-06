@@ -1,0 +1,17 @@
+module junos-rmopd-render-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/rmopd/annotations";
+    prefix "junos-rmopd-ann";
+    import junos-rmopd { prefix junos-rmopd; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2023-02-15" {
+        description "Initial version to add rmopd product support information";
+    }
+    augment "/junos-rmopd:junos/junos-rmopd:rpm" {
+        junos:product "ptx10001-36mr ptx10003-160c ptx10003-80c ptx10004 ptx10008 ptx10016";
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product-exclude "mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80";
+        junos:product "acx7908 acx7509 ACX7100-48L ACX7100-32C ACX7024";
+    }
+}

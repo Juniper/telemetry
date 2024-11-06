@@ -1,0 +1,17 @@
+module junos-openconfig-sampling-sflow-annotations {
+  yang-version "1";
+  namespace "http://yang.juniper.net/openconfig/sampling/sflow/annotations";
+  prefix "jnx-oc-sflow-ann";
+  import openconfig-sampling { prefix oc-sampling; }
+  import junos-extension { prefix junos; }
+  organization "Juniper Networks";
+  description
+    "This module contains product annotations for openconfig sampling sflow  model";
+  revision "2022-10-17" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+  augment "/oc-sampling:sampling" {
+      junos:product "ptx10003-160c ptx10003-80c qfx10003-160c qfx10003-80c ptx10016 ptx10008 ptx10004 ptx10001-36mr ptx10001-27cd ptx10002-36qdd";
+  }
+}

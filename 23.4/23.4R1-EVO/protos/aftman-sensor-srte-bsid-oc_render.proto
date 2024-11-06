@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_sr_te_bsid jnpr_mpls_sr_te_bsid_ext = 193;
+}
+
+message mpls_sr_te_bsid {
+   optional signaling_protocols_type signaling_protocols = 111;
+   message signaling_protocols_type {
+      optional segment_routing_type segment_routing = 111;
+      message segment_routing_type {
+         message sr_te_bsid_policies_list {
+            message sr_te_bsid_policy_list {
+               optional string binding_sid = 101 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 101 [(telemetry_options).is_key = true];
+                     optional uint64 packets = 103;
+                     optional uint64 bytes = 104;
+                     optional uint64 packetRate = 105;
+                     optional uint64 byteRate = 106;
+                  }
+                  repeated counters_list counters = 111;
+               }
+               repeated state_list state = 111;
+            }
+            repeated sr_te_bsid_policy_list sr_te_bsid_policy = 111;
+         }
+         repeated sr_te_bsid_policies_list sr_te_bsid_policies = 111;
+      }
+   }
+}

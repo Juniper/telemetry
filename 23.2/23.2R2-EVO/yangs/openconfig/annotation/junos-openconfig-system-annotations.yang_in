@@ -1,0 +1,43 @@
+module junos-openconfig-system-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/system/annotations";
+
+  prefix "jnx-oc-sys-ann";
+
+  import openconfig-system { prefix oc-sys; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig system model";
+
+  revision "2022-01-08" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-sys:system" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX XMEN_ACX);
+      JUNOS_PRODUCT(GLENROTHES_32CD SAPPHIRE_128C SAPPHIRE_32CD qfx5700 qfx10002-60c VALE_QFX);
+      JUNOS_PRODUCT(EX92XX_SERIES);
+      JUNOS_PRODUCT_TVP(ex2300-24p ex2300-48p ex2300-24mp ex2300-48mp);
+      JUNOS_PRODUCT_TVP(qfx5120-48ym qfx5120-48t qfx5210-64c);
+      JUNOS_PRODUCT_TVP(qfx5110-24q-2p qfx5110-32q qfx5110-48s-4c qfx5110-48s-4q qfx5110-48t-6q);
+      JUNOS_PRODUCT_TVP(ex4100-48p ex4100-48t ex4100-24p ex4100-24t ex4100-f-48p ex4100-f-24p ex4100-f-48t ex4100-f-24t);
+      JUNOS_PRODUCT_TVP(ex4100-48mp ex4100-24mp ex4100-f-12p ex4100-f-12t);
+      JUNOS_PRODUCT_TVP(ex4400-24mp ex4400-24p ex4400-24t ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+      JUNOS_PRODUCT(srx5400 srx5600 srx5800 vsrx);
+      JUNOS_PRODUCT_TVP(srx1500 srx4100 srx4200 srx4600 srx4800);
+  }
+
+  augment "/oc-sys:system/oc-sys:state/oc-sys:software-version" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+  }
+}
+

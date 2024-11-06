@@ -1,0 +1,30 @@
+module junos-fpc-env-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/fpc-env/annotations";
+
+    prefix "junos-fpc-env-ann";
+
+    import junos-fpc-env { prefix junos-fpc-env; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-09-07" {
+        description "Initial version to add native FPC environment supported list";
+    }
+
+    augment "/junos-fpc-env:junos/junos-fpc-env:system/junos-fpc-env:linecard" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+    }
+    augment "/junos-fpc-env:junos/junos-fpc-env:system/junos-fpc-env:linecard/junos-fpc-env:environment" {
+        JUNOS_PRODUCT(mx240 mx304 mx480 mx960 mx2010 mx2020);
+        JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT(ptx10001-36mr BRACKLA_PTX VALE_PTX);
+        JUNOS_PRODUCT(AVENGERS_ACX GUARDIAN XMEN_ACX);
+    }
+}

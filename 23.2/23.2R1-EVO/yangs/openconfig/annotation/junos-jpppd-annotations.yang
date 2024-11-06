@@ -1,0 +1,18 @@
+module junos-jpppd-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/jpppd/annotations";
+    prefix "junos-jpppd-ann";
+    import junos-jpppd { prefix junos-jpppd; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-11-15" {
+        description "Initial version to add native jpppd model product support information";
+    }
+    augment "/junos-jpppd:junos/junos-jpppd:system/junos-jpppd:subscriber-management/" +
+            "junos-jpppd:client-protocols/junos-jpppd:ppp" {
+        junos:product "mx304 mx10001 mx10002 mx960 mx480 mx240 mx5-t mx10-t mx40-t mx80 mx80-t mx80-48t mx80-p mx104 mxtsr80 mx2020 mx2010 mx2008 vmx vrr";
+        junos:product "ex9204 ex9208 ex9214 ex9251 ex9253";
+        junos:product "ACX7100-48L ACX7100-32C";
+        junos:product "cbng";
+    }
+}

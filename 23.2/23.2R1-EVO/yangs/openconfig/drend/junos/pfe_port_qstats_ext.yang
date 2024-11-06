@@ -1,0 +1,87 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+
+module pfe_port_qstats_ext {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/port";
+
+  prefix "pfe-port-oc";
+
+  //import ietf-yang-types { prefix yang; }
+  import jnx-aug-openconfig-interfaces { prefix jnx-aug-oc-interfaces; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+
+  contact "www.juniper.net";
+
+  grouping pfe-port-qstat-ext {
+      uses jnx-aug-oc-interfaces:jnx-interface-counters {
+        augment "out-queue" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 151;
+        }
+        augment "out-queue/queue-number" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 51;
+        }
+        augment "out-queue/queued-pkts" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 52;
+        }
+        augment "out-queue/queued-bytes" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 53;
+        }
+        augment "out-queue/lp-red-drop-pkts" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 54;
+        }
+        augment "out-queue/hp-red-drop-pkts" {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 55;
+        }
+      }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-port-qstats";
+  jnpr-proto:message-id "PFE-PORT-QSTATS-EXT-OC-MESSAGE-ID";
+
+  rpc juniper-netconf-get {
+    output {
+      container interfaces {
+        dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+        dr:fieldnum 151;
+        list interface {
+          dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+          dr:fieldnum 151;
+          key "name" ;
+          leaf name {
+            type string;
+            dr:fieldnum 51;
+          }
+          container state{
+            dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+            dr:fieldnum 151;
+            container counters{
+              dr:source "/junos/system/linecard/interface/queue/extended-stats/";
+              dr:fieldnum 151;
+              uses pfe-port-qstat-ext;
+            }
+          }
+        }
+      }
+    }
+  }
+}

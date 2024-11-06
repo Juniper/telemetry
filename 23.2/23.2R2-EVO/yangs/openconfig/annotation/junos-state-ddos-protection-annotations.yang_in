@@ -1,0 +1,23 @@
+module junos-state-ddos-protection-annotations {
+    yang-version 1;
+
+    namespace "http://yang.juniper.net/junos/state/ddos-protection/annotations";
+
+    prefix "js-ddos-ann";
+
+    import junos-state { prefix js; }
+    import junos-state-system { prefix js-sys; }
+    import junos-state-ddos-protection { prefix js-ddos-protection; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Networks Inc.";
+
+    revision "2022-11-21" {
+        description "Initial revision to add native ddos-protection model product support information";
+    }
+
+    augment "/js:state/js-sys:system/js-ddos-protection:ddos-protection" {
+        JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+    }
+}

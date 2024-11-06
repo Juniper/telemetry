@@ -1,0 +1,31 @@
+module junos-openconfig-lacp-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/lacp";
+  prefix "jnx-oc-lacp-ann";
+
+  // import modules
+  import openconfig-lacp { prefix oc-lacp; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+     "This module contains platform annotations for LACP OC Yang";
+
+  revision "2022-07-08" {
+      description "Initial revision";
+  }
+
+  augment "/oc-lacp:lacp" {
+      JUNOS_PRODUCT(ALL_EVO_PRODUCTS);
+      JUNOS_PRODUCT(MX_SERIES);
+      JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(GLENROTHES_32CD qfx5700 qfx10002-60c VALE_QFX AVENGERS_FIXTURE ARDBEG_ALL);
+      JUNOS_PRODUCT_TVP(TVP_EX2300_ALL TVP_EX3400_ALL TVP_EX4100_ALL TVP_EX4300_ALL TVP_EX4400_ALL TVP_EX4650_ALL);
+      JUNOS_PRODUCT_TVP(TVP_QFX5K_ALL TVP_QFX10K_ALL);
+      JUNOS_PRODUCT_TVP(TVP_SRX_ALL TVP_ACX_ALL TVP_MX_ALL);
+      JUNOS_PRODUCT(srx5400 srx5600 srx5800 vsrx);
+      JUNOS_PRODUCT_TVP(TVP_SRX_ALL);
+  }
+}

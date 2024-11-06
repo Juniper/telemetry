@@ -1,0 +1,68 @@
+module junos-openconfig-qos-annotations {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/qos/annotations";
+
+    prefix "jnx-oc-qos-ann";
+
+    import openconfig-qos { prefix oc-qos; }
+    import jnx-aug-openconfig-qos { prefix jnx-oc-qos; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Networks";
+
+    description
+       "This module contains JUNOS augments to OpenConfig qos product model";
+
+    revision "2022-04-13" {
+        description "Initial revision";
+    }
+
+    augment "/oc-qos:qos" {
+        JUNOS_PRODUCT(EVO_PTX_ALL);
+        JUNOS_PRODUCT(MX_SERIES);
+	JUNOS_PRODUCT_TVP(mx10003 mx10004 mx10008 mx10016);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+    }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv4/oc-qos:config/oc-qos:dscp-set" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv4/oc-qos:state/oc-qos:dscp-set" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv6/oc-qos:config/oc-qos:dscp-set" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:classifiers/oc-qos:classifier/oc-qos:terms/oc-qos:term/oc-qos:conditions/oc-qos:ipv6/oc-qos:state/oc-qos:dscp-set" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+ 
+    augment "/oc-qos:qos/oc-qos:scheduler-policies/oc-qos:scheduler-policy/oc-qos:schedulers/oc-qos:scheduler/oc-qos:config/oc-qos:type" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:scheduler-policies/oc-qos:scheduler-policy/oc-qos:schedulers/oc-qos:scheduler/oc-qos:one-rate-two-color" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:queue-management-profiles" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:input/oc-qos:virtual-output-queues" {
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:config"{
+      JUNOS_PRODUCT_EXCLUDE(MX_SERIES);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:state/oc-qos:max-queue-len"{
+      JUNOS_PRODUCT_EXCLUDE(EVO_PTX_ALL);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:output/oc-qos:queues/oc-qos:queue/oc-qos:state/oc-qos:avg-queue-len"{
+      JUNOS_PRODUCT_EXCLUDE(EVO_PTX_ALL);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:input/oc-qos:queues" {
+      JUNOS_PRODUCT_EXCLUDE(EVO_PTX_ALL);
+  }
+    augment "/oc-qos:qos/oc-qos:interfaces/oc-qos:interface/oc-qos:interface-ref/oc-qos:state/jnx-oc-qos:jnx-iflsetinterface" {
+      JUNOS_PRODUCT_EXCLUDE(EVO_PTX_ALL);
+  }
+
+}

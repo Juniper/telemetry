@@ -1,0 +1,24 @@
+module junos-openconfig-sampling-sflow-augments {
+    yang-version "1";
+
+    namespace "http://yang.juniper.net/openconfig/sampling/sflow/augments";
+
+    prefix "jnx-oc-sflow-aug";
+
+    import openconfig-sampling { prefix oc-sampling; }
+    import junos-extension { prefix junos; }
+
+    organization "Juniper Networks";
+
+    description
+        "This module contains JUNOS augments to OpenConfig Sampling Sflow model";
+
+    revision "2022-09-10" {
+        description "Initial Revision";
+    }
+
+     augment "/oc-sampling:sampling" {
+       junos:translation-script "openconfig-sampling-sflow.slax";
+     }
+}
+

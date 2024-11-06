@@ -1,0 +1,18 @@
+module junos-spu-flow-annotations {
+    yang-version 1;
+    namespace "http://juniper.net/yang/junos/spu-flow/annotations";
+    prefix "junos-spu-flow-ann";
+    import junos-spu-flow { prefix junos-security; }
+    import junos-extension { prefix junos; }
+    organization "Juniper Network Inc.";
+    revision "2022-11-10" {
+        description "Initial version to add spu-flow model product support information";
+    }
+    augment "/junos-security:junos/junos-security:security/junos-security:spu/junos-security:flow" {
+        junos:product-tvp "NFX_SERIES";
+        junos:product-tvp "srx4100 srx4200 srx4600";
+        junos:product "mx240 mx480 mx960";
+        junos:product-tvp "VSRX_SERIES";
+        junos:product "srxtvp";
+      }
+}

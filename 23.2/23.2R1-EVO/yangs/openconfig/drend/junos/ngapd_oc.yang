@@ -1,0 +1,415 @@
+module ngapd_oc {
+
+    yang-version "1";
+    namespace "http://juniper.net/yang/ngapd";
+    prefix "ngapd";
+
+    import drend {
+        prefix "dr";
+    }
+
+    import jnpr-proto { prefix jnpr-proto; }
+    import junos-ngapd {
+        prefix "jngapd";
+    }
+
+    // meta
+    organization "Juniper Networks Inc.";
+
+    description
+        "This module provides rendering for agf ngap operational state and statistics";
+
+    revision "2021-09-30" {
+        description
+            "Initial definition of agf ngapd rendering model";
+        reference "1.0.0";
+    }
+
+    /*
+     * Daemon that handles this hierarchy
+     */
+
+    dr:command-app "ngap";
+
+    /* Protocol Buffer qualifiers */
+    jnpr-proto:message-id "NGAPD-OC-MESSAGE-ID";
+
+    // grouping statements
+
+    grouping ngapd-amf-stats-common {
+      uses jngapd:ngapd-amf-stats-common {
+        augment "amf-name" {
+            dr:source amf_name;
+            dr:fieldnum 51;
+        }
+      }
+    }
+
+    grouping ngapd-amf-ue-summary-common {
+      uses jngapd:ngapd-amf-ue-summary-common {
+        augment "amf-name" {
+            dr:source amf_name;
+            dr:fieldnum 52;
+        }
+      }
+    }
+
+    grouping ngapd-amf-state-common {
+      uses jngapd:ngapd-amf-state-common {
+        augment "amf-name" {
+            dr:source amf_name;
+            dr:fieldnum 53;
+        }
+      }
+    }
+
+    grouping ngapd-group-n2-stats {
+      uses jngapd:ngapd-group-n2-stats {
+        augment "ngap-amf-configured-name" {
+            dr:source amf_configured_name;
+            dr:fieldnum 54;
+        }
+        augment "ngap-amf-stats-ng-setup-request" {
+            dr:source ng_setup_request;
+            dr:fieldnum 55;
+        }
+        augment "ngap-amf-stats-ran-config-update" {
+            dr:source ran_configuration_update;
+            dr:fieldnum 56;
+        }
+        augment "ngap-amf-stats-amf-config-update-ack" {
+            dr:source amf_configuration_update_acknowledge;
+            dr:fieldnum 57;
+        }
+        augment "ngap-amf-stats-amf-config-update-failure" {
+            dr:source amf_configuration_update_failure;
+            dr:fieldnum 58;
+        }
+        augment "ngap-amf-stats-ng-reset-sent" {
+            dr:source ng_reset_sent;
+            dr:fieldnum 59;
+        }
+        augment "ngap-amf-stats-ng-reset-ack-sent" {
+            dr:source ng_reset_acknowledgement_sent;
+            dr:fieldnum 60;
+        }
+        augment "ngap-amf-stats-error-indication-sent" {
+            dr:source error_indication_sent;
+            dr:fieldnum 61;
+        }
+        augment "ngap-amf-stats-ng-setup-response" {
+            dr:source ng_setup_response;
+            dr:fieldnum 62;
+        }
+        augment "ngap-amf-stats-ng-setup-failure" {
+            dr:source ng_setup_failure;
+            dr:fieldnum 63;
+        }
+        augment "ngap-amf-stats-ran-config-update-ack" {
+            dr:source ran_configuration_update_acknowledge;
+            dr:fieldnum 64;
+        }
+        augment "ngap-amf-stats-ran-config-update-failure" {
+            dr:source ran_configuration_update_failure;
+            dr:fieldnum 65;
+        }
+        augment "ngap-amf-stats-amf-config-update" {
+            dr:source amf_configuration_update;
+            dr:fieldnum 66;
+        }
+        augment "ngap-amf-stats-ng-reset-recv" {
+            dr:source ng_reset_received;
+            dr:fieldnum 67;
+        }
+        augment "ngap-amf-stats-ng-reset-ack-recv" {
+            dr:source ng_reset_acknowledgement_received;
+            dr:fieldnum 68;
+        }
+        augment "ngap-amf-stats-error-indication-recv" {
+            dr:source error_indication_received;
+            dr:fieldnum 69;
+        }
+        augment "ngap-amf-stats-amf-status-indication" {
+            dr:source amf_status_indication;
+            dr:fieldnum 70;
+        }
+        augment "ngap-amf-stats-overload-start" {
+            dr:source overload_start;
+            dr:fieldnum 71;
+        }
+        augment "ngap-amf-stats-overload-stop" {
+            dr:source overload_stop;
+            dr:fieldnum 72;
+        }
+        augment "ngap-amf-stats-init-ctx-setup-resp" {
+            dr:source initial_context_setup_response;
+            dr:fieldnum 73;
+        }
+        augment "ngap-amf-stats-init-ctx-setup-failure" {
+            dr:source initial_context_setup_failure;
+            dr:fieldnum 74;
+        }
+        augment "ngap-amf-stats-ue-ctx-release-req" {
+            dr:source ue_context_release_request;
+            dr:fieldnum 75;
+        }
+        augment "ngap-amf-stats-ue-ctx-release-complete" {
+            dr:source ue_context_release_complete;
+            dr:fieldnum 76;
+        }
+        augment "ngap-amf-stats-ue-ctx-mod-resp" {
+            dr:source ue_context_modification_response;
+            dr:fieldnum 77;
+        }
+        augment "ngap-amf-stats-ue-ctx-mod-failure" {
+            dr:source ue_context_modification_failure;
+            dr:fieldnum 78;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-setup-resp" {
+            dr:source pdu_session_resource_setup_response;
+            dr:fieldnum 79;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-release-resp" {
+            dr:source pdu_session_resource_release_response;
+            dr:fieldnum 80;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-modify-resp" {
+            dr:source pdu_session_resource_modify_response;
+            dr:fieldnum 81;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-notify" {
+            dr:source pdu_session_resource_notify;
+            dr:fieldnum 82;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-mod-indication" {
+            dr:source pdu_session_resource_modify_indication;
+            dr:fieldnum 83;
+        }
+        augment "ngap-amf-stats-initial-ue-message" {
+            dr:source initial_ue_message;
+            dr:fieldnum 84;
+        }
+        augment "ngap-amf-stats-uplink-nas-transport" {
+            dr:source uplink_nas_transport;
+            dr:fieldnum 85;
+        }
+        augment "ngap-amf-stats-nas-non-delivery-indication" {
+            dr:source nas_non_delivery_indication;
+            dr:fieldnum 86;
+        }
+        augment "ngap-amf-stats-init-ctx-setup-req" {
+            dr:source initial_context_setup_request;
+            dr:fieldnum 87;
+        }
+        augment "ngap-amf-stats-ue-ctx-release-cmd" {
+            dr:source ue_context_release_command;
+            dr:fieldnum 88;
+        }
+        augment "ngap-amf-stats-ue-ctx-mod-req" {
+            dr:source ue_context_modification_request;
+            dr:fieldnum 89;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-setup-req" {
+            dr:source pdu_session_resource_setup_request;
+            dr:fieldnum 90;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-release-cmd" {
+            dr:source pdu_session_resource_release_command;
+            dr:fieldnum 91;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-mod-req" {
+            dr:source pdu_session_resource_modify_request;
+            dr:fieldnum 92;
+        }
+        augment "ngap-amf-stats-pdu-sess-res-mod-confirm" {
+            dr:source pdu_session_resource_modify_confirm;
+            dr:fieldnum 93;
+        }
+        augment "ngap-amf-stats-downlink-nas-transport" {
+            dr:source downlink_nas_transport;
+            dr:fieldnum 94;
+        }
+        augment "ngap-amf-stats-reroute-nas-req" {
+            dr:source reroute_nas_request;
+            dr:fieldnum 95;
+        }
+        augment "ngap-amf-stats-ue-tnla-bind-release-req" {
+            dr:source ue_tnla_binding_release_request;
+            dr:fieldnum 96;
+        }
+      }
+    }
+
+    grouping ngapd-group-amf-state {
+      uses jngapd:ngapd-group-amf-state {
+        augment "ngap-amf-configured-name" {
+            dr:source amf_configured_name;
+            dr:fieldnum 97;
+        }
+        augment "ngap-amf-routing-instance" {
+            dr:source routing_instance;
+            dr:fieldnum 98;
+        }
+        augment "ngap-amf-is-default" {
+            dr:source is_default;
+            dr:fieldnum 99;
+        }
+        augment "ngap-amf-state" {
+            dr:source state;
+            dr:fieldnum 100;
+        }
+        augment "ngap-amf-overload-state" {
+            dr:source overload_state;
+            dr:fieldnum 101;
+        }
+        augment "ngap-amf-total-ues" {
+            dr:source total_ue_count;
+            dr:fieldnum 102;
+        }
+      }
+    }
+
+    grouping ngapd-group-amf-ue-summary-stats {
+      uses jngapd:ngapd-group-amf-ue-summary-stats {
+        augment "ngap-amf-configured-name" {
+            dr:source amf_configured_name;
+            dr:fieldnum 103;
+        }
+        augment "ngap-ue-total" {
+            dr:source ue_total;
+            dr:fieldnum 104;
+        }
+        augment "ngap-ue-establishing" {
+            dr:source ue_establishing;
+            dr:fieldnum 105;
+        }
+        augment "ngap-ue-established" {
+            dr:source ue_established;
+            dr:fieldnum 106;
+        }
+        augment "ngap-ue-releasing" {
+            dr:source ue_releasing;
+            dr:fieldnum 107;
+        }
+        augment "ngap-ue-released" {
+            dr:source ue_released;
+            dr:fieldnum 108;
+        }
+      }
+    }
+
+    grouping ngapd-group-total-ue-summary-stats {
+      uses jngapd:ngapd-group-total-ue-summary-stats {
+        augment "ngap-ue-total" {
+            dr:source ue_total;
+            dr:fieldnum 109;
+        }
+        augment "ngap-ue-establishing" {
+            dr:source ue_establishing;
+            dr:fieldnum 110;
+        }
+        augment "ngap-ue-established" {
+            dr:source ue_established;
+            dr:fieldnum 111;
+        }
+        augment "ngap-ue-releasing" {
+            dr:source ue_releasing;
+            dr:fieldnum 112;
+        }
+        augment "ngap-ue-released" {
+            dr:source ue_released;
+            dr:fieldnum 113;
+        }
+      }
+    }
+
+    // rpc statements
+
+    rpc juniper-netconf-get {
+        dr:command-top-of-output "/oc-ngapd-information";
+        dr:command-help "Default <get> rpc";
+        output {
+            container junos {
+                dr:fieldnum 151;
+                container system {
+                    dr:fieldnum 151;
+                    container subscriber-management {
+                        dr:fieldnum 151;
+                        container agf{
+                            dr:fieldnum 151;
+                            container ngap {
+                                dr:fieldnum 151;
+                                container n2 {
+                                    dr:fieldnum 151;
+                                    container statistics {
+					description "NGAP N2 protocol statistics";
+                                        dr:source "/junos/system/subscriber-management/agf/ngap/n2/statistics";
+                                        dr:fieldnum 151;
+                                        container amfs {
+					    description "NGAP N2 protocol per AMF statistics";
+					    dr:source "amfs";
+					    dr:fieldnum 151;
+                                            list amf {
+                                                uses ngapd-amf-stats-common;
+                                                dr:source "amf";
+                                                dr:fieldnum 151;
+                                                key amf-name;
+                                                uses ngapd-group-n2-stats;
+                                            }
+                                        }
+                                    }
+                                }
+                                container amf-state {
+                                    dr:fieldnum 152;
+                                    container aggregate {
+				        description "NGAP AMF state parameters";
+                                        dr:source "/junos/system/subscriber-management/agf/ngap/amf-state/aggregate";
+                                        dr:fieldnum 151;
+                                        container amfs {
+					    description "NGAP per AMF state parameters";
+                                            dr:source "amfs";
+                                            dr:fieldnum 151;
+                                            list amf {
+                                                uses ngapd-amf-state-common;
+                                                dr:source "amf";
+                                                dr:fieldnum 151;
+                                                key amf-name;
+                                                uses ngapd-group-amf-state;
+                                            }
+                                        }
+                                    }
+                                }
+                                container user-equipment {
+                                    dr:fieldnum 153;
+                                    container ue-summary-stats {
+				        description "NGAP UE summary statistics";
+                                        dr:fieldnum 151;
+                                        container total {
+                                            description "NGAP UE summary overall statistics";
+                                            dr:source "/junos/system/subscriber-management/agf/ngap/user-equipment/ue-summary-stats/total";
+                                            dr:fieldnum 151;
+                                            uses ngapd-group-total-ue-summary-stats;
+                                        }
+                                        container amfs {
+					    description "NGAP UE summary per AMF statistics";
+                                            dr:source "/junos/system/subscriber-management/agf/ngap/user-equipment/ue-summary-stats/amfs";
+                                            dr:fieldnum 152;
+                                            list amf {
+                                                uses ngapd-amf-ue-summary-common;
+                                                dr:source "amf";
+                                                dr:fieldnum 151;
+                                                key amf-name;
+                                                uses ngapd-group-amf-ue-summary-stats;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

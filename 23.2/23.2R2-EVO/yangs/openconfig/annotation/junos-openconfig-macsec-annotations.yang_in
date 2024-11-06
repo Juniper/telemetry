@@ -1,0 +1,37 @@
+module junos-openconfig-macsec-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/macsec/annotations";
+
+  prefix "jnx-oc-macsec-ann";
+
+  import openconfig-macsec { prefix oc-macsec; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+  description
+    "This module contains augments to openconfig macsec model";
+
+  revision "2022-08-24" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-macsec:macsec" {
+      JUNOS_PRODUCT(PRODUCTS_SUPPORTING_MACSEC);
+      JUNOS_PRODUCT_EXCLUDE(srxtvp);
+      JUNOS_PRODUCT_TVP(ptx10001-20c ptx10008 ptx10016);
+      JUNOS_PRODUCT_TVP(nfx350_s1 nfx350_s2 nfx350_s3);
+      JUNOS_PRODUCT_TVP(qfx10008 qfx10016 qfx10001-l-20c);
+      JUNOS_PRODUCT_TVP(qfx-5401-M20C qfx5120-48ym-8c);
+      JUNOS_PRODUCT_TVP(acx5448 acx6360-ox acx6360-or);
+      JUNOS_PRODUCT_TVP(ex3400-24p ex3400-24t ex3400-48p ex3400-48t);
+      JUNOS_PRODUCT_TVP(ex4100-f-12t ex4100-f-12p);
+      JUNOS_PRODUCT_TVP(ex4100-24t ex4100-f-24t ex4100-24p ex4100-f-24p ex4100-24mp);
+      JUNOS_PRODUCT_TVP(ex4100-48t ex4100-48p ex4100-48mp ex4100-f-48t ex4100-f-48p);
+      JUNOS_PRODUCT_TVP(ex4300-48mp);
+      JUNOS_PRODUCT_TVP(ex4400-24x ex4400-24mp ex4400-24p ex4400-24t);
+      JUNOS_PRODUCT_TVP(ex4400-48f ex4400-48mp ex4400-48p ex4400-48t);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+}

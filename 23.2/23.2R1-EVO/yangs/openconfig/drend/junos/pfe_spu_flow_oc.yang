@@ -1,0 +1,228 @@
+/*
+ * $Id$
+ * SPU Flow statistics Yang model.
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+module pfe_spu_flow_oc {
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/security/pfe-spu-flow-oc";
+
+    prefix "pfe-spu-flow";
+
+    import junos-spu-flow {prefix junos-spu-flow;}
+    import jnpr-proto { prefix jnpr-proto; }
+    import drend { prefix dr; }
+
+    // meta
+    organization "Juniper Networks";
+    contact "yang-support@juniper.net";
+    description "Yang definition for SPU flow usage";
+    revision "2020-09-20" {
+        description "Initial yang file";
+    }
+
+    grouping pfe-spu-flow {
+
+        uses junos-spu-flow:jnx-spu-flow {
+            augment "junos/security" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/spu-name" {
+                dr:source "spu-name";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/flow" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/flow/stats-scope" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/flow/stats-scope/system" {
+                dr:source "/junos/security/spu/flow/usage/";
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-v4" {
+                dr:source "session/no-v4";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-v6" {
+                dr:source "session/no-v6";
+                dr:fieldnum 52;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-unicast" {
+                dr:source "session/no-unicast";
+                dr:fieldnum 53;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-multicast" {
+                dr:source "session/no-multicast";
+                dr:fieldnum 54;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-sof" {
+                dr:source "session/no-sof";
+                dr:fieldnum 55;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-nat" {
+                dr:source "session/no-nat";
+                dr:fieldnum 56;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-ssl" {
+                dr:source "session/no-ssl";
+                dr:fieldnum 57;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-tunnel" {
+                dr:source "session/no-tunnel";
+                dr:fieldnum 58;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/session/no-failed" {
+                dr:source "session/no-failed";
+                dr:fieldnum 59;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet" {
+                dr:fieldnum 152;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pkt-received" {
+                dr:source "packet/pkt-received";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pkt-transmitted" {
+                dr:source "packet/pkt-transmitted";
+                dr:fieldnum 52;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pkt-dropped" {
+                dr:source "packet/pkt-dropped";
+                dr:fieldnum 53;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/fragments-received" {
+                dr:source "packet/fragments-received";
+                dr:fieldnum 54;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pre-fragments" {
+                dr:source "packet/pre-fragments";
+                dr:fieldnum 55;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/post-fragments" {
+                dr:source "packet/post-fragments";
+                dr:fieldnum 56;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pmi-received" {
+                dr:source "packet/pmi-received";
+                dr:fieldnum 57;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pmi-transmitted" {
+                dr:source "packet/pmi-transmitted";
+                dr:fieldnum 58;
+            }
+            augment "junos/security/spu/flow/stats-scope/system/packet/pmi-dropped" {
+                dr:source "packet/pmi-dropped";
+                dr:fieldnum 59;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope" {
+                dr:source "/junos/security/spu/flow/lsys/usage/";
+                dr:fieldnum 152;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys" {
+                dr:source "/junos/security/spu/flow/lsys/usage/";
+                dr:fieldnum 152;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/lsys-name" {
+                dr:fieldnum 151;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session" {
+                dr:fieldnum 152;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-v4" {
+                dr:source "session/no-v4";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-v6" {
+                dr:source "session/no-v6";
+                dr:fieldnum 52;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-unicast" {
+                dr:source "session/no-unicast";
+                dr:fieldnum 53;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-multicast" {
+                dr:source "session/no-multicast";
+                dr:fieldnum 54;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-sof" {
+                dr:source "session/no-sof";
+                dr:fieldnum 55;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-nat" {
+                dr:source "session/no-nat";
+                dr:fieldnum 56;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-ssl" {
+                dr:source "session/no-ssl";
+                dr:fieldnum 57;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-tunnel" {
+                dr:source "session/no-tunnel";
+                dr:fieldnum 58;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/session/no-failed" {
+                dr:source "session/no-failed";
+                dr:fieldnum 59;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet" {
+                dr:fieldnum 153;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pkt-received" {
+                dr:source "packet/pkt-received";
+                dr:fieldnum 51;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pkt-transmitted" {
+                dr:source "packet/pkt-transmitted";
+                dr:fieldnum 52;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pkt-dropped" {
+                dr:source "packet/pkt-dropped";
+                dr:fieldnum 53;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/fragments-received" {
+                dr:source "packet/fragments-received";
+                dr:fieldnum 54;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pre-fragments" {
+                dr:source "packet/pre-fragments";
+                dr:fieldnum 55;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/post-fragments" {
+                dr:source "packet/post-fragments";
+                dr:fieldnum 56;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pmi-received" {
+                dr:source "packet/pmi-received";
+                dr:fieldnum 57;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pmi-transmitted" {
+                dr:source "packet/pmi-transmitted";
+                dr:fieldnum 58;
+            }
+            augment "junos/security/spu/flow/stats-scope/lsys-scope/lsys/packet/pmi-dropped" {
+                dr:source "packet/pmi-dropped";
+                dr:fieldnum 59;
+            }
+        }
+    }
+
+    dr:command-app "agentd";
+    dr:sub-component "pfe-spu-flow";
+    jnpr-proto:message-id "PFE-SPU-FLOW-MESSAGE-ID";
+    rpc juniper-netconf-get {
+        output {
+            uses pfe-spu-flow;
+        }
+    }
+}

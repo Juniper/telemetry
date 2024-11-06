@@ -1,0 +1,99 @@
+/*
+ * $Id:$
+ *
+ * Copyright (c) 2016, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module pfed_oc {
+  yang-version "1";
+
+  // namespace
+  namespace "http://juniper.net/yang/pfedoc";
+
+  prefix "pfedoc";
+  
+  import pfed_base {prefix pfedbase;}
+  import drend {
+     prefix "dr";
+  }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  dr:command-app "pfed";
+  dr:sub-component "pfe";
+  jnpr-proto:message-id "PFED-OC-MESSAGE-ID";
+
+  grouping oc-pfed-flabel-group {
+   uses pfedbase:pfed-base {
+        augment "junos" {
+           dr:source "/pfed/fpcs";
+	   dr:fieldnum 151;
+        }
+        augment "junos/npu-memory" {
+           dr:source "/pfed/fpcs";
+	   dr:fieldnum 151;
+        }
+        augment "junos/npu-memory/pfe-name" {
+           dr:source fpc_name;
+	   dr:fieldnum 51;
+        }
+        augment "junos/npu-memory/combined-pool-name" {
+           dr:source combined_pool_name;
+	   dr:fieldnum 52;
+        }
+        augment "junos/npu-memory/combined-size" {
+           dr:source combined_size;
+	   dr:fieldnum 53;
+        }
+        augment "junos/npu-memory/combined-usage-count" {
+           dr:source combined_usage_cnt;
+	   dr:fieldnum 54;
+        }
+        augment "junos/npu-memory/combined-utilization" {
+           dr:source combined_util;
+	   dr:fieldnum 55;
+        }
+        augment "junos/npu-memory/global-pool-name" {
+           dr:source global_pool_name;
+	   dr:fieldnum 56;
+        }
+        augment "junos/npu-memory/global-usage-count" {
+           dr:source global_usage_cnt;
+	   dr:fieldnum 57;
+        }
+        augment "junos/npu-memory/global-alloc-count" {
+           dr:source global_alloc_cnt;
+	   dr:fieldnum 58;
+        }
+        augment "junos/npu-memory/global-free-count" {
+           dr:source global_free_cnt;
+	   dr:fieldnum 59;
+        }
+        augment "junos/npu-memory/local-pool-name" {
+           dr:source local_pool_name;
+	   dr:fieldnum 60;
+        }
+        augment "junos/npu-memory/local-usage-count" {
+           dr:source local_usage_cnt;
+	   dr:fieldnum 61;
+        }
+        augment "junos/npu-memory/local-alloc-count" {
+           dr:source local_alloc_cnt;
+	   dr:fieldnum 62;
+        }
+        augment "junos/npu-memory/local-free-count" {
+           dr:source local_free_cnt;
+	   dr:fieldnum 63;
+        }
+   }
+  }
+
+  rpc juniper-netconf-get {
+     dr:command-top-of-output "/pfed/cmd1/";
+     dr:command-help "Default <get> rpc";
+     output {
+         uses oc-pfed-flabel-group;
+     }
+  }
+}

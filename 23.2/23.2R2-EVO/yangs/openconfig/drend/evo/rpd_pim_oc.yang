@@ -1,0 +1,351 @@
+module rpd_pim_oc {
+  yang-version 1;
+
+  namespace "http://juniper.net/yang/pim_oc_render";
+
+  prefix "pim_oc";
+
+  import drend {
+    prefix "dr";
+  }
+
+  import jnpr-proto { prefix jnpr-proto; }
+  import openconfig-pim { prefix oc-pim; }
+
+  description "
+    Rendering Junos PIM State in OpenConfig PIM Schema terms
+  ";
+
+  dr:command-app "rpd";
+  dr:sub-component "PIM";
+  jnpr-proto:message-id "RPD-PIM-OC-MESSAGE-ID";
+
+  grouping rend-pim-neighbor-state {
+    uses oc-pim:pim-neighbor-state {
+    augment "neighbor-address" {
+      dr:source "neighbor-address";
+      dr:fieldnum 51;
+    }
+    augment "dr-address" {
+      dr:source "dr-address";
+      dr:fieldnum 52;
+    }
+    augment "neighbor-established" {
+      dr:source "neighbor-established";
+      dr:fieldnum 53;
+    }
+    augment "neighbor-expires" {
+      dr:source "neighbor-expires";
+      dr:fieldnum 54;
+    }
+    augment "mode" {
+      dr:source "mode";
+      dr:fieldnum 55;
+    }
+   }
+  }
+
+  grouping rend-pim-global-top {
+    uses oc-pim:pim-global-top {
+      augment "state" {
+      dr:fieldnum 152;
+    }
+    augment "state/counters" {
+      dr:fieldnum 154;
+    }
+    augment "state/counters/hello-messages" {
+      dr:source "hello-messages";
+      dr:fieldnum 51;
+    }
+    augment "state/counters/join-prune-messages" {
+      dr:source "join-prune-messages";
+      dr:fieldnum 52;
+    }
+    augment "state/counters/bootstrap-messages" {
+      dr:source "bootstrap-messages";
+      dr:fieldnum 53;
+    }
+    augment "rendezvous-points" {
+      dr:fieldnum 155;
+    }
+    augment "rendezvous-points/rendezvous-point" {
+      dr:source "rendezvous-points/rendezvous-point";
+      dr:fieldnum 155;
+    }
+    augment "rendezvous-points/rendezvous-point/state" {
+      dr:fieldnum 155;
+    }
+    augment "rendezvous-points/rendezvous-point/state/address" {
+      dr:source "address";
+      dr:fieldnum 51;
+    }
+    augment "rendezvous-points/rendezvous-point/state/multicast-groups" {
+      dr:source "multicast-groups";
+      dr:fieldnum 52;
+    }
+   }
+  }
+
+  grouping rend-network-instance-top {
+    uses oc-pim:pim-interfaces-top {
+      augment "interfaces" {
+	dr:source "interfaces";
+        dr:fieldnum 153;
+      }
+      augment "interfaces/interface" {
+        dr:source "interface";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state" {
+        dr:fieldnum 154;
+      }
+      augment "interfaces/interface/state/mode" {
+	dr:source "mode";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/state/interface-id" {
+	dr:source "name";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/neighbors" {
+	dr:source "neighbors";
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/neighbors/neighbor" {
+        dr:source "neighbor";
+        dr:fieldnum 151;
+        dr:source-notification-name "pim-nbr-state-change";
+      }
+      augment "interfaces/interface/neighbors/neighbor/neighbor-address" {
+        dr:source "neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/neighbor-address" {
+        dr:source "neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/dr-address" {
+        dr:source "dr-address";
+        dr:fieldnum 52;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/neighbor-established" {
+        dr:source "neighbor-established";
+        dr:fieldnum 53;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/neighbor-expires" {
+        dr:source "neighbor-expires";
+        dr:fieldnum 54;
+      }
+      augment "interfaces/interface/neighbors/neighbor/state/mode" {
+        dr:source "mode";
+        dr:fieldnum 55;
+      }
+    }
+  }
+
+  grouping protocol-group {
+    leaf identifier {
+      type string;
+      dr:source "identifier";
+      dr:fieldnum 51;
+    }
+    leaf name {
+      type string;
+      dr:source "protocol_instance_name";
+      dr:fieldnum 52;
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/oc-pim-information";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc";
+
+    output {
+      container network-instances {
+         list network-instance {
+           key "name";
+           dr:source "/rt-instances/rt-instance";
+           dr:fieldnum 151;
+
+           leaf name {
+             type string;
+             dr:source "instance_name";
+             dr:fieldnum 51;
+           }
+
+           container protocols {
+             dr:fieldnum 151;
+             dr:source "protocols";
+             list protocol {
+               dr:source "protocol";
+               dr:fieldnum 151;
+	       key "identifier name";
+	       uses protocol-group;
+		 container pim {
+		    dr:source "pim";
+		    dr:fieldnum 151;
+		     container global{
+			dr:source "global";
+			dr:fieldnum 151;
+			uses rend-pim-global-top;
+		     }
+		 uses rend-network-instance-top;
+               }
+             }
+           }
+         }
+      }
+    }
+  }
+
+  /* On Change notifications */
+  notification oc-pim-nbr-state-change {
+    dr:source-notification-name "pim-nbr-state-change";
+    container network-instances {
+      dr:source "/notification/pim-nbr-state-change/network-instances";
+      dr:fieldnum 151;
+      list network-instance {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+        key name;
+        leaf name {
+          type string;
+          dr:source "instance-name";
+          dr:fieldnum 51;
+        }
+        container protocols {
+          dr:fieldnum 151;
+	  dr:source "protocols";
+          list protocol {
+	    key "identifier name";
+            dr:source "protocol";
+	    uses protocol-group;
+            dr:fieldnum 151;
+            container pim {
+              dr:fieldnum 151;
+              dr:source pim;
+              container interfaces {
+                dr:source "interfaces";
+                dr:fieldnum 153;
+                list interface {
+                  dr:source "interface";
+                  dr:fieldnum 151;
+                  key interface-id;
+                  leaf interface-id {
+                    dr:source "name";
+                    type string;
+                    dr:fieldnum 51;
+                  }
+                  container neighbors {
+		    dr:source "neighbors";
+                    dr:fieldnum 151;
+                    list neighbor {
+                      dr:source "neighbor";
+                      dr:fieldnum 151;
+                      key "neighbor-address";
+                      leaf neighbor-address {
+                        dr:source "neighbor-address";
+                        dr:fieldnum 51;
+                        type leafref {
+                          path "../state/neighbor-address";
+                        }
+                      }
+                      container state {
+                        dr:fieldnum 151;
+                        uses rend-pim-neighbor-state;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+    /*
+     * TODO: FIX it (in rendering file we need to have augment statement
+     * (do not use containers and list statement)
+     * The following changes are not working (on-change notification is not
+     * sent with below changes)
+     *
+    uses oc-ni:network-instance-top {
+      augment "network-instances" {
+        dr:source "/notification/pim-nbr-state-change/network-instances";
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance" {
+        dr:source "network-instance";
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/name" {
+        dr:source "instance-name";
+        dr:fieldnum 51;
+      }
+
+      augment "network-instances/network-instance/protocols" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface" {
+        dr:source "interfaces/interface";
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/interface-id" {
+        dr:source "name";
+        dr:fieldnum 51;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor" {
+        dr:source "neighbors/neighbor";
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/neighbor-address" {
+        dr:source "neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state" {
+        dr:fieldnum 151;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-address" {
+        dr:source "neighbor-address";
+        dr:fieldnum 51;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/dr-address" {
+        dr:source "dr-address";
+        dr:fieldnum 52;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-established" {
+        dr:source "neighbor-established";
+        dr:fieldnum 53;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-expires" {
+        dr:source "neighbor-expires";
+        dr:fieldnum 54;
+      }
+      augment "network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/mode" {
+        dr:source "mode";
+        dr:fieldnum 55;
+      }
+    }
+  } */
+}

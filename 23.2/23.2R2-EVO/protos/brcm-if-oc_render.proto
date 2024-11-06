@@ -1,0 +1,105 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces jnpr_interfaces_ext = 3;
+}
+
+message interfaces {
+   message interface_list {
+      optional string name = 1 [(telemetry_options).is_key = true];
+      optional uint32 init_time = 2;
+      message state_list {
+         optional string parent_ae_name = 4;
+         message counters_list {
+            optional uint64 in_pkts = 1;
+            optional uint64 in_octets = 2;
+            optional uint64 in_unicast_pkts = 3;
+            optional uint64 in_multicast_pkts = 4;
+            optional uint64 in_broadcast_pkts = 5;
+            optional uint64 in_pause_pkts = 6;
+            optional uint64 out_pkts = 7;
+            optional uint64 out_octets = 8;
+            optional uint64 out_unicast_pkts = 9;
+            optional uint64 out_multicast_pkts = 10;
+            optional uint64 out_broadcast_pkts = 11;
+            optional uint64 out_pause_pkts = 12;
+            optional uint64 in_errors = 13;
+            optional uint64 out_errors = 14;
+            optional uint64 in_discards = 15;
+            optional uint64 in_fcs_errors = 16;
+         }
+         repeated counters_list counters = 3;
+      }
+      repeated state_list state = 3;
+      message ethernet_list {
+         message state_list {
+            optional counters_type counters = 12;
+            message counters_type {
+               optional uint64 in_mac_pause_frames = 1;
+               optional uint64 in_oversize_frames = 2;
+               optional uint64 in_undersize_frames = 3;
+               optional uint64 in_jabber_frames = 4;
+               optional uint64 in_fragment_frames = 5;
+               optional uint64 in_crc_errors = 6;
+               optional uint64 out_mac_pause_frames = 7;
+               optional uint64 in_8021q_frames = 8;
+               optional uint64 out_8021q_frames = 9;
+               optional uint64 in_maxsize_exceeded = 10;
+               optional in_distribution_type in_distribution = 13;
+               message in_distribution_type {
+                  optional uint64 in_frames_64_octets = 1;
+                  optional uint64 in_frames_65_127_octets = 2;
+                  optional uint64 in_frames_128_255_octets = 3;
+                  optional uint64 in_frames_256_511_octets = 4;
+                  optional uint64 in_frames_512_1023_octets = 5;
+                  optional uint64 in_frames_1024_1518_octets = 6;
+               }
+               message jnx_pfc_statistics_list {
+                  optional uint32 priority = 1 [(telemetry_options).is_key = true];
+                  optional uint64 in_mac_pause_frames = 2;
+                  optional uint64 out_mac_pause_frames = 3;
+               }
+               repeated jnx_pfc_statistics_list jnx_pfc_statistics = 14;
+            }
+         }
+         repeated state_list state = 11;
+      }
+      repeated ethernet_list ethernet = 10;
+      message subinterfaces_list {
+         message subinterface_list {
+            optional uint32 index = 1 [(telemetry_options).is_key = true];
+            optional uint64 init_time = 2;
+            message state_list {
+               optional string name = 1;
+               optional string parent_ae_name = 2;
+               optional string oper_status = 3;
+               message counters_list {
+                  optional uint64 in_pkts = 1;
+                  optional uint64 in_octets = 2;
+                  optional uint64 out_pkts = 3;
+                  optional uint64 out_octets = 4;
+               }
+               repeated counters_list counters = 7;
+            }
+            repeated state_list state = 6;
+         }
+         repeated subinterface_list subinterface = 5;
+      }
+      repeated subinterfaces_list subinterfaces = 4;
+      message bmon_data_list {
+         optional string if_name = 1 [(telemetry_options).is_key = true];
+         optional uint32 index = 2;
+         optional uint64 start_ts = 3;
+         optional uint64 tx_bytes = 4;
+         optional uint64 rx_bytes = 5;
+         optional uint64 tx_peak_byte_rate = 6;
+         optional uint64 tx_peak_ts = 7;
+         optional uint64 rx_peak_byte_rate = 8;
+         optional uint64 rx_byte_ts = 9;
+      }
+      repeated bmon_data_list bmon_data = 5;
+   }
+   repeated interface_list interface = 1;
+}

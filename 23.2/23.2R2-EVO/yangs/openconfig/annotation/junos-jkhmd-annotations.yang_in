@@ -1,0 +1,52 @@
+module junos-jkhmd-annotations {
+    yang-version 1;
+
+    namespace "http://juniper.net/yang/junos/kernel_health/annotations";
+
+    prefix "jnx-junos-jkhmd-ann";
+
+    import junos-jkhmd { prefix junos-jkhmd; }
+    import junos-extension { prefix junos; }
+
+    // meta
+    organization "Juniper Network Inc.";
+
+    revision "2022-10-11" {
+        description "Initial version to add jkhmd model product support information";
+    }
+
+    augment "/junos-jkhmd:junos/junos-jkhmd:chassis" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+
+    augment "/junos-jkhmd:junos/junos-jkhmd:routing-options" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+
+    augment "/junos-jkhmd:junos/junos-jkhmd:security" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+
+    augment "/junos-jkhmd:junos/junos-jkhmd:kernel" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+
+    augment "/junos-jkhmd:junos/junos-jkhmd:kernel-ifstate" {
+        JUNOS_PRODUCT(MX_SERIES);
+        JUNOS_PRODUCT_EXCLUDE(MX80_SERIES);
+        JUNOS_PRODUCT(PTX_SERIES);
+        JUNOS_PRODUCT(EX92XX_SERIES);
+    }
+}

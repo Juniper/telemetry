@@ -1,0 +1,348 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2020, Juniper Networks, Inc.
+ * All rights reserved.
+ * developer : senthilps@juniper.net
+ */
+
+module rpd_resiliency_interface {
+
+    yang-version "1";
+
+    namespace "http://juniper.net/yang/rpd-resiliency";
+
+    prefix "rpdjri";
+
+    import drend { prefix dr; }
+    import jnpr-proto { prefix jnpr-proto; }
+    import openconfig-types { prefix oc-types; }
+    import junos-resiliency-interface { prefix jri; }
+
+    // meta
+    organization "Juniper Networks Inc.";
+
+    description
+ 	"This module provides rendering for JUNOS Routing exceptions version 1.0.0";
+
+    revision "2020-02-28" {
+	description
+	    "Initial version of RPD Resiliency Interface rendering";
+	    reference "1.0.0";
+	}
+
+    dr:command-app "rpd";
+    dr:sub-component "rpd-krt";
+    jnpr-proto:message-id "RPD-RESILIENCY-MESSAGE-ID";
+
+    // identity statements
+
+    // Exception-type identities
+
+
+    grouping common-incident-group {
+        uses jri:common-incident-descriptor {
+	    augment "incident-descriptor" {
+                dr:fieldnum 151;
+	    }
+	    augment "incident-descriptor/id" {
+                dr:fieldnum 51;
+                dr:source "id";
+	    }
+	    augment "incident-descriptor/exception-code" {
+		dr:fieldnum 52;
+		dr:source "exception-code";
+	    }
+	    augment "incident-descriptor/description" {
+		dr:fieldnum 53;
+		dr:source "description";
+	    }
+	    augment "incident-descriptor/host-id" {
+		dr:fieldnum 54;
+		dr:source "host-id";
+	    }
+	    augment "incident-descriptor/resource-id" {
+		dr:fieldnum 55;
+		dr:source "resource-id";
+	    }
+	    augment "incident-descriptor/timestamp" {
+		dr:fieldnum 56;
+		dr:source "timestamp";
+	    }
+	}
+    }
+
+    grouping common-exception-group {
+        uses jri:common-exception-descriptor {
+	    augment "exception-type" {
+                dr:fieldnum 52;
+                dr:source "exception-type";
+	    }
+	    augment "exception-owner" {
+		dr:fieldnum 53;
+		dr:source "exception-owner";
+	   }
+	}
+    }
+
+    grouping download-path-group {
+	    uses jri:download-path-descriptor-state {
+		    augment "download-path-descriptor" {
+			dr:fieldnum 153;
+		    }
+		    augment "download-path-descriptor/object-id" {
+			dr:fieldnum 51;
+			dr:source "object-id";
+		    }
+		    augment "download-path-descriptor/krt-status" {
+			dr:fieldnum 52;
+			dr:source "krt-status";
+		    }
+		    augment "download-path-descriptor/errno" {
+			dr:fieldnum 53;
+			dr:source "errno";
+		    }
+		    augment "download-path-descriptor/route-prefix" {
+			dr:fieldnum 54;
+			dr:source "route-prefix";
+		    }
+		    augment "download-path-descriptor/nexthop-index" {
+			dr:fieldnum 55;
+			dr:source "nexthop-index";
+		    }
+		    augment "download-path-descriptor/krtq-op" {
+			dr:fieldnum 56;
+			dr:source "krtq-op";
+		    }
+		    augment "download-path-descriptor/nexthop-handle" {
+			dr:fieldnum 57;
+			dr:source "nexthop-handle";
+		    }
+		    augment "download-path-descriptor/sequence-number" {
+			dr:fieldnum 58;
+			dr:source "sequence-number";
+		    }
+	    }
+    }
+
+    rpc juniper-netconf-get {
+	dr:command-top-of-output "/jnx-rpd-resiliency";
+	dr:command-full-name "request drend juniper-netconf-get";
+	dr:command-help "Default <get> rpc";
+
+   	output {
+	    container junos {
+		dr:fieldnum 151;
+   	    container exception-profiles {
+		dr:source "/junos/exception-profiles";
+		dr:fieldnum 151;
+   		list routing-profile {
+		    dr:source "routing-profile";
+		    dr:fieldnum 151;
+  		    key "id";
+  		    leaf id {
+			dr:fieldnum 51;
+			dr:source "id";
+  			type uint64;
+		}
+		dr:source-notification-name "download-path-exception";
+		dr:source-notification-name "routing-socket-exception";
+   		uses common-incident-group;
+   		uses common-exception-group;
+   		uses download-path-group;
+  		}
+  	     }
+           }
+        }
+    }
+
+    notification routing-download-path-exception {
+        dr:source-notification-name "download-path-exception";
+            container junos {
+                dr:source "/notification/download-path-exception/junos";
+                dr:fieldnum 151;
+                container exception-profiles {
+                dr:source "exception-profiles";
+                dr:fieldnum 151;
+                list routing-profile {
+                dr:fieldnum 151;
+                dr:source "routing-profile";
+                    key "id";
+                    leaf id {
+                        dr:fieldnum 51;
+                        type uint64;
+                        dr:source "id";
+                   }
+                    container incident-descriptor {
+                        dr:fieldnum 151;
+                        leaf id {
+                        dr:fieldnum 51;
+                        type uint64;
+                        dr:source "id";
+                   }
+		        leaf exception-code {
+                            dr:fieldnum 52;
+                            type string;
+                            dr:source "exception-code";
+		       }
+		       leaf description {
+                            dr:fieldnum 53;
+                            type string;
+                            dr:source "description";
+		       }
+		       leaf host-id {
+                           dr:fieldnum 54;
+                           type string;
+                           dr:source "host-id";
+		       }
+		       leaf resource-id {
+                           dr:fieldnum 55;
+                           type string;
+                            dr:source "resource-id";
+		       }
+		       leaf timestamp {
+                           dr:fieldnum 56;
+                           type oc-types:timeticks64;
+                           dr:source "timestamp";
+		       }
+		   }
+		   leaf exception-type {
+                        dr:fieldnum 52;
+                        type identityref {
+	                    base jri:EXCEPTION_TYPE;
+                        }
+                        dr:source "exception-type";
+                        dr:map EXCEPTION_DOWNLOAD_PATH { dr:map-from 1; }
+                        dr:map EXCEPTION_SOCKET { dr:map-from 2; }
+		   }
+		   leaf exception-owner {
+		       type identityref {
+			    base jri:OWNER_TYPE;
+			}
+                        dr:fieldnum 53;
+                        dr:source "exception-owner";
+                        dr:map ROUTING { dr:map-from 1; }
+		   }
+		   container download-path-descriptor {
+                         dr:fieldnum 153;
+                         leaf object-id {
+                             dr:fieldnum 51;
+                             type uint64;
+                             dr:source "object-id";
+                         }
+			 leaf krt-status {
+			     type identityref {
+				 base
+				     jri:STATUS_TYPE;
+			     }
+                             dr:fieldnum 52;
+                             dr:source "krt-status";
+                             dr:map SUCCESS               { dr:map-from 0; }
+                             dr:map DEFER                 { dr:map-from 1; }
+                             dr:map FULL                  { dr:map-from 2; }
+                             dr:map BLOCKED               { dr:map-from 3; }
+                             dr:map NOTFOUND              { dr:map-from 4; }
+                             dr:map NH_NOSUPPT            { dr:map-from 5; }
+                             dr:map CANCELLED             { dr:map-from 6; }
+                             dr:map ASYNC                 { dr:map-from 7; }
+                             dr:map RETRY                 { dr:map-from 8; }
+                             dr:map DONE                  { dr:map-from 9; }
+                             dr:map TAKEN_CARE            { dr:map-from 10; }
+                             dr:map DEFER_ADD             { dr:map-from 11; }
+                             dr:map FAIL                  { dr:map-from 12; }
+                             dr:map FORCE_DONE            { dr:map-from 13; }
+                             dr:map PARTIAL               { dr:map-from 14; }
+                             dr:map MEMFULL               { dr:map-from 15; }
+                             dr:map HANDLED               { dr:map-from 16; }
+                             dr:map FREED                 { dr:map-from 17; }
+                             dr:map FAILURE               { dr:map-from 18; }
+                             dr:map STATUS_UNAVAILABLE    { dr:map-from 255; }
+			 }
+			 leaf errno {
+                             dr:fieldnum 53;
+                             type uint8;
+                             dr:source "errno";
+			 }
+			 leaf route-prefix {
+                             dr:fieldnum 54;
+                             type string;
+                             dr:source "route-prefix";
+			 }
+			 leaf nexthop-index {
+                             dr:fieldnum 55;
+                             type uint32;
+                             dr:source "nexthop-index";
+			 }
+			 leaf krtq-op {
+                             dr:fieldnum 56;
+			     type identityref {
+				 base
+				     jri:OP_TYPE;
+			     }
+                             dr:source "krtq-op";
+			     dr:map NOP                   { dr:map-from 0; }
+			     dr:map DELETE                { dr:map-from 1; }
+			     dr:map ADD                   { dr:map-from 2; }
+			     dr:map CHANGE                { dr:map-from 3; }
+			     dr:map GET                   { dr:map-from 4; }
+			     dr:map OP_UNAVAILABLE        { dr:map-from 255; }
+			 }
+			 leaf nexthop-handle {
+                             dr:fieldnum 57;
+			     type identityref {
+				 base
+				     jri:RNH_TYPE;
+			     }
+                             dr:source "nexthop-handle";
+
+			     dr:map RT_NH_UNUSABLE          { dr:map-from 0; }
+			     dr:map RT_NH_INTERFACE         { dr:map-from 1; }
+			     dr:map RT_NH_TABLE             { dr:map-from 2; }
+			     dr:map RT_NH_INDIRECT          { dr:map-from 3; }
+			     dr:map RT_NH_ROUTER            { dr:map-from 4; }
+			     dr:map RT_NH_IPV4_MULTICAST    { dr:map-from 5; }
+			     dr:map RT_NH_IPV6_MULTICAST    { dr:map-from 6; }
+			     dr:map RT_NH_IFLIST            { dr:map-from 7; }
+			     dr:map RT_NH_LOCAL             { dr:map-from 8; }
+			     dr:map RT_NH_REJECT            { dr:map-from 9; }
+			     dr:map RT_NH_BLACKHOLE         { dr:map-from 10; }
+			     dr:map RT_NH_RECEIVE           { dr:map-from 11; }
+			     dr:map RT_NH_MRECEIVE          { dr:map-from 12; }
+			     dr:map RT_NH_MDISCARD          { dr:map-from 13; }
+			     dr:map RT_NH_TABLE_RECEIVE     { dr:map-from 14; }
+			     dr:map RT_NH_SERVICE           { dr:map-from 15; }
+			     dr:map RT_NH_FLOOD             { dr:map-from 16; }
+			     dr:map RT_NH_CFNH              { dr:map-from 17; }
+			     dr:map RT_NH_CHAIN             { dr:map-from 18; }
+			     dr:map RT_NH_NSRHOLD           { dr:map-from 19; }
+			     dr:map RT_NH_INDXD             { dr:map-from 20; }
+			     dr:map RT_NH_FICTITIOUS        { dr:map-from 21; }
+			     dr:map RT_NH_TUNNEL            { dr:map-from 22; }
+			     dr:map RT_NH_IPV4_MCAST_COMP   { dr:map-from 23; }
+			     dr:map RT_NH_IPV6_MCAST_COMP   { dr:map-from 24; }
+			     dr:map RT_NH_IFLIST_MCAST_COMP { dr:map-from 25; }
+			     dr:map RT_NH_RPF_MCAST_COMP    { dr:map-from 26; }
+			     dr:map RT_NH_MULTICAST_IFL     { dr:map-from 27; }
+			     dr:map RT_NH_OCNH              { dr:map-from 28; }
+			     dr:map RT_NH_LIST              { dr:map-from 29; }
+			     dr:map RT_NH_PFE_TABLE         { dr:map-from 30; }
+			     dr:map RT_NH_PRIVATE_COMP      { dr:map-from 31; }
+			     dr:map RT_NH_PRIVATE_UNICAST   { dr:map-from 32; }
+			     dr:map RT_NH_PRIVATE_INDXD     { dr:map-from 33; }
+			     dr:map RT_NH_TUNNEL_COMP       { dr:map-from 34; }
+			     dr:map RT_NH_PRIVATE_OPAQUE    { dr:map-from 35; }
+			     dr:map RT_NH_FRR_INDIRECT      { dr:map-from 36; }
+			     dr:map RT_NH_END               { dr:map-from 37; }
+			     dr:map RT_NH_UNAVAILABLE       { dr:map-from 255;}
+			 }
+    			 leaf sequence-number {
+                             dr:fieldnum 58;
+                             type uint32;
+                             dr:source "sequence-number";
+			 }
+		     }
+		 }
+	   }
+       }
+   }
+}

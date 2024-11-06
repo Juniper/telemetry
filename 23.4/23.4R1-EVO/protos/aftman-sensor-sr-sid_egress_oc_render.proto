@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional mpls_sr_sid_egress jnpr_mpls_sr_sid_egress_ext = 26;
+}
+
+message mpls_sr_sid_egress {
+   optional signaling_protocols_type signaling_protocols = 180;
+   message signaling_protocols_type {
+      optional segment_routing_type segment_routing = 180;
+      message segment_routing_type {
+         message aggregate_sid_counters_list {
+            message aggregate_sid_counter_list {
+               optional string ip_addr = 80 [(telemetry_options).is_key = true];
+               message state_list {
+                  message counters_list {
+                     optional string name = 80 [(telemetry_options).is_key = true];
+                     optional uint64 out_pkts = 83;
+                     optional uint64 out_octets = 84;
+                  }
+                  repeated counters_list counters = 180;
+               }
+               repeated state_list state = 180;
+            }
+            repeated aggregate_sid_counter_list aggregate_sid_counter = 180;
+         }
+         repeated aggregate_sid_counters_list aggregate_sid_counters = 180;
+      }
+   }
+}

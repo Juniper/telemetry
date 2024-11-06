@@ -1,0 +1,64 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2006-2016, Juniper Networks, Inc.
+ * All rights reserved.
+ *
+ */
+ 	
+module pfe_mpls_sr_ingress_oc {
+ 	
+  yang-version "1";
+ 	
+  // namespace
+  namespace "http://juniper.net/yang/pfe-mpls-sr-ingress-oc";
+ 	
+  prefix "mpls-sr-oc";
+ 	
+  //import ietf-yang-types { prefix yang; }
+  import openconfig-mpls { prefix oc-mpls; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Network Inc.";
+ 	
+  contact "www.juniper.net";
+	
+  grouping mpls-sr {
+    uses oc-mpls:mpls-top {
+      augment "mpls" {
+        dr:source "/junos/services/segment-routing/interface/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols" {
+        dr:source "/junos/services/segment-routing/interface/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing" {
+        dr:source "/junos/services/segment-routing/interface/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/interfaces" {
+        dr:source "/junos/services/segment-routing/interface/ingress/usage/";
+        dr:fieldnum 151;
+      }
+      augment "mpls/signaling-protocols/segment-routing/interfaces/interface" {
+        dr:source "/junos/services/segment-routing/interface/ingress/usage/";
+        dr:fieldnum 151;
+      }
+    }
+  }
+
+  dr:command-app "agentd";
+  dr:sub-component "pfe-mpls-se-ingress";
+  jnpr-proto:message-id "SR-STATS-IF?INGRESS-ID";
+
+  rpc juniper-netconf-get {
+    output {
+        uses mpls-sr;
+    }
+  }
+}
+
+

@@ -1,0 +1,182 @@
+module junos-openconfig-aft-annotations {
+  yang-version "1";
+
+  namespace "http://yang.juniper.net/openconfig/aft/annotations";
+
+  prefix "jnx-oc-ni-ann";
+
+  import openconfig-network-instance { prefix oc-ni; }
+  import openconfig-aft-network-instance { prefix oc-aftni; }
+  import junos-extension { prefix junos; }
+
+  organization "Juniper Networks";
+
+  description
+    "This module contains augments to openconfig aft model";
+
+  revision "2022-05-18" {
+    description "Initial revision";
+    reference "0.0.1";
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" {
+      JUNOS_PRODUCT(PTX_SERIES);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+      JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:prefix" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:prefix" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:prefix" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-ni:prefix" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:label" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-ni:label" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-aftni:next-hop-group-network-instance" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:mpls/oc-ni:label-entry/oc-ni:state" +
+            "/oc-ni:popped-mpls-label-stack" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:next-hop-groups" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+            "/oc-ni:next-hops" {
+      JUNOS_PRODUCT(ptx10001-36mr ptx10003-160c ptx10003-80c ptx10003-81cd ptx10004 ptx10008 ptx10016);
+      JUNOS_PRODUCT(mx2020 mx960 mx240);
+      JUNOS_PRODUCT(ptx5000 ptx1000);
+      JUNOS_PRODUCT(GUARDIAN ULTRON_ACX);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:counters/oc-ni:packets-forwarded" {
+      JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv4-unicast/oc-ni:ipv4-entry/oc-ni:state/oc-ni:counters/oc-ni:octets-forwarded" {
+      JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state/oc-ni:counters/oc-ni:packets-forwarded" {
+      JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+
+  augment "/oc-ni:network-instances/oc-ni:network-instance/oc-ni:afts" +
+              "/oc-ni:ipv6-unicast/oc-ni:ipv6-entry/oc-ni:state/oc-ni:counters/oc-ni:octets-forwarded" {
+      JUNOS_PRODUCT(mx2008 mx104 mx480 mx2010 mx304 mx2020 mx960 mx240);
+      JUNOS_PRODUCT_TVP(mx10004 mx10008 mx10016);
+  }
+}

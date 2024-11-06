@@ -1,0 +1,112 @@
+/*
+ * YANG definition for Iflset stats
+ *
+ * Copyright (c) 2021, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module pfe-iflset-qstats {
+  yang-version 1;
+
+  // namespace
+  namespace "http://juniper.net/yang/junos-telemetry-iflset";
+
+  prefix "jnx-iflset";
+
+//  import jnx-tel-top { prefix junos; }
+  import openconfig-interfaces { prefix ocif; }
+  import drend { prefix dr; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+  // meta
+  organization "Juniper Networks";
+
+  contact "support@juniper.net";
+
+  description "Yang definition for Iflset stats";
+  revision "2021-11-09" {
+    description "Initial yang file";
+  }
+
+
+    grouping iflset-counter {
+        leaf queue-number {
+            type uint64;
+            dr:fieldnum 51;
+        }
+        leaf queued-pkts {
+            type uint64;
+            dr:fieldnum 52;
+        }
+        leaf queued-octets {
+            type uint64;
+            dr:fieldnum 53;
+        }
+        leaf transmit-pkts {
+            type uint64;
+            dr:fieldnum 54;
+        }
+        leaf transmit-octets {
+            type uint64;
+            dr:fieldnum 55;
+        }
+        leaf tail-drop-pkts {
+            type uint64;
+            dr:fieldnum 56;
+        }
+        leaf red-drop-pkts {
+            type uint64;
+            dr:fieldnum 57;
+        }
+        leaf red-drop-octets {
+            type uint64;
+            dr:fieldnum 58;
+        }
+    }
+
+ dr:command-app "agentd";
+ dr:sub-component "pfe-iflset";
+ jnpr-proto:message-id "PFE-IFLSET-QSTATS-MESSAGE-ID";
+
+ rpc juniper-netconf-get {
+   output {
+        container junos {
+          dr:fieldnum 151;
+          container system {
+            dr:fieldnum 151;
+              container linecard {
+                dr:fieldnum 151;
+                container cos {
+                  dr:fieldnum 151;
+                  list interface {
+                    dr:fieldnum 151;
+                    key name;
+                    leaf name {
+                      type string;
+                      dr:fieldnum 51;
+                    }
+                    list interface-set {
+                      dr:fieldnum 151;
+                      key iflsetindex;
+                      leaf iflsetindex {
+                        type uint64;
+                        dr:fieldnum 51;
+                      }
+                      container output {
+                        dr:fieldnum 151;
+                        list queue {
+                          dr:source "/junos/system/linecard/interface/interface-set/output/";
+                          dr:fieldnum 151;
+                          key queue-number;
+                          uses iflset-counter;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+           }
+        }
+   }
+ }
+}

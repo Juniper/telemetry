@@ -1,0 +1,120 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_bgp_state_290 jnpr_state_bgp_state_290_ext = 290;
+}
+
+message state_bgp_state_290 {
+   optional routing_instances_type routing_instances = 150;
+   message routing_instances_type {
+      message routing_instance_list {
+         optional string name = 50 [(telemetry_options).is_key = true];
+         optional protocols_type protocols = 150;
+         message protocols_type {
+            optional bgp_type bgp = 150;
+            message bgp_type {
+               optional groups_type groups = 150;
+               message groups_type {
+                  message group_list {
+                     optional string name = 50 [(telemetry_options).is_key = true];
+                     optional string type = 51;
+                     optional neighbors_type neighbors = 150;
+                     message neighbors_type {
+                        message neighbor_list {
+                           optional string address = 50 [(telemetry_options).is_key = true];
+                           optional string local_address = 51;
+                           optional afi_safis_type afi_safis = 151;
+                           message afi_safis_type {
+                              message afi_safi_list {
+                                 optional string name = 55 [(telemetry_options).is_key = true];
+                                 optional bool active = 56;
+                                 optional validation_counters_type validation_counters = 151;
+                                 message validation_counters_type {
+                                    optional uint32 unverified = 60;
+                                    optional uint32 unknown = 61;
+                                    optional uint32 invalid = 62;
+                                    optional uint32 valid = 63;
+                                 }
+                                 optional prefix_counters_type prefix_counters = 152;
+                                 message prefix_counters_type {
+                                    optional uint32 received = 57;
+                                    optional uint32 accepted = 58;
+                                    optional uint32 advertised = 59;
+                                 }
+                              }
+                              repeated afi_safi_list afi_safi = 151;
+                           }
+                        }
+                        repeated neighbor_list neighbor = 150;
+                     }
+                  }
+                  repeated group_list group = 150;
+               }
+               optional rib_type rib = 160;
+               message rib_type {
+                  optional afi_safis_type afi_safis = 160;
+                  message afi_safis_type {
+                     message afi_safi_list {
+                        optional string name = 70 [(telemetry_options).is_key = true];
+                        optional ipv4_unicast_type ipv4_unicast = 160;
+                        message ipv4_unicast_type {
+                           optional loc_rib_type loc_rib = 160;
+                           message loc_rib_type {
+                              optional validation_counters_type validation_counters = 161;
+                              message validation_counters_type {
+                                 optional uint32 unverified = 60;
+                                 optional uint32 unknown = 61;
+                                 optional uint32 invalid = 62;
+                                 optional uint32 valid = 63;
+                              }
+                              optional routes_type routes = 160;
+                              message routes_type {
+                                 message route_list {
+                                    optional string prefix = 70;
+                                    optional string origin = 71;
+                                    optional uint32 path_id = 72;
+                                    optional uint64 last_modified = 73;
+                                    optional string origin_validation_state = 74;
+                                    optional string origin_validation_invalid_reason = 75;
+                                 }
+                                 repeated route_list route = 160;
+                              }
+                           }
+                        }
+                        optional ipv6_unicast_type ipv6_unicast = 170;
+                        message ipv6_unicast_type {
+                           optional loc_rib_type loc_rib = 170;
+                           message loc_rib_type {
+                              optional validation_counters_type validation_counters = 171;
+                              message validation_counters_type {
+                                 optional uint32 unverified = 60;
+                                 optional uint32 unknown = 61;
+                                 optional uint32 invalid = 62;
+                                 optional uint32 valid = 63;
+                              }
+                              optional routes_type routes = 170;
+                              message routes_type {
+                                 message route_list {
+                                    optional string prefix = 80;
+                                    optional string origin = 81;
+                                    optional uint32 path_id = 82;
+                                    optional uint64 last_modified = 83;
+                                    optional string origin_validation_state = 84;
+                                    optional string origin_validation_invalid_reason = 85;
+                                 }
+                                 repeated route_list route = 170;
+                              }
+                           }
+                        }
+                     }
+                     repeated afi_safi_list afi_safi = 160;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

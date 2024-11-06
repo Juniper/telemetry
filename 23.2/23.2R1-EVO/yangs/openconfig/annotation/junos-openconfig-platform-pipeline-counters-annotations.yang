@@ -1,0 +1,50 @@
+module junos-openconfig-platform-pipeline-counters-annotations {
+    yang-version "1";
+    prefix "jnx-oc-ppc-ann";
+    namespace "http://yang.juniper.net/yang/platform-pipeline-counters/annotations";
+    import junos-extension { prefix junos; }
+    import openconfig-platform { prefix oc-platform; }
+    import openconfig-platform-pipeline-counters { prefix oc-ppc; }
+    organization "Juniper Networks";
+    description "Augmenting the platform supported list";
+    revision "2022-03-25" {
+        description "Initial version to add platform supported list";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/oc-ppc:pipeline-counters" {
+        junos:product "ptx10001-36mr ptx10004 ptx10008 ptx10016";
+        junos:product "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/oc-ppc:pipeline-counters/oc-ppc:errors" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:lookup-block" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:queueing-block" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:packet/oc-ppc:fabric-block" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:lookup-block" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:queueing-block" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:host-interface-block/" +
+            "oc-ppc:state/oc-ppc:rate-limit" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+    augment "/oc-platform:components/oc-platform:component/oc-platform:integrated-circuit/" +
+            "oc-ppc:pipeline-counters/oc-ppc:drop/oc-ppc:host-interface-block/" +
+            "oc-ppc:state/oc-ppc:host-aggregate" {
+        junos:product-exclude "acx7509 QFX7100-48L ACX7100-48L ACX7100-32C acx7908 ACX7024 acx7332 acx7348";
+    }
+}

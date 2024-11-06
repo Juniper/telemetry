@@ -1,0 +1,389 @@
+module junos-ngapd {
+
+    yang-version "1";
+    namespace "http://juniper.net/yang/junos-ngapd";
+
+    prefix "jngapd";
+
+    // meta
+    organization "Juniper Networks Inc.";
+
+    description
+        "Juniper Networks definition of agf nasd operational yang model";
+
+    revision "2021-09-30" {
+        description
+            "Initial revision";
+        reference "1.0.0";
+    }
+
+    // grouping statements
+
+    grouping ngapd-amf-stats-common {
+	description "N2 stats iteration AMF name";
+        leaf amf-name {
+            type string;
+            description "AMF Name for statistics";
+        }
+    }
+
+    grouping ngapd-amf-state-common {
+	description "AMF name";
+        leaf amf-name {
+            type string;
+            description "AMF Name for state";
+        }
+    }
+
+    grouping ngapd-amf-ue-summary-common {
+	description "UE summary stats iteration AMF name";
+        leaf amf-name {
+            type string;
+            description "AMF Name for UE summary";
+        }
+    }
+
+    grouping ngapd-group-n2-stats {
+        description "NGAP N2 Protocol statistics";
+        leaf ngap-amf-configured-name {
+            type string;
+            description "N2 stats AMF configured name";
+        }
+        leaf ngap-amf-stats-ng-setup-request {
+            type uint32;
+            description "N2 stats NG setup request";
+        }
+        leaf ngap-amf-stats-ran-config-update {
+            type uint32;
+            description "N2 stats NG configuration update";
+        }
+        leaf ngap-amf-stats-amf-config-update-ack {
+            type uint32;
+            description "N2 stats AMF configuration update acknowledgement messages";
+        }
+        leaf ngap-amf-stats-amf-config-update-failure {
+            type uint32;
+            description "N2 stats AMF configuration update failure messages";
+        }
+        leaf ngap-amf-stats-ng-reset-sent {
+            type uint32;
+            description "N2 stats NG reset sent messages";
+        }
+        leaf ngap-amf-stats-ng-reset-ack-sent {
+            type uint32;
+            description "N2 stats NG reset acknowledgement sent messages";
+        }
+        leaf ngap-amf-stats-error-indication-sent {
+            type uint32;
+            description "N2 stats error indication sent messages";
+        }
+        leaf ngap-amf-stats-ng-setup-response {
+            type uint32;
+            description "N2 stats NG setup response messages";
+        }
+        leaf ngap-amf-stats-ng-setup-failure {
+            type uint32;
+            description "N2 stats NG setup failure messages";
+        }
+        leaf ngap-amf-stats-ran-config-update-ack {
+            type uint32;
+            description "N2 stats RAN configuration update acknowledgement messages";
+        }
+        leaf ngap-amf-stats-ran-config-update-failure {
+            type uint64;
+            description "N2 stats RAN configuration update failure messages";
+        }
+        leaf ngap-amf-stats-amf-config-update {
+            type uint32;
+            description "N2 stats AMF configuration update messages";
+        }
+        leaf ngap-amf-stats-ng-reset-recv {
+            type uint64;
+            description "N2 stats NG reset received messages";
+        }
+        leaf ngap-amf-stats-ng-reset-ack-recv {
+            type uint32;
+            description "N2 stats NG reset acknowledgement messages";
+        }
+        leaf ngap-amf-stats-error-indication-recv {
+            type uint32;
+            description "N2 stats error indication received messages";
+        }
+        leaf ngap-amf-stats-amf-status-indication {
+            type uint32;
+            description "N2 stats AMF status indication messages";
+        }
+        leaf ngap-amf-stats-overload-start {
+            type uint32;
+            description "N2 stats overload start messages";
+        }
+        leaf ngap-amf-stats-overload-stop {
+            type uint32;
+            description "N2 stats overload stop messages";
+        }
+        leaf ngap-amf-stats-init-ctx-setup-resp {
+            type string;
+            description "N2 stats initial context setup response messages";
+        }
+        leaf ngap-amf-stats-init-ctx-setup-failure {
+            type uint32;
+            description "N2 stats initial context setup failure messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-release-req {
+            type uint32;
+            description "N2 stats UE context release request messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-release-complete {
+            type uint32;
+            description "N2 stats UE context release complete messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-mod-resp {
+            type uint32;
+            description "N2 stats UE context modification response messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-mod-failure {
+            type uint32;
+            description "N2 stats UE context modification failure messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-setup-resp {
+            type uint32;
+            description "N2 stats PDU session resource setup messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-release-resp {
+            type uint32;
+            description "PDU session resource release response messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-modify-resp {
+            type uint32;
+            description "PDU session resource modify response messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-notify {
+            type uint32;
+            description "PDU session resource notify messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-mod-indication {
+            type uint32;
+            description "PDU session resource modify indication messages";
+        }
+        leaf ngap-amf-stats-initial-ue-message {
+            type uint64;
+            description "Initial UE messages";
+        }
+        leaf ngap-amf-stats-uplink-nas-transport {
+            type uint32;
+            description "Uplink NAS transport messages";
+        }
+        leaf ngap-amf-stats-nas-non-delivery-indication {
+            type uint64;
+            description "NAS non-delivery indication messages";
+        }
+        leaf ngap-amf-stats-init-ctx-setup-req {
+            type uint32;
+            description "Initial context setup request messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-release-cmd {
+            type uint32;
+            description "UE context release command messages";
+        }
+        leaf ngap-amf-stats-ue-ctx-mod-req {
+            type uint32;
+            description "UE context modification request messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-setup-req {
+            type uint32;
+            description "PDU session resource setup request messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-release-cmd {
+            type uint32;
+            description "PDU session resource release command messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-mod-req {
+            type uint32;
+            description "PDU session resource modify request messages";
+        }
+        leaf ngap-amf-stats-pdu-sess-res-mod-confirm {
+            type uint32;
+            description "PDU session resource modify confirm messages";
+        }
+        leaf ngap-amf-stats-downlink-nas-transport {
+            type uint32;
+            description "Downlink NAS transport messages";
+        }
+        leaf ngap-amf-stats-reroute-nas-req {
+            type uint32;
+            description "Re-route NAS request messages";
+        }
+        leaf ngap-amf-stats-ue-tnla-bind-release-req {
+            type uint32;
+            description "UE TNLA binding release request messages";
+        }
+    }
+
+    grouping amf-stats {
+        container amfs {
+            description "Collection of NGAP N2 protocol AMF statistics";
+            list amf {
+                uses ngapd-amf-stats-common;
+                key "amf-name";
+                uses ngapd-group-n2-stats;
+            }
+        }
+    }
+
+    grouping ngapd-group-amf-state {
+        description "NGAP AMF state";
+        leaf ngap-amf-configured-name {
+            type string;
+            description "AMF configured name";
+        }
+        leaf ngap-amf-routing-instance {
+            type string;
+            description "Routing instance";
+        }
+        leaf ngap-amf-is-default {
+            type string;
+            description "Default AMF or Not";
+        }
+        leaf ngap-amf-state {
+            type string;
+            description "AMF state";
+        }
+        leaf ngap-amf-overload-state {
+            type string;
+            description "Overload state";
+        }
+        leaf ngap-amf-total-ues {
+            type uint32;
+            description "Total UE count";
+        }
+    }
+
+    grouping amf-state {
+        container amfs {
+            description "Collection of NGAP AMF state parameters";
+            list amf {
+                uses ngapd-amf-state-common;
+                key "amf-name";
+                uses ngapd-group-amf-state;
+            }
+        }
+    }
+
+    grouping ngapd-group-amf-ue-summary-stats {
+        description "NGAP AMF specific UE summary counters";
+        leaf ngap-amf-configured-name {
+            type string;
+            description "AMF configured name";
+        }
+        leaf ngap-ue-total {
+            type uint32;
+            description "UE total count";
+        }
+        leaf ngap-ue-establishing {
+            type uint32;
+            description "UE total establishing";
+        }
+        leaf ngap-ue-established {
+            type uint32;
+            description "UE total established";
+        }
+        leaf ngap-ue-releasing {
+            type uint32;
+            description "UE total releasing";
+        }
+        leaf ngap-ue-released {
+            type uint32;
+            description "UE total released";
+        }
+    }
+
+    grouping ue-summary-stats {
+        container amfs {
+            description "Collection of NGAP UE summary counters";
+            list amf {
+                uses ngapd-amf-ue-summary-common;
+                key "amf-name";
+                uses ngapd-group-amf-ue-summary-stats;
+            }
+        }
+    }
+
+    grouping ngapd-group-total-ue-summary-stats {
+        description "NGAP total UE summary counters";
+        leaf ngap-ue-total {
+            type uint32;
+            description "UE total count";
+        }
+        leaf ngap-ue-establishing {
+            type uint32;
+            description "UE total establishing";
+        }
+        leaf ngap-ue-established {
+            type uint32;
+            description "UE total established";
+        }
+        leaf ngap-ue-releasing {
+            type uint32;
+            description "UE total releasing";
+        }
+        leaf ngap-ue-released {
+            type uint32;
+            description "UE total released";
+        }
+    }
+
+    // rpc statements
+
+    grouping ngapd-stats-top {
+        container junos {
+            config false;
+            description "JunOS OS";
+            container system {
+                container subscriber-management {
+                    container agf {
+                        description
+                          "Access Gateway Function";
+                        container ngap {
+                            description
+                              "Next-Generation Application Protocol";
+                            container n2 {
+                                description
+                                  "N2 Signaling info";
+                                container statistics {
+                                    description
+                                      "N2 protocol statistics";
+                                    uses amf-stats;
+                                }
+                            }
+                            container amf-state {
+                                description
+                                  "AMF state";
+                                container aggregate {
+                                    description
+                                      "AMF state parameters";
+                                    uses amf-state;
+                                }
+                            }
+                            container user-equipment {
+                                description
+                                  "NGAP UE information";
+                                container ue-summary-stats {
+                                    description
+                                      "NGAP UE state counters per AMF";
+                                    uses ue-summary-stats;
+                                    container total {
+                                        description
+                                          "NGAP Total UE state counters";
+                                        uses ngapd-group-total-ue-summary-stats;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    uses ngapd-stats-top;
+}
+

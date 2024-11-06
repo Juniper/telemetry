@@ -1,0 +1,255 @@
+module mib2d_nd6_oc {
+
+    yang-version "1";
+
+    // namespace
+    namespace "http://juniper.net/yang/nd6";
+
+    prefix "nd6info-oc";
+
+    import drend {
+	prefix "dr";
+    }
+    import jnpr-proto { prefix jnpr-proto; }
+
+
+    import openconfig-if-ip { prefix oc-ip; }  
+    import jnx-aug-openconfig-if-ip { prefix jnx-oc-ip; }
+
+    // meta
+    organization "Juniper Networks";
+
+    description "None";
+
+    revision "2014-05-03" {
+	description "None";
+    }
+
+    grouping ipv6-nbr-group {
+	uses oc-ip:ipv6-top {
+
+	    augment "ipv6" {
+		dr:fieldnum 151;
+	    }
+	    augment "ipv6/neighbors" {
+		dr:source "/ipv6/neighbors";
+		dr:fieldnum 151;
+	    }
+
+	    augment "ipv6/neighbors/neighbor" {
+		dr:source "neighbor";
+		dr:source-notification-name "nd6-change";
+                dr:fieldnum 151;
+	    }
+
+	    augment "ipv6/neighbors/neighbor/ip" {
+		dr:source "ip";
+		dr:fieldnum 51;
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state" {
+		dr:fieldnum 151;
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state/ip" {
+		dr:source "ip";
+		dr:fieldnum 51;
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state/link-layer-address" { 
+		dr:source "link-layer-address";
+		dr:fieldnum 52;
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state/origin" {
+		dr:source "origin";
+		dr:fieldnum 53;
+                dr:map STATIC { dr:map-from 1; }
+                dr:map DYNAMIC { dr:map-from 2; }
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state/is-router" {
+		dr:source "isrouter";
+                dr:fieldnum 54;
+		dr:map true   { dr:map-from 1; }
+		dr:map false  { dr:map-from 0; }
+	    }
+
+	    augment "ipv6/neighbors/neighbor/state/neighbor-state" {
+		dr:source "state";
+		dr:fieldnum 55;
+                dr:map INCOMPLETE { dr:map-from 0; }
+                dr:map REACHABLE { dr:map-from 1; }
+                dr:map STALE { dr:map-from 2; }
+                dr:map DELAY { dr:map-from 3; }
+                dr:map PROBE { dr:map-from 4; }
+	    } 
+
+	    augment "ipv6/neighbors/neighbor/state" {
+		uses jnx-oc-ip:jnx-ipv6-state-neighbor {
+		    augment table-id {
+			dr:source "rtb-id";
+			dr:fieldnum 61;
+		    }
+
+		    augment is-secure {
+			dr:source "issecure";
+                        dr:fieldnum 62;
+			dr:map true   { dr:map-from 1; }
+			dr:map false  { dr:map-from 0; }
+		    }
+
+		    augment is-publish {
+			dr:source "ispublish";
+                        dr:fieldnum 63;
+			dr:map true   { dr:map-from 1; }
+			dr:map false  { dr:map-from 0; }
+		    }
+
+		    augment expiry {
+			dr:source "expiry";
+			dr:fieldnum 64;
+		    }
+
+		    augment interface-name {
+			dr:source "interface-name";
+			dr:fieldnum 65;
+		    }
+
+		    augment logical-router-id {
+			dr:source "logical-router-id";
+			dr:fieldnum 66;
+		    }
+		}
+	    }
+
+	} 
+
+    }
+
+    dr:command-app "mib2d";
+    dr:sub-component "mib-nd6";
+    jnpr-proto:message-id "MIB2D-ND6-OC-MESSAGE-ID";
+
+
+    rpc juniper-netconf-get {
+	dr:command-help "show nd6 information";
+
+	output {
+	    container nd6-information {
+		uses ipv6-nbr-group;
+	    }
+	}
+   }
+
+    rpc juniper-telemetry-get {
+	dr:command-help "show nd6 information";
+
+	output {
+	    container nd6-information {
+		uses ipv6-nbr-group;
+	    }
+	}
+    }
+
+    notification oc-nd6-change {
+        dr:source-notification-name "nd6-change";
+        dr:fieldnum 152;
+           container nd6-information {
+            dr:fieldnum 152;
+            uses oc-ip:ipv6-top {
+
+                augment "ipv6" {
+                    dr:fieldnum 151;
+                }
+                augment "ipv6/neighbors" {
+                    dr:source "/notification/nd6-change/neighbors";
+                    dr:fieldnum 151;
+                }
+
+                augment "ipv6/neighbors/neighbor" {
+                    dr:source "neighbor";
+                    dr:fieldnum 151;
+                }
+
+                augment "ipv6/neighbors/neighbor/ip" {
+                    dr:source "ip";
+                    dr:fieldnum 51;
+                }
+                
+                augment "ipv6/neighbors/neighbor/state/ip" {
+                    dr:source "state-ip";
+                    dr:fieldnum 51;
+                }
+
+		augment "ipv6/neighbors/neighbor/state/link-layer-address" {
+		    dr:source "link-layer-address";
+                    dr:fieldnum 52;
+		}
+
+		augment "ipv6/neighbors/neighbor/state/origin" {
+		    dr:source "origin";
+                    dr:fieldnum 53;
+		    dr:map STATIC { dr:map-from 1; }
+		    dr:map DYNAMIC { dr:map-from 2; }
+		}
+
+		augment "ipv6/neighbors/neighbor/state/is-router" {
+		    dr:source "isrouter";
+                    dr:fieldnum 54;
+		    dr:map true   { dr:map-from 1; }
+		    dr:map false  { dr:map-from 0; }
+		}
+
+		augment "ipv6/neighbors/neighbor/state/neighbor-state" {
+		    dr:source "state";
+                    dr:fieldnum 55;
+		    dr:map INCOMPLETE { dr:map-from 0; }
+		    dr:map REACHABLE { dr:map-from 1; }
+		    dr:map STALE { dr:map-from 2; }
+		    dr:map DELAY { dr:map-from 3; }
+		    dr:map PROBE { dr:map-from 4; }
+		}
+
+		augment "ipv6/neighbors/neighbor/state" {
+                    dr:fieldnum 151;
+		    uses jnx-oc-ip:jnx-ipv6-state-neighbor {
+			augment table-id {
+			    dr:source "rtb-id";
+                            dr:fieldnum 61;
+			}
+
+			augment is-secure {
+			    dr:source "issecure";
+                            dr:fieldnum 62;
+			    dr:map true   { dr:map-from 1; }
+			    dr:map false  { dr:map-from 0; }
+			}
+
+			augment is-publish {
+			    dr:source "ispublish";
+                            dr:fieldnum 63;
+			    dr:map true   { dr:map-from 1; }
+			    dr:map false  { dr:map-from 0; }
+			}
+
+			augment expiry {
+			    dr:source "expiry";
+                            dr:fieldnum 64;
+			}
+
+			augment interface-name {
+			    dr:source "interface-name";
+                            dr:fieldnum 65;
+			}
+
+			augment logical-router-id {
+			    dr:source "logical-router-id";
+                            dr:fieldnum 66;
+			}
+		    }
+		}
+            }
+        }  
+    }
+}

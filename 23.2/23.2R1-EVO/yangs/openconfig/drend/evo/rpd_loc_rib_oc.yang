@@ -1,0 +1,183 @@
+/*
+ * Render tree for DREND implementation of local & aggregate routes
+ *
+ * January 2017, Bakshi Gulam Mohammed Khan (gbakshi)
+ *
+ * Copyright (c) 2017, Juniper Networks, Inc.
+ * All rights reserved.
+ */
+
+module rpd_loc_rib_oc {
+  yang-version "1";
+
+  namespace "http://juniper.net/yang/rpd-local-routing";
+
+  prefix "rpd-loc-rib";
+
+  import openconfig-local-routing { prefix oc-loc-rt; }
+  import openconfig-interfaces { prefix oc-if; }
+  import jnx-aug-openconfig-local-routing { prefix jnx-loc-rt; }
+  import drend { prefix "dr"; }
+  import jnpr-proto { prefix jnpr-proto; }
+
+
+  description "
+    'OpenConfig' render tree for Local & Aggregate routes.
+    [openconfig-local-routing.yang - version 1.0.0/revision 2016-05-11]
+  ";
+
+  revision "2017-01-13" {
+    description "Initial revision";
+  }
+
+  /*
+   * Daemon that handles this hierarchy
+   */
+  dr:command-app "rpd";
+  dr:sub-component "loc-rib";
+  jnpr-proto:message-id "RPD-LOC-RIB-OC-MESSAGE-ID";
+
+  grouping loc-rib-static-state {
+    uses oc-loc-rt:local-static-config {
+      augment "prefix" {
+        dr:source "prefix";
+        dr:fieldnum 51;
+      }
+      augment "set-tag" {
+        dr:source "set-tag";
+        dr:fieldnum 52;
+      }
+    }
+  }
+  grouping loc-rib-static-next-hop {
+    uses oc-loc-rt:local-static-nexthop-config {
+      augment "index" {
+        dr:source "index";
+        dr:fieldnum 51;
+      }
+      augment "next-hop" {
+        dr:source "next-hop";
+        dr:fieldnum 52;
+      }
+      augment "metric" {
+        dr:source "metric";
+        dr:fieldnum 53;
+      }
+      augment "recurse" {
+        dr:source "recurse";
+        dr:fieldnum 54;
+      }
+    }
+  }
+  grouping loc-rib-static-next-hop-intf-ref {
+    uses oc-if:interface-ref-common {
+     augment "interface" {
+        dr:source "interface";
+        dr:fieldnum 51;
+      }
+     augment "subinterface" {
+        dr:source "subinterface";
+        dr:fieldnum 52;
+      }
+    }
+  }
+  grouping local-rib-aggregate-state {
+    uses oc-loc-rt:local-aggregate-config {
+      augment "prefix" {
+        dr:source "prefix";
+        dr:fieldnum 51;
+      }
+      augment "discard" {
+        dr:source "discard";
+        dr:fieldnum 52;
+      }
+      augment "set-tag" {
+        dr:source "set-tag";
+        dr:fieldnum 53;
+      }
+    }
+  }
+
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/rpd/local-routes";
+    dr:command-full-name "request drend juniper-netconf-get";
+    dr:command-help "Default <get> rpc for /rpd/local-routes";
+
+    output {
+      container local-routes {
+        dr:source "/rpd/local-routes";
+        container static-routes {
+          dr:source "static-routes";
+	  dr:fieldnum 151;
+          list static {
+            dr:source "static";
+            dr:fieldnum 51;
+            leaf prefix {
+              type leafref {
+                path "../state/prefix";
+              }
+              dr:source "state/prefix";
+              dr:fieldnum 51;
+            }
+            container state {
+              dr:source "state";
+	      dr:fieldnum 151;
+              uses loc-rib-static-state;
+            }
+            container next-hops {
+              dr:source "next-hops";
+	      dr:fieldnum 152;
+              list next-hop {
+                dr:source "next-hop";
+                dr:fieldnum 51;
+                leaf index {
+                  type leafref {
+                    path "../state/index";
+                  }
+                  dr:source "state/index";
+                  dr:fieldnum 51;
+                }
+                container state {
+                  dr:source "state";
+		  dr:fieldnum 151;
+                  uses loc-rib-static-next-hop;
+                }
+                container interface-ref {
+                  dr:source "interface-ref";
+		  dr:fieldnum 152;
+                  container state {
+                    dr:source "state";
+		    dr:fieldnum 151;
+                    uses loc-rib-static-next-hop-intf-ref;
+                  }
+                }
+              }
+            }
+          }
+        }
+        container local-aggregates {
+          dr:source "local-aggregates";
+	  dr:fieldnum 152;
+          list aggregate {
+            dr:source "aggregate";
+            dr:fieldnum 51;
+            leaf prefix {
+              type leafref {
+                path "../state/prefix";
+              }
+              dr:source "state/prefix";
+              dr:fieldnum 51;
+            }
+            container state {
+              dr:source "state";
+	      dr:fieldnum 151;
+              uses local-rib-aggregate-state;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
