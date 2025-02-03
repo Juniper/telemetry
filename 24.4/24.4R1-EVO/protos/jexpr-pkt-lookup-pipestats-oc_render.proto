@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_jexpr_pkt_lookup_pipestats_219 jnpr_components_jexpr_pkt_lookup_pipestats_219_ext = 219;
+}
+
+message components_jexpr_pkt_lookup_pipestats_219 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 151;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional lookup_block_type lookup_block = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block
+               message lookup_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state
+                     optional uint64 lookup_memory = 51;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/lookup-memory
+                     optional uint64 lookup_memory_used = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/lookup-memory-used
+                     optional uint64 nexthop_memory = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/nexthop-memory
+                     optional uint64 nexthop_memory_used = 54;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/nexthop-memory-used
+                     optional uint64 acl_memory_total_entries = 55;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/acl-memory-total-entries
+                     optional uint64 acl_memory_used_entries = 56;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/acl-memory-used-entries
+                     optional uint64 acl_memory_total_bytes = 57;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/acl-memory-total-bytes
+                     optional uint64 acl_memory_used_bytes = 58;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/acl-memory-used-bytes
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

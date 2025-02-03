@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_mpls_lsp_stats jnpr_network_instances_mpls_lsp_stats_ext = 190;
+}
+
+message network_instances_mpls_lsp_stats {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 49 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional mpls_type mpls = 186;    // /network-instances/network-instance/mpls
+      message mpls_type {
+         message lsps_list {    // /network-instances/network-instance/mpls/lsps
+            message constrained_path_list {    // /network-instances/network-instance/mpls/lsps/constrained-path
+               message tunnels_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels
+                  message tunnel_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel
+                     optional string name = 49 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/name
+                     message state_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state
+                        message counters_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters
+                           optional string name = 49 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/name
+                           optional uint64 packets = 50;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/packets
+                           optional uint64 bytes = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/bytes
+                           optional uint64 jnx_packet_rate = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/jnx-packet-rate
+                           optional uint64 jnx_byte_rate = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/jnx-byte-rate
+                        }
+                        repeated counters_list counters = 186;
+                     }
+                     repeated state_list state = 186;
+                  }
+                  repeated tunnel_list tunnel = 186;
+               }
+               repeated tunnels_list tunnels = 186;
+            }
+            repeated constrained_path_list constrained_path = 186;
+         }
+         repeated lsps_list lsps = 186;
+      }
+   }
+   repeated network_instance_list network_instance = 186;
+}

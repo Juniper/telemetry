@@ -1,0 +1,54 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+//
+// This occupies branch 53 from JuniperNetworksSensors
+//
+extend JuniperNetworksSensors {
+    optional LdpP2mpLspBranchStats jnpr_ldp_p2mp_lsp_branch_stats_ext = 53;
+}
+
+//
+// Top-level message
+//
+message LdpP2mpLspBranchStats {
+    // List of LDP P2MP LSP Branch stats record
+    repeated LdpP2mpLspBranchRecord ldp_p2mp_lsp_branch_stats_records = 1;
+}
+
+message LdpP2mpLspBranchRecord {
+
+    // IP prefix
+    required string      root_address           = 1  [(telemetry_options).is_key = true];
+
+    optional uint32      lsp_id                 = 2  [(telemetry_options).is_key = true];
+
+    // Source Ip address
+    optional string      source_ip              = 3  [(telemetry_options).is_key = true];
+
+    // Group Ip address
+    optional string      group_ip               = 4  [(telemetry_options).is_key = true];
+
+    // Instance Identifier for cases when RPD creates multiple instances
+    optional uint32 instance_identifier         = 5  [(telemetry_options).is_key = true];
+
+    // Name of the counter.
+    optional string      counter_name           = 6  [(telemetry_options).is_key = true];
+
+    optional uint32      branch_id              = 7  [(telemetry_options).is_key = true];
+
+    // Statistics
+    optional LabelDistributionProtocolP2mpLspBranchStats stats              = 8;
+}
+
+message LabelDistributionProtocolP2mpLspBranchStats {
+    // Packet and Byte statistics
+    optional uint64      packets      = 1 [(telemetry_options).is_counter = true];
+    optional uint64      bytes        = 2   [(telemetry_options).is_counter = true];
+
+    // Rates of the above counters
+    optional uint64      packet_rate  = 3   [(telemetry_options).is_counter = true];
+    optional uint64      byte_rate    = 4   [(telemetry_options).is_counter = true];
+}
+

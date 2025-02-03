@@ -1,0 +1,73 @@
+/* 
+This proto is generated from below openconfig models
+ietf-yang-types - This module contains a collection of generally useful derived
+YANG data types
+jnx-aug-openconfig-interfaces - This module contains JUNOS augments to OpenConfig Interfaces model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_local_interface jnpr_interfaces_local_interface_ext = 61;
+}
+
+message interfaces_local_interface {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional state_type state = 151;    // /interfaces/interface/state
+      message state_type {
+         optional counters_type counters = 151;    // /interfaces/interface/state/counters
+         message counters_type {
+            optional uint64 in_octets = 51;    // /interfaces/interface/state/counters/in-octets
+            optional uint64 in_pkts = 61;    // /interfaces/interface/state/counters/in-pkts
+            optional uint64 in_discards = 52;    // /interfaces/interface/state/counters/in-discards
+            optional uint64 in_errors = 53;    // /interfaces/interface/state/counters/in-errors
+            optional uint64 in_drops = 71;    // /interfaces/interface/state/counters/in-drops
+            optional uint64 in_frame_errors = 72;    // /interfaces/interface/state/counters/in-frame-errors
+            optional uint64 in_runts = 73;    // /interfaces/interface/state/counters/in-runts
+            optional uint64 in_giants = 74;    // /interfaces/interface/state/counters/in-giants
+            optional uint64 in_resource_errors = 75;    // /interfaces/interface/state/counters/in-resource-errors
+            optional uint64 out_octets = 54;    // /interfaces/interface/state/counters/out-octets
+            optional uint64 out_pkts = 81;    // /interfaces/interface/state/counters/out-pkts
+            optional uint64 out_discards = 55;    // /interfaces/interface/state/counters/out-discards
+            optional uint64 out_errors = 56;    // /interfaces/interface/state/counters/out-errors
+            optional uint64 carrier_transitions = 92;    // /interfaces/interface/state/counters/carrier-transitions
+            optional uint64 out_drops = 91;    // /interfaces/interface/state/counters/out-drops
+            optional uint64 mtu_errors = 93;    // /interfaces/interface/state/counters/mtu-errors
+            optional uint64 out_resource_errors = 94;    // /interfaces/interface/state/counters/out-resource-errors
+         }
+      }
+      optional subinterfaces_type subinterfaces = 152;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/state
+            message state_type {
+               optional counters_type counters = 151;    // /interfaces/interface/subinterfaces/subinterface/state/counters
+               message counters_type {
+                  optional uint64 in_octets = 51;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-octets
+                  optional uint64 in_pkts = 61;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts
+                  optional uint64 in_discards = 52;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-discards
+                  optional uint64 in_errors = 53;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-errors
+                  optional uint64 in_drops = 71;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-drops
+                  optional uint64 in_frame_errors = 72;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-frame-errors
+                  optional uint64 in_runts = 73;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-runts
+                  optional uint64 in_giants = 74;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-giants
+                  optional uint64 in_resource_errors = 75;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-resource-errors
+                  optional uint64 out_octets = 54;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-octets
+                  optional uint64 out_pkts = 81;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts
+                  optional uint64 out_discards = 55;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-discards
+                  optional uint64 out_errors = 56;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-errors
+                  optional uint64 carrier_transitions = 92;    // /interfaces/interface/subinterfaces/subinterface/state/counters/carrier-transitions
+                  optional uint64 out_drops = 91;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-drops
+                  optional uint64 mtu_errors = 93;    // /interfaces/interface/subinterfaces/subinterface/state/counters/mtu-errors
+                  optional uint64 out_resource_errors = 94;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-resource-errors
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+   }
+   repeated interface_list interface = 151;
+}

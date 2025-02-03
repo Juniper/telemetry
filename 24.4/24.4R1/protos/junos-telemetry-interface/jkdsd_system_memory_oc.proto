@@ -1,0 +1,25 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_debug_267 jnpr_system_debug_267_ext = 267;
+}
+
+message system_debug_267 {    // /system
+   optional memory_type memory = 151;    // /system/memory
+   message memory_type {
+      optional state_type state = 151;    // /system/memory/state
+      message state_type {
+         optional uint64 physical = 51;    // /system/memory/state/physical
+         optional uint64 reserved = 52;    // /system/memory/state/reserved
+         optional uint64 used = 53;    // /system/memory/state/used
+         optional uint64 free = 54;    // /system/memory/state/free
+      }
+   }
+}

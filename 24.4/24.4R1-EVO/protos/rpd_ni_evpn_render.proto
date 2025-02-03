@@ -1,0 +1,106 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-yang-types - This module contains a set of extension types to the
+YANG builtin types that are used across multiple
+OpenConfig models
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_evpn jnpr_network_instances_evpn_ext = 112;
+}
+
+message network_instances_evpn {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional jnx_evpn_type jnx_evpn = 151;    // /network-instances/network-instance/jnx-evpn
+      message jnx_evpn_type {
+         optional uint32 num_peers = 51;    // /network-instances/network-instance/jnx-evpn/num-peers
+         optional uint32 num_interfaces = 52;    // /network-instances/network-instance/jnx-evpn/num-interfaces
+         optional uint32 num_interfaces_up = 53;    // /network-instances/network-instance/jnx-evpn/num-interfaces-up
+         optional uint32 num_irb_interfaces = 54;    // /network-instances/network-instance/jnx-evpn/num-irb-interfaces
+         optional uint32 num_irb_interfaces_up = 55;    // /network-instances/network-instance/jnx-evpn/num-irb-interfaces-up
+         optional uint32 num_remote_macs = 59;    // /network-instances/network-instance/jnx-evpn/num-remote-macs
+         optional uint32 num_remote_mac_ip_v4 = 60;    // /network-instances/network-instance/jnx-evpn/num-remote-mac-ip-v4
+         optional uint32 num_remote_mac_ip_v6 = 61;    // /network-instances/network-instance/jnx-evpn/num-remote-mac-ip-v6
+         optional uint32 num_remote_irb_macs = 62;    // /network-instances/network-instance/jnx-evpn/num-remote-irb-macs
+         optional uint32 num_ethernet_segments = 63;    // /network-instances/network-instance/jnx-evpn/num-ethernet-segments
+         optional string label_allocation_mode = 70;    // /network-instances/network-instance/jnx-evpn/label-allocation-mode
+         message interfaces_list {    // /network-instances/network-instance/jnx-evpn/interfaces
+            optional string name = 61 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/interfaces/name
+            optional string esi = 62;    // /network-instances/network-instance/jnx-evpn/interfaces/esi
+            optional string mode = 63;    // /network-instances/network-instance/jnx-evpn/interfaces/mode
+            optional string status = 64;    // /network-instances/network-instance/jnx-evpn/interfaces/status
+         }
+         repeated interfaces_list interfaces = 152;
+         message irb_interfaces_list {    // /network-instances/network-instance/jnx-evpn/irb-interfaces
+            optional string name = 61 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/irb-interfaces/name
+            optional string virtual_gateway_esi = 62;    // /network-instances/network-instance/jnx-evpn/irb-interfaces/virtual-gateway-esi
+            optional string status = 63;    // /network-instances/network-instance/jnx-evpn/irb-interfaces/status
+            optional string l3_context = 64;    // /network-instances/network-instance/jnx-evpn/irb-interfaces/l3-context
+         }
+         repeated irb_interfaces_list irb_interfaces = 153;
+         message peer_list {    // /network-instances/network-instance/jnx-evpn/peer
+            optional string peer_address = 71 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/peer/peer-address
+            optional uint32 num_auto_discovery_routes = 73;    // /network-instances/network-instance/jnx-evpn/peer/num-auto-discovery-routes
+            optional uint32 num_multicast_routes = 74;    // /network-instances/network-instance/jnx-evpn/peer/num-multicast-routes
+            optional uint32 num_ethernet_segment_routes = 75;    // /network-instances/network-instance/jnx-evpn/peer/num-ethernet-segment-routes
+            optional uint32 num_mac_routes = 76;    // /network-instances/network-instance/jnx-evpn/peer/num-mac-routes
+            optional uint32 num_mac_ip_routes = 77;    // /network-instances/network-instance/jnx-evpn/peer/num-mac-ip-routes
+            optional uint32 num_selective_multicast_routes = 78;    // /network-instances/network-instance/jnx-evpn/peer/num-selective-multicast-routes
+         }
+         repeated peer_list peer = 154;
+         message sg_db_list {    // /network-instances/network-instance/jnx-evpn/sg-db
+            optional uint32 ethernet_tag_id = 71 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/sg-db/ethernet-tag-id
+            optional string group = 72 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/sg-db/group
+            optional string source = 73 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/sg-db/source
+            optional uint32 total_esi_fanout = 74;    // /network-instances/network-instance/jnx-evpn/sg-db/total-esi-fanout
+            optional uint32 total_local_fanout = 75;    // /network-instances/network-instance/jnx-evpn/sg-db/total-local-fanout
+            optional uint32 total_remote_fanout = 76;    // /network-instances/network-instance/jnx-evpn/sg-db/total-remote-fanout
+            message sgdb_esi_list {    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi
+               optional string esi = 152 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/esi
+               optional string local_intf_name = 151;    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/local-intf-name
+               optional string join_sync_status = 153;    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/join-sync-status
+               optional string join_sync_last_updated = 154;    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/join-sync-last-updated
+               optional string leave_sync_status = 155;    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/leave-sync-status
+               optional string leave_sync_last_updated = 156;    // /network-instances/network-instance/jnx-evpn/sg-db/sgdb-esi/leave-sync-last-updated
+            }
+            repeated sgdb_esi_list sgdb_esi = 151;
+         }
+         repeated sg_db_list sg_db = 156;
+         message ethernet_segment_list {    // /network-instances/network-instance/jnx-evpn/ethernet-segment
+            optional string esi = 71 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/ethernet-segment/esi
+            optional string status = 72;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/status
+            optional string local_intf_name = 73;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/local-intf-name
+            optional string local_intf_status = 74;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/local-intf-status
+            optional string df_election_algorithm = 75;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/df-election-algorithm
+            optional string designated_forwarder = 76;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/designated-forwarder
+            message remote_pe_list {    // /network-instances/network-instance/jnx-evpn/ethernet-segment/remote-pe
+               optional string ip_address = 71 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/ethernet-segment/remote-pe/ip-address
+               optional string mode = 72;    // /network-instances/network-instance/jnx-evpn/ethernet-segment/remote-pe/mode
+            }
+            repeated remote_pe_list remote_pe = 151;
+         }
+         repeated ethernet_segment_list ethernet_segment = 155;
+         optional assisted_replication_type assisted_replication = 157;    // /network-instances/network-instance/jnx-evpn/assisted-replication
+         message assisted_replication_type {
+            optional string role = 51;    // /network-instances/network-instance/jnx-evpn/assisted-replication/role
+            message l2_domain_list {    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain
+               optional uint32 vni_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/vni-id
+               message nexthops_list {    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops
+                  optional uint32 nexthop_index = 72 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops/nexthop-index
+                  optional uint32 vni_id = 71;    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops/vni-id
+                  optional string interface = 73;    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops/interface
+                  optional string replicator_ip = 74;    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops/replicator-ip
+                  optional bool is_designated_node = 75;    // /network-instances/network-instance/jnx-evpn/assisted-replication/l2-domain/nexthops/is-designated-node
+               }
+               repeated nexthops_list nexthops = 171;
+            }
+            repeated l2_domain_list l2_domain = 171;
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

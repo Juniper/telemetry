@@ -1,0 +1,118 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-lldp-types - This module defines types related to the LLDP protocol model
+openconfig-lldp - This module defines configuration and operational state data
+for the LLDP protocol
+jnx-aug-openconfig-lldp - This module contains augments to openconfig lldp model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional lldp_l2cp jnpr_lldp_l2cp_ext = 51;
+}
+
+message lldp_l2cp {    // /lldp
+   optional state_type state = 151;    // /lldp/state
+   message state_type {
+      optional bool enabled = 91;    // /lldp/state/enabled
+      optional uint64 hello_timer = 92;    // /lldp/state/hello-timer
+      repeated string suppress_tlv_advertisement = 93;    // /lldp/state/suppress-tlv-advertisement
+      optional string system_name = 51;    // /lldp/state/system-name
+      optional string system_description = 52;    // /lldp/state/system-description
+      optional string chassis_id = 53;    // /lldp/state/chassis-id
+      optional string chassis_id_type = 54;    // /lldp/state/chassis-id-type
+      optional string jnx_global_dest_mac_type = 95;    // /lldp/state/jnx-global-dest-mac-type
+      optional counters_type counters = 151;    // /lldp/state/counters
+      message counters_type {
+         optional uint64 frame_in = 51;    // /lldp/state/counters/frame-in
+         optional uint64 frame_out = 52;    // /lldp/state/counters/frame-out
+         optional uint64 frame_error_in = 53;    // /lldp/state/counters/frame-error-in
+         optional uint64 frame_discard = 54;    // /lldp/state/counters/frame-discard
+         optional uint64 tlv_discard = 55;    // /lldp/state/counters/tlv-discard
+         optional uint64 tlv_unknown = 56;    // /lldp/state/counters/tlv-unknown
+         optional string last_clear = 57;    // /lldp/state/counters/last-clear
+         optional uint64 tlv_accepted = 58;    // /lldp/state/counters/tlv-accepted
+         optional uint64 entries_aged_out = 59;    // /lldp/state/counters/entries-aged-out
+      }
+      optional string loc_port_id_type = 101;    // /lldp/state/loc-port-id-type
+   }
+   optional interfaces_type interfaces = 152;    // /lldp/interfaces
+   message interfaces_type {
+      message interface_list {    // /lldp/interfaces/interface
+         optional string name = 52 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/name
+         optional state_type state = 151;    // /lldp/interfaces/interface/state
+         message state_type {
+            optional string name = 53;    // /lldp/interfaces/interface/state/name
+            optional bool enabled = 54;    // /lldp/interfaces/interface/state/enabled
+            optional counters_type counters = 151;    // /lldp/interfaces/interface/state/counters
+            message counters_type {
+               optional uint64 frame_in = 57;    // /lldp/interfaces/interface/state/counters/frame-in
+               optional uint64 frame_out = 58;    // /lldp/interfaces/interface/state/counters/frame-out
+               optional uint64 frame_error_in = 59;    // /lldp/interfaces/interface/state/counters/frame-error-in
+               optional uint64 frame_discard = 60;    // /lldp/interfaces/interface/state/counters/frame-discard
+               optional uint64 tlv_discard = 61;    // /lldp/interfaces/interface/state/counters/tlv-discard
+               optional uint64 tlv_unknown = 62;    // /lldp/interfaces/interface/state/counters/tlv-unknown
+               optional string last_clear = 63;    // /lldp/interfaces/interface/state/counters/last-clear
+               optional uint64 frame_error_out = 64;    // /lldp/interfaces/interface/state/counters/frame-error-out
+            }
+            optional string loc_port_id = 55;    // /lldp/interfaces/interface/state/loc-port-id
+            optional string loc_port_description = 56;    // /lldp/interfaces/interface/state/loc-port-description
+            optional string jnx_local_dest_mac_type = 94;    // /lldp/interfaces/interface/state/jnx-local-dest-mac-type
+         }
+         optional neighbors_type neighbors = 152;    // /lldp/interfaces/interface/neighbors
+         message neighbors_type {
+            message neighbor_list {    // /lldp/interfaces/interface/neighbors/neighbor
+               optional string id = 66 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/neighbors/neighbor/id
+               optional state_type state = 151;    // /lldp/interfaces/interface/neighbors/neighbor/state
+               message state_type {
+                  optional string system_name = 67;    // /lldp/interfaces/interface/neighbors/neighbor/state/system-name
+                  optional string system_description = 68;    // /lldp/interfaces/interface/neighbors/neighbor/state/system-description
+                  optional string chassis_id = 69;    // /lldp/interfaces/interface/neighbors/neighbor/state/chassis-id
+                  optional string chassis_id_type = 70;    // /lldp/interfaces/interface/neighbors/neighbor/state/chassis-id-type
+                  optional string id = 71;    // /lldp/interfaces/interface/neighbors/neighbor/state/id
+                  optional uint64 age = 72;    // /lldp/interfaces/interface/neighbors/neighbor/state/age
+                  optional int64 last_update = 73;    // /lldp/interfaces/interface/neighbors/neighbor/state/last-update
+                  optional uint32 ttl = 79;    // /lldp/interfaces/interface/neighbors/neighbor/state/ttl
+                  optional string port_id = 74;    // /lldp/interfaces/interface/neighbors/neighbor/state/port-id
+                  optional string port_id_type = 75;    // /lldp/interfaces/interface/neighbors/neighbor/state/port-id-type
+                  optional string port_description = 76;    // /lldp/interfaces/interface/neighbors/neighbor/state/port-description
+                  optional string management_address = 77;    // /lldp/interfaces/interface/neighbors/neighbor/state/management-address
+                  optional string management_address_type = 78;    // /lldp/interfaces/interface/neighbors/neighbor/state/management-address-type
+               }
+               optional custom_tlvs_type custom_tlvs = 152;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs
+               message custom_tlvs_type {
+                  message tlv_list {    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv
+                     optional int32 type = 80 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/type
+                     optional string oui = 81 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui
+                     optional string oui_subtype = 82 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/oui-subtype
+                     optional state_type state = 151;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state
+                     message state_type {
+                        optional int32 type = 83;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/type
+                        optional string oui = 84;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui
+                        optional string oui_subtype = 85;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/oui-subtype
+                        optional string value = 86;    // /lldp/interfaces/interface/neighbors/neighbor/custom-tlvs/tlv/state/value
+                     }
+                  }
+                  repeated tlv_list tlv = 79;
+               }
+               optional capabilities_type capabilities = 153;    // /lldp/interfaces/interface/neighbors/neighbor/capabilities
+               message capabilities_type {
+                  message capability_list {    // /lldp/interfaces/interface/neighbors/neighbor/capabilities/capability
+                     optional string name = 88 [(telemetry_options).is_key = true];    // /lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/name
+                     optional state_type state = 151;    // /lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state
+                     message state_type {
+                        optional string name = 89;    // /lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state/name
+                        optional bool enabled = 90;    // /lldp/interfaces/interface/neighbors/neighbor/capabilities/capability/state/enabled
+                     }
+                  }
+                  repeated capability_list capability = 151;
+               }
+            }
+            repeated neighbor_list neighbor = 151;
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

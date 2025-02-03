@@ -1,0 +1,91 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-dot1x - This module contains a collection of top level nodes for JUNOS
+802
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_dot1x_268 jnpr_state_dot1x_268_ext = 268;
+}
+
+message state_dot1x_268 {    // /state
+   optional protocols_type protocols = 153;    // /state/protocols
+   message protocols_type {
+      optional dot1x_type dot1x = 152;    // /state/protocols/dot1x
+      message dot1x_type {
+         optional interfaces_type interfaces = 151;    // /state/protocols/dot1x/interfaces
+         message interfaces_type {
+            message interface_list {    // /state/protocols/dot1x/interfaces/interface
+               optional string name = 52 [(telemetry_options).is_key = true];    // /state/protocols/dot1x/interfaces/interface/name
+               optional string role = 58;    // /state/protocols/dot1x/interfaces/interface/role
+               optional string admin_status = 59;    // /state/protocols/dot1x/interfaces/interface/admin-status
+               optional string administrative_mode = 57;    // /state/protocols/dot1x/interfaces/interface/administrative-mode
+               optional string oper_status = 74;    // /state/protocols/dot1x/interfaces/interface/oper-status
+               optional uint32 retry_count = 60;    // /state/protocols/dot1x/interfaces/interface/retry-count
+               optional uint32 quiet_period = 61;    // /state/protocols/dot1x/interfaces/interface/quiet-period
+               optional uint32 transmit_period = 55;    // /state/protocols/dot1x/interfaces/interface/transmit-period
+               optional bool mac_radius = 62;    // /state/protocols/dot1x/interfaces/interface/mac-radius
+               optional bool mac_radius_restrict = 63;    // /state/protocols/dot1x/interfaces/interface/mac-radius-restrict
+               optional string mac_radius_protocol = 64;    // /state/protocols/dot1x/interfaces/interface/mac-radius-protocol
+               optional bool reauthentication = 65;    // /state/protocols/dot1x/interfaces/interface/reauthentication
+               optional uint32 reauthentication_interval = 54;    // /state/protocols/dot1x/interfaces/interface/reauthentication-interval
+               optional uint32 supplicant_timeout = 53;    // /state/protocols/dot1x/interfaces/interface/supplicant-timeout
+               optional uint32 server_timeout = 66;    // /state/protocols/dot1x/interfaces/interface/server-timeout
+               optional uint32 max_eapol_request = 56;    // /state/protocols/dot1x/interfaces/interface/max-eapol-request
+               optional uint32 guest_vlan = 67;    // /state/protocols/dot1x/interfaces/interface/guest-vlan
+               optional uint32 max_data_session_count = 68;    // /state/protocols/dot1x/interfaces/interface/max-data-session-count
+               optional uint32 multi_domain_recovery_timeout = 69;    // /state/protocols/dot1x/interfaces/interface/multi-domain-recovery-timeout
+               optional bool no_mac_table_binding = 70;    // /state/protocols/dot1x/interfaces/interface/no-mac-table-binding
+               optional bool ip_mac_session_binding = 71;    // /state/protocols/dot1x/interfaces/interface/ip-mac-session-binding
+               optional bool retain_mac_aged_session = 72;    // /state/protocols/dot1x/interfaces/interface/retain-mac-aged-session
+               optional counters_type counters = 153;    // /state/protocols/dot1x/interfaces/interface/counters
+               message counters_type {
+                  optional uint64 connected_supplicants = 73;    // /state/protocols/dot1x/interfaces/interface/counters/connected-supplicants
+               }
+               optional authenticated_sessions_type authenticated_sessions = 152;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions
+               message authenticated_sessions_type {
+                  message authenticated_session_list {    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session
+                     optional string mac = 81 [(telemetry_options).is_key = true];    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/mac
+                     optional string supplicant_name = 83;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/supplicant-name
+                     optional string radius_supplicant_name = 84;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/radius-supplicant-name
+                     optional string session_id = 82;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/session-id
+                     optional string supplicant_state = 106;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/supplicant-state
+                     optional string supplicant_held_reason = 85;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/supplicant-held-reason
+                     optional string authentication_method = 86;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/authentication-method
+                     optional string vlan_name = 87;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/vlan-name
+                     optional uint32 vlan_id = 88;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/vlan-id
+                     optional uint32 secondary_vlan = 89;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/secondary-vlan
+                     optional string voip_vlan = 90;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/voip-vlan
+                     optional string dynamic_filter = 91;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/dynamic-filter
+                     optional string firewall_filter_name = 92;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/firewall-filter-name
+                     optional uint32 session_reauthentication_interval = 93;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/session-reauthentication-interval
+                     optional uint32 reauth_due = 94;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/reauth-due
+                     optional bool no_mac_binding_reauth_vsa = 95;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/no-mac-binding-reauth-vsa
+                     optional bool ip_mac_session_binding_vsa = 96;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/ip-mac-session-binding-vsa
+                     repeated uint32 egress_vlan = 104;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/egress-vlan
+                     optional string radius_supplicant_mode = 97;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/radius-supplicant-mode
+                     optional bool retain_mac_aged_session_vsa = 98;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/retain-mac-aged-session-vsa
+                     optional uint32 session_acct_interim_interval = 99;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/session-acct-interim-interval
+                     optional uint32 acct_interim_due = 100;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/acct-interim-due
+                     optional string cwa_redirect_url = 105;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/cwa-redirect-url
+                     optional string server_fail_voip_action = 101;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/server-fail-voip-action
+                     optional string eapol_block = 102;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/eapol-block
+                     optional uint32 gbp_tag = 110;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/gbp-tag
+                     optional string vlan_group_name = 111;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/vlan-group-name
+                     optional string domain = 103;    // /state/protocols/dot1x/interfaces/interface/authenticated-sessions/authenticated-session/domain
+                  }
+                  repeated authenticated_session_list authenticated_session = 152;
+               }
+            }
+            repeated interface_list interface = 150;
+         }
+      }
+   }
+}

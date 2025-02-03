@@ -1,0 +1,31 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_telemetry_alarm jnpr_system_telemetry_alarm_ext = 111;
+}
+
+message system_telemetry_alarm {    // /system
+   optional alarms_type alarms = 150;    // /system/alarms
+   message alarms_type {
+      message alarm_list {    // /system/alarms/alarm
+         optional string id = 51 [(telemetry_options).is_key = true];    // /system/alarms/alarm/id
+         optional state_type state = 151;    // /system/alarms/alarm/state
+         message state_type {
+            optional string id = 51;    // /system/alarms/alarm/state/id
+            optional string resource = 53;    // /system/alarms/alarm/state/resource
+            optional string text = 52;    // /system/alarms/alarm/state/text
+            optional uint64 time_created = 54;    // /system/alarms/alarm/state/time-created
+            optional string severity = 55;    // /system/alarms/alarm/state/severity
+            optional string type_id = 56;    // /system/alarms/alarm/state/type-id
+         }
+      }
+      repeated alarm_list alarm = 151;
+   }
+}

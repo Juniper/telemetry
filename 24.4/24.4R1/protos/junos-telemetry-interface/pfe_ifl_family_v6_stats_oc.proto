@@ -1,0 +1,43 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-if-ip - This model defines data for managing configuration and
+operational state on IP (IPv4 and IPv6) interfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_pfe_ifl_family_v6 jnpr_interfaces_pfe_ifl_family_v6_ext = 136;
+}
+
+message interfaces_pfe_ifl_family_v6 {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional subinterfaces_type subinterfaces = 151;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional ipv6_type ipv6 = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6
+            message ipv6_type {
+               optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state
+               message state_type {
+                  optional counters_type counters = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters
+                  message counters_type {
+                     optional uint64 in_pkts = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-pkts
+                     optional uint64 in_octets = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-octets
+                     optional uint64 in_multicast_pkts = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-multicast-pkts
+                     optional uint64 in_multicast_octets = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-multicast-octets
+                     optional uint64 out_pkts = 55;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-pkts
+                     optional uint64 out_octets = 56;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-octets
+                     optional uint64 out_multicast_pkts = 57;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-multicast-pkts
+                     optional uint64 out_multicast_octets = 58;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-multicast-octets
+                  }
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+   }
+   repeated interface_list interface = 151;
+}

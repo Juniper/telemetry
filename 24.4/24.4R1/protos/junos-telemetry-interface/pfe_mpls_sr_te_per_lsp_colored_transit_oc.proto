@@ -1,0 +1,61 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-yang-types - This module contains a set of extension types to the
+YANG builtin types that are used across multiple
+OpenConfig models
+openconfig-segment-routing-types - Types associated with a network instance
+openconfig-inet-types - This module contains a set of Internet address related
+types for use in OpenConfig modules
+openconfig-srte-policy - This module defines a collection of segment routing traffic
+engineering policy operational states
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_pfe_mpls_sr_te_per_lsp_colored_transit jnpr_network_instances_pfe_mpls_sr_te_per_lsp_colored_transit_ext = 179;
+}
+
+message network_instances_pfe_mpls_sr_te_per_lsp_colored_transit {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 82 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional segment_routing_type segment_routing = 111;    // /network-instances/network-instance/segment-routing
+      message segment_routing_type {
+         optional te_policies_type te_policies = 124;    // /network-instances/network-instance/segment-routing/te-policies
+         message te_policies_type {
+            message te_policy_list {    // /network-instances/network-instance/segment-routing/te-policies/te-policy
+               optional uint32 color = 116 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/color
+               optional string endpoint = 115 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/endpoint
+               optional candidate_paths_type candidate_paths = 124;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths
+               message candidate_paths_type {
+                  message candidate_path_list {    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path
+                     optional string protocol_origin = 110 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/protocol-origin
+                     optional uint32 originator_asn = 111 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/originator-asn
+                     optional string originator_addr = 112 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/originator-addr
+                     optional uint32 discriminator = 113 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/discriminator
+                     optional segment_lists_type segment_lists = 124;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists
+                     message segment_lists_type {
+                        message segment_list_list {    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list
+                           optional uint32 id = 114 [(telemetry_options).is_key = true];    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/id
+                           optional state_type state = 124;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state
+                           message state_type {
+                              optional counters_type counters = 124;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/counters
+                              message counters_type {
+                                 optional uint64 out_labeled_pkts = 106;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/counters/out-labeled-pkts
+                                 optional uint64 out_labeled_octets = 107;    // /network-instances/network-instance/segment-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/state/counters/out-labeled-octets
+                              }
+                           }
+                        }
+                        repeated segment_list_list segment_list = 124;
+                     }
+                  }
+                  repeated candidate_path_list candidate_path = 124;
+               }
+            }
+            repeated te_policy_list te_policy = 124;
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 175;
+}

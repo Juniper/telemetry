@@ -1,0 +1,199 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+openconfig-spanning-tree-types - This module defines types related to the
+spanning-tree protocol model
+openconfig-spanning-tree - This module defines configuration and operational state data
+for the spanning tree protocol
+openconfig-types - This module contains a set of general type definitions that
+are used across OpenConfig models
+openconfig-vlan-types - This module defines configuration and state variables for VLANs,
+in addition to VLAN parameters associated with interfaces
+openconfig-yang-types - This module contains a set of extension types to the
+YANG builtin types that are used across multiple
+OpenConfig models
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional stp_stp_269 jnpr_stp_stp_269_ext = 269;
+}
+
+message stp_stp_269 {    // /stp
+   optional global_type global = 155;    // /stp/global
+   message global_type {
+      optional state_type state = 152;    // /stp/global/state
+      message state_type {
+         repeated string enabled_protocol = 51;    // /stp/global/state/enabled-protocol
+         optional uint32 bpduguard_timeout_recovery = 52;    // /stp/global/state/bpduguard-timeout-recovery
+         optional bool loop_guard = 53;    // /stp/global/state/loop-guard
+         optional bool bpdu_guard = 54;    // /stp/global/state/bpdu-guard
+      }
+   }
+   optional rstp_type rstp = 151;    // /stp/rstp
+   message rstp_type {
+      optional state_type state = 152;    // /stp/rstp/state
+      message state_type {
+         optional uint32 hello_time = 51;    // /stp/rstp/state/hello-time
+         optional uint32 max_age = 52;    // /stp/rstp/state/max-age
+         optional uint32 forwarding_delay = 53;    // /stp/rstp/state/forwarding-delay
+         optional uint32 hold_count = 64;    // /stp/rstp/state/hold-count
+         optional uint32 bridge_priority = 54;    // /stp/rstp/state/bridge-priority
+         optional string bridge_address = 55;    // /stp/rstp/state/bridge-address
+         optional uint32 designated_root_priority = 59;    // /stp/rstp/state/designated-root-priority
+         optional string designated_root_address = 67;    // /stp/rstp/state/designated-root-address
+         optional uint32 root_port = 58;    // /stp/rstp/state/root-port
+         optional uint32 root_cost = 57;    // /stp/rstp/state/root-cost
+         optional uint32 hold_time = 65;    // /stp/rstp/state/hold-time
+         optional uint64 topology_changes = 56;    // /stp/rstp/state/topology-changes
+         optional uint64 last_topology_change = 60;    // /stp/rstp/state/last-topology-change
+      }
+      optional interfaces_type interfaces = 153;    // /stp/rstp/interfaces
+      message interfaces_type {
+         message interface_list {    // /stp/rstp/interfaces/interface
+            optional string name = 51 [(telemetry_options).is_key = true];    // /stp/rstp/interfaces/interface/name
+            optional state_type state = 155;    // /stp/rstp/interfaces/interface/state
+            message state_type {
+               optional string name = 52;    // /stp/rstp/interfaces/interface/state/name
+               optional uint32 cost = 53;    // /stp/rstp/interfaces/interface/state/cost
+               optional uint32 port_priority = 54;    // /stp/rstp/interfaces/interface/state/port-priority
+               optional uint32 port_num = 55;    // /stp/rstp/interfaces/interface/state/port-num
+               optional string role = 56;    // /stp/rstp/interfaces/interface/state/role
+               optional string port_state = 57;    // /stp/rstp/interfaces/interface/state/port-state
+               optional uint32 designated_root_priority = 58;    // /stp/rstp/interfaces/interface/state/designated-root-priority
+               optional string designated_root_address = 59;    // /stp/rstp/interfaces/interface/state/designated-root-address
+               optional uint32 designated_cost = 60;    // /stp/rstp/interfaces/interface/state/designated-cost
+               optional uint32 designated_bridge_priority = 61;    // /stp/rstp/interfaces/interface/state/designated-bridge-priority
+               optional string designated_bridge_address = 62;    // /stp/rstp/interfaces/interface/state/designated-bridge-address
+               optional uint32 designated_port_priority = 63;    // /stp/rstp/interfaces/interface/state/designated-port-priority
+               optional uint32 designated_port_num = 64;    // /stp/rstp/interfaces/interface/state/designated-port-num
+               optional uint64 forward_transisitions = 65;    // /stp/rstp/interfaces/interface/state/forward-transisitions
+            }
+         }
+         repeated interface_list interface = 154;
+      }
+   }
+   optional mstp_type mstp = 152;    // /stp/mstp
+   message mstp_type {
+      optional state_type state = 152;    // /stp/mstp/state
+      message state_type {
+         optional string name = 61;    // /stp/mstp/state/name
+         optional uint32 revision = 62;    // /stp/mstp/state/revision
+         optional uint32 max_hop = 63;    // /stp/mstp/state/max-hop
+         optional uint32 hello_time = 66;    // /stp/mstp/state/hello-time
+         optional uint32 max_age = 68;    // /stp/mstp/state/max-age
+         optional uint32 forwarding_delay = 69;    // /stp/mstp/state/forwarding-delay
+         optional uint32 hold_count = 70;    // /stp/mstp/state/hold-count
+      }
+      optional mst_instances_type mst_instances = 151;    // /stp/mstp/mst-instances
+      message mst_instances_type {
+         message mst_instance_list {    // /stp/mstp/mst-instances/mst-instance
+            optional uint32 mst_id = 71 [(telemetry_options).is_key = true];    // /stp/mstp/mst-instances/mst-instance/mst-id
+            optional state_type state = 155;    // /stp/mstp/mst-instances/mst-instance/state
+            message state_type {
+               optional uint32 mst_id = 72;    // /stp/mstp/mst-instances/mst-instance/state/mst-id
+               repeated string vlan = 73;    // /stp/mstp/mst-instances/mst-instance/state/vlan
+               optional uint32 bridge_priority = 74;    // /stp/mstp/mst-instances/mst-instance/state/bridge-priority
+               optional string bridge_address = 75;    // /stp/mstp/mst-instances/mst-instance/state/bridge-address
+               optional uint32 designated_root_priority = 76;    // /stp/mstp/mst-instances/mst-instance/state/designated-root-priority
+               optional string designated_root_address = 77;    // /stp/mstp/mst-instances/mst-instance/state/designated-root-address
+               optional uint32 root_port = 79;    // /stp/mstp/mst-instances/mst-instance/state/root-port
+               optional uint32 root_cost = 78;    // /stp/mstp/mst-instances/mst-instance/state/root-cost
+               optional uint32 hold_time = 80;    // /stp/mstp/mst-instances/mst-instance/state/hold-time
+               optional uint64 topology_changes = 81;    // /stp/mstp/mst-instances/mst-instance/state/topology-changes
+               optional uint64 last_topology_change = 82;    // /stp/mstp/mst-instances/mst-instance/state/last-topology-change
+            }
+            optional interfaces_type interfaces = 156;    // /stp/mstp/mst-instances/mst-instance/interfaces
+            message interfaces_type {
+               message interface_list {    // /stp/mstp/mst-instances/mst-instance/interfaces/interface
+                  optional string name = 71 [(telemetry_options).is_key = true];    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/name
+                  optional state_type state = 158;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state
+                  message state_type {
+                     optional string name = 83;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/name
+                     optional uint32 cost = 84;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/cost
+                     optional uint32 port_priority = 85;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/port-priority
+                     optional uint32 port_num = 86;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/port-num
+                     optional string role = 87;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/role
+                     optional string port_state = 88;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/port-state
+                     optional uint32 designated_root_priority = 89;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-root-priority
+                     optional string designated_root_address = 90;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-root-address
+                     optional uint32 designated_cost = 91;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-cost
+                     optional uint32 designated_bridge_priority = 92;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-bridge-priority
+                     optional string designated_bridge_address = 93;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-bridge-address
+                     optional uint32 designated_port_priority = 94;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-port-priority
+                     optional uint32 designated_port_num = 95;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/designated-port-num
+                     optional uint64 forward_transisitions = 96;    // /stp/mstp/mst-instances/mst-instance/interfaces/interface/state/forward-transisitions
+                  }
+               }
+               repeated interface_list interface = 157;
+            }
+         }
+         repeated mst_instance_list mst_instance = 154;
+      }
+   }
+   optional rapid_pvst_type rapid_pvst = 153;    // /stp/rapid-pvst
+   message rapid_pvst_type {
+      message vlan_list {    // /stp/rapid-pvst/vlan
+         optional uint32 vlan_id = 52 [(telemetry_options).is_key = true];    // /stp/rapid-pvst/vlan/vlan-id
+         optional state_type state = 154;    // /stp/rapid-pvst/vlan/state
+         message state_type {
+            optional uint32 vlan_id = 53;    // /stp/rapid-pvst/vlan/state/vlan-id
+            optional uint32 hello_time = 68;    // /stp/rapid-pvst/vlan/state/hello-time
+            optional uint32 max_age = 69;    // /stp/rapid-pvst/vlan/state/max-age
+            optional uint32 forwarding_delay = 70;    // /stp/rapid-pvst/vlan/state/forwarding-delay
+            optional uint32 hold_count = 71;    // /stp/rapid-pvst/vlan/state/hold-count
+            optional uint32 bridge_priority = 72;    // /stp/rapid-pvst/vlan/state/bridge-priority
+            optional string bridge_address = 73;    // /stp/rapid-pvst/vlan/state/bridge-address
+            optional uint32 designated_root_priority = 74;    // /stp/rapid-pvst/vlan/state/designated-root-priority
+            optional string designated_root_address = 75;    // /stp/rapid-pvst/vlan/state/designated-root-address
+            optional uint32 root_port = 76;    // /stp/rapid-pvst/vlan/state/root-port
+            optional uint32 root_cost = 77;    // /stp/rapid-pvst/vlan/state/root-cost
+            optional uint32 hold_time = 78;    // /stp/rapid-pvst/vlan/state/hold-time
+            optional uint64 topology_changes = 79;    // /stp/rapid-pvst/vlan/state/topology-changes
+            optional uint64 last_topology_change = 80;    // /stp/rapid-pvst/vlan/state/last-topology-change
+         }
+         optional interfaces_type interfaces = 155;    // /stp/rapid-pvst/vlan/interfaces
+         message interfaces_type {
+            message interface_list {    // /stp/rapid-pvst/vlan/interfaces/interface
+               optional string name = 52 [(telemetry_options).is_key = true];    // /stp/rapid-pvst/vlan/interfaces/interface/name
+               optional state_type state = 157;    // /stp/rapid-pvst/vlan/interfaces/interface/state
+               message state_type {
+                  optional string name = 54;    // /stp/rapid-pvst/vlan/interfaces/interface/state/name
+                  optional uint32 cost = 55;    // /stp/rapid-pvst/vlan/interfaces/interface/state/cost
+                  optional uint32 port_priority = 56;    // /stp/rapid-pvst/vlan/interfaces/interface/state/port-priority
+                  optional uint32 port_num = 57;    // /stp/rapid-pvst/vlan/interfaces/interface/state/port-num
+                  optional string role = 58;    // /stp/rapid-pvst/vlan/interfaces/interface/state/role
+                  optional string port_state = 59;    // /stp/rapid-pvst/vlan/interfaces/interface/state/port-state
+                  optional uint32 designated_root_priority = 60;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-root-priority
+                  optional string designated_root_address = 61;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-root-address
+                  optional uint32 designated_cost = 62;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-cost
+                  optional uint32 designated_bridge_priority = 63;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-bridge-priority
+                  optional string designated_bridge_address = 64;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-bridge-address
+                  optional uint32 designated_port_priority = 65;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-port-priority
+                  optional uint32 designated_port_num = 66;    // /stp/rapid-pvst/vlan/interfaces/interface/state/designated-port-num
+                  optional uint64 forward_transisitions = 67;    // /stp/rapid-pvst/vlan/interfaces/interface/state/forward-transisitions
+               }
+            }
+            repeated interface_list interface = 156;
+         }
+      }
+      repeated vlan_list vlan = 153;
+   }
+   optional interfaces_type interfaces = 154;    // /stp/interfaces
+   message interfaces_type {
+      message interface_list {    // /stp/interfaces/interface
+         optional string name = 52 [(telemetry_options).is_key = true];    // /stp/interfaces/interface/name
+         optional state_type state = 154;    // /stp/interfaces/interface/state
+         message state_type {
+            optional string name = 52;    // /stp/interfaces/interface/state/name
+            optional string edge_port = 53;    // /stp/interfaces/interface/state/edge-port
+            optional string link_type = 54;    // /stp/interfaces/interface/state/link-type
+            optional string guard = 55;    // /stp/interfaces/interface/state/guard
+            optional bool bpdu_guard = 56;    // /stp/interfaces/interface/state/bpdu-guard
+         }
+      }
+      repeated interface_list interface = 153;
+   }
+}

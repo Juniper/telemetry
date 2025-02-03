@@ -1,0 +1,70 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_smi_vc_314 jnpr_junos_smi_vc_314_ext = 314;
+}
+
+message junos_smi_vc_314 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional mx_vc_type mx_vc = 152;    // /junos/system/mx-vc
+      message mx_vc_type {
+         optional members_type members = 151;    // /junos/system/mx-vc/members
+         message members_type {
+            message member_list {    // /junos/system/mx-vc/members/member
+               optional uint32 member_id = 51 [(telemetry_options).is_key = true];    // /junos/system/mx-vc/members/member/member-id
+               optional virtual_chassis_ports_type virtual_chassis_ports = 151;    // /junos/system/mx-vc/members/member/virtual-chassis-ports
+               message virtual_chassis_ports_type {
+                  message virtual_chassis_port_list {    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port
+                     optional string vcp_interface_name = 51 [(telemetry_options).is_key = true];    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/vcp-interface-name
+                     optional string status = 52;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/status
+                     optional string adjacency = 53;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/adjacency
+                     optional uint32 neighbor_member_id = 54;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/neighbor-member-id
+                     optional string neighbor_interface_name = 55;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/neighbor-interface-name
+                     optional uint64 input_packets = 56;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/input-packets
+                     optional uint64 output_packets = 57;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/output-packets
+                     optional uint64 input_bytes = 58;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/input-bytes
+                     optional uint64 output_bytes = 59;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/output-bytes
+                     optional uint64 input_errors = 60;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/input-errors
+                     optional uint64 output_errors = 61;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/output-errors
+                     optional uint64 input_drops = 62;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/input-drops
+                     optional uint64 output_drops = 63;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/output-drops
+                     optional uint64 carrier_transitions = 64;    // /junos/system/mx-vc/members/member/virtual-chassis-ports/virtual-chassis-port/carrier-transitions
+                  }
+                  repeated virtual_chassis_port_list virtual_chassis_port = 151;
+               }
+               optional ddos_protocols_type ddos_protocols = 152;    // /junos/system/mx-vc/members/member/ddos-protocols
+               message ddos_protocols_type {
+                  message ddos_protocol_list {    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol
+                     optional string packet_type = 51 [(telemetry_options).is_key = true];    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/packet-type
+                     optional string state = 52;    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/state
+                     optional uint64 packets_received = 53;    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/packets-received
+                     optional uint64 packets_dropped = 54;    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/packets-dropped
+                     optional uint64 rate = 55;    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/rate
+                     optional uint64 violation_count = 56;    // /junos/system/mx-vc/members/member/ddos-protocols/ddos-protocol/violation-count
+                  }
+                  repeated ddos_protocol_list ddos_protocol = 151;
+               }
+               optional heartbeat_type heartbeat = 153;    // /junos/system/mx-vc/members/member/heartbeat
+               message heartbeat_type {
+                  optional string local_address = 51;    // /junos/system/mx-vc/members/member/heartbeat/local-address
+                  optional string remote_address = 52;    // /junos/system/mx-vc/members/member/heartbeat/remote-address
+                  optional string connection_state = 53;    // /junos/system/mx-vc/members/member/heartbeat/connection-state
+                  optional uint64 sent_counter = 54;    // /junos/system/mx-vc/members/member/heartbeat/sent-counter
+                  optional uint64 receive_counter = 55;    // /junos/system/mx-vc/members/member/heartbeat/receive-counter
+                  optional uint64 lost_missed_counter = 56;    // /junos/system/mx-vc/members/member/heartbeat/lost-missed-counter
+                  optional string last_message_sent_time = 57;    // /junos/system/mx-vc/members/member/heartbeat/last-message-sent-time
+                  optional string last_message_sent_length = 58;    // /junos/system/mx-vc/members/member/heartbeat/last-message-sent-length
+                  optional string last_message_received_time = 59;    // /junos/system/mx-vc/members/member/heartbeat/last-message-received-time
+                  optional string last_message_received_length = 60;    // /junos/system/mx-vc/members/member/heartbeat/last-message-received-length
+                  optional uint64 maximum_latency = 61;    // /junos/system/mx-vc/members/member/heartbeat/maximum-latency
+                  optional uint64 minimum_latency = 62;    // /junos/system/mx-vc/members/member/heartbeat/minimum-latency
+               }
+            }
+            repeated member_list member = 151;
+         }
+      }
+   }
+}

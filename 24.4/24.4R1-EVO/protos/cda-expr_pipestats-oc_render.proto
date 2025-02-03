@@ -1,0 +1,47 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_pipestats jnpr_components_cda_pipestats_ext = 207;
+}
+
+message components_cda_pipestats {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 151;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional queueing_block_type queueing_block = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block
+               message queueing_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state
+                     optional uint64 in_packets = 51;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/in-packets
+                     optional uint64 out_packets = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/out-packets
+                     optional uint64 queue_memory = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/queue-memory
+                     optional uint64 queue_memory_used = 54;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/queue-memory-used
+                     optional uint64 loopback_packets = 55;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/loopback-packets
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+            optional drop_type drop = 152;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional queueing_block_type queueing_block = 151;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block
+               message queueing_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state
+                     optional uint64 oversubscription = 51;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/oversubscription
+                     optional uint64 memory_limit = 52;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/memory-limit
+                     optional uint64 incorrect_state = 53;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/incorrect-state
+                     optional uint64 lookup_queue = 54;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/lookup-queue
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

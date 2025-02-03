@@ -1,0 +1,436 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-yang-types - This module contains a set of extension types to the
+YANG builtin types that are used across multiple
+OpenConfig models
+openconfig-mpls - This module provides data definitions for configuration of
+Multiprotocol Label Switching (MPLS) and associated protocols for
+signaling and traffic engineering
+jnx-aug-openconfig-ni-mpls - This module contains JUNOS augments to the OpenConfig NI MPLS modules
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_te jnpr_network_instances_te_ext = 69;
+}
+
+message network_instances_te {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional mpls_type mpls = 151;    // /network-instances/network-instance/mpls
+      message mpls_type {
+         optional te_global_attributes_type te_global_attributes = 151;    // /network-instances/network-instance/mpls/te-global-attributes
+         message te_global_attributes_type {
+            optional srlgs_type srlgs = 151;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs
+            message srlgs_type {
+               message srlg_list {    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg
+                  optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/name
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/state
+                  message state_type {
+                     optional string name = 51;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/state/name
+                     optional uint32 value = 52;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/state/value
+                     optional uint32 cost = 53;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/state/cost
+                     optional string flooding_type = 54;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/state/flooding-type
+                  }
+                  optional static_srlg_members_type static_srlg_members = 152;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/static-srlg-members
+                  message static_srlg_members_type {
+                     message members_list_list {    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/static-srlg-members/members-list
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/static-srlg-members/members-list/state
+                        message state_type {
+                           optional string from_address = 52;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/static-srlg-members/members-list/state/from-address
+                           optional string to_address = 51;    // /network-instances/network-instance/mpls/te-global-attributes/srlgs/srlg/static-srlg-members/members-list/state/to-address
+                        }
+                     }
+                     repeated members_list_list members_list = 151;
+                  }
+               }
+               repeated srlg_list srlg = 151;
+            }
+            optional mpls_admin_groups_type mpls_admin_groups = 152;    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups
+            message mpls_admin_groups_type {
+               message admin_group_list {    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups/admin-group
+                  optional string admin_group_name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups/admin-group/state
+                  message state_type {
+                     optional string admin_group_name = 51;    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups/admin-group/state/admin-group-name
+                     optional uint32 bit_position = 52;    // /network-instances/network-instance/mpls/te-global-attributes/mpls-admin-groups/admin-group/state/bit-position
+                  }
+               }
+               repeated admin_group_list admin_group = 151;
+            }
+            optional te_lsp_timers_type te_lsp_timers = 153;    // /network-instances/network-instance/mpls/te-global-attributes/te-lsp-timers
+            message te_lsp_timers_type {
+               optional state_type state = 151;    // /network-instances/network-instance/mpls/te-global-attributes/te-lsp-timers/state
+               message state_type {
+                  optional uint32 install_delay = 51;    // /network-instances/network-instance/mpls/te-global-attributes/te-lsp-timers/state/install-delay
+                  optional uint32 cleanup_delay = 52;    // /network-instances/network-instance/mpls/te-global-attributes/te-lsp-timers/state/cleanup-delay
+                  optional uint32 reoptimize_timer = 53;    // /network-instances/network-instance/mpls/te-global-attributes/te-lsp-timers/state/reoptimize-timer
+               }
+            }
+         }
+         optional te_interface_attributes_type te_interface_attributes = 152;    // /network-instances/network-instance/mpls/te-interface-attributes
+         message te_interface_attributes_type {
+            message interface_list {    // /network-instances/network-instance/mpls/te-interface-attributes/interface
+               optional string interface_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/te-interface-attributes/interface/interface-id
+               optional state_type state = 151;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/state
+               message state_type {
+                  optional string interface_id = 51;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/state/interface-id
+                  repeated string srlg_membership = 52;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/state/srlg-membership
+                  repeated string admin_group = 53;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/state/admin-group
+               }
+               optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/interface-ref
+               message interface_ref_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/interface-ref/state
+                  message state_type {
+                     optional string interface = 51;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/interface-ref/state/interface
+                     optional uint32 subinterface = 52;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/interface-ref/state/subinterface
+                  }
+               }
+               optional igp_flooding_bandwidth_type igp_flooding_bandwidth = 153;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/igp-flooding-bandwidth
+               message igp_flooding_bandwidth_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/igp-flooding-bandwidth/state
+                  message state_type {
+                     optional string threshold_type = 51;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/igp-flooding-bandwidth/state/threshold-type
+                     optional uint32 delta_percentage = 52;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/igp-flooding-bandwidth/state/delta-percentage
+                  }
+               }
+               optional bandwidth_measurement_type bandwidth_measurement = 154;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/bandwidth-measurement
+               message bandwidth_measurement_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/bandwidth-measurement/state
+                  message state_type {
+                     optional uint64 last_calculated_sr_utilisation = 51;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/bandwidth-measurement/state/last-calculated-sr-utilisation
+                     optional uint64 last_sample_measured_sr_util = 52;    // /network-instances/network-instance/mpls/te-interface-attributes/interface/bandwidth-measurement/state/last-sample-measured-sr-util
+                  }
+               }
+            }
+            repeated interface_list interface = 151;
+         }
+         optional lsps_type lsps = 153;    // /network-instances/network-instance/mpls/lsps
+         message lsps_type {
+            optional constrained_path_type constrained_path = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path
+            message constrained_path_type {
+               optional named_explicit_paths_type named_explicit_paths = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths
+               message named_explicit_paths_type {
+                  message named_explicit_path_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/name
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/state
+                     message state_type {
+                        optional string name = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/state/name
+                     }
+                     optional explicit_route_objects_type explicit_route_objects = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects
+                     message explicit_route_objects_type {
+                        message explicit_route_object_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object
+                           optional uint32 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/index
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state
+                           message state_type {
+                              optional string address = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/address
+                              optional string hop_type = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/hop-type
+                              optional uint32 index = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/named-explicit-paths/named-explicit-path/explicit-route-objects/explicit-route-object/state/index
+                           }
+                        }
+                        repeated explicit_route_object_list explicit_route_object = 151;
+                     }
+                  }
+                  repeated named_explicit_path_list named_explicit_path = 151;
+               }
+               optional tunnels_type tunnels = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels
+               message tunnels_type {
+                  message tunnel_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/name
+                     optional string source = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/source
+                     optional state_type state = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state
+                     message state_type {
+                        optional string name = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/name
+                        optional string type = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/type
+                        optional string signaling_protocol = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/signaling-protocol
+                        optional string description = 57;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/description
+                        optional string admin_status = 58;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/admin-status
+                        optional uint32 preference = 59;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/preference
+                        optional string metric_type = 60;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/metric-type
+                        optional int32 metric = 61;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/metric
+                        optional string protection_style_requested = 63;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/protection-style-requested
+                        optional uint32 reoptimize_timer = 64;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/reoptimize-timer
+                        optional string source = 65;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/source
+                        optional bool soft_preemption = 66;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/soft-preemption
+                        optional uint32 setup_priority = 67;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/setup-priority
+                        optional uint32 hold_priority = 68;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/hold-priority
+                        optional string oper_status = 69;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/oper-status
+                        optional bool auto_generated = 70;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/auto-generated
+                        optional counters_type counters = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters
+                        message counters_type {
+                           optional uint64 path_changes = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/path-changes
+                           optional uint64 state_changes = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/state-changes
+                           optional uint64 online_time = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/online-time
+                           optional uint64 current_path_time = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/current-path-time
+                           optional uint64 next_reoptimization_time = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/next-reoptimization-time
+                           optional string last_transition_time = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/counters/last-transition-time
+                        }
+                        optional uint32 inherited_metric = 62;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/inherited-metric
+                        optional uint32 tunnel_id = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/state/tunnel-id
+                     }
+                     optional bandwidth_type bandwidth = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth
+                     message bandwidth_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/state
+                        message state_type {
+                           optional string specification_type = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/state/specification-type
+                           optional uint64 set_bandwidth = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/state/set-bandwidth
+                           optional uint64 signaled_bandwidth = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/state/signaled-bandwidth
+                        }
+                        optional auto_bandwidth_type auto_bandwidth = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth
+                        message auto_bandwidth_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state
+                           message state_type {
+                              optional bool enabled = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/enabled
+                              optional uint64 min_bw = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/min-bw
+                              optional uint64 max_bw = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/max-bw
+                              optional uint32 adjust_interval = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/adjust-interval
+                              optional uint32 adjust_threshold = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/adjust-threshold
+                              optional uint64 interval_high_bw = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/state/interval-high-bw
+                           }
+                           optional overflow_type overflow = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/overflow
+                           message overflow_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state/enabled
+                                 optional uint32 overflow_threshold = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state/overflow-threshold
+                                 optional uint32 trigger_event_count = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/overflow/state/trigger-event-count
+                              }
+                           }
+                           optional underflow_type underflow = 153;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/underflow
+                           message underflow_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state/enabled
+                                 optional uint32 underflow_threshold = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state/underflow-threshold
+                                 optional uint32 trigger_event_count = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/bandwidth/auto-bandwidth/underflow/state/trigger-event-count
+                              }
+                           }
+                        }
+                     }
+                     optional p2p_tunnel_attributes_type p2p_tunnel_attributes = 153;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes
+                     message p2p_tunnel_attributes_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/state
+                        message state_type {
+                           optional string destination = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/state/destination
+                        }
+                        optional p2p_primary_path_type p2p_primary_path = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path
+                        message p2p_primary_path_type {
+                           message p2p_primary_path_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path
+                              optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/name
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state
+                              message state_type {
+                                 optional string name = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/name
+                                 optional bool use_cspf = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/use-cspf
+                                 optional string cspf_tiebreaker = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/cspf-tiebreaker
+                                 optional string explicit_path_name = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/explicit-path-name
+                                 optional uint32 preference = 61;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/preference
+                                 optional uint32 setup_priority = 62;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/setup-priority
+                                 optional uint32 hold_priority = 63;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/hold-priority
+                                 optional uint32 retry_timer = 64;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/retry-timer
+                                 repeated uint64 associated_rsvp_sessions = 59;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/associated-rsvp-sessions
+                                 optional uint64 cspf_metric = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/cspf-metric
+                                 optional string notify_status = 81;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/notify-status
+                                 optional string cspf_status = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/state/cspf-status
+                              }
+                              optional path_metric_bound_constraints_type path_metric_bound_constraints = 154;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints
+                              message path_metric_bound_constraints_type {
+                                 message path_metric_bound_constraint_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints/path-metric-bound-constraint
+                                    optional string type = 152 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints/path-metric-bound-constraint/type
+                                    optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints/path-metric-bound-constraint/state
+                                    message state_type {
+                                       optional string type = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints/path-metric-bound-constraint/state/type
+                                       optional uint64 metric_upper_bound = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/path-metric-bound-constraints/path-metric-bound-constraint/state/metric-upper-bound
+                                    }
+                                 }
+                                 repeated path_metric_bound_constraint_list path_metric_bound_constraint = 151;
+                              }
+                              optional admin_groups_type admin_groups = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups
+                              message admin_groups_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state
+                                 message state_type {
+                                    repeated string exclude_group = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/exclude-group
+                                    repeated string include_all_group = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/include-all-group
+                                    repeated string include_any_group = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/admin-groups/state/include-any-group
+                                 }
+                              }
+                              message lsp_instances_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances
+                                 optional uint32 local_index = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/local-index
+                                 optional uint32 lsp_id = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/lsp-id
+                                 optional string subcode = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/subcode
+                                 optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state
+                                 message state_type {
+                                    optional uint32 local_index = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/local-index
+                                    optional string notify_status = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/notify-status
+                                    optional int32 metric = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/metric
+                                    optional uint64 bandwidth = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/bandwidth
+                                    optional uint64 max_avg_bandwidth = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/max-avg-bandwidth
+                                    optional string reason = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-primary-path/p2p-primary-path/lsp-instances/state/reason
+                                 }
+                              }
+                              repeated lsp_instances_list lsp_instances = 153;
+                           }
+                           repeated p2p_primary_path_list p2p_primary_path = 151;
+                        }
+                        optional p2p_secondary_paths_type p2p_secondary_paths = 153;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths
+                        message p2p_secondary_paths_type {
+                           message p2p_secondary_path_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path
+                              optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/name
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state
+                              message state_type {
+                                 optional string name = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/name
+                                 optional bool use_cspf = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/use-cspf
+                                 optional string cspf_tiebreaker = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/cspf-tiebreaker
+                                 optional string explicit_path_name = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/explicit-path-name
+                                 optional uint32 preference = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/preference
+                                 optional uint32 setup_priority = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/setup-priority
+                                 optional uint32 hold_priority = 57;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/hold-priority
+                                 optional uint32 retry_timer = 58;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/retry-timer
+                                 repeated uint64 associated_rsvp_sessions = 59;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/associated-rsvp-sessions
+                                 optional uint64 cspf_metric = 60;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/state/cspf-metric
+                              }
+                              optional path_metric_bound_constraints_type path_metric_bound_constraints = 154;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints
+                              message path_metric_bound_constraints_type {
+                                 message path_metric_bound_constraint_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints/path-metric-bound-constraint
+                                    optional string type = 152 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints/path-metric-bound-constraint/type
+                                    optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints/path-metric-bound-constraint/state
+                                    message state_type {
+                                       optional string type = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints/path-metric-bound-constraint/state/type
+                                       optional uint64 metric_upper_bound = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/path-metric-bound-constraints/path-metric-bound-constraint/state/metric-upper-bound
+                                    }
+                                 }
+                                 repeated path_metric_bound_constraint_list path_metric_bound_constraint = 151;
+                              }
+                              optional admin_groups_type admin_groups = 152;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups
+                              message admin_groups_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state
+                                 message state_type {
+                                    repeated string exclude_group = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/exclude-group
+                                    repeated string include_all_group = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/include-all-group
+                                    repeated string include_any_group = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/admin-groups/state/include-any-group
+                                 }
+                              }
+                              message lsp_instances_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances
+                                 optional uint32 local_index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances/local-index
+                                 optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances/state
+                                 message state_type {
+                                    optional string notify_status = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances/state/notify-status
+                                    optional string reason = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances/state/reason
+                                 }
+                                 optional uint32 lsp_id = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/tunnels/tunnel/p2p-tunnel-attributes/p2p-secondary-paths/p2p-secondary-path/lsp-instances/lsp-id
+                              }
+                              repeated lsp_instances_list lsp_instances = 153;
+                           }
+                           repeated p2p_secondary_path_list p2p_secondary_path = 151;
+                        }
+                     }
+                  }
+                  repeated tunnel_list tunnel = 151;
+               }
+               optional container_tunnels_type container_tunnels = 153;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels
+               message container_tunnels_type {
+                  message container_tunnel_list {    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/name
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state
+                     message state_type {
+                        optional string name = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/name
+                        optional string oper_state = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/oper-state
+                        optional string normalization_status = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/normalization-status
+                        optional uint32 member_count = 54;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/member-count
+                        optional uint32 minimum_lsp_count = 55;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/minimum-lsp-count
+                        optional uint32 maximum_lsp_count = 56;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/maximum-lsp-count
+                        optional uint32 normalize_timer = 57;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/normalize-timer
+                        optional uint32 normalize_threshold = 58;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/normalize-threshold
+                        optional uint64 aggregate_bandwidth = 59;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/aggregate-bandwidth
+                        optional uint64 sampled_aggregate_bandwidth = 60;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/sampled-aggregate-bandwidth
+                        optional uint64 max_signaling_bandwidth = 61;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/max-signaling-bandwidth
+                        optional uint64 min_signaling_bandwidth = 62;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/min-signaling-bandwidth
+                        optional uint64 splitting_bandwidth = 63;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/splitting-bandwidth
+                        optional uint64 merging_bandwidth = 64;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/merging-bandwidth
+                        optional uint64 time_to_normalize = 65;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/time-to-normalize
+                        optional bool incremental_normalization = 66;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/incremental-normalization
+                        optional bool failover_normalization = 67;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/failover-normalization
+                        optional string reason = 68;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/reason
+                        optional sampling_type sampling = 151;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/sampling
+                        message sampling_type {
+                           optional uint32 sampling_outlier_cutoff = 51;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/sampling/sampling-outlier-cutoff
+                           optional string sampling_mode = 52;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/sampling/sampling-mode
+                           optional uint32 sampling_percentile = 53;    // /network-instances/network-instance/mpls/lsps/constrained-path/container-tunnels/container-tunnel/state/sampling/sampling-percentile
+                        }
+                     }
+                  }
+                  repeated container_tunnel_list container_tunnel = 151;
+               }
+            }
+            optional static_lsps_type static_lsps = 152;    // /network-instances/network-instance/mpls/lsps/static-lsps
+            message static_lsps_type {
+               message static_lsp_list {    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/name
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/state
+                  message state_type {
+                     optional string name = 51;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/state/name
+                  }
+                  optional ingress_type ingress = 152;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/ingress
+                  message ingress_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/ingress/state
+                     message state_type {
+                        optional string next_hop = 51;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/ingress/state/next-hop
+                        optional string incoming_label = 52;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/ingress/state/incoming-label
+                        optional string push_label = 53;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/ingress/state/push-label
+                     }
+                  }
+                  optional transit_type transit = 153;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/transit
+                  message transit_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/transit/state
+                     message state_type {
+                        optional string next_hop = 51;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/transit/state/next-hop
+                        optional string incoming_label = 52;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/transit/state/incoming-label
+                        optional string push_label = 53;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/transit/state/push-label
+                     }
+                  }
+                  optional egress_type egress = 154;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/egress
+                  message egress_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/egress/state
+                     message state_type {
+                        optional string next_hop = 51;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/egress/state/next-hop
+                        optional string incoming_label = 52;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/egress/state/incoming-label
+                        optional string push_label = 53;    // /network-instances/network-instance/mpls/lsps/static-lsps/static-lsp/egress/state/push-label
+                     }
+                  }
+               }
+               repeated static_lsp_list static_lsp = 151;
+            }
+         }
+         optional global_type global = 154;    // /network-instances/network-instance/mpls/global
+         message global_type {
+            optional state_type state = 151;    // /network-instances/network-instance/mpls/global/state
+            message state_type {
+               optional string null_label = 51;    // /network-instances/network-instance/mpls/global/state/null-label
+               optional bool ttl_propagation = 52;    // /network-instances/network-instance/mpls/global/state/ttl-propagation
+            }
+            optional interface_attributes_type interface_attributes = 152;    // /network-instances/network-instance/mpls/global/interface-attributes
+            message interface_attributes_type {
+               message interface_list {    // /network-instances/network-instance/mpls/global/interface-attributes/interface
+                  optional string interface_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/global/interface-attributes/interface/interface-id
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/state
+                  message state_type {
+                     optional string interface_id = 51;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/state/interface-id
+                     optional bool mpls_enabled = 52;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/state/mpls-enabled
+                  }
+                  optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/interface-ref
+                  message interface_ref_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/interface-ref/state
+                     message state_type {
+                        optional string interface = 51;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/interface-ref/state/interface
+                        optional uint32 subinterface = 52;    // /network-instances/network-instance/mpls/global/interface-attributes/interface/interface-ref/state/subinterface
+                     }
+                  }
+               }
+               repeated interface_list interface = 151;
+            }
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

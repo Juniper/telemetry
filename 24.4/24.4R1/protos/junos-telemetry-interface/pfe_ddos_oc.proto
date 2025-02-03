@@ -1,0 +1,76 @@
+/* 
+This proto is generated from below openconfig models
+junos-ddos - This module provides data definitions for configuration of
+Ddos Protection
+
+The statistics for the ddos policers is exported for
+every protocol group and packet types associated with it
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional ddos_stats jnpr_ddos_stats_ext = 126;
+}
+
+message ddos_stats {    // /ddos-stats
+   message group_list {    // /ddos-stats/group
+      optional string group_name = 153 [(telemetry_options).is_key = true];    // /ddos-stats/group/group-name
+      optional uint32 group_id = 154;    // /ddos-stats/group/group-id
+      optional protocol_stats_type protocol_stats = 155;    // /ddos-stats/group/protocol-stats
+      message protocol_stats_type {
+         message protocol_list {    // /ddos-stats/group/protocol-stats/protocol
+            optional string protocol_name = 157 [(telemetry_options).is_key = true];    // /ddos-stats/group/protocol-stats/protocol/protocol-name
+            optional uint32 protocol_id = 158;    // /ddos-stats/group/protocol-stats/protocol/protocol-id
+            optional locale_stats_type locale_stats = 159;    // /ddos-stats/group/protocol-stats/protocol/locale-stats
+            message locale_stats_type {
+               message locale_list {    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale
+                  optional string location = 162 [(telemetry_options).is_key = true];    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/location
+                  optional uint64 received = 163;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/received
+                  optional uint64 arrived_policer = 164;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/arrived-policer
+                  optional uint64 dropped_individual_policer = 165;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-individual-policer
+                  optional uint64 dropped_aggregate_policer = 166;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-aggregate-policer
+                  optional uint64 dropped_individual_flow = 167;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-individual-flow
+                  optional uint64 dropped_aggregate_flow = 168;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/dropped-aggregate-flow
+                  optional uint64 total_dropped = 169;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/total-dropped
+                  optional uint64 final_passed = 170;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/final-passed
+                  optional uint64 arrival_rate = 171;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/arrival-rate
+                  optional uint64 max_arrival_rate = 173;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/max-arrival-rate
+                  optional uint64 pass_rate = 172;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/pass-rate
+                  optional violation_type violation = 174;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation
+                  message violation_type {
+                     optional string policer_state = 175;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-state
+                     optional uint32 policer_violation_count = 176;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-count
+                     optional uint64 policer_violation_start_time = 177;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-start-time
+                     optional uint64 policer_violation_end_time = 178;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-end-time
+                     optional uint64 policer_violation_duration = 179;    // /ddos-stats/group/protocol-stats/protocol/locale-stats/locale/violation/policer-violation-duration
+                  }
+               }
+               repeated locale_list locale = 160;
+            }
+            optional flow_stats_type flow_stats = 161;    // /ddos-stats/group/protocol-stats/protocol/flow-stats
+            message flow_stats_type {
+               message flow_list {    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow
+                  optional string flow_type = 181 [(telemetry_options).is_key = true];    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-type
+                  optional uint64 flow_count = 182;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-count
+                  optional flow_info_stats_type flow_info_stats = 183;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats
+                  message flow_info_stats_type {
+                     message flow_info_list {    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info
+                        optional uint64 ifl = 185 [(telemetry_options).is_key = true];    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/ifl
+                        optional uint64 time_found = 186;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/time-found
+                        optional uint64 time_last_violated = 187;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/time-last-violated
+                        optional uint64 rate = 188;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/rate
+                        optional uint64 packets = 189;    // /ddos-stats/group/protocol-stats/protocol/flow-stats/flow/flow-info-stats/flow-info/packets
+                     }
+                     repeated flow_info_list flow_info = 184;
+                  }
+               }
+               repeated flow_list flow = 180;
+            }
+         }
+         repeated protocol_list protocol = 156;
+      }
+   }
+   repeated group_list group = 152;
+}

@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_ps_state_drop_284 jnpr_components_cda_ps_state_drop_284_ext = 284;
+}
+
+message components_cda_ps_state_drop_284 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional drop_type drop = 151;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/drop/state
+               message state_type {
+                  optional uint64 adverse_aggregate = 152;    // /components/component/integrated-circuit/pipeline-counters/drop/state/adverse-aggregate
+                  optional uint64 packet_processing_aggregate = 153;    // /components/component/integrated-circuit/pipeline-counters/drop/state/packet-processing-aggregate
+                  optional uint64 urpf_aggregate = 154;    // /components/component/integrated-circuit/pipeline-counters/drop/state/urpf-aggregate
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

@@ -1,0 +1,163 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform - This module defines a data model for representing a system
+component inventory, which can include hardware or software
+elements arranged in an arbitrary structure
+openconfig-platform-transceiver - This module defines configuration and operational state data
+for transceivers (i
+openconfig-platform-port - This module defines data related to PORT components in the
+openconfig-platform model
+openconfig-platform-fan - This module defines data related to FAN components in the
+OpenConfig platform model
+openconfig-platform-psu - This module defines a schema for power supply components in
+the OpenConfig platform model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components jnpr_components_ext = 40;
+}
+
+message components {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional state_type state = 152;    // /components/component/state
+      message state_type {
+         optional string name = 51;    // /components/component/state/name
+         optional string type = 52;    // /components/component/state/type
+         optional string id = 53;    // /components/component/state/id
+         optional string location = 54;    // /components/component/state/location
+         optional string description = 55;    // /components/component/state/description
+         optional string mfg_name = 56;    // /components/component/state/mfg-name
+         optional string mfg_date = 57;    // /components/component/state/mfg-date
+         optional string hardware_version = 58;    // /components/component/state/hardware-version
+         optional string firmware_version = 59;    // /components/component/state/firmware-version
+         optional string software_version = 60;    // /components/component/state/software-version
+         optional string serial_no = 61;    // /components/component/state/serial-no
+         optional string part_no = 62;    // /components/component/state/part-no
+         optional bool removable = 63;    // /components/component/state/removable
+         optional string oper_status = 64;    // /components/component/state/oper-status
+         optional bool empty = 65;    // /components/component/state/empty
+         optional string parent = 66;    // /components/component/state/parent
+         optional temperature_type temperature = 160;    // /components/component/state/temperature
+         message temperature_type {
+            optional double instant = 81;    // /components/component/state/temperature/instant
+            optional double avg = 82;    // /components/component/state/temperature/avg
+            optional double min = 83;    // /components/component/state/temperature/min
+            optional double max = 84;    // /components/component/state/temperature/max
+            optional uint64 interval = 87;    // /components/component/state/temperature/interval
+            optional uint64 min_time = 85;    // /components/component/state/temperature/min-time
+            optional uint64 max_time = 86;    // /components/component/state/temperature/max-time
+            optional bool alarm_status = 88;    // /components/component/state/temperature/alarm-status
+            optional uint32 alarm_threshold = 89;    // /components/component/state/temperature/alarm-threshold
+            optional string alarm_severity = 90;    // /components/component/state/temperature/alarm-severity
+         }
+         optional memory_type memory = 170;    // /components/component/state/memory
+         message memory_type {
+            optional uint64 available = 91;    // /components/component/state/memory/available
+            optional uint64 utilized = 92;    // /components/component/state/memory/utilized
+         }
+         optional uint32 allocated_power = 67;    // /components/component/state/allocated-power
+      }
+      optional fan_type fan = 154;    // /components/component/fan
+      message fan_type {
+         optional state_type state = 155;    // /components/component/fan/state
+         message state_type {
+            optional uint32 speed = 51;    // /components/component/fan/state/speed
+         }
+      }
+      optional power_supply_type power_supply = 157;    // /components/component/power-supply
+      message power_supply_type {
+         optional state_type state = 158;    // /components/component/power-supply/state
+         message state_type {
+            optional bool enabled = 51;    // /components/component/power-supply/state/enabled
+            optional string capacity = 52;    // /components/component/power-supply/state/capacity
+            optional string input_current = 53;    // /components/component/power-supply/state/input-current
+            optional string input_voltage = 54;    // /components/component/power-supply/state/input-voltage
+            optional string output_current = 55;    // /components/component/power-supply/state/output-current
+            optional string output_voltage = 56;    // /components/component/power-supply/state/output-voltage
+            optional string output_power = 57;    // /components/component/power-supply/state/output-power
+         }
+      }
+      optional port_type port = 151;    // /components/component/port
+      message port_type {
+         optional breakout_mode_type breakout_mode = 151;    // /components/component/port/breakout-mode
+         message breakout_mode_type {
+            optional groups_type groups = 151;    // /components/component/port/breakout-mode/groups
+            message groups_type {
+               message group_list {    // /components/component/port/breakout-mode/groups/group
+                  optional uint32 index = 51 [(telemetry_options).is_key = true];    // /components/component/port/breakout-mode/groups/group/index
+                  optional state_type state = 151;    // /components/component/port/breakout-mode/groups/group/state
+                  message state_type {
+                     optional uint32 index = 53;    // /components/component/port/breakout-mode/groups/group/state/index
+                     optional uint32 num_breakouts = 54;    // /components/component/port/breakout-mode/groups/group/state/num-breakouts
+                     optional string breakout_speed = 55;    // /components/component/port/breakout-mode/groups/group/state/breakout-speed
+                     optional uint32 num_physical_channels = 56;    // /components/component/port/breakout-mode/groups/group/state/num-physical-channels
+                  }
+               }
+               repeated group_list group = 151;
+            }
+         }
+      }
+      optional properties_type properties = 156;    // /components/component/properties
+      message properties_type {
+         message property_list {    // /components/component/properties/property
+            optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/properties/property/name
+            optional state_type state = 151;    // /components/component/properties/property/state
+            message state_type {
+               optional string value = 51;    // /components/component/properties/property/state/value
+               optional bool configurable = 52;    // /components/component/properties/property/state/configurable
+            }
+         }
+         repeated property_list property = 151;
+      }
+      optional subcomponents_type subcomponents = 153;    // /components/component/subcomponents
+      message subcomponents_type {
+         message subcomponent_list {    // /components/component/subcomponents/subcomponent
+            optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/subcomponents/subcomponent/name
+            optional state_type state = 151;    // /components/component/subcomponents/subcomponent/state
+            message state_type {
+               optional string name = 51;    // /components/component/subcomponents/subcomponent/state/name
+            }
+         }
+         repeated subcomponent_list subcomponent = 151;
+      }
+      optional transceiver_type transceiver = 161;    // /components/component/transceiver
+      message transceiver_type {
+         optional state_type state = 162;    // /components/component/transceiver/state
+         message state_type {
+            optional string form_factor_preconf = 255;    // /components/component/transceiver/state/form-factor-preconf
+            optional string ethernet_pmd_preconf = 256;    // /components/component/transceiver/state/ethernet-pmd-preconf
+            optional string present = 266;    // /components/component/transceiver/state/present
+            optional string form_factor = 257;    // /components/component/transceiver/state/form-factor
+            optional string connector_type = 258;    // /components/component/transceiver/state/connector-type
+            optional string vendor = 259;    // /components/component/transceiver/state/vendor
+            optional string vendor_part = 260;    // /components/component/transceiver/state/vendor-part
+            optional string vendor_rev = 261;    // /components/component/transceiver/state/vendor-rev
+            optional string ethernet_pmd = 262;    // /components/component/transceiver/state/ethernet-pmd
+            optional string sonet_sdh_compliance_code = 263;    // /components/component/transceiver/state/sonet-sdh-compliance-code
+            optional string otn_compliance_code = 264;    // /components/component/transceiver/state/otn-compliance-code
+            optional string serial_no = 265;    // /components/component/transceiver/state/serial-no
+            optional string date_code = 286;    // /components/component/transceiver/state/date-code
+            optional bool enabled = 51;    // /components/component/transceiver/state/enabled
+         }
+         optional physical_channels_type physical_channels = 191;    // /components/component/transceiver/physical-channels
+         message physical_channels_type {
+            message channel_list {    // /components/component/transceiver/physical-channels/channel
+               optional uint32 index = 191 [(telemetry_options).is_key = true];    // /components/component/transceiver/physical-channels/channel/index
+               optional state_type state = 849;    // /components/component/transceiver/physical-channels/channel/state
+               message state_type {
+                  optional uint32 index = 39;    // /components/component/transceiver/physical-channels/channel/state/index
+                  optional string description = 41;    // /components/component/transceiver/physical-channels/channel/state/description
+                  optional bool tx_laser = 42;    // /components/component/transceiver/physical-channels/channel/state/tx-laser
+                  optional double target_output_power = 43;    // /components/component/transceiver/physical-channels/channel/state/target-output-power
+               }
+            }
+            repeated channel_list channel = 91;
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

@@ -1,0 +1,45 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-chassis - This module contains a collection of top level nodes for JUNOS
+chassis state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_fabspoked_sib_310 jnpr_state_fabspoked_sib_310_ext = 310;
+}
+
+message state_fabspoked_sib_310 {    // /state
+   optional chassis_type chassis = 151;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 151;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+            optional string oper_status = 52;    // /state/chassis/modules/module/oper-status
+            optional fabric_type fabric = 162;    // /state/chassis/modules/module/fabric
+            message fabric_type {
+               optional string sib_link_error = 52;    // /state/chassis/modules/module/fabric/sib-link-error
+               optional string sib_link_status = 53;    // /state/chassis/modules/module/fabric/sib-link-status
+            }
+            optional processes_type processes = 164;    // /state/chassis/modules/module/processes
+            message processes_type {
+               message process_list {    // /state/chassis/modules/module/processes/process
+                  optional uint32 pid = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/processes/process/pid
+                  optional string name = 52;    // /state/chassis/modules/module/processes/process/name
+                  optional string type = 53;    // /state/chassis/modules/module/processes/process/type
+                  optional fabric_process_type fabric_process = 161;    // /state/chassis/modules/module/processes/process/fabric-process
+                  message fabric_process_type {
+                     optional string status = 51;    // /state/chassis/modules/module/processes/process/fabric-process/status
+                     optional string reason = 52;    // /state/chassis/modules/module/processes/process/fabric-process/reason
+                  }
+               }
+               repeated process_list process = 151;
+            }
+         }
+         repeated module_list module = 152;
+      }
+   }
+}
