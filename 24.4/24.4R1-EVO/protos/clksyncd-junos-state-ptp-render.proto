@@ -1,0 +1,168 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-ptp - This module contains a collection of top level nodes for JUNOS
+Precision Time Protocol (PTP) state data
+junos-state-ptp-global-ds - This module contains a collection of attributes for JUNOS PTP
+global state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_308 jnpr_state_308_ext = 308;
+}
+
+message state_308 {    // /state
+   optional protocols_type protocols = 151;    // /state/protocols
+   message protocols_type {
+      optional ptp_type ptp = 152;    // /state/protocols/ptp
+      message ptp_type {
+         optional instances_type instances = 153;    // /state/protocols/ptp/instances
+         message instances_type {
+            message instance_list {    // /state/protocols/ptp/instances/instance
+               optional uint32 instance_index = 154 [(telemetry_options).is_key = true];    // /state/protocols/ptp/instances/instance/instance-index
+               optional default_ds_type default_ds = 156;    // /state/protocols/ptp/instances/instance/default-ds
+               message default_ds_type {
+                  optional bool two_step_flag = 51;    // /state/protocols/ptp/instances/instance/default-ds/two-step-flag
+                  optional string clock_identity = 52;    // /state/protocols/ptp/instances/instance/default-ds/clock-identity
+                  optional uint32 number_ports = 53;    // /state/protocols/ptp/instances/instance/default-ds/number-ports
+                  optional clock_quality_type clock_quality = 54;    // /state/protocols/ptp/instances/instance/default-ds/clock-quality
+                  message clock_quality_type {
+                     optional uint32 clock_class = 55;    // /state/protocols/ptp/instances/instance/default-ds/clock-quality/clock-class
+                     optional uint32 clock_accuracy = 56;    // /state/protocols/ptp/instances/instance/default-ds/clock-quality/clock-accuracy
+                     optional uint32 offset_scaled_log_variance = 57;    // /state/protocols/ptp/instances/instance/default-ds/clock-quality/offset-scaled-log-variance
+                  }
+                  optional uint32 priority1 = 58;    // /state/protocols/ptp/instances/instance/default-ds/priority1
+                  optional uint32 priority2 = 59;    // /state/protocols/ptp/instances/instance/default-ds/priority2
+                  optional uint32 local_priority = 60;    // /state/protocols/ptp/instances/instance/default-ds/local-priority
+                  optional uint32 domain_number = 61;    // /state/protocols/ptp/instances/instance/default-ds/domain-number
+                  optional bool time_receiver_only = 62;    // /state/protocols/ptp/instances/instance/default-ds/time-receiver-only
+                  optional uint32 sdo_id = 63;    // /state/protocols/ptp/instances/instance/default-ds/sdo-id
+                  optional current_time_type current_time = 64;    // /state/protocols/ptp/instances/instance/default-ds/current-time
+                  message current_time_type {
+                     optional uint64 seconds = 65;    // /state/protocols/ptp/instances/instance/default-ds/current-time/seconds
+                     optional uint32 nanoseconds = 66;    // /state/protocols/ptp/instances/instance/default-ds/current-time/nanoseconds
+                  }
+                  optional bool instance_enable = 67;    // /state/protocols/ptp/instances/instance/default-ds/instance-enable
+                  optional uint32 max_steps_removed = 69;    // /state/protocols/ptp/instances/instance/default-ds/max-steps-removed
+                  optional string instance_type = 70;    // /state/protocols/ptp/instances/instance/default-ds/instance-type
+                  optional string profile = 68;    // /state/protocols/ptp/instances/instance/default-ds/profile
+               }
+               optional current_ds_type current_ds = 157;    // /state/protocols/ptp/instances/instance/current-ds
+               message current_ds_type {
+                  optional uint32 steps_removed = 51;    // /state/protocols/ptp/instances/instance/current-ds/steps-removed
+                  optional int64 offset_from_time_transmitter = 52;    // /state/protocols/ptp/instances/instance/current-ds/offset-from-time-transmitter
+               }
+               optional parent_ds_type parent_ds = 158;    // /state/protocols/ptp/instances/instance/parent-ds
+               message parent_ds_type {
+                  optional parent_port_identity_type parent_port_identity = 62;    // /state/protocols/ptp/instances/instance/parent-ds/parent-port-identity
+                  message parent_port_identity_type {
+                     optional string clock_identity = 63;    // /state/protocols/ptp/instances/instance/parent-ds/parent-port-identity/clock-identity
+                     optional uint32 port_number = 64;    // /state/protocols/ptp/instances/instance/parent-ds/parent-port-identity/port-number
+                  }
+                  optional string grandmaster_identity = 51;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-identity
+                  optional grandmaster_clock_quality_type grandmaster_clock_quality = 54;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-clock-quality
+                  message grandmaster_clock_quality_type {
+                     optional uint32 clock_class = 55;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-clock-quality/clock-class
+                     optional uint32 clock_accuracy = 56;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-clock-quality/clock-accuracy
+                     optional uint32 offset_scaled_log_variance = 57;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-clock-quality/offset-scaled-log-variance
+                  }
+                  optional uint32 grandmaster_priority1 = 52;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-priority1
+                  optional uint32 grandmaster_priority2 = 53;    // /state/protocols/ptp/instances/instance/parent-ds/grandmaster-priority2
+                  optional protocol_address_type protocol_address = 58;    // /state/protocols/ptp/instances/instance/parent-ds/protocol-address
+                  message protocol_address_type {
+                     optional string network_protocol = 59;    // /state/protocols/ptp/instances/instance/parent-ds/protocol-address/network-protocol
+                     optional uint32 address_length = 60;    // /state/protocols/ptp/instances/instance/parent-ds/protocol-address/address-length
+                     optional string address = 61;    // /state/protocols/ptp/instances/instance/parent-ds/protocol-address/address
+                  }
+               }
+               optional time_properties_ds_type time_properties_ds = 159;    // /state/protocols/ptp/instances/instance/time-properties-ds
+               message time_properties_ds_type {
+                  optional int32 current_utc_offset = 51;    // /state/protocols/ptp/instances/instance/time-properties-ds/current-utc-offset
+                  optional bool current_utc_offset_valid = 52;    // /state/protocols/ptp/instances/instance/time-properties-ds/current-utc-offset-valid
+                  optional bool leap59 = 53;    // /state/protocols/ptp/instances/instance/time-properties-ds/leap59
+                  optional bool leap61 = 54;    // /state/protocols/ptp/instances/instance/time-properties-ds/leap61
+                  optional bool time_traceable = 55;    // /state/protocols/ptp/instances/instance/time-properties-ds/time-traceable
+                  optional bool frequency_traceable = 56;    // /state/protocols/ptp/instances/instance/time-properties-ds/frequency-traceable
+                  optional bool ptp_timescale = 57;    // /state/protocols/ptp/instances/instance/time-properties-ds/ptp-timescale
+                  optional uint32 time_source = 58;    // /state/protocols/ptp/instances/instance/time-properties-ds/time-source
+               }
+               optional ports_type ports = 160;    // /state/protocols/ptp/instances/instance/ports
+               message ports_type {
+                  message port_list {    // /state/protocols/ptp/instances/instance/ports/port
+                     optional uint32 index = 51 [(telemetry_options).is_key = true];    // /state/protocols/ptp/instances/instance/ports/port/index
+                     optional string underlying_interface = 52;    // /state/protocols/ptp/instances/instance/ports/port/underlying-interface
+                     optional bool aggregate_interface = 69;    // /state/protocols/ptp/instances/instance/ports/port/aggregate-interface
+                     optional string aggregate_member_interface = 70;    // /state/protocols/ptp/instances/instance/ports/port/aggregate-member-interface
+                     optional string oper_status = 53;    // /state/protocols/ptp/instances/instance/ports/port/oper-status
+                     optional port_ds_type port_ds = 160;    // /state/protocols/ptp/instances/instance/ports/port/port-ds
+                     message port_ds_type {
+                        optional port_identity_type port_identity = 160;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/port-identity
+                        message port_identity_type {
+                           optional string clock_identity = 54;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/port-identity/clock-identity
+                           optional uint32 port_number = 55;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/port-identity/port-number
+                        }
+                        optional string state = 56;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/state
+                        optional int32 log_min_delay_req_interval = 57;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/log-min-delay-req-interval
+                        optional int32 log_announce_interval = 58;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/log-announce-interval
+                        optional uint32 announce_receipt_timeout = 59;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/announce-receipt-timeout
+                        optional int32 log_sync_interval = 60;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/log-sync-interval
+                        optional string delay_mechanism = 61;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/delay-mechanism
+                        optional uint32 version_number = 62;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/version-number
+                        optional uint32 minor_version_number = 63;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/minor-version-number
+                        optional int64 delay_asymmetry = 64;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/delay-asymmetry
+                        optional bool enable = 65;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/enable
+                        optional bool time_transmitter_only = 66;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/time-transmitter-only
+                        optional uint32 local_priority = 67;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/local-priority
+                        optional string operating_mode = 68;    // /state/protocols/ptp/instances/instance/ports/port/port-ds/operating-mode
+                     }
+                     optional description_port_ds_type description_port_ds = 161;    // /state/protocols/ptp/instances/instance/ports/port/description-port-ds
+                     message description_port_ds_type {
+                        optional protocol_address_type protocol_address = 160;    // /state/protocols/ptp/instances/instance/ports/port/description-port-ds/protocol-address
+                        message protocol_address_type {
+                           optional string network_protocol = 71;    // /state/protocols/ptp/instances/instance/ports/port/description-port-ds/protocol-address/network-protocol
+                           optional uint32 address_length = 72;    // /state/protocols/ptp/instances/instance/ports/port/description-port-ds/protocol-address/address-length
+                           optional string address = 73;    // /state/protocols/ptp/instances/instance/ports/port/description-port-ds/protocol-address/address
+                        }
+                     }
+                     optional unicast_negotiation_port_ds_type unicast_negotiation_port_ds = 162;    // /state/protocols/ptp/instances/instance/ports/port/unicast-negotiation-port-ds
+                     message unicast_negotiation_port_ds_type {
+                        optional bool enable = 74;    // /state/protocols/ptp/instances/instance/ports/port/unicast-negotiation-port-ds/enable
+                     }
+                  }
+                  repeated port_list port = 160;
+               }
+               optional globalinfo_ds_type globalinfo_ds = 155;    // /state/protocols/ptp/instances/instance/globalinfo-ds
+               message globalinfo_ds_type {
+                  optional string clock_state = 51;    // /state/protocols/ptp/instances/instance/globalinfo-ds/clock-state
+                  optional uint64 time_since_current_clock_state = 52;    // /state/protocols/ptp/instances/instance/globalinfo-ds/time-since-current-clock-state
+                  optional string clock_type = 53;    // /state/protocols/ptp/instances/instance/globalinfo-ds/clock-type
+                  optional string time_receiver_interface = 54;    // /state/protocols/ptp/instances/instance/globalinfo-ds/time-receiver-interface
+                  optional string aggregate_member_interface = 55;    // /state/protocols/ptp/instances/instance/globalinfo-ds/aggregate-member-interface
+                  optional uint32 total_time_transmitter_ports = 56;    // /state/protocols/ptp/instances/instance/globalinfo-ds/total-time-transmitter-ports
+                  optional uint32 total_time_receiver_ports = 57;    // /state/protocols/ptp/instances/instance/globalinfo-ds/total-time-receiver-ports
+                  optional uint32 total_stateful_ports = 58;    // /state/protocols/ptp/instances/instance/globalinfo-ds/total-stateful-ports
+                  optional bool snmp_trap_enabled = 59;    // /state/protocols/ptp/instances/instance/globalinfo-ds/snmp-trap-enabled
+                  optional bool phy_timestamping_enabled = 60;    // /state/protocols/ptp/instances/instance/globalinfo-ds/phy-timestamping-enabled
+                  optional bool passive_port_monitoring_enabled = 61;    // /state/protocols/ptp/instances/instance/globalinfo-ds/passive-port-monitoring-enabled
+                  optional bool time_receiver_port_monitoring_enabled = 62;    // /state/protocols/ptp/instances/instance/globalinfo-ds/time-receiver-port-monitoring-enabled
+                  optional e2e_transparent_clock_ds_type e2e_transparent_clock_ds = 63;    // /state/protocols/ptp/instances/instance/globalinfo-ds/e2e-transparent-clock-ds
+                  message e2e_transparent_clock_ds_type {
+                     optional bool enable = 64;    // /state/protocols/ptp/instances/instance/globalinfo-ds/e2e-transparent-clock-ds/enable
+                     optional string clock_type = 65;    // /state/protocols/ptp/instances/instance/globalinfo-ds/e2e-transparent-clock-ds/clock-type
+                     optional string oper_status = 66;    // /state/protocols/ptp/instances/instance/globalinfo-ds/e2e-transparent-clock-ds/oper-status
+                     optional string clock_state = 67;    // /state/protocols/ptp/instances/instance/globalinfo-ds/e2e-transparent-clock-ds/clock-state
+                  }
+                  optional uint32 phase_adjust_threshold = 68;    // /state/protocols/ptp/instances/instance/globalinfo-ds/phase-adjust-threshold
+                  optional uint32 freq_lock_threshold = 69;    // /state/protocols/ptp/instances/instance/globalinfo-ds/freq-lock-threshold
+                  optional uint32 phase_lock_threshold = 70;    // /state/protocols/ptp/instances/instance/globalinfo-ds/phase-lock-threshold
+               }
+            }
+            repeated instance_list instance = 154;
+         }
+      }
+   }
+}

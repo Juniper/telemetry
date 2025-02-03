@@ -1,0 +1,168 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_kernel_health jnpr_junos_kernel_health_ext = 85;
+}
+
+message junos_kernel_health {    // /junos
+   optional chassis_type chassis = 191;    // /junos/chassis
+   message chassis_type {
+      optional gres_type gres = 181;    // /junos/chassis/gres
+      message gres_type {
+         optional uint64 gres_time = 51;    // /junos/chassis/gres/gres-time
+         optional uint64 slave_connect_time = 52;    // /junos/chassis/gres/slave-connect-time
+         optional string configured_state = 53;    // /junos/chassis/gres/configured-state
+         optional string master_kernel_ready = 54;    // /junos/chassis/gres/master-kernel-ready
+         optional string slave_kernel_ready = 55;    // /junos/chassis/gres/slave-kernel-ready
+         optional string error_state = 56;    // /junos/chassis/gres/error-state
+         optional string other_re_present = 151;    // /junos/chassis/gres/other-re-present
+         optional string other_re_alive = 152;    // /junos/chassis/gres/other-re-alive
+         optional string is_protocol_master = 165;    // /junos/chassis/gres/is-protocol-master
+      }
+      optional issu_type issu = 182;    // /junos/chassis/issu
+      message issu_type {
+         optional string failure_stage = 51;    // /junos/chassis/issu/failure-stage
+         optional string current_issu_stage = 52;    // /junos/chassis/issu/current-issu-stage
+      }
+      optional aggregated_devices_type aggregated_devices = 351;    // /junos/chassis/aggregated-devices
+      message aggregated_devices_type {
+         optional uint32 ps_lt_unstack_cnt = 311;    // /junos/chassis/aggregated-devices/ps-lt-unstack-cnt
+         optional uint32 ps_ifl_ccc_down_cnt = 312;    // /junos/chassis/aggregated-devices/ps-ifl-ccc-down-cnt
+         optional uint32 rlt_lp_link_down_cnt = 313;    // /junos/chassis/aggregated-devices/rlt-lp-link-down-cnt
+         optional uint32 ae_unstack_cnt = 314;    // /junos/chassis/aggregated-devices/ae-unstack-cnt
+         optional uint32 ae_lp_link_down_cnt = 315;    // /junos/chassis/aggregated-devices/ae-lp-link-down-cnt
+      }
+   }
+   optional routing_options_type routing_options = 509;    // /junos/routing-options
+   message routing_options_type {
+      optional nonstop_routing_type nonstop_routing = 510;    // /junos/routing-options/nonstop-routing
+      message nonstop_routing_type {
+         optional uint32 jsr_split_failure_cnt = 506;    // /junos/routing-options/nonstop-routing/jsr-split-failure-cnt
+         optional uint32 jsr_merge_failure_cnt = 507;    // /junos/routing-options/nonstop-routing/jsr-merge-failure-cnt
+         optional uint32 jsr_prl_queue_full_cnt = 508;    // /junos/routing-options/nonstop-routing/jsr-prl-queue-full-cnt
+      }
+   }
+   optional security_type security = 183;    // /junos/security
+   message security_type {
+      optional string veriexec_state = 51;    // /junos/security/veriexec-state
+   }
+   optional kernel_type kernel = 192;    // /junos/kernel
+   message kernel_type {
+      optional peer_infra_type peer_infra = 184;    // /junos/kernel/peer-infra
+      message peer_infra_type {
+         optional uint32 peer_pfeman_conn_drops = 51;    // /junos/kernel/peer-infra/peer-pfeman-conn-drops
+         optional uint32 spurious_ppt_wkups = 52;    // /junos/kernel/peer-infra/spurious-ppt-wkups
+      }
+      optional vpls_type vpls = 201;    // /junos/kernel/vpls
+      message vpls_type {
+         optional uint32 unicast_token_cnt = 213;    // /junos/kernel/vpls/unicast-token-cnt
+         optional uint32 unicast_token_max = 214;    // /junos/kernel/vpls/unicast-token-max
+         optional uint32 flood_token_cnt = 215;    // /junos/kernel/vpls/flood-token-cnt
+         optional uint32 flood_token_max = 216;    // /junos/kernel/vpls/flood-token-max
+      }
+      optional tunnel_type tunnel = 202;    // /junos/kernel/tunnel
+      message tunnel_type {
+         optional uint32 rpf_tunnelid_cnt = 217;    // /junos/kernel/tunnel/rpf-tunnelid-cnt
+         optional uint32 rpf_tunnelid_max = 218;    // /junos/kernel/tunnel/rpf-tunnelid-max
+         optional uint32 nonrpf_tunnelid_cnt = 219;    // /junos/kernel/tunnel/nonrpf-tunnelid-cnt
+         optional uint32 nonrpf_tunnelid_max = 220;    // /junos/kernel/tunnel/nonrpf-tunnelid-max
+         optional uint32 looped_cnt = 221;    // /junos/kernel/tunnel/looped-cnt
+      }
+      optional multicast_type multicast = 203;    // /junos/kernel/multicast
+      message multicast_type {
+         optional uint64 iifmismatch_err_cnt = 222;    // /junos/kernel/multicast/iifmismatch-err-cnt
+         optional uint64 rslv_req_err_cnt = 223;    // /junos/kernel/multicast/rslv-req-err-cnt
+      }
+      optional tnp_type tnp = 225;    // /junos/kernel/tnp
+      message tnp_type {
+         optional uint64 tnp_hello_drop_cnt = 211;    // /junos/kernel/tnp/tnp-hello-drop-cnt
+         optional uint64 tnp_frag_drop_cnt = 212;    // /junos/kernel/tnp/tnp-frag-drop-cnt
+      }
+      optional record_meta_data_type record_meta_data = 185;    // /junos/kernel/record-meta-data
+      message record_meta_data_type {
+         optional uint64 record_time = 51;    // /junos/kernel/record-meta-data/record-time
+      }
+      optional rtsock_type rtsock = 153;    // /junos/kernel/rtsock
+      message rtsock_type {
+         optional uint64 total_veto_cnt = 148;    // /junos/kernel/rtsock/total-veto-cnt
+         optional uint64 total_error_cnt = 149;    // /junos/kernel/rtsock/total-error-cnt
+      }
+      optional tcpip_type tcpip = 598;    // /junos/kernel/tcpip
+      message tcpip_type {
+         optional tcp_type tcp = 511;    // /junos/kernel/tcpip/tcp
+         message tcp_type {
+            optional uint32 tcp_ddos_attack_cnt = 502;    // /junos/kernel/tcpip/tcp/tcp-ddos-attack-cnt
+            optional uint32 tcp_conndrops_cnt = 503;    // /junos/kernel/tcpip/tcp/tcp-conndrops-cnt
+            optional uint64 tcp_time_wait_conn = 504;    // /junos/kernel/tcpip/tcp/tcp-time-wait-conn
+         }
+         optional nhidx_type nhidx = 593;    // /junos/kernel/tcpip/nhidx
+         message nhidx_type {
+            optional uint32 nexthop_pub_max = 401;    // /junos/kernel/tcpip/nhidx/nexthop-pub-max
+            optional uint32 nexthop_priv_max = 402;    // /junos/kernel/tcpip/nhidx/nexthop-priv-max
+            optional uint32 nexthop_pub_cnt = 403;    // /junos/kernel/tcpip/nhidx/nexthop-pub-cnt
+            optional uint32 nexthop_priv_cnt = 404;    // /junos/kernel/tcpip/nhidx/nexthop-priv-cnt
+         }
+         optional rtb_type rtb = 594;    // /junos/kernel/tcpip/rtb
+         message rtb_type {
+            optional uint32 route_clone_max = 405;    // /junos/kernel/tcpip/rtb/route-clone-max
+            optional uint32 route_clone_cnt = 406;    // /junos/kernel/tcpip/rtb/route-clone-cnt
+         }
+         optional arp_type arp = 595;    // /junos/kernel/tcpip/arp
+         message arp_type {
+            optional uint32 nbrcache_iri_max = 407;    // /junos/kernel/tcpip/arp/nbrcache-iri-max
+            optional uint32 nbrcache_mgmt_max = 408;    // /junos/kernel/tcpip/arp/nbrcache-mgmt-max
+            optional uint32 nbrcache_public_max = 409;    // /junos/kernel/tcpip/arp/nbrcache-public-max
+            optional uint32 nbrcache_iri_cnt = 410;    // /junos/kernel/tcpip/arp/nbrcache-iri-cnt
+            optional uint32 nbrcache_mgmt_cnt = 411;    // /junos/kernel/tcpip/arp/nbrcache-mgmt-cnt
+            optional uint32 nbrcache_public_cnt = 412;    // /junos/kernel/tcpip/arp/nbrcache-public-cnt
+            optional uint32 nbrcache_iri_drop_cnt = 413;    // /junos/kernel/tcpip/arp/nbrcache-iri-drop-cnt
+            optional uint32 nbrcache_mgmt_drop_cnt = 414;    // /junos/kernel/tcpip/arp/nbrcache-mgmt-drop-cnt
+            optional uint32 nbrcache_public_drop_cnt = 415;    // /junos/kernel/tcpip/arp/nbrcache-public-drop-cnt
+         }
+         optional ndp_type ndp = 596;    // /junos/kernel/tcpip/ndp
+         message ndp_type {
+            optional uint32 nbrcache_iri_max = 416;    // /junos/kernel/tcpip/ndp/nbrcache-iri-max
+            optional uint32 nbrcache_mgmt_max = 417;    // /junos/kernel/tcpip/ndp/nbrcache-mgmt-max
+            optional uint32 nbrcache_public_max = 418;    // /junos/kernel/tcpip/ndp/nbrcache-public-max
+            optional uint32 nbrcache_iri_cnt = 419;    // /junos/kernel/tcpip/ndp/nbrcache-iri-cnt
+            optional uint32 nbrcache_mgmt_cnt = 420;    // /junos/kernel/tcpip/ndp/nbrcache-mgmt-cnt
+            optional uint32 nbrcache_public_cnt = 421;    // /junos/kernel/tcpip/ndp/nbrcache-public-cnt
+            optional uint32 nbrcache_iri_drop_cnt = 422;    // /junos/kernel/tcpip/ndp/nbrcache-iri-drop-cnt
+            optional uint32 nbrcache_mgmt_drop_cnt = 423;    // /junos/kernel/tcpip/ndp/nbrcache-mgmt-drop-cnt
+            optional uint32 nbrcache_public_drop_cnt = 424;    // /junos/kernel/tcpip/ndp/nbrcache-public-drop-cnt
+         }
+         optional netisr_type netisr = 597;    // /junos/kernel/tcpip/netisr
+         message netisr_type {
+            optional uint32 ether_wm_cnt = 425;    // /junos/kernel/tcpip/netisr/ether-wm-cnt
+            optional uint32 ether_drop_cnt = 426;    // /junos/kernel/tcpip/netisr/ether-drop-cnt
+            optional uint64 ether_pkt_handled = 427;    // /junos/kernel/tcpip/netisr/ether-pkt-handled
+            optional uint64 ether_pkt_queued = 428;    // /junos/kernel/tcpip/netisr/ether-pkt-queued
+            optional uint32 ip_wm_cnt = 429;    // /junos/kernel/tcpip/netisr/ip-wm-cnt
+            optional uint32 ip_drop_cnt = 430;    // /junos/kernel/tcpip/netisr/ip-drop-cnt
+            optional uint64 ip_pkt_handled = 431;    // /junos/kernel/tcpip/netisr/ip-pkt-handled
+            optional uint64 ip_pkt_queued = 432;    // /junos/kernel/tcpip/netisr/ip-pkt-queued
+            optional uint32 ip6_wm_cnt = 433;    // /junos/kernel/tcpip/netisr/ip6-wm-cnt
+            optional uint32 ip6_drop_cnt = 434;    // /junos/kernel/tcpip/netisr/ip6-drop-cnt
+            optional uint64 ip6_pkt_handled = 435;    // /junos/kernel/tcpip/netisr/ip6-pkt-handled
+            optional uint64 ip6_pkt_queued = 436;    // /junos/kernel/tcpip/netisr/ip6-pkt-queued
+            optional uint32 arp_wm_cnt = 437;    // /junos/kernel/tcpip/netisr/arp-wm-cnt
+            optional uint32 arp_drop_cnt = 438;    // /junos/kernel/tcpip/netisr/arp-drop-cnt
+            optional uint64 arp_pkt_handled = 439;    // /junos/kernel/tcpip/netisr/arp-pkt-handled
+            optional uint64 arp_pkt_queued = 440;    // /junos/kernel/tcpip/netisr/arp-pkt-queued
+         }
+      }
+   }
+   optional kernel_ifstate_type kernel_ifstate = 186;    // /junos/kernel-ifstate
+   message kernel_ifstate_type {
+      optional uint32 dead_ifstates_cnt = 51;    // /junos/kernel-ifstate/dead-ifstates-cnt
+      optional uint32 alive_ifstates_cnt = 52;    // /junos/kernel-ifstate/alive-ifstates-cnt
+      optional uint32 delayed_unrefs_cnt = 53;    // /junos/kernel-ifstate/delayed-unrefs-cnt
+      optional uint32 delayed_unrefs_max = 54;    // /junos/kernel-ifstate/delayed-unrefs-max
+      optional uint32 stuck_clients_cnt = 55;    // /junos/kernel-ifstate/stuck-clients-cnt
+      optional uint32 dead_clients_cnt = 56;    // /junos/kernel-ifstate/dead-clients-cnt
+      optional uint32 alive_clients_cnt = 57;    // /junos/kernel-ifstate/alive-clients-cnt
+      optional uint32 client_limit_reached = 58;    // /junos/kernel-ifstate/client-limit-reached
+   }
+}

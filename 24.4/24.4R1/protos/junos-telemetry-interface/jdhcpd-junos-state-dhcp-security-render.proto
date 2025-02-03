@@ -1,0 +1,214 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-routing-instances - This module contains a collection of top level nodes for JUNOS
+Routing Instances state data
+junos-state-forwarding-options - This module contains a collection of top level nodes for JUNOS
+Forwarding options state data
+junos-state-access-security - This module contains a collection of top level nodes for JUNOS
+Access-security state data
+junos-state-dhcp-security - This module contains a collection of DHCP snooping state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_dhcp_security_282 jnpr_state_dhcp_security_282_ext = 282;
+}
+
+message state_dhcp_security_282 {    // /state
+   optional forwarding_options_type forwarding_options = 151;    // /state/forwarding-options
+   message forwarding_options_type {
+      optional access_security_type access_security = 151;    // /state/forwarding-options/access-security
+      message access_security_type {
+         optional dhcp_security_type dhcp_security = 151;    // /state/forwarding-options/access-security/dhcp-security
+         message dhcp_security_type {
+            optional ipv4_type ipv4 = 151;    // /state/forwarding-options/access-security/dhcp-security/ipv4
+            message ipv4_type {
+               optional counters_type counters = 151;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters
+               message counters_type {
+                  optional uint32 pdus_snooped_total = 51;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-total
+                  optional uint32 pdus_snooped_discover = 52;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-discover
+                  optional uint32 pdus_snooped_offer = 53;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-offer
+                  optional uint32 pdus_snooped_request = 54;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-request
+                  optional uint32 pdus_snooped_decline = 55;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-decline
+                  optional uint32 pdus_snooped_ack = 56;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-ack
+                  optional uint32 pdus_snooped_nack = 57;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-nack
+                  optional uint32 pdus_snooped_release = 58;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-release
+                  optional uint32 pdus_snooped_inform = 59;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-inform
+                  optional uint32 pdus_snooped_renew = 60;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-renew
+                  optional uint32 pdus_snooped_rebind = 61;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-rebind
+                  optional uint32 pdus_snooped_force_renew = 62;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-snooped-force-renew
+                  optional uint32 clients_with_mac_mismatch = 64;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/clients-with-mac-mismatch
+                  optional uint32 clients_with_successful_mac_update = 65;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/clients-with-successful-mac-update
+                  optional uint32 requests_on_trusted_port = 63;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/requests-on-trusted-port
+                  optional uint32 pdus_dropped_total = 66;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-dropped-total
+                  optional uint32 pdus_dropped_no_configuration = 67;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-dropped-no-configuration
+                  optional uint32 pdus_dropped_server_id_mismatch = 68;    // /state/forwarding-options/access-security/dhcp-security/ipv4/counters/pdus-dropped-server-id-mismatch
+               }
+            }
+            optional ipv6_type ipv6 = 152;    // /state/forwarding-options/access-security/dhcp-security/ipv6
+            message ipv6_type {
+               optional counters_type counters = 151;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters
+               message counters_type {
+                  optional uint32 pdus_snooped_total = 51;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-total
+                  optional uint32 pdus_snooped_solicit = 52;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-solicit
+                  optional uint32 pdus_snooped_advertise = 53;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-advertise
+                  optional uint32 pdus_snooped_request = 54;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-request
+                  optional uint32 pdus_snooped_reply = 55;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-reply
+                  optional uint32 pdus_snooped_confirm = 56;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-confirm
+                  optional uint32 pdus_snooped_decline = 57;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-decline
+                  optional uint32 pdus_snooped_release = 58;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-release
+                  optional uint32 pdus_snooped_renew = 59;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-renew
+                  optional uint32 pdus_snooped_rebind = 60;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-rebind
+                  optional uint32 pdus_snooped_relay_forward = 61;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-relay-forward
+                  optional uint32 pdus_snooped_relay_reply = 62;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-relay-reply
+                  optional uint32 pdus_snooped_information_request = 63;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-information-request
+                  optional uint32 pdus_snooped_reconfigure = 64;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-reconfigure
+                  optional uint32 pdus_snooped_solicit_with_iapd = 65;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-solicit-with-iapd
+                  optional uint32 pdus_snooped_advertise_with_iapd = 66;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-advertise-with-iapd
+                  optional uint32 pdus_snooped_request_with_iapd = 67;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-request-with-iapd
+                  optional uint32 pdus_snooped_reply_with_iapd = 68;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-reply-with-iapd
+                  optional uint32 pdus_snooped_decline_with_iapd = 69;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-decline-with-iapd
+                  optional uint32 pdus_snooped_release_with_iapd = 70;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-release-with-iapd
+                  optional uint32 pdus_snooped_renew_with_iapd = 71;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-renew-with-iapd
+                  optional uint32 pdus_snooped_rebind_with_iapd = 72;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-snooped-rebind-with-iapd
+                  optional uint32 clients_with_mac_mismatch = 74;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/clients-with-mac-mismatch
+                  optional uint32 clients_with_successful_mac_update = 75;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/clients-with-successful-mac-update
+                  optional uint32 requests_on_trusted_port = 73;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/requests-on-trusted-port
+                  optional uint32 pdus_dropped_total = 76;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-dropped-total
+                  optional uint32 pdus_dropped_no_configuration = 77;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-dropped-no-configuration
+                  optional uint32 pdus_dropped_server_id_mismatch = 78;    // /state/forwarding-options/access-security/dhcp-security/ipv6/counters/pdus-dropped-server-id-mismatch
+               }
+            }
+            optional interfaces_type interfaces = 153;    // /state/forwarding-options/access-security/dhcp-security/interfaces
+            message interfaces_type {
+               message interface_list {    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/name
+                  optional dynamic_arp_inspection_type dynamic_arp_inspection = 151;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/dynamic-arp-inspection
+                  message dynamic_arp_inspection_type {
+                     optional uint64 in_packets = 51;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/dynamic-arp-inspection/in-packets
+                     optional uint64 passed_packets = 52;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/dynamic-arp-inspection/passed-packets
+                     optional uint64 failed_packets = 53;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/dynamic-arp-inspection/failed-packets
+                  }
+                  optional neighbor_discovery_inspection_type neighbor_discovery_inspection = 152;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/neighbor-discovery-inspection
+                  message neighbor_discovery_inspection_type {
+                     optional uint64 in_packets = 51;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/neighbor-discovery-inspection/in-packets
+                     optional uint64 passed_packets = 52;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/neighbor-discovery-inspection/passed-packets
+                     optional uint64 failed_packets = 53;    // /state/forwarding-options/access-security/dhcp-security/interfaces/interface/neighbor-discovery-inspection/failed-packets
+                  }
+               }
+               repeated interface_list interface = 151;
+            }
+            optional vlans_type vlans = 154;    // /state/forwarding-options/access-security/dhcp-security/vlans
+            message vlans_type {
+               message vlan_list {    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/name
+                  optional ipv4_type ipv4 = 151;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4
+                  message ipv4_type {
+                     optional bindings_type bindings = 151;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings
+                     message bindings_type {
+                        message binding_list {    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding
+                           optional string address = 51 [(telemetry_options).is_key = true];    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/address
+                           optional string mac_address = 52;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/mac-address
+                           optional string interface = 53;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/interface
+                           optional uint64 lease_expiry = 54;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/lease-expiry
+                           optional string status = 55;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/status
+                           optional client_options_type client_options = 151;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options
+                           message client_options_type {
+                              optional string buffer = 51;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options/buffer
+                              optional uint32 buffer_length = 52;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options/buffer-length
+                           }
+                        }
+                        repeated binding_list binding = 151;
+                     }
+                  }
+                  optional ipv6_type ipv6 = 152;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6
+                  message ipv6_type {
+                     optional bindings_type bindings = 151;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings
+                     message bindings_type {
+                        message binding_list {    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding
+                           optional string address = 51 [(telemetry_options).is_key = true];    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/address
+                           optional string interface = 53;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/interface
+                           optional uint64 lease_expiry = 54;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/lease-expiry
+                           optional string mac_address = 52;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/mac-address
+                           optional string type = 55;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/type
+                           optional string status = 56;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/status
+                           optional client_options_type client_options = 151;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options
+                           message client_options_type {
+                              optional string buffer = 51;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options/buffer
+                              optional uint32 buffer_length = 52;    // /state/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options/buffer-length
+                           }
+                        }
+                        repeated binding_list binding = 151;
+                     }
+                  }
+               }
+               repeated vlan_list vlan = 151;
+            }
+         }
+      }
+   }
+   optional routing_instances_type routing_instances = 152;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional forwarding_options_type forwarding_options = 151;    // /state/routing-instances/routing-instance/forwarding-options
+         message forwarding_options_type {
+            optional access_security_type access_security = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security
+            message access_security_type {
+               optional dhcp_security_type dhcp_security = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security
+               message dhcp_security_type {
+                  optional vlans_type vlans = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans
+                  message vlans_type {
+                     message vlan_list {    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan
+                        optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/name
+                        optional ipv4_type ipv4 = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4
+                        message ipv4_type {
+                           optional bindings_type bindings = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings
+                           message bindings_type {
+                              message binding_list {    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding
+                                 optional string address = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/address
+                                 optional string mac_address = 52;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/mac-address
+                                 optional string interface = 53;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/interface
+                                 optional uint64 lease_expiry = 54;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/lease-expiry
+                                 optional string status = 55;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/status
+                                 optional client_options_type client_options = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options
+                                 message client_options_type {
+                                    optional string buffer = 51;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options/buffer
+                                    optional uint32 buffer_length = 52;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv4/bindings/binding/client-options/buffer-length
+                                 }
+                              }
+                              repeated binding_list binding = 151;
+                           }
+                        }
+                        optional ipv6_type ipv6 = 152;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6
+                        message ipv6_type {
+                           optional bindings_type bindings = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings
+                           message bindings_type {
+                              message binding_list {    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding
+                                 optional string address = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/address
+                                 optional string interface = 53;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/interface
+                                 optional uint64 lease_expiry = 54;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/lease-expiry
+                                 optional string mac_address = 52;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/mac-address
+                                 optional string type = 55;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/type
+                                 optional string status = 56;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/status
+                                 optional client_options_type client_options = 151;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options
+                                 message client_options_type {
+                                    optional string buffer = 51;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options/buffer
+                                    optional uint32 buffer_length = 52;    // /state/routing-instances/routing-instance/forwarding-options/access-security/dhcp-security/vlans/vlan/ipv6/bindings/binding/client-options/buffer-length
+                                 }
+                              }
+                              repeated binding_list binding = 151;
+                           }
+                        }
+                     }
+                     repeated vlan_list vlan = 151;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 151;
+   }
+}

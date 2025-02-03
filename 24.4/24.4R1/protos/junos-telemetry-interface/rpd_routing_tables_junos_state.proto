@@ -1,0 +1,63 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-routing-tables - This module contains a collection of top level nodes for JUNOS
+Routing Table state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_routing_tables_state_304 jnpr_state_routing_tables_state_304_ext = 304;
+}
+
+message state_routing_tables_state_304 {    // /state
+   optional routing_instances_type routing_instances = 150;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional routing_tables_type routing_tables = 1;    // /state/routing-instances/routing-instance/routing-tables
+         message routing_tables_type {
+            message routing_table_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table
+               optional string name = 3 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/name
+               optional string family = 4 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/family
+               optional uint32 rib_id = 5 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/rib-id
+               optional summaries_type summaries = 6;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries
+               message summaries_type {
+                  optional programmed_type programmed = 7;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed
+                  message programmed_type {
+                     optional uint32 primary = 8;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/primary
+                     optional uint32 secondary = 9;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/secondary
+                     optional clients_type clients = 10;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients
+                     message clients_type {
+                        message client_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client
+                           optional string id = 12 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/id
+                           optional protocols_type protocols = 13;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols
+                           message protocols_type {
+                              message protocol_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol
+                                 optional string name = 15 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/name
+                                 optional uint32 primary = 16;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/primary
+                                 optional uint32 secondary = 17;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/secondary
+                                 optional vnis_type vnis = 18;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/vnis
+                                 message vnis_type {
+                                    message vni_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/vnis/vni
+                                       optional uint32 id = 20 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/vnis/vni/id
+                                       optional uint32 count = 21;    // /state/routing-instances/routing-instance/routing-tables/routing-table/summaries/programmed/clients/client/protocols/protocol/vnis/vni/count
+                                    }
+                                    repeated vni_list vni = 19;
+                                 }
+                              }
+                              repeated protocol_list protocol = 14;
+                           }
+                        }
+                        repeated client_list client = 11;
+                     }
+                  }
+               }
+            }
+            repeated routing_table_list routing_table = 2;
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

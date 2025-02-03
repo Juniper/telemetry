@@ -1,0 +1,83 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-synce - This module contains a collection of top level nodes for
+JUNOS Synchronous Ethernet (SyncE) state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_307 jnpr_state_307_ext = 307;
+}
+
+message state_307 {    // /state
+   optional protocols_type protocols = 153;    // /state/protocols
+   message protocols_type {
+      optional synce_type synce = 152;    // /state/protocols/synce
+      message synce_type {
+         optional default_ds_type default_ds = 151;    // /state/protocols/synce/default-ds
+         message default_ds_type {
+            optional bool instance_enable = 51;    // /state/protocols/synce/default-ds/instance-enable
+            optional string clock_id = 52;    // /state/protocols/synce/default-ds/clock-id
+            optional string sync_network_option = 53;    // /state/protocols/synce/default-ds/sync-network-option
+            optional string clock_mode_config = 54;    // /state/protocols/synce/default-ds/clock-mode-config
+            optional string clock_mode_status = 55;    // /state/protocols/synce/default-ds/clock-mode-status
+            optional string ql_select_mode = 56;    // /state/protocols/synce/default-ds/ql-select-mode
+            optional bool revertive_mode = 57;    // /state/protocols/synce/default-ds/revertive-mode
+            optional uint32 config_change_holdover = 58;    // /state/protocols/synce/default-ds/config-change-holdover
+            optional uint32 switchover_holdover = 59;    // /state/protocols/synce/default-ds/switchover-holdover
+            optional uint32 reboot_holdover = 60;    // /state/protocols/synce/default-ds/reboot-holdover
+            optional string max_transmit_quality_level = 61;    // /state/protocols/synce/default-ds/max-transmit-quality-level
+            optional string quality_level = 62;    // /state/protocols/synce/default-ds/quality-level
+            optional uint32 wtr_time = 63;    // /state/protocols/synce/default-ds/wtr-time
+            optional bool eql_sel = 64;    // /state/protocols/synce/default-ds/eql-sel
+            optional bool ql_enable = 65;    // /state/protocols/synce/default-ds/ql-enable
+         }
+         optional parent_ds_type parent_ds = 154;    // /state/protocols/synce/parent-ds
+         message parent_ds_type {
+            optional string system_clock_source_port_name = 51;    // /state/protocols/synce/parent-ds/system-clock-source-port-name
+            optional string source_type = 52;    // /state/protocols/synce/parent-ds/source-type
+            optional string system_clock_source_ql = 54;    // /state/protocols/synce/parent-ds/system-clock-source-ql
+            optional string system_clock_source_id = 55;    // /state/protocols/synce/parent-ds/system-clock-source-id
+            optional uint64 time_since_current_clock_state = 56;    // /state/protocols/synce/parent-ds/time-since-current-clock-state
+         }
+         optional ports_type ports = 155;    // /state/protocols/synce/ports
+         message ports_type {
+            message port_list {    // /state/protocols/synce/ports/port
+               optional string port_name = 52 [(telemetry_options).is_key = true];    // /state/protocols/synce/ports/port/port-name
+               optional port_ds_type port_ds = 155;    // /state/protocols/synce/ports/port/port-ds
+               message port_ds_type {
+                  optional string port_type = 53;    // /state/protocols/synce/ports/port/port-ds/port-type
+                  optional bool aggregate_member = 54;    // /state/protocols/synce/ports/port/port-ds/aggregate-member
+                  optional string aggregate_interface = 55;    // /state/protocols/synce/ports/port/port-ds/aggregate-interface
+                  optional bool source_configured = 56;    // /state/protocols/synce/ports/port/port-ds/source-configured
+                  optional string port_status = 57;    // /state/protocols/synce/ports/port/port-ds/port-status
+                  optional string oper_status = 58;    // /state/protocols/synce/ports/port/port-ds/oper-status
+                  optional bool lock_out = 59;    // /state/protocols/synce/ports/port/port-ds/lock-out
+                  optional bool ssm_support = 60;    // /state/protocols/synce/ports/port/port-ds/ssm-support
+                  optional bool essm_support = 61;    // /state/protocols/synce/ports/port/port-ds/essm-support
+                  optional uint32 local_priority = 62;    // /state/protocols/synce/ports/port/port-ds/local-priority
+                  optional bool ssm_send_enable = 63;    // /state/protocols/synce/ports/port/port-ds/ssm-send-enable
+                  optional string ql_receiver_info = 64;    // /state/protocols/synce/ports/port/port-ds/ql-receiver-info
+                  optional string ql_overwrite = 65;    // /state/protocols/synce/ports/port/port-ds/ql-overwrite
+                  optional string ql_fixed_value = 66;    // /state/protocols/synce/ports/port/port-ds/ql-fixed-value
+                  optional string ql_transmit_info = 67;    // /state/protocols/synce/ports/port/port-ds/ql-transmit-info
+                  optional string source_type = 68;    // /state/protocols/synce/ports/port/port-ds/source-type
+                  optional uint32 wtr_time = 69;    // /state/protocols/synce/ports/port/port-ds/wtr-time
+                  optional uint32 holdoff_time = 70;    // /state/protocols/synce/ports/port/port-ds/holdoff-time
+                  optional counters_type counters = 155;    // /state/protocols/synce/ports/port/port-ds/counters
+                  message counters_type {
+                     optional uint64 tx_ssm = 71;    // /state/protocols/synce/ports/port/port-ds/counters/tx-ssm
+                     optional uint64 rx_ssm = 72;    // /state/protocols/synce/ports/port/port-ds/counters/rx-ssm
+                     optional uint64 rx_ssm_ineligible = 73;    // /state/protocols/synce/ports/port/port-ds/counters/rx-ssm-ineligible
+                  }
+               }
+            }
+            repeated port_list port = 155;
+         }
+      }
+   }
+}

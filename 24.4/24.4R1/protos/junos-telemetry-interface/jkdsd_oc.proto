@@ -1,0 +1,35 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+openconfig-procmon - This module provides data definitions for process health
+monitoring of one or more processes running on the system
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_debug jnpr_system_debug_ext = 106;
+}
+
+message system_debug {    // /system
+   optional processes_type processes = 151;    // /system/processes
+   message processes_type {
+      message process_list {    // /system/processes/process
+         optional uint64 pid = 51 [(telemetry_options).is_key = true];    // /system/processes/process/pid
+         optional state_type state = 151;    // /system/processes/process/state
+         message state_type {
+            optional uint64 pid = 51;    // /system/processes/process/state/pid
+            optional string name = 52;    // /system/processes/process/state/name
+            optional uint64 start_time = 53;    // /system/processes/process/state/start-time
+            optional uint64 cpu_usage_user = 55;    // /system/processes/process/state/cpu-usage-user
+            optional uint64 cpu_usage_system = 56;    // /system/processes/process/state/cpu-usage-system
+            optional uint32 cpu_utilization = 57;    // /system/processes/process/state/cpu-utilization
+            optional uint64 memory_usage = 58;    // /system/processes/process/state/memory-usage
+            optional uint32 memory_utilization = 59;    // /system/processes/process/state/memory-utilization
+         }
+      }
+      repeated process_list process = 151;
+   }
+}

@@ -1,0 +1,73 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_optics_oc jnpr_interfaces_optics_oc_ext = 96;
+}
+
+message interfaces_optics_oc {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 1 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional uint32 snmp_if_index = 2;    // /interfaces/interface/snmp_if_index
+      message optics_list {    // /interfaces/interface/optics
+         optional uint32 optics_type = 1;    // /interfaces/interface/optics/optics_type
+         optional double module_temp = 2;    // /interfaces/interface/optics/module_temp
+         optional double module_temp_high_alarm_threshold = 3;    // /interfaces/interface/optics/module_temp_high_alarm_threshold
+         optional double module_temp_low_alarm_threshold = 4;    // /interfaces/interface/optics/module_temp_low_alarm_threshold
+         optional double module_temp_high_warning_threshold = 5;    // /interfaces/interface/optics/module_temp_high_warning_threshold
+         optional double module_temp_low_warning_threshold = 6;    // /interfaces/interface/optics/module_temp_low_warning_threshold
+         optional double laser_output_power_high_alarm_threshold_dbm = 7;    // /interfaces/interface/optics/laser_output_power_high_alarm_threshold_dbm
+         optional double laser_output_power_low_alarm_threshold_dbm = 8;    // /interfaces/interface/optics/laser_output_power_low_alarm_threshold_dbm
+         optional double laser_output_power_high_warning_threshold_dbm = 9;    // /interfaces/interface/optics/laser_output_power_high_warning_threshold_dbm
+         optional double laser_output_power_low_warning_threshold_dbm = 10;    // /interfaces/interface/optics/laser_output_power_low_warning_threshold_dbm
+         optional double laser_rx_power_high_alarm_threshold_dbm = 11;    // /interfaces/interface/optics/laser_rx_power_high_alarm_threshold_dbm
+         optional double laser_rx_power_low_alarm_threshold_dbm = 12;    // /interfaces/interface/optics/laser_rx_power_low_alarm_threshold_dbm
+         optional double laser_rx_power_high_warning_threshold_dbm = 13;    // /interfaces/interface/optics/laser_rx_power_high_warning_threshold_dbm
+         optional double laser_rx_power_low_warning_threshold_dbm = 14;    // /interfaces/interface/optics/laser_rx_power_low_warning_threshold_dbm
+         optional double laser_bias_current_high_alarm_threshold = 15;    // /interfaces/interface/optics/laser_bias_current_high_alarm_threshold
+         optional double laser_bias_current_low_alarm_threshold = 16;    // /interfaces/interface/optics/laser_bias_current_low_alarm_threshold
+         optional double laser_bias_current_high_warning_threshold = 17;    // /interfaces/interface/optics/laser_bias_current_high_warning_threshold
+         optional double laser_bias_current_low_warning_threshold = 18;    // /interfaces/interface/optics/laser_bias_current_low_warning_threshold
+         optional bool module_temp_high_alarm = 19;    // /interfaces/interface/optics/module_temp_high_alarm
+         optional bool module_temp_low_alarm = 20;    // /interfaces/interface/optics/module_temp_low_alarm
+         optional bool module_temp_high_warning = 21;    // /interfaces/interface/optics/module_temp_high_warning
+         optional bool module_temp_low_warning = 22;    // /interfaces/interface/optics/module_temp_low_warning
+         optional string wavelength_channel = 24;    // /interfaces/interface/optics/wavelength_channel
+         optional string wavelength_setpoint = 25;    // /interfaces/interface/optics/wavelength_setpoint
+         optional string tx_dither = 26;    // /interfaces/interface/optics/tx_dither
+         optional string frequency_error = 27;    // /interfaces/interface/optics/frequency_error
+         optional string wavelength_error = 28;    // /interfaces/interface/optics/wavelength_error
+         optional string tec_fault = 29;    // /interfaces/interface/optics/tec_fault
+         optional string w_unlocked_alarm = 30;    // /interfaces/interface/optics/w_unlocked_alarm
+         optional string tx_tune_alarm = 31;    // /interfaces/interface/optics/tx_tune_alarm
+         message lane_list {    // /interfaces/interface/optics/lanediags/lane
+            optional int32 lane_number = 1 [(telemetry_options).is_key = true];    // /interfaces/interface/optics/lanediags/lane/lane_number
+            optional double lane_laser_temperature = 2;    // /interfaces/interface/optics/lanediags/lane/lane_laser_temperature
+            optional float lane_laser_output_power_dbm = 3;    // /interfaces/interface/optics/lanediags/lane/lane_laser_output_power_dbm
+            optional float lane_laser_receiver_power_dbm = 4;    // /interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_dbm
+            optional double lane_laser_bias_current = 5;    // /interfaces/interface/optics/lanediags/lane/lane_laser_bias_current
+            optional bool lane_laser_output_power_high_alarm = 6;    // /interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_alarm
+            optional bool lane_laser_output_power_low_alarm = 7;    // /interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_alarm
+            optional bool lane_laser_output_power_high_warning = 8;    // /interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_warning
+            optional bool lane_laser_output_power_low_warning = 9;    // /interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_warning
+            optional bool lane_laser_receiver_power_high_alarm = 10;    // /interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_alarm
+            optional bool lane_laser_receiver_power_low_alarm = 11;    // /interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_alarm
+            optional bool lane_laser_receiver_power_high_warning = 12;    // /interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_warning
+            optional bool lane_laser_receiver_power_low_warning = 13;    // /interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_warning
+            optional bool lane_laser_bias_current_high_alarm = 14;    // /interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_alarm
+            optional bool lane_laser_bias_current_low_alarm = 15;    // /interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_alarm
+            optional bool lane_laser_bias_current_high_warning = 16;    // /interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_warning
+            optional bool lane_laser_bias_current_low_warning = 17;    // /interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_warning
+            optional bool lane_tx_loss_of_signal_alarm = 18;    // /interfaces/interface/optics/lanediags/lane/lane_tx_loss_of_signal_alarm
+            optional bool lane_rx_loss_of_signal_alarm = 19;    // /interfaces/interface/optics/lanediags/lane/lane_rx_loss_of_signal_alarm
+            optional bool lane_tx_laser_disabled_alarm = 20;    // /interfaces/interface/optics/lanediags/lane/lane_tx_laser_disabled_alarm
+            optional uint64 media_fec_corr_bits = 21;    // /interfaces/interface/optics/lanediags/lane/media_fec_corr_bits
+            optional uint64 media_fec_uncorr_blocks = 22;    // /interfaces/interface/optics/lanediags/lane/media_fec_uncorr_blocks
+         }
+         repeated lane_list lane = 23;
+      }
+      repeated optics_list optics = 3;
+   }
+   repeated interface_list interface = 1;
+}

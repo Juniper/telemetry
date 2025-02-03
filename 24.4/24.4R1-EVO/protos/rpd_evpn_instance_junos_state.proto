@@ -1,0 +1,42 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-evpn - This module contains a collection of top level nodes for JUNOS
+EVPN instance specific state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_evpn_303 jnpr_state_evpn_303_ext = 303;
+}
+
+message state_evpn_303 {    // /state
+   optional routing_instances_type routing_instances = 150;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 150;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional evpn_type evpn = 171;    // /state/routing-instances/routing-instance/protocols/evpn
+            message evpn_type {
+               optional mac_database_duplicates_type mac_database_duplicates = 181;    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates
+               message mac_database_duplicates_type {
+                  optional mac_entries_type mac_entries = 181;    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries
+                  message mac_entries_type {
+                     message mac_entry_list {    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry
+                        optional string l2_domain_id = 71 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry/l2-domain-id
+                        optional string mac_address = 73 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry/mac-address
+                        optional string l2_domain_id_type = 72;    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry/l2-domain-id-type
+                        optional string active_source = 74;    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry/active-source
+                        optional uint64 active_source_timestamp = 75;    // /state/routing-instances/routing-instance/protocols/evpn/mac-database-duplicates/mac-entries/mac-entry/active-source-timestamp
+                     }
+                     repeated mac_entry_list mac_entry = 181;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

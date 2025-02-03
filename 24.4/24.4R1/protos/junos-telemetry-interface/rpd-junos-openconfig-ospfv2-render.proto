@@ -1,0 +1,418 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-ospfv2 - An OpenConfig model for Open Shortest Path First (OSPF)
+version 2
+openconfig-ospf-types - Type definitions for OSPF
+openconfig-bfd - An OpenConfig model of Bi-Directional Forwarding Detection (BFD)
+configuration and operational state
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_OSPFV2_247 jnpr_network_instances_OSPFV2_247_ext = 247;
+}
+
+message network_instances_OSPFV2_247 {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional ospfv2_type ospfv2 = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2
+            message ospfv2_type {
+               optional global_type global = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global
+               message global_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/state
+                  message state_type {
+                     optional string router_id = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/state/router-id
+                     optional bool igp_shortcuts = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/state/igp-shortcuts
+                     optional bool log_adjacency_changes = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/state/log-adjacency-changes
+                  }
+                  optional timers_type timers = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers
+                  message timers_type {
+                     optional spf_type spf = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/spf
+                     message spf_type {
+                        optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/spf/state
+                        message state_type {
+                           optional uint32 initial_delay = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/spf/state/initial-delay
+                        }
+                     }
+                     optional max_metric_type max_metric = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/max-metric
+                     message max_metric_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/max-metric/state
+                        message state_type {
+                           optional bool set = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/max-metric/state/set
+                           optional uint64 timeout = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/max-metric/state/timeout
+                           repeated string include = 58;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/timers/max-metric/state/include
+                        }
+                     }
+                  }
+                  optional graceful_restart_type graceful_restart = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/graceful-restart
+                  message graceful_restart_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/graceful-restart/state
+                     message state_type {
+                        optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/graceful-restart/state/enabled
+                        optional bool helper_only = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/graceful-restart/state/helper-only
+                     }
+                  }
+                  optional mpls_type mpls = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/mpls
+                  message mpls_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/mpls/state
+                     message state_type {
+                        optional bool traffic_engineering_extensions = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/global/mpls/state/traffic-engineering-extensions
+                     }
+                  }
+               }
+               optional areas_type areas = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas
+               message areas_type {
+                  message area_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area
+                     optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/identifier
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/state
+                     message state_type {
+                        optional string identifier = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/state/identifier
+                     }
+                     optional interfaces_type interfaces = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces
+                     message interfaces_type {
+                        message interface_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface
+                           optional string id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/id
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state
+                           message state_type {
+                              optional string id = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/id
+                              optional string network_type = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/network-type
+                              optional uint32 priority = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/priority
+                              optional string authentication_type = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/authentication-type
+                              optional uint32 metric = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/metric
+                              optional bool passive = 56;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/state/passive
+                           }
+                           optional timers_type timers = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/timers
+                           message timers_type {
+                              optional state_type state = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/timers/state
+                              message state_type {
+                                 optional uint32 dead_interval = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/timers/state/dead-interval
+                                 optional uint32 hello_interval = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/timers/state/hello-interval
+                                 optional uint32 retransmission_interval = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/timers/state/retransmission-interval
+                              }
+                           }
+                           optional mpls_type mpls = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls
+                           message mpls_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/state
+                              message state_type {
+                                 optional uint32 traffic_engineering_metric = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/state/traffic-engineering-metric
+                              }
+                              optional igp_ldp_sync_type igp_ldp_sync = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/igp-ldp-sync
+                              message igp_ldp_sync_type {
+                                 optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/igp-ldp-sync/state
+                                 message state_type {
+                                    optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/igp-ldp-sync/state/enabled
+                                    optional uint32 post_session_up_delay = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/igp-ldp-sync/state/post-session-up-delay
+                                    optional bool synchronized = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/mpls/igp-ldp-sync/state/synchronized
+                                 }
+                              }
+                           }
+                           optional neighbors_type neighbors = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors
+                           message neighbors_type {
+                              message neighbor_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor
+                                 optional string router_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/router-id
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state
+                                 message state_type {
+                                    optional string router_id = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/router-id
+                                    optional uint32 metric = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/metric
+                                    optional uint32 priority = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/priority
+                                    optional uint64 dead_time = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/dead-time
+                                    optional string designated_router = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/designated-router
+                                    optional string backup_designated_router = 56;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/backup-designated-router
+                                    optional string optional_capabilities = 57;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/optional-capabilities
+                                    optional uint64 last_established_time = 58;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/last-established-time
+                                    optional string adjacency_state = 59;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/adjacency-state
+                                    optional uint32 state_changes = 60;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/state-changes
+                                    optional uint32 retransmission_queue_length = 61;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/neighbors/neighbor/state/retransmission-queue-length
+                                 }
+                              }
+                              repeated neighbor_list neighbor = 154;
+                           }
+                           optional enable_bfd_type enable_bfd = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/enable-bfd
+                           message enable_bfd_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/enable-bfd/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/interfaces/interface/enable-bfd/state/enabled
+                              }
+                           }
+                        }
+                        repeated interface_list interface = 152;
+                     }
+                     optional lsdb_type lsdb = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb
+                     message lsdb_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/state
+                        message state_type {
+                           optional string identifier = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/state/identifier
+                        }
+                        optional lsa_types_type lsa_types = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types
+                        message lsa_types_type {
+                           message lsa_type_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type
+                              optional string type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/type
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/state
+                              message state_type {
+                                 optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/state/type
+                              }
+                              optional lsas_type lsas = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas
+                              message lsas_type {
+                                 message lsa_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa
+                                    optional string link_state_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/link-state-id
+                                    optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state
+                                    message state_type {
+                                       optional string link_state_id = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state/link-state-id
+                                       optional string advertising_router = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state/advertising-router
+                                       optional int32 sequence_number = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state/sequence-number
+                                       optional uint32 checksum = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state/checksum
+                                       optional uint32 age = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/state/age
+                                    }
+                                    optional router_lsa_type router_lsa = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa
+                                    message router_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state
+                                       message state_type {
+                                          optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state/type
+                                          optional string link_id = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state/link-id
+                                          optional string link_data = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state/link-data
+                                          optional uint32 metric = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state/metric
+                                          optional uint32 number_links = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/router-lsa/state/number-links
+                                       }
+                                    }
+                                    optional network_lsa_type network_lsa = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/network-lsa
+                                    message network_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/network-lsa/state
+                                       message state_type {
+                                          optional uint32 network_mask = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/network-lsa/state/network-mask
+                                          repeated string attached_router = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/network-lsa/state/attached-router
+                                       }
+                                    }
+                                    optional summary_lsa_type summary_lsa = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/summary-lsa
+                                    message summary_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/summary-lsa/state
+                                       message state_type {
+                                          optional uint32 network_mask = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/summary-lsa/state/network-mask
+                                       }
+                                    }
+                                    optional as_external_lsa_type as_external_lsa = 157;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa
+                                    message as_external_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state
+                                       message state_type {
+                                          optional uint32 mask = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state/mask
+                                          optional string metric_type = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state/metric-type
+                                          optional uint32 metric = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state/metric
+                                          optional string forwarding_address = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state/forwarding-address
+                                          optional uint32 external_route_tag = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/as-external-lsa/state/external-route-tag
+                                       }
+                                    }
+                                    optional nssa_external_lsa_type nssa_external_lsa = 158;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa
+                                    message nssa_external_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state
+                                       message state_type {
+                                          optional uint32 mask = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/mask
+                                          optional string metric_type = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/metric-type
+                                          optional uint32 metric = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/metric
+                                          optional string forwarding_address = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/forwarding-address
+                                          optional uint32 external_route_tag = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/external-route-tag
+                                          optional bool propagate = 56;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/nssa-external-lsa/state/propagate
+                                       }
+                                    }
+                                    optional opaque_lsa_type opaque_lsa = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa
+                                    message opaque_lsa_type {
+                                       optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/state
+                                       message state_type {
+                                          optional string scope = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/state/scope
+                                          optional string type = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/state/type
+                                       }
+                                       optional traffic_engineering_type traffic_engineering = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering
+                                       message traffic_engineering_type {
+                                          optional tlvs_type tlvs = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs
+                                          message tlvs_type {
+                                             message tlv_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv
+                                                optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/state
+                                                message state_type {
+                                                   optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/state/type
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state
+                                                   message state_type {
+                                                      optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/type
+                                                      optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/length
+                                                      optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/unknown-tlv/state/value
+                                                   }
+                                                }
+                                                optional router_address_type router_address = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/router-address
+                                                message router_address_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/router-address/state
+                                                   message state_type {
+                                                      optional string address = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/router-address/state/address
+                                                   }
+                                                }
+                                                optional link_type link = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link
+                                                message link_type {
+                                                   optional sub_tlvs_type sub_tlvs = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs
+                                                   message sub_tlvs_type {
+                                                      message sub_tlv_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv
+                                                         optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/state
+                                                         message state_type {
+                                                            optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/state/type
+                                                         }
+                                                         optional unknown_subtlv_type unknown_subtlv = 154;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv
+                                                         message unknown_subtlv_type {
+                                                            optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state
+                                                            message state_type {
+                                                               optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/type
+                                                               optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/length
+                                                               optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unknown-subtlv/state/value
+                                                            }
+                                                         }
+                                                         optional unreserved_bandwidths_type unreserved_bandwidths = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths
+                                                         message unreserved_bandwidths_type {
+                                                            message unreserved_bandwidth_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth
+                                                               optional uint32 priority = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/priority
+                                                               optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state
+                                                               message state_type {
+                                                                  optional uint32 priority = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state/priority
+                                                                  optional string unreserved_bandwidth = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/traffic-engineering/tlvs/tlv/link/sub-tlvs/sub-tlv/unreserved-bandwidths/unreserved-bandwidth/state/unreserved-bandwidth
+                                                               }
+                                                            }
+                                                            repeated unreserved_bandwidth_list unreserved_bandwidth = 151;
+                                                         }
+                                                      }
+                                                      repeated sub_tlv_list sub_tlv = 152;
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 152;
+                                          }
+                                       }
+                                       optional router_information_type router_information = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information
+                                       message router_information_type {
+                                          optional tlvs_type tlvs = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs
+                                          message tlvs_type {
+                                             message tlv_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv
+                                                optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/state
+                                                message state_type {
+                                                   optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/state/type
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/unknown-tlv
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state
+                                                   message state_type {
+                                                      optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/type
+                                                      optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/length
+                                                      optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/unknown-tlv/state/value
+                                                   }
+                                                }
+                                                optional segment_routing_algorithm_type segment_routing_algorithm = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm
+                                                message segment_routing_algorithm_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm/state
+                                                   message state_type {
+                                                      repeated string supported_algorithms = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-algorithm/state/supported-algorithms
+                                                   }
+                                                }
+                                                optional segment_routing_sid_label_range_type segment_routing_sid_label_range = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range
+                                                message segment_routing_sid_label_range_type {
+                                                   optional tlvs_type tlvs = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs
+                                                   message tlvs_type {
+                                                      message tlv_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv
+                                                         optional unknown_tlv_type unknown_tlv = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv
+                                                         message unknown_tlv_type {
+                                                            optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state
+                                                            message state_type {
+                                                               optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/type
+                                                               optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/length
+                                                               optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/unknown-tlv/state/value
+                                                            }
+                                                         }
+                                                         optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state
+                                                         message state_type {
+                                                            optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state/type
+                                                            optional uint32 range_size = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/state/range-size
+                                                         }
+                                                         optional sid_label_type sid_label = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label
+                                                         message sid_label_type {
+                                                            optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state
+                                                            message state_type {
+                                                               optional string entry_type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state/entry-type
+                                                               optional uint32 first_value = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/router-information/tlvs/tlv/segment-routing-sid-label-range/tlvs/tlv/sid-label/state/first-value
+                                                            }
+                                                         }
+                                                      }
+                                                      repeated tlv_list tlv = 152;
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 152;
+                                          }
+                                       }
+                                       optional extended_link_type extended_link = 156;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link
+                                       message extended_link_type {
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/state
+                                          message state_type {
+                                             optional string link_type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/state/link-type
+                                             optional string link_id = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/state/link-id
+                                             optional string link_data = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/state/link-data
+                                          }
+                                          optional tlvs_type tlvs = 152;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs
+                                          message tlvs_type {
+                                             message tlv_list {    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv
+                                                optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/state
+                                                message state_type {
+                                                   optional string type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/state/type
+                                                }
+                                                optional unknown_tlv_type unknown_tlv = 155;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/unknown-tlv
+                                                message unknown_tlv_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state
+                                                   message state_type {
+                                                      optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/type
+                                                      optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/length
+                                                      optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/unknown-tlv/state/value
+                                                   }
+                                                }
+                                                optional adjacency_sid_type adjacency_sid = 153;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid
+                                                message adjacency_sid_type {
+                                                   optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state
+                                                   message state_type {
+                                                      optional bool backup = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/backup
+                                                      optional bool group = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/group
+                                                      optional string sid_type = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/sid-type
+                                                      optional uint32 sid_value = 54;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/sid-value
+                                                      optional uint32 weight = 55;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/weight
+                                                      optional uint32 multi_topology_identifier = 56;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/extended-link/tlvs/tlv/adjacency-sid/state/multi-topology-identifier
+                                                   }
+                                                }
+                                             }
+                                             repeated tlv_list tlv = 151;
+                                          }
+                                       }
+                                       optional unknown_tlv_type unknown_tlv = 158;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/unknown-tlv
+                                       message unknown_tlv_type {
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/unknown-tlv/state
+                                          message state_type {
+                                             optional uint32 type = 51;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/unknown-tlv/state/type
+                                             optional uint32 length = 52;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/unknown-tlv/state/length
+                                             optional string value = 53;    // /network-instances/network-instance/protocols/protocol/ospfv2/areas/area/lsdb/lsa-types/lsa-type/lsas/lsa/opaque-lsa/unknown-tlv/state/value
+                                          }
+                                       }
+                                    }
+                                 }
+                                 repeated lsa_list lsa = 152;
+                              }
+                           }
+                           repeated lsa_type_list lsa_type = 152;
+                        }
+                     }
+                  }
+                  repeated area_list area = 151;
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

@@ -1,0 +1,65 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_interface_oc_316 jnpr_interfaces_interface_oc_316_ext = 316;
+}
+
+message interfaces_interface_oc_316 {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 1 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      message state_list {    // /interfaces/interface/state
+         optional string hardware_port = 52;    // /interfaces/interface/state/hardware-port
+         optional string transceiver = 53;    // /interfaces/interface/state/transceiver
+         repeated uint32 physical_channel = 54;    // /interfaces/interface/state/physical-channel
+      }
+      repeated state_list state = 3;
+      message ethernet_list {    // /interfaces/interface/ethernet
+         message state_list {    // /interfaces/interface/ethernet/state
+            optional string mac_address = 1;    // /interfaces/interface/ethernet/state/mac-address
+            optional bool auto_negotiate = 2;    // /interfaces/interface/ethernet/state/auto-negotiate
+            optional string duplex_mode = 3;    // /interfaces/interface/ethernet/state/duplex-mode
+            optional string port_speed = 4;    // /interfaces/interface/ethernet/state/port-speed
+            optional bool enable_flow_control = 5;    // /interfaces/interface/ethernet/state/enable-flow-control
+            optional string hw_mac_address = 6;    // /interfaces/interface/ethernet/state/hw-mac-address
+            optional string negotiated_duplex_mode = 7;    // /interfaces/interface/ethernet/state/negotiated-duplex-mode
+            optional string negotiated_port_speed = 8;    // /interfaces/interface/ethernet/state/negotiated-port-speed
+            message counters_list {    // /interfaces/interface/ethernet/state/counters
+               optional uint64 in_mac_control_frames = 1;    // /interfaces/interface/ethernet/state/counters/in-mac-control-frames
+               optional uint64 in_mac_pause_frames = 2;    // /interfaces/interface/ethernet/state/counters/in-mac-pause-frames
+               optional uint64 in_oversize_frames = 3;    // /interfaces/interface/ethernet/state/counters/in-oversize-frames
+               optional uint64 in_undersize_frames = 4;    // /interfaces/interface/ethernet/state/counters/in-undersize-frames
+               optional uint64 in_jabber_frames = 5;    // /interfaces/interface/ethernet/state/counters/in-jabber-frames
+               optional uint64 in_fragment_frames = 6;    // /interfaces/interface/ethernet/state/counters/in-fragment-frames
+               optional uint64 in_crc_errors = 7;    // /interfaces/interface/ethernet/state/counters/in-crc-errors
+               optional uint64 in_block_errors = 8;    // /interfaces/interface/ethernet/state/counters/in-block-errors
+               optional uint64 out_mac_control_frames = 9;    // /interfaces/interface/ethernet/state/counters/out-mac-control-frames
+               optional uint64 out_mac_pause_frames = 10;    // /interfaces/interface/ethernet/state/counters/out-mac-pause-frames
+               optional uint64 in_8021q_frames = 11;    // /interfaces/interface/ethernet/state/counters/in-8021q-frames
+               optional uint64 out_8021q_frames = 12;    // /interfaces/interface/ethernet/state/counters/out-8021q-frames
+               optional uint64 in_maxsize_exceeded = 13;    // /interfaces/interface/ethernet/state/counters/in-maxsize-exceeded
+               optional in_distribution_type in_distribution = 151;    // /interfaces/interface/ethernet/state/counters/in-distribution
+               message in_distribution_type {
+                  optional uint64 in_frames_64_octets = 51;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-64-octets
+                  optional uint64 in_frames_65_127_octets = 52;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-65-127-octets
+                  optional uint64 in_frames_128_255_octets = 53;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-128-255-octets
+                  optional uint64 in_frames_256_511_octets = 54;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-256-511-octets
+                  optional uint64 in_frames_512_1023_octets = 55;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-512-1023-octets
+                  optional uint64 in_frames_1024_1518_octets = 56;    // /interfaces/interface/ethernet/state/counters/in-distribution/in-frames-1024-1518-octets
+               }
+               message jnx_pfc_statistics_list {    // /interfaces/interface/ethernet/state/counters/jnx-pfc-statistics
+                  optional uint32 priority = 1 [(telemetry_options).is_key = true];    // /interfaces/interface/ethernet/state/counters/jnx-pfc-statistics/priority
+                  optional uint64 in_mac_pause_frames = 2;    // /interfaces/interface/ethernet/state/counters/jnx-pfc-statistics/in-mac-pause-frames
+                  optional uint64 out_mac_pause_frames = 3;    // /interfaces/interface/ethernet/state/counters/jnx-pfc-statistics/out-mac-pause-frames
+               }
+               repeated jnx_pfc_statistics_list jnx_pfc_statistics = 14;
+            }
+            repeated counters_list counters = 151;
+         }
+         repeated state_list state = 151;
+      }
+      repeated ethernet_list ethernet = 153;
+   }
+   repeated interface_list interface = 1;
+}

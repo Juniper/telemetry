@@ -1,0 +1,96 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-sflow - This module contains a collection of top level nodes for JUNOS
+sFlow state data
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_236 jnpr_state_236_ext = 236;
+}
+
+message state_236 {    // /state
+   optional protocols_type protocols = 152;    // /state/protocols
+   message protocols_type {
+      optional sflow_type sflow = 153;    // /state/protocols/sflow
+      message sflow_type {
+         optional agent_id_type agent_id = 151;    // /state/protocols/sflow/agent-id
+         message agent_id_type {
+            optional string inet = 51;    // /state/protocols/sflow/agent-id/inet
+            optional string inet6 = 52;    // /state/protocols/sflow/agent-id/inet6
+         }
+         optional source_ip_type source_ip = 152;    // /state/protocols/sflow/source-ip
+         message source_ip_type {
+            optional string inet = 51;    // /state/protocols/sflow/source-ip/inet
+            optional string inet6 = 52;    // /state/protocols/sflow/source-ip/inet6
+         }
+         optional uint32 polling_interval = 51;    // /state/protocols/sflow/polling-interval
+         optional ingress_type ingress = 153;    // /state/protocols/sflow/ingress
+         message ingress_type {
+            optional uint32 sample_rate = 51;    // /state/protocols/sflow/ingress/sample-rate
+            optional string status = 52;    // /state/protocols/sflow/ingress/status
+         }
+         optional egress_type egress = 154;    // /state/protocols/sflow/egress
+         message egress_type {
+            optional uint32 sample_rate = 51;    // /state/protocols/sflow/egress/sample-rate
+            optional string status = 52;    // /state/protocols/sflow/egress/status
+         }
+         optional adaptive_sample_rate_type adaptive_sample_rate = 155;    // /state/protocols/sflow/adaptive-sample-rate
+         message adaptive_sample_rate_type {
+            optional uint32 sample_rate = 51;    // /state/protocols/sflow/adaptive-sample-rate/sample-rate
+            optional bool fallback = 52;    // /state/protocols/sflow/adaptive-sample-rate/fallback
+            optional uint32 sample_limit_threshold = 53;    // /state/protocols/sflow/adaptive-sample-rate/sample-limit-threshold
+         }
+         optional collectors_type collectors = 156;    // /state/protocols/sflow/collectors
+         message collectors_type {
+            message collector_list {    // /state/protocols/sflow/collectors/collector
+               optional string address = 51 [(telemetry_options).is_key = true];    // /state/protocols/sflow/collectors/collector/address
+               optional uint32 udp_port = 52;    // /state/protocols/sflow/collectors/collector/udp-port
+               optional uint32 dscp = 53;    // /state/protocols/sflow/collectors/collector/dscp
+               optional string forwarding_class = 54;    // /state/protocols/sflow/collectors/collector/forwarding-class
+               optional counters_type counters = 151;    // /state/protocols/sflow/collectors/collector/counters
+               message counters_type {
+                  optional uint64 sent_packets = 51;    // /state/protocols/sflow/collectors/collector/counters/sent-packets
+                  optional uint64 sent_counter_samples = 52;    // /state/protocols/sflow/collectors/collector/counters/sent-counter-samples
+                  optional uint64 sent_flow_samples = 53;    // /state/protocols/sflow/collectors/collector/counters/sent-flow-samples
+                  optional uint64 sent_datagrams = 54;    // /state/protocols/sflow/collectors/collector/counters/sent-datagrams
+               }
+            }
+            repeated collector_list collector = 151;
+         }
+         optional interfaces_type interfaces = 157;    // /state/protocols/sflow/interfaces
+         message interfaces_type {
+            message interface_list {    // /state/protocols/sflow/interfaces/interface
+               optional string name = 51 [(telemetry_options).is_key = true];    // /state/protocols/sflow/interfaces/interface/name
+               optional uint32 polling_interval = 52;    // /state/protocols/sflow/interfaces/interface/polling-interval
+               optional ingress_type ingress = 151;    // /state/protocols/sflow/interfaces/interface/ingress
+               message ingress_type {
+                  optional uint32 sample_rate = 51;    // /state/protocols/sflow/interfaces/interface/ingress/sample-rate
+                  optional string status = 52;    // /state/protocols/sflow/interfaces/interface/ingress/status
+               }
+               optional egress_type egress = 152;    // /state/protocols/sflow/interfaces/interface/egress
+               message egress_type {
+                  optional uint32 sample_rate = 51;    // /state/protocols/sflow/interfaces/interface/egress/sample-rate
+                  optional string status = 52;    // /state/protocols/sflow/interfaces/interface/egress/status
+               }
+               optional adapted_sample_rate_type adapted_sample_rate = 153;    // /state/protocols/sflow/interfaces/interface/adapted-sample-rate
+               message adapted_sample_rate_type {
+                  optional uint32 ingress = 51;    // /state/protocols/sflow/interfaces/interface/adapted-sample-rate/ingress
+                  optional uint32 egress = 52;    // /state/protocols/sflow/interfaces/interface/adapted-sample-rate/egress
+               }
+               optional counters_type counters = 154;    // /state/protocols/sflow/interfaces/interface/counters
+               message counters_type {
+                  optional uint64 sampled_packets = 51;    // /state/protocols/sflow/interfaces/interface/counters/sampled-packets
+               }
+            }
+            repeated interface_list interface = 151;
+         }
+      }
+   }
+}

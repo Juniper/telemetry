@@ -1,0 +1,144 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-macsec - This module defines configuration and state data for
+MACsec IEEE Std 802
+jnx-aug-openconfig-macsec - This module contains augments to openconfig macsec model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional macsec_macsec jnpr_macsec_macsec_ext = 167;
+}
+
+message macsec_macsec {    // /macsec
+   optional interfaces_type interfaces = 152;    // /macsec/interfaces
+   message interfaces_type {
+      message interface_list {    // /macsec/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /macsec/interfaces/interface/name
+         optional state_type state = 151;    // /macsec/interfaces/interface/state
+         message state_type {
+            optional string name = 106;    // /macsec/interfaces/interface/state/name
+            optional bool enable = 107;    // /macsec/interfaces/interface/state/enable
+            optional uint32 replay_protection = 108;    // /macsec/interfaces/interface/state/replay-protection
+            optional counters_type counters = 151;    // /macsec/interfaces/interface/state/counters
+            message counters_type {
+               optional uint64 tx_untagged_pkts = 104;    // /macsec/interfaces/interface/state/counters/tx-untagged-pkts
+               optional uint64 rx_untagged_pkts = 52;    // /macsec/interfaces/interface/state/counters/rx-untagged-pkts
+               optional uint64 rx_badtag_pkts = 53;    // /macsec/interfaces/interface/state/counters/rx-badtag-pkts
+               optional uint64 rx_unknownsci_pkts = 54;    // /macsec/interfaces/interface/state/counters/rx-unknownsci-pkts
+               optional uint64 rx_nosci_pkts = 55;    // /macsec/interfaces/interface/state/counters/rx-nosci-pkts
+               optional uint64 jnx_tx_toolong_packets = 105;    // /macsec/interfaces/interface/state/counters/jnx-tx-toolong-packets
+               optional uint64 jnx_rx_notag_packets = 67;    // /macsec/interfaces/interface/state/counters/jnx-rx-notag-packets
+               optional uint64 jnx_rx_control_packets = 68;    // /macsec/interfaces/interface/state/counters/jnx-rx-control-packets
+               optional uint64 jnx_rx_tagged_miss_packets = 69;    // /macsec/interfaces/interface/state/counters/jnx-rx-tagged-miss-packets
+               optional uint64 jnx_rx_untagged_hit_packets = 70;    // /macsec/interfaces/interface/state/counters/jnx-rx-untagged-hit-packets
+               optional uint64 jnx_rx_control_pass_packets = 71;    // /macsec/interfaces/interface/state/counters/jnx-rx-control-pass-packets
+               optional uint64 jnx_rx_control_fail_packets = 72;    // /macsec/interfaces/interface/state/counters/jnx-rx-control-fail-packets
+               optional uint64 jnx_rx_uncontrol_pass_packets = 73;    // /macsec/interfaces/interface/state/counters/jnx-rx-uncontrol-pass-packets
+               optional uint64 jnx_rx_uncontrol_fail_packets = 74;    // /macsec/interfaces/interface/state/counters/jnx-rx-uncontrol-fail-packets
+               optional uint64 jnx_rx_hit_dropped_packets = 75;    // /macsec/interfaces/interface/state/counters/jnx-rx-hit-dropped-packets
+               optional uint64 jnx_rx_late_packets = 76;    // /macsec/interfaces/interface/state/counters/jnx-rx-late-packets
+               optional uint64 jnx_rx_delayed_packets = 77;    // /macsec/interfaces/interface/state/counters/jnx-rx-delayed-packets
+               optional uint64 jnx_rx_unchecked_packets = 78;    // /macsec/interfaces/interface/state/counters/jnx-rx-unchecked-packets
+               optional uint64 jnx_rx_notvalid_packets = 79;    // /macsec/interfaces/interface/state/counters/jnx-rx-notvalid-packets
+               optional uint64 jnx_rx_notusing_sa_packets = 80;    // /macsec/interfaces/interface/state/counters/jnx-rx-notusing-sa-packets
+               optional uint64 jnx_rx_unused_sa_packets = 81;    // /macsec/interfaces/interface/state/counters/jnx-rx-unused-sa-packets
+            }
+         }
+         optional scsa_tx_type scsa_tx = 153;    // /macsec/interfaces/interface/scsa-tx
+         message scsa_tx_type {
+            message scsa_tx_list {    // /macsec/interfaces/interface/scsa-tx/scsa-tx
+               optional string sci_tx = 151 [(telemetry_options).is_key = true];    // /macsec/interfaces/interface/scsa-tx/scsa-tx/sci-tx
+               optional state_type state = 152;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state
+               message state_type {
+                  optional string sci_tx = 151;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/sci-tx
+                  optional counters_type counters = 152;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters
+                  message counters_type {
+                     optional uint64 sc_auth_only = 59;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/sc-auth-only
+                     optional uint64 sc_encrypted = 60;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/sc-encrypted
+                     optional uint64 sa_auth_only = 61;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/sa-auth-only
+                     optional uint64 sa_encrypted = 62;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/sa-encrypted
+                     optional uint64 jnx_tx_encrypted_bytes = 102;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/jnx-tx-encrypted-bytes
+                     optional uint64 jnx_tx_protected_bytes = 103;    // /macsec/interfaces/interface/scsa-tx/scsa-tx/state/counters/jnx-tx-protected-bytes
+                  }
+               }
+            }
+            repeated scsa_tx_list scsa_tx = 151;
+         }
+         optional scsa_rx_type scsa_rx = 154;    // /macsec/interfaces/interface/scsa-rx
+         message scsa_rx_type {
+            message scsa_rx_list {    // /macsec/interfaces/interface/scsa-rx/scsa-rx
+               optional string sci_rx = 151 [(telemetry_options).is_key = true];    // /macsec/interfaces/interface/scsa-rx/scsa-rx/sci-rx
+               optional state_type state = 152;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state
+               message state_type {
+                  optional string sci_rx = 151;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/sci-rx
+                  optional counters_type counters = 152;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters
+                  message counters_type {
+                     optional uint64 sc_invalid = 63;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/sc-invalid
+                     optional uint64 sc_valid = 64;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/sc-valid
+                     optional uint64 sa_invalid = 65;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/sa-invalid
+                     optional uint64 sa_valid = 66;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/sa-valid
+                     optional uint64 jnx_rx_sc_validated_bytes = 98;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/jnx-rx-sc-validated-bytes
+                     optional uint64 jnx_rx_sc_decrypted_bytes = 99;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/jnx-rx-sc-decrypted-bytes
+                     optional uint64 jnx_rx_sa_validated_bytes = 100;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/jnx-rx-sa-validated-bytes
+                     optional uint64 jnx_rx_sa_decrypted_bytes = 101;    // /macsec/interfaces/interface/scsa-rx/scsa-rx/state/counters/jnx-rx-sa-decrypted-bytes
+                  }
+               }
+            }
+            repeated scsa_rx_list scsa_rx = 151;
+         }
+         optional mka_type mka = 152;    // /macsec/interfaces/interface/mka
+         message mka_type {
+            optional state_type state = 151;    // /macsec/interfaces/interface/mka/state
+            message state_type {
+               optional counters_type counters = 151;    // /macsec/interfaces/interface/mka/state/counters
+               message counters_type {
+                  optional uint64 in_mkpdu = 56;    // /macsec/interfaces/interface/mka/state/counters/in-mkpdu
+                  optional uint64 out_mkpdu = 57;    // /macsec/interfaces/interface/mka/state/counters/out-mkpdu
+                  optional uint32 jnx_version_error = 58;    // /macsec/interfaces/interface/mka/state/counters/jnx-version-error
+                  optional uint32 jnx_cak_error = 83;    // /macsec/interfaces/interface/mka/state/counters/jnx-cak-error
+                  optional uint32 jnx_integrity_check_value_mismatch = 84;    // /macsec/interfaces/interface/mka/state/counters/jnx-integrity-check-value-mismatch
+                  optional uint32 jnx_duplicate_message_identifier = 85;    // /macsec/interfaces/interface/mka/state/counters/jnx-duplicate-message-identifier
+                  optional uint32 jnx_duplicate_message_number = 86;    // /macsec/interfaces/interface/mka/state/counters/jnx-duplicate-message-number
+                  optional uint32 jnx_duplicate_address = 87;    // /macsec/interfaces/interface/mka/state/counters/jnx-duplicate-address
+                  optional uint32 jnx_invalid_destination = 88;    // /macsec/interfaces/interface/mka/state/counters/jnx-invalid-destination
+                  optional uint32 jnx_format_error = 89;    // /macsec/interfaces/interface/mka/state/counters/jnx-format-error
+                  optional uint32 jnx_old_message_number = 90;    // /macsec/interfaces/interface/mka/state/counters/jnx-old-message-number
+               }
+               optional uint32 jnx_latest_sak_an = 82;    // /macsec/interfaces/interface/mka/state/jnx-latest-sak-an
+               optional string jnx_key_server = 91;    // /macsec/interfaces/interface/mka/state/jnx-key-server
+               optional string jnx_fail_open_mode = 92;    // /macsec/interfaces/interface/mka/state/jnx-fail-open-mode
+               optional string jnx_latest_sak_ki = 93;    // /macsec/interfaces/interface/mka/state/jnx-latest-sak-ki
+               optional string jnx_cak_type = 94;    // /macsec/interfaces/interface/mka/state/jnx-cak-type
+               optional string jnx_cak_name = 95;    // /macsec/interfaces/interface/mka/state/jnx-cak-name
+               optional string jnx_member_id = 96;    // /macsec/interfaces/interface/mka/state/jnx-member-id
+               optional string jnx_cipher_suit = 97;    // /macsec/interfaces/interface/mka/state/jnx-cipher-suit
+            }
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+   optional mka_type mka = 151;    // /macsec/mka
+   message mka_type {
+      optional policies_type policies = 151;    // /macsec/mka/policies
+      message policies_type {
+         message policy_list {    // /macsec/mka/policies/policy
+            optional string name = 51 [(telemetry_options).is_key = true];    // /macsec/mka/policies/policy/name
+            optional state_type state = 151;    // /macsec/mka/policies/policy/state
+            message state_type {
+               optional string name = 52;    // /macsec/mka/policies/policy/state/name
+               optional uint32 key_server_priority = 53;    // /macsec/mka/policies/policy/state/key-server-priority
+               repeated string macsec_cipher_suite = 54;    // /macsec/mka/policies/policy/state/macsec-cipher-suite
+               optional string confidentiality_offset = 55;    // /macsec/mka/policies/policy/state/confidentiality-offset
+               optional bool delay_protection = 56;    // /macsec/mka/policies/policy/state/delay-protection
+               optional bool include_icv_indicator = 57;    // /macsec/mka/policies/policy/state/include-icv-indicator
+               optional uint32 sak_rekey_interval = 58;    // /macsec/mka/policies/policy/state/sak-rekey-interval
+               optional bool use_updated_eth_header = 59;    // /macsec/mka/policies/policy/state/use-updated-eth-header
+            }
+         }
+         repeated policy_list policy = 151;
+      }
+   }
+}

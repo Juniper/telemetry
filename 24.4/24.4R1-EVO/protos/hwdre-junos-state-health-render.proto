@@ -1,0 +1,31 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-health - This module contains a collection of top level nodes for JUNOS
+health state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_hwdre_native_health_241 jnpr_state_hwdre_native_health_241_ext = 241;
+}
+
+message state_hwdre_native_health_241 {    // /state
+   optional chassis_type chassis = 151;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 151;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional health_type health = 151;    // /state/chassis/modules/module/health
+            message health_type {
+               optional string status = 51;    // /state/chassis/modules/module/health/status
+               optional uint64 last_unhealthy = 52;    // /state/chassis/modules/module/health/last-unhealthy
+               optional uint64 unhealthy_count = 53;    // /state/chassis/modules/module/health/unhealthy-count
+            }
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+         }
+         repeated module_list module = 151;
+      }
+   }
+}

@@ -1,0 +1,141 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_telemetry_rmopd_native jnpr_junos_telemetry_rmopd_native_ext = 74;
+}
+
+message junos_telemetry_rmopd_native {    // /junos
+   optional rpm_type rpm = 151;    // /junos/rpm
+   message rpm_type {
+      optional probe_results_type probe_results = 151;    // /junos/rpm/probe-results
+      message probe_results_type {
+         message probe_test_results_list {    // /junos/rpm/probe-results/probe-test-results
+            optional string owner = 51 [(telemetry_options).is_key = true];    // /junos/rpm/probe-results/probe-test-results/owner
+            optional string test_name = 52 [(telemetry_options).is_key = true];    // /junos/rpm/probe-results/probe-test-results/test-name
+            optional string target_address = 53;    // /junos/rpm/probe-results/probe-test-results/target-address
+            optional string target_url = 54;    // /junos/rpm/probe-results/probe-test-results/target-url
+            optional string source_address = 55;    // /junos/rpm/probe-results/probe-test-results/source-address
+            optional string destination_interface = 56;    // /junos/rpm/probe-results/probe-test-results/destination-interface
+            optional string probe_type = 57;    // /junos/rpm/probe-results/probe-test-results/probe-type
+            optional uint32 icmp_id = 58;    // /junos/rpm/probe-results/probe-test-results/icmp-id
+            optional uint32 test_size = 59;    // /junos/rpm/probe-results/probe-test-results/test-size
+            optional uint32 http_status = 60;    // /junos/rpm/probe-results/probe-test-results/http-status
+            optional string routing_instance_name = 61;    // /junos/rpm/probe-results/probe-test-results/routing-instance-name
+            optional uint32 loss_thresh_total = 71;    // /junos/rpm/probe-results/probe-test-results/loss-thresh-total
+            optional uint32 loss_thresh_succ = 72;    // /junos/rpm/probe-results/probe-test-results/loss-thresh-succ
+            optional uint32 rtt_thresh = 62;    // /junos/rpm/probe-results/probe-test-results/rtt-thresh
+            optional uint32 rtt_jitter_thresh = 63;    // /junos/rpm/probe-results/probe-test-results/rtt-jitter-thresh
+            optional uint32 rtt_stddev_thresh = 64;    // /junos/rpm/probe-results/probe-test-results/rtt-stddev-thresh
+            optional uint32 igr_thresh = 65;    // /junos/rpm/probe-results/probe-test-results/igr-thresh
+            optional uint32 igr_jitter_thresh = 66;    // /junos/rpm/probe-results/probe-test-results/igr-jitter-thresh
+            optional uint32 igr_stddev_thresh = 67;    // /junos/rpm/probe-results/probe-test-results/igr-stddev-thresh
+            optional uint32 egr_thresh = 68;    // /junos/rpm/probe-results/probe-test-results/egr-thresh
+            optional uint32 egr_jitter_thresh = 69;    // /junos/rpm/probe-results/probe-test-results/egr-jitter-thresh
+            optional uint32 egr_stddev_thresh = 70;    // /junos/rpm/probe-results/probe-test-results/egr-stddev-thresh
+            optional probe_tests_hw_ts_err_type probe_tests_hw_ts_err = 152;    // /junos/rpm/probe-results/probe-test-results/probe-tests-hw-ts-err
+            message probe_tests_hw_ts_err_type {
+               optional uint32 invalid_client_recv_ts_cntr = 51;    // /junos/rpm/probe-results/probe-test-results/probe-tests-hw-ts-err/invalid-client-recv-ts-cntr
+               optional uint32 invalid_client_nots_cntr = 52;    // /junos/rpm/probe-results/probe-test-results/probe-tests-hw-ts-err/invalid-client-nots-cntr
+               optional uint32 invalid_server_send_ts_cntr = 53;    // /junos/rpm/probe-results/probe-test-results/probe-tests-hw-ts-err/invalid-server-send-ts-cntr
+               optional uint32 invalid_server_spent_time_cntr = 54;    // /junos/rpm/probe-results/probe-test-results/probe-tests-hw-ts-err/invalid-server-spent-time-cntr
+            }
+            optional probe_single_results_type probe_single_results = 153;    // /junos/rpm/probe-results/probe-test-results/probe-single-results
+            message probe_single_results_type {
+               optional string probe_time = 51;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/probe-time
+               optional string probe_sent_time = 52;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/probe-sent-time
+               optional string probe_status = 53;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/probe-status
+               optional string hardware_timestamp_status = 54;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/hardware-timestamp-status
+               optional uint32 rtt = 55;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/rtt
+               optional uint32 egress = 56;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/egress
+               optional uint32 ingress = 57;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/ingress
+               optional int32 egress_jitter = 58;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/egress-jitter
+               optional int32 ingress_jitter = 59;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/ingress-jitter
+               optional int32 round_trip_jitter = 60;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/round-trip-jitter
+               optional int32 egress_interarrival_jitter = 61;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/egress-interarrival-jitter
+               optional int32 ingress_interarrival_jitter = 62;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/ingress-interarrival-jitter
+               optional int32 round_trip_interarrival_jitter = 63;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/round-trip-interarrival-jitter
+               optional uint32 http_status = 64;    // /junos/rpm/probe-results/probe-test-results/probe-single-results/http-status
+            }
+            message probe_test_generic_results_list {    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results
+               optional string results_scope = 51 [(telemetry_options).is_key = true];    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/results-scope
+               optional uint32 probes_sent = 52;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probes-sent
+               optional uint32 probe_responses = 53;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-responses
+               optional uint32 loss_percentage = 54;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/loss-percentage
+               optional string last_test_time = 55;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/last-test-time
+               message probe_test_generic_measurements_list {    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements
+                  optional string probe_measurement_type = 51 [(telemetry_options).is_key = true];    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type
+                  optional uint32 samples = 52;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/samples
+                  optional uint32 min_delay = 53;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay
+                  optional uint32 max_delay = 54;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay
+                  optional uint32 avg_delay = 55;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay
+                  optional uint32 jitter_delay = 56;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay
+                  optional uint64 stddev_delay = 57;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/stddev-delay
+                  optional uint64 sum_delay = 58;    // /junos/rpm/probe-results/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/sum-delay
+               }
+               repeated probe_test_generic_measurements_list probe_test_generic_measurements = 155;
+            }
+            repeated probe_test_generic_results_list probe_test_generic_results = 154;
+         }
+         repeated probe_test_results_list probe_test_results = 151;
+      }
+      optional history_results_type history_results = 154;    // /junos/rpm/history-results
+      message history_results_type {
+         optional history_test_results_type history_test_results = 151;    // /junos/rpm/history-results/history-test-results
+         message history_test_results_type {
+            message history_single_test_results_list {    // /junos/rpm/history-results/history-test-results/history-single-test-results
+               optional string owner = 51 [(telemetry_options).is_key = true];    // /junos/rpm/history-results/history-test-results/history-single-test-results/owner
+               optional string test_name = 52 [(telemetry_options).is_key = true];    // /junos/rpm/history-results/history-test-results/history-single-test-results/test-name
+               optional string target_address = 53;    // /junos/rpm/history-results/history-test-results/history-single-test-results/target-address
+               optional string target_url = 54;    // /junos/rpm/history-results/history-test-results/history-single-test-results/target-url
+               optional string source_address = 55;    // /junos/rpm/history-results/history-test-results/history-single-test-results/source-address
+               optional string destination_interface = 56;    // /junos/rpm/history-results/history-test-results/history-single-test-results/destination-interface
+               optional string probe_type = 57;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-type
+               optional uint32 icmp_id = 58;    // /junos/rpm/history-results/history-test-results/history-single-test-results/icmp-id
+               optional uint32 test_size = 59;    // /junos/rpm/history-results/history-test-results/history-single-test-results/test-size
+               optional uint32 http_status = 60;    // /junos/rpm/history-results/history-test-results/history-single-test-results/http-status
+               optional string routing_instance_name = 61;    // /junos/rpm/history-results/history-test-results/history-single-test-results/routing-instance-name
+               optional uint32 loss_thresh_total = 71;    // /junos/rpm/history-results/history-test-results/history-single-test-results/loss-thresh-total
+               optional uint32 loss_thresh_succ = 72;    // /junos/rpm/history-results/history-test-results/history-single-test-results/loss-thresh-succ
+               optional uint32 rtt_thresh = 62;    // /junos/rpm/history-results/history-test-results/history-single-test-results/rtt-thresh
+               optional uint32 rtt_jitter_thresh = 63;    // /junos/rpm/history-results/history-test-results/history-single-test-results/rtt-jitter-thresh
+               optional uint32 rtt_stddev_thresh = 64;    // /junos/rpm/history-results/history-test-results/history-single-test-results/rtt-stddev-thresh
+               optional uint32 igr_thresh = 65;    // /junos/rpm/history-results/history-test-results/history-single-test-results/igr-thresh
+               optional uint32 igr_jitter_thresh = 66;    // /junos/rpm/history-results/history-test-results/history-single-test-results/igr-jitter-thresh
+               optional uint32 igr_stddev_thresh = 67;    // /junos/rpm/history-results/history-test-results/history-single-test-results/igr-stddev-thresh
+               optional uint32 egr_thresh = 68;    // /junos/rpm/history-results/history-test-results/history-single-test-results/egr-thresh
+               optional uint32 egr_jitter_thresh = 69;    // /junos/rpm/history-results/history-test-results/history-single-test-results/egr-jitter-thresh
+               optional uint32 egr_stddev_thresh = 70;    // /junos/rpm/history-results/history-test-results/history-single-test-results/egr-stddev-thresh
+               message probe_single_results_list {    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results
+                  optional string probe_time = 51;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/probe-time
+                  optional string probe_sent_time = 52;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/probe-sent-time
+                  optional string probe_status = 53;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/probe-status
+                  optional string hardware_timestamp_status = 54;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/hardware-timestamp-status
+                  optional uint32 rtt = 55;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/rtt
+                  optional uint32 egress = 56;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/egress
+                  optional uint32 ingress = 57;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/ingress
+                  optional int32 egress_jitter = 58;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/egress-jitter
+                  optional int32 ingress_jitter = 59;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/ingress-jitter
+                  optional int32 round_trip_jitter = 60;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/round-trip-jitter
+                  optional int32 egress_interarrival_jitter = 61;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/egress-interarrival-jitter
+                  optional int32 ingress_interarrival_jitter = 62;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/ingress-interarrival-jitter
+                  optional int32 round_trip_interarrival_jitter = 63;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/round-trip-interarrival-jitter
+                  optional uint32 http_status = 64;    // /junos/rpm/history-results/history-test-results/history-single-test-results/probe-single-results/http-status
+               }
+               repeated probe_single_results_list probe_single_results = 152;
+            }
+            repeated history_single_test_results_list history_single_test_results = 151;
+         }
+      }
+      optional server_type server = 153;    // /junos/rpm/server
+      message server_type {
+         message active_servers_list {    // /junos/rpm/server/active-servers
+            optional string protocol = 51;    // /junos/rpm/server/active-servers/protocol
+            optional uint32 port = 52;    // /junos/rpm/server/active-servers/port
+            optional string dst_interface = 53;    // /junos/rpm/server/active-servers/dst-interface
+         }
+         repeated active_servers_list active_servers = 151;
+      }
+   }
+}

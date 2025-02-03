@@ -1,0 +1,77 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-system-controller - This module contains a collection of top level nodes for JUNOS
+system controller-connectivity state data
+junos-state-lldp - This module contains a collection of top level nodes for JUNOS
+LLDP state data
+junos-state-mist - This module contains a collection of top level nodes for JUNOS
+Mist Controller state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_mist_238 jnpr_state_mist_238_ext = 238;
+}
+
+message state_mist_238 {    // /state
+   optional system_type system = 156;    // /state/system
+   message system_type {
+      optional controller_connectivity_type controller_connectivity = 155;    // /state/system/controller-connectivity
+      message controller_connectivity_type {
+         optional mist_type mist = 154;    // /state/system/controller-connectivity/mist
+         message mist_type {
+            optional string connectivity_state = 96;    // /state/system/controller-connectivity/mist/connectivity-state
+            optional uint32 error_code = 97;    // /state/system/controller-connectivity/mist/error-code
+         }
+      }
+   }
+   optional protocols_type protocols = 153;    // /state/protocols
+   message protocols_type {
+      optional lldp_type lldp = 152;    // /state/protocols/lldp
+      message lldp_type {
+         optional interfaces_type interfaces = 151;    // /state/protocols/lldp/interfaces
+         message interfaces_type {
+            message interface_list {    // /state/protocols/lldp/interfaces/interface
+               optional string name = 52 [(telemetry_options).is_key = true];    // /state/protocols/lldp/interfaces/interface/name
+               optional string local_port_id = 53;    // /state/protocols/lldp/interfaces/interface/local-port-id
+               optional string local_port_description = 54;    // /state/protocols/lldp/interfaces/interface/local-port-description
+               optional counters_type counters = 150;    // /state/protocols/lldp/interfaces/interface/counters
+               message counters_type {
+                  optional uint64 frame_in = 57;    // /state/protocols/lldp/interfaces/interface/counters/frame-in
+                  optional uint64 frame_out = 58;    // /state/protocols/lldp/interfaces/interface/counters/frame-out
+               }
+               optional neighbors_type neighbors = 151;    // /state/protocols/lldp/interfaces/interface/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor
+                     optional string id = 66 [(telemetry_options).is_key = true];    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/id
+                     optional string system_name = 67;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/system-name
+                     optional string system_description = 68;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/system-description
+                     optional string chassis_id = 69;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/chassis-id
+                     optional string port_id = 74;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/port-id
+                     optional string port_description = 76;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/port-description
+                     optional uint32 ttl = 79;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/ttl
+                     optional controller_connectivity_type controller_connectivity = 149;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity
+                     message controller_connectivity_type {
+                        optional mist_type mist = 148;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist
+                        message mist_type {
+                           optional string connectivity_state = 98;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/connectivity-state
+                           optional uint32 error_code = 99;    // /state/protocols/lldp/interfaces/interface/neighbors/neighbor/controller-connectivity/mist/error-code
+                        }
+                     }
+                  }
+                  repeated neighbor_list neighbor = 150;
+               }
+            }
+            repeated interface_list interface = 150;
+         }
+      }
+   }
+}

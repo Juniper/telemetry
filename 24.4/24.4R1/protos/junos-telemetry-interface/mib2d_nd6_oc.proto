@@ -1,0 +1,40 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-if-ip - This model defines data for managing configuration and
+operational state on IP (IPv4 and IPv6) interfaces
+jnx-aug-openconfig-if-ip
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional nd6_information_mib_nd6 jnpr_nd6_information_mib_nd6_ext = 54;
+}
+
+message nd6_information_mib_nd6 {    // /nd6-information
+   optional ipv6_type ipv6 = 151;    // /nd6-information/ipv6
+   message ipv6_type {
+      optional neighbors_type neighbors = 151;    // /nd6-information/ipv6/neighbors
+      message neighbors_type {
+         message neighbor_list {    // /nd6-information/ipv6/neighbors/neighbor
+            optional string ip = 51 [(telemetry_options).is_key = true];    // /nd6-information/ipv6/neighbors/neighbor/ip
+            optional state_type state = 151;    // /nd6-information/ipv6/neighbors/neighbor/state
+            message state_type {
+               optional string ip = 51;    // /nd6-information/ipv6/neighbors/neighbor/state/ip
+               optional string link_layer_address = 52;    // /nd6-information/ipv6/neighbors/neighbor/state/link-layer-address
+               optional string origin = 53;    // /nd6-information/ipv6/neighbors/neighbor/state/origin
+               optional bool is_router = 54;    // /nd6-information/ipv6/neighbors/neighbor/state/is-router
+               optional string neighbor_state = 55;    // /nd6-information/ipv6/neighbors/neighbor/state/neighbor-state
+               optional uint32 table_id = 61;    // /nd6-information/ipv6/neighbors/neighbor/state/table-id
+               optional bool is_secure = 62;    // /nd6-information/ipv6/neighbors/neighbor/state/is-secure
+               optional uint32 expiry = 64;    // /nd6-information/ipv6/neighbors/neighbor/state/expiry
+               optional bool is_publish = 63;    // /nd6-information/ipv6/neighbors/neighbor/state/is-publish
+               optional string interface_name = 65;    // /nd6-information/ipv6/neighbors/neighbor/state/interface-name
+               optional uint32 logical_router_id = 66;    // /nd6-information/ipv6/neighbors/neighbor/state/logical-router-id
+            }
+         }
+         repeated neighbor_list neighbor = 151;
+      }
+   }
+}

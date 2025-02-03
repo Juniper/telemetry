@@ -1,0 +1,107 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-pim - An OpenConfig model for Protocol Independent Multicast (PIM)
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_PIM jnpr_network_instances_PIM_ext = 206;
+}
+
+message network_instances_PIM {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional pim_type pim = 151;    // /network-instances/network-instance/protocols/protocol/pim
+            message pim_type {
+               optional global_type global = 151;    // /network-instances/network-instance/protocols/protocol/pim/global
+               message global_type {
+                  optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/pim/global/state
+                  message state_type {
+                     optional uint32 maximum_groups = 51;    // /network-instances/network-instance/protocols/protocol/pim/global/state/maximum-groups
+                     optional uint32 neighbor_count = 52;    // /network-instances/network-instance/protocols/protocol/pim/global/state/neighbor-count
+                     optional counters_type counters = 154;    // /network-instances/network-instance/protocols/protocol/pim/global/state/counters
+                     message counters_type {
+                        optional uint32 hello_messages = 51;    // /network-instances/network-instance/protocols/protocol/pim/global/state/counters/hello-messages
+                        optional uint32 join_prune_messages = 52;    // /network-instances/network-instance/protocols/protocol/pim/global/state/counters/join-prune-messages
+                        optional uint32 bootstrap_messages = 53;    // /network-instances/network-instance/protocols/protocol/pim/global/state/counters/bootstrap-messages
+                     }
+                  }
+                  optional ssm_type ssm = 153;    // /network-instances/network-instance/protocols/protocol/pim/global/ssm
+                  message ssm_type {
+                     optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/pim/global/ssm/state
+                     message state_type {
+                        optional string ssm_ranges = 51;    // /network-instances/network-instance/protocols/protocol/pim/global/ssm/state/ssm-ranges
+                     }
+                  }
+                  optional rendezvous_points_type rendezvous_points = 155;    // /network-instances/network-instance/protocols/protocol/pim/global/rendezvous-points
+                  message rendezvous_points_type {
+                     message rendezvous_point_list {    // /network-instances/network-instance/protocols/protocol/pim/global/rendezvous-points/rendezvous-point
+                        optional state_type state = 155;    // /network-instances/network-instance/protocols/protocol/pim/global/rendezvous-points/rendezvous-point/state
+                        message state_type {
+                           optional string address = 51;    // /network-instances/network-instance/protocols/protocol/pim/global/rendezvous-points/rendezvous-point/state/address
+                           optional string multicast_groups = 52;    // /network-instances/network-instance/protocols/protocol/pim/global/rendezvous-points/rendezvous-point/state/multicast-groups
+                        }
+                     }
+                     repeated rendezvous_point_list rendezvous_point = 155;
+                  }
+               }
+               optional interfaces_type interfaces = 153;    // /network-instances/network-instance/protocols/protocol/pim/interfaces
+               message interfaces_type {
+                  message interface_list {    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface
+                     optional string interface_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/interface-id
+                     optional state_type state = 154;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state
+                     message state_type {
+                        optional bool enabled = 53;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/enabled
+                        optional string interface_id = 52;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/interface-id
+                        optional string mode = 51;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/mode
+                        optional bool bsr_border = 54;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/bsr-border
+                        optional bool border_router = 55;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/border-router
+                        optional uint32 dr_priority = 56;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/dr-priority
+                        optional uint32 join_prune_interval = 57;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/join-prune-interval
+                        optional uint32 hello_interval = 58;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/hello-interval
+                        optional counters_type counters = 154;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/counters
+                        message counters_type {
+                           optional uint32 hello_messages = 51;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/counters/hello-messages
+                           optional uint32 join_prune_messages = 52;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/counters/join-prune-messages
+                           optional uint32 bootstrap_messages = 53;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/state/counters/bootstrap-messages
+                        }
+                     }
+                     optional neighbors_type neighbors = 151;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors
+                     message neighbors_type {
+                        message neighbor_list {    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor
+                           optional string neighbor_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/neighbor-address
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state
+                           message state_type {
+                              optional string neighbor_address = 51;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-address
+                              optional string dr_address = 52;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/dr-address
+                              optional uint64 neighbor_established = 53;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-established
+                              optional uint64 neighbor_expires = 54;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/neighbor-expires
+                              optional string mode = 55;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/neighbors/neighbor/state/mode
+                           }
+                        }
+                        repeated neighbor_list neighbor = 151;
+                     }
+                     optional enable_bfd_type enable_bfd = 152;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/enable-bfd
+                     message enable_bfd_type {
+                        optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/enable-bfd/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/pim/interfaces/interface/enable-bfd/state/enabled
+                        }
+                     }
+                  }
+                  repeated interface_list interface = 151;
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

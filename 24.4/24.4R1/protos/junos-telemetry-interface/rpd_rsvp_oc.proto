@@ -1,0 +1,275 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-mpls-rsvp - Configuration for RSVP-TE signaling, including global protocol
+parameters and LSP-specific configuration for constrained-path
+LSPs
+jnx-aug-openconfig-ni-mpls - This module contains JUNOS augments to the OpenConfig NI MPLS modules
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_rsvp jnpr_network_instances_rsvp_ext = 68;
+}
+
+message network_instances_rsvp {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional mpls_type mpls = 151;    // /network-instances/network-instance/mpls
+      message mpls_type {
+         optional signaling_protocols_type signaling_protocols = 151;    // /network-instances/network-instance/mpls/signaling-protocols
+         message signaling_protocols_type {
+            optional rsvp_te_type rsvp_te = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te
+            message rsvp_te_type {
+               optional sessions_type sessions = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions
+               message sessions_type {
+                  message session_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session
+                     optional uint64 local_index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/local-index
+                     optional string name = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/name
+                     optional uint32 lsp_id = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/lsp-id
+                     optional string subcode = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/subcode
+                     optional record_route_objects_type record_route_objects = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects
+                     message record_route_objects_type {
+                        message record_route_object_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object
+                           optional uint32 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/index
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/state
+                           message state_type {
+                              optional uint32 index = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/state/index
+                              optional string address = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/state/address
+                              optional string reported_label = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/state/reported-label
+                              optional uint32 reported_flags = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/record-route-objects/record-route-object/state/reported-flags
+                           }
+                        }
+                        repeated record_route_object_list record_route_object = 151;
+                     }
+                     optional explicit_route_objects_type explicit_route_objects = 152;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects
+                     message explicit_route_objects_type {
+                        message explicit_route_object_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object
+                           optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/index
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state
+                           message state_type {
+                              optional uint64 index = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/index
+                              optional bool loose = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/loose
+                              optional string type = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/type
+                              optional string ip_prefix = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/ip-prefix
+                              optional uint32 interface_id = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/explicit-route-objects/explicit-route-object/state/interface-id
+                           }
+                        }
+                        repeated explicit_route_object_list explicit_route_object = 151;
+                     }
+                     optional state_type state = 153;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state
+                     message state_type {
+                        optional uint64 local_index = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/local-index
+                        optional string source_address = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/source-address
+                        optional string destination_address = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/destination-address
+                        optional uint32 tunnel_id = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/tunnel-id
+                        optional uint32 lsp_id = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/lsp-id
+                        optional string session_name = 56;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/session-name
+                        optional string status = 57;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/status
+                        optional string type = 59;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/type
+                        optional string protection_requested = 58;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/protection-requested
+                        optional string label_in = 60;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/label-in
+                        optional string label_out = 61;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/label-out
+                        optional sender_tspec_type sender_tspec = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/sender-tspec
+                        message sender_tspec_type {
+                           optional string rate = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/sender-tspec/rate
+                           optional string size = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/sender-tspec/size
+                           optional string peak_data_rate = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/sender-tspec/peak-data-rate
+                        }
+                        optional string notify_status = 62;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/sessions/session/state/notify-status
+                     }
+                  }
+                  repeated session_list session = 151;
+               }
+               optional neighbors_type neighbors = 152;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor
+                     optional string address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/address
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/state
+                     message state_type {
+                        optional string address = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/state/address
+                        optional string detected_interface = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/state/detected-interface
+                        optional string neighbor_status = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/state/neighbor-status
+                        optional bool refresh_reduction = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/neighbors/neighbor/state/refresh-reduction
+                     }
+                  }
+                  repeated neighbor_list neighbor = 151;
+               }
+               optional global_type global = 153;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global
+               message global_type {
+                  optional graceful_restart_type graceful_restart = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/graceful-restart
+                  message graceful_restart_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/graceful-restart/state
+                     message state_type {
+                        optional bool enable = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/graceful-restart/state/enable
+                        optional uint32 restart_time = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/graceful-restart/state/restart-time
+                        optional uint32 recovery_time = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/graceful-restart/state/recovery-time
+                     }
+                  }
+                  optional soft_preemption_type soft_preemption = 152;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/soft-preemption
+                  message soft_preemption_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/soft-preemption/state
+                     message state_type {
+                        optional bool enable = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/soft-preemption/state/enable
+                        optional uint32 soft_preemption_timeout = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/soft-preemption/state/soft-preemption-timeout
+                     }
+                  }
+                  optional hellos_type hellos = 153;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/hellos
+                  message hellos_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/hellos/state
+                     message state_type {
+                        optional uint32 hello_interval = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/hellos/state/hello-interval
+                        optional bool refresh_reduction = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/hellos/state/refresh-reduction
+                     }
+                  }
+                  optional state_type state = 154;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state
+                  message state_type {
+                     optional counters_type counters = 152;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters
+                     message counters_type {
+                        optional uint64 path_timeouts = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/path-timeouts
+                        optional uint64 reservation_timeouts = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/reservation-timeouts
+                        optional uint64 rate_limited_messages = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/rate-limited-messages
+                        optional uint64 in_path_messages = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-path-messages
+                        optional uint64 in_path_error_messages = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-path-error-messages
+                        optional uint64 in_path_tear_messages = 56;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-path-tear-messages
+                        optional uint64 in_reservation_messages = 57;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-reservation-messages
+                        optional uint64 in_reservation_error_messages = 58;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-reservation-error-messages
+                        optional uint64 in_reservation_tear_messages = 59;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-reservation-tear-messages
+                        optional uint64 in_hello_messages = 60;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-hello-messages
+                        optional uint64 in_srefresh_messages = 61;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-srefresh-messages
+                        optional uint64 in_ack_messages = 62;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/in-ack-messages
+                        optional uint64 out_path_messages = 63;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-path-messages
+                        optional uint64 out_path_error_messages = 64;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-path-error-messages
+                        optional uint64 out_path_tear_messages = 65;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-path-tear-messages
+                        optional uint64 out_reservation_messages = 66;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-reservation-messages
+                        optional uint64 out_reservation_error_messages = 67;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-reservation-error-messages
+                        optional uint64 out_reservation_tear_messages = 68;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-reservation-tear-messages
+                        optional uint64 out_hello_messages = 69;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-hello-messages
+                        optional uint64 out_srefresh_messages = 70;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-srefresh-messages
+                        optional uint64 out_ack_messages = 71;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/out-ack-messages
+                        optional errors_type errors = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors
+                        message errors_type {
+                           optional uint64 authentication_fail = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/authentication-fail
+                           optional uint64 bad_checksum = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/bad-checksum
+                           optional uint64 bad_packet_format = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/bad-packet-format
+                           optional uint64 bad_packet_length = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/bad-packet-length
+                           optional uint64 out_of_order = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/out-of-order
+                           optional uint64 received_nack = 58;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/received-nack
+                           optional uint64 transmit_failure = 59;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/transmit-failure
+                           optional uint64 transmit_queue_full = 60;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/transmit-queue-full
+                           optional uint64 unknown_ack = 56;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/unknown-ack
+                           optional uint64 unknown_nack = 57;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/global/state/counters/errors/unknown-nack
+                        }
+                     }
+                  }
+               }
+               optional interface_attributes_type interface_attributes = 154;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes
+               message interface_attributes_type {
+                  message interface_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface
+                     optional string interface_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/interface-id
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state
+                     message state_type {
+                        optional uint64 max_link_bandwidth = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/max-link-bandwidth
+                        optional string interface_id = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/interface-id
+                        optional counters_type counters = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters
+                        message counters_type {
+                           optional uint64 in_path_messages = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-path-messages
+                           optional uint64 in_path_error_messages = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-path-error-messages
+                           optional uint64 in_path_tear_messages = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-path-tear-messages
+                           optional uint64 in_reservation_messages = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-reservation-messages
+                           optional uint64 in_reservation_error_messages = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-reservation-error-messages
+                           optional uint64 in_reservation_tear_messages = 56;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-reservation-tear-messages
+                           optional uint64 in_hello_messages = 57;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-hello-messages
+                           optional uint64 in_srefresh_messages = 58;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-srefresh-messages
+                           optional uint64 in_ack_messages = 59;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/in-ack-messages
+                           optional uint64 out_path_messages = 60;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-path-messages
+                           optional uint64 out_path_error_messages = 61;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-path-error-messages
+                           optional uint64 out_path_tear_messages = 62;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-path-tear-messages
+                           optional uint64 out_reservation_messages = 63;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-reservation-messages
+                           optional uint64 out_reservation_error_messages = 64;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-reservation-error-messages
+                           optional uint64 out_reservation_tear_messages = 65;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-reservation-tear-messages
+                           optional uint64 out_hello_messages = 66;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-hello-messages
+                           optional uint64 out_srefresh_messages = 67;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-srefresh-messages
+                           optional uint64 out_ack_messages = 68;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/out-ack-messages
+                           optional errors_type errors = 153;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors
+                           message errors_type {
+                              optional uint64 authentication_fail = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/authentication-fail
+                              optional uint64 bad_checksum = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/bad-checksum
+                              optional uint64 bad_packet_format = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/bad-packet-format
+                              optional uint64 bad_packet_length = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/bad-packet-length
+                              optional uint64 out_of_order = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/out-of-order
+                              optional uint64 received_nack = 56;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/received-nack
+                              optional uint64 transmit_failure = 57;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/transmit-failure
+                              optional uint64 unknown_ack = 58;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/unknown-ack
+                              optional uint64 unknown_nack = 59;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/state/counters/errors/unknown-nack
+                           }
+                        }
+                     }
+                     optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/interface-ref
+                     message interface_ref_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/interface-ref/state
+                        message state_type {
+                           optional string interface = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/interface-ref/state/interface
+                           optional uint32 subinterface = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/interface-ref/state/subinterface
+                        }
+                     }
+                     optional bandwidth_reservations_type bandwidth_reservations = 153;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations
+                     message bandwidth_reservations_type {
+                        message bandwidth_reservation_list {    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation
+                           optional string priority = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/priority
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state
+                           message state_type {
+                              optional string priority = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/priority
+                              optional uint64 available_bandwidth = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/available-bandwidth
+                              optional uint64 reserved_bandwidth = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/reserved-bandwidth
+                              optional uint64 active_reservations_count = 54;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/active-reservations-count
+                              optional uint64 highwater_mark = 55;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/highwater-mark
+                              optional uint64 static_bandwidth = 61;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/bandwidth-reservations/bandwidth-reservation/state/static-bandwidth
+                           }
+                        }
+                        repeated bandwidth_reservation_list bandwidth_reservation = 151;
+                     }
+                     optional hellos_type hellos = 154;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/hellos
+                     message hellos_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/hellos/state
+                        message state_type {
+                           optional uint32 hello_interval = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/hellos/state/hello-interval
+                           optional bool refresh_reduction = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/hellos/state/refresh-reduction
+                        }
+                     }
+                     optional authentication_type authentication = 155;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/authentication
+                     message authentication_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/authentication/state
+                        message state_type {
+                           optional bool enable = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/authentication/state/enable
+                           optional string authentication_type = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/authentication/state/authentication-type
+                           optional string authentication_key = 53;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/authentication/state/authentication-key
+                        }
+                     }
+                     optional subscription_type subscription = 156;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/subscription
+                     message subscription_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/subscription/state
+                        message state_type {
+                           optional uint32 subscription = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/subscription/state/subscription
+                           optional uint64 calculated_absolute_subscription_bw = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/subscription/state/calculated-absolute-subscription-bw
+                        }
+                     }
+                     optional protection_type protection = 157;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/protection
+                     message protection_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/protection/state
+                        message state_type {
+                           optional string link_protection_style_requested = 51;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/protection/state/link-protection-style-requested
+                           optional uint32 bypass_optimize_interval = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/protection/state/bypass-optimize-interval
+                        }
+                     }
+                     optional string admin_status = 52;    // /network-instances/network-instance/mpls/signaling-protocols/rsvp-te/interface-attributes/interface/admin-status
+                  }
+                  repeated interface_list interface = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

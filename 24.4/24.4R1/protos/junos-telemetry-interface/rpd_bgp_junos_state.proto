@@ -1,0 +1,122 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-bgp - This module contains a collection of top level nodes for JUNOS
+BGP state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_bgp_state_290 jnpr_state_bgp_state_290_ext = 290;
+}
+
+message state_bgp_state_290 {    // /state
+   optional routing_instances_type routing_instances = 150;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 150;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional bgp_type bgp = 101;    // /state/routing-instances/routing-instance/protocols/bgp
+            message bgp_type {
+               optional groups_type groups = 150;    // /state/routing-instances/routing-instance/protocols/bgp/groups
+               message groups_type {
+                  message group_list {    // /state/routing-instances/routing-instance/protocols/bgp/groups/group
+                     optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/name
+                     optional string type = 51;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/type
+                     optional neighbors_type neighbors = 150;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors
+                     message neighbors_type {
+                        message neighbor_list {    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor
+                           optional string address = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/address
+                           optional string local_address = 51;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/local-address
+                           optional afi_safis_type afi_safis = 151;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis
+                           message afi_safis_type {
+                              message afi_safi_list {    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi
+                                 optional string name = 55 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/name
+                                 optional bool active = 56;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/active
+                                 optional statistics_type statistics = 151;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics
+                                 message statistics_type {
+                                    optional uint32 validation_state_unverified = 60;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/validation-state-unverified
+                                    optional uint32 validation_state_unknown = 61;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/validation-state-unknown
+                                    optional uint32 validation_state_invalid = 62;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/validation-state-invalid
+                                    optional uint32 validation_state_valid = 63;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/validation-state-valid
+                                    optional uint32 prefixes_received = 57;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/prefixes-received
+                                    optional uint32 prefixes_accepted = 58;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/prefixes-accepted
+                                    optional uint32 prefixes_advertised = 59;    // /state/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/statistics/prefixes-advertised
+                                 }
+                              }
+                              repeated afi_safi_list afi_safi = 151;
+                           }
+                        }
+                        repeated neighbor_list neighbor = 150;
+                     }
+                  }
+                  repeated group_list group = 150;
+               }
+               optional rib_type rib = 160;    // /state/routing-instances/routing-instance/protocols/bgp/rib
+               message rib_type {
+                  optional afi_safis_type afi_safis = 160;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis
+                  message afi_safis_type {
+                     message afi_safi_list {    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi
+                        optional string name = 70 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/name
+                        optional ipv4_unicast_type ipv4_unicast = 160;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast
+                        message ipv4_unicast_type {
+                           optional loc_rib_type loc_rib = 160;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib
+                           message loc_rib_type {
+                              optional statistics_type statistics = 161;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/statistics
+                              message statistics_type {
+                                 optional uint32 validation_state_unverified = 60;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/statistics/validation-state-unverified
+                                 optional uint32 validation_state_unknown = 61;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/statistics/validation-state-unknown
+                                 optional uint32 validation_state_invalid = 62;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/statistics/validation-state-invalid
+                                 optional uint32 validation_state_valid = 63;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/statistics/validation-state-valid
+                              }
+                              optional routes_type routes = 160;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes
+                              message routes_type {
+                                 message route_list {    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route
+                                    optional string prefix = 70 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/prefix
+                                    optional string origin = 71 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/origin
+                                    optional uint32 path_id = 72 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/path-id
+                                    optional uint64 last_modified = 73;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/last-modified
+                                    optional string origin_validation_state = 74;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/origin-validation-state
+                                    optional string origin_validation_invalid_reason = 75;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/origin-validation-invalid-reason
+                                 }
+                                 repeated route_list route = 160;
+                              }
+                           }
+                        }
+                        optional ipv6_unicast_type ipv6_unicast = 170;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast
+                        message ipv6_unicast_type {
+                           optional loc_rib_type loc_rib = 170;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib
+                           message loc_rib_type {
+                              optional statistics_type statistics = 171;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/statistics
+                              message statistics_type {
+                                 optional uint32 validation_state_unverified = 60;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/statistics/validation-state-unverified
+                                 optional uint32 validation_state_unknown = 61;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/statistics/validation-state-unknown
+                                 optional uint32 validation_state_invalid = 62;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/statistics/validation-state-invalid
+                                 optional uint32 validation_state_valid = 63;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/statistics/validation-state-valid
+                              }
+                              optional routes_type routes = 170;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes
+                              message routes_type {
+                                 message route_list {    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route
+                                    optional string prefix = 80 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/prefix
+                                    optional string origin = 81 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/origin
+                                    optional uint32 path_id = 82 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/path-id
+                                    optional uint64 last_modified = 83;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/last-modified
+                                    optional string origin_validation_state = 84;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/origin-validation-state
+                                    optional string origin_validation_invalid_reason = 85;    // /state/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/origin-validation-invalid-reason
+                                 }
+                                 repeated route_list route = 170;
+                              }
+                           }
+                        }
+                     }
+                     repeated afi_safi_list afi_safi = 160;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

@@ -1,0 +1,46 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_pfe_iflset_234 jnpr_junos_pfe_iflset_234_ext = 234;
+}
+
+message junos_pfe_iflset_234 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional linecard_type linecard = 151;    // /junos/system/linecard
+      message linecard_type {
+         optional cos_type cos = 151;    // /junos/system/linecard/cos
+         message cos_type {
+            message interface_list {    // /junos/system/linecard/cos/interface
+               optional string name = 51 [(telemetry_options).is_key = true];    // /junos/system/linecard/cos/interface/name
+               optional string aggregated_instance_member = 52 [(telemetry_options).is_instance = true];    // /junos/system/linecard/cos/interface/aggregated-instance-member
+               message interface_set_list {    // /junos/system/linecard/cos/interface/interface-set
+                  optional uint64 iflsetindex = 51 [(telemetry_options).is_key = true];    // /junos/system/linecard/cos/interface/interface-set/iflsetindex
+                  optional output_type output = 151;    // /junos/system/linecard/cos/interface/interface-set/output
+                  message output_type {
+                     message queue_list {    // /junos/system/linecard/cos/interface/interface-set/output/queue
+                        optional uint64 queue_number = 51 [(telemetry_options).is_key = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/queue-number
+                        optional uint64 queued_pkts = 52 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/queued-pkts
+                        optional uint64 queued_octets = 53 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/queued-octets
+                        optional uint64 transmit_pkts = 54 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/transmit-pkts
+                        optional uint64 transmit_octets = 55 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/transmit-octets
+                        optional uint64 tail_drop_pkts = 56 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/tail-drop-pkts
+                        optional uint64 red_drop_pkts = 57 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/red-drop-pkts
+                        optional uint64 red_drop_octets = 58 [(telemetry_options).is_counter = true];    // /junos/system/linecard/cos/interface/interface-set/output/queue/red-drop-octets
+                     }
+                     repeated queue_list queue = 151;
+                  }
+               }
+               repeated interface_set_list interface_set = 151;
+            }
+            repeated interface_list interface = 151;
+         }
+      }
+   }
+}

@@ -1,0 +1,192 @@
+/* 
+This proto is generated from below openconfig models
+jnx-aug-openconfig-ldp - This module contains JUNOS augments to the OpenConfig NI MPLS modules
+openconfig-mpls-ldp - Configuration of Label Distribution Protocol global and LSP-
+specific parameters for IGP-congruent LSPs
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_ldp jnpr_network_instances_ldp_ext = 132;
+}
+
+message network_instances_ldp {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional mpls_type mpls = 151;    // /network-instances/network-instance/mpls
+      message mpls_type {
+         optional signaling_protocols_type signaling_protocols = 151;    // /network-instances/network-instance/mpls/signaling-protocols
+         message signaling_protocols_type {
+            optional ldp_type ldp = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp
+            message ldp_type {
+               optional global_type global = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global
+               message global_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/state
+                  message state_type {
+                     optional string lsr_id = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/state/lsr-id
+                  }
+                  optional graceful_restart_type graceful_restart = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart
+                  message graceful_restart_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state
+                     message state_type {
+                        optional bool enabled = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state/enabled
+                        optional uint32 reconnect_time = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state/reconnect-time
+                        optional uint32 recovery_time = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state/recovery-time
+                        optional uint32 forwarding_holdtime = 55;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state/forwarding-holdtime
+                        optional bool helper_enable = 54;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/graceful-restart/state/helper-enable
+                     }
+                  }
+                  optional authentication_type authentication = 153;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/authentication
+                  message authentication_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/authentication/state
+                     message state_type {
+                        optional bool enable = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/authentication/state/enable
+                        optional string authentication_key = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/global/authentication/state/authentication-key
+                     }
+                  }
+               }
+               optional interface_attributes_type interface_attributes = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes
+               message interface_attributes_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/state
+                  message state_type {
+                     optional uint32 hello_holdtime = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/state/hello-holdtime
+                     optional uint32 hello_interval = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/state/hello-interval
+                  }
+                  optional interfaces_type interfaces = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces
+                  message interfaces_type {
+                     message interface_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface
+                        optional string interface_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/interface-id
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/state
+                        message state_type {
+                           optional string interface_id = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/state/interface-id
+                           optional uint32 hello_holdtime = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/state/hello-holdtime
+                           optional uint32 hello_interval = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/state/hello-interval
+                        }
+                        optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/interface-ref
+                        message interface_ref_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/interface-ref/state
+                           message state_type {
+                              optional string interface = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/interface-ref/state/interface
+                              optional uint32 subinterface = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/interface-ref/state/subinterface
+                           }
+                        }
+                        optional address_families_type address_families = 153;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families
+                        message address_families_type {
+                           message address_family_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families/address-family
+                              optional string afi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families/address-family/afi-name
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families/address-family/state
+                              message state_type {
+                                 optional string afi_name = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families/address-family/state/afi-name
+                                 optional bool enabled = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/interface-attributes/interfaces/interface/address-families/address-family/state/enabled
+                              }
+                           }
+                           repeated address_family_list address_family = 151;
+                        }
+                     }
+                     repeated interface_list interface = 151;
+                  }
+               }
+               optional targeted_type targeted = 153;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted
+               message targeted_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/state
+                  message state_type {
+                     optional uint32 hello_holdtime = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/state/hello-holdtime
+                     optional uint32 hello_interval = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/state/hello-interval
+                     optional bool hello_accept = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/state/hello-accept
+                  }
+                  optional address_families_type address_families = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families
+                  message address_families_type {
+                     message address_family_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family
+                        optional string afi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/afi-name
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/state
+                        message state_type {
+                           optional string afi_name = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/state/afi-name
+                        }
+                        optional targets_type targets = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets
+                        message targets_type {
+                           message target_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target
+                              optional string remote_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/remote-address
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state
+                              message state_type {
+                                 optional string remote_address = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state/remote-address
+                                 optional string local_address = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state/local-address
+                                 optional bool enabled = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state/enabled
+                                 optional uint32 hello_holdtime = 54;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state/hello-holdtime
+                                 optional uint32 hello_interval = 55;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/targeted/address-families/address-family/targets/target/state/hello-interval
+                              }
+                           }
+                           repeated target_list target = 151;
+                        }
+                     }
+                     repeated address_family_list address_family = 151;
+                  }
+               }
+               optional neighbors_type neighbors = 154;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor
+                     optional string lsr_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/lsr-id
+                     optional uint32 label_space_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/label-space-id
+                     optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state
+                     message state_type {
+                        optional string lsr_id = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/lsr-id
+                        optional uint32 label_space_id = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/label-space-id
+                        optional bool enable_downstream_on_demand = 54;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/enable-downstream-on-demand
+                        optional string session_state = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/session-state
+                        optional string peer_label_advertisement_mode = 55;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/peer-label-advertisement-mode
+                        optional string negotiated_label_advertisement_mode = 56;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/state/negotiated-label-advertisement-mode
+                     }
+                     optional hello_adjacencies_type hello_adjacencies = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies
+                     message hello_adjacencies_type {
+                        message hello_adjacency_list {    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency
+                           optional string remote_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/remote-address
+                           optional string local_address = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/local-address
+                           optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state
+                           message state_type {
+                              optional string remote_address = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/remote-address
+                              optional string local_address = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/local-address
+                              optional string adjacency_type = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/adjacency-type
+                              optional uint64 last_clear = 57;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/last-clear
+                              optional uint64 hello_received = 55;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/hello-received
+                              optional uint64 hello_dropped = 56;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/hello-dropped
+                              optional bool jnx_enabled = 54;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/state/jnx-enabled
+                           }
+                           optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref
+                           message interface_ref_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state
+                              message state_type {
+                                 optional string interface = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/interface
+                                 optional uint32 subinterface = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/interface-ref/state/subinterface
+                              }
+                           }
+                           optional hello_holdtime_type hello_holdtime = 153;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime
+                           message hello_holdtime_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state
+                              message state_type {
+                                 optional uint32 adjacent = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/adjacent
+                                 optional uint32 negotiated = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/negotiated
+                                 optional uint64 hello_expiration = 53;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/hello-expiration
+                                 optional uint64 next_hello = 54;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/hello-adjacencies/hello-adjacency/hello-holdtime/state/next-hello
+                              }
+                           }
+                        }
+                        repeated hello_adjacency_list hello_adjacency = 151;
+                     }
+                     optional authentication_type authentication = 153;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/authentication
+                     message authentication_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/authentication/state
+                        message state_type {
+                           optional bool enable = 51;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/authentication/state/enable
+                           optional string authentication_key = 52;    // /network-instances/network-instance/mpls/signaling-protocols/ldp/neighbors/neighbor/authentication/state/authentication-key
+                        }
+                     }
+                  }
+                  repeated neighbor_list neighbor = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

@@ -1,0 +1,544 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-inet-types - This module contains a set of Internet address related
+types for use in OpenConfig modules
+openconfig-rib-bgp - Defines a data model for representing BGP routing table (RIB)
+contents
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_bgp_rib jnpr_network_instances_bgp_rib_ext = 63;
+}
+
+message network_instances_bgp_rib {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional bgp_type bgp = 101;    // /network-instances/network-instance/protocols/protocol/bgp
+            message bgp_type {
+               optional rib_type rib = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib
+               message rib_type {
+                  optional attr_sets_type attr_sets = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets
+                  message attr_sets_type {
+                     message attr_set_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set
+                        optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/index
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state
+                        message state_type {
+                           optional uint64 index = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/index
+                           optional string origin = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/origin
+                           optional bool atomic_aggregate = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/atomic-aggregate
+                           optional string next_hop = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/next-hop
+                           optional uint32 med = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/med
+                           optional uint32 local_pref = 56;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/local-pref
+                           optional string originator_id = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/originator-id
+                           repeated string cluster_list = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/cluster-list
+                           optional uint64 aigp = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/state/aigp
+                        }
+                        optional aggregator_type aggregator = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/aggregator
+                        message aggregator_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/aggregator/state
+                           message state_type {
+                              optional uint32 as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/aggregator/state/as
+                              optional uint32 as4 = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/aggregator/state/as4
+                              optional string address = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/aggregator/state/address
+                           }
+                        }
+                        optional as_path_type as_path = 153;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as-path
+                        message as_path_type {
+                           message as_segment_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as-path/as-segment
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as-path/as-segment/state
+                              message state_type {
+                                 optional string type = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as-path/as-segment/state/type
+                                 repeated uint32 member = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as-path/as-segment/state/member
+                              }
+                           }
+                           repeated as_segment_list as_segment = 151;
+                        }
+                        optional as4_path_type as4_path = 154;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as4-path
+                        message as4_path_type {
+                           message as4_segment_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as4-path/as4-segment
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as4-path/as4-segment/state
+                              message state_type {
+                                 optional string type = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as4-path/as4-segment/state/type
+                                 repeated uint32 member = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/attr-sets/attr-set/as4-path/as4-segment/state/member
+                              }
+                           }
+                           repeated as4_segment_list as4_segment = 151;
+                        }
+                     }
+                     repeated attr_set_list attr_set = 151;
+                  }
+                  optional communities_type communities = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities
+                  message communities_type {
+                     message community_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities/community
+                        optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities/community/index
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities/community/state
+                        message state_type {
+                           optional uint64 index = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities/community/state/index
+                           repeated string community = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/communities/community/state/community
+                        }
+                     }
+                     repeated community_list community = 151;
+                  }
+                  optional ext_communities_type ext_communities = 153;    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities
+                  message ext_communities_type {
+                     message ext_community_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities/ext-community
+                        optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities/ext-community/index
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities/ext-community/state
+                        message state_type {
+                           optional uint64 index = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities/ext-community/state/index
+                           repeated string ext_community = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/ext-communities/ext-community/state/ext-community
+                        }
+                     }
+                     repeated ext_community_list ext_community = 151;
+                  }
+                  optional afi_safis_type afi_safis = 154;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis
+                  message afi_safis_type {
+                     message afi_safi_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi
+                        optional string afi_safi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/afi-safi-name
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/state
+                        message state_type {
+                           optional string afi_safi_name = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/state/afi-safi-name
+                        }
+                        optional ipv4_unicast_type ipv4_unicast = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast
+                        message ipv4_unicast_type {
+                           optional loc_rib_type loc_rib = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib
+                           message loc_rib_type {
+                              optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes
+                              message routes_type {
+                                 message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route
+                                    optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/prefix
+                                    optional string origin = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/origin
+                                    optional uint32 path_id = 53 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/path-id
+                                    optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state
+                                    message state_type {
+                                       optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/prefix
+                                       optional string origin = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/origin
+                                       optional uint32 path_id = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/path-id
+                                       optional uint64 attr_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/attr-index
+                                       optional uint64 community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/community-index
+                                       optional uint64 ext_community_index = 56;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/ext-community-index
+                                       optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/last-modified
+                                       optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/valid-route
+                                       optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/state/invalid-reason
+                                    }
+                                    optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes
+                                    message unknown_attributes_type {
+                                       message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute
+                                          optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                          optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state
+                                          message state_type {
+                                             optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                             optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                             optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                             optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                             optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                             optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                             optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                          }
+                                       }
+                                       repeated unknown_attribute_list unknown_attribute = 171;
+                                    }
+                                 }
+                                 repeated route_list route = 151;
+                              }
+                           }
+                           optional neighbors_type neighbors = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors
+                           message neighbors_type {
+                              message neighbor_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor
+                                 optional string neighbor_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/neighbor-address
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/state
+                                 message state_type {
+                                    optional string neighbor_address = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/state/neighbor-address
+                                 }
+                                 optional adj_rib_in_pre_type adj_rib_in_pre = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre
+                                 message adj_rib_in_pre_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_in_post_type adj_rib_in_post = 153;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post
+                                 message adj_rib_in_post_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/invalid-reason
+                                             optional bool best_path = 60;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/best-path
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_out_pre_type adj_rib_out_pre = 154;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre
+                                 message adj_rib_out_pre_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_out_post_type adj_rib_out_post = 155;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post
+                                 message adj_rib_out_post_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                              }
+                              repeated neighbor_list neighbor = 151;
+                           }
+                        }
+                        optional ipv6_unicast_type ipv6_unicast = 153;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast
+                        message ipv6_unicast_type {
+                           optional loc_rib_type loc_rib = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib
+                           message loc_rib_type {
+                              optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes
+                              message routes_type {
+                                 message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route
+                                    optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/prefix
+                                    optional string origin = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/origin
+                                    optional uint32 path_id = 53 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/path-id
+                                    optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state
+                                    message state_type {
+                                       optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/prefix
+                                       optional string origin = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/origin
+                                       optional uint32 path_id = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/path-id
+                                       optional uint64 attr_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/attr-index
+                                       optional uint64 community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/community-index
+                                       optional uint64 ext_community_index = 56;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/ext-community-index
+                                       optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/last-modified
+                                       optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/valid-route
+                                       optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/state/invalid-reason
+                                    }
+                                    optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes
+                                    message unknown_attributes_type {
+                                       message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute
+                                          optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                          optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state
+                                          message state_type {
+                                             optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                             optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                             optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                             optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                             optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                             optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                             optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/loc-rib/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                          }
+                                       }
+                                       repeated unknown_attribute_list unknown_attribute = 171;
+                                    }
+                                 }
+                                 repeated route_list route = 151;
+                              }
+                           }
+                           optional neighbors_type neighbors = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors
+                           message neighbors_type {
+                              message neighbor_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor
+                                 optional string neighbor_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/neighbor-address
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/state
+                                 message state_type {
+                                    optional string neighbor_address = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/state/neighbor-address
+                                 }
+                                 optional adj_rib_in_pre_type adj_rib_in_pre = 152;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre
+                                 message adj_rib_in_pre_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_in_post_type adj_rib_in_post = 153;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post
+                                 message adj_rib_in_post_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/invalid-reason
+                                             optional bool best_path = 60;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/state/best-path
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_out_pre_type adj_rib_out_pre = 154;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre
+                                 message adj_rib_out_pre_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                                 optional adj_rib_out_post_type adj_rib_out_post = 155;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post
+                                 message adj_rib_out_post_type {
+                                    optional routes_type routes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes
+                                    message routes_type {
+                                       message route_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route
+                                          optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/prefix
+                                          optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/path-id
+                                          optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state
+                                          message state_type {
+                                             optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/prefix
+                                             optional uint32 path_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/path-id
+                                             optional uint64 attr_index = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/attr-index
+                                             optional uint64 community_index = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/community-index
+                                             optional uint64 ext_community_index = 55;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/ext-community-index
+                                             optional uint64 last_modified = 57;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/last-modified
+                                             optional bool valid_route = 58;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/valid-route
+                                             optional string invalid_reason = 59;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/state/invalid-reason
+                                          }
+                                          optional unknown_attributes_type unknown_attributes = 162;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes
+                                          message unknown_attributes_type {
+                                             message unknown_attribute_list {    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute
+                                                optional uint32 attr_type = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/attr-type
+                                                optional state_type state = 181;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state
+                                                message state_type {
+                                                   optional bool optional = 51;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/optional
+                                                   optional bool transitive = 52;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/transitive
+                                                   optional bool partial = 53;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/partial
+                                                   optional bool extended = 54;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/extended
+                                                   optional uint32 attr_type = 61;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-type
+                                                   optional uint32 attr_len = 62;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-len
+                                                   optional string attr_value = 63;    // /network-instances/network-instance/protocols/protocol/bgp/rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post/routes/route/unknown-attributes/unknown-attribute/state/attr-value
+                                                }
+                                             }
+                                             repeated unknown_attribute_list unknown_attribute = 171;
+                                          }
+                                       }
+                                       repeated route_list route = 151;
+                                    }
+                                 }
+                              }
+                              repeated neighbor_list neighbor = 151;
+                           }
+                        }
+                     }
+                     repeated afi_safi_list afi_safi = 151;
+                  }
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

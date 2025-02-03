@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_junos_state_interfaces_258 jnpr_state_junos_state_interfaces_258_ext = 258;
+}
+
+message state_junos_state_interfaces_258 {    // /state
+   optional interfaces_type interfaces = 1;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 1 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         message ethernet_list {    // /state/interfaces/interface/ethernet
+            optional string fec_mode = 1;    // /state/interfaces/interface/ethernet/fec-mode
+            optional uint32 fec_codeword_size = 2;    // /state/interfaces/interface/ethernet/fec-codeword-size
+            optional double fec_codeword_rate = 3;    // /state/interfaces/interface/ethernet/fec-codeword-rate
+            message counters_list {    // /state/interfaces/interface/ethernet/counters
+               optional uint64 in_pcs_errored_seconds = 1;    // /state/interfaces/interface/ethernet/counters/in-pcs-errored-seconds
+               optional uint64 fec_corrected_words = 2;    // /state/interfaces/interface/ethernet/counters/fec-corrected-words
+               optional uint64 fec_uncorrectable_words = 3;    // /state/interfaces/interface/ethernet/counters/fec-uncorrectable-words
+            }
+            repeated counters_list counters = 151;
+         }
+         repeated ethernet_list ethernet = 151;
+      }
+      repeated interface_list interface = 1;
+   }
+}
