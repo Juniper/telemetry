@@ -1,0 +1,378 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_transceiver jnpr_components_transceiver_ext = 150;
+}
+
+message components_transceiver {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      message state_list {    // /components/component/state
+         optional string name = 51;    // /components/component/state/name
+         optional string type = 52;    // /components/component/state/type
+         optional string id = 53;    // /components/component/state/id
+         optional string location = 54;    // /components/component/state/location
+         optional string description = 55;    // /components/component/state/description
+         optional string mfg_name = 56;    // /components/component/state/mfg-name
+         optional string mfg_date = 57;    // /components/component/state/mfg-date
+         optional string hardware_version = 58;    // /components/component/state/hardware-version
+         optional string firmware_version = 59;    // /components/component/state/firmware-version
+         optional string software_version = 60;    // /components/component/state/software-version
+         optional string serial_no = 61;    // /components/component/state/serial-no
+         optional string part_no = 62;    // /components/component/state/part-no
+         optional bool removable = 63;    // /components/component/state/removable
+         optional string oper_status = 64;    // /components/component/state/oper-status
+         optional bool empty = 65;    // /components/component/state/empty
+         optional string parent = 66;    // /components/component/state/parent
+         message temperature_list {    // /components/component/state/temperature
+            optional double instant = 52;    // /components/component/state/temperature/instant
+            optional double avg = 53;    // /components/component/state/temperature/avg
+            optional double min = 54;    // /components/component/state/temperature/min
+            optional double max = 55;    // /components/component/state/temperature/max
+            optional uint64 interval = 56;    // /components/component/state/temperature/interval
+            optional uint64 min_time = 57;    // /components/component/state/temperature/min-time
+            optional uint64 max_time = 58;    // /components/component/state/temperature/max-time
+            optional bool alarm_status = 81;    // /components/component/state/temperature/alarm-status
+            optional uint32 alarm_threshold = 82;    // /components/component/state/temperature/alarm-threshold
+            optional string alarm_severity = 83;    // /components/component/state/temperature/alarm-severity
+         }
+         repeated temperature_list temperature = 67;
+         optional uint32 allocated_power = 68;    // /components/component/state/allocated-power
+         optional memory_type memory = 69;    // /components/component/state/memory
+         message memory_type {
+            optional uint64 available = 65;    // /components/component/state/memory/available
+            optional uint64 utilized = 66;    // /components/component/state/memory/utilized
+         }
+      }
+      repeated state_list state = 154;
+      message properties_list {    // /components/component/properties
+         message property_list {    // /components/component/properties/property
+            optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/properties/property/name
+            message state_list {    // /components/component/properties/property/state
+               optional string value = 51;    // /components/component/properties/property/state/value
+            }
+            repeated state_list state = 151;
+         }
+         repeated property_list property = 151;
+      }
+      repeated properties_list properties = 163;
+      message transceiver_list {    // /components/component/transceiver
+         optional state_type state = 153;    // /components/component/transceiver/state
+         message state_type {
+            optional bool enabled = 51;    // /components/component/transceiver/state/enabled
+            optional string form_factor_preconf = 255;    // /components/component/transceiver/state/form-factor-preconf
+            optional string ethernet_pmd_preconf = 256;    // /components/component/transceiver/state/ethernet-pmd-preconf
+            optional string present = 266;    // /components/component/transceiver/state/present
+            optional string form_factor = 257;    // /components/component/transceiver/state/form-factor
+            optional string connector_type = 258;    // /components/component/transceiver/state/connector-type
+            optional string vendor = 259;    // /components/component/transceiver/state/vendor
+            optional string vendor_part = 260;    // /components/component/transceiver/state/vendor-part
+            optional string vendor_rev = 261;    // /components/component/transceiver/state/vendor-rev
+            optional string ethernet_pmd = 262;    // /components/component/transceiver/state/ethernet-pmd
+            optional string sonet_sdh_compliance_code = 263;    // /components/component/transceiver/state/sonet-sdh-compliance-code
+            optional string otn_compliance_code = 264;    // /components/component/transceiver/state/otn-compliance-code
+            optional string serial_no = 265;    // /components/component/transceiver/state/serial-no
+            optional string date_code = 286;    // /components/component/transceiver/state/date-code
+            optional output_power_type output_power = 55;    // /components/component/transceiver/state/output-power
+            message output_power_type {
+               optional double instant = 52;    // /components/component/transceiver/state/output-power/instant
+            }
+            optional input_power_type input_power = 56;    // /components/component/transceiver/state/input-power
+            message input_power_type {
+               optional double instant = 53;    // /components/component/transceiver/state/input-power/instant
+            }
+            optional laser_bias_current_type laser_bias_current = 57;    // /components/component/transceiver/state/laser-bias-current
+            message laser_bias_current_type {
+               optional double instant = 54;    // /components/component/transceiver/state/laser-bias-current/instant
+            }
+            optional string module_functional_type = 287;    // /components/component/transceiver/state/module-functional-type
+            optional string fec_mode = 288;    // /components/component/transceiver/state/fec-mode
+            optional bool fault_condition = 289;    // /components/component/transceiver/state/fault-condition
+            optional string fec_status = 290;    // /components/component/transceiver/state/fec-status
+            optional uint64 fec_uncorrectable_blocks = 291;    // /components/component/transceiver/state/fec-uncorrectable-blocks
+            optional uint64 fec_corrected_bits = 292;    // /components/component/transceiver/state/fec-corrected-bits
+            message supply_voltage_list {    // /components/component/transceiver/state/supply-voltage
+               optional double instant = 52;    // /components/component/transceiver/state/supply-voltage/instant
+               optional double avg = 53;    // /components/component/transceiver/state/supply-voltage/avg
+               optional double min = 54;    // /components/component/transceiver/state/supply-voltage/min
+               optional double max = 55;    // /components/component/transceiver/state/supply-voltage/max
+               optional uint64 interval = 56;    // /components/component/transceiver/state/supply-voltage/interval
+               optional uint64 min_time = 57;    // /components/component/transceiver/state/supply-voltage/min-time
+               optional uint64 max_time = 58;    // /components/component/transceiver/state/supply-voltage/max-time
+            }
+            repeated supply_voltage_list supply_voltage = 293;
+         }
+         optional physical_channels_type physical_channels = 151;    // /components/component/transceiver/physical-channels
+         message physical_channels_type {
+            message channel_list {    // /components/component/transceiver/physical-channels/channel
+               optional uint32 index = 51 [(telemetry_options).is_key = true];    // /components/component/transceiver/physical-channels/channel/index
+               optional state_type state = 155;    // /components/component/transceiver/physical-channels/channel/state
+               message state_type {
+                  optional uint32 index = 51;    // /components/component/transceiver/physical-channels/channel/state/index
+                  optional string description = 52;    // /components/component/transceiver/physical-channels/channel/state/description
+                  optional string associated_optical_channel = 62;    // /components/component/transceiver/physical-channels/channel/state/associated-optical-channel
+                  optional bool tx_laser = 53;    // /components/component/transceiver/physical-channels/channel/state/tx-laser
+                  optional double target_output_power = 54;    // /components/component/transceiver/physical-channels/channel/state/target-output-power
+                  optional uint64 output_frequency = 55;    // /components/component/transceiver/physical-channels/channel/state/output-frequency
+                  optional output_power_type output_power = 59;    // /components/component/transceiver/physical-channels/channel/state/output-power
+                  message output_power_type {
+                     optional double instant = 56;    // /components/component/transceiver/physical-channels/channel/state/output-power/instant
+                  }
+                  message input_power_list {    // /components/component/transceiver/physical-channels/channel/state/input-power
+                     optional double instant = 52;    // /components/component/transceiver/physical-channels/channel/state/input-power/instant
+                     optional double avg = 53;    // /components/component/transceiver/physical-channels/channel/state/input-power/avg
+                     optional double min = 54;    // /components/component/transceiver/physical-channels/channel/state/input-power/min
+                     optional double max = 55;    // /components/component/transceiver/physical-channels/channel/state/input-power/max
+                     optional uint64 interval = 56;    // /components/component/transceiver/physical-channels/channel/state/input-power/interval
+                     optional uint64 min_time = 57;    // /components/component/transceiver/physical-channels/channel/state/input-power/min-time
+                     optional uint64 max_time = 58;    // /components/component/transceiver/physical-channels/channel/state/input-power/max-time
+                  }
+                  repeated input_power_list input_power = 60;
+                  optional laser_bias_current_type laser_bias_current = 61;    // /components/component/transceiver/physical-channels/channel/state/laser-bias-current
+                  message laser_bias_current_type {
+                     optional double instant = 58;    // /components/component/transceiver/physical-channels/channel/state/laser-bias-current/instant
+                  }
+               }
+            }
+            repeated channel_list channel = 151;
+         }
+         optional thresholds_type thresholds = 181;    // /components/component/transceiver/thresholds
+         message thresholds_type {
+            message threshold_list {    // /components/component/transceiver/thresholds/threshold
+               optional string severity = 51 [(telemetry_options).is_key = true];    // /components/component/transceiver/thresholds/threshold/severity
+               optional state_type state = 155;    // /components/component/transceiver/thresholds/threshold/state
+               message state_type {
+                  optional string severity = 51;    // /components/component/transceiver/thresholds/threshold/state/severity
+                  optional double laser_temperature_upper = 52;    // /components/component/transceiver/thresholds/threshold/state/laser-temperature-upper
+                  optional double laser_temperature_lower = 53;    // /components/component/transceiver/thresholds/threshold/state/laser-temperature-lower
+                  optional double output_power_upper = 54;    // /components/component/transceiver/thresholds/threshold/state/output-power-upper
+                  optional double output_power_lower = 55;    // /components/component/transceiver/thresholds/threshold/state/output-power-lower
+                  optional double input_power_upper = 56;    // /components/component/transceiver/thresholds/threshold/state/input-power-upper
+                  optional double input_power_lower = 57;    // /components/component/transceiver/thresholds/threshold/state/input-power-lower
+                  optional double laser_bias_current_upper = 58;    // /components/component/transceiver/thresholds/threshold/state/laser-bias-current-upper
+                  optional double laser_bias_current_lower = 59;    // /components/component/transceiver/thresholds/threshold/state/laser-bias-current-lower
+                  optional double supply_voltage_upper = 60;    // /components/component/transceiver/thresholds/threshold/state/supply-voltage-upper
+                  optional double supply_voltage_lower = 61;    // /components/component/transceiver/thresholds/threshold/state/supply-voltage-lower
+                  optional double module_temperature_upper = 62;    // /components/component/transceiver/thresholds/threshold/state/module-temperature-upper
+                  optional double module_temperature_lower = 63;    // /components/component/transceiver/thresholds/threshold/state/module-temperature-lower
+               }
+            }
+            repeated threshold_list threshold = 151;
+         }
+      }
+      repeated transceiver_list transceiver = 152;
+      optional port_type port = 151;    // /components/component/port
+      message port_type {
+         optional breakout_mode_type breakout_mode = 151;    // /components/component/port/breakout-mode
+         message breakout_mode_type {
+            optional groups_type groups = 151;    // /components/component/port/breakout-mode/groups
+            message groups_type {
+               message group_list {    // /components/component/port/breakout-mode/groups/group
+                  optional uint32 index = 51 [(telemetry_options).is_key = true];    // /components/component/port/breakout-mode/groups/group/index
+                  optional state_type state = 151;    // /components/component/port/breakout-mode/groups/group/state
+                  message state_type {
+                     optional uint32 index = 51;    // /components/component/port/breakout-mode/groups/group/state/index
+                     optional uint32 num_breakouts = 52;    // /components/component/port/breakout-mode/groups/group/state/num-breakouts
+                     optional string breakout_speed = 53;    // /components/component/port/breakout-mode/groups/group/state/breakout-speed
+                     optional uint32 num_physical_channels = 54;    // /components/component/port/breakout-mode/groups/group/state/num-physical-channels
+                  }
+               }
+               repeated group_list group = 151;
+            }
+         }
+      }
+      message optical_channel_list {    // /components/component/optical-channel
+         optional state_type state = 151;    // /components/component/optical-channel/state
+         message state_type {
+            optional uint64 frequency = 51;    // /components/component/optical-channel/state/frequency
+            optional string line_port = 62;    // /components/component/optical-channel/state/line-port
+            message chromatic_dispersion_list {    // /components/component/optical-channel/state/chromatic-dispersion
+               optional double instant = 52;    // /components/component/optical-channel/state/chromatic-dispersion/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/chromatic-dispersion/avg
+               optional double min = 54;    // /components/component/optical-channel/state/chromatic-dispersion/min
+               optional double max = 55;    // /components/component/optical-channel/state/chromatic-dispersion/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/chromatic-dispersion/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/chromatic-dispersion/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/chromatic-dispersion/max-time
+            }
+            repeated chromatic_dispersion_list chromatic_dispersion = 52;
+            message second_order_polarization_mode_dispersion_list {    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion
+               optional double instant = 52;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/avg
+               optional double min = 54;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/min
+               optional double max = 55;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/second-order-polarization-mode-dispersion/max-time
+            }
+            repeated second_order_polarization_mode_dispersion_list second_order_polarization_mode_dispersion = 53;
+            message polarization_dependent_loss_list {    // /components/component/optical-channel/state/polarization-dependent-loss
+               optional double instant = 52;    // /components/component/optical-channel/state/polarization-dependent-loss/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/polarization-dependent-loss/avg
+               optional double min = 54;    // /components/component/optical-channel/state/polarization-dependent-loss/min
+               optional double max = 55;    // /components/component/optical-channel/state/polarization-dependent-loss/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/polarization-dependent-loss/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/polarization-dependent-loss/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/polarization-dependent-loss/max-time
+            }
+            repeated polarization_dependent_loss_list polarization_dependent_loss = 54;
+            message output_power_list {    // /components/component/optical-channel/state/output-power
+               optional double instant = 52;    // /components/component/optical-channel/state/output-power/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/output-power/avg
+               optional double min = 54;    // /components/component/optical-channel/state/output-power/min
+               optional double max = 55;    // /components/component/optical-channel/state/output-power/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/output-power/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/output-power/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/output-power/max-time
+            }
+            repeated output_power_list output_power = 55;
+            message input_power_list {    // /components/component/optical-channel/state/input-power
+               optional double instant = 52;    // /components/component/optical-channel/state/input-power/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/input-power/avg
+               optional double min = 54;    // /components/component/optical-channel/state/input-power/min
+               optional double max = 55;    // /components/component/optical-channel/state/input-power/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/input-power/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/input-power/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/input-power/max-time
+            }
+            repeated input_power_list input_power = 56;
+            message laser_bias_current_list {    // /components/component/optical-channel/state/laser-bias-current
+               optional double instant = 52;    // /components/component/optical-channel/state/laser-bias-current/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/laser-bias-current/avg
+               optional double min = 54;    // /components/component/optical-channel/state/laser-bias-current/min
+               optional double max = 55;    // /components/component/optical-channel/state/laser-bias-current/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/laser-bias-current/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/laser-bias-current/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/laser-bias-current/max-time
+            }
+            repeated laser_bias_current_list laser_bias_current = 57;
+            message osnr_list {    // /components/component/optical-channel/state/osnr
+               optional double instant = 52;    // /components/component/optical-channel/state/osnr/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/osnr/avg
+               optional double min = 54;    // /components/component/optical-channel/state/osnr/min
+               optional double max = 55;    // /components/component/optical-channel/state/osnr/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/osnr/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/osnr/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/osnr/max-time
+            }
+            repeated osnr_list osnr = 58;
+            message esnr_list {    // /components/component/optical-channel/state/esnr
+               optional double instant = 52;    // /components/component/optical-channel/state/esnr/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/esnr/avg
+               optional double min = 54;    // /components/component/optical-channel/state/esnr/min
+               optional double max = 55;    // /components/component/optical-channel/state/esnr/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/esnr/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/esnr/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/esnr/max-time
+            }
+            repeated esnr_list esnr = 59;
+            message carrier_frequency_offset_list {    // /components/component/optical-channel/state/carrier-frequency-offset
+               optional double instant = 52;    // /components/component/optical-channel/state/carrier-frequency-offset/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/carrier-frequency-offset/avg
+               optional double min = 54;    // /components/component/optical-channel/state/carrier-frequency-offset/min
+               optional double max = 55;    // /components/component/optical-channel/state/carrier-frequency-offset/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/carrier-frequency-offset/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/carrier-frequency-offset/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/carrier-frequency-offset/max-time
+            }
+            repeated carrier_frequency_offset_list carrier_frequency_offset = 60;
+            message pre_fec_ber_list {    // /components/component/optical-channel/state/pre-fec-ber
+               optional double instant = 52;    // /components/component/optical-channel/state/pre-fec-ber/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/pre-fec-ber/avg
+               optional double min = 54;    // /components/component/optical-channel/state/pre-fec-ber/min
+               optional double max = 55;    // /components/component/optical-channel/state/pre-fec-ber/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/pre-fec-ber/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/pre-fec-ber/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/pre-fec-ber/max-time
+            }
+            repeated pre_fec_ber_list pre_fec_ber = 61;
+            message modulator_bias_xi_list {    // /components/component/optical-channel/state/modulator-bias-xi
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-xi/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-xi/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-xi/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-xi/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-xi/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-xi/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-xi/max-time
+            }
+            repeated modulator_bias_xi_list modulator_bias_xi = 63;
+            message modulator_bias_xq_list {    // /components/component/optical-channel/state/modulator-bias-xq
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-xq/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-xq/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-xq/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-xq/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-xq/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-xq/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-xq/max-time
+            }
+            repeated modulator_bias_xq_list modulator_bias_xq = 64;
+            message modulator_bias_yi_list {    // /components/component/optical-channel/state/modulator-bias-yi
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-yi/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-yi/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-yi/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-yi/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-yi/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-yi/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-yi/max-time
+            }
+            repeated modulator_bias_yi_list modulator_bias_yi = 65;
+            message modulator_bias_yq_list {    // /components/component/optical-channel/state/modulator-bias-yq
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-yq/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-yq/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-yq/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-yq/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-yq/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-yq/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-yq/max-time
+            }
+            repeated modulator_bias_yq_list modulator_bias_yq = 66;
+            message modulator_bias_x_phase_list {    // /components/component/optical-channel/state/modulator-bias-x-phase
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-x-phase/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-x-phase/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-x-phase/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-x-phase/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-x-phase/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-x-phase/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-x-phase/max-time
+            }
+            repeated modulator_bias_x_phase_list modulator_bias_x_phase = 67;
+            message modulator_bias_y_phase_list {    // /components/component/optical-channel/state/modulator-bias-y-phase
+               optional double instant = 52;    // /components/component/optical-channel/state/modulator-bias-y-phase/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/modulator-bias-y-phase/avg
+               optional double min = 54;    // /components/component/optical-channel/state/modulator-bias-y-phase/min
+               optional double max = 55;    // /components/component/optical-channel/state/modulator-bias-y-phase/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/modulator-bias-y-phase/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/modulator-bias-y-phase/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/modulator-bias-y-phase/max-time
+            }
+            repeated modulator_bias_y_phase_list modulator_bias_y_phase = 68;
+            message sop_roc_list {    // /components/component/optical-channel/state/sop-roc
+               optional double instant = 52;    // /components/component/optical-channel/state/sop-roc/instant
+               optional double avg = 53;    // /components/component/optical-channel/state/sop-roc/avg
+               optional double min = 54;    // /components/component/optical-channel/state/sop-roc/min
+               optional double max = 55;    // /components/component/optical-channel/state/sop-roc/max
+               optional uint64 interval = 56;    // /components/component/optical-channel/state/sop-roc/interval
+               optional uint64 min_time = 57;    // /components/component/optical-channel/state/sop-roc/min-time
+               optional uint64 max_time = 58;    // /components/component/optical-channel/state/sop-roc/max-time
+            }
+            repeated sop_roc_list sop_roc = 69;
+            optional double target_output_power = 70;    // /components/component/optical-channel/state/target-output-power
+         }
+      }
+      repeated optical_channel_list optical_channel = 153;
+      optional subcomponents_type subcomponents = 160;    // /components/component/subcomponents
+      message subcomponents_type {
+         message subcomponent_list {    // /components/component/subcomponents/subcomponent
+            optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/subcomponents/subcomponent/name
+            optional state_type state = 162;    // /components/component/subcomponents/subcomponent/state
+            message state_type {
+               optional string name = 51;    // /components/component/subcomponents/subcomponent/state/name
+            }
+         }
+         repeated subcomponent_list subcomponent = 161;
+      }
+   }
+   repeated component_list component = 151;
+}

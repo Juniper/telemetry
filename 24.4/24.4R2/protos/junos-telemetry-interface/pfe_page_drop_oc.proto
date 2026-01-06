@@ -1,0 +1,32 @@
+/* 
+This proto is generated from below openconfig models
+junos-page-drop-stats - This module provides data definitions for PFE page drop counters
+
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_228 jnpr_junos_228_ext = 228;
+}
+
+message junos_228 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional linecard_type linecard = 151;    // /junos/system/linecard
+      message linecard_type {
+         optional page_drops_type page_drops = 151;    // /junos/system/linecard/page-drops
+         message page_drops_type {
+            message page_drop_list {    // /junos/system/linecard/page-drops/page-drop
+               optional uint32 pfe = 51 [(telemetry_options).is_key = true];    // /junos/system/linecard/page-drops/page-drop/pfe
+               optional uint32 count = 52;    // /junos/system/linecard/page-drops/page-drop/count
+               optional string interface = 53;    // /junos/system/linecard/page-drops/page-drop/interface
+               optional uint32 interface_oq = 54;    // /junos/system/linecard/page-drops/page-drop/interface-oq
+               optional string interface_parent_ae = 55;    // /junos/system/linecard/page-drops/page-drop/interface-parent-ae
+            }
+            repeated page_drop_list page_drop = 152;
+         }
+      }
+   }
+}

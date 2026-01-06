@@ -1,0 +1,17 @@
+/* 
+This proto is generated from below openconfig models
+pfed_base
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_pfe_npu jnpr_junos_pfe_npu_ext = 59;
+}
+
+message junos_pfe_npu {    // /junos
+   message npu_memory_list {    // /junos/npu-memory
+   }
+   repeated npu_memory_list npu_memory = 151;
+}

@@ -1,0 +1,103 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-igmp - An OpenConfig model for Internet Group Management Protocol (IGMP)
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_IGMP_262 jnpr_network_instances_IGMP_262_ext = 262;
+}
+
+message network_instances_IGMP_262 {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional igmp_type igmp = 151;    // /network-instances/network-instance/protocols/protocol/igmp
+            message igmp_type {
+               optional interfaces_type interfaces = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces
+               message interfaces_type {
+                  message interface_list {    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface
+                     optional string interface_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/interface-id
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state
+                     message state_type {
+                        optional uint64 query_expires = 52;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/query-expires
+                        optional string interface_id = 51;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/interface-id
+                        optional bool enabled = 56;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/enabled
+                        optional uint32 version = 53;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/version
+                        optional uint32 query_interval = 54;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/query-interval
+                        optional string filter_prefixes = 57;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/state/filter-prefixes
+                     }
+                     optional counters_type counters = 152;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters
+                     message counters_type {
+                        optional queries_type queries = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries
+                        message queries_type {
+                           optional sent_type sent = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/sent
+                           message sent_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/sent/state
+                              message state_type {
+                                 optional uint32 v1 = 51;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/sent/state/v1
+                                 optional uint32 v2 = 52;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/sent/state/v2
+                                 optional uint32 v3 = 53;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/sent/state/v3
+                              }
+                           }
+                           optional received_type received = 152;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/received
+                           message received_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/received/state
+                              message state_type {
+                                 optional uint32 v1 = 51;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/received/state/v1
+                                 optional uint32 v2 = 52;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/received/state/v2
+                                 optional uint32 v3 = 53;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/queries/received/state/v3
+                              }
+                           }
+                        }
+                        optional reports_type reports = 152;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/reports
+                        message reports_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/reports/state
+                           message state_type {
+                              optional uint32 v1 = 51;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/reports/state/v1
+                              optional uint32 v2 = 52;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/reports/state/v2
+                              optional uint32 v3 = 53;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/counters/reports/state/v3
+                           }
+                        }
+                     }
+                     optional membership_groups_type membership_groups = 153;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups
+                     message membership_groups_type {
+                        message group_list {    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group
+                           optional string group = 57 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group/group
+                           optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group/state
+                           message state_type {
+                              optional string group = 57;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group/state/group
+                              optional string source = 58;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group/state/source
+                              optional string reporter = 59;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/membership-groups/group/state/reporter
+                           }
+                        }
+                        repeated group_list group = 153;
+                     }
+                     optional static_membership_groups_type static_membership_groups = 154;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups
+                     message static_membership_groups_type {
+                        message static_groups_list {    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups/static-groups
+                           optional string static_group = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups/static-groups/static-group
+                           optional state_type state = 154;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups/static-groups/state
+                           message state_type {
+                              optional string static_group = 51;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups/static-groups/state/static-group
+                              optional string source = 52;    // /network-instances/network-instance/protocols/protocol/igmp/interfaces/interface/static-membership-groups/static-groups/state/source
+                           }
+                        }
+                        repeated static_groups_list static_groups = 154;
+                     }
+                  }
+                  repeated interface_list interface = 151;
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

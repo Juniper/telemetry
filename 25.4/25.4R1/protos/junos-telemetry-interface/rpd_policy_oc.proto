@@ -1,0 +1,255 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-routing-policy - This module describes a YANG model for routing policy
+configuration
+openconfig-network-instance-policy - This module defines routing policy statements (conditions and
+actions) for the network instance model
+openconfig-bgp-policy - This module contains data definitions for BGP routing policy
+openconfig-isis-policy - This module contains data definitions for ISIS routing policy
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional routing_policy_policy_283 jnpr_routing_policy_policy_283_ext = 283;
+}
+
+message routing_policy_policy_283 {    // /routing-policy
+   optional policy_definitions_type policy_definitions = 151;    // /routing-policy/policy-definitions
+   message policy_definitions_type {
+      message policy_definition_list {    // /routing-policy/policy-definitions/policy-definition
+         optional string name = 51 [(telemetry_options).is_key = true];    // /routing-policy/policy-definitions/policy-definition/name
+         optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/state
+         message state_type {
+            optional string name = 51;    // /routing-policy/policy-definitions/policy-definition/state/name
+         }
+         optional statements_type statements = 152;    // /routing-policy/policy-definitions/policy-definition/statements
+         message statements_type {
+            message statement_list {    // /routing-policy/policy-definitions/policy-definition/statements/statement
+               optional string name = 52 [(telemetry_options).is_key = true];    // /routing-policy/policy-definitions/policy-definition/statements/statement/name
+               optional state_type state = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/state
+               message state_type {
+                  optional string name = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/state/name
+               }
+               optional conditions_type conditions = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions
+               message conditions_type {
+                  optional state_type state = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/state
+                  message state_type {
+                     optional string call_policy = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/state/call-policy
+                     optional string install_protocol_eq = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/state/install-protocol-eq
+                  }
+                  optional match_interface_type match_interface = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-interface
+                  message match_interface_type {
+                     optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-interface/state
+                     message state_type {
+                        optional string interface = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-interface/state/interface
+                        optional uint32 subinterface = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-interface/state/subinterface
+                     }
+                  }
+                  optional match_prefix_set_type match_prefix_set = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-prefix-set
+                  message match_prefix_set_type {
+                     optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-prefix-set/state
+                     message state_type {
+                        optional string prefix_set = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-prefix-set/state/prefix-set
+                        optional string match_set_options = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-prefix-set/state/match-set-options
+                     }
+                  }
+                  optional bgp_conditions_type bgp_conditions = 154;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions
+                  message bgp_conditions_type {
+                     optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/state
+                     message state_type {
+                        optional string community_set = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/state/community-set
+                        optional string ext_community_set = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/state/ext-community-set
+                     }
+                     optional match_community_set_type match_community_set = 155;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-community-set
+                     message match_community_set_type {
+                        optional state_type state = 156;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-community-set/state
+                        message state_type {
+                           optional string community_set = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-community-set/state/community-set
+                           optional string match_set_options = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-community-set/state/match-set-options
+                        }
+                     }
+                     optional match_ext_community_set_type match_ext_community_set = 157;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-ext-community-set
+                     message match_ext_community_set_type {
+                        optional state_type state = 158;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-ext-community-set/state
+                        message state_type {
+                           optional string ext_community_set = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-ext-community-set/state/ext-community-set
+                           optional string match_set_options = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/bgp-conditions/match-ext-community-set/state/match-set-options
+                        }
+                     }
+                  }
+                  optional match_protocol_instance_type match_protocol_instance = 155;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-protocol-instance
+                  message match_protocol_instance_type {
+                     optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-protocol-instance/state
+                     message state_type {
+                        optional string protocol_identifier = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-protocol-instance/state/protocol-identifier
+                        optional string protocol_name = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/conditions/match-protocol-instance/state/protocol-name
+                     }
+                  }
+               }
+               optional actions_type actions = 154;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions
+               message actions_type {
+                  optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/state
+                  message state_type {
+                     optional string policy_result = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/state/policy-result
+                  }
+                  optional set_tag_type set_tag = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag
+                  message set_tag_type {
+                     optional state_type state = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag/state
+                     message state_type {
+                        optional string mode = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag/state/mode
+                     }
+                     optional inline_type inline = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag/inline
+                     message inline_type {
+                        optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag/inline/state
+                        message state_type {
+                           repeated string tag = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/set-tag/inline/state/tag
+                        }
+                     }
+                  }
+                  optional bgp_actions_type bgp_actions = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions
+                  message bgp_actions_type {
+                     optional state_type state = 154;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/state
+                     message state_type {
+                        optional uint32 set_local_pref = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/state/set-local-pref
+                        optional string set_next_hop = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/state/set-next-hop
+                        optional string set_med = 53;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/state/set-med
+                        optional string set_med_action = 54;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/state/set-med-action
+                     }
+                     optional set_as_path_prepend_type set_as_path_prepend = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-as-path-prepend
+                     message set_as_path_prepend_type {
+                        optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-as-path-prepend/state
+                        message state_type {
+                           optional uint32 repeat_n = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-as-path-prepend/state/repeat-n
+                           optional uint32 asn = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-as-path-prepend/state/asn
+                        }
+                     }
+                     optional set_community_type set_community = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community
+                     message set_community_type {
+                        optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/state
+                        message state_type {
+                           optional string method = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/state/method
+                           optional string options = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/state/options
+                        }
+                        optional inline_type inline = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/inline
+                        message inline_type {
+                           optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/inline/state
+                           message state_type {
+                              repeated string communities = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/inline/state/communities
+                           }
+                        }
+                        optional reference_type reference = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/reference
+                        message reference_type {
+                           optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/reference/state
+                           message state_type {
+                              repeated string community_set_refs = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-community/reference/state/community-set-refs
+                           }
+                        }
+                     }
+                     optional set_ext_community_type set_ext_community = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community
+                     message set_ext_community_type {
+                        optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/state
+                        message state_type {
+                           optional string method = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/state/method
+                           optional string options = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/state/options
+                        }
+                        optional inline_type inline = 153;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/inline
+                        message inline_type {
+                           optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/inline/state
+                           message state_type {
+                              repeated string communities = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/inline/state/communities
+                           }
+                        }
+                        optional reference_type reference = 152;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/reference
+                        message reference_type {
+                           optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/reference/state
+                           message state_type {
+                              repeated string ext_community_set_refs = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/bgp-actions/set-ext-community/reference/state/ext-community-set-refs
+                           }
+                        }
+                     }
+                  }
+                  optional isis_actions_type isis_actions = 154;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/isis-actions
+                  message isis_actions_type {
+                     optional state_type state = 151;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/isis-actions/state
+                     message state_type {
+                        optional uint32 set_level = 52;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/isis-actions/state/set-level
+                        optional uint32 set_metric = 51;    // /routing-policy/policy-definitions/policy-definition/statements/statement/actions/isis-actions/state/set-metric
+                     }
+                  }
+               }
+            }
+            repeated statement_list statement = 151;
+         }
+      }
+      repeated policy_definition_list policy_definition = 51;
+   }
+   optional defined_sets_type defined_sets = 152;    // /routing-policy/defined-sets
+   message defined_sets_type {
+      optional prefix_sets_type prefix_sets = 151;    // /routing-policy/defined-sets/prefix-sets
+      message prefix_sets_type {
+         message prefix_set_list {    // /routing-policy/defined-sets/prefix-sets/prefix-set
+            optional string name = 51 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/prefix-sets/prefix-set/name
+            optional state_type state = 151;    // /routing-policy/defined-sets/prefix-sets/prefix-set/state
+            message state_type {
+               optional string name = 51;    // /routing-policy/defined-sets/prefix-sets/prefix-set/state/name
+               optional string mode = 52;    // /routing-policy/defined-sets/prefix-sets/prefix-set/state/mode
+            }
+            optional prefixes_type prefixes = 152;    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes
+            message prefixes_type {
+               message prefix_list {    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix
+                  optional string ip_prefix = 51 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix/ip-prefix
+                  optional string masklength_range = 52 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix/masklength-range
+                  optional state_type state = 152;    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix/state
+                  message state_type {
+                     optional string ip_prefix = 51;    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix/state/ip-prefix
+                     optional string masklength_range = 52;    // /routing-policy/defined-sets/prefix-sets/prefix-set/prefixes/prefix/state/masklength-range
+                  }
+               }
+               repeated prefix_list prefix = 151;
+            }
+         }
+         repeated prefix_set_list prefix_set = 151;
+      }
+      optional bgp_defined_sets_type bgp_defined_sets = 152;    // /routing-policy/defined-sets/bgp-defined-sets
+      message bgp_defined_sets_type {
+         optional community_sets_type community_sets = 151;    // /routing-policy/defined-sets/bgp-defined-sets/community-sets
+         message community_sets_type {
+            message community_set_list {    // /routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set
+               optional string community_set_name = 51 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/community-set-name
+               optional state_type state = 151;    // /routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/state
+               message state_type {
+                  optional string community_set_name = 51;    // /routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/state/community-set-name
+                  repeated string community_member = 52;    // /routing-policy/defined-sets/bgp-defined-sets/community-sets/community-set/state/community-member
+               }
+            }
+            repeated community_set_list community_set = 151;
+         }
+         optional ext_community_sets_type ext_community_sets = 152;    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets
+         message ext_community_sets_type {
+            message ext_community_set_list {    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set
+               optional string ext_community_set_name = 51 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/ext-community-set-name
+               optional state_type state = 151;    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/state
+               message state_type {
+                  optional string ext_community_set_name = 51;    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/state/ext-community-set-name
+                  repeated string ext_community_member = 52;    // /routing-policy/defined-sets/bgp-defined-sets/ext-community-sets/ext-community-set/state/ext-community-member
+               }
+            }
+            repeated ext_community_set_list ext_community_set = 151;
+         }
+         optional as_path_sets_type as_path_sets = 153;    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets
+         message as_path_sets_type {
+            message as_path_set_list {    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set
+               optional string as_path_set_name = 51 [(telemetry_options).is_key = true];    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set/as-path-set-name
+               optional state_type state = 151;    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set/state
+               message state_type {
+                  optional string as_path_set_name = 51;    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set/state/as-path-set-name
+                  repeated string as_path_set_member = 52;    // /routing-policy/defined-sets/bgp-defined-sets/as-path-sets/as-path-set/state/as-path-set-member
+               }
+            }
+            repeated as_path_set_list as_path_set = 151;
+         }
+      }
+   }
+}

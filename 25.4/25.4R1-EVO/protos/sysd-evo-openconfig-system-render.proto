@@ -1,0 +1,290 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+openconfig-system-terminal - This module defines configuration and operational state data
+related to remote terminal services such as ssh and telnet
+openconfig-system-logging - This module defines configuration and operational state data
+for common logging facilities on network systems
+openconfig-aaa - This module defines configuration and operational state data
+related to authorization, authentication, and accounting (AAA)
+management
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_260 jnpr_system_260_ext = 260;
+}
+
+message system_260 {    // /system
+   optional state_type state = 51;    // /system/state
+   message state_type {
+      optional string login_banner = 53;    // /system/state/login-banner
+      optional string motd_banner = 54;    // /system/state/motd-banner
+      optional uint64 last_configuration_timestamp = 55;    // /system/state/last-configuration-timestamp
+   }
+   optional dns_type dns = 53;    // /system/dns
+   message dns_type {
+      optional state_type state = 51;    // /system/dns/state
+      message state_type {
+         repeated string search = 51;    // /system/dns/state/search
+      }
+      optional servers_type servers = 52;    // /system/dns/servers
+      message servers_type {
+         message server_list {    // /system/dns/servers/server
+            optional string address = 51 [(telemetry_options).is_key = true];    // /system/dns/servers/server/address
+            optional state_type state = 52;    // /system/dns/servers/server/state
+            message state_type {
+               optional string address = 51;    // /system/dns/servers/server/state/address
+               optional uint32 port = 52;    // /system/dns/servers/server/state/port
+            }
+         }
+         repeated server_list server = 51;
+      }
+      optional host_entries_type host_entries = 53;    // /system/dns/host-entries
+      message host_entries_type {
+         message host_entry_list {    // /system/dns/host-entries/host-entry
+            optional string hostname = 51 [(telemetry_options).is_key = true];    // /system/dns/host-entries/host-entry/hostname
+            optional state_type state = 52;    // /system/dns/host-entries/host-entry/state
+            message state_type {
+               optional string hostname = 51;    // /system/dns/host-entries/host-entry/state/hostname
+               repeated string alias = 52;    // /system/dns/host-entries/host-entry/state/alias
+               repeated string ipv4_address = 53;    // /system/dns/host-entries/host-entry/state/ipv4-address
+               repeated string ipv6_address = 54;    // /system/dns/host-entries/host-entry/state/ipv6-address
+            }
+         }
+         repeated host_entry_list host_entry = 51;
+      }
+   }
+   optional ntp_type ntp = 54;    // /system/ntp
+   message ntp_type {
+      optional state_type state = 51;    // /system/ntp/state
+      message state_type {
+         optional bool enabled = 51;    // /system/ntp/state/enabled
+         optional bool enable_ntp_auth = 53;    // /system/ntp/state/enable-ntp-auth
+      }
+      optional ntp_keys_type ntp_keys = 52;    // /system/ntp/ntp-keys
+      message ntp_keys_type {
+         message ntp_key_list {    // /system/ntp/ntp-keys/ntp-key
+            optional uint32 key_id = 51 [(telemetry_options).is_key = true];    // /system/ntp/ntp-keys/ntp-key/key-id
+            optional state_type state = 52;    // /system/ntp/ntp-keys/ntp-key/state
+            message state_type {
+               optional uint32 key_id = 51;    // /system/ntp/ntp-keys/ntp-key/state/key-id
+               optional string key_type = 52;    // /system/ntp/ntp-keys/ntp-key/state/key-type
+               optional string key_value = 53;    // /system/ntp/ntp-keys/ntp-key/state/key-value
+            }
+         }
+         repeated ntp_key_list ntp_key = 51;
+      }
+      optional servers_type servers = 53;    // /system/ntp/servers
+      message servers_type {
+         message server_list {    // /system/ntp/servers/server
+            optional string address = 51 [(telemetry_options).is_key = true];    // /system/ntp/servers/server/address
+            optional state_type state = 52;    // /system/ntp/servers/server/state
+            message state_type {
+               optional string address = 51;    // /system/ntp/servers/server/state/address
+               optional uint32 port = 52;    // /system/ntp/servers/server/state/port
+               optional uint32 version = 53;    // /system/ntp/servers/server/state/version
+               optional string association_type = 54;    // /system/ntp/servers/server/state/association-type
+               optional bool iburst = 55;    // /system/ntp/servers/server/state/iburst
+               optional bool prefer = 56;    // /system/ntp/servers/server/state/prefer
+               optional string network_instance = 57;    // /system/ntp/servers/server/state/network-instance
+               optional uint32 key_id = 58;    // /system/ntp/servers/server/state/key-id
+               optional uint32 stratum = 59;    // /system/ntp/servers/server/state/stratum
+               optional int64 root_delay = 60;    // /system/ntp/servers/server/state/root-delay
+               optional int64 root_dispersion = 61;    // /system/ntp/servers/server/state/root-dispersion
+               optional int64 offset = 62;    // /system/ntp/servers/server/state/offset
+               optional uint32 poll_interval = 63;    // /system/ntp/servers/server/state/poll-interval
+            }
+         }
+         repeated server_list server = 51;
+      }
+   }
+   optional ssh_server_type ssh_server = 55;    // /system/ssh-server
+   message ssh_server_type {
+      optional state_type state = 51;    // /system/ssh-server/state
+      message state_type {
+         optional bool enable = 51;    // /system/ssh-server/state/enable
+         optional string protocol_version = 52;    // /system/ssh-server/state/protocol-version
+         optional uint32 timeout = 53;    // /system/ssh-server/state/timeout
+         optional uint32 rate_limit = 54;    // /system/ssh-server/state/rate-limit
+         optional uint32 session_limit = 55;    // /system/ssh-server/state/session-limit
+      }
+   }
+   optional telnet_server_type telnet_server = 56;    // /system/telnet-server
+   message telnet_server_type {
+      optional state_type state = 51;    // /system/telnet-server/state
+      message state_type {
+         optional bool enable = 51;    // /system/telnet-server/state/enable
+         optional uint32 rate_limit = 52;    // /system/telnet-server/state/rate-limit
+         optional uint32 session_limit = 53;    // /system/telnet-server/state/session-limit
+      }
+   }
+   optional logging_type logging = 57;    // /system/logging
+   message logging_type {
+      optional console_type console = 51;    // /system/logging/console
+      message console_type {
+         optional selectors_type selectors = 52;    // /system/logging/console/selectors
+         message selectors_type {
+            message selector_list {    // /system/logging/console/selectors/selector
+               optional string facility = 51 [(telemetry_options).is_key = true];    // /system/logging/console/selectors/selector/facility
+               optional string severity = 52 [(telemetry_options).is_key = true];    // /system/logging/console/selectors/selector/severity
+               optional state_type state = 53;    // /system/logging/console/selectors/selector/state
+               message state_type {
+                  optional string facility = 51;    // /system/logging/console/selectors/selector/state/facility
+                  optional string severity = 52;    // /system/logging/console/selectors/selector/state/severity
+               }
+            }
+            repeated selector_list selector = 51;
+         }
+      }
+      optional remote_servers_type remote_servers = 52;    // /system/logging/remote-servers
+      message remote_servers_type {
+         message remote_server_list {    // /system/logging/remote-servers/remote-server
+            optional string host = 51 [(telemetry_options).is_key = true];    // /system/logging/remote-servers/remote-server/host
+            optional state_type state = 52;    // /system/logging/remote-servers/remote-server/state
+            message state_type {
+               optional string host = 51;    // /system/logging/remote-servers/remote-server/state/host
+               optional string source_address = 52;    // /system/logging/remote-servers/remote-server/state/source-address
+               optional string network_instance = 54;    // /system/logging/remote-servers/remote-server/state/network-instance
+               optional uint32 remote_port = 53;    // /system/logging/remote-servers/remote-server/state/remote-port
+            }
+            optional selectors_type selectors = 53;    // /system/logging/remote-servers/remote-server/selectors
+            message selectors_type {
+               message selector_list {    // /system/logging/remote-servers/remote-server/selectors/selector
+                  optional string facility = 51 [(telemetry_options).is_key = true];    // /system/logging/remote-servers/remote-server/selectors/selector/facility
+                  optional string severity = 52 [(telemetry_options).is_key = true];    // /system/logging/remote-servers/remote-server/selectors/selector/severity
+                  optional state_type state = 53;    // /system/logging/remote-servers/remote-server/selectors/selector/state
+                  message state_type {
+                     optional string facility = 51;    // /system/logging/remote-servers/remote-server/selectors/selector/state/facility
+                     optional string severity = 52;    // /system/logging/remote-servers/remote-server/selectors/selector/state/severity
+                  }
+               }
+               repeated selector_list selector = 51;
+            }
+         }
+         repeated remote_server_list remote_server = 51;
+      }
+      optional files_type files = 53;    // /system/logging/files
+      message files_type {
+         message file_list {    // /system/logging/files/file
+            optional string filename_prefix = 51 [(telemetry_options).is_key = true];    // /system/logging/files/file/filename-prefix
+            optional string path = 52 [(telemetry_options).is_key = true];    // /system/logging/files/file/path
+            optional state_type state = 53;    // /system/logging/files/file/state
+            message state_type {
+               optional string filename_prefix = 51;    // /system/logging/files/file/state/filename-prefix
+               optional string path = 52;    // /system/logging/files/file/state/path
+               optional uint32 rotate = 53;    // /system/logging/files/file/state/rotate
+               optional uint32 max_size = 54;    // /system/logging/files/file/state/max-size
+               optional string open_logfile = 55;    // /system/logging/files/file/state/open-logfile
+            }
+            optional selectors_type selectors = 54;    // /system/logging/files/file/selectors
+            message selectors_type {
+               message selector_list {    // /system/logging/files/file/selectors/selector
+                  optional string facility = 51 [(telemetry_options).is_key = true];    // /system/logging/files/file/selectors/selector/facility
+                  optional string severity = 52 [(telemetry_options).is_key = true];    // /system/logging/files/file/selectors/selector/severity
+                  optional state_type state = 53;    // /system/logging/files/file/selectors/selector/state
+                  message state_type {
+                     optional string facility = 51;    // /system/logging/files/file/selectors/selector/state/facility
+                     optional string severity = 52;    // /system/logging/files/file/selectors/selector/state/severity
+                  }
+               }
+               repeated selector_list selector = 51;
+            }
+         }
+         repeated file_list file = 51;
+      }
+   }
+   optional aaa_type aaa = 58;    // /system/aaa
+   message aaa_type {
+      optional authentication_type authentication = 52;    // /system/aaa/authentication
+      message authentication_type {
+         optional state_type state = 51;    // /system/aaa/authentication/state
+         message state_type {
+            repeated string authentication_method = 51;    // /system/aaa/authentication/state/authentication-method
+         }
+         optional admin_user_type admin_user = 52;    // /system/aaa/authentication/admin-user
+         message admin_user_type {
+            optional state_type state = 51;    // /system/aaa/authentication/admin-user/state
+            message state_type {
+               optional string admin_password_hashed = 51;    // /system/aaa/authentication/admin-user/state/admin-password-hashed
+               optional string admin_username = 52;    // /system/aaa/authentication/admin-user/state/admin-username
+            }
+         }
+         optional users_type users = 53;    // /system/aaa/authentication/users
+         message users_type {
+            message user_list {    // /system/aaa/authentication/users/user
+               optional string username = 51 [(telemetry_options).is_key = true];    // /system/aaa/authentication/users/user/username
+               optional state_type state = 52;    // /system/aaa/authentication/users/user/state
+               message state_type {
+                  optional string username = 51;    // /system/aaa/authentication/users/user/state/username
+                  optional string password_hashed = 52;    // /system/aaa/authentication/users/user/state/password-hashed
+                  optional string role = 53;    // /system/aaa/authentication/users/user/state/role
+               }
+            }
+            repeated user_list user = 51;
+         }
+      }
+      optional accounting_type accounting = 53;    // /system/aaa/accounting
+      message accounting_type {
+         optional events_type events = 51;    // /system/aaa/accounting/events
+         message events_type {
+            message event_list {    // /system/aaa/accounting/events/event
+               optional string event_type = 51 [(telemetry_options).is_key = true];    // /system/aaa/accounting/events/event/event-type
+               optional state_type state = 52;    // /system/aaa/accounting/events/event/state
+               message state_type {
+                  optional string event_type = 51;    // /system/aaa/accounting/events/event/state/event-type
+               }
+            }
+            repeated event_list event = 51;
+         }
+      }
+      optional server_groups_type server_groups = 54;    // /system/aaa/server-groups
+      message server_groups_type {
+         message server_group_list {    // /system/aaa/server-groups/server-group
+            optional string name = 51 [(telemetry_options).is_key = true];    // /system/aaa/server-groups/server-group/name
+            optional state_type state = 52;    // /system/aaa/server-groups/server-group/state
+            message state_type {
+               optional string name = 51;    // /system/aaa/server-groups/server-group/state/name
+               optional string type = 52;    // /system/aaa/server-groups/server-group/state/type
+            }
+            optional servers_type servers = 53;    // /system/aaa/server-groups/server-group/servers
+            message servers_type {
+               message server_list {    // /system/aaa/server-groups/server-group/servers/server
+                  optional string address = 51 [(telemetry_options).is_key = true];    // /system/aaa/server-groups/server-group/servers/server/address
+                  optional state_type state = 52;    // /system/aaa/server-groups/server-group/servers/server/state
+                  message state_type {
+                     optional string name = 51;    // /system/aaa/server-groups/server-group/servers/server/state/name
+                     optional string address = 52;    // /system/aaa/server-groups/server-group/servers/server/state/address
+                     optional uint32 timeout = 53;    // /system/aaa/server-groups/server-group/servers/server/state/timeout
+                  }
+                  optional tacacs_type tacacs = 53;    // /system/aaa/server-groups/server-group/servers/server/tacacs
+                  message tacacs_type {
+                     optional state_type state = 51;    // /system/aaa/server-groups/server-group/servers/server/tacacs/state
+                     message state_type {
+                        optional uint32 port = 51;    // /system/aaa/server-groups/server-group/servers/server/tacacs/state/port
+                        optional string secret_key = 52;    // /system/aaa/server-groups/server-group/servers/server/tacacs/state/secret-key
+                        optional string source_address = 53;    // /system/aaa/server-groups/server-group/servers/server/tacacs/state/source-address
+                     }
+                  }
+                  optional radius_type radius = 54;    // /system/aaa/server-groups/server-group/servers/server/radius
+                  message radius_type {
+                     optional state_type state = 51;    // /system/aaa/server-groups/server-group/servers/server/radius/state
+                     message state_type {
+                        optional uint32 auth_port = 51;    // /system/aaa/server-groups/server-group/servers/server/radius/state/auth-port
+                        optional uint32 acct_port = 56;    // /system/aaa/server-groups/server-group/servers/server/radius/state/acct-port
+                        optional string secret_key = 53;    // /system/aaa/server-groups/server-group/servers/server/radius/state/secret-key
+                        optional string source_address = 54;    // /system/aaa/server-groups/server-group/servers/server/radius/state/source-address
+                        optional uint32 retransmit_attempts = 55;    // /system/aaa/server-groups/server-group/servers/server/radius/state/retransmit-attempts
+                     }
+                  }
+               }
+               repeated server_list server = 51;
+            }
+         }
+         repeated server_group_list server_group = 51;
+      }
+   }
+}

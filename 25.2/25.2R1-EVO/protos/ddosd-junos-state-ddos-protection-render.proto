@@ -1,0 +1,51 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-ddos-protection - This module contains a collection of top level nodes for JUNOS
+DDoS protection state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state jnpr_state_ext = 212;
+}
+
+message state {    // /state
+   optional system_type system = 151;    // /state/system
+   message system_type {
+      optional ddos_protection_type ddos_protection = 151;    // /state/system/ddos-protection
+      message ddos_protection_type {
+         optional instances_type instances = 151;    // /state/system/ddos-protection/instances
+         message instances_type {
+            message instance_list {    // /state/system/ddos-protection/instances/instance
+               optional uint32 slot = 51 [(telemetry_options).is_key = true];    // /state/system/ddos-protection/instances/instance/slot
+               optional string protocol_name = 52 [(telemetry_options).is_key = true];    // /state/system/ddos-protection/instances/instance/protocol-name
+               optional string packet_type = 53 [(telemetry_options).is_key = true];    // /state/system/ddos-protection/instances/instance/packet-type
+               optional string locale = 54 [(telemetry_options).is_key = true];    // /state/system/ddos-protection/instances/instance/locale
+               optional violations_type violations = 151;    // /state/system/ddos-protection/instances/instance/violations
+               message violations_type {
+                  optional string status = 51;    // /state/system/ddos-protection/instances/instance/violations/status
+                  optional uint64 violated_time_start = 52;    // /state/system/ddos-protection/instances/instance/violations/violated-time-start
+                  optional uint64 violated_time_end = 53;    // /state/system/ddos-protection/instances/instance/violations/violated-time-end
+                  optional counters_type counters = 151;    // /state/system/ddos-protection/instances/instance/violations/counters
+                  message counters_type {
+                     optional uint64 violation_count = 51;    // /state/system/ddos-protection/instances/instance/violations/counters/violation-count
+                  }
+               }
+               optional counters_type counters = 152;    // /state/system/ddos-protection/instances/instance/counters
+               message counters_type {
+                  optional uint64 in_packets = 51;    // /state/system/ddos-protection/instances/instance/counters/in-packets
+                  optional uint64 dropped_packets = 52;    // /state/system/ddos-protection/instances/instance/counters/dropped-packets
+                  optional uint64 policer_dropped_packets = 53;    // /state/system/ddos-protection/instances/instance/counters/policer-dropped-packets
+                  optional uint64 other_dropped_packets = 54;    // /state/system/ddos-protection/instances/instance/counters/other-dropped-packets
+                  optional uint64 flows_dropped_packets = 55;    // /state/system/ddos-protection/instances/instance/counters/flows-dropped-packets
+                  optional uint32 rate_arrival = 56;    // /state/system/ddos-protection/instances/instance/counters/rate-arrival
+                  optional uint32 rate_arrival_max = 57;    // /state/system/ddos-protection/instances/instance/counters/rate-arrival-max
+               }
+            }
+            repeated instance_list instance = 151;
+         }
+      }
+   }
+}

@@ -1,0 +1,39 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-chassis - This module contains a collection of top level nodes for JUNOS
+chassis state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_hwdre_native_chasenv_294 jnpr_state_hwdre_native_chasenv_294_ext = 294;
+}
+
+message state_hwdre_native_chasenv_294 {    // /state
+   optional chassis_type chassis = 151;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 151;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional environment_type environment = 161;    // /state/chassis/modules/module/environment
+            message environment_type {
+               optional sensors_type sensors = 162;    // /state/chassis/modules/module/environment/sensors
+               message sensors_type {
+                  message sensor_list {    // /state/chassis/modules/module/environment/sensors/sensor
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/environment/sensors/sensor/name
+                     optional uint64 value = 52;    // /state/chassis/modules/module/environment/sensors/sensor/value
+                     optional string type = 53;    // /state/chassis/modules/module/environment/sensors/sensor/type
+                     optional string unit = 54;    // /state/chassis/modules/module/environment/sensors/sensor/unit
+                     optional string status = 55;    // /state/chassis/modules/module/environment/sensors/sensor/status
+                  }
+                  repeated sensor_list sensor = 151;
+               }
+            }
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+         }
+         repeated module_list module = 151;
+      }
+   }
+}

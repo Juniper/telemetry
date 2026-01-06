@@ -1,0 +1,61 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-routing-instances - This module contains a collection of top level nodes for JUNOS
+Routing Instances state data
+junos-state-routing-tables - This module contains a collection of top level nodes for JUNOS
+Routing Table state data
+junos-state-static-routing - This module contains a collection of top level nodes for JUNOS
+static-routing state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_static_routing_state_315 jnpr_state_static_routing_state_315_ext = 315;
+}
+
+message state_static_routing_state_315 {    // /state
+   optional routing_instances_type routing_instances = 150;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional routing_tables_type routing_tables = 150;    // /state/routing-instances/routing-instance/routing-tables
+         message routing_tables_type {
+            message routing_table_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table
+               optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/name
+               optional string family = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/family
+               optional uint32 rib_id = 52 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/rib-id
+               optional protocols_type protocols = 150;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols
+               message protocols_type {
+                  message protocol_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol
+                     optional string identifier = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/identifier
+                     optional static_routes_type static_routes = 150;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes
+                     message static_routes_type {
+                        message static_route_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route
+                           optional string prefix = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/prefix
+                           optional string description = 51;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/description
+                           optional bool discard = 52;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/discard
+                           optional next_hops_type next_hops = 150;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops
+                           message next_hops_type {
+                              message next_hop_list {    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops/next-hop
+                                 optional string index = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops/next-hop/index
+                                 optional uint32 metric = 51;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops/next-hop/metric
+                                 optional uint32 preference = 52;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops/next-hop/preference
+                                 optional bool resolve = 53;    // /state/routing-instances/routing-instance/routing-tables/routing-table/protocols/protocol/static-routes/static-route/next-hops/next-hop/resolve
+                              }
+                              repeated next_hop_list next_hop = 151;
+                           }
+                        }
+                        repeated static_route_list static_route = 151;
+                     }
+                  }
+                  repeated protocol_list protocol = 150;
+               }
+            }
+            repeated routing_table_list routing_table = 150;
+         }
+      }
+      repeated routing_instance_list routing_instance = 150;
+   }
+}

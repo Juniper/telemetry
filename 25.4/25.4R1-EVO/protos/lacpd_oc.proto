@@ -1,0 +1,77 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-lacp - This module describes configuration and operational state
+data for Link Aggregation Control Protocol (LACP) for
+managing aggregate interfaces
+jnx-aug-openconfig-lacp - This module contains augments to openconfig lacp model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional lacp_lacp jnpr_lacp_lacp_ext = 52;
+}
+
+message lacp_lacp {    // /lacp
+   optional state_type state = 151;    // /lacp/state
+   message state_type {
+      optional uint32 system_priority = 51;    // /lacp/state/system-priority
+   }
+   optional interfaces_type interfaces = 152;    // /lacp/interfaces
+   message interfaces_type {
+      message interface_list {    // /lacp/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /lacp/interfaces/interface/name
+         optional state_type state = 151;    // /lacp/interfaces/interface/state
+         message state_type {
+            optional string name = 51;    // /lacp/interfaces/interface/state/name
+            optional string interval = 52;    // /lacp/interfaces/interface/state/interval
+            optional string lacp_mode = 53;    // /lacp/interfaces/interface/state/lacp-mode
+            optional string system_id_mac = 54;    // /lacp/interfaces/interface/state/system-id-mac
+            optional uint32 system_priority = 55;    // /lacp/interfaces/interface/state/system-priority
+         }
+         optional members_type members = 152;    // /lacp/interfaces/interface/members
+         message members_type {
+            message member_list {    // /lacp/interfaces/interface/members/member
+               optional string interface = 51 [(telemetry_options).is_key = true];    // /lacp/interfaces/interface/members/member/interface
+               optional state_type state = 151;    // /lacp/interfaces/interface/members/member/state
+               message state_type {
+                  optional string interface = 51;    // /lacp/interfaces/interface/members/member/state/interface
+                  optional string activity = 52;    // /lacp/interfaces/interface/members/member/state/activity
+                  optional string timeout = 53;    // /lacp/interfaces/interface/members/member/state/timeout
+                  optional string synchronization = 54;    // /lacp/interfaces/interface/members/member/state/synchronization
+                  optional bool aggregatable = 55;    // /lacp/interfaces/interface/members/member/state/aggregatable
+                  optional bool collecting = 56;    // /lacp/interfaces/interface/members/member/state/collecting
+                  optional bool distributing = 57;    // /lacp/interfaces/interface/members/member/state/distributing
+                  optional string system_id = 58;    // /lacp/interfaces/interface/members/member/state/system-id
+                  optional uint32 oper_key = 59;    // /lacp/interfaces/interface/members/member/state/oper-key
+                  optional string partner_id = 61;    // /lacp/interfaces/interface/members/member/state/partner-id
+                  optional uint32 partner_key = 62;    // /lacp/interfaces/interface/members/member/state/partner-key
+                  optional uint32 port_num = 60;    // /lacp/interfaces/interface/members/member/state/port-num
+                  optional uint32 partner_port_num = 63;    // /lacp/interfaces/interface/members/member/state/partner-port-num
+                  optional uint64 last_change = 70;    // /lacp/interfaces/interface/members/member/state/last-change
+                  optional counters_type counters = 151;    // /lacp/interfaces/interface/members/member/state/counters
+                  message counters_type {
+                     optional uint64 lacp_in_pkts = 51;    // /lacp/interfaces/interface/members/member/state/counters/lacp-in-pkts
+                     optional uint64 lacp_out_pkts = 52;    // /lacp/interfaces/interface/members/member/state/counters/lacp-out-pkts
+                     optional uint64 lacp_rx_errors = 53;    // /lacp/interfaces/interface/members/member/state/counters/lacp-rx-errors
+                     optional uint64 lacp_tx_errors = 54;    // /lacp/interfaces/interface/members/member/state/counters/lacp-tx-errors
+                     optional uint64 lacp_unknown_errors = 55;    // /lacp/interfaces/interface/members/member/state/counters/lacp-unknown-errors
+                     optional uint64 lacp_errors = 56;    // /lacp/interfaces/interface/members/member/state/counters/lacp-errors
+                     optional uint64 lacp_timeout_transitions = 58;    // /lacp/interfaces/interface/members/member/state/counters/lacp-timeout-transitions
+                     optional string collection_time = 57;    // /lacp/interfaces/interface/members/member/state/counters/collection-time
+                  }
+                  optional string mux_state = 64;    // /lacp/interfaces/interface/members/member/state/mux-state
+                  optional string partner_timeout = 65;    // /lacp/interfaces/interface/members/member/state/partner-timeout
+                  optional string partner_synchronization = 66;    // /lacp/interfaces/interface/members/member/state/partner-synchronization
+                  optional bool partner_aggregatable = 67;    // /lacp/interfaces/interface/members/member/state/partner-aggregatable
+                  optional bool partner_collecting = 68;    // /lacp/interfaces/interface/members/member/state/partner-collecting
+                  optional bool partner_distributing = 69;    // /lacp/interfaces/interface/members/member/state/partner-distributing
+               }
+            }
+            repeated member_list member = 151;
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

@@ -1,0 +1,115 @@
+//
+// Copyright 2025, Juniper Networks, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax = "proto3";
+ 
+package jnx.gnmi_over_udp;
+ 
+import "gnmi.proto";
+
+/* ATTENTION :  Some of the fields in gnmi SubscribeResponse message are not supported for the feature, those field details are described below.
+
+message SubscribeResponse {
+  oneof response {
+    Notification update = 1;  // Changed or sampled value for a path.
+    // Indicate target has sent all values associated with the subscription
+    // at least once.
+    bool sync_response = 3; // Not supported for gNMI over UDP
+    // Deprecated in favour of google.golang.org/genproto/googleapis/rpc/status
+    Error error = 4 [deprecated = true];
+  }
+  // Extension messages associated with the SubscribeResponse. See the
+  // gNMI extension specification for further definition.
+  repeated gnmi_ext.Extension extension = 5;
+}
+
+
+
+message Notification {
+  int64 timestamp = 1;         // Timestamp in nanoseconds since Epoch.
+  Path prefix = 2;             // Prefix used for paths in the message.
+  repeated Update update = 4;  // Data elements that have changed values.
+  repeated Path delete = 5;    // Data elements that have been deleted.
+  // This notification contains a set of paths that are always updated together
+  // referenced by a globally unique prefix. Not supported for gNMI over UDP
+  bool atomic = 6; // Not supported for gNMI over UDP
+  // Reserved field numbers and identifiers.
+  reserved "alias"; // Not supported for gNMI over UDP
+  reserved 3; // Not supported for gNMI over UDP
+}
+
+message Update {
+  Path path = 1;                        // The path (key) for the update.
+  Value value = 2 [deprecated = true];  // The value (value) for the update.
+  TypedValue val = 3;                   // The explicitly typed update value.
+  uint32 duplicates = 4;                // Number of coalesced duplicates. Not supported for gNMI over UDP
+}
+
+message Path {
+  // Elements of the path are no longer encoded as a string, but rather within
+  // the elem field as a PathElem message.
+  repeated string element = 1 [deprecated = true];
+  string origin = 2;           // Label to disambiguate path.
+  repeated PathElem elem = 3;  // Elements of the path.
+  string target = 4;           // The name of the target, opitonal field which can be set via CLI under export-profile
+}
+
+// PathElem encodes an element of a gNMI path, along with any attributes (keys)
+// that may be associated with it.
+// Reference: gNMI Specification Section 2.2.2.
+message PathElem {
+  string name = 1;              // The name of the element in the path.
+  map<string, string> key = 2;  // Map of key (attribute) name to value.
+}
+
+// Value encodes a data tree node's value - along with the way in which
+// the value is encoded. This message is deprecated by gNMI 0.3.0.
+// Reference: gNMI Specification Section 2.2.3.
+message Value {
+  option deprecated = true;
+
+  bytes value = 1;    // Value of the variable being transmitted.
+  Encoding type = 2;  // Encoding used for the value field.
+}
+
+enum Encoding {
+  JSON = 0;       // Not supported for gNMI over UDP
+  BYTES = 1;      // Not supported for gNMI over UDP
+  PROTO = 2;      // Encoded according to scalar values of TypedValue.
+  ASCII = 3;      // Not supported for gNMI over UDP
+  JSON_IETF = 4;  // Not supported for gNMI over UDP
+}
+
+*/
+
+// Header for UDP messages
+message UdpTelemetryHeader {
+  // system_id is the identifier of the device which is sending the
+  // UDP Telemetry. This is usually hostname of the device
+  string system_id = 1;
+
+  // Monotonically increasing sequence number to identify
+  // 1. Lost UDP packets
+  // 2. Out of order UDP packets
+  uint64 sequence_number = 2;
+}
+
+// Main message combining header and gNMI payload
+message UdpTelemetryUpdate {
+  UdpTelemetryHeader header = 1;
+  gnmi.SubscribeResponse response = 10;
+}
+

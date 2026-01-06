@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components jnpr_components_ext = 209;
+}
+
+message components {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 151;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional interface_block_type interface_block = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block
+               message interface_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block/state
+                     optional uint64 in_packets = 51;    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block/state/in-packets
+                     optional uint64 out_packets = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block/state/out-packets
+                     optional uint64 in_bytes = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block/state/in-bytes
+                     optional uint64 out_bytes = 54;    // /components/component/integrated-circuit/pipeline-counters/packet/interface-block/state/out-bytes
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+            optional drop_type drop = 152;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional interface_block_type interface_block = 151;    // /components/component/integrated-circuit/pipeline-counters/drop/interface-block
+               message interface_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/drop/interface-block/state
+                     optional uint64 oversubscription = 51;    // /components/component/integrated-circuit/pipeline-counters/drop/interface-block/state/oversubscription
+                     optional uint64 in_drops = 52;    // /components/component/integrated-circuit/pipeline-counters/drop/interface-block/state/in-drops
+                     optional uint64 out_drops = 53;    // /components/component/integrated-circuit/pipeline-counters/drop/interface-block/state/out-drops
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

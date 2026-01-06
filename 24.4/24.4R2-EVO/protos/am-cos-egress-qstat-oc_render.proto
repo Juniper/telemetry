@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional qos_227 jnpr_qos_227_ext = 227;
+}
+
+message qos_227 {    // /qos
+   message interfaces_list {    // /qos/interfaces
+      message interface_list {    // /qos/interfaces/interface
+         optional string interface_id = 51 [(telemetry_options).is_key = true];    // /qos/interfaces/interface/interface-id
+         message state_list {    // /qos/interfaces/interface/state
+            optional string interface_id = 51;    // /qos/interfaces/interface/state/interface-id
+         }
+         repeated state_list state = 151;
+         message interface_ref_list {    // /qos/interfaces/interface/interface-ref
+            message state_list {    // /qos/interfaces/interface/interface-ref/state
+               optional string interface = 51;    // /qos/interfaces/interface/interface-ref/state/interface
+               optional uint32 subinterface = 52;    // /qos/interfaces/interface/interface-ref/state/subinterface
+            }
+            repeated state_list state = 151;
+         }
+         repeated interface_ref_list interface_ref = 152;
+         message output_list {    // /qos/interfaces/interface/output
+            message queues_list {    // /qos/interfaces/interface/output/queues
+               message queue_list {    // /qos/interfaces/interface/output/queues/queue
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /qos/interfaces/interface/output/queues/queue/name
+                  message state_list {    // /qos/interfaces/interface/output/queues/queue/state
+                     optional string name = 51;    // /qos/interfaces/interface/output/queues/queue/state/name
+                     optional uint64 max_queue_len = 52;    // /qos/interfaces/interface/output/queues/queue/state/max-queue-len
+                     optional uint64 avg_queue_len = 53;    // /qos/interfaces/interface/output/queues/queue/state/avg-queue-len
+                     optional uint64 transmit_pkts = 54;    // /qos/interfaces/interface/output/queues/queue/state/transmit-pkts
+                     optional uint64 transmit_octets = 55;    // /qos/interfaces/interface/output/queues/queue/state/transmit-octets
+                     optional uint64 dropped_pkts = 56;    // /qos/interfaces/interface/output/queues/queue/state/dropped-pkts
+                     optional uint64 dropped_octets = 57;    // /qos/interfaces/interface/output/queues/queue/state/dropped-octets
+                  }
+                  repeated state_list state = 151;
+               }
+               repeated queue_list queue = 151;
+            }
+            repeated queues_list queues = 151;
+         }
+         repeated output_list output = 153;
+      }
+      repeated interface_list interface = 151;
+   }
+   repeated interfaces_list interfaces = 151;
+}

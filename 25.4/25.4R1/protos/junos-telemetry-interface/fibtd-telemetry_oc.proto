@@ -1,0 +1,218 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-aft - A model describing the forwarding entries installed on a network
+element
+openconfig-aft-network-instance - This module provides augmentations that are utilized
+when building the OpenConfig network instance model to
+add per-NI AFTs
+openconfig-aft-summary - This module provides summary of aft entry counts per protocol type for each network
+instance
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances jnpr_network_instances_ext = 117;
+}
+
+message network_instances {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional afts_type afts = 151;    // /network-instances/network-instance/afts
+      message afts_type {
+         optional ipv4_unicast_type ipv4_unicast = 151;    // /network-instances/network-instance/afts/ipv4-unicast
+         message ipv4_unicast_type {
+            message ipv4_entry_list {    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry
+               optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/prefix
+               optional state_type state = 151;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state
+               message state_type {
+                  optional string prefix = 51;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/prefix
+                  optional string origin_protocol = 54;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/origin-protocol
+                  optional string decapsulate_header = 56;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/decapsulate-header
+                  optional uint64 next_hop_group = 52;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/next-hop-group
+                  optional string next_hop_group_network_instance = 53;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/next-hop-group-network-instance
+                  optional string origin_network_instance = 55;    // /network-instances/network-instance/afts/ipv4-unicast/ipv4-entry/state/origin-network-instance
+               }
+            }
+            repeated ipv4_entry_list ipv4_entry = 151;
+         }
+         optional ipv6_unicast_type ipv6_unicast = 152;    // /network-instances/network-instance/afts/ipv6-unicast
+         message ipv6_unicast_type {
+            message ipv6_entry_list {    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry
+               optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/prefix
+               optional state_type state = 151;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state
+               message state_type {
+                  optional string prefix = 51;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/prefix
+                  optional string origin_protocol = 54;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/origin-protocol
+                  optional string decapsulate_header = 56;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/decapsulate-header
+                  optional uint64 next_hop_group = 52;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/next-hop-group
+                  optional string next_hop_group_network_instance = 53;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/next-hop-group-network-instance
+                  optional string origin_network_instance = 55;    // /network-instances/network-instance/afts/ipv6-unicast/ipv6-entry/state/origin-network-instance
+               }
+            }
+            repeated ipv6_entry_list ipv6_entry = 151;
+         }
+         optional mpls_type mpls = 153;    // /network-instances/network-instance/afts/mpls
+         message mpls_type {
+            message label_entry_list {    // /network-instances/network-instance/afts/mpls/label-entry
+               optional string label = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/mpls/label-entry/label
+               optional state_type state = 151;    // /network-instances/network-instance/afts/mpls/label-entry/state
+               message state_type {
+                  optional string label = 51;    // /network-instances/network-instance/afts/mpls/label-entry/state/label
+                  repeated string popped_mpls_label_stack = 54;    // /network-instances/network-instance/afts/mpls/label-entry/state/popped-mpls-label-stack
+                  optional uint64 next_hop_group = 52;    // /network-instances/network-instance/afts/mpls/label-entry/state/next-hop-group
+                  optional string next_hop_group_network_instance = 53;    // /network-instances/network-instance/afts/mpls/label-entry/state/next-hop-group-network-instance
+               }
+            }
+            repeated label_entry_list label_entry = 151;
+         }
+         optional state_synced_type state_synced = 51;    // /network-instances/network-instance/afts/state-synced
+         message state_synced_type {
+            optional state_type state = 52;    // /network-instances/network-instance/afts/state-synced/state
+            message state_type {
+               optional bool ipv4_unicast = 53;    // /network-instances/network-instance/afts/state-synced/state/ipv4-unicast
+               optional bool ipv6_unicast = 54;    // /network-instances/network-instance/afts/state-synced/state/ipv6-unicast
+            }
+         }
+         optional next_hop_groups_type next_hop_groups = 154;    // /network-instances/network-instance/afts/next-hop-groups
+         message next_hop_groups_type {
+            message next_hop_group_list {    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group
+               optional uint64 id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/id
+               optional state_type state = 151;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/state
+               message state_type {
+                  optional uint64 id = 51;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/state/id
+                  optional uint64 programmed_id = 52;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/state/programmed-id
+                  optional uint64 backup_next_hop_group = 67;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/state/backup-next-hop-group
+               }
+               optional next_hops_type next_hops = 152;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops
+               message next_hops_type {
+                  message next_hop_list {    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops/next-hop
+                     optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops/next-hop/index
+                     optional state_type state = 151;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops/next-hop/state
+                     message state_type {
+                        optional uint64 index = 51;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/index
+                        optional uint64 weight = 52;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/next-hops/next-hop/state/weight
+                     }
+                  }
+                  repeated next_hop_list next_hop = 151;
+               }
+               optional conditional_type conditional = 53;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional
+               message conditional_type {
+                  message condition_list {    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition
+                     optional uint64 id = 55 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/id
+                     optional state_type state = 56;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/state
+                     message state_type {
+                        optional uint64 id = 57;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/state/id
+                        repeated uint32 dscp = 58;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/state/dscp
+                        optional uint64 next_hop_group = 59;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/state/next-hop-group
+                     }
+                     optional input_interfaces_type input_interfaces = 60;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces
+                     message input_interfaces_type {
+                        message input_interface_list {    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface
+                           optional string id = 62 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/id
+                           optional state_type state = 63;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state
+                           message state_type {
+                              optional string id = 64;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/id
+                              optional string interface = 65;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/interface
+                              optional uint32 subinterface = 66;    // /network-instances/network-instance/afts/next-hop-groups/next-hop-group/conditional/condition/input-interfaces/input-interface/state/subinterface
+                           }
+                        }
+                        repeated input_interface_list input_interface = 61;
+                     }
+                  }
+                  repeated condition_list condition = 54;
+               }
+            }
+            repeated next_hop_group_list next_hop_group = 151;
+         }
+         optional next_hops_type next_hops = 155;    // /network-instances/network-instance/afts/next-hops
+         message next_hops_type {
+            message next_hop_list {    // /network-instances/network-instance/afts/next-hops/next-hop
+               optional uint64 index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/next-hops/next-hop/index
+               optional state_type state = 151;    // /network-instances/network-instance/afts/next-hops/next-hop/state
+               message state_type {
+                  optional uint64 index = 54;    // /network-instances/network-instance/afts/next-hops/next-hop/state/index
+                  optional uint64 programmed_index = 55;    // /network-instances/network-instance/afts/next-hops/next-hop/state/programmed-index
+                  optional string ip_address = 51;    // /network-instances/network-instance/afts/next-hops/next-hop/state/ip-address
+                  optional string mac_address = 52;    // /network-instances/network-instance/afts/next-hops/next-hop/state/mac-address
+                  optional bool pop_top_label = 58;    // /network-instances/network-instance/afts/next-hops/next-hop/state/pop-top-label
+                  repeated string pushed_mpls_label_stack = 53;    // /network-instances/network-instance/afts/next-hops/next-hop/state/pushed-mpls-label-stack
+                  optional string encapsulate_header = 57;    // /network-instances/network-instance/afts/next-hops/next-hop/state/encapsulate-header
+                  optional string decapsulate_header = 60;    // /network-instances/network-instance/afts/next-hops/next-hop/state/decapsulate-header
+                  optional string origin_protocol = 61;    // /network-instances/network-instance/afts/next-hops/next-hop/state/origin-protocol
+                  optional string lsp_name = 56;    // /network-instances/network-instance/afts/next-hops/next-hop/state/lsp-name
+                  optional uint32 vni_label = 59;    // /network-instances/network-instance/afts/next-hops/next-hop/state/vni-label
+                  optional string tunnel_src_ip_address = 62;    // /network-instances/network-instance/afts/next-hops/next-hop/state/tunnel-src-ip-address
+               }
+               optional ip_in_ip_type ip_in_ip = 154;    // /network-instances/network-instance/afts/next-hops/next-hop/ip-in-ip
+               message ip_in_ip_type {
+                  optional state_type state = 152;    // /network-instances/network-instance/afts/next-hops/next-hop/ip-in-ip/state
+                  message state_type {
+                     optional string src_ip = 81;    // /network-instances/network-instance/afts/next-hops/next-hop/ip-in-ip/state/src-ip
+                     optional string dst_ip = 82;    // /network-instances/network-instance/afts/next-hops/next-hop/ip-in-ip/state/dst-ip
+                  }
+               }
+               optional interface_ref_type interface_ref = 153;    // /network-instances/network-instance/afts/next-hops/next-hop/interface-ref
+               message interface_ref_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/afts/next-hops/next-hop/interface-ref/state
+                  message state_type {
+                     optional string interface = 51;    // /network-instances/network-instance/afts/next-hops/next-hop/interface-ref/state/interface
+                     optional uint32 subinterface = 52;    // /network-instances/network-instance/afts/next-hops/next-hop/interface-ref/state/subinterface
+                  }
+               }
+               optional juniper_type juniper = 152;    // /network-instances/network-instance/afts/next-hops/next-hop/juniper
+               message juniper_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/afts/next-hops/next-hop/juniper/state
+                  message state_type {
+                     optional bool unmapped_nexthop = 51;    // /network-instances/network-instance/afts/next-hops/next-hop/juniper/state/unmapped-nexthop
+                     repeated uint64 mapped_next_hop_index = 52;    // /network-instances/network-instance/afts/next-hops/next-hop/juniper/state/mapped-next-hop-index
+                     optional uint32 lsp_id = 53;    // /network-instances/network-instance/afts/next-hops/next-hop/juniper/state/lsp-id
+                  }
+               }
+            }
+            repeated next_hop_list next_hop = 151;
+         }
+         optional aft_summaries_type aft_summaries = 163;    // /network-instances/network-instance/afts/aft-summaries
+         message aft_summaries_type {
+            optional ipv4_unicast_type ipv4_unicast = 164;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast
+            message ipv4_unicast_type {
+               optional protocols_type protocols = 57;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols
+               message protocols_type {
+                  message protocol_list {    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol
+                     optional string origin_protocol = 59 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol/origin-protocol
+                     optional state_type state = 60;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol/state
+                     message state_type {
+                        optional string origin_protocol = 61;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol/state/origin-protocol
+                        optional counters_type counters = 62;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol/state/counters
+                        message counters_type {
+                           optional uint64 aft_entries = 63;    // /network-instances/network-instance/afts/aft-summaries/ipv4-unicast/protocols/protocol/state/counters/aft-entries
+                        }
+                     }
+                  }
+                  repeated protocol_list protocol = 58;
+               }
+            }
+            optional ipv6_unicast_type ipv6_unicast = 165;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast
+            message ipv6_unicast_type {
+               optional protocols_type protocols = 57;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols
+               message protocols_type {
+                  message protocol_list {    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol
+                     optional string origin_protocol = 59 [(telemetry_options).is_key = true];    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol/origin-protocol
+                     optional state_type state = 60;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol/state
+                     message state_type {
+                        optional string origin_protocol = 61;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol/state/origin-protocol
+                        optional counters_type counters = 62;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol/state/counters
+                        message counters_type {
+                           optional uint64 aft_entries = 63;    // /network-instances/network-instance/afts/aft-summaries/ipv6-unicast/protocols/protocol/state/counters/aft-entries
+                        }
+                     }
+                  }
+                  repeated protocol_list protocol = 58;
+               }
+            }
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

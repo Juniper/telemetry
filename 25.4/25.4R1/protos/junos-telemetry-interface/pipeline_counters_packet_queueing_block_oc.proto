@@ -1,0 +1,45 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform - This module defines a data model for representing a system
+component inventory, which can include hardware or software
+elements arranged in an arbitrary structure
+openconfig-platform-pipeline-counters - Provide fine grain, per-Integrated Circuit (IC), telemetry data streams
+that will identify the health, any packet drops, and any errors on the IC
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_queueing_block_packet_298 jnpr_components_queueing_block_packet_298_ext = 298;
+}
+
+message components_queueing_block_packet_298 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 151;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional queueing_block_type queueing_block = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block
+               message queueing_block_type {
+                  optional state_type state = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state
+                  message state_type {
+                     optional uint64 in_packets = 51;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/in-packets
+                     optional uint64 out_packets = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/out-packets
+                     optional uint64 in_bytes = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/in-bytes
+                     optional uint64 out_bytes = 54;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/out-bytes
+                     optional uint64 queue_memory = 55;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/queue-memory
+                     optional uint64 queue_memory_used = 56;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/queue-memory-used
+                     optional uint64 loopback_packets = 57;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/loopback-packets
+                     optional uint64 loopback_bytes = 58;    // /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/state/loopback-bytes
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

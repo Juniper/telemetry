@@ -1,0 +1,55 @@
+//
+// This proto file is used to decode the data for the following native config paths
+// /network-instances/network-instance/segment-routing/traffic-engineering/tunnel/lsp/transit/usage/
+//
+
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_pfe_mpls_sr_te_per_lsp_colored_transit jnpr_network_instances_pfe_mpls_sr_te_per_lsp_colored_transit_ext = 179;
+}
+
+message network_instances_pfe_mpls_sr_te_per_lsp_colored_transit {
+   message network_instance_list {
+      optional string name = 82 [(telemetry_options).is_key = true];
+      optional segment_routing_type segment_routing = 111;
+      message segment_routing_type {
+         optional te_policies_type te_policies = 124;
+         message te_policies_type {
+            message te_policy_list {
+               optional string endpoint = 115;
+               optional uint32 color = 116;
+               optional candidate_paths_type candidate_paths = 124;
+               message candidate_paths_type {
+                  message candidate_path_list {
+                     optional uint32 protocol_origin = 110;
+                     optional uint32 originator_asn = 111;
+                     optional string originator_addr = 112;
+                     optional uint32 discriminator = 113;
+                     optional segment_lists_type segment_lists = 124;
+                     message segment_lists_type {
+                        message segment_list_list {
+                           optional uint32 id = 114 [(telemetry_options).is_key = true];
+                           optional state_type state = 124;
+                           message state_type {
+                              optional counters_type counters = 124;
+                              message counters_type {
+                                 optional uint64 out_labeled_pkts = 106;
+                                 optional uint64 out_labeled_octets = 107;
+                              }
+                           }
+                        }
+                        repeated segment_list_list segment_list = 124;
+                     }
+                  }
+                  repeated candidate_path_list candidate_path = 124;
+               }
+            }
+            repeated te_policy_list te_policy = 124;
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 175;
+}

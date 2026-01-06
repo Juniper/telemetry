@@ -1,0 +1,57 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-yang-types - This module contains a set of extension types to the
+YANG builtin types that are used across multiple
+OpenConfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-interfaces - This module contains a collection of top level nodes for JUNOS
+interfaces state data
+junos-state-interfaces-ethernet - This module contains a collection of Ethernet specific nodes for
+JUNOS Interface state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_mib_249 jnpr_state_mib_249_ext = 249;
+}
+
+message state_mib_249 {    // /state
+   optional interfaces_type interfaces = 50;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         optional string media_type = 67;    // /state/interfaces/interface/media-type
+         optional string link_level_type = 72;    // /state/interfaces/interface/link-level-type
+         optional flags_type flags = 74;    // /state/interfaces/interface/flags
+         message flags_type {
+            repeated string config = 70;    // /state/interfaces/interface/flags/config
+            repeated string specific_config = 68;    // /state/interfaces/interface/flags/specific-config
+            repeated string media = 71;    // /state/interfaces/interface/flags/media
+            repeated string device = 69;    // /state/interfaces/interface/flags/device
+            repeated string error = 57;    // /state/interfaces/interface/flags/error
+         }
+         optional uint32 index = 66;    // /state/interfaces/interface/index
+         optional ethernet_type ethernet = 151;    // /state/interfaces/interface/ethernet
+         message ethernet_type {
+            optional string speed = 57;    // /state/interfaces/interface/ethernet/speed
+            optional string fec_mode = 51;    // /state/interfaces/interface/ethernet/fec-mode
+            optional uint32 fec_codeword_size = 52;    // /state/interfaces/interface/ethernet/fec-codeword-size
+            optional double fec_codeword_rate = 53;    // /state/interfaces/interface/ethernet/fec-codeword-rate
+            optional counters_type counters = 152;    // /state/interfaces/interface/ethernet/counters
+            message counters_type {
+               optional uint64 in_pcs_errored_seconds = 54;    // /state/interfaces/interface/ethernet/counters/in-pcs-errored-seconds
+               optional uint64 fec_corrected_words = 55;    // /state/interfaces/interface/ethernet/counters/fec-corrected-words
+               optional uint64 fec_uncorrectable_words = 56;    // /state/interfaces/interface/ethernet/counters/fec-uncorrectable-words
+            }
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

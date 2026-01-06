@@ -1,0 +1,167 @@
+/* 
+This proto is generated from below openconfig models
+jnx-aug-openconfig-gribi-statistics - This module defines the gRIBI statistics model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional gribi_statistics_gribi_stats_229 jnpr_gribi_statistics_gribi_stats_229_ext = 229;
+}
+
+message gribi_statistics_gribi_stats_229 {    // /gribi-statistics
+   optional state_type state = 1;    // /gribi-statistics/state
+   message state_type {
+      optional uint32 stats_aggregation_interval = 301;    // /gribi-statistics/state/stats-aggregation-interval
+      optional uint32 stats_sampling_interval = 302;    // /gribi-statistics/state/stats-sampling-interval
+      optional uint32 num_clients = 102;    // /gribi-statistics/state/num-clients
+      optional uint32 client_flaps = 103;    // /gribi-statistics/state/client-flaps
+      optional uint32 programmed_route_count = 104;    // /gribi-statistics/state/programmed-route-count
+      optional uint32 connection_termination_errors = 105;    // /gribi-statistics/state/connection-termination-errors
+      optional uint32 fib_ack_failures = 106;    // /gribi-statistics/state/fib-ack-failures
+      optional add_operations_type add_operations = 107;    // /gribi-statistics/state/add-operations
+      message add_operations_type {
+         optional uint32 ipv4 = 108;    // /gribi-statistics/state/add-operations/ipv4
+         optional uint32 ipv6 = 109;    // /gribi-statistics/state/add-operations/ipv6
+         optional uint32 next_hop = 110;    // /gribi-statistics/state/add-operations/next-hop
+         optional uint32 next_hop_group = 111;    // /gribi-statistics/state/add-operations/next-hop-group
+      }
+      optional replace_operations_type replace_operations = 112;    // /gribi-statistics/state/replace-operations
+      message replace_operations_type {
+         optional uint32 ipv4 = 113;    // /gribi-statistics/state/replace-operations/ipv4
+         optional uint32 ipv6 = 114;    // /gribi-statistics/state/replace-operations/ipv6
+         optional uint32 next_hop = 115;    // /gribi-statistics/state/replace-operations/next-hop
+         optional uint32 next_hop_group = 116;    // /gribi-statistics/state/replace-operations/next-hop-group
+      }
+      optional delete_operations_type delete_operations = 117;    // /gribi-statistics/state/delete-operations
+      message delete_operations_type {
+         optional uint32 ipv4 = 118;    // /gribi-statistics/state/delete-operations/ipv4
+         optional uint32 ipv6 = 119;    // /gribi-statistics/state/delete-operations/ipv6
+         optional uint32 next_hop = 120;    // /gribi-statistics/state/delete-operations/next-hop
+         optional uint32 next_hop_group = 121;    // /gribi-statistics/state/delete-operations/next-hop-group
+      }
+      optional get_operations_type get_operations = 122;    // /gribi-statistics/state/get-operations
+      message get_operations_type {
+         optional uint32 ipv4 = 123;    // /gribi-statistics/state/get-operations/ipv4
+         optional uint32 ipv6 = 124;    // /gribi-statistics/state/get-operations/ipv6
+         optional uint32 next_hop = 125;    // /gribi-statistics/state/get-operations/next-hop
+         optional uint32 next_hop_group = 126;    // /gribi-statistics/state/get-operations/next-hop-group
+      }
+      optional mod_req_queue_size_type mod_req_queue_size = 127;    // /gribi-statistics/state/mod-req-queue-size
+      message mod_req_queue_size_type {
+         optional uint64 min = 128;    // /gribi-statistics/state/mod-req-queue-size/min
+         optional uint64 max = 129;    // /gribi-statistics/state/mod-req-queue-size/max
+         optional uint64 mean = 130;    // /gribi-statistics/state/mod-req-queue-size/mean
+      }
+      optional get_req_queue_size_type get_req_queue_size = 131;    // /gribi-statistics/state/get-req-queue-size
+      message get_req_queue_size_type {
+         optional uint64 min = 132;    // /gribi-statistics/state/get-req-queue-size/min
+         optional uint64 max = 133;    // /gribi-statistics/state/get-req-queue-size/max
+         optional uint64 mean = 134;    // /gribi-statistics/state/get-req-queue-size/mean
+      }
+      optional add_operation_batch_size_type add_operation_batch_size = 135;    // /gribi-statistics/state/add-operation-batch-size
+      message add_operation_batch_size_type {
+         optional uint64 min = 136;    // /gribi-statistics/state/add-operation-batch-size/min
+         optional uint64 max = 137;    // /gribi-statistics/state/add-operation-batch-size/max
+         optional uint64 mean = 138;    // /gribi-statistics/state/add-operation-batch-size/mean
+      }
+      optional replace_operation_batch_size_type replace_operation_batch_size = 139;    // /gribi-statistics/state/replace-operation-batch-size
+      message replace_operation_batch_size_type {
+         optional uint64 min = 140;    // /gribi-statistics/state/replace-operation-batch-size/min
+         optional uint64 max = 141;    // /gribi-statistics/state/replace-operation-batch-size/max
+         optional uint64 mean = 142;    // /gribi-statistics/state/replace-operation-batch-size/mean
+      }
+      optional delete_operation_batch_size_type delete_operation_batch_size = 143;    // /gribi-statistics/state/delete-operation-batch-size
+      message delete_operation_batch_size_type {
+         optional uint64 min = 144;    // /gribi-statistics/state/delete-operation-batch-size/min
+         optional uint64 max = 145;    // /gribi-statistics/state/delete-operation-batch-size/max
+         optional uint64 mean = 146;    // /gribi-statistics/state/delete-operation-batch-size/mean
+      }
+      optional fib_response_time_type fib_response_time = 147;    // /gribi-statistics/state/fib-response-time
+      message fib_response_time_type {
+         optional uint64 min = 148;    // /gribi-statistics/state/fib-response-time/min
+         optional uint64 max = 149;    // /gribi-statistics/state/fib-response-time/max
+         optional uint64 mean = 150;    // /gribi-statistics/state/fib-response-time/mean
+      }
+   }
+   optional clients_type clients = 2;    // /gribi-statistics/clients
+   message clients_type {
+      message client_list {    // /gribi-statistics/clients/client
+         optional string client_id = 202 [(telemetry_options).is_key = true];    // /gribi-statistics/clients/client/client-id
+         optional state_type state = 203;    // /gribi-statistics/clients/client/state
+         message state_type {
+            optional uint32 client_flaps = 206;    // /gribi-statistics/clients/client/state/client-flaps
+            optional uint32 programmed_route_count = 207;    // /gribi-statistics/clients/client/state/programmed-route-count
+            optional uint32 connection_termination_errors = 208;    // /gribi-statistics/clients/client/state/connection-termination-errors
+            optional uint32 fib_ack_failures = 209;    // /gribi-statistics/clients/client/state/fib-ack-failures
+            optional add_operations_type add_operations = 210;    // /gribi-statistics/clients/client/state/add-operations
+            message add_operations_type {
+               optional uint32 ipv4 = 211;    // /gribi-statistics/clients/client/state/add-operations/ipv4
+               optional uint32 ipv6 = 212;    // /gribi-statistics/clients/client/state/add-operations/ipv6
+               optional uint32 next_hop = 213;    // /gribi-statistics/clients/client/state/add-operations/next-hop
+               optional uint32 next_hop_group = 214;    // /gribi-statistics/clients/client/state/add-operations/next-hop-group
+            }
+            optional replace_operations_type replace_operations = 215;    // /gribi-statistics/clients/client/state/replace-operations
+            message replace_operations_type {
+               optional uint32 ipv4 = 216;    // /gribi-statistics/clients/client/state/replace-operations/ipv4
+               optional uint32 ipv6 = 217;    // /gribi-statistics/clients/client/state/replace-operations/ipv6
+               optional uint32 next_hop = 218;    // /gribi-statistics/clients/client/state/replace-operations/next-hop
+               optional uint32 next_hop_group = 219;    // /gribi-statistics/clients/client/state/replace-operations/next-hop-group
+            }
+            optional delete_operations_type delete_operations = 220;    // /gribi-statistics/clients/client/state/delete-operations
+            message delete_operations_type {
+               optional uint32 ipv4 = 221;    // /gribi-statistics/clients/client/state/delete-operations/ipv4
+               optional uint32 ipv6 = 222;    // /gribi-statistics/clients/client/state/delete-operations/ipv6
+               optional uint32 next_hop = 223;    // /gribi-statistics/clients/client/state/delete-operations/next-hop
+               optional uint32 next_hop_group = 224;    // /gribi-statistics/clients/client/state/delete-operations/next-hop-group
+            }
+            optional get_operations_type get_operations = 225;    // /gribi-statistics/clients/client/state/get-operations
+            message get_operations_type {
+               optional uint32 ipv4 = 226;    // /gribi-statistics/clients/client/state/get-operations/ipv4
+               optional uint32 ipv6 = 227;    // /gribi-statistics/clients/client/state/get-operations/ipv6
+               optional uint32 next_hop = 228;    // /gribi-statistics/clients/client/state/get-operations/next-hop
+               optional uint32 next_hop_group = 229;    // /gribi-statistics/clients/client/state/get-operations/next-hop-group
+            }
+            optional mod_req_queue_size_type mod_req_queue_size = 230;    // /gribi-statistics/clients/client/state/mod-req-queue-size
+            message mod_req_queue_size_type {
+               optional uint64 min = 231;    // /gribi-statistics/clients/client/state/mod-req-queue-size/min
+               optional uint64 max = 232;    // /gribi-statistics/clients/client/state/mod-req-queue-size/max
+               optional uint64 mean = 233;    // /gribi-statistics/clients/client/state/mod-req-queue-size/mean
+            }
+            optional get_req_queue_size_type get_req_queue_size = 234;    // /gribi-statistics/clients/client/state/get-req-queue-size
+            message get_req_queue_size_type {
+               optional uint64 min = 235;    // /gribi-statistics/clients/client/state/get-req-queue-size/min
+               optional uint64 max = 236;    // /gribi-statistics/clients/client/state/get-req-queue-size/max
+               optional uint64 mean = 237;    // /gribi-statistics/clients/client/state/get-req-queue-size/mean
+            }
+            optional add_operation_batch_size_type add_operation_batch_size = 238;    // /gribi-statistics/clients/client/state/add-operation-batch-size
+            message add_operation_batch_size_type {
+               optional uint64 min = 239;    // /gribi-statistics/clients/client/state/add-operation-batch-size/min
+               optional uint64 max = 240;    // /gribi-statistics/clients/client/state/add-operation-batch-size/max
+               optional uint64 mean = 241;    // /gribi-statistics/clients/client/state/add-operation-batch-size/mean
+            }
+            optional replace_operation_batch_size_type replace_operation_batch_size = 242;    // /gribi-statistics/clients/client/state/replace-operation-batch-size
+            message replace_operation_batch_size_type {
+               optional uint64 min = 243;    // /gribi-statistics/clients/client/state/replace-operation-batch-size/min
+               optional uint64 max = 244;    // /gribi-statistics/clients/client/state/replace-operation-batch-size/max
+               optional uint64 mean = 245;    // /gribi-statistics/clients/client/state/replace-operation-batch-size/mean
+            }
+            optional delete_operation_batch_size_type delete_operation_batch_size = 246;    // /gribi-statistics/clients/client/state/delete-operation-batch-size
+            message delete_operation_batch_size_type {
+               optional uint64 min = 247;    // /gribi-statistics/clients/client/state/delete-operation-batch-size/min
+               optional uint64 max = 248;    // /gribi-statistics/clients/client/state/delete-operation-batch-size/max
+               optional uint64 mean = 249;    // /gribi-statistics/clients/client/state/delete-operation-batch-size/mean
+            }
+            optional fib_response_time_type fib_response_time = 250;    // /gribi-statistics/clients/client/state/fib-response-time
+            message fib_response_time_type {
+               optional uint64 min = 251;    // /gribi-statistics/clients/client/state/fib-response-time/min
+               optional uint64 max = 252;    // /gribi-statistics/clients/client/state/fib-response-time/max
+               optional uint64 mean = 253;    // /gribi-statistics/clients/client/state/fib-response-time/mean
+            }
+            optional uint32 up_time = 205;    // /gribi-statistics/clients/client/state/up-time
+         }
+      }
+      repeated client_list client = 201;
+   }
+}

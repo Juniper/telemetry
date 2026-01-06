@@ -1,0 +1,30 @@
+/* 
+This proto is generated from below openconfig models
+pfed_base
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_pfe jnpr_junos_pfe_ext = 57;
+}
+
+message junos_pfe {    // /junos
+   message npu_memory_list {    // /junos/npu-memory
+      optional string pfe_name = 51 [(telemetry_options).is_key = true];    // /junos/npu-memory/pfe-name
+      optional string combined_pool_name = 52;    // /junos/npu-memory/combined-pool-name
+      optional uint32 combined_size = 53;    // /junos/npu-memory/combined-size
+      optional uint32 combined_usage_count = 54;    // /junos/npu-memory/combined-usage-count
+      optional uint32 combined_utilization = 55;    // /junos/npu-memory/combined-utilization
+      optional string global_pool_name = 56;    // /junos/npu-memory/global-pool-name
+      optional uint32 global_usage_count = 57;    // /junos/npu-memory/global-usage-count
+      optional uint32 global_alloc_count = 58;    // /junos/npu-memory/global-alloc-count
+      optional uint32 global_free_count = 59;    // /junos/npu-memory/global-free-count
+      optional string local_pool_name = 60;    // /junos/npu-memory/local-pool-name
+      optional uint32 local_usage_count = 61;    // /junos/npu-memory/local-usage-count
+      optional uint32 local_alloc_count = 62;    // /junos/npu-memory/local-alloc-count
+      optional uint32 local_free_count = 63;    // /junos/npu-memory/local-free-count
+   }
+   repeated npu_memory_list npu_memory = 151;
+}

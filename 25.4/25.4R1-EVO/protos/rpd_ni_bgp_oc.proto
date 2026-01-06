@@ -1,0 +1,1395 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-bgp - This module describes a YANG model for BGP protocol
+configuration
+openconfig-bfd - An OpenConfig model of Bi-Directional Forwarding Detection (BFD)
+configuration and operational state
+openconfig-routing-policy - This module describes a YANG model for routing policy
+configuration
+openconfig-inet-types - This module contains a set of Internet address related
+types for use in OpenConfig modules
+jnx-aug-openconfig-ni - This module contains augments to openconfig network-instance model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_ni_bgp jnpr_network_instances_ni_bgp_ext = 67;
+}
+
+message network_instances_ni_bgp {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/state
+            message state_type {
+               optional string identifier = 51;    // /network-instances/network-instance/protocols/protocol/state/identifier
+               optional string name = 52;    // /network-instances/network-instance/protocols/protocol/state/name
+               optional bool enabled = 53;    // /network-instances/network-instance/protocols/protocol/state/enabled
+            }
+            optional bgp_type bgp = 101;    // /network-instances/network-instance/protocols/protocol/bgp
+            message bgp_type {
+               optional global_type global = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global
+               message global_type {
+                  optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/state
+                  message state_type {
+                     optional uint32 as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/state/as
+                     optional string router_id = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/state/router-id
+                     optional uint32 total_paths = 81;    // /network-instances/network-instance/protocols/protocol/bgp/global/state/total-paths
+                     optional uint32 total_prefixes = 82;    // /network-instances/network-instance/protocols/protocol/bgp/global/state/total-prefixes
+                  }
+                  optional default_route_distance_type default_route_distance = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/default-route-distance
+                  message default_route_distance_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/default-route-distance/state
+                     message state_type {
+                        optional uint32 external_route_distance = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/default-route-distance/state/external-route-distance
+                        optional uint32 internal_route_distance = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/default-route-distance/state/internal-route-distance
+                     }
+                  }
+                  optional route_selection_options_type route_selection_options = 153;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options
+                  message route_selection_options_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options/state
+                     message state_type {
+                        optional bool always_compare_med = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options/state/always-compare-med
+                        optional bool ignore_as_path_length = 53;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options/state/ignore-as-path-length
+                        optional bool external_compare_router_id = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options/state/external-compare-router-id
+                        optional bool advertise_inactive_routes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/route-selection-options/state/advertise-inactive-routes
+                     }
+                  }
+                  optional confederation_type confederation = 154;    // /network-instances/network-instance/protocols/protocol/bgp/global/confederation
+                  message confederation_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/confederation/state
+                     message state_type {
+                        optional uint32 identifier = 53;    // /network-instances/network-instance/protocols/protocol/bgp/global/confederation/state/identifier
+                        repeated uint32 member_as = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/confederation/state/member-as
+                     }
+                  }
+                  optional graceful_restart_type graceful_restart = 155;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart
+                  message graceful_restart_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart/state
+                     message state_type {
+                        optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart/state/enabled
+                        optional uint32 restart_time = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart/state/restart-time
+                        optional uint32 stale_routes_time = 53;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart/state/stale-routes-time
+                        optional bool helper_only = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/graceful-restart/state/helper-only
+                     }
+                  }
+                  optional use_multiple_paths_type use_multiple_paths = 156;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths
+                  message use_multiple_paths_type {
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/state
+                     message state_type {
+                        optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/state/enabled
+                     }
+                     optional ebgp_type ebgp = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ebgp
+                     message ebgp_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ebgp/state
+                        message state_type {
+                           optional bool allow_multiple_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ebgp/state/allow-multiple-as
+                           optional uint32 maximum_paths = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ebgp/state/maximum-paths
+                        }
+                     }
+                     optional ibgp_type ibgp = 153;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ibgp
+                     message ibgp_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ibgp/state
+                        message state_type {
+                           optional uint32 maximum_paths = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/use-multiple-paths/ibgp/state/maximum-paths
+                        }
+                     }
+                  }
+                  optional afi_safis_type afi_safis = 157;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis
+                  message afi_safis_type {
+                     message afi_safi_list {    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi
+                        optional string afi_safi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/afi-safi-name
+                        optional graceful_restart_type graceful_restart = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/graceful-restart
+                        message graceful_restart_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/graceful-restart/state
+                           message state_type {
+                              optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/graceful-restart/state/enabled
+                           }
+                        }
+                        optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state
+                        message state_type {
+                           optional string afi_safi_name = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state/afi-safi-name
+                           optional bool enabled = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state/enabled
+                           repeated string send_community_type = 53;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state/send-community-type
+                           optional uint32 total_paths = 81;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state/total-paths
+                           optional uint32 total_prefixes = 82;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/state/total-prefixes
+                        }
+                        optional add_paths_type add_paths = 153;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths
+                        message add_paths_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths/state
+                           message state_type {
+                              optional bool receive = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths/state/receive
+                              optional bool send = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths/state/send
+                              optional uint32 send_max = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths/state/send-max
+                              optional string eligible_prefix_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/add-paths/state/eligible-prefix-policy
+                           }
+                        }
+                        optional ipv4_unicast_type ipv4_unicast = 154;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast
+                        message ipv4_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                           optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/state
+                           message state_type {
+                              optional bool extended_next_hop_encoding = 55;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-unicast/state/extended-next-hop-encoding
+                           }
+                        }
+                        optional ipv6_unicast_type ipv6_unicast = 155;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast
+                        message ipv6_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional ipv4_labeled_unicast_type ipv4_labeled_unicast = 156;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast
+                        message ipv4_labeled_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional ipv6_labeled_unicast_type ipv6_labeled_unicast = 157;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast
+                        message ipv6_labeled_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l3vpn_ipv4_unicast_type l3vpn_ipv4_unicast = 158;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast
+                        message l3vpn_ipv4_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l3vpn_ipv6_unicast_type l3vpn_ipv6_unicast = 159;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast
+                        message l3vpn_ipv6_unicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l3vpn_ipv4_multicast_type l3vpn_ipv4_multicast = 160;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast
+                        message l3vpn_ipv4_multicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l3vpn_ipv6_multicast_type l3vpn_ipv6_multicast = 161;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast
+                        message l3vpn_ipv6_multicast_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l2vpn_vpls_type l2vpn_vpls = 162;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls
+                        message l2vpn_vpls_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional l2vpn_evpn_type l2vpn_evpn = 163;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn
+                        message l2vpn_evpn_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional srte_policy_ipv4_type srte_policy_ipv4 = 164;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4
+                        message srte_policy_ipv4_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                        optional srte_policy_ipv6_type srte_policy_ipv6 = 165;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6
+                        message srte_policy_ipv6_type {
+                           optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit
+                           message prefix_limit_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/warning-threshold-pct
+                              }
+                           }
+                           optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received
+                           message prefix_limit_received_type {
+                              optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state
+                              message state_type {
+                                 optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/max-prefixes
+                                 optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/prevent-teardown
+                                 optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/global/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/warning-threshold-pct
+                              }
+                           }
+                        }
+                     }
+                     repeated afi_safi_list afi_safi = 151;
+                  }
+               }
+               optional neighbors_type neighbors = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor
+                     optional string neighbor_address = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/neighbor-address
+                     optional uint32 snmp_peer_index = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/snmp-peer-index
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state
+                     message state_type {
+                        optional uint32 peer_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as
+                        optional uint32 local_as = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/local-as
+                        optional string peer_type = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-type
+                        optional string auth_password = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/auth-password
+                        optional string remove_private_as = 55;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/remove-private-as
+                        optional bool route_flap_damping = 56;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/route-flap-damping
+                        repeated string send_community_type = 58;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/send-community-type
+                        optional string description = 57;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description
+                        optional string session_state = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state
+                        optional uint64 last_established = 62;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/last-established
+                        optional uint64 established_transitions = 63;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/established-transitions
+                        repeated string supported_capabilities = 64;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/supported-capabilities
+                        optional messages_type messages = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages
+                        message messages_type {
+                           optional sent_type sent = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent
+                           message sent_type {
+                              optional uint64 UPDATE = 65;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent/UPDATE
+                              optional uint64 NOTIFICATION = 66;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent/NOTIFICATION
+                              optional uint64 last_notification_time = 71;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent/last-notification-time
+                              optional string last_notification_error_code = 72;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent/last-notification-error-code
+                              optional string last_notification_error_subcode = 73;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/sent/last-notification-error-subcode
+                           }
+                           optional received_type received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received
+                           message received_type {
+                              optional uint64 UPDATE = 67;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received/UPDATE
+                              optional uint64 NOTIFICATION = 68;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received/NOTIFICATION
+                              optional uint64 last_notification_time = 74;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received/last-notification-time
+                              optional string last_notification_error_code = 75;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received/last-notification-error-code
+                              optional string last_notification_error_subcode = 76;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/messages/received/last-notification-error-subcode
+                           }
+                        }
+                        optional queues_type queues = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues
+                        message queues_type {
+                           optional uint32 input = 69;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/input
+                           optional uint32 output = 70;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/output
+                        }
+                        optional bool dynamically_configured = 77;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/dynamically-configured
+                        optional string session_status = 71;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-status
+                        optional string session_admin_status = 72;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-admin-status
+                        optional bool interface_error = 74;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/interface-error
+                        optional bool import_eval_pending = 75;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/import-eval-pending
+                        optional bool import_eval = 76;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/import-eval
+                        optional string peer_group = 81;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-group
+                        optional string neighbor_address = 82;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/neighbor-address
+                        optional uint32 neighbor_port = 83;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/neighbor-port
+                        optional bool enabled = 85;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/enabled
+                        optional uint32 snmp_peer_index = 84;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/snmp-peer-index
+                     }
+                     optional timers_type timers = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers
+                     message timers_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state
+                        message state_type {
+                           optional uint32 connect_retry = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/connect-retry
+                           optional uint32 hold_time = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/hold-time
+                           optional uint32 keepalive_interval = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/keepalive-interval
+                           optional uint32 minimum_advertisement_interval = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/minimum-advertisement-interval
+                           optional uint32 restart_time = 55;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/restart-time
+                           optional uint32 negotiated_hold_time = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/timers/state/negotiated-hold-time
+                        }
+                     }
+                     optional transport_type transport = 153;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport
+                     message transport_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state
+                        message state_type {
+                           optional uint32 tcp_mss = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/tcp-mss
+                           optional bool mtu_discovery = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/mtu-discovery
+                           optional bool passive_mode = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/passive-mode
+                           optional string local_address = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/local-address
+                           optional uint32 local_port = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/local-port
+                           optional string remote_address = 62;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/remote-address
+                           optional uint32 remote_port = 63;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/transport/state/remote-port
+                        }
+                     }
+                     optional error_handling_type error_handling = 154;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/error-handling
+                     message error_handling_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/error-handling/state
+                        message state_type {
+                           optional bool treat_as_withdraw = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/error-handling/state/treat-as-withdraw
+                           optional uint32 erroneous_update_messages = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/error-handling/state/erroneous-update-messages
+                        }
+                     }
+                     optional logging_options_type logging_options = 155;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/logging-options
+                     message logging_options_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/logging-options/state
+                        message state_type {
+                           optional bool log_neighbor_state_changes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/logging-options/state/log-neighbor-state-changes
+                        }
+                     }
+                     optional ebgp_multihop_type ebgp_multihop = 156;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/ebgp-multihop
+                     message ebgp_multihop_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/ebgp-multihop/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/ebgp-multihop/state/enabled
+                           optional uint32 multihop_ttl = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/ebgp-multihop/state/multihop-ttl
+                        }
+                     }
+                     optional route_reflector_type route_reflector = 157;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/route-reflector
+                     message route_reflector_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/route-reflector/state
+                        message state_type {
+                           optional string route_reflector_cluster_id = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/route-reflector/state/route-reflector-cluster-id
+                           optional bool route_reflector_client = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/route-reflector/state/route-reflector-client
+                        }
+                     }
+                     optional as_path_options_type as_path_options = 158;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/as-path-options
+                     message as_path_options_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/as-path-options/state
+                        message state_type {
+                           optional uint32 allow_own_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/as-path-options/state/allow-own-as
+                           optional bool replace_peer_as = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/as-path-options/state/replace-peer-as
+                           optional bool disable_peer_as_filter = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/as-path-options/state/disable-peer-as-filter
+                        }
+                     }
+                     optional use_multiple_paths_type use_multiple_paths = 159;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths
+                     message use_multiple_paths_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths/state/enabled
+                        }
+                        optional ebgp_type ebgp = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths/ebgp
+                        message ebgp_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths/ebgp/state
+                           message state_type {
+                              optional bool allow_multiple_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/use-multiple-paths/ebgp/state/allow-multiple-as
+                           }
+                        }
+                     }
+                     optional afi_safis_type afi_safis = 160;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis
+                     message afi_safis_type {
+                        message afi_safi_list {    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi
+                           optional string afi_safi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/afi-safi-name
+                           optional graceful_restart_type graceful_restart = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/graceful-restart
+                           message graceful_restart_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/graceful-restart/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/graceful-restart/state/enabled
+                                 optional bool received = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/graceful-restart/state/received
+                                 optional bool advertised = 62;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/graceful-restart/state/advertised
+                              }
+                           }
+                           optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state
+                           message state_type {
+                              optional string afi_safi_name = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/afi-safi-name
+                              optional bool enabled = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/enabled
+                              repeated string send_community_type = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/send-community-type
+                              optional bool active = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/active
+                              optional prefixes_type prefixes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes
+                              message prefixes_type {
+                                 optional uint32 received = 63;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received
+                                 optional uint32 received_pre_policy = 64;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received-pre-policy
+                                 optional uint32 sent = 65;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/sent
+                                 optional uint32 installed = 66;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/installed
+                                 optional uint32 accepted = 62;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/accepted
+                                 optional uint32 rejected = 70;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/rejected
+                              }
+                              optional queues_type queues = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/queues
+                              message queues_type {
+                                 optional uint32 input = 73;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/queues/input
+                                 optional uint32 output = 74;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/queues/output
+                              }
+                           }
+                           optional add_paths_type add_paths = 153;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths
+                           message add_paths_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths/state
+                              message state_type {
+                                 optional bool receive = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths/state/receive
+                                 optional bool send = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths/state/send
+                                 optional uint32 send_max = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths/state/send-max
+                                 optional string eligible_prefix_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/add-paths/state/eligible-prefix-policy
+                              }
+                           }
+                           optional apply_policy_type apply_policy = 171;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy
+                           message apply_policy_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy/state
+                              message state_type {
+                                 repeated string import_policy = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy/state/import-policy
+                                 repeated string export_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy/state/export-policy
+                                 optional string default_import_policy = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy/state/default-import-policy
+                                 optional string default_export_policy = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/apply-policy/state/default-export-policy
+                              }
+                           }
+                           optional ipv4_unicast_type ipv4_unicast = 154;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast
+                           message ipv4_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/state
+                              message state_type {
+                                 optional bool extended_next_hop_encoding = 55;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-unicast/state/extended-next-hop-encoding
+                              }
+                           }
+                           optional ipv6_unicast_type ipv6_unicast = 155;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast
+                           message ipv6_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional ipv4_labeled_unicast_type ipv4_labeled_unicast = 156;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast
+                           message ipv4_labeled_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional ipv6_labeled_unicast_type ipv6_labeled_unicast = 157;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast
+                           message ipv6_labeled_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv4_unicast_type l3vpn_ipv4_unicast = 158;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast
+                           message l3vpn_ipv4_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv6_unicast_type l3vpn_ipv6_unicast = 159;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast
+                           message l3vpn_ipv6_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv4_multicast_type l3vpn_ipv4_multicast = 160;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast
+                           message l3vpn_ipv4_multicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv6_multicast_type l3vpn_ipv6_multicast = 161;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast
+                           message l3vpn_ipv6_multicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l2vpn_vpls_type l2vpn_vpls = 162;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls
+                           message l2vpn_vpls_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l2vpn_evpn_type l2vpn_evpn = 163;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn
+                           message l2vpn_evpn_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional srte_policy_ipv4_type srte_policy_ipv4 = 164;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4
+                           message srte_policy_ipv4_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional srte_policy_ipv6_type srte_policy_ipv6 = 165;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6
+                           message srte_policy_ipv6_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                        }
+                        repeated afi_safi_list afi_safi = 51;
+                     }
+                     optional graceful_restart_type graceful_restart = 161;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart
+                     message graceful_restart_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/enabled
+                           optional uint32 restart_time = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/restart-time
+                           optional uint32 stale_routes_time = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/stale-routes-time
+                           optional bool helper_only = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/helper-only
+                           optional uint32 peer_restart_time = 61;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/peer-restart-time
+                           optional bool peer_restarting = 62;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/peer-restarting
+                           optional bool local_restarting = 63;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/local-restarting
+                           optional string mode = 64;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/graceful-restart/state/mode
+                        }
+                     }
+                     optional apply_policy_type apply_policy = 171;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy
+                     message apply_policy_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy/state
+                        message state_type {
+                           repeated string import_policy = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy/state/import-policy
+                           repeated string export_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy/state/export-policy
+                           optional string default_import_policy = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy/state/default-import-policy
+                           optional string default_export_policy = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/apply-policy/state/default-export-policy
+                        }
+                     }
+                     optional enable_bfd_type enable_bfd = 172;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd
+                     message enable_bfd_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/enabled
+                           optional uint32 jnx_min_tx_interval = 52;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/jnx-min-tx-interval
+                           optional uint32 jnx_local_multiplier = 53;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/jnx-local-multiplier
+                           optional uint32 jnx_min_rx_interval = 54;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/jnx-min-rx-interval
+                           optional bool jnx_session_state = 55;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/jnx-session-state
+                           optional string jnx_session_mode = 56;    // /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/enable-bfd/state/jnx-session-mode
+                        }
+                     }
+                  }
+                  repeated neighbor_list neighbor = 151;
+               }
+               optional peer_groups_type peer_groups = 153;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups
+               message peer_groups_type {
+                  message peer_group_list {    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group
+                     optional string peer_group_name = 61 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/peer-group-name
+                     optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state
+                     message state_type {
+                        optional uint32 peer_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/peer-as
+                        optional uint32 local_as = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/local-as
+                        optional string peer_type = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/peer-type
+                        optional string auth_password = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/auth-password
+                        optional string remove_private_as = 55;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/remove-private-as
+                        optional bool route_flap_damping = 56;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/route-flap-damping
+                        repeated string send_community_type = 58;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/send-community-type
+                        optional string description = 57;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/description
+                        optional string peer_group_name = 61;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/peer-group-name
+                        optional uint32 total_paths = 81;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-paths
+                        optional uint32 total_prefixes = 82;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-prefixes
+                     }
+                     optional timers_type timers = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers
+                     message timers_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state
+                        message state_type {
+                           optional uint32 connect_retry = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state/connect-retry
+                           optional uint32 hold_time = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state/hold-time
+                           optional uint32 keepalive_interval = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state/keepalive-interval
+                           optional uint32 minimum_advertisement_interval = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state/minimum-advertisement-interval
+                           optional uint32 restart_time = 55;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/timers/state/restart-time
+                        }
+                     }
+                     optional transport_type transport = 153;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport
+                     message transport_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport/state
+                        message state_type {
+                           optional uint32 tcp_mss = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport/state/tcp-mss
+                           optional bool mtu_discovery = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport/state/mtu-discovery
+                           optional bool passive_mode = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport/state/passive-mode
+                           optional string local_address = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/transport/state/local-address
+                        }
+                     }
+                     optional error_handling_type error_handling = 154;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/error-handling
+                     message error_handling_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/error-handling/state
+                        message state_type {
+                           optional bool treat_as_withdraw = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/error-handling/state/treat-as-withdraw
+                        }
+                     }
+                     optional logging_options_type logging_options = 155;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/logging-options
+                     message logging_options_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/logging-options/state
+                        message state_type {
+                           optional bool log_neighbor_state_changes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/logging-options/state/log-neighbor-state-changes
+                        }
+                     }
+                     optional ebgp_multihop_type ebgp_multihop = 156;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/ebgp-multihop
+                     message ebgp_multihop_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/ebgp-multihop/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/ebgp-multihop/state/enabled
+                           optional uint32 multihop_ttl = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/ebgp-multihop/state/multihop-ttl
+                        }
+                     }
+                     optional route_reflector_type route_reflector = 157;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/route-reflector
+                     message route_reflector_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/route-reflector/state
+                        message state_type {
+                           optional string route_reflector_cluster_id = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/route-reflector/state/route-reflector-cluster-id
+                           optional bool route_reflector_client = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/route-reflector/state/route-reflector-client
+                        }
+                     }
+                     optional as_path_options_type as_path_options = 158;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/as-path-options
+                     message as_path_options_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/as-path-options/state
+                        message state_type {
+                           optional uint32 allow_own_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/as-path-options/state/allow-own-as
+                           optional bool replace_peer_as = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/as-path-options/state/replace-peer-as
+                        }
+                     }
+                     optional use_multiple_paths_type use_multiple_paths = 159;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths
+                     message use_multiple_paths_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/state/enabled
+                        }
+                        optional ebgp_type ebgp = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp
+                        message ebgp_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/state
+                           message state_type {
+                              optional bool allow_multiple_as = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/state/allow-multiple-as
+                              optional uint32 maximum_paths = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/state/maximum-paths
+                           }
+                           optional link_bandwidth_ext_community_type link_bandwidth_ext_community = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/link-bandwidth-ext-community
+                           message link_bandwidth_ext_community_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/link-bandwidth-ext-community/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ebgp/link-bandwidth-ext-community/state/enabled
+                              }
+                           }
+                        }
+                        optional ibgp_type ibgp = 153;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp
+                        message ibgp_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp/state
+                           message state_type {
+                              optional uint32 maximum_paths = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp/state/maximum-paths
+                           }
+                           optional link_bandwidth_ext_community_type link_bandwidth_ext_community = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp/link-bandwidth-ext-community
+                           message link_bandwidth_ext_community_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp/link-bandwidth-ext-community/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/use-multiple-paths/ibgp/link-bandwidth-ext-community/state/enabled
+                              }
+                           }
+                        }
+                     }
+                     optional afi_safis_type afi_safis = 160;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis
+                     message afi_safis_type {
+                        message afi_safi_list {    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi
+                           optional string afi_safi_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/afi-safi-name
+                           optional graceful_restart_type graceful_restart = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/graceful-restart
+                           message graceful_restart_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/graceful-restart/state
+                              message state_type {
+                                 optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/graceful-restart/state/enabled
+                              }
+                           }
+                           optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state
+                           message state_type {
+                              optional string afi_safi_name = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/afi-safi-name
+                              optional bool enabled = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/enabled
+                              repeated string send_community_type = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/send-community-type
+                              optional bool active = 61;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/active
+                              optional prefixes_type prefixes = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes
+                              message prefixes_type {
+                                 optional uint32 received = 63;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/received
+                                 optional uint32 received_pre_policy = 64;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/received-pre-policy
+                                 optional uint32 sent = 65;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/sent
+                                 optional uint32 installed = 66;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/installed
+                                 optional uint32 accepted = 62;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/accepted
+                                 optional uint32 rejected = 70;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/rejected
+                              }
+                              optional uint32 total_paths = 81;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-paths
+                              optional uint32 total_prefixes = 82;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-prefixes
+                           }
+                           optional add_paths_type add_paths = 153;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths
+                           message add_paths_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths/state
+                              message state_type {
+                                 optional bool receive = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths/state/receive
+                                 optional bool send = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths/state/send
+                                 optional uint32 send_max = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths/state/send-max
+                                 optional string eligible_prefix_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/add-paths/state/eligible-prefix-policy
+                              }
+                           }
+                           optional apply_policy_type apply_policy = 171;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy
+                           message apply_policy_type {
+                              optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy/state
+                              message state_type {
+                                 repeated string import_policy = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy/state/import-policy
+                                 repeated string export_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy/state/export-policy
+                                 optional string default_import_policy = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy/state/default-import-policy
+                                 optional string default_export_policy = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/apply-policy/state/default-export-policy
+                              }
+                           }
+                           optional ipv4_unicast_type ipv4_unicast = 154;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast
+                           message ipv4_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional state_type state = 153;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/state
+                              message state_type {
+                                 optional bool extended_next_hop_encoding = 55;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-unicast/state/extended-next-hop-encoding
+                              }
+                           }
+                           optional ipv6_unicast_type ipv6_unicast = 155;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast
+                           message ipv6_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional ipv4_labeled_unicast_type ipv4_labeled_unicast = 156;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast
+                           message ipv4_labeled_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv4-labeled-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional ipv6_labeled_unicast_type ipv6_labeled_unicast = 157;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast
+                           message ipv6_labeled_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/ipv6-labeled-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv4_unicast_type l3vpn_ipv4_unicast = 158;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast
+                           message l3vpn_ipv4_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv6_unicast_type l3vpn_ipv6_unicast = 159;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast
+                           message l3vpn_ipv6_unicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-unicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv4_multicast_type l3vpn_ipv4_multicast = 160;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast
+                           message l3vpn_ipv4_multicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv4-multicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l3vpn_ipv6_multicast_type l3vpn_ipv6_multicast = 161;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast
+                           message l3vpn_ipv6_multicast_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l3vpn-ipv6-multicast/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l2vpn_vpls_type l2vpn_vpls = 162;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls
+                           message l2vpn_vpls_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-vpls/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional l2vpn_evpn_type l2vpn_evpn = 163;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn
+                           message l2vpn_evpn_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/l2vpn-evpn/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional srte_policy_ipv4_type srte_policy_ipv4 = 164;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4
+                           message srte_policy_ipv4_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv4/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                           optional srte_policy_ipv6_type srte_policy_ipv6 = 165;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6
+                           message srte_policy_ipv6_type {
+                              optional prefix_limit_type prefix_limit = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit
+                              message prefix_limit_type {
+                                 optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit/state/prefix-limit-exceeded
+                                 }
+                              }
+                              optional prefix_limit_received_type prefix_limit_received = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received
+                              message prefix_limit_received_type {
+                                 optional state_type state = 152;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state
+                                 message state_type {
+                                    optional uint32 max_prefixes = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/max-prefixes
+                                    optional bool prevent_teardown = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/prevent-teardown
+                                    optional uint32 warning_threshold_pct = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/warning-threshold-pct
+                                    optional bool prefix_limit_exceeded = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/srte-policy-ipv6/prefix-limit-received/state/prefix-limit-exceeded
+                                 }
+                              }
+                           }
+                        }
+                        repeated afi_safi_list afi_safi = 51;
+                     }
+                     optional graceful_restart_type graceful_restart = 161;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart
+                     message graceful_restart_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart/state/enabled
+                           optional uint32 restart_time = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart/state/restart-time
+                           optional uint32 stale_routes_time = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart/state/stale-routes-time
+                           optional bool helper_only = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/graceful-restart/state/helper-only
+                        }
+                     }
+                     optional apply_policy_type apply_policy = 171;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy
+                     message apply_policy_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy/state
+                        message state_type {
+                           repeated string import_policy = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy/state/import-policy
+                           repeated string export_policy = 53;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy/state/export-policy
+                           optional string default_import_policy = 52;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy/state/default-import-policy
+                           optional string default_export_policy = 54;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/apply-policy/state/default-export-policy
+                        }
+                     }
+                     optional enable_bfd_type enable_bfd = 172;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/enable-bfd
+                     message enable_bfd_type {
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/enable-bfd/state
+                        message state_type {
+                           optional bool enabled = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/enable-bfd/state/enabled
+                        }
+                     }
+                     optional dynamic_neighbor_prefixes_type dynamic_neighbor_prefixes = 163;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/dynamic-neighbor-prefixes
+                     message dynamic_neighbor_prefixes_type {
+                        message dynamic_neighbor_prefix_list {    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/dynamic-neighbor-prefixes/dynamic-neighbor-prefix
+                           optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/dynamic-neighbor-prefixes/dynamic-neighbor-prefix/prefix
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/dynamic-neighbor-prefixes/dynamic-neighbor-prefix/state
+                           message state_type {
+                              optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/dynamic-neighbor-prefixes/dynamic-neighbor-prefix/state/prefix
+                           }
+                        }
+                        repeated dynamic_neighbor_prefix_list dynamic_neighbor_prefix = 51;
+                     }
+                  }
+                  repeated peer_group_list peer_group = 151;
+               }
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

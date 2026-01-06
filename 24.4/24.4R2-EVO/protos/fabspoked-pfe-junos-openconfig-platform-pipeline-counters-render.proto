@@ -1,0 +1,62 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform - This module defines a data model for representing a system
+component inventory, which can include hardware or software
+elements arranged in an arbitrary structure
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_fpc_240 jnpr_components_fpc_240_ext = 240;
+}
+
+message components_fpc_240 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 171;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 171;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 171;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional fabric_block_type fabric_block = 171;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block
+               message fabric_block_type {
+                  optional state_type state = 171;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block/state
+                  message state_type {
+                     optional uint64 in_cells = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block/state/in-cells
+                     optional uint64 out_cells = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block/state/out-cells
+                     optional uint64 in_bytes = 54;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block/state/in-bytes
+                     optional uint64 out_bytes = 55;    // /components/component/integrated-circuit/pipeline-counters/packet/fabric-block/state/out-bytes
+                  }
+               }
+            }
+            optional drop_type drop = 172;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional fabric_block_type fabric_block = 171;    // /components/component/integrated-circuit/pipeline-counters/drop/fabric-block
+               message fabric_block_type {
+                  optional state_type state = 171;    // /components/component/integrated-circuit/pipeline-counters/drop/fabric-block/state
+                  message state_type {
+                     optional uint64 fabric_aggregate = 56;    // /components/component/integrated-circuit/pipeline-counters/drop/fabric-block/state/fabric-aggregate
+                  }
+               }
+            }
+            optional error_type error = 173;    // /components/component/integrated-circuit/pipeline-counters/error
+            message error_type {
+               optional fabric_block_type fabric_block = 171;    // /components/component/integrated-circuit/pipeline-counters/error/fabric-block
+               message fabric_block_type {
+                  optional fabric_block_error_type fabric_block_error = 171;    // /components/component/integrated-circuit/pipeline-counters/error/fabric-block/fabric-block-error
+                  message fabric_block_error_type {
+                     optional state_type state = 171;    // /components/component/integrated-circuit/pipeline-counters/error/fabric-block/fabric-block-error/state
+                     message state_type {
+                        optional uint64 count = 57;    // /components/component/integrated-circuit/pipeline-counters/error/fabric-block/fabric-block-error/state/count
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 171;
+}

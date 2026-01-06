@@ -1,0 +1,538 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-networking - This module contains a collection of top level nodes for
+JUNOS/EVO host networking stack statistics data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_331 jnpr_state_331_ext = 331;
+}
+
+message state_331 {    // /state
+   optional chassis_type chassis = 151;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 151;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+            optional networking_type networking = 151;    // /state/chassis/modules/module/networking
+            message networking_type {
+               optional jtd_type jtd = 151;    // /state/chassis/modules/module/networking/jtd
+               message jtd_type {
+                  optional ingress_type ingress = 151;    // /state/chassis/modules/module/networking/jtd/ingress
+                  message ingress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/ingress/counters
+                     message counters_type {
+                        optional uint64 igmp_l2_pkts = 51;    // /state/chassis/modules/module/networking/jtd/ingress/counters/igmp-l2-pkts
+                        optional uint64 ip_options_pkts = 52;    // /state/chassis/modules/module/networking/jtd/ingress/counters/ip-options-pkts
+                        optional uint64 ip_router_alert_pkts = 53;    // /state/chassis/modules/module/networking/jtd/ingress/counters/ip-router-alert-pkts
+                        optional uint64 mld_l2_pkts = 54;    // /state/chassis/modules/module/networking/jtd/ingress/counters/mld-l2-pkts
+                        optional uint64 p4_agent_pkts = 55;    // /state/chassis/modules/module/networking/jtd/ingress/counters/p4-agent-pkts
+                        optional uint64 ip_fragments = 56;    // /state/chassis/modules/module/networking/jtd/ingress/counters/ip-fragments
+                        optional uint64 mpls_ttl_expired_hint = 57;    // /state/chassis/modules/module/networking/jtd/ingress/counters/mpls-ttl-expired-hint
+                     }
+                     optional ttp_type ttp = 152;    // /state/chassis/modules/module/networking/jtd/ingress/ttp
+                     message ttp_type {
+                        optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters
+                        message counters_type {
+                           optional uint64 raw_pkts = 51;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/raw-pkts
+                           optional uint64 arp_pkts = 52;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/arp-pkts
+                           optional uint64 l2_pkts = 53;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/l2-pkts
+                           optional uint64 l3_ipv4_pkts = 54;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/l3-ipv4-pkts
+                           optional uint64 l3_ipv6_pkts = 55;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/l3-ipv6-pkts
+                           optional uint64 l3_mpls_pkts = 56;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/l3-mpls-pkts
+                           optional uint64 unknown_pkts = 57;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/unknown-pkts
+                           optional uint64 l3_unknown_pkts = 58;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/l3-unknown-pkts
+                           optional uint64 bytes = 59;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/bytes
+                           optional uint64 packets = 60;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/packets
+                           optional uint64 encapsulated_pkts = 61;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/encapsulated-pkts
+                           optional uint64 ipv4_bytes = 62;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/ipv4-bytes
+                           optional uint64 ipv4_pkts = 63;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/ipv4-pkts
+                           optional uint64 ipv6_bytes = 64;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/ipv6-bytes
+                           optional uint64 ipv6_pkts = 65;    // /state/chassis/modules/module/networking/jtd/ingress/ttp/counters/ipv6-pkts
+                        }
+                     }
+                  }
+                  optional egress_type egress = 152;    // /state/chassis/modules/module/networking/jtd/egress
+                  message egress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/egress/counters
+                     message counters_type {
+                        optional uint64 tcp_reset_pkts = 51;    // /state/chassis/modules/module/networking/jtd/egress/counters/tcp-reset-pkts
+                     }
+                     optional ttp_type ttp = 152;    // /state/chassis/modules/module/networking/jtd/egress/ttp
+                     message ttp_type {
+                        optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters
+                        message counters_type {
+                           optional uint64 bytes = 51;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/bytes
+                           optional uint64 packets = 52;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/packets
+                           optional uint64 encapsulated_pkts = 53;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/encapsulated-pkts
+                           optional uint64 ipv4_bytes = 54;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/ipv4-bytes
+                           optional uint64 ipv4_pkts = 55;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/ipv4-pkts
+                           optional uint64 ipv6_bytes = 56;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/ipv6-bytes
+                           optional uint64 ipv6_pkts = 57;    // /state/chassis/modules/module/networking/jtd/egress/ttp/counters/ipv6-pkts
+                        }
+                     }
+                  }
+                  optional database_type database = 153;    // /state/chassis/modules/module/networking/jtd/database
+                  message database_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/database/counters
+                     message counters_type {
+                        optional uint64 cache_add_entry_fail = 51;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-add-entry-fail
+                        optional uint64 cache_add_entry_success = 52;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-add-entry-success
+                        optional uint64 cache_delete_entry_fail = 53;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-delete-entry-fail
+                        optional uint64 cache_delete_entry_success = 54;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-delete-entry-success
+                        optional uint64 cache_lookup_entry_fail = 55;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-lookup-entry-fail
+                        optional uint64 cache_lookup_entry_success = 56;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-lookup-entry-success
+                        optional uint64 cache_update_entry = 57;    // /state/chassis/modules/module/networking/jtd/database/counters/cache-update-entry
+                        optional uint64 ioctl_processing_fail = 58;    // /state/chassis/modules/module/networking/jtd/database/counters/ioctl-processing-fail
+                        optional uint64 ioctl_processing_success = 59;    // /state/chassis/modules/module/networking/jtd/database/counters/ioctl-processing-success
+                        optional uint64 tcp6_socket_lookup_fail = 60;    // /state/chassis/modules/module/networking/jtd/database/counters/tcp6-socket-lookup-fail
+                        optional uint64 tcp6_socket_lookup_success = 61;    // /state/chassis/modules/module/networking/jtd/database/counters/tcp6-socket-lookup-success
+                        optional uint64 tcp_socket_lookup_fail = 62;    // /state/chassis/modules/module/networking/jtd/database/counters/tcp-socket-lookup-fail
+                        optional uint64 tcp_socket_lookup_success = 63;    // /state/chassis/modules/module/networking/jtd/database/counters/tcp-socket-lookup-success
+                        optional uint64 upcall_add_success = 64;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-add-success
+                        optional uint64 upcall_add_fail = 65;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-add-fail
+                        optional uint64 upcall_read_success = 66;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-read-success
+                        optional uint64 upcall_read_fail = 67;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-read-fail
+                        optional uint64 upcall_syn_success = 68;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-syn-success
+                        optional uint64 upcall_syn_fail = 69;    // /state/chassis/modules/module/networking/jtd/database/counters/upcall-syn-fail
+                     }
+                  }
+                  optional error_type error = 154;    // /state/chassis/modules/module/networking/jtd/error
+                  message error_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/error/counters
+                     message counters_type {
+                        optional uint64 icmp_pkt_user_send_fail = 51;    // /state/chassis/modules/module/networking/jtd/error/counters/icmp-pkt-user-send-fail
+                        optional uint64 ioctl_bad_cmsg = 52;    // /state/chassis/modules/module/networking/jtd/error/counters/ioctl-bad-cmsg
+                        optional uint64 ioctl_cmsg_missing = 53;    // /state/chassis/modules/module/networking/jtd/error/counters/ioctl-cmsg-missing
+                        optional uint64 ioctl_copy_from_userspace_fail = 54;    // /state/chassis/modules/module/networking/jtd/error/counters/ioctl-copy-from-userspace-fail
+                        optional uint64 ip_options_invalid_pkt_received = 55;    // /state/chassis/modules/module/networking/jtd/error/counters/ip-options-invalid-pkt-received
+                        optional uint64 ip_router_alert_user_send_fail = 56;    // /state/chassis/modules/module/networking/jtd/error/counters/ip-router-alert-user-send-fail
+                        optional uint64 resource_allocation_fail = 57;    // /state/chassis/modules/module/networking/jtd/error/counters/resource-allocation-fail
+                        optional uint64 skb_cmsg_control_get_fail = 58;    // /state/chassis/modules/module/networking/jtd/error/counters/skb-cmsg-control-get-fail
+                        optional uint64 skb_cmsg_control_set_fail = 59;    // /state/chassis/modules/module/networking/jtd/error/counters/skb-cmsg-control-set-fail
+                        optional uint64 ttp_bad_length_received = 60;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-bad-length-received
+                        optional uint64 ttp_tlv_bad_length_received = 61;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-tlv-bad-length-received
+                        optional uint64 ttp_tlv_bad_type_received = 62;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-tlv-bad-type-received
+                        optional uint64 ttp_tlv_bad_value_received = 63;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-tlv-bad-value-received
+                        optional uint64 ttp_tlv_missing_received = 64;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-tlv-missing-received
+                        optional uint64 ttp_tlv_too_many_received = 65;    // /state/chassis/modules/module/networking/jtd/error/counters/ttp-tlv-too-many-received
+                        optional uint64 unexpected_codepoint_reached = 66;    // /state/chassis/modules/module/networking/jtd/error/counters/unexpected-codepoint-reached
+                        optional uint64 pkts_incorrect_inject_hint_received = 67;    // /state/chassis/modules/module/networking/jtd/error/counters/pkts-incorrect-inject-hint-received
+                        optional uint64 netlink_send_fail = 68;    // /state/chassis/modules/module/networking/jtd/error/counters/netlink-send-fail
+                        optional uint64 ip_local_out_fail = 69;    // /state/chassis/modules/module/networking/jtd/error/counters/ip-local-out-fail
+                     }
+                  }
+                  optional drops_type drops = 155;    // /state/chassis/modules/module/networking/jtd/drops
+                  message drops_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/jtd/drops/counters
+                     message counters_type {
+                        optional uint64 ttp_l3_egress = 51;    // /state/chassis/modules/module/networking/jtd/drops/counters/ttp-l3-egress
+                        optional uint64 ttp_tlv_bad = 52;    // /state/chassis/modules/module/networking/jtd/drops/counters/ttp-tlv-bad
+                        optional uint64 egress_filter = 53;    // /state/chassis/modules/module/networking/jtd/drops/counters/egress-filter
+                        optional uint64 ingress_filter = 54;    // /state/chassis/modules/module/networking/jtd/drops/counters/ingress-filter
+                        optional uint64 ingress_non_ddos = 55;    // /state/chassis/modules/module/networking/jtd/drops/counters/ingress-non-ddos
+                        optional uint64 ingress_ddos = 56;    // /state/chassis/modules/module/networking/jtd/drops/counters/ingress-ddos
+                        optional uint64 egress = 57;    // /state/chassis/modules/module/networking/jtd/drops/counters/egress
+                        optional uint64 ingress_l2_filter = 58;    // /state/chassis/modules/module/networking/jtd/drops/counters/ingress-l2-filter
+                     }
+                  }
+               }
+               optional ttp_type ttp = 152;    // /state/chassis/modules/module/networking/ttp
+               message ttp_type {
+                  optional ingress_type ingress = 151;    // /state/chassis/modules/module/networking/ttp/ingress
+                  message ingress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ttp/ingress/counters
+                     message counters_type {
+                        optional uint64 l2_pkts = 51;    // /state/chassis/modules/module/networking/ttp/ingress/counters/l2-pkts
+                        optional uint64 ipv4_l3_pkts = 52;    // /state/chassis/modules/module/networking/ttp/ingress/counters/ipv4-l3-pkts
+                        optional uint64 unknown_l3_pkts = 53;    // /state/chassis/modules/module/networking/ttp/ingress/counters/unknown-l3-pkts
+                        optional uint64 mpls_l3_pkts = 54;    // /state/chassis/modules/module/networking/ttp/ingress/counters/mpls-l3-pkts
+                        optional uint64 arp_pkts = 55;    // /state/chassis/modules/module/networking/ttp/ingress/counters/arp-pkts
+                        optional uint64 ipv6_l3_pkts = 56;    // /state/chassis/modules/module/networking/ttp/ingress/counters/ipv6-l3-pkts
+                     }
+                  }
+                  optional egress_type egress = 152;    // /state/chassis/modules/module/networking/ttp/egress
+                  message egress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ttp/egress/counters
+                     message counters_type {
+                        optional uint64 packets = 51;    // /state/chassis/modules/module/networking/ttp/egress/counters/packets
+                     }
+                  }
+                  optional error_type error = 153;    // /state/chassis/modules/module/networking/ttp/error
+                  message error_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ttp/error/counters
+                     message counters_type {
+                        optional uint64 input_pkts_bad_tlv_header = 51;    // /state/chassis/modules/module/networking/ttp/error/counters/input-pkts-bad-tlv-header
+                        optional uint64 input_pkts_bad_tlv_type = 52;    // /state/chassis/modules/module/networking/ttp/error/counters/input-pkts-bad-tlv-type
+                        optional uint64 input_pkts_too_many_tlvs = 53;    // /state/chassis/modules/module/networking/ttp/error/counters/input-pkts-too-many-tlvs
+                        optional uint64 input_pkts_bad_type = 54;    // /state/chassis/modules/module/networking/ttp/error/counters/input-pkts-bad-type
+                     }
+                  }
+                  optional drops_type drops = 154;    // /state/chassis/modules/module/networking/ttp/drops
+                  message drops_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ttp/drops/counters
+                     message counters_type {
+                        optional uint64 input_pkts_dropped_tlv_result = 51;    // /state/chassis/modules/module/networking/ttp/drops/counters/input-pkts-dropped-tlv-result
+                        optional uint64 l3_pkts_dropped = 52;    // /state/chassis/modules/module/networking/ttp/drops/counters/l3-pkts-dropped
+                     }
+                  }
+               }
+               optional icmp_type icmp = 153;    // /state/chassis/modules/module/networking/icmp
+               message icmp_type {
+                  optional ingress_type ingress = 151;    // /state/chassis/modules/module/networking/icmp/ingress
+                  message ingress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp/ingress/counters
+                     message counters_type {
+                        optional uint64 echo_reply = 51;    // /state/chassis/modules/module/networking/icmp/ingress/counters/echo-reply
+                        optional uint64 destination_unreachable = 52;    // /state/chassis/modules/module/networking/icmp/ingress/counters/destination-unreachable
+                        optional uint64 echo = 53;    // /state/chassis/modules/module/networking/icmp/ingress/counters/echo
+                        optional uint64 time_exceeded = 54;    // /state/chassis/modules/module/networking/icmp/ingress/counters/time-exceeded
+                        optional uint64 parameter_problem = 55;    // /state/chassis/modules/module/networking/icmp/ingress/counters/parameter-problem
+                        optional uint64 source_quench = 56;    // /state/chassis/modules/module/networking/icmp/ingress/counters/source-quench
+                        optional uint64 routing_redirect = 57;    // /state/chassis/modules/module/networking/icmp/ingress/counters/routing-redirect
+                        optional uint64 timestamp = 58;    // /state/chassis/modules/module/networking/icmp/ingress/counters/timestamp
+                        optional uint64 timestamp_reply = 59;    // /state/chassis/modules/module/networking/icmp/ingress/counters/timestamp-reply
+                        optional uint64 address_mask_request = 60;    // /state/chassis/modules/module/networking/icmp/ingress/counters/address-mask-request
+                        optional uint64 address_mask_reply = 61;    // /state/chassis/modules/module/networking/icmp/ingress/counters/address-mask-reply
+                        optional uint64 router_advertisement = 62;    // /state/chassis/modules/module/networking/icmp/ingress/counters/router-advertisement
+                        optional uint64 router_solicitation = 63;    // /state/chassis/modules/module/networking/icmp/ingress/counters/router-solicitation
+                        optional uint64 extended_echo = 64;    // /state/chassis/modules/module/networking/icmp/ingress/counters/extended-echo
+                        optional uint64 extended_echo_reply = 65;    // /state/chassis/modules/module/networking/icmp/ingress/counters/extended-echo-reply
+                     }
+                  }
+                  optional egress_type egress = 152;    // /state/chassis/modules/module/networking/icmp/egress
+                  message egress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp/egress/counters
+                     message counters_type {
+                        optional uint64 echo_reply = 51;    // /state/chassis/modules/module/networking/icmp/egress/counters/echo-reply
+                        optional uint64 destination_unreachable = 52;    // /state/chassis/modules/module/networking/icmp/egress/counters/destination-unreachable
+                        optional uint64 echo = 53;    // /state/chassis/modules/module/networking/icmp/egress/counters/echo
+                        optional uint64 time_exceeded = 54;    // /state/chassis/modules/module/networking/icmp/egress/counters/time-exceeded
+                        optional uint64 parameter_problem = 55;    // /state/chassis/modules/module/networking/icmp/egress/counters/parameter-problem
+                        optional uint64 source_quench = 56;    // /state/chassis/modules/module/networking/icmp/egress/counters/source-quench
+                        optional uint64 routing_redirect = 57;    // /state/chassis/modules/module/networking/icmp/egress/counters/routing-redirect
+                        optional uint64 timestamp = 58;    // /state/chassis/modules/module/networking/icmp/egress/counters/timestamp
+                        optional uint64 timestamp_reply = 59;    // /state/chassis/modules/module/networking/icmp/egress/counters/timestamp-reply
+                        optional uint64 address_mask_request = 60;    // /state/chassis/modules/module/networking/icmp/egress/counters/address-mask-request
+                        optional uint64 address_mask_reply = 61;    // /state/chassis/modules/module/networking/icmp/egress/counters/address-mask-reply
+                        optional uint64 router_advertisement = 62;    // /state/chassis/modules/module/networking/icmp/egress/counters/router-advertisement
+                        optional uint64 router_solicitation = 63;    // /state/chassis/modules/module/networking/icmp/egress/counters/router-solicitation
+                        optional uint64 extended_echo = 64;    // /state/chassis/modules/module/networking/icmp/egress/counters/extended-echo
+                        optional uint64 extended_echo_reply = 65;    // /state/chassis/modules/module/networking/icmp/egress/counters/extended-echo-reply
+                        optional uint64 message_responses_generated = 66;    // /state/chassis/modules/module/networking/icmp/egress/counters/message-responses-generated
+                     }
+                  }
+                  optional error_type error = 153;    // /state/chassis/modules/module/networking/icmp/error
+                  message error_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp/error/counters
+                     message counters_type {
+                        optional uint64 calls_to_icmp_error = 51;    // /state/chassis/modules/module/networking/icmp/error/counters/calls-to-icmp-error
+                        optional uint64 errors_suppressed_old_message_icmp = 52;    // /state/chassis/modules/module/networking/icmp/error/counters/errors-suppressed-old-message-icmp
+                        optional uint64 bad_code_fields = 53;    // /state/chassis/modules/module/networking/icmp/error/counters/bad-code-fields
+                        optional uint64 less_than_minimum_length = 54;    // /state/chassis/modules/module/networking/icmp/error/counters/less-than-minimum-length
+                        optional uint64 bad_checksum = 55;    // /state/chassis/modules/module/networking/icmp/error/counters/bad-checksum
+                        optional uint64 bad_source_address = 56;    // /state/chassis/modules/module/networking/icmp/error/counters/bad-source-address
+                        optional uint64 bad_length = 57;    // /state/chassis/modules/module/networking/icmp/error/counters/bad-length
+                     }
+                  }
+                  optional drops_type drops = 154;    // /state/chassis/modules/module/networking/icmp/drops
+                  message drops_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp/drops/counters
+                     message counters_type {
+                        optional uint64 drops_due_to_rate_limit = 51;    // /state/chassis/modules/module/networking/icmp/drops/counters/drops-due-to-rate-limit
+                        optional uint64 echo_drops_bcast_or_mcast_destination = 52;    // /state/chassis/modules/module/networking/icmp/drops/counters/echo-drops-bcast-or-mcast-destination
+                        optional uint64 timestamp_drops_bcast_or_mcast_destination = 53;    // /state/chassis/modules/module/networking/icmp/drops/counters/timestamp-drops-bcast-or-mcast-destination
+                     }
+                  }
+               }
+               optional icmp6_type icmp6 = 154;    // /state/chassis/modules/module/networking/icmp6
+               message icmp6_type {
+                  optional ingress_type ingress = 151;    // /state/chassis/modules/module/networking/icmp6/ingress
+                  message ingress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/ingress/counters
+                     message counters_type {
+                        optional uint64 unreachable_icmp6_pkts = 51;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/unreachable-icmp6-pkts
+                        optional uint64 echo = 52;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/echo
+                        optional uint64 echo_reply = 53;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/echo-reply
+                        optional uint64 neighbor_solicitation = 54;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/neighbor-solicitation
+                        optional uint64 neighbor_advertisement = 55;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/neighbor-advertisement
+                        optional uint64 router_solicitation = 56;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/router-solicitation
+                        optional uint64 router_advertisement = 57;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/router-advertisement
+                        optional uint64 time_exceeded = 58;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/time-exceeded
+                        optional uint64 parameter_problem = 59;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/parameter-problem
+                        optional uint64 packet_too_big = 60;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/packet-too-big
+                        optional uint64 multicast_listener_query = 61;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/multicast-listener-query
+                        optional uint64 multicast_listener_report = 62;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/multicast-listener-report
+                        optional uint64 multicast_listener_done = 63;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/multicast-listener-done
+                        optional uint64 version_2_multicast_listener_report = 64;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/version-2-multicast-listener-report
+                        optional uint64 redirect = 65;    // /state/chassis/modules/module/networking/icmp6/ingress/counters/redirect
+                     }
+                  }
+                  optional egress_type egress = 152;    // /state/chassis/modules/module/networking/icmp6/egress
+                  message egress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/egress/counters
+                     message counters_type {
+                        optional uint64 unreachable_icmp6_pkts = 51;    // /state/chassis/modules/module/networking/icmp6/egress/counters/unreachable-icmp6-pkts
+                        optional uint64 echo = 52;    // /state/chassis/modules/module/networking/icmp6/egress/counters/echo
+                        optional uint64 echo_reply = 53;    // /state/chassis/modules/module/networking/icmp6/egress/counters/echo-reply
+                        optional uint64 neighbor_solicitation = 54;    // /state/chassis/modules/module/networking/icmp6/egress/counters/neighbor-solicitation
+                        optional uint64 neighbor_advertisement = 55;    // /state/chassis/modules/module/networking/icmp6/egress/counters/neighbor-advertisement
+                        optional uint64 router_solicitation = 56;    // /state/chassis/modules/module/networking/icmp6/egress/counters/router-solicitation
+                        optional uint64 router_advertisement = 57;    // /state/chassis/modules/module/networking/icmp6/egress/counters/router-advertisement
+                        optional uint64 time_exceeded = 58;    // /state/chassis/modules/module/networking/icmp6/egress/counters/time-exceeded
+                        optional uint64 parameter_problem = 59;    // /state/chassis/modules/module/networking/icmp6/egress/counters/parameter-problem
+                        optional uint64 packet_too_big = 60;    // /state/chassis/modules/module/networking/icmp6/egress/counters/packet-too-big
+                        optional uint64 multicast_listener_query = 61;    // /state/chassis/modules/module/networking/icmp6/egress/counters/multicast-listener-query
+                        optional uint64 multicast_listener_report = 62;    // /state/chassis/modules/module/networking/icmp6/egress/counters/multicast-listener-report
+                        optional uint64 multicast_listener_done = 63;    // /state/chassis/modules/module/networking/icmp6/egress/counters/multicast-listener-done
+                        optional uint64 version_2_multicast_listener_report = 64;    // /state/chassis/modules/module/networking/icmp6/egress/counters/version-2-multicast-listener-report
+                        optional uint64 redirect = 65;    // /state/chassis/modules/module/networking/icmp6/egress/counters/redirect
+                        optional uint64 message_responses_generated = 66;    // /state/chassis/modules/module/networking/icmp6/egress/counters/message-responses-generated
+                     }
+                  }
+                  optional error_type error = 153;    // /state/chassis/modules/module/networking/icmp6/error
+                  message error_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/error/counters
+                     message counters_type {
+                        optional uint64 calls_to_icmp6_error = 51;    // /state/chassis/modules/module/networking/icmp6/error/counters/calls-to-icmp6-error
+                        optional uint64 errors_suppressed_old_message_icmp = 52;    // /state/chassis/modules/module/networking/icmp6/error/counters/errors-suppressed-old-message-icmp
+                        optional uint64 errors_suppressed_rate_limitation = 53;    // /state/chassis/modules/module/networking/icmp6/error/counters/errors-suppressed-rate-limitation
+                        optional uint64 bad_code_fields = 54;    // /state/chassis/modules/module/networking/icmp6/error/counters/bad-code-fields
+                        optional uint64 less_than_minimum_length = 55;    // /state/chassis/modules/module/networking/icmp6/error/counters/less-than-minimum-length
+                        optional uint64 bad_checksums = 56;    // /state/chassis/modules/module/networking/icmp6/error/counters/bad-checksums
+                        optional uint64 bad_length = 57;    // /state/chassis/modules/module/networking/icmp6/error/counters/bad-length
+                        optional uint64 no_route = 58;    // /state/chassis/modules/module/networking/icmp6/error/counters/no-route
+                        optional uint64 administratively_prohibited = 59;    // /state/chassis/modules/module/networking/icmp6/error/counters/administratively-prohibited
+                        optional uint64 beyond_scope = 60;    // /state/chassis/modules/module/networking/icmp6/error/counters/beyond-scope
+                        optional uint64 address_unreachable = 61;    // /state/chassis/modules/module/networking/icmp6/error/counters/address-unreachable
+                        optional uint64 port_unreachable = 62;    // /state/chassis/modules/module/networking/icmp6/error/counters/port-unreachable
+                        optional uint64 time_exceed_transit = 63;    // /state/chassis/modules/module/networking/icmp6/error/counters/time-exceed-transit
+                        optional uint64 time_exceed_reassembly = 64;    // /state/chassis/modules/module/networking/icmp6/error/counters/time-exceed-reassembly
+                        optional uint64 erroneous_header_field = 65;    // /state/chassis/modules/module/networking/icmp6/error/counters/erroneous-header-field
+                        optional uint64 unrecognized_next_header = 66;    // /state/chassis/modules/module/networking/icmp6/error/counters/unrecognized-next-header
+                        optional uint64 unrecognized_option = 67;    // /state/chassis/modules/module/networking/icmp6/error/counters/unrecognized-option
+                        optional uint64 unknown = 68;    // /state/chassis/modules/module/networking/icmp6/error/counters/unknown
+                     }
+                  }
+                  optional neighbor_discovery_type neighbor_discovery = 154;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery
+                  message neighbor_discovery_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters
+                     message counters_type {
+                        optional uint64 too_many_nd_options = 51;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/too-many-nd-options
+                        optional uint64 system_max = 52;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/system-max
+                        optional uint64 public_max = 53;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/public-max
+                        optional uint64 iri_max = 54;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/iri-max
+                        optional uint64 mgt_max = 55;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/mgt-max
+                        optional uint64 public_count = 56;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/public-count
+                        optional uint64 iri_count = 57;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/iri-count
+                        optional uint64 mgt_count = 58;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/mgt-count
+                        optional uint64 system_drop = 59;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/system-drop
+                        optional uint64 public_drop = 60;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/public-drop
+                        optional uint64 iri_drop = 61;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/iri-drop
+                        optional uint64 mgt_drop = 62;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/mgt-drop
+                        optional uint64 requests_dropped_on_entry = 63;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/requests-dropped-on-entry
+                        optional uint64 requests_dropped_during_retry = 64;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/counters/requests-dropped-during-retry
+                     }
+                     optional interface_restricted_type interface_restricted = 152;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted
+                     message interface_restricted_type {
+                        optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters
+                        message counters_type {
+                           optional uint64 ndp_proxy_requests = 51;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/ndp-proxy-requests
+                           optional uint64 dad_proxy_requests = 52;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/dad-proxy-requests
+                           optional uint64 ndp_proxy_responses = 53;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/ndp-proxy-responses
+                           optional uint64 dad_proxy_conflicts = 54;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/dad-proxy-conflicts
+                           optional uint64 dup_proxy_responses = 55;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/dup-proxy-responses
+                           optional uint64 ndp_proxy_resolve_cnt = 56;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/ndp-proxy-resolve-cnt
+                           optional uint64 dad_proxy_resolve_cnt = 57;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/dad-proxy-resolve-cnt
+                           optional uint64 dad_proxy_eqmac_drop = 58;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-restricted/counters/dad-proxy-eqmac-drop
+                        }
+                     }
+                     optional interface_unrestricted_type interface_unrestricted = 153;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted
+                     message interface_unrestricted_type {
+                        optional counters_type counters = 151;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters
+                        message counters_type {
+                           optional uint64 ndp_proxy_requests = 51;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/ndp-proxy-requests
+                           optional uint64 dad_proxy_requests = 52;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/dad-proxy-requests
+                           optional uint64 ndp_proxy_responses = 53;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/ndp-proxy-responses
+                           optional uint64 dad_proxy_conflicts = 54;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/dad-proxy-conflicts
+                           optional uint64 dup_proxy_responses = 55;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/dup-proxy-responses
+                           optional uint64 ndp_proxy_resolve_cnt = 56;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/ndp-proxy-resolve-cnt
+                           optional uint64 dad_proxy_resolve_cnt = 57;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/dad-proxy-resolve-cnt
+                           optional uint64 dad_proxy_eqport_drop = 58;    // /state/chassis/modules/module/networking/icmp6/neighbor-discovery/interface-unrestricted/counters/dad-proxy-eqport-drop
+                        }
+                     }
+                  }
+               }
+               optional mpls_type mpls = 155;    // /state/chassis/modules/module/networking/mpls
+               message mpls_type {
+                  optional ingress_type ingress = 151;    // /state/chassis/modules/module/networking/mpls/ingress
+                  message ingress_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/mpls/ingress/counters
+                     message counters_type {
+                        optional uint64 pkts_total = 51;    // /state/chassis/modules/module/networking/mpls/ingress/counters/pkts-total
+                        optional uint64 bfd_pkts_received = 52;    // /state/chassis/modules/module/networking/mpls/ingress/counters/bfd-pkts-received
+                        optional uint64 cfm_pkts_received = 53;    // /state/chassis/modules/module/networking/mpls/ingress/counters/cfm-pkts-received
+                        optional uint64 pkts_router_alert_tag = 54;    // /state/chassis/modules/module/networking/mpls/ingress/counters/pkts-router-alert-tag
+                        optional uint64 lsp_ping_pkts = 55;    // /state/chassis/modules/module/networking/mpls/ingress/counters/lsp-ping-pkts
+                        optional uint64 pkts_ttl_expired = 56;    // /state/chassis/modules/module/networking/mpls/ingress/counters/pkts-ttl-expired
+                     }
+                  }
+                  optional error_type error = 152;    // /state/chassis/modules/module/networking/mpls/error
+                  message error_type {
+                     optional counters_type counters = 151;    // /state/chassis/modules/module/networking/mpls/error/counters
+                     message counters_type {
+                        optional uint64 pkts_drop = 51;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-drop
+                        optional uint64 pkts_header_too_small = 52;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-header-too-small
+                        optional uint64 pkts_ipv4_explicit_null_tag = 53;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-ipv4-explicit-null-tag
+                        optional uint64 pkts_ipv4_explicit_null_checksum_errors = 54;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-ipv4-explicit-null-checksum-errors
+                        optional uint64 pkts_ipv6_explicit_null_tag = 55;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-ipv6-explicit-null-tag
+                        optional uint64 pkts_tag_encoding_error = 56;    // /state/chassis/modules/module/networking/mpls/error/counters/pkts-tag-encoding-error
+                     }
+                  }
+               }
+               optional tcp_type tcp = 156;    // /state/chassis/modules/module/networking/tcp
+               message tcp_type {
+                  optional counters_type counters = 151;    // /state/chassis/modules/module/networking/tcp/counters
+                  message counters_type {
+                     optional uint64 pkts_sent = 51;    // /state/chassis/modules/module/networking/tcp/counters/pkts-sent
+                     optional uint64 sent_window_probe_pkts = 52;    // /state/chassis/modules/module/networking/tcp/counters/sent-window-probe-pkts
+                     optional uint64 pkts_received = 53;    // /state/chassis/modules/module/networking/tcp/counters/pkts-received
+                     optional uint64 discarded_bad_checksum = 54;    // /state/chassis/modules/module/networking/tcp/counters/discarded-bad-checksum
+                     optional uint64 discarded_bad_header_offset = 55;    // /state/chassis/modules/module/networking/tcp/counters/discarded-bad-header-offset
+                     optional uint64 connection_requests = 56;    // /state/chassis/modules/module/networking/tcp/counters/connection-requests
+                     optional uint64 bad_connection_attempts = 57;    // /state/chassis/modules/module/networking/tcp/counters/bad-connection-attempts
+                     optional uint64 listen_queue_overflows = 58;    // /state/chassis/modules/module/networking/tcp/counters/listen-queue-overflows
+                     optional uint64 connections_established = 59;    // /state/chassis/modules/module/networking/tcp/counters/connections-established
+                     optional uint64 embryonic_connections_dropped = 60;    // /state/chassis/modules/module/networking/tcp/counters/embryonic-connections-dropped
+                     optional uint64 connections_dropped_by_retransmit_timeout = 61;    // /state/chassis/modules/module/networking/tcp/counters/connections-dropped-by-retransmit-timeout
+                     optional uint64 keepalive_probes_sent = 62;    // /state/chassis/modules/module/networking/tcp/counters/keepalive-probes-sent
+                     optional uint64 retransmitted = 63;    // /state/chassis/modules/module/networking/tcp/counters/retransmitted
+                     optional uint64 reset = 64;    // /state/chassis/modules/module/networking/tcp/counters/reset
+                     optional uint64 aborted = 65;    // /state/chassis/modules/module/networking/tcp/counters/aborted
+                     optional uint64 cookies_sent = 66;    // /state/chassis/modules/module/networking/tcp/counters/cookies-sent
+                     optional uint64 cookies_received = 67;    // /state/chassis/modules/module/networking/tcp/counters/cookies-received
+                     optional uint64 sack_recovery_episodes = 68;    // /state/chassis/modules/module/networking/tcp/counters/sack-recovery-episodes
+                     optional uint64 segment_retransmits = 69;    // /state/chassis/modules/module/networking/tcp/counters/segment-retransmits
+                     optional uint64 out_of_sequence_segment_drops = 70;    // /state/chassis/modules/module/networking/tcp/counters/out-of-sequence-segment-drops
+                     optional uint64 rst_pkts = 71;    // /state/chassis/modules/module/networking/tcp/counters/rst-pkts
+                  }
+               }
+               optional udp_type udp = 157;    // /state/chassis/modules/module/networking/udp
+               message udp_type {
+                  optional counters_type counters = 151;    // /state/chassis/modules/module/networking/udp/counters
+                  message counters_type {
+                     optional uint64 datagrams_received = 51;    // /state/chassis/modules/module/networking/udp/counters/datagrams-received
+                     optional uint64 datagrams_incomplete_header = 52;    // /state/chassis/modules/module/networking/udp/counters/datagrams-incomplete-header
+                     optional uint64 datagrams_bad_datalength_field = 53;    // /state/chassis/modules/module/networking/udp/counters/datagrams-bad-datalength-field
+                     optional uint64 datagrams_bad_checksum = 54;    // /state/chassis/modules/module/networking/udp/counters/datagrams-bad-checksum
+                     optional uint64 datagrams_dropped_no_socket = 55;    // /state/chassis/modules/module/networking/udp/counters/datagrams-dropped-no-socket
+                     optional uint64 bcast_or_mcast_datagrams_dropped_no_socket = 56;    // /state/chassis/modules/module/networking/udp/counters/bcast-or-mcast-datagrams-dropped-no-socket
+                     optional uint64 datagrams_dropped_full_socket_buffers = 57;    // /state/chassis/modules/module/networking/udp/counters/datagrams-dropped-full-socket-buffers
+                     optional uint64 datagrams_not_for_hashed_pcb = 58;    // /state/chassis/modules/module/networking/udp/counters/datagrams-not-for-hashed-pcb
+                     optional uint64 datagrams_delivered = 59;    // /state/chassis/modules/module/networking/udp/counters/datagrams-delivered
+                     optional uint64 datagrams_output = 60;    // /state/chassis/modules/module/networking/udp/counters/datagrams-output
+                  }
+               }
+               optional ip_type ip = 158;    // /state/chassis/modules/module/networking/ip
+               message ip_type {
+                  optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ip/counters
+                  message counters_type {
+                     optional uint64 pkts_received = 51;    // /state/chassis/modules/module/networking/ip/counters/pkts-received
+                     optional uint64 bad_header_checksums = 52;    // /state/chassis/modules/module/networking/ip/counters/bad-header-checksums
+                     optional uint64 pkts_size_less_than_minimum = 53;    // /state/chassis/modules/module/networking/ip/counters/pkts-size-less-than-minimum
+                     optional uint64 pkts_data_size_less_than_data_length = 54;    // /state/chassis/modules/module/networking/ip/counters/pkts-data-size-less-than-data-length
+                     optional uint64 pkts_header_length_less_than_data_size = 55;    // /state/chassis/modules/module/networking/ip/counters/pkts-header-length-less-than-data-size
+                     optional uint64 pkts_data_length_less_than_header_length = 56;    // /state/chassis/modules/module/networking/ip/counters/pkts-data-length-less-than-header-length
+                     optional uint64 pkts_incorrect_version_number = 57;    // /state/chassis/modules/module/networking/ip/counters/pkts-incorrect-version-number
+                     optional uint64 pkts_destined_to_dead_next_hop = 58;    // /state/chassis/modules/module/networking/ip/counters/pkts-destined-to-dead-next-hop
+                     optional uint64 fragments_received = 59;    // /state/chassis/modules/module/networking/ip/counters/fragments-received
+                     optional uint64 fragments_dropped_outofspace_or_dup = 60;    // /state/chassis/modules/module/networking/ip/counters/fragments-dropped-outofspace-or-dup
+                     optional uint64 fragments_dropped_queueoverflow = 61;    // /state/chassis/modules/module/networking/ip/counters/fragments-dropped-queueoverflow
+                     optional uint64 fragments_dropped_after_timeout = 62;    // /state/chassis/modules/module/networking/ip/counters/fragments-dropped-after-timeout
+                     optional uint64 pkts_reassembled_ok = 63;    // /state/chassis/modules/module/networking/ip/counters/pkts-reassembled-ok
+                     optional uint64 pkts_for_this_host = 64;    // /state/chassis/modules/module/networking/ip/counters/pkts-for-this-host
+                     optional uint64 pkts_unknown_or_unsupported_protocol = 65;    // /state/chassis/modules/module/networking/ip/counters/pkts-unknown-or-unsupported-protocol
+                     optional uint64 pkts_forwarded = 66;    // /state/chassis/modules/module/networking/ip/counters/pkts-forwarded
+                     optional uint64 pkts_not_forwardable = 67;    // /state/chassis/modules/module/networking/ip/counters/pkts-not-forwardable
+                     optional uint64 redirects_sent = 68;    // /state/chassis/modules/module/networking/ip/counters/redirects-sent
+                     optional uint64 pkts_sent_from_this_host = 69;    // /state/chassis/modules/module/networking/ip/counters/pkts-sent-from-this-host
+                     optional uint64 pkts_sent_with_fabricated_ip_header = 70;    // /state/chassis/modules/module/networking/ip/counters/pkts-sent-with-fabricated-ip-header
+                     optional uint64 output_pkts_dropped_no_bufs = 71;    // /state/chassis/modules/module/networking/ip/counters/output-pkts-dropped-no-bufs
+                     optional uint64 output_pkts_discarded_no_route = 72;    // /state/chassis/modules/module/networking/ip/counters/output-pkts-discarded-no-route
+                     optional uint64 output_datagrams_fragmented = 73;    // /state/chassis/modules/module/networking/ip/counters/output-datagrams-fragmented
+                     optional uint64 fragments_created = 74;    // /state/chassis/modules/module/networking/ip/counters/fragments-created
+                     optional uint64 datagrams_not_fragmentable = 75;    // /state/chassis/modules/module/networking/ip/counters/datagrams-not-fragmentable
+                     optional uint64 pkts_bad_options = 76;    // /state/chassis/modules/module/networking/ip/counters/pkts-bad-options
+                     optional uint64 pkts_options_handled_without_error = 77;    // /state/chassis/modules/module/networking/ip/counters/pkts-options-handled-without-error
+                     optional uint64 strict_source_and_record_route_options = 78;    // /state/chassis/modules/module/networking/ip/counters/strict-source-and-record-route-options
+                     optional uint64 loose_source_and_record_route_options = 79;    // /state/chassis/modules/module/networking/ip/counters/loose-source-and-record-route-options
+                     optional uint64 record_route_options = 80;    // /state/chassis/modules/module/networking/ip/counters/record-route-options
+                     optional uint64 timestamp_options = 81;    // /state/chassis/modules/module/networking/ip/counters/timestamp-options
+                     optional uint64 timestamp_and_address_options = 82;    // /state/chassis/modules/module/networking/ip/counters/timestamp-and-address-options
+                     optional uint64 timestamp_and_prespecified_address_options = 83;    // /state/chassis/modules/module/networking/ip/counters/timestamp-and-prespecified-address-options
+                     optional uint64 option_pkts_dropped_rate_limit = 84;    // /state/chassis/modules/module/networking/ip/counters/option-pkts-dropped-rate-limit
+                     optional uint64 router_alert_options = 85;    // /state/chassis/modules/module/networking/ip/counters/router-alert-options
+                     optional uint64 multicast_pkts_dropped = 86;    // /state/chassis/modules/module/networking/ip/counters/multicast-pkts-dropped
+                     optional uint64 pkts_dropped = 87;    // /state/chassis/modules/module/networking/ip/counters/pkts-dropped
+                     optional uint64 transit_re_pkts_dropped_on_mgmt_interface = 88;    // /state/chassis/modules/module/networking/ip/counters/transit-re-pkts-dropped-on-mgmt-interface
+                     optional uint64 pkts_used_first_nexthop_in_ecmp_unilist = 89;    // /state/chassis/modules/module/networking/ip/counters/pkts-used-first-nexthop-in-ecmp-unilist
+                     optional uint64 incoming_ttpoip_pkts_received = 90;    // /state/chassis/modules/module/networking/ip/counters/incoming-ttpoip-pkts-received
+                     optional uint64 incoming_ttpoip_pkts_dropped = 91;    // /state/chassis/modules/module/networking/ip/counters/incoming-ttpoip-pkts-dropped
+                     optional uint64 outgoing_ttpoip_pkts_sent = 92;    // /state/chassis/modules/module/networking/ip/counters/outgoing-ttpoip-pkts-sent
+                     optional uint64 outgoing_ttpoip_pkts_dropped = 93;    // /state/chassis/modules/module/networking/ip/counters/outgoing-ttpoip-pkts-dropped
+                     optional uint64 incoming_rawip_pkts_dropped_no_socket_buffer = 94;    // /state/chassis/modules/module/networking/ip/counters/incoming-rawip-pkts-dropped-no-socket-buffer
+                     optional uint64 incoming_virtual_node_pkts_delivered = 95;    // /state/chassis/modules/module/networking/ip/counters/incoming-virtual-node-pkts-delivered
+                  }
+               }
+               optional ipv6_type ipv6 = 159;    // /state/chassis/modules/module/networking/ipv6
+               message ipv6_type {
+                  optional counters_type counters = 151;    // /state/chassis/modules/module/networking/ipv6/counters
+                  message counters_type {
+                     optional uint64 total_pkts_received = 51;    // /state/chassis/modules/module/networking/ipv6/counters/total-pkts-received
+                     optional uint64 pkts_size_smaller_than_minimum = 52;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-size-smaller-than-minimum
+                     optional uint64 pkts_data_size_less_than_data_length = 53;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-data-size-less-than-data-length
+                     optional uint64 pkts_bad_options = 54;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-bad-options
+                     optional uint64 pkts_incorrect_version_number = 55;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-incorrect-version-number
+                     optional uint64 fragments_received = 56;    // /state/chassis/modules/module/networking/ipv6/counters/fragments-received
+                     optional uint64 duplicate_or_out_of_space_fragments_dropped = 57;    // /state/chassis/modules/module/networking/ipv6/counters/duplicate-or-out-of-space-fragments-dropped
+                     optional uint64 fragments_dropped_after_timeout = 58;    // /state/chassis/modules/module/networking/ipv6/counters/fragments-dropped-after-timeout
+                     optional uint64 fragments_exceeded_limit = 59;    // /state/chassis/modules/module/networking/ipv6/counters/fragments-exceeded-limit
+                     optional uint64 pkts_reassembled_ok = 60;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-reassembled-ok
+                     optional uint64 pkts_for_this_host = 61;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-for-this-host
+                     optional uint64 pkts_forwarded = 62;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-forwarded
+                     optional uint64 pkts_not_forwardable = 63;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-not-forwardable
+                     optional uint64 redirects_sent = 64;    // /state/chassis/modules/module/networking/ipv6/counters/redirects-sent
+                     optional uint64 pkts_sent_from_this_host = 65;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-sent-from-this-host
+                     optional uint64 pkts_sent_with_fabricated_ip_header = 66;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-sent-with-fabricated-ip-header
+                     optional uint64 output_pkts_dropped_no_bufs = 67;    // /state/chassis/modules/module/networking/ipv6/counters/output-pkts-dropped-no-bufs
+                     optional uint64 output_pkts_discarded_no_route = 68;    // /state/chassis/modules/module/networking/ipv6/counters/output-pkts-discarded-no-route
+                     optional uint64 output_datagrams_fragmented = 69;    // /state/chassis/modules/module/networking/ipv6/counters/output-datagrams-fragmented
+                     optional uint64 fragments_created = 70;    // /state/chassis/modules/module/networking/ipv6/counters/fragments-created
+                     optional uint64 datagrams_not_fragmentable = 71;    // /state/chassis/modules/module/networking/ipv6/counters/datagrams-not-fragmentable
+                     optional uint64 pkts_violated_scope_rules = 72;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-violated-scope-rules
+                     optional uint64 multicast_pkts_do_not_join = 73;    // /state/chassis/modules/module/networking/ipv6/counters/multicast-pkts-do-not-join
+                     optional uint64 pkts_headers_not_continuous = 74;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-headers-not-continuous
+                     optional uint64 tunneling_pkts_can_not_find_gif = 75;    // /state/chassis/modules/module/networking/ipv6/counters/tunneling-pkts-can-not-find-gif
+                     optional uint64 pkts_discarded_too_many_headers = 76;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-discarded-too-many-headers
+                     optional uint64 failures_of_source_address_selection = 77;    // /state/chassis/modules/module/networking/ipv6/counters/failures-of-source-address-selection
+                     optional uint64 link_locals = 78;    // /state/chassis/modules/module/networking/ipv6/counters/link-locals
+                     optional uint64 site_locals = 79;    // /state/chassis/modules/module/networking/ipv6/counters/site-locals
+                     optional uint64 forward_cache_hit = 80;    // /state/chassis/modules/module/networking/ipv6/counters/forward-cache-hit
+                     optional uint64 forward_cache_miss = 81;    // /state/chassis/modules/module/networking/ipv6/counters/forward-cache-miss
+                     optional uint64 pkts_destined_to_dead_next_hop = 82;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-destined-to-dead-next-hop
+                     optional uint64 option_pkts_dropped_rate_limit = 83;    // /state/chassis/modules/module/networking/ipv6/counters/option-pkts-dropped-rate-limit
+                     optional uint64 pkts_dropped = 84;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-dropped
+                     optional uint64 pkts_dropped_bad_protocol = 85;    // /state/chassis/modules/module/networking/ipv6/counters/pkts-dropped-bad-protocol
+                     optional uint64 transit_re_packet_dropped_on_mgmt_interface = 86;    // /state/chassis/modules/module/networking/ipv6/counters/transit-re-packet-dropped-on-mgmt-interface
+                  }
+               }
+            }
+         }
+         repeated module_list module = 151;
+      }
+   }
+}

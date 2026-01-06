@@ -1,0 +1,61 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-chassis - This module contains a collection of top level nodes for JUNOS
+chassis state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_telemetry_293 jnpr_state_telemetry_293_ext = 293;
+}
+
+message state_telemetry_293 {    // /state
+   optional chassis_type chassis = 152;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 153;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional string name = 155 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+            optional string part_name = 156;    // /state/chassis/modules/module/part-name
+            optional string parent_module = 157;    // /state/chassis/modules/module/parent-module
+            optional load_average_type load_average = 158;    // /state/chassis/modules/module/load-average
+            message load_average_type {
+               optional double interval_1min = 159;    // /state/chassis/modules/module/load-average/interval-1min
+               optional double interval_5min = 160;    // /state/chassis/modules/module/load-average/interval-5min
+               optional double interval_15min = 161;    // /state/chassis/modules/module/load-average/interval-15min
+            }
+            optional processes_type processes = 162;    // /state/chassis/modules/module/processes
+            message processes_type {
+               message process_list {    // /state/chassis/modules/module/processes/process
+                  optional uint32 pid = 164 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/processes/process/pid
+                  optional string name = 165;    // /state/chassis/modules/module/processes/process/name
+                  optional cpu_type cpu = 166;    // /state/chassis/modules/module/processes/process/cpu
+                  message cpu_type {
+                     optional double interval_1min = 167;    // /state/chassis/modules/module/processes/process/cpu/interval-1min
+                     optional double interval_5min = 168;    // /state/chassis/modules/module/processes/process/cpu/interval-5min
+                     optional double interval_15min = 169;    // /state/chassis/modules/module/processes/process/cpu/interval-15min
+                  }
+                  optional memory_type memory = 170;    // /state/chassis/modules/module/processes/process/memory
+                  message memory_type {
+                     optional uint64 text_segment_size = 171;    // /state/chassis/modules/module/processes/process/memory/text-segment-size
+                     optional uint64 stack_segment_size = 172;    // /state/chassis/modules/module/processes/process/memory/stack-segment-size
+                     optional uint64 data_segment_size = 173;    // /state/chassis/modules/module/processes/process/memory/data-segment-size
+                     optional uint64 resident_memory_size = 174;    // /state/chassis/modules/module/processes/process/memory/resident-memory-size
+                     optional uint64 virtual_memory_size = 175;    // /state/chassis/modules/module/processes/process/memory/virtual-memory-size
+                  }
+               }
+               repeated process_list process = 163;
+            }
+         }
+         repeated module_list module = 154;
+      }
+   }
+}

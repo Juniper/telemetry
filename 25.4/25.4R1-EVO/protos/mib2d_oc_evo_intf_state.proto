@@ -1,0 +1,304 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+openconfig-if-ethernet - Model for managing Ethernet interfaces -- augments the OpenConfig
+model for interface configuration and state
+openconfig-if-ip - This model defines data for managing configuration and
+operational state on IP (IPv4 and IPv6) interfaces
+jnx-aug-openconfig-interfaces - This module contains JUNOS augments to OpenConfig Interfaces model
+jnx-aug-openconfig-if-ip
+openconfig-vlan - This module defines configuration and state variables for VLANs,
+in addition to VLAN parameters associated with interfaces
+openconfig-if-aggregate - Model for managing aggregated (aka bundle, LAG) interfaces
+openconfig-if-sdn-ext - This module provides extensions to the OpenConfig interfaces
+module for network elements that support external 'SDN' control
+of their interfaces
+openconfig-p4rt - This module defines a set of extensions that provide P4Runtime (P4RT)
+specific extensions to the OpenConfig data models
+ietf-yang-types - This module contains a collection of generally useful derived
+YANG data types
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_mib_evolved jnpr_interfaces_mib_evolved_ext = 162;
+}
+
+message interfaces_mib_evolved {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional state_type state = 151;    // /interfaces/interface/state
+      message state_type {
+         optional counters_type counters = 151;    // /interfaces/interface/state/counters
+         message counters_type {
+            optional uint64 carrier_transitions = 92;    // /interfaces/interface/state/counters/carrier-transitions
+         }
+         optional string name = 51;    // /interfaces/interface/state/name
+         optional string type = 52;    // /interfaces/interface/state/type
+         optional uint32 mtu = 53;    // /interfaces/interface/state/mtu
+         optional string loopback_mode = 56;    // /interfaces/interface/state/loopback-mode
+         optional string description = 54;    // /interfaces/interface/state/description
+         optional bool enabled = 55;    // /interfaces/interface/state/enabled
+         optional uint32 id = 57;    // /interfaces/interface/state/id
+         optional uint32 ifindex = 61;    // /interfaces/interface/state/ifindex
+         optional string admin_status = 62;    // /interfaces/interface/state/admin-status
+         optional string oper_status = 63;    // /interfaces/interface/state/oper-status
+         optional uint64 last_change = 64;    // /interfaces/interface/state/last-change
+         optional bool logical = 65;    // /interfaces/interface/state/logical
+         optional bool management = 67;    // /interfaces/interface/state/management
+         optional bool cpu = 68;    // /interfaces/interface/state/cpu
+         optional string hardware_port = 166;    // /interfaces/interface/state/hardware-port
+         optional bool forwarding_viable = 66;    // /interfaces/interface/state/forwarding-viable
+         optional string tpid = 69;    // /interfaces/interface/state/tpid
+         optional uint32 high_speed = 92;    // /interfaces/interface/state/high-speed
+      }
+      optional aggregation_type aggregation = 153;    // /interfaces/interface/aggregation
+      message aggregation_type {
+         optional state_type state = 151;    // /interfaces/interface/aggregation/state
+         message state_type {
+            optional string lag_type = 51;    // /interfaces/interface/aggregation/state/lag-type
+            optional uint32 min_links = 52;    // /interfaces/interface/aggregation/state/min-links
+            optional uint32 lag_speed = 53;    // /interfaces/interface/aggregation/state/lag-speed
+            repeated string member = 54;    // /interfaces/interface/aggregation/state/member
+         }
+      }
+      optional ethernet_type ethernet = 154;    // /interfaces/interface/ethernet
+      message ethernet_type {
+         optional state_type state = 151;    // /interfaces/interface/ethernet/state
+         message state_type {
+            optional string aggregate_id = 51;    // /interfaces/interface/ethernet/state/aggregate-id
+            optional string hw_mac_address = 86;    // /interfaces/interface/ethernet/state/hw-mac-address
+            optional string negotiated_duplex_mode = 87;    // /interfaces/interface/ethernet/state/negotiated-duplex-mode
+            optional string negotiated_port_speed = 88;    // /interfaces/interface/ethernet/state/negotiated-port-speed
+            optional string mac_address = 81;    // /interfaces/interface/ethernet/state/mac-address
+            optional bool auto_negotiate = 82;    // /interfaces/interface/ethernet/state/auto-negotiate
+            optional string duplex_mode = 83;    // /interfaces/interface/ethernet/state/duplex-mode
+            optional string port_speed = 84;    // /interfaces/interface/ethernet/state/port-speed
+            optional bool enable_flow_control = 85;    // /interfaces/interface/ethernet/state/enable-flow-control
+         }
+      }
+      optional hold_time_type hold_time = 155;    // /interfaces/interface/hold-time
+      message hold_time_type {
+         optional state_type state = 151;    // /interfaces/interface/hold-time/state
+         message state_type {
+            optional uint32 up = 51;    // /interfaces/interface/hold-time/state/up
+            optional uint32 down = 52;    // /interfaces/interface/hold-time/state/down
+         }
+      }
+      optional subinterfaces_type subinterfaces = 152;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/state
+            message state_type {
+               optional uint32 index = 51;    // /interfaces/interface/subinterfaces/subinterface/state/index
+               optional string description = 53;    // /interfaces/interface/subinterfaces/subinterface/state/description
+               optional bool enabled = 54;    // /interfaces/interface/subinterfaces/subinterface/state/enabled
+               optional string name = 52;    // /interfaces/interface/subinterfaces/subinterface/state/name
+               optional uint32 ifindex = 55;    // /interfaces/interface/subinterfaces/subinterface/state/ifindex
+               optional string admin_status = 56;    // /interfaces/interface/subinterfaces/subinterface/state/admin-status
+               optional string oper_status = 57;    // /interfaces/interface/subinterfaces/subinterface/state/oper-status
+               optional uint64 last_change = 58;    // /interfaces/interface/subinterfaces/subinterface/state/last-change
+               optional bool logical = 59;    // /interfaces/interface/subinterfaces/subinterface/state/logical
+               optional bool management = 61;    // /interfaces/interface/subinterfaces/subinterface/state/management
+               optional bool cpu = 60;    // /interfaces/interface/subinterfaces/subinterface/state/cpu
+            }
+            optional ipv4_type ipv4 = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv4
+            message ipv4_type {
+               optional addresses_type addresses = 153;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses
+               message addresses_type {
+                  message address_list {    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/ip
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/state
+                     message state_type {
+                        optional string ip = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/state/ip
+                        optional uint32 prefix_length = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/state/prefix-length
+                        optional string type = 62;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/state/type
+                        optional string origin = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/state/origin
+                     }
+                  }
+                  repeated address_list address = 151;
+               }
+               optional proxy_arp_type proxy_arp = 155;    // /interfaces/interface/subinterfaces/subinterface/ipv4/proxy-arp
+               message proxy_arp_type {
+                  optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/proxy-arp/state
+                  message state_type {
+                     optional string mode = 61;    // /interfaces/interface/subinterfaces/subinterface/ipv4/proxy-arp/state/mode
+                  }
+               }
+               optional neighbors_type neighbors = 154;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/ip
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state
+                     message state_type {
+                        optional string ip = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/ip
+                        optional string link_layer_address = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/link-layer-address
+                        optional string origin = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/origin
+                        optional string host_name = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/host-name
+                        optional uint32 table_id = 55;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/table-id
+                        optional string neighbor_state = 56;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/neighbor-state
+                        optional uint32 expiry = 57;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/expiry
+                        optional bool is_publish = 58;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/is-publish
+                        optional string interface_name = 59;    // /interfaces/interface/subinterfaces/subinterface/ipv4/neighbors/neighbor/state/interface-name
+                     }
+                  }
+                  repeated neighbor_list neighbor = 152;
+               }
+               optional unnumbered_type unnumbered = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered
+               message unnumbered_type {
+                  optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/state
+                  message state_type {
+                     optional bool enabled = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/state/enabled
+                  }
+                  optional interface_ref_type interface_ref = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/interface-ref
+                  message interface_ref_type {
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/interface-ref/state
+                     message state_type {
+                        optional string interface = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/interface-ref/state/interface
+                        optional uint32 subinterface = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv4/unnumbered/interface-ref/state/subinterface
+                     }
+                  }
+               }
+               optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state
+               message state_type {
+                  optional bool enabled = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/enabled
+                  optional uint32 mtu = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/mtu
+               }
+            }
+            optional ipv6_type ipv6 = 153;    // /interfaces/interface/subinterfaces/subinterface/ipv6
+            message ipv6_type {
+               optional addresses_type addresses = 153;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses
+               message addresses_type {
+                  message address_list {    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/ip
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state
+                     message state_type {
+                        optional string ip = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state/ip
+                        optional uint32 prefix_length = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state/prefix-length
+                        optional string type = 61;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state/type
+                        optional string origin = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state/origin
+                        optional string status = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/state/status
+                     }
+                  }
+                  repeated address_list address = 151;
+               }
+               optional neighbors_type neighbors = 154;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors
+               message neighbors_type {
+                  message neighbor_list {    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/ip
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state
+                     message state_type {
+                        optional string ip = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/ip
+                        optional string link_layer_address = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/link-layer-address
+                        optional string origin = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/origin
+                        optional bool is_router = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/is-router
+                        optional string neighbor_state = 55;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/neighbor-state
+                        optional uint32 table_id = 56;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/table-id
+                        optional uint32 expiry = 58;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/expiry
+                        optional bool is_publish = 59;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/is-publish
+                        optional string interface_name = 60;    // /interfaces/interface/subinterfaces/subinterface/ipv6/neighbors/neighbor/state/interface-name
+                     }
+                  }
+                  repeated neighbor_list neighbor = 152;
+               }
+               optional unnumbered_type unnumbered = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered
+               message unnumbered_type {
+                  optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/state
+                  message state_type {
+                     optional bool enabled = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/state/enabled
+                  }
+                  optional interface_ref_type interface_ref = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/interface-ref
+                  message interface_ref_type {
+                     optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/interface-ref/state
+                     message state_type {
+                        optional string interface = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/interface-ref/state/interface
+                        optional uint32 subinterface = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/unnumbered/interface-ref/state/subinterface
+                     }
+                  }
+               }
+               optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state
+               message state_type {
+                  optional bool enabled = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/enabled
+                  optional uint32 mtu = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/mtu
+                  optional uint32 dup_addr_detect_transmits = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/dup-addr-detect-transmits
+               }
+            }
+            optional vlan_type vlan = 162;    // /interfaces/interface/subinterfaces/subinterface/vlan
+            message vlan_type {
+               optional match_type match = 163;    // /interfaces/interface/subinterfaces/subinterface/vlan/match
+               message match_type {
+                  optional single_tagged_type single_tagged = 176;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged
+                  message single_tagged_type {
+                     optional state_type state = 177;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged/state
+                     message state_type {
+                        optional uint32 vlan_id = 75;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged/state/vlan-id
+                     }
+                  }
+                  optional single_tagged_list_type single_tagged_list = 170;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-list
+                  message single_tagged_list_type {
+                     optional state_type state = 171;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-list/state
+                     message state_type {
+                        repeated uint32 vlan_ids = 67;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-list/state/vlan-ids
+                     }
+                  }
+                  optional single_tagged_range_type single_tagged_range = 164;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-range
+                  message single_tagged_range_type {
+                     optional state_type state = 165;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-range/state
+                     message state_type {
+                        optional uint32 low_vlan_id = 61;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-range/state/low-vlan-id
+                        optional uint32 high_vlan_id = 62;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/single-tagged-range/state/high-vlan-id
+                     }
+                  }
+                  optional double_tagged_type double_tagged = 178;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged
+                  message double_tagged_type {
+                     optional state_type state = 179;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged/state
+                     message state_type {
+                        optional uint32 inner_vlan_id = 76;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged/state/inner-vlan-id
+                        optional uint32 outer_vlan_id = 77;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged/state/outer-vlan-id
+                     }
+                  }
+                  optional double_tagged_inner_list_type double_tagged_inner_list = 166;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-list
+                  message double_tagged_inner_list_type {
+                     optional state_type state = 167;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-list/state
+                     message state_type {
+                        repeated uint32 inner_vlan_ids = 68;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-list/state/inner-vlan-ids
+                        optional uint32 outer_vlan_id = 63;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-list/state/outer-vlan-id
+                     }
+                  }
+                  optional double_tagged_inner_range_type double_tagged_inner_range = 168;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-range
+                  message double_tagged_inner_range_type {
+                     optional state_type state = 169;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-range/state
+                     message state_type {
+                        optional uint32 inner_low_vlan_id = 65;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-range/state/inner-low-vlan-id
+                        optional uint32 inner_high_vlan_id = 64;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-range/state/inner-high-vlan-id
+                        repeated uint32 outer_vlan_id = 66;    // /interfaces/interface/subinterfaces/subinterface/vlan/match/double-tagged-inner-range/state/outer-vlan-id
+                     }
+                  }
+               }
+               optional ingress_mapping_type ingress_mapping = 172;    // /interfaces/interface/subinterfaces/subinterface/vlan/ingress-mapping
+               message ingress_mapping_type {
+                  optional state_type state = 173;    // /interfaces/interface/subinterfaces/subinterface/vlan/ingress-mapping/state
+                  message state_type {
+                     optional string vlan_stack_action = 69;    // /interfaces/interface/subinterfaces/subinterface/vlan/ingress-mapping/state/vlan-stack-action
+                     optional uint32 vlan_id = 70;    // /interfaces/interface/subinterfaces/subinterface/vlan/ingress-mapping/state/vlan-id
+                     optional string tpid = 71;    // /interfaces/interface/subinterfaces/subinterface/vlan/ingress-mapping/state/tpid
+                  }
+               }
+               optional egress_mapping_type egress_mapping = 174;    // /interfaces/interface/subinterfaces/subinterface/vlan/egress-mapping
+               message egress_mapping_type {
+                  optional state_type state = 175;    // /interfaces/interface/subinterfaces/subinterface/vlan/egress-mapping/state
+                  message state_type {
+                     optional string vlan_stack_action = 72;    // /interfaces/interface/subinterfaces/subinterface/vlan/egress-mapping/state/vlan-stack-action
+                     optional string tpid = 74;    // /interfaces/interface/subinterfaces/subinterface/vlan/egress-mapping/state/tpid
+                  }
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+   }
+   repeated interface_list interface = 151;
+}

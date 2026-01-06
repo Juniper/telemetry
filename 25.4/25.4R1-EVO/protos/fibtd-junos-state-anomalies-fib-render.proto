@@ -1,0 +1,54 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-anomalies-fib - This module contains a collection of top level nodes for JUNOS
+system FIB anomaly state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_235 jnpr_state_235_ext = 235;
+}
+
+message state_235 {    // /state
+   optional system_type system = 151;    // /state/system
+   message system_type {
+      optional anomalies_type anomalies = 151;    // /state/system/anomalies
+      message anomalies_type {
+         optional fib_type fib = 151;    // /state/system/anomalies/fib
+         message fib_type {
+            optional route_tables_type route_tables = 151;    // /state/system/anomalies/fib/route-tables
+            message route_tables_type {
+               message route_table_list {    // /state/system/anomalies/fib/route-tables/route-table
+                  optional string name = 151 [(telemetry_options).is_key = true];    // /state/system/anomalies/fib/route-tables/route-table/name
+                  optional routes_type routes = 152;    // /state/system/anomalies/fib/route-tables/route-table/routes
+                  message routes_type {
+                     optional inet_type inet = 151;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet
+                     message inet_type {
+                        message inet_entry_list {    // /state/system/anomalies/fib/route-tables/route-table/routes/inet/inet-entry
+                           optional string prefix = 51 [(telemetry_options).is_key = true];    // /state/system/anomalies/fib/route-tables/route-table/routes/inet/inet-entry/prefix
+                           optional string status = 52;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet/inet-entry/status
+                           optional uint64 timestamp = 53;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet/inet-entry/timestamp
+                           optional string module = 54;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet/inet-entry/module
+                        }
+                        repeated inet_entry_list inet_entry = 151;
+                     }
+                     optional inet6_type inet6 = 152;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6
+                     message inet6_type {
+                        message inet6_entry_list {    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6/inet6-entry
+                           optional string prefix = 51 [(telemetry_options).is_key = true];    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6/inet6-entry/prefix
+                           optional string status = 52;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6/inet6-entry/status
+                           optional uint64 timestamp = 53;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6/inet6-entry/timestamp
+                           optional string module = 54;    // /state/system/anomalies/fib/route-tables/route-table/routes/inet6/inet6-entry/module
+                        }
+                        repeated inet6_entry_list inet6_entry = 151;
+                     }
+                  }
+               }
+               repeated route_table_list route_table = 151;
+            }
+         }
+      }
+   }
+}

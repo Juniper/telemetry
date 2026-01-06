@@ -1,0 +1,34 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system-grpc - This module adds configuration and operational state relating to gRPC
+services running on a network device
+openconfig-gnsi-certz - This module provides a data model for the metadata of gRPC credentials
+installed on a networking device
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_319 jnpr_system_319_ext = 319;
+}
+
+message system_319 {    // /system
+   optional grpc_servers_type grpc_servers = 42;    // /system/grpc-servers
+   message grpc_servers_type {
+      message grpc_server_list {    // /system/grpc-servers/grpc-server
+         optional string name = 43 [(telemetry_options).is_key = true];    // /system/grpc-servers/grpc-server/name
+         optional state_type state = 44;    // /system/grpc-servers/grpc-server/state
+         message state_type {
+            optional string certificate_version = 54;    // /system/grpc-servers/grpc-server/state/certificate-version
+            optional uint64 certificate_created_on = 55;    // /system/grpc-servers/grpc-server/state/certificate-created-on
+            optional string ca_trust_bundle_version = 56;    // /system/grpc-servers/grpc-server/state/ca-trust-bundle-version
+            optional uint64 ca_trust_bundle_created_on = 57;    // /system/grpc-servers/grpc-server/state/ca-trust-bundle-created-on
+            optional string certificate_revocation_list_bundle_version = 58;    // /system/grpc-servers/grpc-server/state/certificate-revocation-list-bundle-version
+            optional uint64 certificate_revocation_list_bundle_created_on = 59;    // /system/grpc-servers/grpc-server/state/certificate-revocation-list-bundle-created-on
+            optional string ssl_profile_id = 60;    // /system/grpc-servers/grpc-server/state/ssl-profile-id
+         }
+      }
+      repeated grpc_server_list grpc_server = 43;
+   }
+}

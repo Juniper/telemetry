@@ -1,0 +1,166 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-network-instance - An OpenConfig description of a network-instance
+openconfig-local-routing - This module describes configuration and operational state data
+for routes that are locally generated, i
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+openconfig-evpn - This module contains general data definitions for use in EVPN
+openconfig-network-instance-l3 - This module contains groupings which specifically relate to
+Layer 3 network instance configuration and operational state
+parameters
+openconfig-routing-policy - This module describes a YANG model for routing policy
+configuration
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_ni_226 jnpr_network_instances_ni_226_ext = 226;
+}
+
+message network_instances_ni_226 {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional state_type state = 101;    // /network-instances/network-instance/state
+      message state_type {
+         optional string name = 51;    // /network-instances/network-instance/state/name
+         optional string type = 56;    // /network-instances/network-instance/state/type
+         optional string description = 52;    // /network-instances/network-instance/state/description
+         optional string router_id = 55;    // /network-instances/network-instance/state/router-id
+         optional string route_distinguisher = 54;    // /network-instances/network-instance/state/route-distinguisher
+      }
+      optional inter_instance_policies_type inter_instance_policies = 155;    // /network-instances/network-instance/inter-instance-policies
+      message inter_instance_policies_type {
+         optional import_export_policy_type import_export_policy = 153;    // /network-instances/network-instance/inter-instance-policies/import-export-policy
+         message import_export_policy_type {
+            optional state_type state = 151;    // /network-instances/network-instance/inter-instance-policies/import-export-policy/state
+            message state_type {
+               repeated string export_route_target = 51;    // /network-instances/network-instance/inter-instance-policies/import-export-policy/state/export-route-target
+               repeated string import_route_target = 52;    // /network-instances/network-instance/inter-instance-policies/import-export-policy/state/import-route-target
+            }
+         }
+         optional apply_policy_type apply_policy = 152;    // /network-instances/network-instance/inter-instance-policies/apply-policy
+         message apply_policy_type {
+            optional state_type state = 151;    // /network-instances/network-instance/inter-instance-policies/apply-policy/state
+            message state_type {
+               repeated string export_policy = 51;    // /network-instances/network-instance/inter-instance-policies/apply-policy/state/export-policy
+               optional string default_export_policy = 52;    // /network-instances/network-instance/inter-instance-policies/apply-policy/state/default-export-policy
+               repeated string import_policy = 53;    // /network-instances/network-instance/inter-instance-policies/apply-policy/state/import-policy
+               optional string default_import_policy = 54;    // /network-instances/network-instance/inter-instance-policies/apply-policy/state/default-import-policy
+            }
+         }
+      }
+      optional route_limits_type route_limits = 154;    // /network-instances/network-instance/route-limits
+      message route_limits_type {
+         message route_limit_list {    // /network-instances/network-instance/route-limits/route-limit
+            optional string afi = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/route-limits/route-limit/afi
+            optional state_type state = 151;    // /network-instances/network-instance/route-limits/route-limit/state
+            message state_type {
+               optional string afi = 51;    // /network-instances/network-instance/route-limits/route-limit/state/afi
+               optional uint32 maximum = 52;    // /network-instances/network-instance/route-limits/route-limit/state/maximum
+               optional bool warning_only = 53;    // /network-instances/network-instance/route-limits/route-limit/state/warning-only
+            }
+         }
+         repeated route_limit_list route_limit = 151;
+      }
+      optional interfaces_type interfaces = 153;    // /network-instances/network-instance/interfaces
+      message interfaces_type {
+         message interface_list {    // /network-instances/network-instance/interfaces/interface
+            optional string id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/interfaces/interface/id
+            optional state_type state = 151;    // /network-instances/network-instance/interfaces/interface/state
+            message state_type {
+               optional string id = 51;    // /network-instances/network-instance/interfaces/interface/state/id
+               optional string interface = 52;    // /network-instances/network-instance/interfaces/interface/state/interface
+               optional uint32 subinterface = 53;    // /network-instances/network-instance/interfaces/interface/state/subinterface
+            }
+         }
+         repeated interface_list interface = 151;
+      }
+      optional protocols_type protocols = 151;    // /network-instances/network-instance/protocols
+      message protocols_type {
+         message protocol_list {    // /network-instances/network-instance/protocols/protocol
+            optional string identifier = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/identifier
+            optional string name = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/name
+            optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/state
+            message state_type {
+               optional bool enabled = 53;    // /network-instances/network-instance/protocols/protocol/state/enabled
+               optional string identifier = 51;    // /network-instances/network-instance/protocols/protocol/state/identifier
+               optional string name = 52;    // /network-instances/network-instance/protocols/protocol/state/name
+            }
+            optional static_routes_type static_routes = 152;    // /network-instances/network-instance/protocols/protocol/static-routes
+            message static_routes_type {
+               message static_list {    // /network-instances/network-instance/protocols/protocol/static-routes/static
+                  optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/static-routes/static/prefix
+                  optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/static-routes/static/state
+                  message state_type {
+                     optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/static-routes/static/state/prefix
+                     optional string set_tag = 52;    // /network-instances/network-instance/protocols/protocol/static-routes/static/state/set-tag
+                     optional string description = 53;    // /network-instances/network-instance/protocols/protocol/static-routes/static/state/description
+                  }
+                  optional next_hops_type next_hops = 152;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops
+                  message next_hops_type {
+                     message next_hop_list {    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop
+                        optional string index = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/index
+                        optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state
+                        message state_type {
+                           optional string index = 51;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state/index
+                           optional string next_hop = 52;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state/next-hop
+                           optional bool recurse = 54;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state/recurse
+                           optional uint32 metric = 53;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state/metric
+                           optional uint32 preference = 55;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/state/preference
+                        }
+                        optional interface_ref_type interface_ref = 152;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/interface-ref
+                        message interface_ref_type {
+                           optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/interface-ref/state
+                           message state_type {
+                              optional string interface = 51;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/interface-ref/state/interface
+                              optional uint32 subinterface = 52;    // /network-instances/network-instance/protocols/protocol/static-routes/static/next-hops/next-hop/interface-ref/state/subinterface
+                           }
+                        }
+                     }
+                     repeated next_hop_list next_hop = 51;
+                  }
+               }
+               repeated static_list static = 51;
+            }
+            optional local_aggregates_type local_aggregates = 153;    // /network-instances/network-instance/protocols/protocol/local-aggregates
+            message local_aggregates_type {
+               message aggregate_list {    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate
+                  optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/prefix
+                  optional state_type state = 151;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state
+                  message state_type {
+                     optional string prefix = 51;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/prefix
+                     optional bool discard = 52;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/discard
+                     optional string set_tag = 53;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/set-tag
+                     optional string description = 54;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/description
+                     optional uint32 metric = 55;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/metric
+                     optional uint32 preference = 56;    // /network-instances/network-instance/protocols/protocol/local-aggregates/aggregate/state/preference
+                  }
+               }
+               repeated aggregate_list aggregate = 51;
+            }
+         }
+         repeated protocol_list protocol = 151;
+      }
+      optional table_connections_type table_connections = 156;    // /network-instances/network-instance/table-connections
+      message table_connections_type {
+         message table_connection_list {    // /network-instances/network-instance/table-connections/table-connection
+            optional string src_protocol = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/table-connections/table-connection/src-protocol
+            optional string dst_protocol = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/table-connections/table-connection/dst-protocol
+            optional string address_family = 53 [(telemetry_options).is_key = true];    // /network-instances/network-instance/table-connections/table-connection/address-family
+            optional state_type state = 151;    // /network-instances/network-instance/table-connections/table-connection/state
+            message state_type {
+               optional string src_protocol = 51;    // /network-instances/network-instance/table-connections/table-connection/state/src-protocol
+               optional string dst_protocol = 52;    // /network-instances/network-instance/table-connections/table-connection/state/dst-protocol
+               optional string address_family = 53;    // /network-instances/network-instance/table-connections/table-connection/state/address-family
+               optional string default_import_policy = 54;    // /network-instances/network-instance/table-connections/table-connection/state/default-import-policy
+               repeated string import_policy = 55;    // /network-instances/network-instance/table-connections/table-connection/state/import-policy
+               optional bool disable_metric_propagation = 56;    // /network-instances/network-instance/table-connections/table-connection/state/disable-metric-propagation
+            }
+         }
+         repeated table_connection_list table_connection = 151;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

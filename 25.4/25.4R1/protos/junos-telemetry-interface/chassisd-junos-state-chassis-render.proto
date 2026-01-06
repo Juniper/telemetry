@@ -1,0 +1,89 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-chassis - This module contains a collection of top level nodes for JUNOS
+chassis state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_chassis_248 jnpr_state_chassis_248_ext = 248;
+}
+
+message state_chassis_248 {    // /state
+   optional chassis_type chassis = 149;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 150;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional string name = 152 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+            optional mac_addresses_type mac_addresses = 153;    // /state/chassis/modules/module/mac-addresses
+            message mac_addresses_type {
+               optional string public_base_address = 154;    // /state/chassis/modules/module/mac-addresses/public-base-address
+               optional uint32 public_address_count = 155;    // /state/chassis/modules/module/mac-addresses/public-address-count
+               optional string private_base_address = 156;    // /state/chassis/modules/module/mac-addresses/private-base-address
+               optional uint32 private_address_count = 157;    // /state/chassis/modules/module/mac-addresses/private-address-count
+            }
+            optional fpm_type fpm = 158;    // /state/chassis/modules/module/fpm
+            message fpm_type {
+               optional alarm_port_type alarm_port = 159;    // /state/chassis/modules/module/fpm/alarm-port
+               message alarm_port_type {
+                  message input_port_list {    // /state/chassis/modules/module/fpm/alarm-port/input-port
+                     optional uint32 index = 161 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/fpm/alarm-port/input-port/index
+                     optional string status = 162;    // /state/chassis/modules/module/fpm/alarm-port/input-port/status
+                  }
+                  repeated input_port_list input_port = 160;
+                  message output_port_list {    // /state/chassis/modules/module/fpm/alarm-port/output-port
+                     optional uint32 index = 164 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/fpm/alarm-port/output-port/index
+                     optional string status = 165;    // /state/chassis/modules/module/fpm/alarm-port/output-port/status
+                  }
+                  repeated output_port_list output_port = 163;
+               }
+            }
+            optional environment_type environment = 166;    // /state/chassis/modules/module/environment
+            message environment_type {
+               optional sensors_type sensors = 167;    // /state/chassis/modules/module/environment/sensors
+               message sensors_type {
+                  message sensor_list {    // /state/chassis/modules/module/environment/sensors/sensor
+                     optional string name = 169 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/environment/sensors/sensor/name
+                     optional uint64 value = 170;    // /state/chassis/modules/module/environment/sensors/sensor/value
+                     optional string type = 171;    // /state/chassis/modules/module/environment/sensors/sensor/type
+                     optional string unit = 172;    // /state/chassis/modules/module/environment/sensors/sensor/unit
+                     optional string status = 173;    // /state/chassis/modules/module/environment/sensors/sensor/status
+                  }
+                  repeated sensor_list sensor = 168;
+               }
+            }
+         }
+         repeated module_list module = 151;
+      }
+      optional power_type power = 174;    // /state/chassis/power
+      message power_type {
+         optional modules_type modules = 175;    // /state/chassis/power/modules
+         message modules_type {
+            message module_list {    // /state/chassis/power/modules/module
+               optional string name = 177 [(telemetry_options).is_key = true];    // /state/chassis/power/modules/module/name
+               optional uint32 slot_number = 178;    // /state/chassis/power/modules/module/slot-number
+               optional string oper_status = 179;    // /state/chassis/power/modules/module/oper-status
+               optional feeds_type feeds = 180;    // /state/chassis/power/modules/module/feeds
+               message feeds_type {
+                  message feed_list {    // /state/chassis/power/modules/module/feeds/feed
+                     optional uint32 voltage = 182 [(telemetry_options).is_key = true];    // /state/chassis/power/modules/module/feeds/feed/voltage
+                     optional bool expected = 183;    // /state/chassis/power/modules/module/feeds/feed/expected
+                     optional bool connected = 184;    // /state/chassis/power/modules/module/feeds/feed/connected
+                  }
+                  repeated feed_list feed = 181;
+               }
+            }
+            repeated module_list module = 176;
+         }
+      }
+   }
+}

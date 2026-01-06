@@ -1,0 +1,166 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_telemetry_213 jnpr_system_telemetry_213_ext = 213;
+}
+
+message system_telemetry_213 {    // /system
+   optional state_type state = 151;    // /system/state
+   message state_type {
+      optional string hostname = 152;    // /system/state/hostname
+      optional string domain_name = 153;    // /system/state/domain-name
+      optional string current_datetime = 154;    // /system/state/current-datetime
+      optional uint64 up_time = 552;    // /system/state/up-time
+      optional uint64 boot_time = 155;    // /system/state/boot-time
+      optional string software_version = 551;    // /system/state/software-version
+   }
+   optional mount_points_type mount_points = 246;    // /system/mount-points
+   message mount_points_type {
+      message mount_point_list {    // /system/mount-points/mount-point
+         optional string name = 248 [(telemetry_options).is_key = true];    // /system/mount-points/mount-point/name
+         optional state_type state = 249;    // /system/mount-points/mount-point/state
+         message state_type {
+            optional string name = 250;    // /system/mount-points/mount-point/state/name
+            optional string storage_component = 251;    // /system/mount-points/mount-point/state/storage-component
+            optional uint64 size = 252;    // /system/mount-points/mount-point/state/size
+            optional uint64 available = 253;    // /system/mount-points/mount-point/state/available
+            optional uint64 utilized = 254;    // /system/mount-points/mount-point/state/utilized
+            optional string type = 255;    // /system/mount-points/mount-point/state/type
+         }
+      }
+      repeated mount_point_list mount_point = 247;
+   }
+   optional processes_type processes = 232;    // /system/processes
+   message processes_type {
+      message process_list {    // /system/processes/process
+         optional uint64 pid = 234 [(telemetry_options).is_key = true];    // /system/processes/process/pid
+         optional state_type state = 235;    // /system/processes/process/state
+         message state_type {
+            optional uint64 pid = 236;    // /system/processes/process/state/pid
+            optional string name = 237;    // /system/processes/process/state/name
+            optional uint64 start_time = 238;    // /system/processes/process/state/start-time
+            optional uint64 cpu_usage_user = 239;    // /system/processes/process/state/cpu-usage-user
+            optional uint64 cpu_usage_system = 240;    // /system/processes/process/state/cpu-usage-system
+            optional uint32 cpu_utilization = 241;    // /system/processes/process/state/cpu-utilization
+            optional uint64 memory_usage = 242;    // /system/processes/process/state/memory-usage
+            optional uint32 memory_utilization = 243;    // /system/processes/process/state/memory-utilization
+         }
+      }
+      repeated process_list process = 233;
+   }
+   optional clock_type clock = 156;    // /system/clock
+   message clock_type {
+      optional state_type state = 157;    // /system/clock/state
+      message state_type {
+         optional string timezone_name = 158;    // /system/clock/state/timezone-name
+      }
+   }
+   optional cpus_type cpus = 163;    // /system/cpus
+   message cpus_type {
+      message cpu_list {    // /system/cpus/cpu
+         optional string index = 165 [(telemetry_options).is_key = true];    // /system/cpus/cpu/index
+         optional state_type state = 166;    // /system/cpus/cpu/state
+         message state_type {
+            optional string index = 165;    // /system/cpus/cpu/state/index
+            optional total_type total = 168;    // /system/cpus/cpu/state/total
+            message total_type {
+               optional uint32 instant = 169;    // /system/cpus/cpu/state/total/instant
+               optional uint32 avg = 170;    // /system/cpus/cpu/state/total/avg
+               optional uint32 min = 171;    // /system/cpus/cpu/state/total/min
+               optional uint32 max = 172;    // /system/cpus/cpu/state/total/max
+               optional uint64 interval = 173;    // /system/cpus/cpu/state/total/interval
+               optional uint64 min_time = 174;    // /system/cpus/cpu/state/total/min-time
+               optional uint64 max_time = 175;    // /system/cpus/cpu/state/total/max-time
+            }
+            optional user_type user = 176;    // /system/cpus/cpu/state/user
+            message user_type {
+               optional uint32 instant = 177;    // /system/cpus/cpu/state/user/instant
+               optional uint32 avg = 178;    // /system/cpus/cpu/state/user/avg
+               optional uint32 min = 179;    // /system/cpus/cpu/state/user/min
+               optional uint32 max = 180;    // /system/cpus/cpu/state/user/max
+               optional uint64 interval = 181;    // /system/cpus/cpu/state/user/interval
+               optional uint64 min_time = 182;    // /system/cpus/cpu/state/user/min-time
+               optional uint64 max_time = 183;    // /system/cpus/cpu/state/user/max-time
+            }
+            optional kernel_type kernel = 184;    // /system/cpus/cpu/state/kernel
+            message kernel_type {
+               optional uint32 instant = 185;    // /system/cpus/cpu/state/kernel/instant
+               optional uint32 avg = 186;    // /system/cpus/cpu/state/kernel/avg
+               optional uint32 min = 187;    // /system/cpus/cpu/state/kernel/min
+               optional uint32 max = 188;    // /system/cpus/cpu/state/kernel/max
+               optional uint64 interval = 189;    // /system/cpus/cpu/state/kernel/interval
+               optional uint64 min_time = 190;    // /system/cpus/cpu/state/kernel/min-time
+               optional uint64 max_time = 191;    // /system/cpus/cpu/state/kernel/max-time
+            }
+            optional nice_type nice = 192;    // /system/cpus/cpu/state/nice
+            message nice_type {
+               optional uint32 instant = 193;    // /system/cpus/cpu/state/nice/instant
+               optional uint32 avg = 194;    // /system/cpus/cpu/state/nice/avg
+               optional uint32 min = 195;    // /system/cpus/cpu/state/nice/min
+               optional uint32 max = 196;    // /system/cpus/cpu/state/nice/max
+               optional uint64 interval = 197;    // /system/cpus/cpu/state/nice/interval
+               optional uint64 min_time = 198;    // /system/cpus/cpu/state/nice/min-time
+               optional uint64 max_time = 199;    // /system/cpus/cpu/state/nice/max-time
+            }
+            optional idle_type idle = 200;    // /system/cpus/cpu/state/idle
+            message idle_type {
+               optional uint32 instant = 201;    // /system/cpus/cpu/state/idle/instant
+               optional uint32 avg = 202;    // /system/cpus/cpu/state/idle/avg
+               optional uint32 min = 203;    // /system/cpus/cpu/state/idle/min
+               optional uint32 max = 204;    // /system/cpus/cpu/state/idle/max
+               optional uint64 interval = 205;    // /system/cpus/cpu/state/idle/interval
+               optional uint64 min_time = 206;    // /system/cpus/cpu/state/idle/min-time
+               optional uint64 max_time = 207;    // /system/cpus/cpu/state/idle/max-time
+            }
+            optional wait_type wait = 208;    // /system/cpus/cpu/state/wait
+            message wait_type {
+               optional uint32 instant = 209;    // /system/cpus/cpu/state/wait/instant
+               optional uint32 avg = 210;    // /system/cpus/cpu/state/wait/avg
+               optional uint32 min = 211;    // /system/cpus/cpu/state/wait/min
+               optional uint32 max = 212;    // /system/cpus/cpu/state/wait/max
+               optional uint64 interval = 213;    // /system/cpus/cpu/state/wait/interval
+               optional uint64 min_time = 214;    // /system/cpus/cpu/state/wait/min-time
+               optional uint64 max_time = 215;    // /system/cpus/cpu/state/wait/max-time
+            }
+            optional hardware_interrupt_type hardware_interrupt = 216;    // /system/cpus/cpu/state/hardware-interrupt
+            message hardware_interrupt_type {
+               optional uint32 instant = 217;    // /system/cpus/cpu/state/hardware-interrupt/instant
+               optional uint32 avg = 218;    // /system/cpus/cpu/state/hardware-interrupt/avg
+               optional uint32 min = 219;    // /system/cpus/cpu/state/hardware-interrupt/min
+               optional uint32 max = 220;    // /system/cpus/cpu/state/hardware-interrupt/max
+               optional uint64 interval = 221;    // /system/cpus/cpu/state/hardware-interrupt/interval
+               optional uint64 min_time = 222;    // /system/cpus/cpu/state/hardware-interrupt/min-time
+               optional uint64 max_time = 223;    // /system/cpus/cpu/state/hardware-interrupt/max-time
+            }
+            optional software_interrupt_type software_interrupt = 224;    // /system/cpus/cpu/state/software-interrupt
+            message software_interrupt_type {
+               optional uint32 instant = 225;    // /system/cpus/cpu/state/software-interrupt/instant
+               optional uint32 avg = 226;    // /system/cpus/cpu/state/software-interrupt/avg
+               optional uint32 min = 227;    // /system/cpus/cpu/state/software-interrupt/min
+               optional uint32 max = 228;    // /system/cpus/cpu/state/software-interrupt/max
+               optional uint64 interval = 229;    // /system/cpus/cpu/state/software-interrupt/interval
+               optional uint64 min_time = 230;    // /system/cpus/cpu/state/software-interrupt/min-time
+               optional uint64 max_time = 231;    // /system/cpus/cpu/state/software-interrupt/max-time
+            }
+         }
+      }
+      repeated cpu_list cpu = 164;
+   }
+   optional memory_type memory = 159;    // /system/memory
+   message memory_type {
+      optional state_type state = 160;    // /system/memory/state
+      message state_type {
+         optional uint64 physical = 161;    // /system/memory/state/physical
+         optional uint64 reserved = 162;    // /system/memory/state/reserved
+         optional uint64 used = 244;    // /system/memory/state/used
+         optional uint64 free = 245;    // /system/memory/state/free
+      }
+   }
+}

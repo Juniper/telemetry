@@ -1,0 +1,130 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional cos_230 jnpr_cos_230_ext = 230;
+}
+
+message cos_230 {    // /cos
+   optional interfaces_type interfaces = 151;    // /cos/interfaces
+   message interfaces_type {
+      message interface_list {    // /cos/interfaces/interface
+         optional string interface_id = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interface-id
+         optional input_type input = 151;    // /cos/interfaces/interface/input
+         message input_type {
+            optional queues_type queues = 151;    // /cos/interfaces/interface/input/queues
+            message queues_type {
+               message queue_list {    // /cos/interfaces/interface/input/queues/queue
+                  optional uint32 queue_num = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/input/queues/queue/queue-num
+                  optional pfes_type pfes = 151;    // /cos/interfaces/interface/input/queues/queue/pfes
+                  message pfes_type {
+                     message pfe_list {    // /cos/interfaces/interface/input/queues/queue/pfes/pfe
+                        optional uint32 pfe_index = 52 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/pfe-index
+                        optional uint64 peak_queue_length_bytes = 53;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/peak-queue-length-bytes
+                        optional uint64 peak_queue_length_percent = 54;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/peak-queue-length-percent
+                        optional uint64 cur_queue_length_bytes = 55;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/cur-queue-length-bytes
+                        optional uint64 cur_queue_length_percent = 56;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/cur-queue-length-percent
+                        optional uint64 avg_queue_length_bytes = 57;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/avg-queue-length-bytes
+                        optional uint64 avg_queue_length_percent = 58;    // /cos/interfaces/interface/input/queues/queue/pfes/pfe/avg-queue-length-percent
+                     }
+                     repeated pfe_list pfe = 151;
+                  }
+               }
+               repeated queue_list queue = 151;
+            }
+         }
+         optional subinterfaces_type subinterfaces = 152;    // /cos/interfaces/interface/subinterfaces
+         message subinterfaces_type {
+            message subinterface_list {    // /cos/interfaces/interface/subinterfaces/subinterface
+               optional uint32 sub_unit = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/subinterfaces/subinterface/sub-unit
+               optional input_type input = 151;    // /cos/interfaces/interface/subinterfaces/subinterface/input
+               message input_type {
+                  optional queues_type queues = 151;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues
+                  message queues_type {
+                     message queue_list {    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue
+                        optional uint32 queue_num = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/queue-num
+                        optional pfes_type pfes = 151;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes
+                        message pfes_type {
+                           message pfe_list {    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe
+                              optional uint32 pfe_index = 52 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/pfe-index
+                              optional uint64 peak_queue_length_bytes = 53;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/peak-queue-length-bytes
+                              optional uint64 peak_queue_length_percent = 54;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/peak-queue-length-percent
+                              optional uint64 cur_queue_length_bytes = 55;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/cur-queue-length-bytes
+                              optional uint64 cur_queue_length_percent = 56;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/cur-queue-length-percent
+                              optional uint64 avg_queue_length_bytes = 57;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/avg-queue-length-bytes
+                              optional uint64 avg_queue_length_percent = 58;    // /cos/interfaces/interface/subinterfaces/subinterface/input/queues/queue/pfes/pfe/avg-queue-length-percent
+                           }
+                           repeated pfe_list pfe = 151;
+                        }
+                     }
+                     repeated queue_list queue = 151;
+                  }
+               }
+            }
+            repeated subinterface_list subinterface = 151;
+         }
+         optional interfaces_set_type interfaces_set = 153;    // /cos/interfaces/interface/interfaces-set
+         message interfaces_set_type {
+            message interface_set_list {    // /cos/interfaces/interface/interfaces-set/interface-set
+               optional string interface_set_id = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/interface-set-id
+               optional input_type input = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/input
+               message input_type {
+                  optional queues_type queues = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues
+                  message queues_type {
+                     message queue_list {    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue
+                        optional uint32 queue_num = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/queue-num
+                        optional pfes_type pfes = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes
+                        message pfes_type {
+                           message pfe_list {    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe
+                              optional uint32 pfe_index = 52 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/pfe-index
+                              optional uint64 peak_queue_length_bytes = 53;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/peak-queue-length-bytes
+                              optional uint64 peak_queue_length_percent = 54;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/peak-queue-length-percent
+                              optional uint64 cur_queue_length_bytes = 55;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/cur-queue-length-bytes
+                              optional uint64 cur_queue_length_percent = 56;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/cur-queue-length-percent
+                              optional uint64 avg_queue_length_bytes = 57;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/avg-queue-length-bytes
+                              optional uint64 avg_queue_length_percent = 58;    // /cos/interfaces/interface/interfaces-set/interface-set/input/queues/queue/pfes/pfe/avg-queue-length-percent
+                           }
+                           repeated pfe_list pfe = 151;
+                        }
+                     }
+                     repeated queue_list queue = 151;
+                  }
+               }
+               optional subinterfaces_type subinterfaces = 152;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces
+               message subinterfaces_type {
+                  message subinterface_list {    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface
+                     optional uint32 sub_unit = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/sub-unit
+                     optional input_type input = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input
+                     message input_type {
+                        optional queues_type queues = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues
+                        message queues_type {
+                           message queue_list {    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue
+                              optional uint32 queue_num = 51 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/queue-num
+                              optional pfes_type pfes = 151;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes
+                              message pfes_type {
+                                 message pfe_list {    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe
+                                    optional uint32 pfe_index = 52 [(telemetry_options).is_key = true];    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/pfe-index
+                                    optional uint64 peak_queue_length_bytes = 53;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/peak-queue-length-bytes
+                                    optional uint64 peak_queue_length_percent = 54;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/peak-queue-length-percent
+                                    optional uint64 cur_queue_length_bytes = 55;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/cur-queue-length-bytes
+                                    optional uint64 cur_queue_length_percent = 56;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/cur-queue-length-percent
+                                    optional uint64 avg_queue_length_bytes = 57;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/avg-queue-length-bytes
+                                    optional uint64 avg_queue_length_percent = 58;    // /cos/interfaces/interface/interfaces-set/interface-set/subinterfaces/subinterface/input/queues/queue/pfes/pfe/avg-queue-length-percent
+                                 }
+                                 repeated pfe_list pfe = 151;
+                              }
+                           }
+                           repeated queue_list queue = 151;
+                        }
+                     }
+                  }
+                  repeated subinterface_list subinterface = 151;
+               }
+            }
+            repeated interface_set_list interface_set = 151;
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

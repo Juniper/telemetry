@@ -1,0 +1,51 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_kernel_ifstate jnpr_junos_kernel_ifstate_ext = 72;
+}
+
+message junos_kernel_ifstate {    // /junos
+   optional kernel_ifstate_type kernel_ifstate = 181;    // /junos/kernel-ifstate
+   message kernel_ifstate_type {
+      message stats_list {    // /junos/kernel-ifstate/stats
+         optional uint32 record_time = 121 [(telemetry_options).is_key = true];    // /junos/kernel-ifstate/stats/record-time
+         optional uint32 record_seq_num = 122;    // /junos/kernel-ifstate/stats/record-seq-num
+         optional churn_rate_type churn_rate = 151;    // /junos/kernel-ifstate/stats/churn-rate
+         message churn_rate_type {
+            optional uint32 overall_churn_rate = 51;    // /junos/kernel-ifstate/stats/churn-rate/overall-churn-rate
+            optional uint32 route_add_rate = 52;    // /junos/kernel-ifstate/stats/churn-rate/route-add-rate
+            optional uint32 route_change_rate = 53;    // /junos/kernel-ifstate/stats/churn-rate/route-change-rate
+            optional uint32 route_delete_rate = 54;    // /junos/kernel-ifstate/stats/churn-rate/route-delete-rate
+            optional uint32 nexthop_add_rate = 55;    // /junos/kernel-ifstate/stats/churn-rate/nexthop-add-rate
+            optional uint32 nexthop_delete_rate = 56;    // /junos/kernel-ifstate/stats/churn-rate/nexthop-delete-rate
+            optional uint32 nexthop_change_rate = 57;    // /junos/kernel-ifstate/stats/churn-rate/nexthop-change-rate
+         }
+         message peer_consumption_rate_list {    // /junos/kernel-ifstate/stats/peer-consumption-rate
+            optional uint32 peer_index = 51 [(telemetry_options).is_key = true];    // /junos/kernel-ifstate/stats/peer-consumption-rate/peer-index
+            optional uint32 consumption_rate_counter = 52;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-rate-counter
+            optional uint32 consumption_route_add_rate = 53;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-route-add-rate
+            optional uint32 consumption_route_change_rate = 54;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-route-change-rate
+            optional uint32 consumption_route_delete_rate = 55;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-route-delete-rate
+            optional uint32 consumption_nexthop_add_rate = 56;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-nexthop-add-rate
+            optional uint32 consumption_nexthop_change_rate = 57;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-nexthop-change-rate
+            optional uint32 consumption_nexthop_delete_rate = 58;    // /junos/kernel-ifstate/stats/peer-consumption-rate/consumption-nexthop-delete-rate
+         }
+         repeated peer_consumption_rate_list peer_consumption_rate = 152;
+         optional vetos_statistics_type vetos_statistics = 153;    // /junos/kernel-ifstate/stats/vetos-statistics
+         message vetos_statistics_type {
+            optional uint32 veto_vm_page_count_severe = 51;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-vm-page-count-severe
+            optional uint32 veto_ifstate_memory = 52;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-ifstate-memory
+            optional uint32 veto_memory_overconsumed = 53;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-memory-overconsumed
+            optional uint32 veto_pfe_veto_max_routes = 54;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-pfe-veto-max-routes
+            optional uint32 veto_too_many_delayed_unrefs = 55;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-too-many-delayed-unrefs
+            optional uint32 veto_nh_memory_usage = 56;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-nh-memory-usage
+            optional uint32 veto_mbuf_cluster = 57;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-mbuf-cluster
+            optional uint32 veto_flabel_space_exhaustion = 58;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-flabel-space-exhaustion
+            optional uint32 veto_flabel_space_consumption = 59;    // /junos/kernel-ifstate/stats/vetos-statistics/veto-flabel-space-consumption
+         }
+      }
+      repeated stats_list stats = 141;
+   }
+}

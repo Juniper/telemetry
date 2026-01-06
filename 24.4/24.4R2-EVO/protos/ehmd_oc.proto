@@ -1,0 +1,61 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_telemetry jnpr_junos_telemetry_ext = 124;
+}
+
+message junos_telemetry {    // /junos
+   optional system_type system = 231;    // /junos/system
+   message system_type {
+      optional state_type state = 991;    // /junos/system/state
+      message state_type {
+         message infra_list {    // /junos/system/state/infra
+            optional uint64 system_infra_key = 879 [(telemetry_options).is_key = true];    // /junos/system/state/infra/system-infra-key
+            optional uint32 object_db_usage_perc = 51;    // /junos/system/state/infra/object-db-usage-perc
+            message dependency_info_list {    // /junos/system/state/infra/dependency-info
+               optional string app_name = 81 [(telemetry_options).is_key = true];    // /junos/system/state/infra/dependency-info/app-name
+               optional string status = 82;    // /junos/system/state/infra/dependency-info/status
+               optional string app_node = 83;    // /junos/system/state/infra/dependency-info/app-node
+            }
+            repeated dependency_info_list dependency_info = 121;
+            message node_info_list {    // /junos/system/state/infra/node-info
+               optional string node_type = 73 [(telemetry_options).is_key = true];    // /junos/system/state/infra/node-info/node-type
+               optional string node_status = 74;    // /junos/system/state/infra/node-info/node-status
+            }
+            repeated node_info_list node_info = 181;
+            message app_status_list {    // /junos/system/state/infra/app-status
+               optional string app_name = 71 [(telemetry_options).is_key = true];    // /junos/system/state/infra/app-status/app-name
+               optional string app_status = 72;    // /junos/system/state/infra/app-status/app-status
+               optional string app_node = 75;    // /junos/system/state/infra/app-status/app-node
+            }
+            repeated app_status_list app_status = 191;
+         }
+         repeated infra_list infra = 651;
+         message network_list {    // /junos/system/state/network
+            optional uint64 system_network_key = 880 [(telemetry_options).is_key = true];    // /junos/system/state/network/system-network-key
+            optional string jtd_loaded = 41;    // /junos/system/state/network/jtd-loaded
+            optional string master_dev_vrf = 42;    // /junos/system/state/network/master-dev-vrf
+            optional uint64 jtd_packets_drop_input = 43;    // /junos/system/state/network/jtd-packets-drop-input
+            optional uint64 jtd_packets_drop_output = 44;    // /junos/system/state/network/jtd-packets-drop-output
+            optional string fibd_proxy_si_comm = 45;    // /junos/system/state/network/fibd-proxy-si-comm
+            optional string fibd_proxy_jtd_comm = 46;    // /junos/system/state/network/fibd-proxy-jtd-comm
+            optional string fibd_proxy_si_comm_listen = 47;    // /junos/system/state/network/fibd-proxy-si-comm-listen
+            optional string fibd_proxy_si_comm_established = 48;    // /junos/system/state/network/fibd-proxy-si-comm-established
+            optional string fibd_proxy_jtd_comm_listen = 49;    // /junos/system/state/network/fibd-proxy-jtd-comm-listen
+            optional string fibd_proxy_jtd_comm_established = 50;    // /junos/system/state/network/fibd-proxy-jtd-comm-established
+         }
+         repeated network_list network = 352;
+         message baseos_list {    // /junos/system/state/baseos
+            optional uint64 baseos_key = 881 [(telemetry_options).is_key = true];    // /junos/system/state/baseos/baseos-key
+            optional uint64 open_files_cnt = 61;    // /junos/system/state/baseos/open-files-cnt
+            optional uint64 max_files_cnt = 62;    // /junos/system/state/baseos/max-files-cnt
+            optional uint64 max_process_cnt = 63;    // /junos/system/state/baseos/max-process-cnt
+            optional uint64 process_cnt = 64;    // /junos/system/state/baseos/process-cnt
+            optional uint32 alarms_cnt = 65;    // /junos/system/state/baseos/alarms-cnt
+         }
+         repeated baseos_list baseos = 353;
+      }
+   }
+}

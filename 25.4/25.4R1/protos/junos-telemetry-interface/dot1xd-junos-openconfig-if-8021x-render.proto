@@ -1,0 +1,64 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-if-8021x - Model for managing 8021X
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_pnac_261 jnpr_interfaces_pnac_261_ext = 261;
+}
+
+message interfaces_pnac_261 {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 52 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional ethernet_type ethernet = 151;    // /interfaces/interface/ethernet
+      message ethernet_type {
+         optional dot1x_type dot1x = 151;    // /interfaces/interface/ethernet/dot1x
+         message dot1x_type {
+            optional state_type state = 151;    // /interfaces/interface/ethernet/dot1x/state
+            message state_type {
+               optional bool authenticate_port = 53;    // /interfaces/interface/ethernet/dot1x/state/authenticate-port
+               optional string host_mode = 58;    // /interfaces/interface/ethernet/dot1x/state/host-mode
+               optional uint32 reauthenticate_interval = 54;    // /interfaces/interface/ethernet/dot1x/state/reauthenticate-interval
+               optional uint32 retransmit_interval = 55;    // /interfaces/interface/ethernet/dot1x/state/retransmit-interval
+               optional uint32 supplicant_timeout = 56;    // /interfaces/interface/ethernet/dot1x/state/supplicant-timeout
+               optional uint32 max_requests = 57;    // /interfaces/interface/ethernet/dot1x/state/max-requests
+               optional string server_fail_vlan = 60;    // /interfaces/interface/ethernet/dot1x/state/server-fail-vlan
+               optional string auth_fail_vlan = 59;    // /interfaces/interface/ethernet/dot1x/state/auth-fail-vlan
+            }
+         }
+         optional authenticated_sessions_type authenticated_sessions = 152;    // /interfaces/interface/ethernet/authenticated-sessions
+         message authenticated_sessions_type {
+            message authenticated_session_list {    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session
+               optional string mac = 63 [(telemetry_options).is_key = true];    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session/mac
+               optional state_type state = 152;    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session/state
+               message state_type {
+                  optional string mac = 64;    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session/state/mac
+                  optional string session_id = 65;    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session/state/session-id
+                  optional string status = 66;    // /interfaces/interface/ethernet/authenticated-sessions/authenticated-session/state/status
+               }
+            }
+            repeated authenticated_session_list authenticated_session = 152;
+         }
+         optional switched_vlan_type switched_vlan = 153;    // /interfaces/interface/ethernet/switched-vlan
+         message switched_vlan_type {
+            optional dot1x_vlan_map_type dot1x_vlan_map = 153;    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map
+            message dot1x_vlan_map_type {
+               message vlan_name_list {    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map/vlan-name
+                  optional string vlan_name = 71 [(telemetry_options).is_key = true];    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map/vlan-name/vlan-name
+                  optional state_type state = 153;    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map/vlan-name/state
+                  message state_type {
+                     optional string vlan_name = 72;    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map/vlan-name/state/vlan-name
+                     optional uint32 id = 73;    // /interfaces/interface/ethernet/switched-vlan/dot1x-vlan-map/vlan-name/state/id
+                  }
+               }
+               repeated vlan_name_list vlan_name = 153;
+            }
+         }
+      }
+   }
+   repeated interface_list interface = 151;
+}

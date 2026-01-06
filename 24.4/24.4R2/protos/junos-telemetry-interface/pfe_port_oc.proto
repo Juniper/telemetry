@@ -1,0 +1,52 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+jnx-aug-openconfig-interfaces - This module contains JUNOS augments to OpenConfig Interfaces model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_pfe_port jnpr_interfaces_pfe_port_ext = 60;
+}
+
+message interfaces_pfe_port {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional state_type state = 151;    // /interfaces/interface/state
+      message state_type {
+         optional counters_type counters = 151;    // /interfaces/interface/state/counters
+         message counters_type {
+            optional uint64 in_octets = 51;    // /interfaces/interface/state/counters/in-octets
+            optional uint64 in_unicast_pkts = 52;    // /interfaces/interface/state/counters/in-unicast-pkts
+            optional uint64 in_broadcast_pkts = 53;    // /interfaces/interface/state/counters/in-broadcast-pkts
+            optional uint64 in_multicast_pkts = 54;    // /interfaces/interface/state/counters/in-multicast-pkts
+            optional uint64 in_discards = 55;    // /interfaces/interface/state/counters/in-discards
+            optional uint64 in_errors = 56;    // /interfaces/interface/state/counters/in-errors
+            optional uint64 in_unknown_protos = 57;    // /interfaces/interface/state/counters/in-unknown-protos
+            optional uint64 out_octets = 58;    // /interfaces/interface/state/counters/out-octets
+            optional uint64 out_unicast_pkts = 59;    // /interfaces/interface/state/counters/out-unicast-pkts
+            optional uint64 out_broadcast_pkts = 60;    // /interfaces/interface/state/counters/out-broadcast-pkts
+            optional uint64 out_multicast_pkts = 61;    // /interfaces/interface/state/counters/out-multicast-pkts
+            optional uint64 out_discards = 62;    // /interfaces/interface/state/counters/out-discards
+            optional uint64 out_errors = 63;    // /interfaces/interface/state/counters/out-errors
+            optional uint64 last_clear = 64;    // /interfaces/interface/state/counters/last-clear
+            message out_queue_list {    // /interfaces/interface/state/counters/out-queue
+               optional uint64 pkts = 51;    // /interfaces/interface/state/counters/out-queue/pkts
+               optional uint64 bytes = 52;    // /interfaces/interface/state/counters/out-queue/bytes
+               optional uint64 tail_drop_pkts = 53;    // /interfaces/interface/state/counters/out-queue/tail-drop-pkts
+               optional uint64 rl_drop_pkts = 54;    // /interfaces/interface/state/counters/out-queue/rl-drop-pkts
+               optional uint64 rl_drop_bytes = 55;    // /interfaces/interface/state/counters/out-queue/rl-drop-bytes
+               optional uint64 red_drop_pkts = 56;    // /interfaces/interface/state/counters/out-queue/red-drop-pkts
+               optional uint64 red_drop_bytes = 57;    // /interfaces/interface/state/counters/out-queue/red-drop-bytes
+               optional uint64 avg_buffer_occupancy = 58;    // /interfaces/interface/state/counters/out-queue/avg-buffer-occupancy
+               optional uint64 cur_buffer_occupancy = 59;    // /interfaces/interface/state/counters/out-queue/cur-buffer-occupancy
+               optional uint64 peak_buffer_occupancy = 60;    // /interfaces/interface/state/counters/out-queue/peak-buffer-occupancy
+               optional uint64 allocated_buffer_size = 61;    // /interfaces/interface/state/counters/out-queue/allocated-buffer-size
+            }
+            repeated out_queue_list out_queue = 151;
+         }
+      }
+   }
+   repeated interface_list interface = 151;
+}

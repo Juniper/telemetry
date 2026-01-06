@@ -1,0 +1,173 @@
+/* 
+This proto is generated from below openconfig models
+ietf-inet-types - This module contains a collection of generally useful derived
+YANG data types for Internet addresses and related things
+openconfig-if-ip - This model defines data for managing configuration and
+operational state on IP (IPv4 and IPv6) interfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_vrrp jnpr_interfaces_vrrp_ext = 71;
+}
+
+message interfaces_vrrp {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional subinterfaces_type subinterfaces = 151;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional ipv4_type ipv4 = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4
+            message ipv4_type {
+               optional addresses_type addresses = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses
+               message addresses_type {
+                  message address_list {    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/ip
+                     optional vrrp_type vrrp = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp
+                     message vrrp_type {
+                        message vrrp_group_list {    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group
+                           optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state
+                           message state_type {
+                              optional uint32 virtual_router_id = 62;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/virtual-router-id
+                              repeated string virtual_address = 63;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/virtual-address
+                              optional uint32 priority = 64;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/priority
+                              optional bool preempt = 65;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/preempt
+                              optional uint32 preempt_delay = 66;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/preempt-delay
+                              optional bool accept_mode = 67;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/accept-mode
+                              optional uint32 advertisement_interval = 68;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/advertisement-interval
+                              optional uint32 current_priority = 69;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/state/current-priority
+                           }
+                           optional interface_tracking_type interface_tracking = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking
+                           message interface_tracking_type {
+                              optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state
+                              message state_type {
+                                 repeated string track_interface = 70;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state/track-interface
+                                 optional uint32 priority_decrement = 71;    // /interfaces/interface/subinterfaces/subinterface/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state/priority-decrement
+                              }
+                           }
+                        }
+                        repeated vrrp_group_list vrrp_group = 151;
+                     }
+                  }
+                  repeated address_list address = 151;
+               }
+            }
+            optional ipv6_type ipv6 = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv6
+            message ipv6_type {
+               optional addresses_type addresses = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses
+               message addresses_type {
+                  message address_list {    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address
+                     optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/ip
+                     optional vrrp_type vrrp = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp
+                     message vrrp_type {
+                        message vrrp_group_list {    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group
+                           optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state
+                           message state_type {
+                              optional uint32 virtual_router_id = 80;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-router-id
+                              repeated string virtual_address = 81;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-address
+                              optional uint32 priority = 82;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/priority
+                              optional bool preempt = 83;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/preempt
+                              optional uint32 preempt_delay = 84;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/preempt-delay
+                              optional bool accept_mode = 85;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/accept-mode
+                              optional uint32 advertisement_interval = 86;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/advertisement-interval
+                              optional uint32 current_priority = 87;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/current-priority
+                              optional string virtual_link_local = 88;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-link-local
+                           }
+                           optional interface_tracking_type interface_tracking = 152;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking
+                           message interface_tracking_type {
+                              optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state
+                              message state_type {
+                                 repeated string track_interface = 89;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state/track-interface
+                                 optional uint32 priority_decrement = 90;    // /interfaces/interface/subinterfaces/subinterface/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state/priority-decrement
+                              }
+                           }
+                        }
+                        repeated vrrp_group_list vrrp_group = 151;
+                     }
+                  }
+                  repeated address_list address = 151;
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+      optional routed_vlan_type routed_vlan = 152;    // /interfaces/interface/routed-vlan
+      message routed_vlan_type {
+         optional ipv4_type ipv4 = 151;    // /interfaces/interface/routed-vlan/ipv4
+         message ipv4_type {
+            optional addresses_type addresses = 151;    // /interfaces/interface/routed-vlan/ipv4/addresses
+            message addresses_type {
+               message address_list {    // /interfaces/interface/routed-vlan/ipv4/addresses/address
+                  optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/routed-vlan/ipv4/addresses/address/ip
+                  optional vrrp_type vrrp = 151;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp
+                  message vrrp_type {
+                     message vrrp_group_list {    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group
+                        optional state_type state = 151;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state
+                        message state_type {
+                           optional uint32 virtual_router_id = 62;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/virtual-router-id
+                           repeated string virtual_address = 63;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/virtual-address
+                           optional uint32 priority = 64;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/priority
+                           optional bool preempt = 65;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/preempt
+                           optional uint32 preempt_delay = 66;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/preempt-delay
+                           optional bool accept_mode = 67;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/accept-mode
+                           optional uint32 advertisement_interval = 68;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/advertisement-interval
+                           optional uint32 current_priority = 69;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/state/current-priority
+                        }
+                        optional interface_tracking_type interface_tracking = 152;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking
+                        message interface_tracking_type {
+                           optional state_type state = 151;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state
+                           message state_type {
+                              repeated string track_interface = 70;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state/track-interface
+                              optional uint32 priority_decrement = 71;    // /interfaces/interface/routed-vlan/ipv4/addresses/address/vrrp/vrrp-group/interface-tracking/state/priority-decrement
+                           }
+                        }
+                     }
+                     repeated vrrp_group_list vrrp_group = 151;
+                  }
+               }
+               repeated address_list address = 151;
+            }
+         }
+         optional ipv6_type ipv6 = 152;    // /interfaces/interface/routed-vlan/ipv6
+         message ipv6_type {
+            optional addresses_type addresses = 151;    // /interfaces/interface/routed-vlan/ipv6/addresses
+            message addresses_type {
+               message address_list {    // /interfaces/interface/routed-vlan/ipv6/addresses/address
+                  optional string ip = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/routed-vlan/ipv6/addresses/address/ip
+                  optional vrrp_type vrrp = 151;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp
+                  message vrrp_type {
+                     message vrrp_group_list {    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group
+                        optional state_type state = 151;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state
+                        message state_type {
+                           optional uint32 virtual_router_id = 80;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-router-id
+                           repeated string virtual_address = 81;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-address
+                           optional uint32 priority = 82;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/priority
+                           optional bool preempt = 83;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/preempt
+                           optional uint32 preempt_delay = 84;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/preempt-delay
+                           optional bool accept_mode = 85;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/accept-mode
+                           optional uint32 advertisement_interval = 86;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/advertisement-interval
+                           optional uint32 current_priority = 87;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/current-priority
+                           optional string virtual_link_local = 88;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/state/virtual-link-local
+                        }
+                        optional interface_tracking_type interface_tracking = 152;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking
+                        message interface_tracking_type {
+                           optional state_type state = 151;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state
+                           message state_type {
+                              repeated string track_interface = 89;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state/track-interface
+                              optional uint32 priority_decrement = 90;    // /interfaces/interface/routed-vlan/ipv6/addresses/address/vrrp/vrrp-group/interface-tracking/state/priority-decrement
+                           }
+                        }
+                     }
+                     repeated vrrp_group_list vrrp_group = 151;
+                  }
+               }
+               repeated address_list address = 151;
+            }
+         }
+      }
+   }
+   repeated interface_list interface = 151;
+}

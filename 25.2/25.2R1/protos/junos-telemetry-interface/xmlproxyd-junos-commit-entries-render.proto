@@ -1,0 +1,31 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_commit_history_285 jnpr_state_commit_history_285_ext = 285;
+}
+
+message state_commit_history_285 {    // /state
+   optional system_type system = 151;    // /state/system
+   message system_type {
+      optional commit_type commit = 151;    // /state/system/commit
+      message commit_type {
+         optional entries_type entries = 151;    // /state/system/commit/entries
+         message entries_type {
+            message entry_list {    // /state/system/commit/entries/entry
+               optional uint64 timestamp = 51 [(telemetry_options).is_key = true];    // /state/system/commit/entries/entry/timestamp
+               optional string user = 52;    // /state/system/commit/entries/entry/user
+               optional string client = 53;    // /state/system/commit/entries/entry/client
+               optional string comment = 54;    // /state/system/commit/entries/entry/comment
+            }
+            repeated entry_list entry = 151;
+         }
+      }
+   }
+}

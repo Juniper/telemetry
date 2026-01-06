@@ -1,0 +1,165 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_smi jnpr_junos_smi_ext = 70;
+}
+
+message junos_smi {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional infra_type infra = 151;    // /junos/system/subscriber-management/infra
+         message infra_type {
+            optional sdb_type sdb = 151;    // /junos/system/subscriber-management/infra/sdb
+            message sdb_type {
+               optional statistics_type statistics = 151;    // /junos/system/subscriber-management/infra/sdb/statistics
+               message statistics_type {
+                  optional state_type state = 151;    // /junos/system/subscriber-management/infra/sdb/statistics/state
+                  message state_type {
+                     optional uint32 init_state_count = 51;    // /junos/system/subscriber-management/infra/sdb/statistics/state/init-state-count
+                     optional uint32 configured_state_count = 52;    // /junos/system/subscriber-management/infra/sdb/statistics/state/configured-state-count
+                     optional uint32 active_state_count = 53;    // /junos/system/subscriber-management/infra/sdb/statistics/state/active-state-count
+                     optional uint32 terminating_state_count = 54;    // /junos/system/subscriber-management/infra/sdb/statistics/state/terminating-state-count
+                     optional uint32 terminated_state_count = 55;    // /junos/system/subscriber-management/infra/sdb/statistics/state/terminated-state-count
+                     optional uint32 total_state_count = 56;    // /junos/system/subscriber-management/infra/sdb/statistics/state/total-state-count
+                  }
+                  optional client_type_type client_type = 152;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type
+                  message client_type_type {
+                     optional uint32 dhcp_client_count = 61;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/dhcp-client-count
+                     optional uint32 vlan_client_count = 62;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/vlan-client-count
+                     optional uint32 ppp_client_count = 63;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/ppp-client-count
+                     optional uint32 pppoe_client_count = 64;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/pppoe-client-count
+                     optional uint32 l2tp_client_count = 65;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/l2tp-client-count
+                     optional uint32 static_client_count = 66;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/static-client-count
+                     optional uint32 vpls_pw_client_count = 67;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/vpls-pw-client-count
+                     optional uint32 mlppp_client_count = 68;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/mlppp-client-count
+                     optional uint32 essm_client_count = 69;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/essm-client-count
+                     optional uint32 total_client_count = 70;    // /junos/system/subscriber-management/infra/sdb/statistics/client-type/total-client-count
+                  }
+                  optional subsystem_type subsystem = 153;    // /junos/system/subscriber-management/infra/sdb/statistics/subsystem
+                  message subsystem_type {
+                     optional uint32 session_subsystem_agf = 71;    // /junos/system/subscriber-management/infra/sdb/statistics/subsystem/session-subsystem-agf
+                     optional uint32 session_subsystem_bng = 72;    // /junos/system/subscriber-management/infra/sdb/statistics/subsystem/session-subsystem-bng
+                  }
+               }
+            }
+            optional resource_monitor_type resource_monitor = 152;    // /junos/system/subscriber-management/infra/resource-monitor
+            message resource_monitor_type {
+               optional chassis_type chassis = 151;    // /junos/system/subscriber-management/infra/resource-monitor/chassis
+               message chassis_type {
+                  optional uint32 configured_subscriber_limit = 131;    // /junos/system/subscriber-management/infra/resource-monitor/chassis/configured-subscriber-limit
+                  optional uint32 current_subscriber_count = 132;    // /junos/system/subscriber-management/infra/resource-monitor/chassis/current-subscriber-count
+                  optional uint32 subscriber_limit_exceeded = 201;    // /junos/system/subscriber-management/infra/resource-monitor/chassis/subscriber-limit-exceeded
+                  optional uint32 subscriber_limit_nominal = 202;    // /junos/system/subscriber-management/infra/resource-monitor/chassis/subscriber-limit-nominal
+               }
+               optional fpcs_type fpcs = 152;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs
+               message fpcs_type {
+                  message fpc_list {    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc
+                     optional uint32 slot = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/slot
+                     optional statistics_type statistics = 151;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics
+                     message statistics_type {
+                        optional uint32 heap_memory_used = 81;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/heap-memory-used
+                        optional uint32 client_session_denied_count = 82;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/client-session-denied-count
+                        optional uint32 service_session_denied_count = 83;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/service-session-denied-count
+                        optional uint32 rtt_throttled_sub_count_client = 84;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/rtt-throttled-sub-count-client
+                        optional uint32 rtt_throttled_sub_count_service = 85;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/rtt-throttled-sub-count-service
+                        optional uint32 configured_subscriber_limit = 131;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/configured-subscriber-limit
+                        optional uint32 current_subscriber_count = 132;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/current-subscriber-count
+                        optional uint32 mem_heap_exceeded = 91;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/mem-heap-exceeded
+                        optional uint32 mem_heap_nominal = 92;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/mem-heap-nominal
+                        optional uint32 subscriber_limit_exceeded = 201;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/subscriber-limit-exceeded
+                        optional uint32 subscriber_limit_nominal = 202;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/subscriber-limit-nominal
+                        optional pfes_type pfes = 151;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes
+                        message pfes_type {
+                           message pfe_list {    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe
+                              optional uint32 pfe_no = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/pfe-no
+                              optional uint32 filter_memory_used = 101;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/filter-memory-used
+                              optional uint32 ifl_memory_used = 102;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/ifl-memory-used
+                              optional uint32 expansion_memory_used = 103;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/expansion-memory-used
+                              optional uint32 nh_memory_free = 104;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/nh-memory-free
+                              optional uint32 fw_memory_free = 105;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/fw-memory-free
+                              optional uint32 mem_ifl_exceeded = 111;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/mem-ifl-exceeded
+                              optional uint32 mem_ifl_nominal = 112;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/mem-ifl-nominal
+                              optional uint32 mem_expansion_exceeded = 113;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/mem-expansion-exceeded
+                              optional uint32 mem_expansion_nominal = 114;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/mem-expansion-nominal
+                              optional sched_blocks_type sched_blocks = 151;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks
+                              message sched_blocks_type {
+                                 message sched_block_list {    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block
+                                    optional uint32 sblock_no = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block/sblock-no
+                                    optional uint32 queues_max = 121;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block/queues-max
+                                    optional uint32 queues_allocated = 122;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block/queues-allocated
+                                    optional uint32 cos_utilization_exceeded = 141;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block/cos-utilization-exceeded
+                                    optional uint32 cos_utilization_nominal = 142;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/statistics/pfes/pfe/sched-blocks/sched-block/cos-utilization-nominal
+                                 }
+                                 repeated sched_block_list sched_block = 151;
+                              }
+                           }
+                           repeated pfe_list pfe = 151;
+                        }
+                     }
+                     optional pics_type pics = 152;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics
+                     message pics_type {
+                        message pic_list {    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic
+                           optional uint32 pic_no = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/pic-no
+                           optional uint32 configured_subscriber_limit = 131;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/configured-subscriber-limit
+                           optional uint32 current_subscriber_count = 132;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/current-subscriber-count
+                           optional uint32 subscriber_limit_exceeded = 201;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/subscriber-limit-exceeded
+                           optional uint32 subscriber_limit_nominal = 202;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/subscriber-limit-nominal
+                           optional ports_type ports = 151;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports
+                           message ports_type {
+                              message port_list {    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port
+                                 optional uint32 port_no = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port/port-no
+                                 optional uint32 configured_subscriber_limit = 131;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port/configured-subscriber-limit
+                                 optional uint32 current_subscriber_count = 132;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port/current-subscriber-count
+                                 optional uint32 subscriber_limit_exceeded = 201;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port/subscriber-limit-exceeded
+                                 optional uint32 subscriber_limit_nominal = 202;    // /junos/system/subscriber-management/infra/resource-monitor/fpcs/fpc/pics/pic/ports/port/subscriber-limit-nominal
+                              }
+                              repeated port_list port = 151;
+                           }
+                        }
+                        repeated pic_list pic = 151;
+                     }
+                  }
+                  repeated fpc_list fpc = 151;
+               }
+            }
+         }
+         message chassis_list {    // /junos/system/subscriber-management/chassis
+            optional uint32 member_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/chassis/member-id
+            optional string role = 52;    // /junos/system/subscriber-management/chassis/role
+            optional routing_engines_type routing_engines = 151;    // /junos/system/subscriber-management/chassis/routing-engines
+            message routing_engines_type {
+               message routing_engine_list {    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine
+                  optional uint32 re_index = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/re-index
+                  optional string role = 52;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/role
+                  optional bool db_synced = 53;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/db-synced
+                  optional process_status_type process_status = 151;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status
+                  message process_status_type {
+                     optional subscriber_management_processes_type subscriber_management_processes = 151;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes
+                     message subscriber_management_processes_type {
+                        message subscriber_management_process_list {    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process
+                           optional string process_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process/process-name
+                           optional uint64 pid = 52;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process/pid
+                           optional uint64 runtime = 53;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process/runtime
+                           optional double cpu_utilization = 54;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process/cpu-utilization
+                           optional double memory_utilization = 55;    // /junos/system/subscriber-management/chassis/routing-engines/routing-engine/process-status/subscriber-management-processes/subscriber-management-process/memory-utilization
+                        }
+                        repeated subscriber_management_process_list subscriber_management_process = 151;
+                     }
+                  }
+               }
+               repeated routing_engine_list routing_engine = 151;
+            }
+         }
+         repeated chassis_list chassis = 152;
+      }
+   }
+}

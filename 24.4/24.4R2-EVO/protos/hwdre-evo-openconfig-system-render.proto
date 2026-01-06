@@ -1,0 +1,22 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system - Model for managing system-wide services and functions on
+network devices
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_re_264 jnpr_system_re_264_ext = 264;
+}
+
+message system_re_264 {    // /system
+   optional mac_address_type mac_address = 151;    // /system/mac-address
+   message mac_address_type {
+      optional state_type state = 151;    // /system/mac-address/state
+      message state_type {
+         optional string routing_mac = 51;    // /system/mac-address/state/routing-mac
+      }
+   }
+}

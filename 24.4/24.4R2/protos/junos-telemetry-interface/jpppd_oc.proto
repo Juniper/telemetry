@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_ppp jnpr_junos_ppp_ext = 45;
+}
+
+message junos_ppp {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional client_protocols_type client_protocols = 151;    // /junos/system/subscriber-management/client-protocols
+         message client_protocols_type {
+            optional ppp_type ppp = 151;    // /junos/system/subscriber-management/client-protocols/ppp
+            message ppp_type {
+               optional statistics_type statistics = 151;    // /junos/system/subscriber-management/client-protocols/ppp/statistics
+               message statistics_type {
+                  optional uint32 ppp_stats_total_subscriber_sessions = 51;    // /junos/system/subscriber-management/client-protocols/ppp/statistics/ppp-stats-total-subscriber-sessions
+                  optional uint32 ppp_stats_sessions_disable_phase = 52;    // /junos/system/subscriber-management/client-protocols/ppp/statistics/ppp-stats-sessions-disable-phase
+                  optional uint32 ppp_stats_sessions_establish_phase = 53;    // /junos/system/subscriber-management/client-protocols/ppp/statistics/ppp-stats-sessions-establish-phase
+                  optional uint32 ppp_stats_sessions_network_phase = 54;    // /junos/system/subscriber-management/client-protocols/ppp/statistics/ppp-stats-sessions-network-phase
+                  optional uint32 ppp_stats_sessions_authenticate_phase = 55;    // /junos/system/subscriber-management/client-protocols/ppp/statistics/ppp-stats-sessions-authenticate-phase
+               }
+            }
+         }
+      }
+   }
+}

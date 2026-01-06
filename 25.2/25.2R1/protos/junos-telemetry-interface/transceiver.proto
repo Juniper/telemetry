@@ -1,0 +1,76 @@
+// transceiver.proto  - transceiver protobuf message for JVision
+//
+// Author: Satish Belide
+//
+// Copyrights (c) 2020, Juniper Networks, Inc.
+// All rights reserved.
+
+//
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+//
+
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+
+//
+// This occupies branch 88 from JuniperNetworksSensors
+//
+
+extend JuniperNetworksSensors {
+    optional TransceiverData jnpr_transceiver_ext = 88;
+}
+
+// Top-level message
+
+message TransceiverData {
+    repeated TransceiverInfo Transceiver = 1;
+}
+
+// This defines format for transceiver sensor data
+message TransceiverInfo {
+    optional uint32 index = 1 [(telemetry_options).is_key = true];
+    optional uint32 fpc_slot = 2 [(telemetry_options).is_key = true];
+    optional uint32 pic_slot = 3 [(telemetry_options).is_key = true];
+    optional uint32 port_number = 4 [(telemetry_options).is_key = true];
+    optional uint32 optics_type = 5;
+    optional State state = 6;
+}
+
+message State {
+    optional uint32 index = 1;
+    optional bool   enabled = 2;
+    optional uint32 oper_status = 3;
+    optional double output_power_dbm = 4;
+    optional double input_power_dbm = 5;
+    optional double laser_bias_current = 6;
+    optional uint32 lane_count = 7;
+    repeated PhysicalChannels physical_channel = 8;
+}
+
+message PhysicalChannels {
+    optional uint32 index = 1 [(telemetry_options).is_key = true];
+    optional string description = 2;
+    optional bool   tx_laser = 3;
+    optional double lane_target_output_power = 4;
+    optional uint32 lane_output_frequency = 5;
+    optional double lane_output_power_dbm = 6;
+    optional double lane_input_power_dbm = 7;
+    optional double laser_bias_current = 8;
+}

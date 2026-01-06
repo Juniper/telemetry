@@ -1,0 +1,89 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces jnpr_interfaces_ext = 158;
+}
+
+message interfaces {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional uint64 init_time = 52;    // /interfaces/interface/init-time
+      message state_list {    // /interfaces/interface/state
+         optional string parent_ae_name = 51;    // /interfaces/interface/state/parent-ae-name
+         optional string oper_status = 52;    // /interfaces/interface/state/oper-status
+         optional uint32 high_speed = 53;    // /interfaces/interface/state/high-speed
+         message counters_list {    // /interfaces/interface/state/counters
+            optional uint64 in_pkts = 51;    // /interfaces/interface/state/counters/in-pkts
+            optional uint64 in_octets = 52;    // /interfaces/interface/state/counters/in-octets
+            optional uint64 in_unicast_pkts = 53;    // /interfaces/interface/state/counters/in-unicast-pkts
+            optional uint64 in_multicast_pkts = 54;    // /interfaces/interface/state/counters/in-multicast-pkts
+            optional uint64 in_broadcast_pkts = 55;    // /interfaces/interface/state/counters/in-broadcast-pkts
+            optional uint64 in_pause_pkts = 56;    // /interfaces/interface/state/counters/in-pause-pkts
+            optional uint64 out_pkts = 57;    // /interfaces/interface/state/counters/out-pkts
+            optional uint64 out_octets = 58;    // /interfaces/interface/state/counters/out-octets
+            optional uint64 out_unicast_pkts = 59;    // /interfaces/interface/state/counters/out-unicast-pkts
+            optional uint64 out_multicast_pkts = 60;    // /interfaces/interface/state/counters/out-multicast-pkts
+            optional uint64 out_broadcast_pkts = 61;    // /interfaces/interface/state/counters/out-broadcast-pkts
+            optional uint64 out_pause_pkts = 62;    // /interfaces/interface/state/counters/out-pause-pkts
+            optional uint64 in_errors = 63;    // /interfaces/interface/state/counters/in-errors
+            optional uint64 in_discards = 64;    // /interfaces/interface/state/counters/in-discards
+            optional uint64 in_unknown_protos = 65;    // /interfaces/interface/state/counters/in-unknown-protos
+            optional uint64 out_errors = 66;    // /interfaces/interface/state/counters/out-errors
+            optional uint64 out_discards = 67;    // /interfaces/interface/state/counters/out-discards
+            optional uint64 out_unknown_protos = 68;    // /interfaces/interface/state/counters/out-unknown-protos
+            optional uint64 in_fcs_errors = 69;    // /interfaces/interface/state/counters/in-fcs-errors
+         }
+         repeated counters_list counters = 151;
+      }
+      repeated state_list state = 151;
+      message subinterfaces_list {    // /interfaces/interface/subinterfaces
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional uint64 init_time = 52;    // /interfaces/interface/subinterfaces/subinterface/init-time
+            optional ipv4_type ipv4 = 153;    // /interfaces/interface/subinterfaces/subinterface/ipv4
+            message ipv4_type {
+               optional state_type state = 153;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state
+               message state_type {
+                  message counters_list {    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/counters
+                     optional uint64 in_pkts = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/counters/in-pkts
+                     optional uint64 in_octets = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/counters/in-octets
+                     optional uint64 out_pkts = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/counters/out-pkts
+                     optional uint64 out_octets = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv4/state/counters/out-octets
+                  }
+                  repeated counters_list counters = 153;
+               }
+            }
+            optional ipv6_type ipv6 = 154;    // /interfaces/interface/subinterfaces/subinterface/ipv6
+            message ipv6_type {
+               optional state_type state = 154;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state
+               message state_type {
+                  message counters_list {    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters
+                     optional uint64 in_pkts = 51;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-pkts
+                     optional uint64 in_octets = 52;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/in-octets
+                     optional uint64 out_pkts = 53;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-pkts
+                     optional uint64 out_octets = 54;    // /interfaces/interface/subinterfaces/subinterface/ipv6/state/counters/out-octets
+                  }
+                  repeated counters_list counters = 154;
+               }
+            }
+            message state_list {    // /interfaces/interface/subinterfaces/subinterface/state
+               optional string parent_ae_name = 51;    // /interfaces/interface/subinterfaces/subinterface/state/parent-ae-name
+               optional string oper_status = 52;    // /interfaces/interface/subinterfaces/subinterface/state/oper-status
+               message counters_list {    // /interfaces/interface/subinterfaces/subinterface/state/counters
+                  optional uint64 in_pkts = 51;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts
+                  optional uint64 in_octets = 52;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-octets
+                  optional uint64 out_pkts = 53;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts
+                  optional uint64 out_octets = 54;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-octets
+               }
+               repeated counters_list counters = 152;
+            }
+            repeated state_list state = 152;
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+      repeated subinterfaces_list subinterfaces = 152;
+   }
+   repeated interface_list interface = 151;
+}

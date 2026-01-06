@@ -1,0 +1,42 @@
+//
+// This proto file is used to decode the data for the following oc config paths
+// /components/component/integrated-circuit/pipeline-counters/packet/queueing-block/
+//
+
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_queueing_block_packet_298 jnpr_components_queueing_block_packet_298_ext = 298;
+}
+
+message components_queueing_block_packet_298 {
+   message component_list {
+      optional string name = 51 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 151;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;
+         message pipeline_counters_type {
+            optional packet_type packet = 151;
+            message packet_type {
+               optional queueing_block_type queueing_block = 151;
+               message queueing_block_type {
+                  optional state_type state = 151;
+                  message state_type {
+                     optional uint64 in_packets = 51;
+                     optional uint64 out_packets = 52;
+                     optional uint64 in_bytes = 53;
+                     optional uint64 out_bytes = 54;
+                     optional uint64 queue_memory = 55;
+                     optional uint64 queue_memory_used = 56;
+                     optional uint64 loopback_packets = 57;
+                     optional uint64 loopback_bytes = 58;
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

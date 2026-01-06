@@ -1,0 +1,186 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-vlan - This module defines configuration and state variables for VLANs,
+in addition to VLAN parameters associated with interfaces
+openconfig-network-instance - An OpenConfig description of a network-instance
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_l2_network_instance jnpr_network_instances_l2_network_instance_ext = 50;
+}
+
+message network_instances_l2_network_instance {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional fdb_type fdb = 141;    // /network-instances/network-instance/fdb
+      message fdb_type {
+         optional state_type state = 151;    // /network-instances/network-instance/fdb/state
+         message state_type {
+            optional bool mac_learning = 61;    // /network-instances/network-instance/fdb/state/mac-learning
+            optional uint32 mac_aging_time = 62;    // /network-instances/network-instance/fdb/state/mac-aging-time
+            optional uint32 maximum_entries = 63;    // /network-instances/network-instance/fdb/state/maximum-entries
+         }
+         optional mac_table_type mac_table = 121;    // /network-instances/network-instance/fdb/mac-table
+         message mac_table_type {
+            optional entries_type entries = 131;    // /network-instances/network-instance/fdb/mac-table/entries
+            message entries_type {
+               message entry_list {    // /network-instances/network-instance/fdb/mac-table/entries/entry
+                  optional string mac_address = 61 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/mac-table/entries/entry/mac-address
+                  optional uint32 vlan = 62 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/mac-table/entries/entry/vlan
+                  optional state_type state = 111;    // /network-instances/network-instance/fdb/mac-table/entries/entry/state
+                  message state_type {
+                     optional string mac_address = 81;    // /network-instances/network-instance/fdb/mac-table/entries/entry/state/mac-address
+                     optional uint32 vlan = 82;    // /network-instances/network-instance/fdb/mac-table/entries/entry/state/vlan
+                     optional string entry_type = 83;    // /network-instances/network-instance/fdb/mac-table/entries/entry/state/entry-type
+                     optional uint32 evi = 85;    // /network-instances/network-instance/fdb/mac-table/entries/entry/state/evi
+                  }
+                  optional interface_type interface = 112;    // /network-instances/network-instance/fdb/mac-table/entries/entry/interface
+                  message interface_type {
+                     optional interface_ref_type interface_ref = 112;    // /network-instances/network-instance/fdb/mac-table/entries/entry/interface/interface-ref
+                     message interface_ref_type {
+                        optional state_type state = 113;    // /network-instances/network-instance/fdb/mac-table/entries/entry/interface/interface-ref/state
+                        message state_type {
+                           optional string interface = 131;    // /network-instances/network-instance/fdb/mac-table/entries/entry/interface/interface-ref/state/interface
+                           optional uint32 subinterface = 141;    // /network-instances/network-instance/fdb/mac-table/entries/entry/interface/interface-ref/state/subinterface
+                        }
+                     }
+                  }
+               }
+               repeated entry_list entry = 141;
+            }
+         }
+         optional l2rib_type l2rib = 131;    // /network-instances/network-instance/fdb/l2rib
+         message l2rib_type {
+            optional mac_table_type mac_table = 130;    // /network-instances/network-instance/fdb/l2rib/mac-table
+            message mac_table_type {
+               optional entries_type entries = 130;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries
+               message entries_type {
+                  message entry_list {    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry
+                     optional string mac_address = 130 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/mac-address
+                     optional state_type state = 131;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/state
+                     message state_type {
+                        optional string mac_address = 131;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/state/mac-address
+                        optional uint32 vlan = 132;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/state/vlan
+                        optional uint32 evi = 133;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/state/evi
+                        optional uint32 l2_vni = 134;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/state/l2-vni
+                     }
+                     optional producers_type producers = 132;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers
+                     message producers_type {
+                        message producer_list {    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer
+                           optional string producer = 132 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer/producer
+                           optional state_type state = 133;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer/state
+                           message state_type {
+                              optional string producer = 133;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer/state/producer
+                              optional string esi = 134;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer/state/esi
+                              optional uint64 next_hop = 135;    // /network-instances/network-instance/fdb/l2rib/mac-table/entries/entry/producers/producer/state/next-hop
+                           }
+                        }
+                        repeated producer_list producer = 132;
+                     }
+                  }
+                  repeated entry_list entry = 130;
+               }
+               optional next_hops_type next_hops = 131;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops
+               message next_hops_type {
+                  message next_hop_list {    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop
+                     optional uint64 index = 131 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/index
+                     optional state_type state = 132;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/state
+                     message state_type {
+                        optional uint64 index = 132;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/state/index
+                        optional string peer_ip = 133;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/state/peer-ip
+                        optional string interface = 134;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/state/interface
+                        optional uint32 subinterface = 135;    // /network-instances/network-instance/fdb/l2rib/mac-table/next-hops/next-hop/state/subinterface
+                     }
+                  }
+                  repeated next_hop_list next_hop = 131;
+               }
+            }
+            optional mac_ip_table_type mac_ip_table = 140;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table
+            message mac_ip_table_type {
+               optional entries_type entries = 140;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries
+               message entries_type {
+                  message entry_list {    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry
+                     optional string mac_address = 140 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/mac-address
+                     optional string host_ip = 141 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/host-ip
+                     optional state_type state = 142;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state
+                     message state_type {
+                        optional string mac_address = 142;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state/mac-address
+                        optional uint32 vlan = 144;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state/vlan
+                        optional uint32 evi = 145;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state/evi
+                        optional uint32 l2_vni = 146;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state/l2-vni
+                        optional string host_ip = 143;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/state/host-ip
+                     }
+                     optional producers_type producers = 143;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers
+                     message producers_type {
+                        message producer_list {    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer
+                           optional string producer = 143 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer/producer
+                           optional state_type state = 144;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state
+                           message state_type {
+                              optional string producer = 144;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/producer
+                              optional string esi = 145;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/esi
+                              optional uint64 next_hop = 146;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/entries/entry/producers/producer/state/next-hop
+                           }
+                        }
+                        repeated producer_list producer = 143;
+                     }
+                  }
+                  repeated entry_list entry = 140;
+               }
+               optional next_hops_type next_hops = 141;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops
+               message next_hops_type {
+                  message next_hop_list {    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop
+                     optional uint64 index = 141 [(telemetry_options).is_key = true];    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/index
+                     optional state_type state = 142;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/state
+                     message state_type {
+                        optional uint64 index = 142;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/state/index
+                        optional string peer_ip = 143;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/state/peer-ip
+                        optional string interface = 144;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/state/interface
+                        optional uint32 subinterface = 145;    // /network-instances/network-instance/fdb/l2rib/mac-ip-table/next-hops/next-hop/state/subinterface
+                     }
+                  }
+                  repeated next_hop_list next_hop = 141;
+               }
+            }
+         }
+      }
+      optional interfaces_type interfaces = 151;    // /network-instances/network-instance/interfaces
+      message interfaces_type {
+         message interface_list {    // /network-instances/network-instance/interfaces/interface
+            optional string id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/interfaces/interface/id
+            optional state_type state = 161;    // /network-instances/network-instance/interfaces/interface/state
+            message state_type {
+               optional string id = 61;    // /network-instances/network-instance/interfaces/interface/state/id
+               optional bool mac_pinning = 62;    // /network-instances/network-instance/interfaces/interface/state/mac-pinning
+            }
+         }
+         repeated interface_list interface = 151;
+      }
+      optional vlans_type vlans = 161;    // /network-instances/network-instance/vlans
+      message vlans_type {
+         message vlan_list {    // /network-instances/network-instance/vlans/vlan
+            optional uint32 vlan_id = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/vlans/vlan/vlan-id
+            optional state_type state = 52;    // /network-instances/network-instance/vlans/vlan/state
+            message state_type {
+               optional uint32 vlan_id = 52;    // /network-instances/network-instance/vlans/vlan/state/vlan-id
+               optional string name = 51;    // /network-instances/network-instance/vlans/vlan/state/name
+               optional string status = 53;    // /network-instances/network-instance/vlans/vlan/state/status
+            }
+            optional members_type members = 53;    // /network-instances/network-instance/vlans/vlan/members
+            message members_type {
+               message member_list {    // /network-instances/network-instance/vlans/vlan/members/member
+                  optional state_type state = 161;    // /network-instances/network-instance/vlans/vlan/members/member/state
+                  message state_type {
+                     optional string interface = 151;    // /network-instances/network-instance/vlans/vlan/members/member/state/interface
+                  }
+               }
+               repeated member_list member = 151;
+            }
+         }
+         repeated vlan_list vlan = 161;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

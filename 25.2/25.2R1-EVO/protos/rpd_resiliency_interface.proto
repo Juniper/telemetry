@@ -1,0 +1,46 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-types - This module contains a set of general type definitions that
+are used across OpenConfig models
+junos-resiliency-interface - Juniper Networks definition of resiliency interface yang model
+for Routing, Forwarding and OS exceptions
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_rpd_krt jnpr_junos_rpd_krt_ext = 121;
+}
+
+message junos_rpd_krt {    // /junos
+   optional exception_profiles_type exception_profiles = 151;    // /junos/exception-profiles
+   message exception_profiles_type {
+      message routing_profile_list {    // /junos/exception-profiles/routing-profile
+         optional uint64 id = 51 [(telemetry_options).is_key = true];    // /junos/exception-profiles/routing-profile/id
+         optional incident_descriptor_type incident_descriptor = 151;    // /junos/exception-profiles/routing-profile/incident-descriptor
+         message incident_descriptor_type {
+            optional string exception_code = 52;    // /junos/exception-profiles/routing-profile/incident-descriptor/exception-code
+            optional string description = 53;    // /junos/exception-profiles/routing-profile/incident-descriptor/description
+            optional string host_id = 54;    // /junos/exception-profiles/routing-profile/incident-descriptor/host-id
+            optional string resource_id = 55;    // /junos/exception-profiles/routing-profile/incident-descriptor/resource-id
+            optional uint64 timestamp = 56;    // /junos/exception-profiles/routing-profile/incident-descriptor/timestamp
+            optional uint64 id = 51;    // /junos/exception-profiles/routing-profile/incident-descriptor/id
+         }
+         optional string exception_type = 52;    // /junos/exception-profiles/routing-profile/exception-type
+         optional string exception_owner = 53;    // /junos/exception-profiles/routing-profile/exception-owner
+         optional download_path_descriptor_type download_path_descriptor = 153;    // /junos/exception-profiles/routing-profile/download-path-descriptor
+         message download_path_descriptor_type {
+            optional uint64 object_id = 51;    // /junos/exception-profiles/routing-profile/download-path-descriptor/object-id
+            optional string krt_status = 52;    // /junos/exception-profiles/routing-profile/download-path-descriptor/krt-status
+            optional string error_number = 53;    // /junos/exception-profiles/routing-profile/download-path-descriptor/error_number
+            optional string route_prefix = 54;    // /junos/exception-profiles/routing-profile/download-path-descriptor/route-prefix
+            optional uint32 nexthop_index = 55;    // /junos/exception-profiles/routing-profile/download-path-descriptor/nexthop-index
+            optional string krtq_op = 56;    // /junos/exception-profiles/routing-profile/download-path-descriptor/krtq-op
+            optional string nexthop_handle = 57;    // /junos/exception-profiles/routing-profile/download-path-descriptor/nexthop-handle
+            optional uint32 sequence_number = 58;    // /junos/exception-profiles/routing-profile/download-path-descriptor/sequence-number
+         }
+      }
+      repeated routing_profile_list routing_profile = 151;
+   }
+}

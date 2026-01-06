@@ -1,0 +1,44 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-segment-routing-te-policy - This module contains a collection of top level nodes for JUNOS
+segment-routing te-policies state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_pfe_srv6_srte_325 jnpr_state_pfe_srv6_srte_325_ext = 325;
+}
+
+message state_pfe_srv6_srte_325 {    // /state
+   optional routing_instances_type routing_instances = 161;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 61 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 161;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional source_packet_routing_type source_packet_routing = 161;    // /state/routing-instances/routing-instance/protocols/source-packet-routing
+            message source_packet_routing_type {
+               optional te_policies_type te_policies = 161;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies
+               message te_policies_type {
+                  message te_policy_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy
+                     optional uint32 color = 60 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/color
+                     optional string endpoint = 61 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/endpoint
+                     optional counters_type counters = 62;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/counters
+                     message counters_type {
+                        optional srv6_type srv6 = 62;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/counters/srv6
+                        message srv6_type {
+                           optional uint64 in_pkts = 63;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/counters/srv6/in-pkts
+                           optional uint64 in_bytes = 64;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/counters/srv6/in-bytes
+                        }
+                     }
+                  }
+                  repeated te_policy_list te_policy = 161;
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 161;
+   }
+}

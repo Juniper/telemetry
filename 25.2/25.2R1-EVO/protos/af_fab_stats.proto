@@ -1,0 +1,102 @@
+//
+// This defines the gpb message format used by the AF Interface sensors
+//
+// The top level messages is AfFabStats
+//
+// Copyrights (c)  2018, Juniper Networks, Inc.
+// All rights reserved.
+//
+
+//
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+//
+//
+// Sayantani Gupta, Jan 2018
+//
+// This file defines the messages in Protocol Buffers format used by
+// the Abstract Fabric Interface sensor. This sensor is applicable
+// only for the Dvaita platform.
+//
+// Version 1.0
+//
+
+syntax = "proto2";
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+    optional AfFabStats jnpr_af_fab_statistics_ext        = 40;
+}
+
+message AfFabStats {
+    optional uint32                 gnf_id       = 1;
+    required uint32                 num_src_pfe  = 2;
+    repeated AfFabStatsPerSrcPfe    af_fab_stats_per_src_pfe = 3;
+}
+//
+// Agg Fabric, AF and per AF IFD stats from each source PFE
+//
+message AfFabStatsPerSrcPfe {
+    required uint32         src_pfe_index       = 4 [(telemetry_options).is_key = true];
+    required uint32         num_af_ifds         = 5;
+    repeated AggAfStats     agg_af_ifd_stats    = 6;
+    repeated AggFabStats    agg_fab_stats       = 7;
+    repeated PerAfIntfStats af_ifd_stats        = 8;
+}
+
+//
+// Aggregate AF IFD stats for all AFs hosted on a source PFE
+//
+message AggAfStats {
+    required uint64 agg_af_stats_ipkts   = 9 [(telemetry_options).is_counter = true];
+    required uint64 agg_af_stats_ipps    = 10 [(telemetry_options).is_gauge = true];
+    required uint64 agg_af_stats_opkts   = 11 [(telemetry_options).is_counter = true];
+    required uint64 agg_af_stats_opps    = 12 [(telemetry_options).is_gauge = true];
+}
+
+//
+// Aggregate Fabric stats from a source PFE
+//
+message AggFabStats {
+    required uint64 agg_fab_stats_ipkts  = 13 [(telemetry_options).is_counter = true];
+    required uint64 agg_fab_stats_ipps   = 14 [(telemetry_options).is_gauge = true];
+    required uint64 agg_fab_stats_opkts  = 15 [(telemetry_options).is_counter = true];
+    required uint64 agg_fab_stats_opps   = 16 [(telemetry_options).is_gauge = true];
+}
+
+//
+// Per AF IFD Peer information
+//
+message PerAfIntfStats {
+        required uint32 af_ifd_index          = 17;
+        required uint32 num_peer_pfe          = 18;
+        repeated AfPeerFeStats peer_fe_stats  = 19;
+}
+
+//
+// Load Balancing stats reported for each peer PFE as
+// reported from each source PFE
+//
+message AfPeerFeStats {
+        required uint32 peer_fe_id               = 20;
+        required uint64 high_queue_tx_packets    = 21 [(telemetry_options).is_counter = true];
+        required uint64 low_queue_tx_packets     = 22 [(telemetry_options).is_counter = true];
+        required uint64 high_queue_tx_bytes      = 23 [(telemetry_options).is_counter = true];
+        required uint64 low_queue_tx_bytes       = 24 [(telemetry_options).is_counter = true];
+
+}
+

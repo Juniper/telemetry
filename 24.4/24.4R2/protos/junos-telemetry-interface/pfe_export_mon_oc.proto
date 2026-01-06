@@ -1,0 +1,62 @@
+/* 
+This proto is generated from below openconfig models
+junos-export-mon - This module provides data definitions for configuration of
+PFE export monitor subsystem
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_pfe_export_mon_stats jnpr_junos_pfe_export_mon_stats_ext = 129;
+}
+
+message junos_pfe_export_mon_stats {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional linecard_type linecard = 151;    // /junos/system/linecard
+      message linecard_type {
+         optional export_monitor_type export_monitor = 151;    // /junos/system/linecard/export-monitor
+         message export_monitor_type {
+            message export_info_list {    // /junos/system/linecard/export-monitor/export-info
+               optional string resource = 153 [(telemetry_options).is_key = true];    // /junos/system/linecard/export-monitor/export-info/resource
+               optional uint32 rep_interval = 154;    // /junos/system/linecard/export-monitor/export-info/rep-interval
+               optional uint32 payload_size = 155;    // /junos/system/linecard/export-monitor/export-info/payload-size
+               optional uint32 qos_options = 156;    // /junos/system/linecard/export-monitor/export-info/qos-options
+               optional uint32 fc_options = 157;    // /junos/system/linecard/export-monitor/export-info/fc-options
+               optional uint32 plp_options = 158;    // /junos/system/linecard/export-monitor/export-info/plp-options
+               optional server_type server = 159;    // /junos/system/linecard/export-monitor/export-info/server
+               message server_type {
+                  optional string ip = 160;    // /junos/system/linecard/export-monitor/export-info/server/ip
+                  optional uint32 port = 161;    // /junos/system/linecard/export-monitor/export-info/server/port
+               }
+               optional uint32 num_clients = 162;    // /junos/system/linecard/export-monitor/export-info/num-clients
+               message clients_list {    // /junos/system/linecard/export-monitor/export-info/clients
+                  optional uint32 index = 164 [(telemetry_options).is_key = true];    // /junos/system/linecard/export-monitor/export-info/clients/index
+                  optional string ip = 165;    // /junos/system/linecard/export-monitor/export-info/clients/ip
+                  optional uint32 port = 166;    // /junos/system/linecard/export-monitor/export-info/clients/port
+               }
+               repeated clients_list clients = 163;
+               optional accounting_type accounting = 167;    // /junos/system/linecard/export-monitor/export-info/accounting
+               message accounting_type {
+                  optional uint64 successful_reaps = 168;    // /junos/system/linecard/export-monitor/export-info/accounting/successful-reaps
+                  optional uint64 failed_reaps = 169;    // /junos/system/linecard/export-monitor/export-info/accounting/failed-reaps
+                  optional uint32 reaps_in_last_rep_interval = 170;    // /junos/system/linecard/export-monitor/export-info/accounting/reaps-in-last-rep-interval
+                  optional uint32 packets_in_last_rep_interval = 171;    // /junos/system/linecard/export-monitor/export-info/accounting/packets-in-last-rep-interval
+                  optional uint32 instances_in_last_rep_interval = 172;    // /junos/system/linecard/export-monitor/export-info/accounting/instances-in-last-rep-interval
+                  optional uint64 total_packets = 173;    // /junos/system/linecard/export-monitor/export-info/accounting/total-packets
+                  optional uint64 num_wraps = 174;    // /junos/system/linecard/export-monitor/export-info/accounting/num-wraps
+                  optional uint64 average_reaps = 175;    // /junos/system/linecard/export-monitor/export-info/accounting/average-reaps
+                  optional uint32 last_packet_size = 176;    // /junos/system/linecard/export-monitor/export-info/accounting/last-packet-size
+               }
+               message wraps_list {    // /junos/system/linecard/export-monitor/export-info/wraps
+                  optional uint32 index = 178 [(telemetry_options).is_key = true];    // /junos/system/linecard/export-monitor/export-info/wraps/index
+                  optional string time = 179;    // /junos/system/linecard/export-monitor/export-info/wraps/time
+               }
+               repeated wraps_list wraps = 177;
+            }
+            repeated export_info_list export_info = 152;
+         }
+      }
+   }
+}

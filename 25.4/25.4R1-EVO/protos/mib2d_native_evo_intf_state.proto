@@ -1,0 +1,77 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-interfaces - This module contains a collection of top level nodes for JUNOS
+interfaces state data
+junos-state-interfaces-ip - This module contains a collection of IP specific nodes for
+JUNOS Interface state data
+junos-state-interfaces-tunnel - This module contains a collection of Tunnel related nodes for
+JUNOS Interface state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_mib2d_native_288 jnpr_state_mib2d_native_288_ext = 288;
+}
+
+message state_mib2d_native_288 {    // /state
+   optional interfaces_type interfaces = 152;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         optional units_type units = 151;    // /state/interfaces/interface/units
+         message units_type {
+            message unit_list {    // /state/interfaces/interface/units/unit
+               optional uint32 name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/name
+               optional family_type family = 151;    // /state/interfaces/interface/units/unit/family
+               message family_type {
+                  optional inet_type inet = 152;    // /state/interfaces/interface/units/unit/family/inet
+                  message inet_type {
+                     optional uint32 mtu = 51;    // /state/interfaces/interface/units/unit/family/inet/mtu
+                     optional addresses_type addresses = 153;    // /state/interfaces/interface/units/unit/family/inet/addresses
+                     message addresses_type {
+                        message address_list {    // /state/interfaces/interface/units/unit/family/inet/addresses/address
+                           optional string ip = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/family/inet/addresses/address/ip
+                           optional uint32 prefix_length = 53;    // /state/interfaces/interface/units/unit/family/inet/addresses/address/prefix-length
+                           optional string origin = 54;    // /state/interfaces/interface/units/unit/family/inet/addresses/address/origin
+                           optional bool primary = 55;    // /state/interfaces/interface/units/unit/family/inet/addresses/address/primary
+                           optional bool preferred = 56;    // /state/interfaces/interface/units/unit/family/inet/addresses/address/preferred
+                        }
+                        repeated address_list address = 154;
+                     }
+                  }
+                  optional inet6_type inet6 = 160;    // /state/interfaces/interface/units/unit/family/inet6
+                  message inet6_type {
+                     optional uint32 mtu = 61;    // /state/interfaces/interface/units/unit/family/inet6/mtu
+                     optional addresses_type addresses = 161;    // /state/interfaces/interface/units/unit/family/inet6/addresses
+                     message addresses_type {
+                        message address_list {    // /state/interfaces/interface/units/unit/family/inet6/addresses/address
+                           optional string ip = 62 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/ip
+                           optional uint32 prefix_length = 63;    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/prefix-length
+                           optional string origin = 64;    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/origin
+                           optional bool primary = 65;    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/primary
+                           optional bool preferred = 66;    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/preferred
+                           optional bool link_local = 67;    // /state/interfaces/interface/units/unit/family/inet6/addresses/address/link-local
+                        }
+                        repeated address_list address = 162;
+                     }
+                  }
+               }
+               optional tunnel_type tunnel = 167;    // /state/interfaces/interface/units/unit/tunnel
+               message tunnel_type {
+                  optional string source_address = 62;    // /state/interfaces/interface/units/unit/tunnel/source-address
+                  optional string destination_address = 63;    // /state/interfaces/interface/units/unit/tunnel/destination-address
+                  optional uint32 ttl = 64;    // /state/interfaces/interface/units/unit/tunnel/ttl
+                  optional uint32 gre_key = 65;    // /state/interfaces/interface/units/unit/tunnel/gre-key
+                  optional bool bypass_loopback = 66;    // /state/interfaces/interface/units/unit/tunnel/bypass-loopback
+                  optional bool allow_fragmentation = 67;    // /state/interfaces/interface/units/unit/tunnel/allow-fragmentation
+                  optional string encapsulation = 68;    // /state/interfaces/interface/units/unit/tunnel/encapsulation
+               }
+            }
+            repeated unit_list unit = 152;
+         }
+      }
+      repeated interface_list interface = 153;
+   }
+}

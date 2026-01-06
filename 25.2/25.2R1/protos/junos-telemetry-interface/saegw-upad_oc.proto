@@ -1,0 +1,320 @@
+/* 
+This proto is generated from below openconfig models
+junos-saegw-upad - This module provides common data definitions for mobile-edge
+saegw-upad operational state and statistics
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_saegw jnpr_junos_saegw_ext = 205;
+}
+
+message junos_saegw {    // /junos
+   optional services_type services = 151;    // /junos/services
+   message services_type {
+      optional mobile_edge_type mobile_edge = 151;    // /junos/services/mobile-edge
+      message mobile_edge_type {
+         optional system_stats_type system_stats = 152;    // /junos/services/mobile-edge/system-stats
+         message system_stats_type {
+            optional string system_state = 73;    // /junos/services/mobile-edge/system-stats/system-state
+            optional uint32 cur_inflight = 74;    // /junos/services/mobile-edge/system-stats/cur-inflight
+            optional string sync_status = 75;    // /junos/services/mobile-edge/system-stats/sync-status
+            optional string shared_memory = 76;    // /junos/services/mobile-edge/system-stats/shared-memory
+            optional string heap_memory = 77;    // /junos/services/mobile-edge/system-stats/heap-memory
+         }
+         optional sessions_type sessions = 151;    // /junos/services/mobile-edge/sessions
+         message sessions_type {
+            optional summary_type summary = 153;    // /junos/services/mobile-edge/sessions/summary
+            message summary_type {
+               optional session_type session = 154;    // /junos/services/mobile-edge/sessions/summary/session
+               message session_type {
+                  optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/session/established
+                  optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/session/wait
+                  optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/session/invalid
+                  optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/session/deleting
+                  optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/session/init
+                  optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/session/total
+               }
+               optional bearer_type bearer = 155;    // /junos/services/mobile-edge/sessions/summary/bearer
+               message bearer_type {
+                  optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/bearer/established
+                  optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/bearer/wait
+                  optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/bearer/invalid
+                  optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/bearer/deleting
+                  optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/bearer/init
+                  optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/bearer/total
+               }
+               optional dlfar_bearer_type dlfar_bearer = 156;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer
+               message dlfar_bearer_type {
+                  optional uint64 forward = 64;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer/forward
+                  optional uint64 idle = 65;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer/idle
+                  optional uint64 buffering = 66;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer/buffering
+                  optional uint64 drop = 67;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer/drop
+                  optional uint64 total = 68;    // /junos/services/mobile-edge/sessions/summary/dlfar-bearer/total
+               }
+               optional qos_flow_type qos_flow = 157;    // /junos/services/mobile-edge/sessions/summary/qos-flow
+               message qos_flow_type {
+                  optional uint64 established = 69;    // /junos/services/mobile-edge/sessions/summary/qos-flow/established
+                  optional uint64 wait = 70;    // /junos/services/mobile-edge/sessions/summary/qos-flow/wait
+                  optional uint64 invalid = 71;    // /junos/services/mobile-edge/sessions/summary/qos-flow/invalid
+                  optional uint64 total = 72;    // /junos/services/mobile-edge/sessions/summary/qos-flow/total
+               }
+               optional control_peers_type control_peers = 158;    // /junos/services/mobile-edge/sessions/summary/control-peers
+               message control_peers_type {
+                  message control_peer_list {    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer
+                     optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/ip-addr
+                     optional session_type session = 160;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/session/total
+                     }
+                     optional bearer_type bearer = 161;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/control-peers/control-peer/bearer/total
+                     }
+                  }
+                  repeated control_peer_list control_peer = 159;
+               }
+               optional access_peers_type access_peers = 162;    // /junos/services/mobile-edge/sessions/summary/access-peers
+               message access_peers_type {
+                  message access_peer_list {    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer
+                     optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/ip-addr
+                     optional session_type session = 164;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/session/total
+                     }
+                     optional bearer_type bearer = 165;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/access-peers/access-peer/bearer/total
+                     }
+                  }
+                  repeated access_peer_list access_peer = 163;
+               }
+               optional core_peers_type core_peers = 167;    // /junos/services/mobile-edge/sessions/summary/core-peers
+               message core_peers_type {
+                  message core_peer_list {    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer
+                     optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/ip-addr
+                     optional session_type session = 169;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/session/total
+                     }
+                     optional bearer_type bearer = 170;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/core-peers/core-peer/bearer/total
+                     }
+                  }
+                  repeated core_peer_list core_peer = 168;
+               }
+               optional slots_type slots = 171;    // /junos/services/mobile-edge/sessions/summary/slots
+               message slots_type {
+                  message slot_list {    // /junos/services/mobile-edge/sessions/summary/slots/slot
+                     optional uint32 pfe = 52 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/slots/slot/pfe
+                     optional session_type session = 173;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/slots/slot/session/total
+                     }
+                     optional bearer_type bearer = 174;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/slots/slot/bearer/total
+                     }
+                  }
+                  repeated slot_list slot = 172;
+               }
+               optional pics_type pics = 175;    // /junos/services/mobile-edge/sessions/summary/pics
+               message pics_type {
+                  message pic_list {    // /junos/services/mobile-edge/sessions/summary/pics/pic
+                     optional string pfe = 53 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/pics/pic/pfe
+                     optional session_type session = 177;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/pics/pic/session/total
+                     }
+                     optional bearer_type bearer = 178;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/pics/pic/bearer/total
+                     }
+                  }
+                  repeated pic_list pic = 176;
+               }
+               optional apfes_type apfes = 179;    // /junos/services/mobile-edge/sessions/summary/apfes
+               message apfes_type {
+                  message apfe_list {    // /junos/services/mobile-edge/sessions/summary/apfes/apfe
+                     optional string apfe_name = 54 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/apfe-name
+                     optional string apfe_role = 55;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/apfe-role
+                     optional string apfe_sync = 56;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/apfe-sync
+                     optional session_type session = 181;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/session/total
+                     }
+                     optional bearer_type bearer = 182;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/apfes/apfe/bearer/total
+                     }
+                  }
+                  repeated apfe_list apfe = 180;
+               }
+               optional apns_type apns = 183;    // /junos/services/mobile-edge/sessions/summary/apns
+               message apns_type {
+                  message apn_list {    // /junos/services/mobile-edge/sessions/summary/apns/apn
+                     optional string apn_name = 57 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/sessions/summary/apns/apn/apn-name
+                     optional session_type session = 185;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session
+                     message session_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/apns/apn/session/total
+                     }
+                     optional bearer_type bearer = 186;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer
+                     message bearer_type {
+                        optional uint64 established = 58;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/established
+                        optional uint64 wait = 59;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/wait
+                        optional uint64 invalid = 60;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/invalid
+                        optional uint64 deleting = 61;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/deleting
+                        optional uint64 init = 62;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/init
+                        optional uint64 total = 63;    // /junos/services/mobile-edge/sessions/summary/apns/apn/bearer/total
+                     }
+                  }
+                  repeated apn_list apn = 184;
+               }
+            }
+         }
+         optional peers_type peers = 190;    // /junos/services/mobile-edge/peers
+         message peers_type {
+            optional summary_type summary = 191;    // /junos/services/mobile-edge/peers/summary
+            message summary_type {
+               optional uint32 total_control_peers = 81;    // /junos/services/mobile-edge/peers/summary/total-control-peers
+               optional uint32 total_access_peers = 82;    // /junos/services/mobile-edge/peers/summary/total-access-peers
+               optional uint32 total_core_peers = 83;    // /junos/services/mobile-edge/peers/summary/total-core-peers
+               optional uint32 total_cpfu_peers = 84;    // /junos/services/mobile-edge/peers/summary/total-cpfu-peers
+            }
+            optional control_peers_type control_peers = 192;    // /junos/services/mobile-edge/peers/control-peers
+            message control_peers_type {
+               message control_peer_list {    // /junos/services/mobile-edge/peers/control-peers/control-peer
+                  optional string routing_instance = 86;    // /junos/services/mobile-edge/peers/control-peers/control-peer/routing-instance
+                  optional uint32 heartbeat_request_received = 87;    // /junos/services/mobile-edge/peers/control-peers/control-peer/heartbeat-request-received
+                  optional uint32 heartbeat_response_sent = 88;    // /junos/services/mobile-edge/peers/control-peers/control-peer/heartbeat-response-sent
+                  optional uint32 heartbeat_request_sent = 89;    // /junos/services/mobile-edge/peers/control-peers/control-peer/heartbeat-request-sent
+                  optional uint32 heartbeat_response_received = 90;    // /junos/services/mobile-edge/peers/control-peers/control-peer/heartbeat-response-received
+                  optional uint32 association_setup_request_received = 91;    // /junos/services/mobile-edge/peers/control-peers/control-peer/association-setup-request-received
+                  optional uint32 association_setup_response_sent = 92;    // /junos/services/mobile-edge/peers/control-peers/control-peer/association-setup_response-sent
+                  optional uint32 association_release_request_received = 93;    // /junos/services/mobile-edge/peers/control-peers/control-peer/association-release-request-received
+                  optional uint32 association_release_response_sent = 94;    // /junos/services/mobile-edge/peers/control-peers/control-peer/association-release-response-sent
+                  optional uint32 session_establishment_request_received = 95;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-establishment-request-received
+                  optional uint32 session_establishment_request_accepted = 96;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-establishment-request-accepted
+                  optional uint32 session_establishment_request_rejected = 97;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-establishment-request-rejected
+                  optional uint64 session_modification_request_received = 98;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-modification-request-received
+                  optional uint32 session_modification_request_accepted = 99;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-modification-request-accepted
+                  optional uint32 session_modification_request_rejected = 100;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-modification-request-rejected
+                  optional uint32 session_deletion_request_received = 101;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-deletion-request-received
+                  optional uint32 session_deletion_request_accepted = 102;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-deletion-request-accepted
+                  optional uint32 session_deletion_request_rejected = 103;    // /junos/services/mobile-edge/peers/control-peers/control-peer/session-deletion-request-rejected
+                  optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/peers/control-peers/control-peer/ip-addr
+               }
+               repeated control_peer_list control_peer = 193;
+            }
+            optional access_peers_type access_peers = 194;    // /junos/services/mobile-edge/peers/access-peers
+            message access_peers_type {
+               message access_peer_list {    // /junos/services/mobile-edge/peers/access-peers/access-peer
+                  optional string routing_instance = 106;    // /junos/services/mobile-edge/peers/access-peers/access-peer/routing-instance
+                  optional uint32 echo_request_received = 109;    // /junos/services/mobile-edge/peers/access-peers/access-peer/echo-request-received
+                  optional uint32 echo_response_sent = 110;    // /junos/services/mobile-edge/peers/access-peers/access-peer/echo-response-sent
+                  optional uint32 error_indication_received = 111;    // /junos/services/mobile-edge/peers/access-peers/access-peer/error-indication-received
+                  optional uint32 end_marker_sent = 112;    // /junos/services/mobile-edge/peers/access-peers/access-peer/end-marker-sent
+                  optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/peers/access-peers/access-peer/ip-addr
+               }
+               repeated access_peer_list access_peer = 195;
+            }
+            optional core_peers_type core_peers = 196;    // /junos/services/mobile-edge/peers/core-peers
+            message core_peers_type {
+               message core_peer_list {    // /junos/services/mobile-edge/peers/core-peers/core-peer
+                  optional string routing_instance = 114;    // /junos/services/mobile-edge/peers/core-peers/core-peer/routing-instance
+                  optional uint32 echo_request_received = 115;    // /junos/services/mobile-edge/peers/core-peers/core-peer/echo-request-received
+                  optional uint32 echo_response_sent = 116;    // /junos/services/mobile-edge/peers/core-peers/core-peer/echo-response-sent
+                  optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/peers/core-peers/core-peer/ip-addr
+               }
+               repeated core_peer_list core_peer = 197;
+            }
+            optional cpfu_peers_type cpfu_peers = 198;    // /junos/services/mobile-edge/peers/cpfu-peers
+            message cpfu_peers_type {
+               message cpfu_peer_list {    // /junos/services/mobile-edge/peers/cpfu-peers/cpfu-peer
+                  optional string routing_instance = 114;    // /junos/services/mobile-edge/peers/cpfu-peers/cpfu-peer/routing-instance
+                  optional uint32 echo_request_received = 115;    // /junos/services/mobile-edge/peers/cpfu-peers/cpfu-peer/echo-request-received
+                  optional uint32 echo_response_sent = 116;    // /junos/services/mobile-edge/peers/cpfu-peers/cpfu-peer/echo-response-sent
+                  optional string ip_addr = 51 [(telemetry_options).is_key = true];    // /junos/services/mobile-edge/peers/cpfu-peers/cpfu-peer/ip-addr
+               }
+               repeated cpfu_peer_list cpfu_peer = 199;
+            }
+         }
+         optional events_type events = 201;    // /junos/services/mobile-edge/events
+         message events_type {
+            optional string association = 121;    // /junos/services/mobile-edge/events/association
+            optional string peer = 122;    // /junos/services/mobile-edge/events/peer
+            optional string apfe = 123;    // /junos/services/mobile-edge/events/apfe
+            optional string ha_sync = 124;    // /junos/services/mobile-edge/events/ha-sync
+            optional string load_control = 125;    // /junos/services/mobile-edge/events/load-control
+         }
+      }
+   }
+}

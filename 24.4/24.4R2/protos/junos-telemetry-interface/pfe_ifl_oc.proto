@@ -1,0 +1,37 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_pfe_ifl jnpr_interfaces_pfe_ifl_ext = 58;
+}
+
+message interfaces_pfe_ifl {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional subinterfaces_type subinterfaces = 151;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/state
+            message state_type {
+               optional counters_type counters = 151;    // /interfaces/interface/subinterfaces/subinterface/state/counters
+               message counters_type {
+                  optional uint64 in_octets = 51;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-octets
+                  optional uint64 in_pkts = 62;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts
+                  optional uint64 in_unicast_pkts = 52;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-unicast-pkts
+                  optional uint64 in_multicast_pkts = 54;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-multicast-pkts
+                  optional uint64 out_octets = 58;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-octets
+                  optional uint64 out_pkts = 63;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts
+                  optional uint64 out_unicast_pkts = 59;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-unicast-pkts
+                  optional uint64 out_multicast_pkts = 61;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-multicast-pkts
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 51;
+      }
+   }
+   repeated interface_list interface = 151;
+}

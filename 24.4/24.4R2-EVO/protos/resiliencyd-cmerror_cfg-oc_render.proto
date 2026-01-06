@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_resiliencyd_cfg jnpr_junos_resiliencyd_cfg_ext = 160;
+}
+
+message junos_resiliencyd_cfg {    // /junos
+   message configuration_list {    // /junos/chassis/cmerror/configuration
+      optional string name = 83 [(telemetry_options).is_key = true];    // /junos/chassis/cmerror/configuration/name
+      optional uint64 last_configuration_change = 84;    // /junos/chassis/cmerror/configuration/last-configuration-change
+      optional uint32 wrap_cycle_marker = 85;    // /junos/chassis/cmerror/configuration/wrap-cycle-marker
+      optional uint32 fru_slot = 86;    // /junos/chassis/cmerror/configuration/fru-slot
+      optional string fru_type = 87;    // /junos/chassis/cmerror/configuration/fru-type
+      optional string identifier = 88;    // /junos/chassis/cmerror/configuration/identifier
+      optional string error_name = 89;    // /junos/chassis/cmerror/configuration/error-name
+      optional uint32 component_id = 90;    // /junos/chassis/cmerror/configuration/component-id
+      optional uint32 limit = 91;    // /junos/chassis/cmerror/configuration/limit
+      optional uint32 raising_threshold = 92;    // /junos/chassis/cmerror/configuration/raising-threshold
+      optional uint32 clearing_threshold = 93;    // /junos/chassis/cmerror/configuration/clearing-threshold
+      optional uint32 action = 94;    // /junos/chassis/cmerror/configuration/action
+      optional string scope = 95;    // /junos/chassis/cmerror/configuration/scope
+      optional string category = 96;    // /junos/chassis/cmerror/configuration/category
+      optional string severity = 97;    // /junos/chassis/cmerror/configuration/severity
+      optional uint32 threshold = 98;    // /junos/chassis/cmerror/configuration/threshold
+      optional uint32 action_handling_type = 99;    // /junos/chassis/cmerror/configuration/action-handling-type
+      optional uint32 configured_threshold = 100;    // /junos/chassis/cmerror/configuration/configured-threshold
+      optional uint32 configured_limit = 101;    // /junos/chassis/cmerror/configuration/configured-limit
+      optional uint32 configured_action = 102;    // /junos/chassis/cmerror/configuration/configured-action
+      optional uint32 configured_clear_action = 103;    // /junos/chassis/cmerror/configuration/configured-clear-action
+   }
+   repeated configuration_list configuration = 1;
+}

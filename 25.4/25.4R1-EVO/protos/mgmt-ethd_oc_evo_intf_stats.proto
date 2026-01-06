@@ -1,0 +1,52 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_mgmt jnpr_interfaces_mgmt_ext = 99;
+}
+
+message interfaces_mgmt {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional state_type state = 151;    // /interfaces/interface/state
+      message state_type {
+         optional counters_type counters = 151;    // /interfaces/interface/state/counters
+         message counters_type {
+            optional uint64 in_octets = 51;    // /interfaces/interface/state/counters/in-octets
+            optional uint64 in_pkts = 52;    // /interfaces/interface/state/counters/in-pkts
+            optional uint64 in_multicast_pkts = 54;    // /interfaces/interface/state/counters/in-multicast-pkts
+            optional uint64 in_discards = 55;    // /interfaces/interface/state/counters/in-discards
+            optional uint64 in_errors = 56;    // /interfaces/interface/state/counters/in-errors
+            optional uint64 out_octets = 58;    // /interfaces/interface/state/counters/out-octets
+            optional uint64 out_pkts = 59;    // /interfaces/interface/state/counters/out-pkts
+            optional uint64 out_multicast_pkts = 61;    // /interfaces/interface/state/counters/out-multicast-pkts
+            optional uint64 out_errors = 63;    // /interfaces/interface/state/counters/out-errors
+            optional uint64 last_clear = 64;    // /interfaces/interface/state/counters/last-clear
+         }
+      }
+      optional subinterfaces_type subinterfaces = 154;    // /interfaces/interface/subinterfaces
+      message subinterfaces_type {
+         message subinterface_list {    // /interfaces/interface/subinterfaces/subinterface
+            optional uint32 index = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/subinterfaces/subinterface/index
+            optional state_type state = 151;    // /interfaces/interface/subinterfaces/subinterface/state
+            message state_type {
+               optional counters_type counters = 151;    // /interfaces/interface/subinterfaces/subinterface/state/counters
+               message counters_type {
+                  optional uint64 in_octets = 51;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-octets
+                  optional uint64 in_unicast_pkts = 52;    // /interfaces/interface/subinterfaces/subinterface/state/counters/in-unicast-pkts
+                  optional uint64 out_octets = 58;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-octets
+                  optional uint64 out_unicast_pkts = 59;    // /interfaces/interface/subinterfaces/subinterface/state/counters/out-unicast-pkts
+                  optional uint64 last_clear = 64;    // /interfaces/interface/subinterfaces/subinterface/state/counters/last-clear
+               }
+            }
+         }
+         repeated subinterface_list subinterface = 151;
+      }
+   }
+   repeated interface_list interface = 151;
+}

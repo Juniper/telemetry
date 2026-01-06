@@ -1,0 +1,84 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-srv6 - This module contains a collection of top level nodes for JUNOS
+SRv6 state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_srv6_state_322 jnpr_state_srv6_state_322_ext = 322;
+}
+
+message state_srv6_state_322 {    // /state
+   optional routing_instances_type routing_instances = 151;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 151;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional source_packet_routing_type source_packet_routing = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing
+            message source_packet_routing_type {
+               optional srv6_type srv6 = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6
+               message srv6_type {
+                  optional locators_type locators = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators
+                  message locators_type {
+                     message locator_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators/locator
+                        optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators/locator/name
+                        optional string address = 52;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators/locator/address
+                        optional uint32 algorithm = 54;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators/locator/algorithm
+                        optional bool anycast = 55;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/locators/locator/anycast
+                     }
+                     repeated locator_list locator = 151;
+                  }
+                  optional node_capabilities_type node_capabilities = 152;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities
+                  message node_capabilities_type {
+                     optional supported_end_behavior_type supported_end_behavior = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/supported-end-behavior
+                     message supported_end_behavior_type {
+                        repeated string end_behavior_type = 51;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/supported-end-behavior/end-behavior-type
+                     }
+                     optional msd_type msd = 152;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/msd
+                     message msd_type {
+                        optional uint32 max_sl = 51;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/msd/max-sl
+                        optional uint32 max_end_pop = 52;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/msd/max-end-pop
+                        optional uint32 max_h_encap = 53;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/msd/max-h-encap
+                        optional uint32 max_end_d = 54;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/msd/max-end-d
+                     }
+                     optional supported_counters_type supported_counters = 153;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/supported-counters
+                     message supported_counters_type {
+                        repeated string type = 51;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/node-capabilities/supported-counters/type
+                     }
+                  }
+                  optional local_sids_type local_sids = 153;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids
+                  message local_sids_type {
+                     message local_sid_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid
+                        optional string sid = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sid
+                        optional string locator = 52;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/locator
+                        optional sstlv_type sstlv = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sstlv
+                        message sstlv_type {
+                           optional uint32 locator_block_length = 52;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sstlv/locator-block-length
+                           optional uint32 locator_node_length = 51;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sstlv/locator-node-length
+                           optional uint32 locator_function_length = 53;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sstlv/locator-function-length
+                           optional uint32 locator_argument_length = 54;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/sstlv/locator-argument-length
+                        }
+                        optional bool reserved = 53;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/reserved
+                        optional string end_behavior_type = 54;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/end-behavior-type
+                        optional string allocation_type = 55;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/allocation-type
+                        optional owners_type owners = 152;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/owners
+                        message owners_type {
+                           message owner_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/owners/owner
+                              optional string type = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/srv6/local-sids/local-sid/owners/owner/type
+                           }
+                           repeated owner_list owner = 151;
+                        }
+                     }
+                     repeated local_sid_list local_sid = 151;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 151;
+   }
+}

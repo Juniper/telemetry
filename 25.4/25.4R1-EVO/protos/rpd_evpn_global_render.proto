@@ -1,0 +1,36 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_evpn jnpr_junos_evpn_ext = 113;
+}
+
+message junos_evpn {    // /junos
+   optional evpn_type evpn = 171;    // /junos/evpn
+   message evpn_type {
+      optional evpn_smet_forwarding_type evpn_smet_forwarding = 171;    // /junos/evpn/evpn-smet-forwarding
+      message evpn_smet_forwarding_type {
+         optional bool enabled = 71;    // /junos/evpn/evpn-smet-forwarding/enabled
+         optional uint32 nexthop_limit = 72;    // /junos/evpn/evpn-smet-forwarding/nexthop-limit
+         optional uint32 nexthop_usage = 73;    // /junos/evpn/evpn-smet-forwarding/nexthop-usage
+      }
+      message l3_context_list {    // /junos/evpn/l3-context
+         optional string context_name = 71 [(telemetry_options).is_key = true];    // /junos/evpn/l3-context/context-name
+         optional string encapsulation = 72;    // /junos/evpn/l3-context/encapsulation
+         optional string advertisement_mode = 73;    // /junos/evpn/l3-context/advertisement-mode
+         optional string multicast_routing_mode = 74;    // /junos/evpn/l3-context/multicast-routing-mode
+         message ip_prefix_database_list {    // /junos/evpn/l3-context/ip-prefix-database
+            optional string ip_prefix = 71 [(telemetry_options).is_key = true];    // /junos/evpn/l3-context/ip-prefix-database/ip-prefix
+            optional string route_status = 72;    // /junos/evpn/l3-context/ip-prefix-database/route-status
+         }
+         repeated ip_prefix_database_list ip_prefix_database = 170;
+      }
+      repeated l3_context_list l3_context = 180;
+   }
+}

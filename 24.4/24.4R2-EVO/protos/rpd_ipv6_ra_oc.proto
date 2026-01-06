@@ -1,0 +1,25 @@
+/* 
+This proto is generated from below openconfig models
+junos-ipv6-ra - This module contains a collection of nodes related to the Juniper
+ipv6 router-advertisement
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional ipv6_ra_ipv6_ra jnpr_ipv6_ra_ipv6_ra_ext = 64;
+}
+
+message ipv6_ra_ipv6_ra {    // /ipv6-ra
+   message ipv6_ra_interface_list {    // /ipv6-ra/ipv6-ra-interface
+      optional string name = 51;    // /ipv6-ra/ipv6-ra-interface/name
+      optional uint32 initial_adv_sent = 52;    // /ipv6-ra/ipv6-ra-interface/initial-adv-sent
+      optional uint64 adv_sent = 53;    // /ipv6-ra/ipv6-ra-interface/adv-sent
+      optional uint64 adv_received = 54;    // /ipv6-ra/ipv6-ra-interface/adv-received
+      optional uint64 solicits_received = 55;    // /ipv6-ra/ipv6-ra-interface/solicits-received
+      optional uint32 last_adv_time = 56;    // /ipv6-ra/ipv6-ra-interface/last-adv-time
+      optional uint32 last_solicit_time = 57;    // /ipv6-ra/ipv6-ra-interface/last-solicit-time
+   }
+   repeated ipv6_ra_interface_list ipv6_ra_interface = 151;
+}

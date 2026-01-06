@@ -1,0 +1,63 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-poe - This module contains a collection of top level nodes for JUNOS
+PoE state data
+
+Copyright (c) 2024 Juniper Networks, Inc
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_chassis_246 jnpr_state_chassis_246_ext = 246;
+}
+
+message state_chassis_246 {    // /state
+   optional poe_type poe = 149;    // /state/poe
+   message poe_type {
+      optional interfaces_type interfaces = 150;    // /state/poe/interfaces
+      message interfaces_type {
+         message interface_list {    // /state/poe/interfaces/interface
+            optional string name = 152 [(telemetry_options).is_key = true];    // /state/poe/interfaces/interface/name
+            optional string admin_status = 153;    // /state/poe/interfaces/interface/admin-status
+            optional string oper_status = 154;    // /state/poe/interfaces/interface/oper-status
+            optional string poe_four_pair = 156;    // /state/poe/interfaces/interface/poe-four-pair
+            optional string poe_pair_status = 157;    // /state/poe/interfaces/interface/poe-pair-status
+            optional double power_limit = 158;    // /state/poe/interfaces/interface/power-limit
+            optional bool power_limit_lldp_negotiated = 159;    // /state/poe/interfaces/interface/power-limit-lldp-negotiated
+            optional string priority = 160;    // /state/poe/interfaces/interface/priority
+            optional bool priority_lldp_negotiated = 161;    // /state/poe/interfaces/interface/priority-lldp-negotiated
+            optional double power_consumption = 162;    // /state/poe/interfaces/interface/power-consumption
+            optional bool power_over_consumed = 163;    // /state/poe/interfaces/interface/power-over-consumed
+            optional string power_class_a = 164;    // /state/poe/interfaces/interface/power-class-a
+            optional string power_class_b = 165;    // /state/poe/interfaces/interface/power-class-b
+            optional string poe_mode = 166;    // /state/poe/interfaces/interface/poe-mode
+         }
+         repeated interface_list interface = 151;
+      }
+      optional controllers_type controllers = 184;    // /state/poe/controllers
+      message controllers_type {
+         optional bool fast_poe_enabled = 183;    // /state/poe/controllers/fast-poe-enabled
+         optional bool perpetual_poe_enabled = 184;    // /state/poe/controllers/perpetual-poe-enabled
+         message controller_list {    // /state/poe/controllers/controller
+            optional uint32 index = 186 [(telemetry_options).is_key = true];    // /state/poe/controllers/controller/index
+            optional bool firmware_available = 187;    // /state/poe/controllers/controller/firmware-available
+            optional double max_power = 188;    // /state/poe/controllers/controller/max-power
+            optional double power_consumption = 189;    // /state/poe/controllers/controller/power-consumption
+            optional bool power_over_consumed = 190;    // /state/poe/controllers/controller/power-over-consumed
+            optional uint64 guard_band = 191;    // /state/poe/controllers/controller/guard-band
+            optional string poe_management = 192;    // /state/poe/controllers/controller/poe-management
+            optional string poe_status = 193;    // /state/poe/controllers/controller/poe-status
+            optional string lldp_priority = 194;    // /state/poe/controllers/controller/lldp-priority
+         }
+         repeated controller_list controller = 185;
+      }
+   }
+}

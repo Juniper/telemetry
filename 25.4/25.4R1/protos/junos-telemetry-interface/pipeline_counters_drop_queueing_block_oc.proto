@@ -1,0 +1,41 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform - This module defines a data model for representing a system
+component inventory, which can include hardware or software
+elements arranged in an arbitrary structure
+openconfig-platform-pipeline-counters - Provide fine grain, per-Integrated Circuit (IC), telemetry data streams
+that will identify the health, any packet drops, and any errors on the IC
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_queueing_block_drop_299 jnpr_components_queueing_block_drop_299_ext = 299;
+}
+
+message components_queueing_block_drop_299 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional drop_type drop = 151;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional queueing_block_type queueing_block = 151;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block
+               message queueing_block_type {
+                  optional state_type state = 151;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state
+                  message state_type {
+                     optional uint64 oversubscription = 51;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/oversubscription
+                     optional uint64 memory_limit = 52;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/memory-limit
+                     optional uint64 incorrect_state = 53;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/incorrect-state
+                     optional uint64 lookup_queue = 54;    // /components/component/integrated-circuit/pipeline-counters/drop/queueing-block/state/lookup-queue
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

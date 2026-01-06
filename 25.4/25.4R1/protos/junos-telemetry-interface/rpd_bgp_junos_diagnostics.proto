@@ -1,0 +1,210 @@
+/* 
+This proto is generated from below openconfig models
+junos-diagnostics-bgp - This module contains a collection of top level nodes for JUNOS
+BGP diagnostics data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional diagnostics_bgp_diagnostics_347 jnpr_diagnostics_bgp_diagnostics_347_ext = 347;
+}
+
+message diagnostics_bgp_diagnostics_347 {    // /diagnostics
+   optional routing_instances_type routing_instances = 192;    // /diagnostics/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /diagnostics/routing-instances/routing-instance
+         optional string name = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/name
+         optional protocols_type protocols = 192;    // /diagnostics/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional bgp_type bgp = 192;    // /diagnostics/routing-instances/routing-instance/protocols/bgp
+            message bgp_type {
+               optional bool active = 60;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/active
+               optional uint32 listen_port = 61;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/listen-port
+               optional uint32 id = 66;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/id
+               optional groups_type groups = 192;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups
+               message groups_type {
+                  message group_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group
+                     optional string name = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/name
+                     optional export_evaluation_type export_evaluation = 81;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/export-evaluation
+                     message export_evaluation_type {
+                        optional string trigger = 51;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/export-evaluation/trigger
+                        optional uint64 trigger_time = 52;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/export-evaluation/trigger-time
+                        repeated string address_family = 53;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/export-evaluation/address-family
+                     }
+                     optional neighbors_type neighbors = 192;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors
+                     message neighbors_type {
+                        message neighbor_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor
+                           optional string address = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/address
+                           optional string session_state = 51;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/session-state
+                           optional last_flap_type last_flap = 82;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-flap
+                           message last_flap_type {
+                              optional uint64 time = 52;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-flap/time
+                              optional string event = 53;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-flap/event
+                              optional string reason = 54;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-flap/reason
+                           }
+                           optional last_operational_down_type last_operational_down = 83;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-operational-down
+                           message last_operational_down_type {
+                              optional uint64 time = 55;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-operational-down/time
+                              optional string reason = 56;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-operational-down/reason
+                              optional string recommendation = 93;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/last-operational-down/recommendation
+                           }
+                           optional import_evaluation_type import_evaluation = 84;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/import-evaluation
+                           message import_evaluation_type {
+                              optional string trigger = 57;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/import-evaluation/trigger
+                              optional uint64 time = 58;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/import-evaluation/time
+                              repeated string address_family = 59;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/import-evaluation/address-family
+                           }
+                           optional afi_safis_type afi_safis = 151;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis
+                           message afi_safis_type {
+                              message afi_safi_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi
+                                 optional string name = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/name
+                                 optional routes_type routes = 153;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes
+                                 message routes_type {
+                                    message route_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route
+                                       optional string prefix = 63 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/prefix
+                                       optional string origin = 64 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/origin
+                                       optional uint32 path_id = 65 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/path-id
+                                       repeated string state = 67;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/state
+                                       optional string hidden_reason = 68;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/hidden-reason
+                                       optional string recommendation = 69;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/routes/route/recommendation
+                                    }
+                                    repeated route_list route = 153;
+                                 }
+                                 optional dropped_route_cache_type dropped_route_cache = 151;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache
+                                 message dropped_route_cache_type {
+                                    optional uint32 size = 50;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/size
+                                    optional uint32 count = 51;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/count
+                                    optional reason_list_type reason_list = 151;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list
+                                    message reason_list_type {
+                                       message reason_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason
+                                          optional string name = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/name
+                                          optional uint32 count = 51;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/count
+                                          optional prefix_list_type prefix_list = 151;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list
+                                          message prefix_list_type {
+                                             message prefixes_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list/prefixes
+                                                optional string prefix = 50 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list/prefixes/prefix
+                                                optional string origin = 51 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list/prefixes/origin
+                                                optional uint32 path_id = 52 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list/prefixes/path-id
+                                                optional uint64 time = 53;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/groups/group/neighbors/neighbor/afi-safis/afi-safi/dropped-route-cache/reason-list/reason/prefix-list/prefixes/time
+                                             }
+                                             repeated prefixes_list prefixes = 151;
+                                          }
+                                       }
+                                       repeated reason_list reason = 151;
+                                    }
+                                 }
+                              }
+                              repeated afi_safi_list afi_safi = 151;
+                           }
+                        }
+                        repeated neighbor_list neighbor = 192;
+                     }
+                  }
+                  repeated group_list group = 192;
+               }
+               optional rib_type rib = 160;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib
+               message rib_type {
+                  optional afi_safis_type afi_safis = 160;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis
+                  message afi_safis_type {
+                     message afi_safi_list {    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi
+                        optional string name = 70 [(telemetry_options).is_key = true];    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/name
+                        optional local_rib_evaluation_type local_rib_evaluation = 85;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/local-rib-evaluation
+                        message local_rib_evaluation_type {
+                           optional string trigger = 71;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/local-rib-evaluation/trigger
+                           optional string pending_trigger = 72;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/local-rib-evaluation/pending-trigger
+                           optional uint64 trigger_time = 73;    // /diagnostics/routing-instances/routing-instance/protocols/bgp/rib/afi-safis/afi-safi/local-rib-evaluation/trigger-time
+                        }
+                     }
+                     repeated afi_safi_list afi_safi = 160;
+                  }
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 192;
+   }
+   optional protocols_type protocols = 180;    // /diagnostics/protocols
+   message protocols_type {
+      optional bgp_type bgp = 110;    // /diagnostics/protocols/bgp
+      message bgp_type {
+         optional uint32 global_as_number = 67;    // /diagnostics/protocols/bgp/global-as-number
+         optional uint32 advertised_entry = 65;    // /diagnostics/protocols/bgp/advertised-entry
+         optional global_confederation_as_type global_confederation_as = 68;    // /diagnostics/protocols/bgp/global-confederation-as
+         message global_confederation_as_type {
+            repeated uint32 member = 98;    // /diagnostics/protocols/bgp/global-confederation-as/member
+            optional uint32 number = 97;    // /diagnostics/protocols/bgp/global-confederation-as/number
+         }
+         optional orr_configured_type orr_configured = 73;    // /diagnostics/protocols/bgp/orr-configured
+         message orr_configured_type {
+            optional bool enabled = 97;    // /diagnostics/protocols/bgp/orr-configured/enabled
+            optional string igp_primary_address = 98;    // /diagnostics/protocols/bgp/orr-configured/igp-primary-address
+            optional string igp_backup_address = 99;    // /diagnostics/protocols/bgp/orr-configured/igp-backup-address
+         }
+         optional operational_options_type operational_options = 50;    // /diagnostics/protocols/bgp/operational-options
+         message operational_options_type {
+            optional bool enabled_master_instance = 62;    // /diagnostics/protocols/bgp/operational-options/enabled-master-instance
+            optional bool enabled_other_instances = 63;    // /diagnostics/protocols/bgp/operational-options/enabled-other-instances
+            optional bool flash_inactive = 69;    // /diagnostics/protocols/bgp/operational-options/flash-inactive
+            optional bool defer_withdrawals = 70;    // /diagnostics/protocols/bgp/operational-options/defer-withdrawals
+            optional bool route_job_run_full_quantum = 72;    // /diagnostics/protocols/bgp/operational-options/route-job-run-full-quantum
+         }
+         optional multipath_type multipath = 152;    // /diagnostics/protocols/bgp/multipath
+         message multipath_type {
+            optional bool global_enabled = 60;    // /diagnostics/protocols/bgp/multipath/global-enabled
+            optional bool enabled_on_standby_routing = 61;    // /diagnostics/protocols/bgp/multipath/enabled-on-standby-routing
+            optional string foreground_mode = 62;    // /diagnostics/protocols/bgp/multipath/foreground-mode
+         }
+         optional nsr_type nsr = 170;    // /diagnostics/protocols/bgp/nsr
+         message nsr_type {
+            optional bool enabled = 60;    // /diagnostics/protocols/bgp/nsr/enabled
+            optional string mode = 61;    // /diagnostics/protocols/bgp/nsr/mode
+            optional bool multipath_enabled = 62;    // /diagnostics/protocols/bgp/nsr/multipath-enabled
+         }
+         optional sharding_type sharding = 171;    // /diagnostics/protocols/bgp/sharding
+         message sharding_type {
+            optional bool enabled = 60;    // /diagnostics/protocols/bgp/sharding/enabled
+            optional uint32 count = 61;    // /diagnostics/protocols/bgp/sharding/count
+            optional uint32 update_io_thread_count = 62;    // /diagnostics/protocols/bgp/sharding/update-io-thread-count
+         }
+         optional threshold_type threshold = 172;    // /diagnostics/protocols/bgp/threshold
+         message threshold_type {
+            optional uint32 write_job_suspend = 60;    // /diagnostics/protocols/bgp/threshold/write-job-suspend
+            optional double current_memory_in_use = 61;    // /diagnostics/protocols/bgp/threshold/current-memory-in-use
+            optional double max_memory_used = 62;    // /diagnostics/protocols/bgp/threshold/max-memory-used
+            optional double cache_hit_ratio = 63;    // /diagnostics/protocols/bgp/threshold/cache-hit-ratio
+            optional uint32 cache_lookup = 64;    // /diagnostics/protocols/bgp/threshold/cache-lookup
+            optional uint32 community_hash_avg = 65;    // /diagnostics/protocols/bgp/threshold/community-hash-avg
+            optional uint32 community_hash_max = 66;    // /diagnostics/protocols/bgp/threshold/community-hash-max
+            optional uint32 bgp_advertised_entries = 67;    // /diagnostics/protocols/bgp/threshold/bgp-advertised-entries
+            optional uint32 max_prefixes = 68;    // /diagnostics/protocols/bgp/threshold/max-prefixes
+            optional uint32 group_count = 69;    // /diagnostics/protocols/bgp/threshold/group-count
+         }
+         optional label_type label = 174;    // /diagnostics/protocols/bgp/label
+         message label_type {
+            optional string srgb_label_type = 60;    // /diagnostics/protocols/bgp/label/srgb-label-type
+            optional uint32 srgb_label_start = 61;    // /diagnostics/protocols/bgp/label/srgb-label-start
+            optional uint32 srgb_label_end = 62;    // /diagnostics/protocols/bgp/label/srgb-label-end
+            optional uint64 stale_label_hold_time = 63;    // /diagnostics/protocols/bgp/label/stale-label-hold-time
+            optional uint32 stale_label_count = 64;    // /diagnostics/protocols/bgp/label/stale-label-count
+            optional uint64 stale_label_delete_time = 65;    // /diagnostics/protocols/bgp/label/stale-label-delete-time
+            optional string stale_label_mode = 66;    // /diagnostics/protocols/bgp/label/stale-label-mode
+         }
+         optional address_family_advertisement_type address_family_advertisement = 175;    // /diagnostics/protocols/bgp/address-family-advertisement
+         message address_family_advertisement_type {
+            repeated string main = 60;    // /diagnostics/protocols/bgp/address-family-advertisement/main
+            repeated string rr_asbr = 61;    // /diagnostics/protocols/bgp/address-family-advertisement/rr-asbr
+            repeated string main_default_instance = 62;    // /diagnostics/protocols/bgp/address-family-advertisement/main-default-instance
+            repeated string main_by_app = 63;    // /diagnostics/protocols/bgp/address-family-advertisement/main-by-app
+         }
+         optional operational_state_type operational_state = 40;    // /diagnostics/protocols/bgp/operational-state
+         message operational_state_type {
+            optional bool interface_replay_done_received = 71;    // /diagnostics/protocols/bgp/operational-state/interface-replay-done-received
+            optional uint32 peers_pending_in_convergence = 74;    // /diagnostics/protocols/bgp/operational-state/peers-pending-in-convergence
+            optional uint32 peers_pending_out_convergence = 75;    // /diagnostics/protocols/bgp/operational-state/peers-pending-out-convergence
+            optional bool missing_router_id = 66;    // /diagnostics/protocols/bgp/operational-state/missing-router-id
+         }
+      }
+   }
+}

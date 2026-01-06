@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_forwarding_named_counters_342 jnpr_state_forwarding_named_counters_342_ext = 342;
+}
+
+message state_forwarding_named_counters_342 {    // /state
+   optional forwarding_type forwarding = 110;    // /state/forwarding
+   message forwarding_type {
+      optional named_counters_type named_counters = 110;    // /state/forwarding/named-counters
+      message named_counters_type {
+         message named_counter_list {    // /state/forwarding/named-counters/named-counter
+            optional string name = 100 [(telemetry_options).is_key = true];    // /state/forwarding/named-counters/named-counter/name
+            optional uint64 packets = 106;    // /state/forwarding/named-counters/named-counter/packets
+            optional uint64 octets = 107;    // /state/forwarding/named-counters/named-counter/octets
+         }
+         repeated named_counter_list named_counter = 110;
+      }
+   }
+}

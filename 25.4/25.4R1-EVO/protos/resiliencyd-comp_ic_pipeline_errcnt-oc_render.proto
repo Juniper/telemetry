@@ -1,0 +1,111 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform - This module defines a data model for representing a system
+component inventory, which can include hardware or software
+elements arranged in an arbitrary structure
+openconfig-platform-pipeline-counters - Provide fine grain, per-Integrated Circuit (IC), telemetry data streams
+that will identify the health, any packet drops, and any errors on the IC
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_resiliencyd_pipeline_errcnt_214 jnpr_components_resiliencyd_pipeline_errcnt_214_ext = 214;
+}
+
+message components_resiliencyd_pipeline_errcnt_214 {    // /components
+   message component_list {    // /components/component
+      optional string name = 80 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional errors_type errors = 151;    // /components/component/integrated-circuit/pipeline-counters/errors
+            message errors_type {
+               optional interface_block_type interface_block = 151;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block
+               message interface_block_type {
+                  message interface_block_error_list {    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error
+                     optional string name = 151 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/name
+                     optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state
+                     message state_type {
+                        optional string name = 51;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/name
+                        optional uint64 count = 52;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/count
+                        optional uint64 threshold = 53;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/threshold
+                        repeated string action = 54;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/action
+                        optional bool active = 55;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/active
+                        optional string level = 56;    // /components/component/integrated-circuit/pipeline-counters/errors/interface-block/interface-block-error/state/level
+                     }
+                  }
+                  repeated interface_block_error_list interface_block_error = 151;
+               }
+               optional lookup_block_type lookup_block = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block
+               message lookup_block_type {
+                  message lookup_block_error_list {    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error
+                     optional string name = 151 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/name
+                     optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state
+                     message state_type {
+                        optional string name = 51;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/name
+                        optional uint64 count = 52;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/count
+                        optional uint64 threshold = 53;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/threshold
+                        repeated string action = 54;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/action
+                        optional bool active = 55;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/active
+                        optional string level = 56;    // /components/component/integrated-circuit/pipeline-counters/errors/lookup-block/lookup-block-error/state/level
+                     }
+                  }
+                  repeated lookup_block_error_list lookup_block_error = 151;
+               }
+               optional queueing_block_type queueing_block = 153;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block
+               message queueing_block_type {
+                  message queueing_block_error_list {    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error
+                     optional string name = 151 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/name
+                     optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state
+                     message state_type {
+                        optional string name = 51;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/name
+                        optional uint64 count = 52;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/count
+                        optional uint64 threshold = 53;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/threshold
+                        repeated string action = 54;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/action
+                        optional bool active = 55;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/active
+                        optional string level = 56;    // /components/component/integrated-circuit/pipeline-counters/errors/queueing-block/queueing-block-error/state/level
+                     }
+                  }
+                  repeated queueing_block_error_list queueing_block_error = 151;
+               }
+               optional fabric_block_type fabric_block = 154;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block
+               message fabric_block_type {
+                  message fabric_block_error_list {    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error
+                     optional string name = 151 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/name
+                     optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state
+                     message state_type {
+                        optional string name = 51;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/name
+                        optional uint64 count = 52;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/count
+                        optional uint64 threshold = 53;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/threshold
+                        repeated string action = 54;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/action
+                        optional bool active = 55;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/active
+                        optional string level = 56;    // /components/component/integrated-circuit/pipeline-counters/errors/fabric-block/fabric-block-error/state/level
+                     }
+                  }
+                  repeated fabric_block_error_list fabric_block_error = 151;
+               }
+               optional host_interface_block_type host_interface_block = 155;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block
+               message host_interface_block_type {
+                  message host_interface_error_list {    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error
+                     optional string name = 151 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/name
+                     optional state_type state = 152;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state
+                     message state_type {
+                        optional string name = 51;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/name
+                        optional uint64 count = 52;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/count
+                        optional uint64 threshold = 53;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/threshold
+                        repeated string action = 54;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/action
+                        optional bool active = 55;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/active
+                        optional string level = 56;    // /components/component/integrated-circuit/pipeline-counters/errors/host-interface-block/host-interface-error/state/level
+                     }
+                  }
+                  repeated host_interface_error_list host_interface_error = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

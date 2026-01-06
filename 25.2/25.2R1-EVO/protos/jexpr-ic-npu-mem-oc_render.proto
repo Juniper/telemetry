@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_integrated_circuit_npu_mem jnpr_components_integrated_circuit_npu_mem_ext = 202;
+}
+
+message components_integrated_circuit_npu_mem {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional state_type state = 151;    // /components/component/integrated-circuit/state
+         message state_type {
+            message properties_list {    // /components/component/integrated-circuit/state/properties
+               message property_list {    // /components/component/integrated-circuit/state/properties/property
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/integrated-circuit/state/properties/property/name
+                  message state_list {    // /components/component/integrated-circuit/state/properties/property/state
+                     optional uint64 value = 51;    // /components/component/integrated-circuit/state/properties/property/state/value
+                  }
+                  repeated state_list state = 151;
+               }
+               repeated property_list property = 151;
+            }
+            repeated properties_list properties = 151;
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

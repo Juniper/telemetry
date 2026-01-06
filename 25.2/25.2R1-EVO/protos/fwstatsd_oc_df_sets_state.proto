@@ -1,0 +1,55 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-defined-sets - This module defines configuration and operational state
+data for defined sets (sets of IPv4 prefixes, sets of
+IPv6 prefixes, sets of ports, etc)
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional defined_sets_fwstatsd_evolved_df_sets_335 jnpr_defined_sets_fwstatsd_evolved_df_sets_335_ext = 335;
+}
+
+message defined_sets_fwstatsd_evolved_df_sets_335 {    // /defined-sets
+   optional ipv4_prefix_sets_type ipv4_prefix_sets = 166;    // /defined-sets/ipv4-prefix-sets
+   message ipv4_prefix_sets_type {
+      message ipv4_prefix_set_list {    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set
+         optional string name = 51 [(telemetry_options).is_key = true];    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set/name
+         optional state_type state = 168;    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set/state
+         message state_type {
+            optional string name = 51;    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set/state/name
+            optional string description = 52;    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set/state/description
+            repeated string prefix = 53;    // /defined-sets/ipv4-prefix-sets/ipv4-prefix-set/state/prefix
+         }
+      }
+      repeated ipv4_prefix_set_list ipv4_prefix_set = 167;
+   }
+   optional ipv6_prefix_sets_type ipv6_prefix_sets = 169;    // /defined-sets/ipv6-prefix-sets
+   message ipv6_prefix_sets_type {
+      message ipv6_prefix_set_list {    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set
+         optional string name = 61 [(telemetry_options).is_key = true];    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set/name
+         optional state_type state = 171;    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set/state
+         message state_type {
+            optional string name = 61;    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set/state/name
+            optional string description = 62;    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set/state/description
+            repeated string prefix = 63;    // /defined-sets/ipv6-prefix-sets/ipv6-prefix-set/state/prefix
+         }
+      }
+      repeated ipv6_prefix_set_list ipv6_prefix_set = 170;
+   }
+   optional port_sets_type port_sets = 174;    // /defined-sets/port-sets
+   message port_sets_type {
+      message port_set_list {    // /defined-sets/port-sets/port-set
+         optional string name = 71 [(telemetry_options).is_key = true];    // /defined-sets/port-sets/port-set/name
+         optional state_type state = 181;    // /defined-sets/port-sets/port-set/state
+         message state_type {
+            optional string name = 71;    // /defined-sets/port-sets/port-set/state/name
+            optional string description = 72;    // /defined-sets/port-sets/port-set/state/description
+            repeated string port = 73;    // /defined-sets/port-sets/port-set/state/port
+         }
+      }
+      repeated port_set_list port_set = 175;
+   }
+}

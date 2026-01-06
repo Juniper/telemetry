@@ -1,0 +1,71 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_debug_232 jnpr_system_debug_232_ext = 232;
+}
+
+message system_debug_232 {    // /system
+   optional cpus_type cpus = 151;    // /system/cpus
+   message cpus_type {
+      message cpu_list {    // /system/cpus/cpu
+         optional uint32 index = 51 [(telemetry_options).is_key = true];    // /system/cpus/cpu/index
+         optional state_type state = 151;    // /system/cpus/cpu/state
+         message state_type {
+            optional uint32 index = 51;    // /system/cpus/cpu/state/index
+            optional idle_type idle = 151;    // /system/cpus/cpu/state/idle
+            message idle_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/idle/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/idle/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/idle/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/idle/max
+            }
+            optional user_type user = 152;    // /system/cpus/cpu/state/user
+            message user_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/user/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/user/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/user/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/user/max
+            }
+            optional kernel_type kernel = 153;    // /system/cpus/cpu/state/kernel
+            message kernel_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/kernel/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/kernel/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/kernel/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/kernel/max
+            }
+            optional software_interrupt_type software_interrupt = 154;    // /system/cpus/cpu/state/software-interrupt
+            message software_interrupt_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/software-interrupt/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/software-interrupt/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/software-interrupt/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/software-interrupt/max
+            }
+            optional nice_type nice = 155;    // /system/cpus/cpu/state/nice
+            message nice_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/nice/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/nice/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/nice/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/nice/max
+            }
+            optional total_type total = 156;    // /system/cpus/cpu/state/total
+            message total_type {
+               optional uint32 avg = 51;    // /system/cpus/cpu/state/total/avg
+               optional uint32 instant = 52;    // /system/cpus/cpu/state/total/instant
+               optional uint32 min = 53;    // /system/cpus/cpu/state/total/min
+               optional uint32 max = 54;    // /system/cpus/cpu/state/total/max
+               optional uint32 interval = 55;    // /system/cpus/cpu/state/total/interval
+               optional uint64 min_time = 56;    // /system/cpus/cpu/state/total/min-time
+               optional uint64 max_time = 57;    // /system/cpus/cpu/state/total/max-time
+            }
+         }
+      }
+      repeated cpu_list cpu = 141;
+   }
+}
