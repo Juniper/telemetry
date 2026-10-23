@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_pkt_lookup_pipestats_221 jnpr_components_cda_pkt_lookup_pipestats_221_ext = 221;
+}
+
+message components_cda_pkt_lookup_pipestats_221 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional packet_type packet = 151;    // /components/component/integrated-circuit/pipeline-counters/packet
+            message packet_type {
+               optional lookup_block_type lookup_block = 151;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block
+               message lookup_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state
+                     optional uint32 lookup_utilization = 51;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/lookup-utilization
+                     optional uint64 in_packets = 52;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/in-packets
+                     optional uint64 out_packets = 53;    // /components/component/integrated-circuit/pipeline-counters/packet/lookup-block/state/out-packets
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

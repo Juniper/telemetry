@@ -1,0 +1,36 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_l2evpn jnpr_network_instances_l2evpn_ext = 116;
+}
+
+message network_instances_l2evpn {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional jnx_evpn_type jnx_evpn = 151;    // /network-instances/network-instance/jnx-evpn
+      message jnx_evpn_type {
+         message vxlan_tunnel_end_point_list {    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point
+            optional string source_ip_address = 51;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/source-ip-address
+            optional string remote_ip_address = 52 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/remote-ip-address
+            optional string status = 53;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/status
+            optional string mode = 54;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/mode
+            optional uint32 nexthop_index = 55;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/nexthop-index
+            optional string source_interface = 56;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/source-interface
+            optional string event_type = 57;    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/event-type
+            message vnids_list {    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/vnids
+               optional uint32 vnid = 59 [(telemetry_options).is_key = true];    // /network-instances/network-instance/jnx-evpn/vxlan-tunnel-end-point/vnids/vnid
+            }
+            repeated vnids_list vnids = 58;
+         }
+         repeated vxlan_tunnel_end_point_list vxlan_tunnel_end_point = 152;
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

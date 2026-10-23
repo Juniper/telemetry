@@ -1,0 +1,86 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-bfd - An OpenConfig model of Bi-Directional Forwarding Detection (BFD)
+configuration and operational state
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional bfd_242 jnpr_bfd_242_ext = 242;
+}
+
+message bfd_242 {    // /bfd
+   optional interfaces_type interfaces = 152;    // /bfd/interfaces
+   message interfaces_type {
+      message interface_list {    // /bfd/interfaces/interface
+         optional string id = 50 [(telemetry_options).is_key = true];    // /bfd/interfaces/interface/id
+         optional state_type state = 150;    // /bfd/interfaces/interface/state
+         message state_type {
+            optional string id = 51;    // /bfd/interfaces/interface/state/id
+            optional bool enabled = 52;    // /bfd/interfaces/interface/state/enabled
+            optional string local_address = 53;    // /bfd/interfaces/interface/state/local-address
+            optional uint32 desired_minimum_tx_interval = 54;    // /bfd/interfaces/interface/state/desired-minimum-tx-interval
+            optional uint32 required_minimum_receive = 55;    // /bfd/interfaces/interface/state/required-minimum-receive
+            optional uint32 detection_multiplier = 56;    // /bfd/interfaces/interface/state/detection-multiplier
+            optional bool enable_per_member_link = 57;    // /bfd/interfaces/interface/state/enable-per-member-link
+         }
+         optional micro_bfd_sessions_type micro_bfd_sessions = 149;    // /bfd/interfaces/interface/micro-bfd-sessions
+         message micro_bfd_sessions_type {
+            message micro_bfd_session_list {    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session
+               optional string member_interface = 51 [(telemetry_options).is_key = true];    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/member-interface
+               optional state_type state = 147;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state
+               message state_type {
+                  optional string local_address = 51;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-address
+                  optional string remote_address = 52;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-address
+                  optional string member_interface = 53;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/member-interface
+                  optional string session_state = 63;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/session-state
+                  optional string remote_session_state = 64;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-session-state
+                  optional uint64 last_failure_time = 65;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/last-failure-time
+                  optional uint64 failure_transitions = 66;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/failure-transitions
+                  optional string local_discriminator = 67;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-discriminator
+                  optional string remote_discriminator = 68;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-discriminator
+                  optional string local_diagnostic_code = 69;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/local-diagnostic-code
+                  optional string remote_diagnostic_code = 70;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-diagnostic-code
+                  optional uint32 remote_minimum_receive_interval = 71;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-minimum-receive-interval
+                  optional bool demand_mode_requested = 72;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/demand-mode-requested
+                  optional bool remote_authentication_enabled = 73;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-authentication-enabled
+                  optional bool remote_control_plane_independent = 74;    // /bfd/interfaces/interface/micro-bfd-sessions/micro-bfd-session/state/remote-control-plane-independent
+               }
+            }
+            repeated micro_bfd_session_list micro_bfd_session = 148;
+         }
+         optional peers_type peers = 145;    // /bfd/interfaces/interface/peers
+         message peers_type {
+            message peer_list {    // /bfd/interfaces/interface/peers/peer
+               optional string local_discriminator = 51 [(telemetry_options).is_key = true];    // /bfd/interfaces/interface/peers/peer/local-discriminator
+               optional state_type state = 143;    // /bfd/interfaces/interface/peers/peer/state
+               message state_type {
+                  optional string local_address = 51;    // /bfd/interfaces/interface/peers/peer/state/local-address
+                  optional string remote_address = 52;    // /bfd/interfaces/interface/peers/peer/state/remote-address
+                  repeated string subscribed_protocols = 53;    // /bfd/interfaces/interface/peers/peer/state/subscribed-protocols
+                  optional string session_state = 63;    // /bfd/interfaces/interface/peers/peer/state/session-state
+                  optional string remote_session_state = 64;    // /bfd/interfaces/interface/peers/peer/state/remote-session-state
+                  optional uint64 last_failure_time = 65;    // /bfd/interfaces/interface/peers/peer/state/last-failure-time
+                  optional uint64 failure_transitions = 66;    // /bfd/interfaces/interface/peers/peer/state/failure-transitions
+                  optional string local_discriminator = 67;    // /bfd/interfaces/interface/peers/peer/state/local-discriminator
+                  optional string remote_discriminator = 68;    // /bfd/interfaces/interface/peers/peer/state/remote-discriminator
+                  optional string local_diagnostic_code = 69;    // /bfd/interfaces/interface/peers/peer/state/local-diagnostic-code
+                  optional string remote_diagnostic_code = 70;    // /bfd/interfaces/interface/peers/peer/state/remote-diagnostic-code
+                  optional uint32 remote_minimum_receive_interval = 71;    // /bfd/interfaces/interface/peers/peer/state/remote-minimum-receive-interval
+                  optional bool demand_mode_requested = 72;    // /bfd/interfaces/interface/peers/peer/state/demand-mode-requested
+                  optional bool remote_authentication_enabled = 73;    // /bfd/interfaces/interface/peers/peer/state/remote-authentication-enabled
+                  optional bool remote_control_plane_independent = 74;    // /bfd/interfaces/interface/peers/peer/state/remote-control-plane-independent
+                  optional echo_type echo = 142;    // /bfd/interfaces/interface/peers/peer/state/echo
+                  message echo_type {
+                     optional bool active = 51;    // /bfd/interfaces/interface/peers/peer/state/echo/active
+                  }
+               }
+            }
+            repeated peer_list peer = 144;
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

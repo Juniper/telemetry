@@ -1,0 +1,87 @@
+/* 
+This proto is generated from below openconfig models
+gnsi-credentialz - This module provides a data model for the metadata of SSH and console
+credentials installed on a networking device
+openconfig-aaa - This module defines configuration and operational state data
+related to authorization, authentication, and accounting (AAA)
+management
+openconfig-system-terminal - This module defines configuration and operational state data
+related to remote terminal services such as ssh and telnet
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_320 jnpr_system_320_ext = 320;
+}
+
+message system_320 {    // /system
+   optional ssh_server_type ssh_server = 54;    // /system/ssh-server
+   message ssh_server_type {
+      optional state_type state = 55;    // /system/ssh-server/state
+      message state_type {
+         optional string active_trusted_user_ca_keys_version = 64;    // /system/ssh-server/state/active-trusted-user-ca-keys-version
+         optional uint64 active_trusted_user_ca_keys_created_on = 65;    // /system/ssh-server/state/active-trusted-user-ca-keys-created-on
+         optional string active_host_certificate_version = 66;    // /system/ssh-server/state/active-host-certificate-version
+         optional uint64 active_host_certificate_created_on = 67;    // /system/ssh-server/state/active-host-certificate-created-on
+         optional string active_host_key_version = 68;    // /system/ssh-server/state/active-host-key-version
+         optional uint64 active_host_key_created_on = 69;    // /system/ssh-server/state/active-host-key-created-on
+         optional counters_type counters = 56;    // /system/ssh-server/state/counters
+         message counters_type {
+            optional uint64 access_rejects = 71;    // /system/ssh-server/state/counters/access-rejects
+            optional uint64 last_access_reject = 72;    // /system/ssh-server/state/counters/last-access-reject
+            optional uint64 access_accepts = 73;    // /system/ssh-server/state/counters/access-accepts
+            optional uint64 last_access_accept = 74;    // /system/ssh-server/state/counters/last-access-accept
+         }
+      }
+   }
+   optional aaa_type aaa = 57;    // /system/aaa
+   message aaa_type {
+      optional authentication_type authentication = 51;    // /system/aaa/authentication
+      message authentication_type {
+         optional admin_user_type admin_user = 52;    // /system/aaa/authentication/admin-user
+         message admin_user_type {
+            optional state_type state = 51;    // /system/aaa/authentication/admin-user/state
+            message state_type {
+               optional string admin_username = 51;    // /system/aaa/authentication/admin-user/state/admin-username
+               optional string authorized_principals_list_version = 56;    // /system/aaa/authentication/admin-user/state/authorized-principals-list-version
+               optional uint64 authorized_principals_list_created_on = 57;    // /system/aaa/authentication/admin-user/state/authorized-principals-list-created-on
+               optional string authorized_keys_list_version = 54;    // /system/aaa/authentication/admin-user/state/authorized-keys-list-version
+               optional uint64 authorized_keys_list_created_on = 55;    // /system/aaa/authentication/admin-user/state/authorized-keys-list-created-on
+               optional string password_version = 58;    // /system/aaa/authentication/admin-user/state/password-version
+               optional uint64 password_created_on = 59;    // /system/aaa/authentication/admin-user/state/password-created-on
+            }
+         }
+         optional users_type users = 51;    // /system/aaa/authentication/users
+         message users_type {
+            message user_list {    // /system/aaa/authentication/users/user
+               optional string username = 51 [(telemetry_options).is_key = true];    // /system/aaa/authentication/users/user/username
+               optional state_type state = 52;    // /system/aaa/authentication/users/user/state
+               message state_type {
+                  optional string authorized_principals_list_version = 51;    // /system/aaa/authentication/users/user/state/authorized-principals-list-version
+                  optional uint64 authorized_principals_list_created_on = 52;    // /system/aaa/authentication/users/user/state/authorized-principals-list-created-on
+                  optional string authorized_keys_list_version = 53;    // /system/aaa/authentication/users/user/state/authorized-keys-list-version
+                  optional uint64 authorized_keys_list_created_on = 54;    // /system/aaa/authentication/users/user/state/authorized-keys-list-created-on
+                  optional string password_version = 55;    // /system/aaa/authentication/users/user/state/password-version
+                  optional uint64 password_created_on = 56;    // /system/aaa/authentication/users/user/state/password-created-on
+               }
+            }
+            repeated user_list user = 51;
+         }
+      }
+   }
+   optional console_type console = 49;    // /system/console
+   message console_type {
+      optional state_type state = 51;    // /system/console/state
+      message state_type {
+         optional counters_type counters = 52;    // /system/console/state/counters
+         message counters_type {
+            optional uint64 access_rejects = 53;    // /system/console/state/counters/access-rejects
+            optional uint64 last_access_reject = 54;    // /system/console/state/counters/last-access-reject
+            optional uint64 access_accepts = 55;    // /system/console/state/counters/access-accepts
+            optional uint64 last_access_accept = 56;    // /system/console/state/counters/last-access-accept
+         }
+      }
+   }
+}

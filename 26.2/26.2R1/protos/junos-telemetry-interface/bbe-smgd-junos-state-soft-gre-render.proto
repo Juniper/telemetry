@@ -1,0 +1,67 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-soft-gre - This module contains a collection of top level nodes for JUNOS
+Soft GRE state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_soft_gre_337 jnpr_state_soft_gre_337_ext = 337;
+}
+
+message state_soft_gre_337 {    // /state
+   optional services_type services = 151;    // /state/services
+   message services_type {
+      optional soft_gre_type soft_gre = 151;    // /state/services/soft-gre
+      message soft_gre_type {
+         optional counters_type counters = 151;    // /state/services/soft-gre/counters
+         message counters_type {
+            optional uint32 static_tunnels = 52;    // /state/services/soft-gre/counters/static-tunnels
+            optional uint32 dynamic_tunnels = 53;    // /state/services/soft-gre/counters/dynamic-tunnels
+            optional uint32 static_sessions = 54;    // /state/services/soft-gre/counters/static-sessions
+            optional uint32 pppoe_sessions = 55;    // /state/services/soft-gre/counters/pppoe-sessions
+            optional uint32 dhcp_sessions = 56;    // /state/services/soft-gre/counters/dhcp-sessions
+            optional uint32 vlan_sessions = 57;    // /state/services/soft-gre/counters/vlan-sessions
+            optional uint32 user_sessions = 58;    // /state/services/soft-gre/counters/user-sessions
+         }
+         optional logical_interfaces_type logical_interfaces = 161;    // /state/services/soft-gre/logical-interfaces
+         message logical_interfaces_type {
+            message logical_interface_list {    // /state/services/soft-gre/logical-interfaces/logical-interface
+               optional string name = 62 [(telemetry_options).is_key = true];    // /state/services/soft-gre/logical-interfaces/logical-interface/name
+               optional uint32 static_tunnels = 52;    // /state/services/soft-gre/logical-interfaces/logical-interface/static-tunnels
+               optional uint32 dynamic_tunnels = 53;    // /state/services/soft-gre/logical-interfaces/logical-interface/dynamic-tunnels
+               optional uint32 static_sessions = 54;    // /state/services/soft-gre/logical-interfaces/logical-interface/static-sessions
+               optional uint32 pppoe_sessions = 55;    // /state/services/soft-gre/logical-interfaces/logical-interface/pppoe-sessions
+               optional uint32 dhcp_sessions = 56;    // /state/services/soft-gre/logical-interfaces/logical-interface/dhcp-sessions
+               optional uint32 vlan_sessions = 57;    // /state/services/soft-gre/logical-interfaces/logical-interface/vlan-sessions
+               optional uint32 user_sessions = 58;    // /state/services/soft-gre/logical-interfaces/logical-interface/user-sessions
+            }
+            repeated logical_interface_list logical_interface = 162;
+         }
+         optional tunnel_interfaces_type tunnel_interfaces = 171;    // /state/services/soft-gre/tunnel-interfaces
+         message tunnel_interfaces_type {
+            message tunnel_interface_list {    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface
+               optional string name = 72 [(telemetry_options).is_key = true];    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/name
+               optional string local_address = 73;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/local-address
+               optional string remote_address = 74;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/remote-address
+               optional string routing_instance = 75;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/routing-instance
+               optional uint32 static_sessions = 54;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/static-sessions
+               optional uint32 pppoe_sessions = 55;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/pppoe-sessions
+               optional uint32 dhcp_sessions = 56;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/dhcp-sessions
+               optional uint32 vlan_sessions = 57;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/vlan-sessions
+               optional uint32 user_sessions = 58;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/user-sessions
+               optional session_interfaces_type session_interfaces = 173;    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/session-interfaces
+               message session_interfaces_type {
+                  message session_interface_list {    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/session-interfaces/session-interface
+                     optional string name = 82 [(telemetry_options).is_key = true];    // /state/services/soft-gre/tunnel-interfaces/tunnel-interface/session-interfaces/session-interface/name
+                  }
+                  repeated session_interface_list session_interface = 174;
+               }
+            }
+            repeated tunnel_interface_list tunnel_interface = 172;
+         }
+      }
+   }
+}

@@ -1,0 +1,130 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-agf-nas - This module contains a collection of top level nodes for JUNOS
+Access Gateway Function (AGF) Non-Access-Stratum Protocol (NAS)
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_224 jnpr_state_224_ext = 224;
+}
+
+message state_224 {    // /state
+   optional services_type services = 157;    // /state/services
+   message services_type {
+      optional agf_type agf = 158;    // /state/services/agf
+      message agf_type {
+         optional nas_type nas = 151;    // /state/services/agf/nas
+         message nas_type {
+            optional counters_type counters = 153;    // /state/services/agf/nas/counters
+            message counters_type {
+               optional uint64 ues_total = 88;    // /state/services/agf/nas/counters/ues-total
+               optional uint64 ues_initial = 89;    // /state/services/agf/nas/counters/ues-initial
+               optional uint64 ues_registering = 90;    // /state/services/agf/nas/counters/ues-registering
+               optional uint64 ues_registered = 91;    // /state/services/agf/nas/counters/ues-registered
+               optional uint64 ues_deregistering = 92;    // /state/services/agf/nas/counters/ues-deregistering
+               optional uint64 ues_deregistered = 93;    // /state/services/agf/nas/counters/ues-deregistered
+               optional uint64 pdu_sessions_total = 137;    // /state/services/agf/nas/counters/pdu-sessions-total
+               optional uint64 pdu_sessions_inactive = 138;    // /state/services/agf/nas/counters/pdu-sessions-inactive
+               optional uint64 pdu_sessions_activating = 139;    // /state/services/agf/nas/counters/pdu-sessions-activating
+               optional uint64 pdu_sessions_active = 140;    // /state/services/agf/nas/counters/pdu-sessions-active
+               optional uint64 pdu_sessions_deactivating = 141;    // /state/services/agf/nas/counters/pdu-sessions-deactivating
+            }
+            optional message_counters_type message_counters = 152;    // /state/services/agf/nas/message-counters
+            message message_counters_type {
+               optional uint64 registration_request_msgs_sent = 51;    // /state/services/agf/nas/message-counters/registration-request-msgs-sent
+               optional uint64 registration_complete_msgs_sent = 52;    // /state/services/agf/nas/message-counters/registration-complete-msgs-sent
+               optional uint64 deregistration_request_msgs_sent = 53;    // /state/services/agf/nas/message-counters/deregistration-request-msgs-sent
+               optional uint64 deregistration_accept_msgs_sent = 54;    // /state/services/agf/nas/message-counters/deregistration-accept-msgs-sent
+               optional uint64 identity_response_msgs_sent = 55;    // /state/services/agf/nas/message-counters/identity-response-msgs-sent
+               optional uint64 authentication_response_msgs_sent = 56;    // /state/services/agf/nas/message-counters/authentication-response-msgs-sent
+               optional uint64 authentication_failure_msgs_sent = 57;    // /state/services/agf/nas/message-counters/authentication-failure-msgs-sent
+               optional uint64 security_mode_complete_msgs_sent = 58;    // /state/services/agf/nas/message-counters/security-mode-complete-msgs-sent
+               optional uint64 security_mode_reject_msgs_sent = 59;    // /state/services/agf/nas/message-counters/security-mode-reject-msgs-sent
+               optional uint64 service_request_msgs_sent = 60;    // /state/services/agf/nas/message-counters/service-request-msgs-sent
+               optional uint64 uplink_nas_transport_msgs_sent = 61;    // /state/services/agf/nas/message-counters/uplink-nas-transport-msgs-sent
+               optional uint64 mobility_management_5g_status_msgs_sent = 62;    // /state/services/agf/nas/message-counters/mobility-management-5g-status-msgs-sent
+               optional uint64 pdu_session_establishment_request_msgs_sent = 63;    // /state/services/agf/nas/message-counters/pdu-session-establishment-request-msgs-sent
+               optional uint64 pdu_session_modification_complete_msgs_sent = 64;    // /state/services/agf/nas/message-counters/pdu-session-modification-complete-msgs-sent
+               optional uint64 pdu_session_modification_reject_msgs_sent = 65;    // /state/services/agf/nas/message-counters/pdu-session-modification-reject-msgs-sent
+               optional uint64 pdu_session_release_request_msgs_sent = 66;    // /state/services/agf/nas/message-counters/pdu-session-release-request-msgs-sent
+               optional uint64 pdu_session_release_complete_msgs_sent = 67;    // /state/services/agf/nas/message-counters/pdu-session-release-complete-msgs-sent
+               optional uint64 pdu_5g_session_management_status_msgs_sent = 68;    // /state/services/agf/nas/message-counters/pdu-5g-session-management-status-msgs-sent
+               optional uint64 registration_accept_msgs_received = 69;    // /state/services/agf/nas/message-counters/registration-accept-msgs-received
+               optional uint64 registration_reject_msgs_received = 70;    // /state/services/agf/nas/message-counters/registration-reject-msgs-received
+               optional uint64 deregistration_accept_msgs_received = 71;    // /state/services/agf/nas/message-counters/deregistration-accept-msgs-received
+               optional uint64 deregistration_request_msgs_received = 72;    // /state/services/agf/nas/message-counters/deregistration-request-msgs-received
+               optional uint64 identity_request_msgs_received = 73;    // /state/services/agf/nas/message-counters/identity-request-msgs-received
+               optional uint64 authentication_request_msgs_received = 74;    // /state/services/agf/nas/message-counters/authentication-request-msgs-received
+               optional uint64 authentication_result_msgs_received = 75;    // /state/services/agf/nas/message-counters/authentication-result-msgs-received
+               optional uint64 authentication_reject_msgs_received = 76;    // /state/services/agf/nas/message-counters/authentication-reject-msgs-received
+               optional uint64 security_mode_command_msgs_received = 77;    // /state/services/agf/nas/message-counters/security-mode-command-msgs-received
+               optional uint64 service_accept_msgs_received = 78;    // /state/services/agf/nas/message-counters/service-accept-msgs-received
+               optional uint64 service_reject_msgs_received = 79;    // /state/services/agf/nas/message-counters/service-reject-msgs-received
+               optional uint64 downlink_nas_transport_msgs_received = 80;    // /state/services/agf/nas/message-counters/downlink-nas-transport-msgs-received
+               optional uint64 mobility_management_5g_status_msgs_received = 81;    // /state/services/agf/nas/message-counters/mobility-management-5g-status-msgs-received
+               optional uint64 pdu_session_establishment_accept_msgs_received = 82;    // /state/services/agf/nas/message-counters/pdu-session-establishment-accept-msgs-received
+               optional uint64 pdu_session_establishment_reject_msgs_received = 83;    // /state/services/agf/nas/message-counters/pdu-session-establishment-reject-msgs-received
+               optional uint64 pdu_session_modification_command_msgs_received = 84;    // /state/services/agf/nas/message-counters/pdu-session-modification-command-msgs-received
+               optional uint64 pdu_session_release_command_msgs_received = 85;    // /state/services/agf/nas/message-counters/pdu-session-release-command-msgs-received
+               optional uint64 pdu_session_release_reject_msgs_received = 86;    // /state/services/agf/nas/message-counters/pdu-session-release-reject-msgs-received
+               optional uint64 pdu_5g_session_management_status_msgs_received = 87;    // /state/services/agf/nas/message-counters/pdu-5g-session-management-status-msgs-received
+            }
+            optional fn_rg_type fn_rg = 154;    // /state/services/agf/nas/fn-rg
+            message fn_rg_type {
+               optional counters_type counters = 155;    // /state/services/agf/nas/fn-rg/counters
+               message counters_type {
+                  optional uint64 ues_total = 131;    // /state/services/agf/nas/fn-rg/counters/ues-total
+                  optional uint64 ues_initial = 132;    // /state/services/agf/nas/fn-rg/counters/ues-initial
+                  optional uint64 ues_registering = 133;    // /state/services/agf/nas/fn-rg/counters/ues-registering
+                  optional uint64 ues_registered = 134;    // /state/services/agf/nas/fn-rg/counters/ues-registered
+                  optional uint64 ues_deregistering = 135;    // /state/services/agf/nas/fn-rg/counters/ues-deregistering
+                  optional uint64 ues_deregistered = 136;    // /state/services/agf/nas/fn-rg/counters/ues-deregistered
+               }
+               optional message_counters_type message_counters = 159;    // /state/services/agf/nas/fn-rg/message-counters
+               message message_counters_type {
+                  optional uint64 registration_request_msgs_sent = 94;    // /state/services/agf/nas/fn-rg/message-counters/registration-request-msgs-sent
+                  optional uint64 registration_complete_msgs_sent = 95;    // /state/services/agf/nas/fn-rg/message-counters/registration-complete-msgs-sent
+                  optional uint64 deregistration_request_msgs_sent = 96;    // /state/services/agf/nas/fn-rg/message-counters/deregistration-request-msgs-sent
+                  optional uint64 deregistration_accept_msgs_sent = 97;    // /state/services/agf/nas/fn-rg/message-counters/deregistration-accept-msgs-sent
+                  optional uint64 identity_response_msgs_sent = 98;    // /state/services/agf/nas/fn-rg/message-counters/identity-response-msgs-sent
+                  optional uint64 authentication_response_msgs_sent = 99;    // /state/services/agf/nas/fn-rg/message-counters/authentication-response-msgs-sent
+                  optional uint64 authentication_failure_msgs_sent = 100;    // /state/services/agf/nas/fn-rg/message-counters/authentication-failure-msgs-sent
+                  optional uint64 security_mode_complete_msgs_sent = 101;    // /state/services/agf/nas/fn-rg/message-counters/security-mode-complete-msgs-sent
+                  optional uint64 security_mode_reject_msgs_sent = 102;    // /state/services/agf/nas/fn-rg/message-counters/security-mode-reject-msgs-sent
+                  optional uint64 service_request_msgs_sent = 103;    // /state/services/agf/nas/fn-rg/message-counters/service-request-msgs-sent
+                  optional uint64 uplink_nas_transport_msgs_sent = 104;    // /state/services/agf/nas/fn-rg/message-counters/uplink-nas-transport-msgs-sent
+                  optional uint64 mobility_management_5g_status_msgs_sent = 105;    // /state/services/agf/nas/fn-rg/message-counters/mobility-management-5g-status-msgs-sent
+                  optional uint64 pdu_session_establishment_request_msgs_sent = 106;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-establishment-request-msgs-sent
+                  optional uint64 pdu_session_modification_complete_msgs_sent = 107;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-modification-complete-msgs-sent
+                  optional uint64 pdu_session_modification_reject_msgs_sent = 108;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-modification-reject-msgs-sent
+                  optional uint64 pdu_session_release_request_msgs_sent = 109;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-release-request-msgs-sent
+                  optional uint64 pdu_session_release_complete_msgs_sent = 110;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-release-complete-msgs-sent
+                  optional uint64 pdu_5g_session_management_status_msgs_sent = 111;    // /state/services/agf/nas/fn-rg/message-counters/pdu-5g-session-management-status-msgs-sent
+                  optional uint64 registration_accept_msgs_received = 112;    // /state/services/agf/nas/fn-rg/message-counters/registration-accept-msgs-received
+                  optional uint64 registration_reject_msgs_received = 113;    // /state/services/agf/nas/fn-rg/message-counters/registration-reject-msgs-received
+                  optional uint64 deregistration_accept_msgs_received = 114;    // /state/services/agf/nas/fn-rg/message-counters/deregistration-accept-msgs-received
+                  optional uint64 deregistration_request_msgs_received = 115;    // /state/services/agf/nas/fn-rg/message-counters/deregistration-request-msgs-received
+                  optional uint64 identity_request_msgs_received = 116;    // /state/services/agf/nas/fn-rg/message-counters/identity-request-msgs-received
+                  optional uint64 authentication_request_msgs_received = 117;    // /state/services/agf/nas/fn-rg/message-counters/authentication-request-msgs-received
+                  optional uint64 authentication_result_msgs_received = 118;    // /state/services/agf/nas/fn-rg/message-counters/authentication-result-msgs-received
+                  optional uint64 authentication_reject_msgs_received = 119;    // /state/services/agf/nas/fn-rg/message-counters/authentication-reject-msgs-received
+                  optional uint64 security_mode_command_msgs_received = 120;    // /state/services/agf/nas/fn-rg/message-counters/security-mode-command-msgs-received
+                  optional uint64 service_accept_msgs_received = 121;    // /state/services/agf/nas/fn-rg/message-counters/service-accept-msgs-received
+                  optional uint64 service_reject_msgs_received = 122;    // /state/services/agf/nas/fn-rg/message-counters/service-reject-msgs-received
+                  optional uint64 downlink_nas_transport_msgs_received = 123;    // /state/services/agf/nas/fn-rg/message-counters/downlink-nas-transport-msgs-received
+                  optional uint64 mobility_management_5g_status_msgs_received = 124;    // /state/services/agf/nas/fn-rg/message-counters/mobility-management-5g-status-msgs-received
+                  optional uint64 pdu_session_establishment_accept_msgs_received = 125;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-establishment-accept-msgs-received
+                  optional uint64 pdu_session_establishment_reject_msgs_received = 126;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-establishment-reject-msgs-received
+                  optional uint64 pdu_session_modification_command_msgs_received = 127;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-modification-command-msgs-received
+                  optional uint64 pdu_session_release_command_msgs_received = 128;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-release-command-msgs-received
+                  optional uint64 pdu_session_release_reject_msgs_received = 129;    // /state/services/agf/nas/fn-rg/message-counters/pdu-session-release-reject-msgs-received
+                  optional uint64 pdu_5g_session_management_status_msgs_received = 130;    // /state/services/agf/nas/fn-rg/message-counters/pdu-5g-session-management-status-msgs-received
+               }
+            }
+         }
+      }
+   }
+}

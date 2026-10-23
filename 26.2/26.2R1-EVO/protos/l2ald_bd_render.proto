@@ -1,0 +1,34 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_bridge_domain jnpr_network_instances_bridge_domain_ext = 115;
+}
+
+message network_instances_bridge_domain {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      message vlan_list {    // /network-instances/network-instance/vlan
+         optional string vlan_name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/vlan/vlan-name
+         optional uint32 vlan_id = 52;    // /network-instances/network-instance/vlan/vlan-id
+         optional string status = 53;    // /network-instances/network-instance/vlan/status
+         optional uint32 vni = 54;    // /network-instances/network-instance/vlan/vni
+         optional string l3_interface = 55;    // /network-instances/network-instance/vlan/l3-interface
+         optional uint32 num_local_mac_entries = 56;    // /network-instances/network-instance/vlan/num-local-mac-entries
+         optional uint32 num_ar_replicator_entries = 57;    // /network-instances/network-instance/vlan/num-ar-replicator-entries
+         optional uint32 ethernet_tag_id = 58;    // /network-instances/network-instance/vlan/ethernet-tag-id
+         message member_list {    // /network-instances/network-instance/vlan/member
+            optional string interface = 61;    // /network-instances/network-instance/vlan/member/interface
+         }
+         repeated member_list member = 161;
+      }
+      repeated vlan_list vlan = 151;
+   }
+   repeated network_instance_list network_instance = 151;
+}

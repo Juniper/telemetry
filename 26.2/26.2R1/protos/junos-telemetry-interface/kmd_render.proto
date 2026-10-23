@@ -1,0 +1,43 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_key_management jnpr_junos_key_management_ext = 48;
+}
+
+message junos_key_management {    // /junos
+   optional ike_security_associations_type ike_security_associations = 151;    // /junos/ike-security-associations
+   message ike_security_associations_type {
+      message ike_security_association_list {    // /junos/ike-security-associations/ike-security-association
+         optional string remote_ip = 51 [(telemetry_options).is_key = true];    // /junos/ike-security-associations/ike-security-association/remote-ip
+         optional string local_ip = 52 [(telemetry_options).is_key = true];    // /junos/ike-security-associations/ike-security-association/local-ip
+         optional uint32 number_ipsec_sa_created = 53;    // /junos/ike-security-associations/ike-security-association/number-ipsec-sa-created
+         optional uint32 number_ipsec_sa_deleted = 54;    // /junos/ike-security-associations/ike-security-association/number-ipsec-sa-deleted
+         optional uint32 number_ipsec_sa_rekey = 55;    // /junos/ike-security-associations/ike-security-association/number-ipsec-sa-rekey
+         optional string exchange_type = 56;    // /junos/ike-security-associations/ike-security-association/exchange-type
+         optional uint32 in_bytes = 57;    // /junos/ike-security-associations/ike-security-association/in-bytes
+         optional uint32 in_packets = 58;    // /junos/ike-security-associations/ike-security-association/in-packets
+         optional uint32 out_bytes = 59;    // /junos/ike-security-associations/ike-security-association/out-bytes
+         optional uint32 out_packets = 60;    // /junos/ike-security-associations/ike-security-association/out-packets
+         optional uint32 delete_payload_received = 61;    // /junos/ike-security-associations/ike-security-association/delete-payload-received
+         optional uint32 delete_payload_transmitted = 62;    // /junos/ike-security-associations/ike-security-association/delete-payload-transmitted
+         optional uint32 dpd_request_payload_received = 63;    // /junos/ike-security-associations/ike-security-association/dpd-request-payload-received
+         optional uint32 dpd_request_payload_transmitted = 64;    // /junos/ike-security-associations/ike-security-association/dpd-request-payload-transmitted
+         optional uint32 dpd_response_payload_received = 65;    // /junos/ike-security-associations/ike-security-association/dpd-response-payload-received
+         optional uint32 dpd_response_payload_transmitted = 66;    // /junos/ike-security-associations/ike-security-association/dpd-response-payload-transmitted
+         optional uint32 dpd_response_payload_missed = 67;    // /junos/ike-security-associations/ike-security-association/dpd-response-payload-missed
+         optional uint32 dpd_response_payload_maximum_delay = 68;    // /junos/ike-security-associations/ike-security-association/dpd-response-payload-maximum-delay
+         optional uint32 dpd_response_seq_payload_missed = 69;    // /junos/ike-security-associations/ike-security-association/dpd-response-seq-payload-missed
+         optional uint32 invalid_spi_notify_received = 70;    // /junos/ike-security-associations/ike-security-association/invalid-spi-notify-received
+         optional uint32 invalid_spi_notify_transmitted = 71;    // /junos/ike-security-associations/ike-security-association/invalid-spi-notify-transmitted
+         optional string routing_instance = 72 [(telemetry_options).is_key = true];    // /junos/ike-security-associations/ike-security-association/routing-instance
+      }
+      repeated ike_security_association_list ike_security_association = 151;
+   }
+}

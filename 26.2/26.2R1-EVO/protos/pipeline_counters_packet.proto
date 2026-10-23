@@ -1,0 +1,49 @@
+//
+// This proto file is used to decode the data for the following oc config paths
+// /components/component/integrated-circuit/pipeline-counters/packet/
+//
+
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_pipeline_counters_packet_280 jnpr_components_pipeline_counters_packet_280_ext = 280;
+}
+
+message components_pipeline_counters_packet_280 {
+   message component_list {
+      optional string name = 201 [(telemetry_options).is_key = true];
+      optional integrated_circuit_type integrated_circuit = 200;
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 200;
+         message pipeline_counters_type {
+            optional packet_type packet = 200;
+            message packet_type {
+               optional lookup_block_type lookup_block = 200;
+               message lookup_block_type {
+                  optional state_type state = 200;
+                  message state_type {
+                     optional uint32 lookup_utilization = 202;
+                     optional uint64 in_packets = 203;
+                     optional uint64 out_packets = 204;
+                     optional uint64 lookup_memory = 205;
+                     optional uint64 lookup_memory_used = 206;
+                     optional uint64 nexthop_memory = 207;
+                     optional uint64 nexthop_memory_used = 208;
+                  }
+               }
+               optional host_interface_block_type host_interface_block = 201;
+               message host_interface_block_type {
+                  optional state_type state = 200;
+                  message state_type {
+                     optional uint64 in_packets = 202;
+                     optional uint64 out_packets = 203;
+                  }
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 200;
+}

@@ -1,0 +1,148 @@
+/* 
+This proto is generated from below openconfig models
+junos-bbe-smg-cpd-sdb - Juniper Networks definition of Junos native bbe-smgd yang model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_smi_272 jnpr_junos_smi_272_ext = 272;
+}
+
+message junos_smi_272 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional cups_type cups = 151;    // /junos/system/subscriber-management/cups
+         message cups_type {
+            optional sessions_type sessions = 151;    // /junos/system/subscriber-management/cups/sessions
+            message sessions_type {
+               optional user_planes_type user_planes = 151;    // /junos/system/subscriber-management/cups/sessions/user-planes
+               message user_planes_type {
+                  message user_plane_list {    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane
+                     optional string up_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/up-name
+                     optional statistics_type statistics = 151;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics
+                     message statistics_type {
+                        optional state_type state = 151;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state
+                        message state_type {
+                           optional uint32 init_state_count = 51;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/init-state-count
+                           optional uint32 configured_state_count = 52;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/configured-state-count
+                           optional uint32 active_state_count = 53;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/active-state-count
+                           optional uint32 terminating_state_count = 54;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/terminating-state-count
+                           optional uint32 terminated_state_count = 55;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/terminated-state-count
+                           optional uint32 total_state_count = 56;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/state/total-state-count
+                        }
+                        optional client_type_type client_type = 152;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type
+                        message client_type_type {
+                           optional uint32 dhcp_client_count = 61;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/dhcp-client-count
+                           optional uint32 vlan_client_count = 62;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/vlan-client-count
+                           optional uint32 pppoe_client_count = 63;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/pppoe-client-count
+                           optional uint32 l2tp_client_count = 64;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/l2tp-client-count
+                           optional uint32 static_client_count = 65;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/static-client-count
+                           optional uint32 essm_client_count = 66;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/essm-client-count
+                           optional uint32 total_client_count = 67;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/total-client-count
+                           optional uint32 vlan_extm_client_count = 68;    // /junos/system/subscriber-management/cups/sessions/user-planes/user-plane/statistics/client-type/vlan-extm-client-count
+                        }
+                     }
+                  }
+                  repeated user_plane_list user_plane = 151;
+               }
+               optional sgrps_type sgrps = 152;    // /junos/system/subscriber-management/cups/sessions/sgrps
+               message sgrps_type {
+                  message sgrp_list {    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp
+                     optional string sgrp_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/sgrp-id
+                     optional statistics_type statistics = 151;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics
+                     message statistics_type {
+                        optional state_type state = 151;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state
+                        message state_type {
+                           optional uint32 init_state_count = 51;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/init-state-count
+                           optional uint32 configured_state_count = 52;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/configured-state-count
+                           optional uint32 active_state_count = 53;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/active-state-count
+                           optional uint32 terminating_state_count = 54;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/terminating-state-count
+                           optional uint32 terminated_state_count = 55;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/terminated-state-count
+                           optional uint32 total_state_count = 56;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/state/total-state-count
+                        }
+                        optional client_type_type client_type = 152;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type
+                        message client_type_type {
+                           optional uint32 dhcp_client_count = 61;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/dhcp-client-count
+                           optional uint32 vlan_client_count = 62;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/vlan-client-count
+                           optional uint32 pppoe_client_count = 63;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/pppoe-client-count
+                           optional uint32 l2tp_client_count = 64;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/l2tp-client-count
+                           optional uint32 static_client_count = 65;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/static-client-count
+                           optional uint32 essm_client_count = 66;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/essm-client-count
+                           optional uint32 total_client_count = 67;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/total-client-count
+                           optional uint32 vlan_extm_client_count = 68;    // /junos/system/subscriber-management/cups/sessions/sgrps/sgrp/statistics/client-type/vlan-extm-client-count
+                        }
+                     }
+                  }
+                  repeated sgrp_list sgrp = 151;
+               }
+               optional ports_type ports = 153;    // /junos/system/subscriber-management/cups/sessions/ports
+               message ports_type {
+                  message port_list {    // /junos/system/subscriber-management/cups/sessions/ports/port
+                     optional string port_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/sessions/ports/port/port-id
+                     optional statistics_type statistics = 151;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics
+                     message statistics_type {
+                        optional state_type state = 151;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state
+                        message state_type {
+                           optional uint32 init_state_count = 51;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/init-state-count
+                           optional uint32 configured_state_count = 52;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/configured-state-count
+                           optional uint32 active_state_count = 53;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/active-state-count
+                           optional uint32 terminating_state_count = 54;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/terminating-state-count
+                           optional uint32 terminated_state_count = 55;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/terminated-state-count
+                           optional uint32 total_state_count = 56;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/state/total-state-count
+                        }
+                        optional client_type_type client_type = 152;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type
+                        message client_type_type {
+                           optional uint32 dhcp_client_count = 61;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/dhcp-client-count
+                           optional uint32 vlan_client_count = 62;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/vlan-client-count
+                           optional uint32 pppoe_client_count = 63;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/pppoe-client-count
+                           optional uint32 l2tp_client_count = 64;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/l2tp-client-count
+                           optional uint32 static_client_count = 65;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/static-client-count
+                           optional uint32 essm_client_count = 66;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/essm-client-count
+                           optional uint32 total_client_count = 67;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/total-client-count
+                           optional uint32 vlan_extm_client_count = 68;    // /junos/system/subscriber-management/cups/sessions/ports/port/statistics/client-type/vlan-extm-client-count
+                        }
+                     }
+                  }
+                  repeated port_list port = 151;
+               }
+            }
+            optional cp_instances_type cp_instances = 159;    // /junos/system/subscriber-management/cups/cp-instances
+            message cp_instances_type {
+               message cp_instance_list {    // /junos/system/subscriber-management/cups/cp-instances/cp-instance
+                  optional string cp_name = 119 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/cp-name
+                  optional subscribers_type subscribers = 120;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers
+                  message subscribers_type {
+                     optional subscriber_info_type subscriber_info = 121;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info
+                     message subscriber_info_type {
+                        message session_list {    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session
+                           optional uint64 sid = 123 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/sid
+                           optional uint32 interface_index = 124;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/interface-index
+                           optional uint32 session_type = 125;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/session-type
+                           optional string user_name = 126;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/user-name
+                           optional string profile_name = 127;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/profile-name
+                           optional string interface_name = 128;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/interface-name
+                           optional string interface_set_name = 129;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/interface-set-name
+                           optional string underlying_interface_name = 130;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/underlying-interface-name
+                           optional uint32 cvlan_tag = 131;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/cvlan-tag
+                           optional uint32 svlan_tag = 132;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/svlan-tag
+                           optional string sgrp_name = 133;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/sgrp-name
+                           optional string device_name = 134;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/device-name
+                           optional uint64 peer_sid_active = 135;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/peer-sid-active
+                           optional uint64 peer_sid_backup = 136;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/peer-sid-backup
+                           optional string userplane_name_active = 137;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/userplane-name-active
+                           optional string userplane_name_backup = 138;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/subscribers/subscriber-info/session/userplane-name-backup
+                        }
+                        repeated session_list session = 122;
+                     }
+                  }
+               }
+               repeated cp_instance_list cp_instance = 118;
+            }
+         }
+      }
+   }
+}

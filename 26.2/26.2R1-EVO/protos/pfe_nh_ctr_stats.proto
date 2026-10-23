@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_nh_stats jnpr_network_instances_nh_stats_ext = 352;
+}
+
+message network_instances_nh_stats {
+   message network_instance_list {
+      optional string name = 49 [(telemetry_options).is_key = true];
+      optional afts_type afts = 149;
+      message afts_type {
+         optional next_hops_type next_hops = 149;
+         message next_hops_type {
+            message next_hop_list {
+               optional uint64 index = 49 [(telemetry_options).is_key = true];
+               optional state_type state = 149;
+               message state_type {
+                  optional counters_type counters = 149;
+                  message counters_type {
+                     optional uint64 packets_forwarded = 49 [(telemetry_options).is_counter = true];
+                     optional uint64 octets_forwarded = 50 [(telemetry_options).is_counter = true];
+                  }
+               }
+            }
+            repeated next_hop_list next_hop = 149;
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 149;
+}

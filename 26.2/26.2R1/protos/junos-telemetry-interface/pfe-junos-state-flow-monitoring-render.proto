@@ -1,0 +1,76 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-sampling - This module contains a collection of top level nodes for JUNOS
+sampling state data
+junos-state-flow-monitoring - This module contains a collection of top level nodes for JUNOS
+flow-monitoring (NetFlow/IPFIX) state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_300 jnpr_state_300_ext = 300;
+}
+
+message state_300 {    // /state
+   optional sampling_type sampling = 153;    // /state/sampling
+   message sampling_type {
+      optional flow_monitoring_type flow_monitoring = 50;    // /state/sampling/flow-monitoring
+      message flow_monitoring_type {
+         message type_list {    // /state/sampling/flow-monitoring/type
+            optional string name = 1 [(telemetry_options).is_key = true];    // /state/sampling/flow-monitoring/type/name
+            message slot_list {    // /state/sampling/flow-monitoring/type/slot
+               optional string name = 1 [(telemetry_options).is_key = true];    // /state/sampling/flow-monitoring/type/slot/name
+               message pfe_list {    // /state/sampling/flow-monitoring/type/slot/pfe
+                  optional string name = 1 [(telemetry_options).is_key = true];    // /state/sampling/flow-monitoring/type/slot/pfe/name
+                  optional string service_status = 2;    // /state/sampling/flow-monitoring/type/slot/pfe/service-status
+               }
+               repeated pfe_list pfe = 25;
+               optional bool flexible_flow_sizing = 102;    // /state/sampling/flow-monitoring/type/slot/flexible-flow-sizing
+               optional bool use_extended_flow_memory = 103;    // /state/sampling/flow-monitoring/type/slot/use-extended-flow-memory
+               optional bool route_set = 104;    // /state/sampling/flow-monitoring/type/slot/route-set
+               optional bool config_set = 105;    // /state/sampling/flow-monitoring/type/slot/config-set
+               optional uint64 autonomous_system_records = 106;    // /state/sampling/flow-monitoring/type/slot/autonomous-system-records
+               optional uint64 max_flow_table_size = 107;    // /state/sampling/flow-monitoring/type/slot/max-flow-table-size
+               optional bool ipv6_extended_attribute = 108;    // /state/sampling/flow-monitoring/type/slot/ipv6-extended-attribute
+               optional uint64 last_clear = 109;    // /state/sampling/flow-monitoring/type/slot/last-clear
+               optional counters_type counters = 120;    // /state/sampling/flow-monitoring/type/slot/counters
+               message counters_type {
+                  optional uint64 memory_allocation_failures = 1;    // /state/sampling/flow-monitoring/type/slot/counters/memory-allocation-failures
+                  optional bool memory_overload_failures = 2;    // /state/sampling/flow-monitoring/type/slot/counters/memory-overload-failures
+               }
+               message family_list {    // /state/sampling/flow-monitoring/type/slot/family
+                  optional string name = 1 [(telemetry_options).is_key = true];    // /state/sampling/flow-monitoring/type/slot/family/name
+                  optional string export_format = 2;    // /state/sampling/flow-monitoring/type/slot/family/export-format
+                  optional uint32 observation_domain_id = 3;    // /state/sampling/flow-monitoring/type/slot/family/observation-domain-id
+                  optional double flow_table_utilization = 4;    // /state/sampling/flow-monitoring/type/slot/family/flow-table-utilization
+                  optional uint64 max_flows_supported = 5;    // /state/sampling/flow-monitoring/type/slot/family/max-flows-supported
+                  optional uint64 route_records = 6;    // /state/sampling/flow-monitoring/type/slot/family/route-records
+                  optional counters_type counters = 7;    // /state/sampling/flow-monitoring/type/slot/family/counters
+                  message counters_type {
+                     optional uint64 flow_packets = 1;    // /state/sampling/flow-monitoring/type/slot/family/counters/flow-packets
+                     optional uint64 flow_bytes = 2;    // /state/sampling/flow-monitoring/type/slot/family/counters/flow-bytes
+                     optional uint64 flows_total = 3;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-total
+                     optional uint64 flows_active = 4;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-active
+                     optional uint64 flows_exported = 5;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-exported
+                     optional uint64 packets_exported = 6;    // /state/sampling/flow-monitoring/type/slot/family/counters/packets-exported
+                     optional uint64 flows_inactive_timed_out = 7;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-inactive-timed-out
+                     optional uint64 flows_active_timed_out = 8;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-active-timed-out
+                     optional uint64 flows_inserted = 9;    // /state/sampling/flow-monitoring/type/slot/family/counters/flows-inserted
+                     optional uint64 flow_create_failures = 10;    // /state/sampling/flow-monitoring/type/slot/family/counters/flow-create-failures
+                     optional uint64 route_lookup_failures = 11;    // /state/sampling/flow-monitoring/type/slot/family/counters/route-lookup-failures
+                     optional uint64 autonomous_system_lookup_failures = 12;    // /state/sampling/flow-monitoring/type/slot/family/counters/autonomous-system-lookup-failures
+                     optional uint64 flow_packet_export_failures = 13;    // /state/sampling/flow-monitoring/type/slot/family/counters/flow-packet-export-failures
+                  }
+               }
+               repeated family_list family = 50;
+            }
+            repeated slot_list slot = 2;
+         }
+         repeated type_list type = 1;
+      }
+   }
+}

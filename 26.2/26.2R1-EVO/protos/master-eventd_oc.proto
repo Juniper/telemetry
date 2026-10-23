@@ -1,0 +1,40 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_254 jnpr_junos_254_ext = 254;
+}
+
+message junos_254 {    // /junos
+   optional events_type events = 151;    // /junos/events
+   message events_type {
+      message event_list {    // /junos/events/event
+         optional string id = 51 [(telemetry_options).is_key = true];    // /junos/events/event/id
+         optional string type = 52 [(telemetry_options).is_key = true];    // /junos/events/event/type
+         optional timestamp_type timestamp = 153;    // /junos/events/event/timestamp
+         message timestamp_type {
+            optional uint32 seconds = 53;    // /junos/events/event/timestamp/seconds
+            optional uint32 microseconds = 54;    // /junos/events/event/timestamp/microseconds
+         }
+         optional string priority = 55 [(telemetry_options).is_key = true];    // /junos/events/event/priority
+         optional string facility = 56 [(telemetry_options).is_key = true];    // /junos/events/event/facility
+         optional uint32 pid = 57;    // /junos/events/event/pid
+         optional string message = 58;    // /junos/events/event/message
+         optional string daemon = 59;    // /junos/events/event/daemon
+         optional string hostname = 60;    // /junos/events/event/hostname
+         optional string lsname = 61;    // /junos/events/event/lsname
+         message attributes_list {    // /junos/events/event/attributes
+            optional string key = 62 [(telemetry_options).is_key = true];    // /junos/events/event/attributes/key
+            optional string value = 63;    // /junos/events/event/attributes/value
+         }
+         repeated attributes_list attributes = 154;
+      }
+      repeated event_list event = 152;
+   }
+}

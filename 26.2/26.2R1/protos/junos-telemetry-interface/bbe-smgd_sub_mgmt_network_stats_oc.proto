@@ -1,0 +1,245 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_network_stats jnpr_junos_network_stats_ext = 39;
+}
+
+message junos_network_stats {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional uplanes_type uplanes = 151;    // /junos/system/subscriber-management/uplanes
+         message uplanes_type {
+            message uplane_list {    // /junos/system/subscriber-management/uplanes/uplane
+               optional uint32 uplane_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/uplanes/uplane/uplane-id
+               optional infra_type infra = 151;    // /junos/system/subscriber-management/uplanes/uplane/infra
+               message infra_type {
+                  optional network_type network = 151;    // /junos/system/subscriber-management/uplanes/uplane/infra/network
+                  message network_type {
+                     optional io_type io = 151;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io
+                     message io_type {
+                        optional uint64 l2_rx_packets_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-packets-cnt
+                        optional uint64 l2_rx_packets_failed = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-packets-failed
+                        optional uint64 l2_rx_malformed_cnt = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-malformed-cnt
+                        optional uint64 l2_rx_ifd_invalid = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-ifd-invalid
+                        optional uint64 l2_rx_ifl_invalid = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-ifl-invalid
+                        optional uint64 l2_rx_no_iff_cnt = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-no-iff-cnt
+                        optional uint64 l2_rx_if_create_failed = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-if-create-failed
+                        optional uint64 l2_bbe_io_rcv_l3_unknown_address_family = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-bbe-io-rcv-l3-unknown-address-family
+                        optional uint64 l2_rx_unsupported_inet_protocol = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-unsupported-inet-protocol
+                        optional uint64 l2_rx_unsupported_inet6_protocol = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-unsupported-inet6-protocol
+                        optional uint64 l2_rx_unsupported_udp_protocol = 61;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-unsupported-udp-protocol
+                        optional uint64 l2_rx_unsupported_punt_af = 62;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-unsupported-punt-af
+                        optional uint64 l2_rx_v4_data_path_punt_pkt = 63;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-v4-data-path-punt-pkt
+                        optional uint64 l2_rx_v4_data_path_punt_pkt_drop = 64;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-v4-data-path-punt-pkt-drop
+                        optional uint64 l2_rx_v6_data_path_punt_pkt = 65;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-v6-data-path-punt-pkt
+                        optional uint64 l2_rx_v6_data_path_punt_pkt_drop = 66;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-rx-v6-data-path-punt-pkt-drop
+                        optional uint64 l2_tx_packets_cnt = 67;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-packets-cnt
+                        optional uint64 l2_tx_malformed_cnt = 68;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-malformed-cnt
+                        optional uint64 l2_tx_no_ifd_cnt = 69;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-no-ifd-cnt
+                        optional uint64 l2_tx_ifl_invalid = 70;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-ifl-invalid
+                        optional uint64 l2_bbe_io_send_tx_failed = 71;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-bbe-io-send-tx-failed
+                        optional uint64 l2_bbe_io_send_tx_failed_partial = 72;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-bbe-io-send-tx-failed-partial
+                        optional uint64 l2_tx_v4_out_error_local_intf = 73;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-v4-out-error-local-intf
+                        optional uint64 l2_tx_v6_out_error_local_intf = 74;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l2-tx-v6-out-error-local-intf
+                        optional uint64 l3_rx_packet_cnt = 75;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-rx-packet-cnt
+                        optional uint64 l3_rx_unsupported_protocol = 76;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-rx-unsupported-protocol
+                        optional uint64 l3_tx_packet_cnt = 77;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-packet-cnt
+                        optional uint64 l3_tx_send_failed = 78;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-send-failed
+                        optional uint64 l3_tx_v4_kernel_forward = 79;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-v4-kernel-forward
+                        optional uint64 l3_tx_v4_kernel_forward_drops = 80;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-v4-kernel-forward-drops
+                        optional uint64 l3_tx_v6_kernel_forward = 81;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-v6-kernel-forward
+                        optional uint64 l3_tx_v6_kernel_forward_drops = 82;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/io/l3-tx-v6-kernel-forward-drops
+                     }
+                     optional dhcp_type dhcp = 152;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp
+                     message dhcp_type {
+                        optional uint64 rx_packet_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-packet-cnt
+                        optional uint64 era_drops = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/era-drops
+                        optional uint64 rx_no_connection = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-no-connection
+                        optional uint64 rx_malformed_cnt = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-malformed-cnt
+                        optional uint64 rx_no_if_cnt = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-no-if-cnt
+                        optional uint64 rx_ifl_invalid = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-ifl-invalid
+                        optional uint64 rx_send_failed = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-send-failed
+                        optional uint64 tx_packet_cnt = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-packet-cnt
+                        optional uint64 packets_transmitted = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/packets-transmitted
+                        optional uint64 tx_malformed_cnt = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-malformed-cnt
+                        optional uint64 tx_null_pkt = 61;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-null-pkt
+                        optional uint64 tx_no_if_cnt = 62;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-no-if-cnt
+                        optional uint64 tx_no_iff_cnt = 63;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-no-iff-cnt
+                        optional uint64 tx_no_rtt_cnt = 64;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-no-rtt-cnt
+                        optional uint64 tx_arp_failed = 65;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-arp-failed
+                        optional uint64 tx_if_invalid = 66;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-if-invalid
+                        optional uint64 tx_send_failed = 67;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/tx-send-failed
+                        optional uint64 rx_while_not_connected = 68;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dhcp/rx-while-not-connected
+                     }
+                     optional ppp_type ppp = 153;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp
+                     message ppp_type {
+                        optional uint64 rx_network_pkt_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-network-pkt-cnt
+                        optional uint64 rx_plugin_pkt_cnt = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-plugin-pkt-cnt
+                        optional uint64 rx_lcp_conf_req_cnt = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-conf-req-cnt
+                        optional uint64 rx_lcp_conf_ack_cnt = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-conf-ack-cnt
+                        optional uint64 rx_lcp_conf_nack_cnt = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-conf-nack-cnt
+                        optional uint64 rx_lcp_conf_rej_cnt = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-conf-rej-cnt
+                        optional uint64 rx_lcp_term_req_cnt = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-term-req-cnt
+                        optional uint64 rx_lcp_term_ack_cnt = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-term-ack-cnt
+                        optional uint64 rx_lcp_code_rej_cnt = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-code-rej-cnt
+                        optional uint64 rx_lcp_protocol_rej_cnt = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-protocol-rej-cnt
+                        optional uint64 rx_lcp_echo_req_cnt = 61;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-echo-req-cnt
+                        optional uint64 rx_lcp_echo_reply_cnt = 62;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-echo-reply-cnt
+                        optional uint64 rx_lcp_discard_req_cnt = 63;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-lcp-discard-req-cnt
+                        optional uint64 rx_pap_req_cnt = 64;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-pap-req-cnt
+                        optional uint64 rx_pap_ack_cnt = 65;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-pap-ack-cnt
+                        optional uint64 rx_pap_nack_cnt = 66;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-pap-nack-cnt
+                        optional uint64 rx_chap_challenge_cnt = 67;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-chap-challenge-cnt
+                        optional uint64 rx_chap_resp_cnt = 68;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-chap-resp-cnt
+                        optional uint64 rx_chap_success_cnt = 69;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-chap-success-cnt
+                        optional uint64 rx_chap_failure_cnt = 70;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-chap-failure-cnt
+                        optional uint64 rx_ipcp_req_cnt = 71;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipcp-req-cnt
+                        optional uint64 rx_ipcp_ack_cnt = 72;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipcp-ack-cnt
+                        optional uint64 rx_ipcp_nack_cnt = 73;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipcp-nack-cnt
+                        optional uint64 rx_ipv6cp_req_cnt = 74;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipv6cp-req-cnt
+                        optional uint64 rx_ipv6cp_ack_cnt = 75;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipv6cp-ack-cnt
+                        optional uint64 rx_ipv6cp_nack_cnt = 76;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-ipv6cp-nack-cnt
+                        optional uint64 rx_malformed_cnt = 77;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-malformed-cnt
+                        optional uint64 rx_no_if_cnt = 78;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-no-if-cnt
+                        optional uint64 rx_unsupported = 79;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/rx-unsupported
+                        optional uint64 tx_cnt = 80;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-cnt
+                        optional uint64 tx_lcp_conf_req_cnt = 81;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-conf-req-cnt
+                        optional uint64 tx_lcp_conf_ack_cnt = 82;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-conf-ack-cnt
+                        optional uint64 tx_lcp_conf_nack_cnt = 83;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-conf-nack-cnt
+                        optional uint64 tx_lcp_conf_rej_cnt = 84;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-conf-rej-cnt
+                        optional uint64 tx_lcp_echo_req_cnt = 85;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-echo-req-cnt
+                        optional uint64 tx_lcp_echo_reply_cnt = 86;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-echo-reply-cnt
+                        optional uint64 tx_lcp_discard_req_cnt = 87;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-discard-req-cnt
+                        optional uint64 tx_lcp_term_req_cnt = 88;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-term-req-cnt
+                        optional uint64 tx_lcp_term_ack_cnt = 89;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-lcp-term-ack-cnt
+                        optional uint64 tx_pap_req_cnt = 90;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-pap-req-cnt
+                        optional uint64 tx_pap_ack_cnt = 91;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-pap-ack-cnt
+                        optional uint64 tx_pap_nack_cnt = 92;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-pap-nack-cnt
+                        optional uint64 tx_chap_challenge_cnt = 93;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-chap-challenge-cnt
+                        optional uint64 tx_chap_resp_cnt = 94;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-chap-resp-cnt
+                        optional uint64 tx_chap_success_cnt = 95;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-chap-success-cnt
+                        optional uint64 tx_chap_failure_cnt = 96;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-chap-failure-cnt
+                        optional uint64 tx_ipcp_req_cnt = 97;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipcp-req-cnt
+                        optional uint64 tx_ipcp_ack_cnt = 98;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipcp-ack-cnt
+                        optional uint64 tx_ipcp_nack_cnt = 99;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipcp-nack-cnt
+                        optional uint64 tx_ipv6cp_req_cnt = 100;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipv6cp-req-cnt
+                        optional uint64 tx_ipv6cp_ack_cnt = 101;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipv6cp-ack-cnt
+                        optional uint64 tx_ipv6cp_nack_cnt = 102;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-ipv6cp-nack-cnt
+                        optional uint64 tx_unknown_pkt_cnt = 103;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-unknown-pkt-cnt
+                        optional uint64 tx_send_failed = 104;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-send-failed
+                        optional uint64 tx_malformed_cnt = 105;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/ppp/tx-malformed-cnt
+                     }
+                     optional pppoe_type pppoe = 154;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe
+                     message pppoe_type {
+                        optional uint64 rx_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-cnt
+                        optional uint64 rx_padi_cnt = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-padi-cnt
+                        optional uint64 rx_padr_cnt = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-padr-cnt
+                        optional uint64 rx_ppp_cnt = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-ppp-cnt
+                        optional uint64 rx_malformed_cnt = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-malformed-cnt
+                        optional uint64 rx_no_if_cnt = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-no-if-cnt
+                        optional uint64 rx_unsupported = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-unsupported
+                        optional uint64 rx_padi_era_discards = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/rx-padi-era-discards
+                        optional uint64 tx_cnt = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/tx-cnt
+                        optional uint64 tx_send_failed = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/pppoe/tx-send-failed
+                     }
+                     optional dvlan_type dvlan = 156;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dvlan
+                     message dvlan_type {
+                        optional uint64 rx_packet_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/dvlan/rx-packet-cnt
+                     }
+                     optional l2tp_type l2tp = 155;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp
+                     message l2tp_type {
+                        optional uint64 rx_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-cnt
+                        optional uint64 rx_pkt_cnt = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-pkt-cnt
+                        optional uint64 ppp_rx_pkt_cnt = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-pkt-cnt
+                        optional uint64 tx_pkt_cnt = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-pkt-cnt
+                        optional uint64 ppp_rx_lcp_conf_req_count = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-conf-req-count
+                        optional uint64 ppp_rx_lcp_conf_ack_count = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-conf-ack-count
+                        optional uint64 ppp_rx_lcp_conf_nack_count = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-conf-nack-count
+                        optional uint64 ppp_rx_lcp_term_req_count = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-term-req-count
+                        optional uint64 ppp_rx_lcp_term_ack_count = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-term-ack-count
+                        optional uint64 ppp_rx_lcp_echo_req_count = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-echo-req-count
+                        optional uint64 ppp_rx_lcp_echo_resp_count = 61;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-lcp-echo-resp-count
+                        optional uint64 ppp_rx_pap_req_count = 62;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-pap-req-count
+                        optional uint64 ppp_rx_pap_ack_count = 63;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-pap-ack-count
+                        optional uint64 ppp_rx_pap_nack_count = 64;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-pap-nack-count
+                        optional uint64 ppp_rx_chap_challenge_count = 65;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-chap-challenge-count
+                        optional uint64 ppp_rx_chap_resp_count = 66;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-chap-resp-count
+                        optional uint64 ppp_rx_chap_success_count = 67;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-chap-success-count
+                        optional uint64 ppp_rx_chap_fail_count = 68;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-chap-fail-count
+                        optional uint64 ppp_rx_ipcp_conf_req_count = 69;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-ipcp-conf-req-count
+                        optional uint64 ppp_rx_ipcp_conf_ack_count = 70;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-ipcp-conf-ack-count
+                        optional uint64 ppp_rx_ipcp_conf_nack_count = 71;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-ipcp-conf-nack-count
+                        optional uint64 rx_malformed_cnt = 72;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-malformed-cnt
+                        optional uint64 ppp_rx_unknown_protocol = 73;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-rx-unknown-protocol
+                        optional uint64 rx_msg_cnt = 74;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-msg-cnt
+                        optional uint64 rx_msg_processd_cnt = 75;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-msg-processd-cnt
+                        optional uint64 rx_msg_err = 76;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-msg-err
+                        optional uint64 rx_invalid_msg_cnt = 77;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/rx-invalid-msg-cnt
+                        optional uint64 tx_cnt = 78;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-cnt
+                        optional uint64 ppp_tx_lcp_conf_req_count = 79;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-conf-req-count
+                        optional uint64 ppp_tx_lcp_conf_ack_count = 80;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-conf-ack-count
+                        optional uint64 ppp_tx_lcp_conf_nack_count = 81;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-conf-nack-count
+                        optional uint64 ppp_tx_lcp_echo_req_count = 82;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-echo-req-count
+                        optional uint64 ppp_tx_lcp_echo_resp_count = 83;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-echo-resp-count
+                        optional uint64 ppp_tx_lcp_term_req_count = 84;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-term-req-count
+                        optional uint64 ppp_tx_lcp_term_ack_count = 85;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-lcp-term-ack-count
+                        optional uint64 ppp_tx_pap_req_count = 86;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-pap-req-count
+                        optional uint64 ppp_tx_pap_ack_count = 87;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-pap-ack-count
+                        optional uint64 ppp_tx_pap_nack_count = 88;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-pap-nack-count
+                        optional uint64 ppp_tx_chap_challenge_count = 89;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-chap-challenge-count
+                        optional uint64 ppp_tx_chap_resp_count = 90;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-chap-resp-count
+                        optional uint64 ppp_tx_chap_success_count = 91;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-chap-success-count
+                        optional uint64 ppp_tx_chap_fail_count = 92;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-chap-fail-count
+                        optional uint64 ppp_tx_ipcp_conf_req_count = 93;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-ipcp-conf-req-count
+                        optional uint64 ppp_tx_ipcp_conf_ack_count = 94;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-ipcp-conf-ack-count
+                        optional uint64 ppp_tx_ipcp_conf_nack_count = 95;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-ipcp-conf-nack-count
+                        optional uint64 ppp_tx_unknown_protocol = 96;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/ppp-tx-unknown-protocol
+                        optional uint64 tx_pkt_send_failed = 97;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-pkt-send-failed
+                        optional uint64 tx_pkt_err = 98;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-pkt-err
+                        optional uint64 tx_msg_cnt = 99;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-msg-cnt
+                        optional uint64 tx_msg_err = 100;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/l2tp/tx-msg-err
+                     }
+                     optional hag_type hag = 157;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag
+                     message hag_type {
+                        optional uint64 rx_network_pkt_cnt = 51;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-network-pkt-cnt
+                        optional uint64 rx_malformed_pkt_cnt = 52;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-malformed-pkt-cnt
+                        optional uint64 rx_no_if_pkt_cnt = 53;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-no-if-pkt-cnt
+                        optional uint64 rx_send_succeeded_pkt_cnt = 54;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-send-succeeded-pkt-cnt
+                        optional uint64 rx_send_failed_pkt_cnt = 55;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-send-failed-pkt-cnt
+                        optional uint64 rx_unsupported_pkt_cnt = 56;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-unsupported-pkt-cnt
+                        optional uint64 rx_setup_request_cnt = 57;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-setup-request-cnt
+                        optional uint64 rx_hello_pkt_cnt = 58;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-hello-pkt-cnt
+                        optional uint64 rx_tear_down_pkt_cnt = 59;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-tear-down-pkt-cnt
+                        optional uint64 rx_notify_pkt_cnt = 60;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/rx-notify-pkt-cnt
+                        optional uint64 tx_network_pkt_cnt = 61;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-network-pkt-cnt
+                        optional uint64 tx_null_pkt_cnt = 62;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-null-pkt-cnt
+                        optional uint64 tx_no_if_pkt_cnt = 63;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-no-if-pkt-cnt
+                        optional uint64 tx_send_succeeded_pkt_cnt = 64;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-send-succeeded-pkt-cnt
+                        optional uint64 tx_send_failed_pkt_cnt = 65;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-send-failed-pkt-cnt
+                        optional uint64 tx_setup_request_pkt_cnt = 66;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-setup-request-pkt-cnt
+                        optional uint64 tx_setup_accept_pkt_cnt = 67;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-setup-accept-pkt-cnt
+                        optional uint64 tx_setup_deny_pkt_cnt = 68;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-setup-deny-pkt-cnt
+                        optional uint64 tx_hello_pkt_cnt = 69;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-hello-pkt-cnt
+                        optional uint64 tx_tear_down_pkt_cnt = 70;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-tear-down-pkt-cnt
+                        optional uint64 tx_notify_pkt_cnt = 71;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/tx-notify-pkt-cnt
+                        optional uint64 inflight_hag_sessions_cnt = 72;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/inflight-hag-sessions-cnt
+                        optional uint64 successful_hag_sessions_cnt = 73;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/successful-hag-sessions-cnt
+                        optional uint64 failed_hag_sessions_cnt = 74;    // /junos/system/subscriber-management/uplanes/uplane/infra/network/hag/failed_hag-sessions-cnt
+                     }
+                  }
+               }
+            }
+            repeated uplane_list uplane = 151;
+         }
+      }
+   }
+}

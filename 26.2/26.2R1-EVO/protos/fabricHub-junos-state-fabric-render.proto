@@ -1,0 +1,44 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-fabric - This module contains a collection of top level nodes for JUNOS
+fabric state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_fabric_path_296 jnpr_state_fabric_path_296_ext = 296;
+}
+
+message state_fabric_path_296 {    // /state
+   optional fabric_type fabric = 151;    // /state/fabric
+   message fabric_type {
+      optional fabric_paths_type fabric_paths = 151;    // /state/fabric/fabric-paths
+      message fabric_paths_type {
+         message fabric_path_list {    // /state/fabric/fabric-paths/fabric-path
+            optional uint32 plane_id = 52 [(telemetry_options).is_key = true];    // /state/fabric/fabric-paths/fabric-path/plane-id
+            optional string plane_state = 51;    // /state/fabric/fabric-paths/fabric-path/plane-state
+            optional bool link_error = 54;    // /state/fabric/fabric-paths/fabric-path/link-error
+            optional bool link_training_failure = 55;    // /state/fabric/fabric-paths/fabric-path/link-training-failure
+            optional bool reachability_error_local = 56;    // /state/fabric/fabric-paths/fabric-path/reachability-error-local
+            optional bool reachability_error_remote = 57;    // /state/fabric/fabric-paths/fabric-path/reachability-error-remote
+            optional uint64 plane_uptime = 58;    // /state/fabric/fabric-paths/fabric-path/plane-uptime
+         }
+         repeated fabric_path_list fabric_path = 151;
+      }
+      optional fabric_links_type fabric_links = 152;    // /state/fabric/fabric-links
+      message fabric_links_type {
+         message fabric_link_list {    // /state/fabric/fabric-links/fabric-link
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/fabric/fabric-links/fabric-link/name
+            optional string link_direction = 52;    // /state/fabric/fabric-links/fabric-link/link-direction
+            optional string operational_state = 53;    // /state/fabric/fabric-links/fabric-link/operational-state
+            optional string self_link_name = 54;    // /state/fabric/fabric-links/fabric-link/self-link-name
+            optional string peer_link_name = 55;    // /state/fabric/fabric-links/fabric-link/peer-link-name
+            optional string self_asic_name = 56;    // /state/fabric/fabric-links/fabric-link/self-asic-name
+            optional string peer_asic_name = 57;    // /state/fabric/fabric-links/fabric-link/peer-asic-name
+         }
+         repeated fabric_link_list fabric_link = 151;
+      }
+   }
+}

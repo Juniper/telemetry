@@ -1,0 +1,80 @@
+/* 
+This proto is generated from below openconfig models
+junos-state - This module contains a collection of top level nodes for JUNOS
+state data
+junos-state-system - This module contains a collection of top level nodes for JUNOS
+system state data
+junos-state-protocols - This module contains a collection of top level nodes for JUNOS
+protocols state data
+junos-state-interfaces - This module contains a collection of top level nodes for JUNOS
+interfaces state data
+junos-state-interfaces-ethernet - This module contains a collection of Ethernet specific nodes for
+JUNOS Interface state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_mib_249 jnpr_state_mib_249_ext = 249;
+}
+
+message state_mib_249 {    // /state
+   optional interfaces_type interfaces = 50;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         optional string media_type = 67;    // /state/interfaces/interface/media-type
+         optional string link_level_type = 72;    // /state/interfaces/interface/link-level-type
+         optional flags_type flags = 74;    // /state/interfaces/interface/flags
+         message flags_type {
+            repeated string config = 70;    // /state/interfaces/interface/flags/config
+            repeated string specific_config = 68;    // /state/interfaces/interface/flags/specific-config
+            repeated string media = 71;    // /state/interfaces/interface/flags/media
+            repeated string device = 69;    // /state/interfaces/interface/flags/device
+            repeated string error = 57;    // /state/interfaces/interface/flags/error
+         }
+         optional uint32 index = 66;    // /state/interfaces/interface/index
+         optional counters_type counters = 75;    // /state/interfaces/interface/counters
+         message counters_type {
+            optional errors_type errors = 76;    // /state/interfaces/interface/counters/errors
+            message errors_type {
+               optional uint64 input_errors = 77;    // /state/interfaces/interface/counters/errors/input-errors
+               optional uint64 input_drops = 78;    // /state/interfaces/interface/counters/errors/input-drops
+               optional uint64 framing_errors = 79;    // /state/interfaces/interface/counters/errors/framing-errors
+               optional uint64 input_runts = 80;    // /state/interfaces/interface/counters/errors/input-runts
+               optional uint64 input_giants = 81;    // /state/interfaces/interface/counters/errors/input-giants
+               optional uint64 input_discards = 82;    // /state/interfaces/interface/counters/errors/input-discards
+               optional uint64 input_l3_incompletes = 83;    // /state/interfaces/interface/counters/errors/input-l3-incompletes
+               optional uint64 input_l2_channel_errors = 84;    // /state/interfaces/interface/counters/errors/input-l2-channel-errors
+               optional uint64 input_l2_mismatch_timeouts = 85;    // /state/interfaces/interface/counters/errors/input-l2-mismatch-timeouts
+               optional uint64 input_fifo_errors = 86;    // /state/interfaces/interface/counters/errors/input-fifo-errors
+               optional uint64 input_resource_errors = 87;    // /state/interfaces/interface/counters/errors/input-resource-errors
+               optional uint64 carrier_transitions = 88;    // /state/interfaces/interface/counters/errors/carrier-transitions
+               optional uint64 output_errors = 89;    // /state/interfaces/interface/counters/errors/output-errors
+               optional uint64 output_collisions = 90;    // /state/interfaces/interface/counters/errors/output-collisions
+               optional uint64 output_drops = 91;    // /state/interfaces/interface/counters/errors/output-drops
+               optional uint64 aged_packets = 92;    // /state/interfaces/interface/counters/errors/aged-packets
+               optional uint64 mtu_errors = 93;    // /state/interfaces/interface/counters/errors/mtu-errors
+               optional uint64 hs_link_crc_errors = 94;    // /state/interfaces/interface/counters/errors/hs-link-crc-errors
+               optional uint64 output_fifo_errors = 95;    // /state/interfaces/interface/counters/errors/output-fifo-errors
+               optional uint64 output_resource_errors = 96;    // /state/interfaces/interface/counters/errors/output-resource-errors
+            }
+         }
+         optional ethernet_type ethernet = 151;    // /state/interfaces/interface/ethernet
+         message ethernet_type {
+            optional string speed = 57;    // /state/interfaces/interface/ethernet/speed
+            optional string fec_mode = 51;    // /state/interfaces/interface/ethernet/fec-mode
+            optional uint32 fec_codeword_size = 52;    // /state/interfaces/interface/ethernet/fec-codeword-size
+            optional double fec_codeword_rate = 53;    // /state/interfaces/interface/ethernet/fec-codeword-rate
+            optional counters_type counters = 152;    // /state/interfaces/interface/ethernet/counters
+            message counters_type {
+               optional uint64 in_pcs_errored_seconds = 54;    // /state/interfaces/interface/ethernet/counters/in-pcs-errored-seconds
+               optional uint64 fec_corrected_words = 55;    // /state/interfaces/interface/ethernet/counters/fec-corrected-words
+               optional uint64 fec_uncorrectable_words = 56;    // /state/interfaces/interface/ethernet/counters/fec-uncorrectable-words
+            }
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

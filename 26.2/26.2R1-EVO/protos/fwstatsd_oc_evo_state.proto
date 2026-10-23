@@ -1,0 +1,167 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-interfaces - Model for managing network interfaces and subinterfaces
+openconfig-acl - This module defines configuration and operational state
+data for network access control lists (i
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional acl_fwstatsd_evolved_251 jnpr_acl_fwstatsd_evolved_251_ext = 251;
+}
+
+message acl_fwstatsd_evolved_251 {    // /acl
+   optional state_type state = 152;    // /acl/state
+   message state_type {
+   }
+   optional acl_sets_type acl_sets = 151;    // /acl/acl-sets
+   message acl_sets_type {
+      message acl_set_list {    // /acl/acl-sets/acl-set
+         optional string name = 51 [(telemetry_options).is_key = true];    // /acl/acl-sets/acl-set/name
+         optional string type = 52 [(telemetry_options).is_key = true];    // /acl/acl-sets/acl-set/type
+         optional state_type state = 150;    // /acl/acl-sets/acl-set/state
+         message state_type {
+            optional string name = 53;    // /acl/acl-sets/acl-set/state/name
+            optional string type = 54;    // /acl/acl-sets/acl-set/state/type
+            optional string description = 55;    // /acl/acl-sets/acl-set/state/description
+         }
+         optional acl_entries_type acl_entries = 152;    // /acl/acl-sets/acl-set/acl-entries
+         message acl_entries_type {
+            message acl_entry_list {    // /acl/acl-sets/acl-set/acl-entries/acl-entry
+               optional uint32 sequence_id = 56 [(telemetry_options).is_key = true];    // /acl/acl-sets/acl-set/acl-entries/acl-entry/sequence-id
+               optional state_type state = 153;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/state
+               message state_type {
+                  optional uint32 sequence_id = 57;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/state/sequence-id
+                  optional string description = 58;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/state/description
+                  optional uint64 matched_packets = 59;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/state/matched-packets
+                  optional uint64 matched_octets = 60;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/state/matched-octets
+               }
+               optional l2_type l2 = 157;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/l2
+               message l2_type {
+                  optional state_type state = 158;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/l2/state
+                  message state_type {
+                     optional string source_mac = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/l2/state/source-mac
+                     optional string destination_mac = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/l2/state/destination-mac
+                     optional string ethertype = 53;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/l2/state/ethertype
+                  }
+               }
+               optional ipv4_type ipv4 = 154;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4
+               message ipv4_type {
+                  optional state_type state = 155;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state
+                  message state_type {
+                     optional string source_address = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/source-address
+                     optional string source_address_prefix_set = 59;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/source-address-prefix-set
+                     optional string destination_address = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/destination-address
+                     optional string destination_address_prefix_set = 60;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/destination-address-prefix-set
+                     optional uint32 dscp = 53;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/dscp
+                     repeated uint32 dscp_set = 56;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/dscp-set
+                     optional string protocol = 54;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/protocol
+                     optional uint32 hop_limit = 55;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv4/state/hop-limit
+                  }
+               }
+               optional mpls_type mpls = 191;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/mpls
+               message mpls_type {
+                  optional state_type state = 192;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/mpls/state
+                  message state_type {
+                     optional uint32 traffic_class = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/mpls/state/traffic-class
+                     optional string start_label_value = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/mpls/state/start-label-value
+                     optional string end_label_value = 53;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/mpls/state/end-label-value
+                  }
+               }
+               optional ipv6_type ipv6 = 156;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6
+               message ipv6_type {
+                  optional state_type state = 157;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state
+                  message state_type {
+                     optional string source_address = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/source-address
+                     optional string source_address_prefix_set = 59;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/source-address-prefix-set
+                     optional string destination_address = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/destination-address
+                     optional string destination_address_prefix_set = 60;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/destination-address-prefix-set
+                     optional uint32 dscp = 53;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/dscp
+                     repeated uint32 dscp_set = 56;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/dscp-set
+                     optional string protocol = 54;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/protocol
+                     optional uint32 hop_limit = 55;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/ipv6/state/hop-limit
+                  }
+               }
+               optional transport_type transport = 159;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport
+               message transport_type {
+                  optional state_type state = 160;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state
+                  message state_type {
+                     optional string source_port = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state/source-port
+                     optional string source_port_set = 53;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state/source-port-set
+                     optional string destination_port = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state/destination-port
+                     optional string destination_port_set = 54;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/transport/state/destination-port-set
+                  }
+               }
+               optional input_interface_type input_interface = 163;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/input-interface
+               message input_interface_type {
+                  optional interface_ref_type interface_ref = 165;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/input-interface/interface-ref
+                  message interface_ref_type {
+                     optional state_type state = 166;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/input-interface/interface-ref/state
+                     message state_type {
+                        optional string interface = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/input-interface/interface-ref/state/interface
+                        optional uint32 subinterface = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/input-interface/interface-ref/state/subinterface
+                     }
+                  }
+               }
+               optional actions_type actions = 161;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/actions
+               message actions_type {
+                  optional state_type state = 162;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/actions/state
+                  message state_type {
+                     optional string forwarding_action = 51;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/actions/state/forwarding-action
+                     optional string log_action = 52;    // /acl/acl-sets/acl-set/acl-entries/acl-entry/actions/state/log-action
+                  }
+               }
+            }
+            repeated acl_entry_list acl_entry = 152;
+         }
+      }
+      repeated acl_set_list acl_set = 151;
+   }
+   optional interfaces_type interfaces = 166;    // /acl/interfaces
+   message interfaces_type {
+      message interface_list {    // /acl/interfaces/interface
+         optional string id = 51 [(telemetry_options).is_key = true];    // /acl/interfaces/interface/id
+         optional state_type state = 168;    // /acl/interfaces/interface/state
+         message state_type {
+            optional string id = 51;    // /acl/interfaces/interface/state/id
+         }
+         optional interface_ref_type interface_ref = 170;    // /acl/interfaces/interface/interface-ref
+         message interface_ref_type {
+            optional state_type state = 171;    // /acl/interfaces/interface/interface-ref/state
+            message state_type {
+               optional string interface = 51;    // /acl/interfaces/interface/interface-ref/state/interface
+               optional uint32 subinterface = 52;    // /acl/interfaces/interface/interface-ref/state/subinterface
+            }
+         }
+         optional ingress_acl_sets_type ingress_acl_sets = 174;    // /acl/interfaces/interface/ingress-acl-sets
+         message ingress_acl_sets_type {
+            message ingress_acl_set_list {    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set
+               optional string set_name = 51 [(telemetry_options).is_key = true];    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/set-name
+               optional string type = 52 [(telemetry_options).is_key = true];    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/type
+               optional state_type state = 176;    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/state
+               message state_type {
+                  optional string set_name = 51;    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/state/set-name
+                  optional string type = 52;    // /acl/interfaces/interface/ingress-acl-sets/ingress-acl-set/state/type
+               }
+            }
+            repeated ingress_acl_set_list ingress_acl_set = 175;
+         }
+         optional egress_acl_sets_type egress_acl_sets = 177;    // /acl/interfaces/interface/egress-acl-sets
+         message egress_acl_sets_type {
+            message egress_acl_set_list {    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set
+               optional string set_name = 51 [(telemetry_options).is_key = true];    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set/set-name
+               optional string type = 52 [(telemetry_options).is_key = true];    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set/type
+               optional state_type state = 179;    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set/state
+               message state_type {
+                  optional string set_name = 51;    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set/state/set-name
+                  optional string type = 52;    // /acl/interfaces/interface/egress-acl-sets/egress-acl-set/state/type
+               }
+            }
+            repeated egress_acl_set_list egress_acl_set = 178;
+         }
+      }
+      repeated interface_list interface = 167;
+   }
+}

@@ -1,0 +1,52 @@
+/* 
+This proto is generated from below openconfig models
+junos-xmlproxyd-rsvp-interface - Juniper Networks definition of rsvp interface yang model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_rsvp_interface jnpr_junos_rsvp_interface_ext = 46;
+}
+
+message junos_rsvp_interface {    // /junos
+   optional rsvp_interface_information_type rsvp_interface_information = 151;    // /junos/rsvp-interface-information
+   message rsvp_interface_information_type {
+      optional uint32 active_count = 51;    // /junos/rsvp-interface-information/active-count
+      message rsvp_interface_list {    // /junos/rsvp-interface-information/rsvp-interface
+         optional string interface_name = 51 [(telemetry_options).is_key = true];    // /junos/rsvp-interface-information/rsvp-interface/interface-name
+         optional uint32 index = 52;    // /junos/rsvp-interface-information/rsvp-interface/index
+         optional string rsvp_status = 53;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-status
+         optional string authentication_flag = 54;    // /junos/rsvp-interface-information/rsvp-interface/authentication-flag
+         optional string aggregate_flag = 55;    // /junos/rsvp-interface-information/rsvp-interface/aggregate-flag
+         optional string ack_flag = 56;    // /junos/rsvp-interface-information/rsvp-interface/ack-flag
+         optional string protect_flag = 57;    // /junos/rsvp-interface-information/rsvp-interface/protect-flag
+         optional uint32 hello_interval = 58;    // /junos/rsvp-interface-information/rsvp-interface/hello-interval
+         optional string interface_address = 59;    // /junos/rsvp-interface-information/rsvp-interface/interface-address
+         message message_statistics_list {    // /junos/rsvp-interface-information/rsvp-interface/message-statistics
+            optional string rsvp_message = 51 [(telemetry_options).is_key = true];    // /junos/rsvp-interface-information/rsvp-interface/message-statistics/rsvp-message
+            optional uint32 messages_sent = 52;    // /junos/rsvp-interface-information/rsvp-interface/message-statistics/messages-sent
+            optional uint32 messages_received = 53;    // /junos/rsvp-interface-information/rsvp-interface/message-statistics/messages-received
+            optional uint32 messages_sent_5seconds = 54;    // /junos/rsvp-interface-information/rsvp-interface/message-statistics/messages-sent-5seconds
+            optional uint32 messages_received_5seconds = 55;    // /junos/rsvp-interface-information/rsvp-interface/message-statistics/messages-received-5seconds
+         }
+         repeated message_statistics_list message_statistics = 151;
+         optional rsvp_telink_type rsvp_telink = 152;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink
+         message rsvp_telink_type {
+            optional uint32 active_reservation = 51;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/active-reservation
+            optional uint32 preemption_count = 52;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/preemption-count
+            optional uint32 update_threshold = 53;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/update-threshold
+            optional uint32 subscription = 54;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/subscription
+            optional string static_bandwidth = 55;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/static-bandwidth
+            optional string available_bandwidth = 56;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/available-bandwidth
+            message reserved_bandwidth_list {    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/reserved-bandwidth
+               optional uint32 bandwidth_priority = 51 [(telemetry_options).is_key = true];    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/reserved-bandwidth/bandwidth-priority
+               optional string total_reserved_bandwidth = 52;    // /junos/rsvp-interface-information/rsvp-interface/rsvp-telink/reserved-bandwidth/total-reserved-bandwidth
+            }
+            repeated reserved_bandwidth_list reserved_bandwidth = 151;
+         }
+      }
+      repeated rsvp_interface_list rsvp_interface = 151;
+   }
+}

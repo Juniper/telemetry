@@ -1,0 +1,100 @@
+/* 
+This proto is generated from below openconfig models
+junos-xmlproxyd-rtg-task-memory - Yang definition for Task memory
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_task_memory jnpr_junos_task_memory_ext = 47;
+}
+
+message junos_task_memory {    // /junos
+   optional task_memory_information_type task_memory_information = 151;    // /junos/task-memory-information
+   message task_memory_information_type {
+      optional task_memory_overall_report_type task_memory_overall_report = 151;    // /junos/task-memory-information/task-memory-overall-report
+      message task_memory_overall_report_type {
+         optional task_size_block_list_type task_size_block_list = 151;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list
+         message task_size_block_list_type {
+            message task_size_block_list {    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block
+               optional uint32 tsb_size = 51 [(telemetry_options).is_key = true];    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-size
+               optional uint32 tsb_alloc_bytes = 52;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-alloc-bytes
+               optional uint32 tsb_allocs = 53;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-allocs
+               optional uint32 tsb_max_allocs = 54;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-max-allocs
+               optional uint64 tsb_max_bytes = 55;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-max-bytes
+               optional uint64 tsb_free_bytes = 56;    // /junos/task-memory-information/task-memory-overall-report/task-size-block-list/task-size-block/tsb-free-bytes
+            }
+            repeated task_size_block_list task_size_block = 151;
+         }
+         optional task_memory_stats_list_type task_memory_stats_list = 152;    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list
+         message task_memory_stats_list_type {
+            message task_memory_stats_list {    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats
+               optional string tms_name = 51 [(telemetry_options).is_key = true];    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats/tms-name
+               optional uint32 tms_allocs = 52;    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats/tms-allocs
+               optional uint64 tms_alloc_bytes = 53;    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats/tms-alloc-bytes
+               optional uint32 tms_max_allocs = 54;    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats/tms-max-allocs
+               optional uint64 tms_max_bytes = 55;    // /junos/task-memory-information/task-memory-overall-report/task-memory-stats-list/task-memory-stats/tms-max-bytes
+            }
+            repeated task_memory_stats_list task_memory_stats = 151;
+         }
+         optional uint64 task_memory_total_bytes = 51;    // /junos/task-memory-information/task-memory-overall-report/task-memory-total-bytes
+         optional uint64 task_memory_total_max_bytes = 52;    // /junos/task-memory-information/task-memory-overall-report/task-memory-total-max-bytes
+         optional uint64 task_memory_total_free_bytes = 53;    // /junos/task-memory-information/task-memory-overall-report/task-memory-total-free-bytes
+      }
+      optional task_memory_allocator_report_type task_memory_allocator_report = 152;    // /junos/task-memory-information/task-memory-allocator-report
+      message task_memory_allocator_report_type {
+         optional task_block_list_type task_block_list = 151;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list
+         message task_block_list_type {
+            message task_block_list {    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block
+               optional string tb_name = 51 [(telemetry_options).is_key = true];    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-name
+               optional uint32 tb_size = 52;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-size
+               optional uint32 tb_alloc_size = 53;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-alloc-size
+               optional uint32 tb_alloc_blocks = 54;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-alloc-blocks
+               optional uint64 tb_alloc_bytes = 55;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-alloc-bytes
+               optional uint32 tb_max_alloc_blocks = 56;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-max-alloc-blocks
+               optional uint64 tb_max_alloc_bytes = 57;    // /junos/task-memory-information/task-memory-allocator-report/task-block-list/task-block/tb-max-alloc-bytes
+            }
+            repeated task_block_list task_block = 151;
+         }
+         optional task_lite_page_list_type task_lite_page_list = 152;    // /junos/task-memory-information/task-memory-allocator-report/task-lite-page-list
+         message task_lite_page_list_type {
+            message task_lite_page_list {    // /junos/task-memory-information/task-memory-allocator-report/task-lite-page-list/task-lite-page
+               optional string tlp_name = 51 [(telemetry_options).is_key = true];    // /junos/task-memory-information/task-memory-allocator-report/task-lite-page-list/task-lite-page/tlp-name
+               optional uint64 tlp_alloc_bytes = 52;    // /junos/task-memory-information/task-memory-allocator-report/task-lite-page-list/task-lite-page/tlp-alloc-bytes
+               optional uint64 tlp_max_alloc_bytes = 53;    // /junos/task-memory-information/task-memory-allocator-report/task-lite-page-list/task-lite-page/tlp-max-alloc-bytes
+            }
+            repeated task_lite_page_list task_lite_page = 151;
+         }
+         optional uint64 task_memory_total_bytes = 52;    // /junos/task-memory-information/task-memory-allocator-report/task-memory-total-bytes
+         optional uint64 task_memory_total_max_bytes = 53;    // /junos/task-memory-information/task-memory-allocator-report/task-memory-total-max-bytes
+      }
+      optional task_memory_malloc_usage_report_type task_memory_malloc_usage_report = 153;    // /junos/task-memory-information/task-memory-malloc-usage-report
+      message task_memory_malloc_usage_report_type {
+         optional task_malloc_list_type task_malloc_list = 151;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list
+         message task_malloc_list_type {
+            message task_malloc_list {    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc
+               optional string tm_name = 51 [(telemetry_options).is_key = true];    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-name
+               optional uint32 tm_allocs = 52;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-allocs
+               optional uint64 tm_alloc_bytes = 53;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-alloc-bytes
+               optional uint32 tm_max_allocs = 54;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-max-allocs
+               optional uint64 tm_max_alloc_bytes = 55;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-max-alloc-bytes
+               optional uint32 tm_function_calls = 56;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-malloc-list/task-malloc/tm-function-calls
+            }
+            repeated task_malloc_list task_malloc = 151;
+         }
+         optional uint64 task_memory_total_bytes = 57;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-memory-total-bytes
+         optional uint64 task_memory_total_max_bytes = 58;    // /junos/task-memory-information/task-memory-malloc-usage-report/task-memory-total-max-bytes
+      }
+      optional uint64 task_memory_dynamic_allocs = 51;    // /junos/task-memory-information/task-memory-dynamic-allocs
+      optional uint64 task_memory_max_dynamic_allocs = 52;    // /junos/task-memory-information/task-memory-max-dynamic-allocs
+      optional uint64 task_memory_bss_bytes = 53;    // /junos/task-memory-information/task-memory-bss-bytes
+      optional uint64 task_memory_max_bss_bytes = 54;    // /junos/task-memory-information/task-memory-max-bss-bytes
+      optional uint64 task_memory_page_data_bytes = 55;    // /junos/task-memory-information/task-memory-page-data-bytes
+      optional uint64 task_memory_max_page_data_bytes = 56;    // /junos/task-memory-information/task-memory-max-page-data-bytes
+      optional uint64 task_memory_dir_bytes = 57;    // /junos/task-memory-information/task-memory-dir-bytes
+      optional uint64 task_memory_max_dir_bytes = 58;    // /junos/task-memory-information/task-memory-max-dir-bytes
+      optional uint64 task_memory_total_bytes_in_use = 59;    // /junos/task-memory-information/task-memory-total-bytes-in-use
+      optional uint32 task_memory_total_bytes_percent = 60;    // /junos/task-memory-information/task-memory-total-bytes-percent
+   }
+}

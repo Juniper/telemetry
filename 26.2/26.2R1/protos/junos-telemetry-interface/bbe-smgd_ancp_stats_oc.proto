@@ -1,0 +1,31 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_ancp_stats jnpr_junos_ancp_stats_ext = 34;
+}
+
+message junos_ancp_stats {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional access_network_type access_network = 151;    // /junos/system/subscriber-management/access-network
+         message access_network_type {
+            optional ancp_type ancp = 151;    // /junos/system/subscriber-management/access-network/ancp
+            message ancp_type {
+               optional adapter_type adapter = 151;    // /junos/system/subscriber-management/access-network/ancp/adapter
+               message adapter_type {
+                  optional uint32 mapped_dynamic_subscriber_count = 51;    // /junos/system/subscriber-management/access-network/ancp/adapter/mapped-dynamic-subscriber-count
+               }
+            }
+         }
+      }
+   }
+}

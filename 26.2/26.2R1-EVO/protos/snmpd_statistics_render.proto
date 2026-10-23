@@ -1,0 +1,70 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-snmp - This module contains a collection of top level nodes for JUNOS
+SNMP state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_snmp_statistics_323 jnpr_state_snmp_statistics_323_ext = 323;
+}
+
+message state_snmp_statistics_323 {    // /state
+   optional snmp_type snmp = 151;    // /state/snmp
+   message snmp_type {
+      optional uint32 average_response_time = 101;    // /state/snmp/average-response-time
+      optional uint64 one_minute_request_rate = 102;    // /state/snmp/one-minute-request-rate
+      optional uint64 five_minute_request_rate = 103;    // /state/snmp/five-minute-request-rate
+      optional uint64 fifteen_minute_request_rate = 104;    // /state/snmp/fifteen-minute-request-rate
+      optional uint64 one_minute_response_rate = 105;    // /state/snmp/one-minute-response-rate
+      optional uint64 five_minute_response_rate = 106;    // /state/snmp/five-minute-response-rate
+      optional uint64 fifteen_minute_response_rate = 107;    // /state/snmp/fifteen-minute-response-rate
+      optional counters_type counters = 151;    // /state/snmp/counters
+      message counters_type {
+         optional uint32 in_packets = 51;    // /state/snmp/counters/in-packets
+         optional uint32 in_bad_versions = 52;    // /state/snmp/counters/in-bad-versions
+         optional uint32 in_bad_community_names = 53;    // /state/snmp/counters/in-bad-community-names
+         optional uint32 in_bad_community_uses = 54;    // /state/snmp/counters/in-bad-community-uses
+         optional uint32 in_asn_parse_errors = 55;    // /state/snmp/counters/in-asn-parse-errors
+         optional uint32 in_too_bigs = 56;    // /state/snmp/counters/in-too-bigs
+         optional uint32 in_no_such_names = 57;    // /state/snmp/counters/in-no-such-names
+         optional uint32 in_bad_values = 58;    // /state/snmp/counters/in-bad-values
+         optional uint32 in_read_onlys = 59;    // /state/snmp/counters/in-read-onlys
+         optional uint32 in_general_errors = 60;    // /state/snmp/counters/in-general-errors
+         optional uint32 in_total_request_varbinds = 61;    // /state/snmp/counters/in-total-request-varbinds
+         optional uint32 in_total_set_varbinds = 62;    // /state/snmp/counters/in-total-set-varbinds
+         optional uint32 in_get_requests = 63;    // /state/snmp/counters/in-get-requests
+         optional uint32 in_get_nexts = 64;    // /state/snmp/counters/in-get-nexts
+         optional uint32 in_set_requests = 65;    // /state/snmp/counters/in-set-requests
+         optional uint32 in_get_responses = 66;    // /state/snmp/counters/in-get-responses
+         optional uint32 in_traps = 67;    // /state/snmp/counters/in-traps
+         optional uint32 in_silent_drops = 68;    // /state/snmp/counters/in-silent-drops
+         optional uint32 in_proxy_drops = 69;    // /state/snmp/counters/in-proxy-drops
+         optional uint32 in_commit_pending_drops = 70;    // /state/snmp/counters/in-commit-pending-drops
+         optional uint32 in_throttle_drops = 71;    // /state/snmp/counters/in-throttle-drops
+         optional uint32 in_duplicate_request_drops = 72;    // /state/snmp/counters/in-duplicate-request-drops
+         optional uint32 in_unknown_secmodels = 73;    // /state/snmp/counters/in-unknown-secmodels
+         optional uint32 in_invalid_msgs = 74;    // /state/snmp/counters/in-invalid-msgs
+         optional uint32 in_unknown_pdu_handlers = 75;    // /state/snmp/counters/in-unknown-pdu-handlers
+         optional uint32 in_unavailable_contexts = 76;    // /state/snmp/counters/in-unavailable-contexts
+         optional uint32 in_unknown_contexts = 77;    // /state/snmp/counters/in-unknown-contexts
+         optional uint32 in_unsupported_seclevels = 78;    // /state/snmp/counters/in-unsupported-seclevels
+         optional uint32 not_in_timewindows = 79;    // /state/snmp/counters/not-in-timewindows
+         optional uint32 in_unknown_usernames = 80;    // /state/snmp/counters/in-unknown-usernames
+         optional uint32 in_unknown_eids = 81;    // /state/snmp/counters/in-unknown-eids
+         optional uint32 in_wrong_digests = 82;    // /state/snmp/counters/in-wrong-digests
+         optional uint32 in_decrypt_errors = 83;    // /state/snmp/counters/in-decrypt-errors
+         optional uint32 out_packets = 84;    // /state/snmp/counters/out-packets
+         optional uint32 out_too_bigs = 85;    // /state/snmp/counters/out-too-bigs
+         optional uint32 out_no_such_names = 86;    // /state/snmp/counters/out-no-such-names
+         optional uint32 out_bad_values = 87;    // /state/snmp/counters/out-bad-values
+         optional uint32 out_general_errors = 88;    // /state/snmp/counters/out-general-errors
+         optional uint32 out_get_requests = 89;    // /state/snmp/counters/out-get-requests
+         optional uint32 out_get_nexts = 90;    // /state/snmp/counters/out-get-nexts
+         optional uint32 out_set_requests = 91;    // /state/snmp/counters/out-set-requests
+         optional uint32 out_traps = 92;    // /state/snmp/counters/out-traps
+      }
+   }
+}

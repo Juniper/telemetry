@@ -1,0 +1,38 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_ancp jnpr_junos_ancp_ext = 32;
+}
+
+message junos_ancp {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional access_network_type access_network = 151;    // /junos/system/subscriber-management/access-network
+         message access_network_type {
+            optional ancp_type ancp = 151;    // /junos/system/subscriber-management/access-network/ancp
+            message ancp_type {
+               optional protocol_type protocol = 151;    // /junos/system/subscriber-management/access-network/ancp/protocol
+               message protocol_type {
+                  optional uint32 configured_neighbor_count = 51;    // /junos/system/subscriber-management/access-network/ancp/protocol/configured-neighbor-count
+                  optional uint32 establishing_neighbor_count = 52;    // /junos/system/subscriber-management/access-network/ancp/protocol/establishing-neighbor-count
+                  optional uint32 established_neighbor_count = 53;    // /junos/system/subscriber-management/access-network/ancp/protocol/established-neighbor-count
+                  optional uint32 not_established_neighbor_count = 54;    // /junos/system/subscriber-management/access-network/ancp/protocol/not-established-neighbor-count
+                  optional uint32 total_neighbor_count = 55;    // /junos/system/subscriber-management/access-network/ancp/protocol/total-neighbor-count
+                  optional uint32 mapped_static_subscriber_count = 56;    // /junos/system/subscriber-management/access-network/ancp/protocol/mapped-static-subscriber-count
+                  optional uint64 port_up_count = 57;    // /junos/system/subscriber-management/access-network/ancp/protocol/port-up-count
+                  optional uint64 port_down_count = 58;    // /junos/system/subscriber-management/access-network/ancp/protocol/port-down-count
+               }
+            }
+         }
+      }
+   }
+}

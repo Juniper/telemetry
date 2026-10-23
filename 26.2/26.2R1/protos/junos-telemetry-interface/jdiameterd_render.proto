@@ -1,0 +1,70 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_diameter jnpr_junos_diameter_ext = 103;
+}
+
+message junos_diameter {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional aaa_type aaa = 151;    // /junos/system/subscriber-management/aaa
+         message aaa_type {
+            optional diameter_type diameter = 151;    // /junos/system/subscriber-management/aaa/diameter
+            message diameter_type {
+               optional peers_type peers = 151;    // /junos/system/subscriber-management/aaa/diameter/peers
+               message peers_type {
+                  message peer_list {    // /junos/system/subscriber-management/aaa/diameter/peers/peer
+                     optional string peer_name = 52 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/aaa/diameter/peers/peer/peer-name
+                     optional nasreq_type nasreq = 151;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq
+                     message nasreq_type {
+                        optional response_time_type response_time = 151;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time
+                        message response_time_type {
+                           optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-minimum-response-time
+                           optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-average-response-time
+                           optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-maximum-response-time
+                           optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-messages-sent
+                           optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-messages-received
+                           optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/nasreq/response-time/one-minute-messages-no-response
+                        }
+                     }
+                     optional gx_type gx = 152;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx
+                     message gx_type {
+                        optional response_time_type response_time = 151;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time
+                        message response_time_type {
+                           optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-minimum-response-time
+                           optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-average-response-time
+                           optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-maximum-response-time
+                           optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-messages-sent
+                           optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-messages-received
+                           optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gx/response-time/one-minute-messages-no-response
+                        }
+                     }
+                     optional gy_type gy = 153;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy
+                     message gy_type {
+                        optional response_time_type response_time = 151;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time
+                        message response_time_type {
+                           optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-minimum-response-time
+                           optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-average-response-time
+                           optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-maximum-response-time
+                           optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-messages-sent
+                           optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-messages-received
+                           optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/aaa/diameter/peers/peer/gy/response-time/one-minute-messages-no-response
+                        }
+                     }
+                  }
+                  repeated peer_list peer = 151;
+               }
+            }
+         }
+      }
+   }
+}

@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_l2tp_276 jnpr_junos_l2tp_276_ext = 276;
+}
+
+message junos_l2tp_276 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional cups_type cups = 151;    // /junos/system/subscriber-management/cups
+         message cups_type {
+            optional cp_instances_type cp_instances = 151;    // /junos/system/subscriber-management/cups/cp-instances
+            message cp_instances_type {
+               message cp_instance_list {    // /junos/system/subscriber-management/cups/cp-instances/cp-instance
+                  optional string cp_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/cp-name
+                  optional l2tp_type l2tp = 151;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp
+                  message l2tp_type {
+                     optional summary_type summary = 151;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary
+                     message summary_type {
+                        optional uint32 l2tp_stats_total_tunnels = 51;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-total-tunnels
+                        optional uint32 l2tp_stats_total_sessions = 52;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-total-sessions
+                        optional uint32 l2tp_stats_control_rx_packets = 53;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-control-rx-packets
+                        optional uint32 l2tp_stats_control_rx_bytes = 54;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-control-rx-bytes
+                        optional uint32 l2tp_stats_control_tx_packets = 55;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-control-tx-packets
+                        optional uint32 l2tp_stats_control_tx_bytes = 56;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-stats-control-tx-bytes
+                        optional uint32 l2tp_era_type_icrq_inflight_count = 57;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-icrq-inflight-count
+                        optional uint32 l2tp_era_type_icrq_reported_successes = 58;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-icrq-reported-successes
+                        optional uint32 l2tp_era_type_icrq_reported_failures = 59;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-icrq-reported-failures
+                        optional uint32 l2tp_era_type_sccrq_inflight_count = 60;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-sccrq-inflight-count
+                        optional uint32 l2tp_era_type_sccrq_reported_successes = 61;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-sccrq-reported-successes
+                        optional uint32 l2tp_era_type_sccrq_reported_failures = 62;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/l2tp/summary/l2tp-era-type-sccrq-reported-failures
+                     }
+                  }
+               }
+               repeated cp_instance_list cp_instance = 151;
+            }
+         }
+      }
+   }
+}

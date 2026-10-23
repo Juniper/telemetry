@@ -1,0 +1,46 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-system-syslog - This module contains a collection of top level nodes for JUNOS
+syslog state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_events_278 jnpr_state_events_278_ext = 278;
+}
+
+message state_events_278 {    // /state
+   optional system_type system = 50;    // /state/system
+   message system_type {
+      optional syslog_type syslog = 50;    // /state/system/syslog
+      message syslog_type {
+         optional messages_type messages = 50;    // /state/system/syslog/messages
+         message messages_type {
+            message message_list {    // /state/system/syslog/messages/message
+               optional uint64 timestamp = 54 [(telemetry_options).is_key = true];    // /state/system/syslog/messages/message/timestamp
+               optional string id = 51 [(telemetry_options).is_key = true];    // /state/system/syslog/messages/message/id
+               optional string severity = 52 [(telemetry_options).is_key = true];    // /state/system/syslog/messages/message/severity
+               optional string facility = 53 [(telemetry_options).is_key = true];    // /state/system/syslog/messages/message/facility
+               optional uint32 priority = 55;    // /state/system/syslog/messages/message/priority
+               optional uint32 pid = 56;    // /state/system/syslog/messages/message/pid
+               optional string log_message = 57;    // /state/system/syslog/messages/message/log-message
+               optional string application = 58;    // /state/system/syslog/messages/message/application
+               optional structured_data_type structured_data = 151;    // /state/system/syslog/messages/message/structured-data
+               message structured_data_type {
+                  optional parameters_type parameters = 161;    // /state/system/syslog/messages/message/structured-data/parameters
+                  message parameters_type {
+                     message parameter_list {    // /state/system/syslog/messages/message/structured-data/parameters/parameter
+                        optional string name = 51 [(telemetry_options).is_key = true];    // /state/system/syslog/messages/message/structured-data/parameters/parameter/name
+                        optional string value = 52;    // /state/system/syslog/messages/message/structured-data/parameters/parameter/value
+                     }
+                     repeated parameter_list parameter = 162;
+                  }
+               }
+            }
+            repeated message_list message = 151;
+         }
+      }
+   }
+}

@@ -1,0 +1,115 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional debug_queue_stats jnpr_debug_queue_stats_ext = 38;
+}
+
+message debug_queue_stats {    // /debug
+   optional system_type system = 151;    // /debug/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /debug/system/subscriber-management
+      message subscriber_management_type {
+         optional uplanes_type uplanes = 151;    // /debug/system/subscriber-management/uplanes
+         message uplanes_type {
+            message uplane_list {    // /debug/system/subscriber-management/uplanes/uplane
+               optional uint32 uplane_id = 51 [(telemetry_options).is_key = true];    // /debug/system/subscriber-management/uplanes/uplane/uplane-id
+               optional infra_type infra = 151;    // /debug/system/subscriber-management/uplanes/uplane/infra
+               message infra_type {
+                  optional era_type era = 151;    // /debug/system/subscriber-management/uplanes/uplane/infra/era
+                  message era_type {
+                     optional uint32 io_to_smd_dvlan_q_count = 51;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-dvlan-q-count
+                     optional uint32 io_to_smd_dvlan_max_q_count = 52;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-dvlan-max-q-count
+                     optional uint32 io_to_smd_padi_q_cnt = 53;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-padi-q-cnt
+                     optional uint32 io_to_smd_padi_q_cnt_peak = 54;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-padi-q-cnt-peak
+                     optional uint32 io_to_smd_discover_q_cnt = 55;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-discover-q-cnt
+                     optional uint32 io_to_smd_discover_q_cnt_peak = 56;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-discover-q-cnt-peak
+                     optional uint32 io_to_smd_solicit_q_cnt = 57;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-solicit-q-cnt
+                     optional uint32 io_to_smd_solicit_q_cnt_peak = 58;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-solicit-q-cnt-peak
+                     optional uint32 io_to_smd_dhcp_q_cnt = 59;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-dhcp-q-cnt
+                     optional uint32 io_to_smd_dhcp_q_cnt_peak = 60;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-dhcp-q-cnt-peak
+                     optional uint32 io_to_smd_hag_q_cnt = 61;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-hag-q-cnt
+                     optional uint32 io_to_smd_hag_q_cnt_peak = 62;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-hag-q-cnt-peak
+                     optional uint32 io_to_smd_total_q_cnt = 63;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-total-q-cnt
+                     optional uint32 io_to_smd_total_q_cnt_peak = 64;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-to-smd-total-q-cnt-peak
+                     optional uint32 smd_dvlan_q_count = 65;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-dvlan-q-count
+                     optional uint32 smd_dvlan_max_q_count = 66;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-dvlan-max-q-count
+                     optional uint32 smd_padi_q_cnt = 67;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-padi-q-cnt
+                     optional uint32 smd_padi_q_cnt_peak = 68;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-padi-q-cnt-peak
+                     optional uint32 smd_discover_q_cnt = 69;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-discover-q-cnt
+                     optional uint32 smd_discover_q_cnt_peak = 70;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-discover-q-cnt-peak
+                     optional uint32 smd_solicit_q_cnt = 71;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-solicit-q-cnt
+                     optional uint32 smd_solicit_q_cnt_peak = 72;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-solicit-q-cnt-peak
+                     optional uint32 smd_dhcp_q_cnt = 73;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-dhcp-q-cnt
+                     optional uint32 smd_dhcp_q_cnt_peak = 74;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-dhcp-q-cnt-peak
+                     optional uint32 smd_hag_q_cnt = 75;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-hag-q-cnt
+                     optional uint32 smd_hag_q_cnt_peak = 76;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-hag-q-cnt-peak
+                     optional uint32 smd_total_q_cnt = 77;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-total-q-cnt
+                     optional uint32 smd_total_q_cnt_peak = 78;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-total-q-cnt-peak
+                     optional uint32 smd_notification_queue_cnt = 79;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-notification-queue-cnt
+                     optional uint32 smd_notification_queue_cnt_peak = 80;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-notification-queue-cnt-peak
+                     optional uint32 smd_message_queue_cnt = 81;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-message-queue-cnt
+                     optional uint32 smd_message_queue_cnt_peak = 82;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-message-queue-cnt-peak
+                     optional uint32 smd_packet_queue_cnt = 83;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-packet-queue-cnt
+                     optional uint32 smd_packet_queue_cnt_peak = 84;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-packet-queue-cnt-peak
+                     optional uint32 smd_packet_low_queue_cnt = 85;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-packet-low-queue-cnt
+                     optional uint32 smd_packet_low_queue_cnt_peak = 86;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/smd-packet-low-queue-cnt-peak
+                     optional uint64 io_pkt_count_low = 87;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-pkt-count-low
+                     optional uint64 io_pkt_count_mlow = 88;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-pkt-count-mlow
+                     optional uint64 io_pkt_count_med = 89;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-pkt-count-med
+                     optional uint64 io_pkt_count_high = 90;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-pkt-count-high
+                     optional uint64 io_packets_dropped_low = 91;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-low
+                     optional uint64 io_packets_dropped_mlow = 92;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-mlow
+                     optional uint64 io_packets_dropped_med = 93;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-med
+                     optional uint64 io_packets_dropped_high = 94;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-high
+                     optional uint64 io_packets_dropped_padi_qlen = 95;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-padi-qlen
+                     optional uint64 io_packets_dropped_padi_imbalance = 96;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-padi-imbalance
+                     optional uint64 io_packets_dropped_discover_qlen = 97;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-discover-qlen
+                     optional uint64 io_packets_dropped_discover_imbalance = 98;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-discover-imbalance
+                     optional uint64 io_packets_dropped_solicit_qlen = 99;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-solicit-qlen
+                     optional uint64 io_packets_dropped_solicit_imbalance = 100;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-solicit-imbalance
+                     optional uint64 io_packets_dropped_dvlan_qlen = 101;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-dvlan-qlen
+                     optional uint64 io_packets_dropped_dvlan_imbalance = 102;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-dvlan-imbalance
+                     optional uint64 io_packets_dropped_hag_qlen = 103;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-hag-qlen
+                     optional uint64 io_packets_dropped_hag_imbalance = 104;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/io-packets-dropped-hag-imbalance
+                     optional uint32 max_allowed_in_flight_current = 105;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/max-allowed-in-flight-current
+                     optional uint32 max_allowed_in_flight_actual = 106;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/max-allowed-in-flight-actual
+                     optional uint32 max_allowed_in_flight_current_absolute = 107;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/max-allowed-in-flight-current-absolute
+                     optional uint32 max_allowed_in_flight_max_ever_absolute = 108;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/max-allowed-in-flight-max-ever-absolute
+                     optional uint32 min_allowed_in_flight = 109;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/min-allowed-in-flight
+                     optional uint32 max_low_pri_pkt_to_enqueue = 110;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/max-low-pri-pkt-to-enqueue
+                     optional uint32 in_flight_dvlan = 111;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-dvlan
+                     optional uint32 in_flight_dvlan_peak = 112;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-dvlan-peak
+                     optional uint32 in_flight_dhcp = 113;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-dhcp
+                     optional uint32 in_flight_dhcp_peak = 114;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-dhcp-peak
+                     optional uint32 in_flight_ppp = 115;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-ppp
+                     optional uint32 in_flight_ppp_peak = 116;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-ppp-peak
+                     optional uint32 in_flight_hag = 117;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-hag
+                     optional uint32 in_flight_hag_peak = 118;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-hag-peak
+                     optional uint32 in_flight_total = 119;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-total
+                     optional uint32 in_flight_total_peak = 120;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-flight-total-peak
+                     optional uint32 in_nego_dvlan = 121;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-dvlan
+                     optional uint32 in_nego_dvlan_peak = 122;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-dvlan-peak
+                     optional uint32 in_nego_dhcp = 123;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-dhcp
+                     optional uint32 in_nego_dhcp_peak = 124;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-dhcp-peak
+                     optional uint32 in_nego_ppp = 125;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-ppp
+                     optional uint32 in_nego_ppp_peak = 126;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-ppp-peak
+                     optional uint32 in_nego_hag = 127;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-hag
+                     optional uint32 in_nego_hag_peak = 128;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-hag-peak
+                     optional uint32 in_nego_total = 129;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-total
+                     optional uint32 in_nego_total_peak = 130;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-total-peak
+                     optional uint32 in_nego_overrides = 131;    // /debug/system/subscriber-management/uplanes/uplane/infra/era/in-nego-overrides
+                  }
+               }
+            }
+            repeated uplane_list uplane = 151;
+         }
+      }
+   }
+}
