@@ -1,0 +1,31 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-platform-healthz - This model defines health-related variables for components
+within the openconfig-platform model (which defines the
+the /components hierarchy)
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_hwdre_healthz_oc_289 jnpr_components_hwdre_healthz_oc_289_ext = 289;
+}
+
+message components_hwdre_healthz_oc_289 {    // /components
+   message component_list {    // /components/component
+      optional healthz_type healthz = 162;    // /components/component/healthz
+      message healthz_type {
+         optional state_type state = 151;    // /components/component/healthz/state
+         message state_type {
+            optional string status = 51;    // /components/component/healthz/state/status
+            optional uint64 last_unhealthy = 52;    // /components/component/healthz/state/last-unhealthy
+            optional uint64 unhealthy_count = 53;    // /components/component/healthz/state/unhealthy-count
+         }
+      }
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+   }
+   repeated component_list component = 151;
+}

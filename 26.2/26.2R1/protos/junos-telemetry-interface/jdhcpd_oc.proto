@@ -1,0 +1,400 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_dhcp jnpr_junos_dhcp_ext = 43;
+}
+
+message junos_dhcp {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional client_protocols_type client_protocols = 151;    // /junos/system/subscriber-management/client-protocols
+         message client_protocols_type {
+            optional dhcp_type dhcp = 151;    // /junos/system/subscriber-management/client-protocols/dhcp
+            message dhcp_type {
+               optional v4_type v4 = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4
+               message v4_type {
+                  optional global_statistics_type global_statistics = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics
+                  message global_statistics_type {
+                     optional uint64 dropped_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-total
+                     optional uint64 dropped_bad_read = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-bad-read
+                     optional uint64 dropped_ip_header = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-ip-header
+                     optional uint64 dropped_short_packet = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-short-packet
+                     optional uint64 dropped_no_interface = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-no-interface
+                     optional uint64 dropped_no_routing_instance = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-no-routing-instance
+                     optional uint64 dropped_no_memory = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-no-memory
+                     optional uint64 dropped_recovery_in_progress = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/dropped-recovery-in-progress
+                     optional uint64 era_inflight_count = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/era-inflight-count
+                     optional uint64 era_reported_failures = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/era-reported-failures
+                     optional uint64 era_reported_successes = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/global-statistics/era-reported-successes
+                  }
+                  optional routing_instances_type routing_instances = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances
+                  message routing_instances_type {
+                     message routing_instance_list {    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance
+                        optional string ri_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/ri-name
+                        optional server_type server = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server
+                        message server_type {
+                           optional statistics_type statistics = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics
+                           message statistics_type {
+                              optional uint64 dropped_v4server_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-total
+                              optional uint64 dropped_v4server_bad_hware = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bad-hware
+                              optional uint64 dropped_v4server_bootp_pkt = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bootp-pkt
+                              optional uint64 dropped_v4server_bad_bootp_opcode = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bad-bootp-opcode
+                              optional uint64 dropped_v4server_bad_options = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bad-options
+                              optional uint64 dropped_v4server_bad_address = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bad-address
+                              optional uint64 dropped_v4server_no_address = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-address
+                              optional uint64 dropped_v4server_no_interface_cfg = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-interface-cfg
+                              optional uint64 dropped_v4server_no_local_address = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-local-address
+                              optional uint64 dropped_v4server_short_pkt = 60;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-short-pkt
+                              optional uint64 dropped_v4server_no_bad_send = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-bad-send
+                              optional uint64 dropped_v4server_no_option60 = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-option60
+                              optional uint64 dropped_v4server_no_option82 = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-option82
+                              optional uint64 dropped_v4server_authentication = 64;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-authentication
+                              optional uint64 dropped_v4server_dynamic_profile = 65;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-dynamic-profile
+                              optional uint64 dropped_v4server_no_license = 66;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-license
+                              optional uint64 dropped_v4server_no_bad_dhcp_opcode = 67;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-bad-dhcp-opcode
+                              optional uint64 dropped_v4server_no_options = 68;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-no-options
+                              optional uint64 dropped_v4server_hop_limit = 69;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-hop-limit
+                              optional uint64 dropped_v4server_ttl_expired = 70;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-ttl-expired
+                              optional uint64 dropped_v4server_bad_udp_checksum = 71;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-bad_udp-checksum
+                              optional uint64 dropped_v4server_inactive_vlan = 72;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-inactive-vlan
+                              optional uint64 dropped_v4server_era_start_failed = 73;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-era-start-failed
+                              optional uint64 dropped_v4server_client_lookup = 74;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-client-lookup
+                              optional uint64 dropped_v4server_lease_time_violation = 75;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/dropped-v4server-lease-time-violation
+                              optional uint64 offer_delayed = 76;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/offer-delayed
+                              optional uint64 offer_delay_in_progress = 77;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/offer-delay-in-progress
+                              optional uint64 offer_delay_total = 78;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/offer-delay-total
+                              optional uint64 msg_recv_v4server_boot_request = 79;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-boot-request
+                              optional uint64 msg_recv_v4server_decline = 80;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-decline
+                              optional uint64 msg_recv_v4server_discover = 81;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-discover
+                              optional uint64 msg_recv_v4server_inform = 82;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-inform
+                              optional uint64 msg_recv_v4server_release = 83;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-release
+                              optional uint64 msg_recv_v4server_request = 84;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-request
+                              optional uint64 msg_recv_v4server_renew = 85;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-renew
+                              optional uint64 msg_recv_v4server_rebind = 86;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-rebind
+                              optional uint64 msg_recv_v4server_lease_query = 87;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-lease-query
+                              optional uint64 msg_recv_v4server_bulklease_query = 88;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-recv-v4server-bulklease-query
+                              optional uint64 msg_sent_v4server_boot_reply = 89;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-boot-reply
+                              optional uint64 msg_sent_v4server_offer = 90;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-offer
+                              optional uint64 msg_sent_v4server_boot_ack = 91;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-boot-ack
+                              optional uint64 msg_sent_v4server_nak = 92;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-nak
+                              optional uint64 msg_sent_v4server_force_renew = 93;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-force-renew
+                              optional uint64 msg_sent_v4server_unassigned = 94;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-unassigned
+                              optional uint64 msg_sent_v4server_unknown = 95;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-unknown
+                              optional uint64 msg_sent_v4server_active = 96;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-active
+                              optional uint64 msg_sent_v4server_query_done = 97;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/statistics/msg-sent-v4server-query-done
+                           }
+                           optional bindings_type bindings = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings
+                           message bindings_type {
+                              optional uint64 binding_state_v4server_binding = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-binding
+                              optional uint64 binding_state_v4server_init = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-init
+                              optional uint64 binding_state_v4server_bound = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-bound
+                              optional uint64 binding_state_v4server_selecting = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-selecting
+                              optional uint64 binding_state_v4server_requesting = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-requesting
+                              optional uint64 binding_state_v4server_renew = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-renew
+                              optional uint64 binding_state_v4server_release = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-v4server-release
+                              optional uint64 binding_state_server_restoring = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/server/bindings/binding-state-server-restoring
+                           }
+                        }
+                        optional relay_type relay = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay
+                        message relay_type {
+                           optional statistics_type statistics = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics
+                           message statistics_type {
+                              optional uint64 dropped_v4relay_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-total
+                              optional uint64 dropped_v4relay_bad_hardware = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-hardware
+                              optional uint64 dropped_v4relay_bootp_packet = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bootp-packet
+                              optional uint64 dropped_v4relay_bad_bootp_opcode = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-bootp-opcode
+                              optional uint64 dropped_v4relay_bad_options = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-options
+                              optional uint64 dropped_v4relay_bad_address = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-address
+                              optional uint64 dropped_v4relay_no_address = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-no-address
+                              optional uint64 dropped_v4relay_no_interface_cfg = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-no-interface-cfg
+                              optional uint64 dropped_v4relay_no_local_address = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-no-local-address
+                              optional uint64 dropped_v4relay_short_packet = 60;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-short-packet
+                              optional uint64 dropped_v4relay_bad_send = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-send
+                              optional uint64 dropped_v4relay_option_60 = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-option-60
+                              optional uint64 dropped_v4relay_relay_option = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-relay-option
+                              optional uint64 dropped_v4relay_option_82 = 64;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-option-82
+                              optional uint64 dropped_v4relay_authentication = 65;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-authentication
+                              optional uint64 dropped_v4relay_dynamic_profile = 66;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-dynamic-profile
+                              optional uint64 dropped_v4relay_license = 67;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-license
+                              optional uint64 dropped_v4relay_bad_dhcp_opcode = 68;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-dhcp-opcode
+                              optional uint64 dropped_v4relay_no_options = 69;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-no-options
+                              optional uint64 dropped_v4relay_hop_limit = 70;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-hop-limit
+                              optional uint64 dropped_v4relay_ttl_expired = 71;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-ttl-expired
+                              optional uint64 dropped_v4relay_bad_udp_checksum = 72;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-bad-udp-checksum
+                              optional uint64 dropped_v4relay_inactive_vlan = 73;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-inactive-vlan
+                              optional uint64 dropped_v4relay_era_start_failed = 74;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-era-start-failed
+                              optional uint64 dropped_v4relay_client_lookup = 75;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-client-lookup
+                              optional uint64 dropped_v4relay_proxy_no_server_addr = 76;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-proxy-no-server-addr
+                              optional uint64 dropped_v4relay_lease_time_violation = 77;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-lease-time-violation
+                              optional uint64 dropped_v4relay_leasequery_repl_no_circuitid = 78;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-leasequery-repl-no-circuitid
+                              optional uint64 dropped_v4relay_leasequery_repl_with_error_code = 79;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-leasequery-repl-with-error-code
+                              optional uint64 dropped_v4relay_leasequery_repl_with_query_term = 80;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-leasequery-repl-with-query-term
+                              optional uint64 dropped_v4relay_older_leasequery_reply = 81;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-older-leasequery-reply
+                              optional uint64 dropped_v4relay_abort_leasequery_reply_proc = 82;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-abort-leasequery-reply-proc
+                              optional uint64 dropped_v4relay_during_leasequery_reply = 83;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-during-leasequery-reply
+                              optional uint64 dropped_v4relay_relay_source_no_lpbk_interface = 84;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/dropped-v4relay-relay-source-no-lpbk-interface
+                              optional uint64 v4relay_bootp_request_rcvd = 85;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-request-rcvd
+                              optional uint64 msg_recv_v4relay_decline = 86;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-decline
+                              optional uint64 msg_recv_v4relay_discover = 87;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-discover
+                              optional uint64 msg_recv_v4relay_inform = 88;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-inform
+                              optional uint64 msg_recv_v4relay_release = 89;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-release
+                              optional uint64 msg_recv_v4relay_request = 90;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-request
+                              optional uint64 msg_recv_v4relay_leaseactive = 91;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-leaseactive
+                              optional uint64 msg_recv_v4relay_leaseunassigned = 92;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-leaseunassigned
+                              optional uint64 msg_recv_v4relay_leaseunknown = 93;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-leaseunknown
+                              optional uint64 msg_recv_v4relay_leasequerydone = 94;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-leasequerydone
+                              optional uint64 v4relay_bootp_reply_rcvd = 95;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-reply-rcvd
+                              optional uint64 msg_recv_v4relay_offer = 96;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-offer
+                              optional uint64 msg_recv_v4relay_ack = 97;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-ack
+                              optional uint64 msg_recv_v4relay_nak = 98;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-nak
+                              optional uint64 msg_recv_v4relay_forcerenew = 99;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-recv-v4relay-forcerenew
+                              optional uint64 v4relay_bootp_reply_sent = 100;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-reply-sent
+                              optional uint64 msg_sent_v4relay_offer = 101;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-offer
+                              optional uint64 msg_sent_v4relay_ack = 102;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-ack
+                              optional uint64 msg_sent_v4relay_nak = 103;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-nak
+                              optional uint64 msg_sent_v4relay_forcerenew = 104;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-forcerenew
+                              optional uint64 msg_sent_v4relay_leasequery = 105;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-leasequery
+                              optional uint64 msg_sent_v4relay_bulkleasequery = 106;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-bulkleasequery
+                              optional uint64 v4relay_bootp_request_sent = 107;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-request-sent
+                              optional uint64 msg_sent_v4relay_decline = 108;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-decline
+                              optional uint64 msg_sent_v4relay_discover = 109;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-discover
+                              optional uint64 msg_sent_v4relay_inform = 110;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-inform
+                              optional uint64 msg_sent_v4relay_release = 111;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-release
+                              optional uint64 msg_sent_v4relay_request = 112;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/msg-sent-v4relay-request
+                              optional uint64 v4relay_bootp_forwarded_total = 113;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-forwarded-total
+                              optional uint64 v4relay_bootp_request_fwd = 114;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-request-fwd
+                              optional uint64 v4relay_bootp_reply_fwd = 115;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/statistics/v4relay-bootp-reply-fwd
+                           }
+                           optional bindings_type bindings = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings
+                           message bindings_type {
+                              optional uint64 binding_state_v4relay_binding = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-binding
+                              optional uint64 binding_state_v4relay_init = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-init
+                              optional uint64 binding_state_v4relay_bound = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-bound
+                              optional uint64 binding_state_v4relay_selecting = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-selecting
+                              optional uint64 binding_state_v4relay_requesting = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-requesting
+                              optional uint64 binding_state_v4relay_renew = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-renew
+                              optional uint64 binding_state_v4relay_release = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-release
+                              optional uint64 binding_state_v4relay_restoring = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-restoring
+                              optional uint64 binding_state_v4relay_rebind = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/bindings/binding-state-v4relay-rebind
+                           }
+                           optional servers_type servers = 153;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers
+                           message servers_type {
+                              message server_list {    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server
+                                 optional string server_ip = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/server-ip
+                                 optional response_time_type response_time = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time
+                                 message response_time_type {
+                                    optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-minimum-response-time
+                                    optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-average-response-time
+                                    optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-maximum-response-time
+                                    optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-sent
+                                    optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-received
+                                    optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v4/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-no-response
+                                 }
+                              }
+                              repeated server_list server = 151;
+                           }
+                        }
+                     }
+                     repeated routing_instance_list routing_instance = 151;
+                  }
+               }
+               optional v6_type v6 = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v6
+               message v6_type {
+                  optional global_statistics_type global_statistics = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics
+                  message global_statistics_type {
+                     optional uint64 dropped_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-total
+                     optional uint64 dropped_bad_read = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-bad-read
+                     optional uint64 dropped_ip_header = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-ip-header
+                     optional uint64 dropped_short_packet = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-short-packet
+                     optional uint64 dropped_no_interface = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-no-interface
+                     optional uint64 dropped_no_routing_instance = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-no-routing-instance
+                     optional uint64 dropped_no_safd = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-no-safd
+                     optional uint64 dropped_no_memory = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-no-memory
+                     optional uint64 dropped_recovery_in_progress = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/dropped-recovery-in-progress
+                     optional uint64 era_inflight_count = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/era-inflight-count
+                     optional uint64 era_reported_failures = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/era-reported-failures
+                     optional uint64 era_reported_successes = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/global-statistics/era-reported-successes
+                  }
+                  optional routing_instances_type routing_instances = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances
+                  message routing_instances_type {
+                     message routing_instance_list {    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance
+                        optional string ri_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/ri-name
+                        optional server_type server = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server
+                        message server_type {
+                           optional statistics_type statistics = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics
+                           message statistics_type {
+                              optional uint64 dropped_v6server_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-total
+                              optional uint64 dropped_v6server_no_safd = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-no-safd
+                              optional uint64 dropped_v6server_no_routing_instance = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-no-routing-instance
+                              optional uint64 dropped_v6server_bad_send = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-bad-send
+                              optional uint64 dropped_v6server_short_packet = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-short-packet
+                              optional uint64 dropped_v6server_bad_msgtype = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-bad-msgtype
+                              optional uint64 dropped_v6server_bad_options = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-bad-options
+                              optional uint64 dropped_v6server_bad_srcaddress = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-bad-srcaddress
+                              optional uint64 dropped_v6server_relay_hop_count = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-relay-hop-count
+                              optional uint64 dropped_v6server_bad_udp_checksum = 60;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-bad-udp-checksum
+                              optional uint64 dropped_v6server_no_client_id = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-no-client-id
+                              optional uint64 dropped_v6server_strict_reconfigure = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-strict-reconfigure
+                              optional uint64 dropped_v6server_option_18 = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-option-18
+                              optional uint64 dropped_v6server_authentication = 64;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-authentication
+                              optional uint64 dropped_v6server_dynamic_profile = 65;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-dynamic-profile
+                              optional uint64 dropped_v6server_license = 66;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-license
+                              optional uint64 dropped_v6server_inactive_vlan = 67;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-inactive-vlan
+                              optional uint64 dropped_v6server_era_start_failed = 68;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-era-start-failed
+                              optional uint64 dropped_v6server_client_lookup = 69;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-client-lookup
+                              optional uint64 dropped_v6server_lease_time_violation = 70;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/dropped-v6server-lease-time-violation
+                              optional uint64 advertise_delayed = 71;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/advertise-delayed
+                              optional uint64 advertise_queued = 72;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/advertise-queued
+                              optional uint64 advertise_total = 73;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/advertise-total
+                              optional uint64 msg_recv_v6server_dhcpv6_decline = 74;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-decline
+                              optional uint64 msg_recv_v6server_dhcpv6_solicit = 75;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-solicit
+                              optional uint64 msg_recv_v6server_dhcpv6_information_request = 76;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-information-request
+                              optional uint64 msg_recv_v6server_dhcpv6_release = 77;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-release
+                              optional uint64 msg_recv_v6server_dhcpv6_request = 78;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-request
+                              optional uint64 msg_recv_v6server_dhcpv6_confirm = 79;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-confirm
+                              optional uint64 msg_recv_v6server_dhcpv6_renew = 80;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-renew
+                              optional uint64 msg_recv_v6server_dhcpv6_rebind = 81;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-rebind
+                              optional uint64 msg_recv_v6server_dhcpv6_relay_forw = 82;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-relay-forw
+                              optional uint64 msg_recv_v6server_dhcpv6_leasequery = 83;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-recv-v6server-dhcpv6-leasequery
+                              optional uint64 msg_sent_v6server_advertise = 84;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-advertise
+                              optional uint64 msg_sent_v6server_reply = 85;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-reply
+                              optional uint64 msg_sent_v6server_logical_nak = 86;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-logical_nak
+                              optional uint64 msg_sent_v6server_reconfigure = 87;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-reconfigure
+                              optional uint64 msg_sent_v6server_relay_repl = 88;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-relay-repl
+                              optional uint64 msg_sent_v6server_leasequery_repl = 89;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-leasequery-repl
+                              optional uint64 msg_sent_v6server_leasequery_data = 90;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-leasequery-data
+                              optional uint64 msg_sent_v6server_leasequery_done = 91;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/statistics/msg-sent-v6server-leasequery-done
+                           }
+                           optional bindings_type bindings = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings
+                           message bindings_type {
+                              optional uint64 binding_state_v6server_binding = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-binding
+                              optional uint64 binding_state_v6server_init = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-init
+                              optional uint64 binding_state_v6server_bound = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-bound
+                              optional uint64 binding_state_v6server_selecting = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-selecting
+                              optional uint64 binding_state_v6server_requesting = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-requesting
+                              optional uint64 binding_state_v6server_renew = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-renew
+                              optional uint64 binding_state_v6server_release = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-v6server-release
+                              optional uint64 binding_state_server_restoring = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/server/bindings/binding-state-server-restoring
+                           }
+                        }
+                        optional relay_type relay = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay
+                        message relay_type {
+                           optional statistics_type statistics = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics
+                           message statistics_type {
+                              optional uint64 dropped_v6relay_total = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-total
+                              optional uint64 dropped_v6relay_no_safd = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-no-safd
+                              optional uint64 dropped_v6relay_no_routing_instance = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-no-routing-instance
+                              optional uint64 dropped_v6relay_bad_send = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-bad-send
+                              optional uint64 dropped_v6relay_short_packet = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-short-packet
+                              optional uint64 dropped_v6relay_bad_msgtype = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-bad-msgtype
+                              optional uint64 dropped_v6relay_bad_options = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-bad-options
+                              optional uint64 dropped_v6relay_bad_srcaddress = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-bad-srcaddress
+                              optional uint64 dropped_v6relay_relay_hop_count = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-relay-hop-count
+                              optional uint64 dropped_v6relay_bad_udp_checksum = 60;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-bad-udp-checksum
+                              optional uint64 dropped_v6relay_no_client_id = 61;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-no-client-id
+                              optional uint64 dropped_v6relay_strict_reconfigure = 62;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-strict-reconfigure
+                              optional uint64 dropped_v6relay_relay_option = 63;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-relay-option
+                              optional uint64 dropped_v6relay_option_18 = 64;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-option-18
+                              optional uint64 dropped_v6relay_option_37 = 65;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-option-37
+                              optional uint64 dropped_v6relay_authentication = 66;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-authentication
+                              optional uint64 dropped_v6relay_dynamic_profile = 67;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-dynamic-profile
+                              optional uint64 dropped_v6relay_license = 68;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-license
+                              optional uint64 dropped_v6relay_inactive_vlan = 69;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-inactive-vlan
+                              optional uint64 dropped_v6relay_era_start_failed = 70;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-era-start-failed
+                              optional uint64 dropped_v6relay_client_lookup = 71;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-client-lookup
+                              optional uint64 dropped_v6relay_lease_time_violation = 72;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-lease-time-violation
+                              optional uint64 dropped_v6relay_leasequery_repl_no_client_data = 73;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-no-client-data
+                              optional uint64 dropped_v6relay_leasequery_repl_no_interfaceid = 74;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-no-interfaceid
+                              optional uint64 dropped_v6relay_leasequery_repl_with_client_link = 75;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-with-client-link
+                              optional uint64 dropped_v6relay_leasequery_repl_no_relay_data = 76;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-no-relay-data
+                              optional uint64 dropped_v6relay_leasequery_repl_with_hop_cnt = 77;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-with-hop-cnt
+                              optional uint64 dropped_v6relay_leasequery_repl_with_error_code = 78;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-with-error-code
+                              optional uint64 dropped_v6relay_leasequery_repl_with_query_term = 79;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-leasequery-repl-with-query-term
+                              optional uint64 dropped_v6relay_older_leasequery_reply = 80;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-older-leasequery-reply
+                              optional uint64 dropped_v6relay_abort_leasequery_reply_proc = 81;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-abort-leasequery-reply-proc
+                              optional uint64 dropped_v6relay_during_leasequery_reply = 82;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-during-leasequery-reply
+                              optional uint64 dropped_v6relay_relay_source_no_lpbk_interface = 83;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/dropped-v6relay-relay-source-no-lpbk-interface
+                              optional uint64 msg_recv_v6relay_decline = 84;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-decline
+                              optional uint64 msg_recv_v6relay_solicit = 85;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-solicit
+                              optional uint64 msg_recv_v6relay_information_request = 86;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-information-request
+                              optional uint64 msg_recv_v6relay_release = 87;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-release
+                              optional uint64 msg_recv_v6relay_request = 88;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-request
+                              optional uint64 msg_recv_v6relay_confirm = 89;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-confirm
+                              optional uint64 msg_recv_v6relay_renew = 90;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-renew
+                              optional uint64 msg_recv_v6relay_rebind = 91;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-rebind
+                              optional uint64 msg_recv_v6relay_relay_forw = 92;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-relay-forw
+                              optional uint64 msg_recv_v6relay_leasequery_repl = 93;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-leasequery-repl
+                              optional uint64 msg_recv_v6relay_leasequery_data = 94;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-leasequery-data
+                              optional uint64 msg_recv_v6relay_leasequery_done = 95;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-leasequery-done
+                              optional uint64 msg_recv_v6relay_advertise = 96;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-advertise
+                              optional uint64 msg_recv_v6relay_reply = 97;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-reply
+                              optional uint64 msg_recv_v6relay_reconfigure = 98;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-reconfigure
+                              optional uint64 msg_recv_v6relay_relay_repl = 99;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-relay-repl
+                              optional uint64 msg_recv_v6relay_leasequery = 100;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-recv-v6relay-leasequery
+                              optional uint64 msg_sent_v6relay_reply = 101;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-reply
+                              optional uint64 msg_sent_v6relay_reconfigure = 102;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-reconfigure
+                              optional uint64 msg_sent_v6relay_relay_repl = 103;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-relay-repl
+                              optional uint64 msg_sent_v6relay_leasequery = 104;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-leasequery
+                              optional uint64 msg_sent_v6relay_decline = 105;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-decline
+                              optional uint64 msg_sent_v6relay_solicit = 106;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-solicit
+                              optional uint64 msg_sent_v6relay_information_request = 107;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-information-request
+                              optional uint64 msg_sent_v6relay_release = 108;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-release
+                              optional uint64 msg_sent_v6relay_request = 109;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-request
+                              optional uint64 msg_sent_v6relay_confirm = 110;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-confirm
+                              optional uint64 msg_sent_v6relay_renew = 111;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-renew
+                              optional uint64 msg_sent_v6relay_rebind = 112;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-rebind
+                              optional uint64 msg_sent_v6relay_relay_forw = 113;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-relay-forw
+                              optional uint64 msg_sent_v6relay_leasequery_repl = 114;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-leasequery-repl
+                              optional uint64 msg_sent_v6relay_leasequery_data = 115;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-leasequery-data
+                              optional uint64 msg_sent_v6relay_leasequery_done = 116;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/msg-sent-v6relay-leasequery-done
+                              optional uint64 v6relay_fwd_total = 117;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/v6relay-fwd-total
+                              optional uint64 v6relay_fwd_request = 118;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/v6relay-fwd-request
+                              optional uint64 v6relay_fwd_reply = 119;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/statistics/v6relay-fwd-reply
+                           }
+                           optional bindings_type bindings = 152;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings
+                           message bindings_type {
+                              optional uint64 binding_state_v6relay_binding = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-binding
+                              optional uint64 binding_state_v6relay_init = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-init
+                              optional uint64 binding_state_v6relay_bound = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-bound
+                              optional uint64 binding_state_v6relay_selecting = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-selecting
+                              optional uint64 binding_state_v6relay_requesting = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-requesting
+                              optional uint64 binding_state_v6relay_renew = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-renew
+                              optional uint64 binding_state_v6relay_release = 57;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-release
+                              optional uint64 binding_state_relay_restoring = 58;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-relay-restoring
+                              optional uint64 binding_state_v6relay_rebind = 59;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/bindings/binding-state-v6relay-rebind
+                           }
+                           optional servers_type servers = 153;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers
+                           message servers_type {
+                              message server_list {    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server
+                                 optional string server_ipv6 = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/server-ipv6
+                                 optional response_time_type response_time = 151;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time
+                                 message response_time_type {
+                                    optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-minimum-response-time
+                                    optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-average-response-time
+                                    optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-maximum-response-time
+                                    optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-sent
+                                    optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-received
+                                    optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/client-protocols/dhcp/v6/routing-instances/routing-instance/relay/servers/server/response-time/one-minute-messages-no-response
+                                 }
+                              }
+                              repeated server_list server = 151;
+                           }
+                        }
+                     }
+                     repeated routing_instance_list routing_instance = 151;
+                  }
+               }
+            }
+         }
+      }
+   }
+}

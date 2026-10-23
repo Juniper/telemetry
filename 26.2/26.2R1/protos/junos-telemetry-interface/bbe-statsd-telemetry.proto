@@ -1,0 +1,165 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_statistics jnpr_junos_statistics_ext = 81;
+}
+
+message junos_statistics {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional dynamic_interfaces_type dynamic_interfaces = 151;    // /junos/system/subscriber-management/dynamic-interfaces
+         message dynamic_interfaces_type {
+            optional interfaces_type interfaces = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces
+            message interfaces_type {
+               optional uint32 max_polling_interfaces = 51;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/max-polling-interfaces
+               optional uint32 current_polling_interfaces = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/current-polling-interfaces
+               optional meta_data_type meta_data = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data
+               message meta_data_type {
+                  message interface_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface
+                     optional uint64 sid = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/sid
+                     optional uint32 interface_index = 55;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/interface-index
+                     optional string session_type = 56;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/session-type
+                     optional string user_name = 57;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/user-name
+                     optional string profile_name = 58;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/profile-name
+                     optional string interface_name = 59;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/interface-name
+                     optional string interface_set_name = 63;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/interface-set-name
+                     optional string underlying_interface_name = 60;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/underlying-interface-name
+                     optional uint32 cvlan_tag = 61;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/cvlan-tag
+                     optional uint32 svlan_tag = 62;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/meta-data/interface/svlan-tag
+                  }
+                  repeated interface_list interface = 151;
+               }
+               optional queue_statistics_type queue_statistics = 155;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics
+               message queue_statistics_type {
+                  message interface_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface
+                     optional uint64 sid = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/sid
+                     optional bool polling_enabled = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/polling-enabled
+                     optional fpcs_type fpcs = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs
+                     message fpcs_type {
+                        message fpc_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc
+                           optional uint32 slot = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/slot
+                           optional uint32 last_update_time = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/last-update-time
+                           optional queues_type queues = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues
+                           message queues_type {
+                              message queue_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue
+                                 optional uint32 queue_no = 50 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue/queue-no
+                                 optional uint64 transmitted_packets = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue/transmitted-packets
+                                 optional uint64 transmitted_bytes = 53;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue/transmitted-bytes
+                                 optional uint64 dropped_packets = 54;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue/dropped-packets
+                                 optional uint64 dropped_bytes = 55;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/queue-statistics/interface/fpcs/fpc/queues/queue/dropped-bytes
+                              }
+                              repeated queue_list queue = 151;
+                           }
+                        }
+                        repeated fpc_list fpc = 151;
+                     }
+                  }
+                  repeated interface_list interface = 151;
+               }
+               optional subscriber_statistics_type subscriber_statistics = 160;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics
+               message subscriber_statistics_type {
+                  message interface_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface
+                     optional uint64 sid = 50 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/sid
+                     optional uint64 ip_in_packets = 55;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ip-in-packets
+                     optional uint64 ip_out_packets = 56;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ip-out-packets
+                     optional uint64 ip_in_bytes = 57;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ip-in-bytes
+                     optional uint64 ip_out_bytes = 58;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ip-out-bytes
+                     optional uint64 ipv6_in_packets = 59;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ipv6-in-packets
+                     optional uint64 ipv6_out_packets = 60;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ipv6-out-packets
+                     optional uint64 ipv6_in_bytes = 61;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ipv6-in-bytes
+                     optional uint64 ipv6_out_bytes = 62;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/subscriber-statistics/interface/ipv6-out-bytes
+                  }
+                  repeated interface_list interface = 151;
+               }
+               optional services_type services = 180;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services
+               message services_type {
+                  message interface_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface
+                     optional uint64 sid = 50 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/sid
+                     optional service_statistics_type service_statistics = 181;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics
+                     message service_statistics_type {
+                        message service_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service
+                           optional uint64 ssid = 192 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/ssid
+                           optional string service_instance_name = 193;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/service-instance-name
+                           optional families_type families = 194;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families
+                           message families_type {
+                              message family_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family
+                                 optional string families_present = 196 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/families-present
+                                 optional filter_directions_type filter_directions = 197;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/filter-directions
+                                 message filter_directions_type {
+                                    message filter_direction_list {    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/filter-directions/filter-direction
+                                       optional uint32 direction = 199 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/filter-directions/filter-direction/direction
+                                       optional uint64 packets = 59;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/filter-directions/filter-direction/packets
+                                       optional uint64 bytes = 60;    // /junos/system/subscriber-management/dynamic-interfaces/interfaces/services/interface/service-statistics/service/families/family/filter-directions/filter-direction/bytes
+                                    }
+                                    repeated filter_direction_list filter_direction = 198;
+                                 }
+                              }
+                              repeated family_list family = 195;
+                           }
+                        }
+                        repeated service_list service = 191;
+                     }
+                  }
+                  repeated interface_list interface = 190;
+               }
+            }
+            optional interface_sets_type interface_sets = 155;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets
+            message interface_sets_type {
+               optional uint32 max_polling_interfaces = 51;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/max-polling-interfaces
+               optional uint32 current_polling_interfaces = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/current-polling-interfaces
+               optional meta_data_type meta_data = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data
+               message meta_data_type {
+                  message interface_set_list {    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set
+                     optional uint32 container_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/container-id
+                     optional string interface_set_name = 55;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/interface-set-name
+                     optional string interface_set_type = 56;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/interface-set-type
+                     optional string device_name = 57;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/device-name
+                     optional uint32 stag = 58;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/stag
+                     optional uint32 ctag = 59;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/ctag
+                     optional string cos_egress_tcp_name = 60;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/cos-egress-tcp-name
+                     optional string cos_egress_tcp_remainder_name = 61;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/cos-egress-tcp-remainder-name
+                     optional uint32 interface_set_member_count = 62;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/meta-data/interface-set/interface-set-member-count
+                  }
+                  repeated interface_set_list interface_set = 155;
+               }
+               optional queue_statistics_type queue_statistics = 155;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics
+               message queue_statistics_type {
+                  message interface_set_list {    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set
+                     optional uint32 container_id = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/container-id
+                     optional bool polling_enabled = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/polling-enabled
+                     optional fpcs_type fpcs = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs
+                     message fpcs_type {
+                        message fpc_list {    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc
+                           optional uint32 slot = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/slot
+                           optional uint32 last_update_time = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/last-update-time
+                           optional queues_type queues = 151;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues
+                           message queues_type {
+                              message queue_list {    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue
+                                 optional uint32 queue_no = 50 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue/queue-no
+                                 optional uint64 transmitted_packets = 52;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue/transmitted-packets
+                                 optional uint64 transmitted_bytes = 53;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue/transmitted-bytes
+                                 optional uint64 dropped_packets = 54;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue/dropped-packets
+                                 optional uint64 dropped_bytes = 55;    // /junos/system/subscriber-management/dynamic-interfaces/interface-sets/queue-statistics/interface-set/fpcs/fpc/queues/queue/dropped-bytes
+                              }
+                              repeated queue_list queue = 151;
+                           }
+                        }
+                        repeated fpc_list fpc = 151;
+                     }
+                  }
+                  repeated interface_set_list interface_set = 151;
+               }
+            }
+         }
+      }
+   }
+}

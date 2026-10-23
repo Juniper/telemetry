@@ -1,0 +1,58 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-segment-routing-te-policy - This module contains a collection of top level nodes for JUNOS
+segment-routing te-policies state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_pfe_srv6_col_per_path_ingress_326 jnpr_state_pfe_srv6_col_per_path_ingress_326_ext = 326;
+}
+
+message state_pfe_srv6_col_per_path_ingress_326 {    // /state
+   optional routing_instances_type routing_instances = 151;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 151;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional source_packet_routing_type source_packet_routing = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing
+            message source_packet_routing_type {
+               optional te_policies_type te_policies = 112;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies
+               message te_policies_type {
+                  message te_policy_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy
+                     optional uint32 color = 116 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/color
+                     optional string endpoint = 115 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/endpoint
+                     optional candidate_paths_type candidate_paths = 125;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths
+                     message candidate_paths_type {
+                        message candidate_path_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path
+                           optional string protocol_origin = 110 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/protocol-origin
+                           optional uint32 originator_asn = 111 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/originator-asn
+                           optional string originator_address = 112 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/originator-address
+                           optional uint32 discriminator = 113 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/discriminator
+                           optional segment_lists_type segment_lists = 125;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists
+                           message segment_lists_type {
+                              message segment_list_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list
+                                 optional uint32 id = 114 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/id
+                                 optional counters_type counters = 125;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/counters
+                                 message counters_type {
+                                    optional uint64 in_pkts = 106;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/counters/in-pkts
+                                    optional uint64 in_bytes = 107;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/te-policies/te-policy/candidate-paths/candidate-path/segment-lists/segment-list/counters/in-bytes
+                                 }
+                              }
+                              repeated segment_list_list segment_list = 125;
+                           }
+                        }
+                        repeated candidate_path_list candidate_path = 125;
+                     }
+                  }
+                  repeated te_policy_list te_policy = 112;
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 151;
+   }
+}

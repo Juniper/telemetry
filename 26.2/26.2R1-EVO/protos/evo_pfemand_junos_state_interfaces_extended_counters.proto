@@ -1,0 +1,51 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_350 jnpr_state_350_ext = 350;
+}
+
+message state_350 {    // /state
+   optional interfaces_type interfaces = 2;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 12 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         optional units_type units = 4;    // /state/interfaces/interface/units
+         message units_type {
+            message unit_list {    // /state/interfaces/interface/units/unit
+               optional uint32 name = 14 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/name
+               optional extended_counters_type extended_counters = 6;    // /state/interfaces/interface/units/unit/extended-counters
+               message extended_counters_type {
+                  optional uint64 in_bytes = 62;    // /state/interfaces/interface/units/unit/extended-counters/in-bytes
+                  optional uint64 in_pkts = 63;    // /state/interfaces/interface/units/unit/extended-counters/in-pkts
+                  optional uint64 out_bytes = 64;    // /state/interfaces/interface/units/unit/extended-counters/out-bytes
+                  optional uint64 out_pkts = 65;    // /state/interfaces/interface/units/unit/extended-counters/out-pkts
+                  optional queues_type queues = 7;    // /state/interfaces/interface/units/unit/extended-counters/queues
+                  message queues_type {
+                     message queue_list {    // /state/interfaces/interface/units/unit/extended-counters/queues/queue
+                        optional uint64 id = 8 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/extended-counters/queues/queue/id
+                        optional uint64 bytes = 52;    // /state/interfaces/interface/units/unit/extended-counters/queues/queue/bytes
+                        optional uint64 pkts = 53;    // /state/interfaces/interface/units/unit/extended-counters/queues/queue/pkts
+                        optional uint64 drop_pkts = 54;    // /state/interfaces/interface/units/unit/extended-counters/queues/queue/drop-pkts
+                     }
+                     repeated queue_list queue = 8;
+                  }
+                  optional hierarchical_policers_type hierarchical_policers = 9;    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers
+                  message hierarchical_policers_type {
+                     message hierarchical_policer_list {    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers/hierarchical-policer
+                        optional uint64 level = 10 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers/hierarchical-policer/level
+                        optional uint64 bytes = 52;    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers/hierarchical-policer/bytes
+                        optional uint64 pkts = 53;    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers/hierarchical-policer/pkts
+                        optional uint64 drop_pkts = 54;    // /state/interfaces/interface/units/unit/extended-counters/hierarchical-policers/hierarchical-policer/drop-pkts
+                     }
+                     repeated hierarchical_policer_list hierarchical_policer = 11;
+                  }
+               }
+            }
+            repeated unit_list unit = 5;
+         }
+      }
+      repeated interface_list interface = 3;
+   }
+}

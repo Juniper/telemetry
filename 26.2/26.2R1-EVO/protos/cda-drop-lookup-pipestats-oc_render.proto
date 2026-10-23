@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_cda_ps_lookup_drop_218 jnpr_components_cda_ps_lookup_drop_218_ext = 218;
+}
+
+message components_cda_ps_lookup_drop_218 {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      optional integrated_circuit_type integrated_circuit = 151;    // /components/component/integrated-circuit
+      message integrated_circuit_type {
+         optional pipeline_counters_type pipeline_counters = 151;    // /components/component/integrated-circuit/pipeline-counters
+         message pipeline_counters_type {
+            optional drop_type drop = 151;    // /components/component/integrated-circuit/pipeline-counters/drop
+            message drop_type {
+               optional lookup_block_type lookup_block = 151;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block
+               message lookup_block_type {
+                  message state_list {    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state
+                     optional uint64 no_route = 51;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/no-route
+                     optional uint64 no_label = 52;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/no-label
+                     optional uint64 no_nexthop = 53;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/no-nexthop
+                     optional uint64 invalid_packet = 54;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/invalid-packet
+                     optional uint64 forwarding_policy = 55;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/forwarding-policy
+                     optional uint64 incorrect_software_state = 56;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/incorrect-software-state
+                     optional uint64 rate_limit = 57;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/rate-limit
+                     optional uint64 fragment_total_drops = 58;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/fragment-total-drops
+                     optional uint64 lookup_aggregate = 59;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/lookup-aggregate
+                     optional uint64 acl_drops = 60;    // /components/component/integrated-circuit/pipeline-counters/drop/lookup-block/state/acl-drops
+                  }
+                  repeated state_list state = 151;
+               }
+            }
+         }
+      }
+   }
+   repeated component_list component = 151;
+}

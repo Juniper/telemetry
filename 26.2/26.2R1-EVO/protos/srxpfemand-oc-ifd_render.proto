@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional interfaces_srx_ifd_359 jnpr_interfaces_srx_ifd_359_ext = 359;
+}
+
+message interfaces_srx_ifd_359 {    // /interfaces
+   message interface_list {    // /interfaces/interface
+      optional string name = 51 [(telemetry_options).is_key = true];    // /interfaces/interface/name
+      optional uint64 init_time = 52;    // /interfaces/interface/init-time
+      optional state_type state = 151;    // /interfaces/interface/state
+      message state_type {
+         optional string parent_ae_name = 51;    // /interfaces/interface/state/parent-ae-name
+         optional string oper_status = 52;    // /interfaces/interface/state/oper-status
+         optional uint32 high_speed = 53;    // /interfaces/interface/state/high-speed
+         optional counters_type counters = 151;    // /interfaces/interface/state/counters
+         message counters_type {
+            optional uint64 in_pkts = 51;    // /interfaces/interface/state/counters/in-pkts
+            optional uint64 in_octets = 52;    // /interfaces/interface/state/counters/in-octets
+            optional uint64 in_unicast_pkts = 53;    // /interfaces/interface/state/counters/in-unicast-pkts
+            optional uint64 in_multicast_pkts = 54;    // /interfaces/interface/state/counters/in-multicast-pkts
+            optional uint64 in_broadcast_pkts = 55;    // /interfaces/interface/state/counters/in-broadcast-pkts
+            optional uint64 out_pkts = 57;    // /interfaces/interface/state/counters/out-pkts
+            optional uint64 out_octets = 58;    // /interfaces/interface/state/counters/out-octets
+            optional uint64 out_unicast_pkts = 59;    // /interfaces/interface/state/counters/out-unicast-pkts
+            optional uint64 out_multicast_pkts = 60;    // /interfaces/interface/state/counters/out-multicast-pkts
+            optional uint64 out_broadcast_pkts = 61;    // /interfaces/interface/state/counters/out-broadcast-pkts
+            optional uint64 in_errors = 63;    // /interfaces/interface/state/counters/in-errors
+            optional uint64 in_discards = 64;    // /interfaces/interface/state/counters/in-discards
+            optional uint64 out_errors = 66;    // /interfaces/interface/state/counters/out-errors
+            optional uint64 out_discards = 67;    // /interfaces/interface/state/counters/out-discards
+         }
+      }
+   }
+   repeated interface_list interface = 151;
+}

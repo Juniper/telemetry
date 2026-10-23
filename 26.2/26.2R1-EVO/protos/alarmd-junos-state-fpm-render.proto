@@ -1,0 +1,51 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-chassis - This module contains a collection of top level nodes for JUNOS
+chassis state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_alarmd_native_fpm_309 jnpr_state_alarmd_native_fpm_309_ext = 309;
+}
+
+message state_alarmd_native_fpm_309 {    // /state
+   optional chassis_type chassis = 151;    // /state/chassis
+   message chassis_type {
+      optional modules_type modules = 151;    // /state/chassis/modules
+      message modules_type {
+         message module_list {    // /state/chassis/modules/module
+            optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/name
+            optional fpm_type fpm = 163;    // /state/chassis/modules/module/fpm
+            message fpm_type {
+               optional fru_leds_type fru_leds = 151;    // /state/chassis/modules/module/fpm/fru-leds
+               message fru_leds_type {
+                  message fru_led_list {    // /state/chassis/modules/module/fpm/fru-leds/fru-led
+                     optional string fru_name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/fpm/fru-leds/fru-led/fru-name
+                     optional leds_type leds = 151;    // /state/chassis/modules/module/fpm/fru-leds/fru-led/leds
+                     message leds_type {
+                        message led_list {    // /state/chassis/modules/module/fpm/fru-leds/fru-led/leds/led
+                           optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/fpm/fru-leds/fru-led/leds/led/name
+                           optional bool value = 52;    // /state/chassis/modules/module/fpm/fru-leds/fru-led/leds/led/value
+                        }
+                        repeated led_list led = 151;
+                     }
+                  }
+                  repeated fru_led_list fru_led = 151;
+               }
+               optional alarm_leds_type alarm_leds = 152;    // /state/chassis/modules/module/fpm/alarm-leds
+               message alarm_leds_type {
+                  message led_list {    // /state/chassis/modules/module/fpm/alarm-leds/led
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /state/chassis/modules/module/fpm/alarm-leds/led/name
+                     optional bool value = 52;    // /state/chassis/modules/module/fpm/alarm-leds/led/value
+                  }
+                  repeated led_list led = 151;
+               }
+            }
+         }
+         repeated module_list module = 152;
+      }
+   }
+}

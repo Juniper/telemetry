@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_ppp_277 jnpr_junos_ppp_277_ext = 277;
+}
+
+message junos_ppp_277 {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional cups_type cups = 151;    // /junos/system/subscriber-management/cups
+         message cups_type {
+            optional cp_instances_type cp_instances = 151;    // /junos/system/subscriber-management/cups/cp-instances
+            message cp_instances_type {
+               message cp_instance_list {    // /junos/system/subscriber-management/cups/cp-instances/cp-instance
+                  optional string cp_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/cp-name
+                  optional ppp_type ppp = 151;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp
+                  message ppp_type {
+                     optional statistics_type statistics = 151;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics
+                     message statistics_type {
+                        optional uint32 ppp_stats_total_subscriber_sessions = 51;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics/ppp-stats-total-subscriber-sessions
+                        optional uint32 ppp_stats_sessions_disable_phase = 52;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics/ppp-stats-sessions-disable-phase
+                        optional uint32 ppp_stats_sessions_establish_phase = 53;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics/ppp-stats-sessions-establish-phase
+                        optional uint32 ppp_stats_sessions_network_phase = 54;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics/ppp-stats-sessions-network-phase
+                        optional uint32 ppp_stats_sessions_authenticate_phase = 55;    // /junos/system/subscriber-management/cups/cp-instances/cp-instance/ppp/statistics/ppp-stats-sessions-authenticate-phase
+                     }
+                  }
+               }
+               repeated cp_instance_list cp_instance = 151;
+            }
+         }
+      }
+   }
+}

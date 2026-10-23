@@ -1,0 +1,1053 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-interfaces - This module contains a collection of top level nodes for JUNOS
+interfaces state data
+junos-state-interfaces-queue - This module contains a collection of queue statistics data for
+JUNOS Interface state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_state_interfaces_queue_stats_346 jnpr_state_state_interfaces_queue_stats_346_ext = 346;
+}
+
+message state_state_interfaces_queue_stats_346 {    // /state
+   optional interfaces_type interfaces = 151;    // /state/interfaces
+   message interfaces_type {
+      message interface_list {    // /state/interfaces/interface
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/name
+         optional interface_sets_type interface_sets = 153;    // /state/interfaces/interface/interface-sets
+         message interface_sets_type {
+            message interface_set_list {    // /state/interfaces/interface/interface-sets/interface-set
+               optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/name
+               repeated uint32 unit = 52;    // /state/interfaces/interface/interface-sets/interface-set/unit
+               optional queues_type queues = 151;    // /state/interfaces/interface/interface-sets/interface-set/queues
+               message queues_type {
+                  optional in_queues_type in_queues = 151;    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues
+                  message in_queues_type {
+                     message in_queue_list {    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/in-queues/in-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated in_queue_list in_queue = 151;
+                  }
+                  optional out_queues_type out_queues = 152;    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues
+                  message out_queues_type {
+                     message out_queue_list {    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/out-queues/out-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated out_queue_list out_queue = 151;
+                  }
+                  optional virtual_output_queues_type virtual_output_queues = 153;    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues
+                  message virtual_output_queues_type {
+                     message virtual_output_queue_list {    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue
+                        optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/name
+                        message out_queue_list {    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue
+                           optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/type
+                           optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/id
+                           optional counters_type counters = 151;    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters
+                           message counters_type {
+                              optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-pkts
+                              optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-bytes
+                              optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-pkts
+                              optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-bytes
+                              optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-pkts
+                              optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-bytes
+                              optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-pkts
+                              optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-bytes
+                              optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-pkts
+                              optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-bytes
+                              optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts
+                              optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes
+                              optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-non-tcp
+                              optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-non-tcp
+                              optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-tcp
+                              optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-tcp
+                              optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-non-tcp
+                              optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-non-tcp
+                              optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-tcp
+                              optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-tcp
+                              optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low
+                              optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low
+                              optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-low
+                              optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-low
+                              optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-high
+                              optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-high
+                              optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium
+                              optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium
+                              optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high
+                              optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high
+                              optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-pkts
+                              optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-bytes
+                              optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-pkts
+                              optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-bytes
+                              optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-pkts
+                              optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-bytes
+                           }
+                           optional rates_type rates = 152;    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates
+                           message rates_type {
+                              optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-pkts-rate
+                              optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-bytes-rate
+                              optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-pkts-rate
+                              optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-bytes-rate
+                              optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-pkts-rate
+                              optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-bytes-rate
+                              optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-pkts-rate
+                              optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-bytes-rate
+                              optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-pkts-rate
+                              optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-bytes-rate
+                              optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate
+                              optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate
+                              optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                              optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                              optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-tcp
+                              optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-tcp
+                              optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                              optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                              optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-tcp
+                              optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-tcp
+                              optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low
+                              optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low
+                              optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-low
+                              optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-low
+                              optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-high
+                              optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-high
+                              optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium
+                              optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium
+                              optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high
+                              optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high
+                              optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-pkts-rate
+                              optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-bytes-rate
+                           }
+                           optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths
+                           message queue_depths_type {
+                              optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/average-queue-depth
+                              optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/current-queue-depth
+                              optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/peak-queue-depth
+                              optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/interface-sets/interface-set/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/max-queue-depth
+                           }
+                        }
+                        repeated out_queue_list out_queue = 151;
+                     }
+                     repeated virtual_output_queue_list virtual_output_queue = 151;
+                  }
+               }
+            }
+            repeated interface_set_list interface_set = 151;
+         }
+         optional units_type units = 152;    // /state/interfaces/interface/units
+         message units_type {
+            message unit_list {    // /state/interfaces/interface/units/unit
+               optional uint32 name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/name
+               optional uint32 index = 52;    // /state/interfaces/interface/units/unit/index
+               optional queues_type queues = 151;    // /state/interfaces/interface/units/unit/queues
+               message queues_type {
+                  optional in_queues_type in_queues = 151;    // /state/interfaces/interface/units/unit/queues/in-queues
+                  message in_queues_type {
+                     message in_queue_list {    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/in-queues/in-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated in_queue_list in_queue = 151;
+                  }
+                  optional out_queues_type out_queues = 152;    // /state/interfaces/interface/units/unit/queues/out-queues
+                  message out_queues_type {
+                     message out_queue_list {    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/out-queues/out-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated out_queue_list out_queue = 151;
+                  }
+                  optional virtual_output_queues_type virtual_output_queues = 153;    // /state/interfaces/interface/units/unit/queues/virtual-output-queues
+                  message virtual_output_queues_type {
+                     message virtual_output_queue_list {    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue
+                        optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/name
+                        message out_queue_list {    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue
+                           optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/type
+                           optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/id
+                           optional counters_type counters = 151;    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters
+                           message counters_type {
+                              optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-pkts
+                              optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-bytes
+                              optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-pkts
+                              optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-bytes
+                              optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-pkts
+                              optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-bytes
+                              optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-pkts
+                              optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-bytes
+                              optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-pkts
+                              optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-bytes
+                              optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts
+                              optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes
+                              optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-non-tcp
+                              optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-non-tcp
+                              optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-tcp
+                              optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-tcp
+                              optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-non-tcp
+                              optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-non-tcp
+                              optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-tcp
+                              optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-tcp
+                              optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low
+                              optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low
+                              optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-low
+                              optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-low
+                              optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-high
+                              optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-high
+                              optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium
+                              optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium
+                              optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high
+                              optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high
+                              optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-pkts
+                              optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-bytes
+                              optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-pkts
+                              optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-bytes
+                              optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-pkts
+                              optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-bytes
+                           }
+                           optional rates_type rates = 152;    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates
+                           message rates_type {
+                              optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-pkts-rate
+                              optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-bytes-rate
+                              optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-pkts-rate
+                              optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-bytes-rate
+                              optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-pkts-rate
+                              optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-bytes-rate
+                              optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-pkts-rate
+                              optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-bytes-rate
+                              optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-pkts-rate
+                              optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-bytes-rate
+                              optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate
+                              optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate
+                              optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                              optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                              optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-tcp
+                              optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-tcp
+                              optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                              optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                              optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-tcp
+                              optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-tcp
+                              optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low
+                              optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low
+                              optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-low
+                              optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-low
+                              optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-high
+                              optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-high
+                              optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium
+                              optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium
+                              optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high
+                              optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high
+                              optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-pkts-rate
+                              optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-bytes-rate
+                           }
+                           optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths
+                           message queue_depths_type {
+                              optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/average-queue-depth
+                              optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/current-queue-depth
+                              optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/peak-queue-depth
+                              optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/units/unit/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/max-queue-depth
+                           }
+                        }
+                        repeated out_queue_list out_queue = 151;
+                     }
+                     repeated virtual_output_queue_list virtual_output_queue = 151;
+                  }
+               }
+            }
+            repeated unit_list unit = 151;
+         }
+         optional string member_interface_id = 61 [(telemetry_options).is_instance = true];    // /state/interfaces/interface/member_interface_id
+         optional queues_type queues = 151;    // /state/interfaces/interface/queues
+         message queues_type {
+            optional in_queues_type in_queues = 151;    // /state/interfaces/interface/queues/in-queues
+            message in_queues_type {
+               message in_queue_list {    // /state/interfaces/interface/queues/in-queues/in-queue
+                  optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/in-queues/in-queue/type
+                  optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/in-queues/in-queue/id
+                  optional counters_type counters = 151;    // /state/interfaces/interface/queues/in-queues/in-queue/counters
+                  message counters_type {
+                     optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/queued-pkts
+                     optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/queued-bytes
+                     optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/transmit-pkts
+                     optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/transmit-bytes
+                     optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/tail-drop-pkts
+                     optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/tail-drop-bytes
+                     optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/ecn-ce-marked-pkts
+                     optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/ecn-ce-marked-bytes
+                     optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/rate-limit-pkts
+                     optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/rate-limit-bytes
+                     optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts
+                     optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes
+                     optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-low-non-tcp
+                     optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-low-non-tcp
+                     optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-low-tcp
+                     optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-low-tcp
+                     optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-high-non-tcp
+                     optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-high-non-tcp
+                     optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-high-tcp
+                     optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-high-tcp
+                     optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-low
+                     optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-low
+                     optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-medium-low
+                     optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-medium-low
+                     optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-medium-high
+                     optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-medium-high
+                     optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-medium
+                     optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-medium
+                     optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-pkts-high
+                     optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/red-drop-bytes-high
+                     optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/total-drop-pkts
+                     optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/total-drop-bytes
+                     optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/reserved-buffer-pkts
+                     optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/reserved-buffer-bytes
+                     optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/shared-buffer-pkts
+                     optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/counters/shared-buffer-bytes
+                  }
+                  optional rates_type rates = 152;    // /state/interfaces/interface/queues/in-queues/in-queue/rates
+                  message rates_type {
+                     optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/queued-pkts-rate
+                     optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/queued-bytes-rate
+                     optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/transmit-pkts-rate
+                     optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/transmit-bytes-rate
+                     optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/tail-drop-pkts-rate
+                     optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/tail-drop-bytes-rate
+                     optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/ecn-ce-pkts-rate
+                     optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/ecn-ce-bytes-rate
+                     optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/rate-limit-pkts-rate
+                     optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/rate-limit-bytes-rate
+                     optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate
+                     optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate
+                     optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-non-tcp
+                     optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-non-tcp
+                     optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-tcp
+                     optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-tcp
+                     optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-non-tcp
+                     optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-non-tcp
+                     optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-tcp
+                     optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-tcp
+                     optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low
+                     optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low
+                     optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-low
+                     optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-low
+                     optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-high
+                     optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-high
+                     optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium
+                     optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium
+                     optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high
+                     optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high
+                     optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/total-drop-pkts-rate
+                     optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/in-queues/in-queue/rates/total-drop-bytes-rate
+                  }
+                  optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/queues/in-queues/in-queue/queue-depths
+                  message queue_depths_type {
+                     optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/in-queues/in-queue/queue-depths/average-queue-depth
+                     optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/in-queues/in-queue/queue-depths/current-queue-depth
+                     optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/in-queues/in-queue/queue-depths/peak-queue-depth
+                     optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/in-queues/in-queue/queue-depths/max-queue-depth
+                  }
+               }
+               repeated in_queue_list in_queue = 151;
+            }
+            optional out_queues_type out_queues = 152;    // /state/interfaces/interface/queues/out-queues
+            message out_queues_type {
+               message out_queue_list {    // /state/interfaces/interface/queues/out-queues/out-queue
+                  optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/out-queues/out-queue/type
+                  optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/out-queues/out-queue/id
+                  optional uint64 maximum_residency_time = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/maximum-residency-time
+                  optional uint64 average_residency_time = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/average-residency-time
+                  optional counters_type counters = 151;    // /state/interfaces/interface/queues/out-queues/out-queue/counters
+                  message counters_type {
+                     optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/queued-pkts
+                     optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/queued-bytes
+                     optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/transmit-pkts
+                     optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/transmit-bytes
+                     optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/tail-drop-pkts
+                     optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/tail-drop-bytes
+                     optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/ecn-ce-marked-pkts
+                     optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/ecn-ce-marked-bytes
+                     optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/rate-limit-pkts
+                     optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/rate-limit-bytes
+                     optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts
+                     optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes
+                     optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-low-non-tcp
+                     optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-low-non-tcp
+                     optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-low-tcp
+                     optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-low-tcp
+                     optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-high-non-tcp
+                     optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-high-non-tcp
+                     optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-high-tcp
+                     optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-high-tcp
+                     optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-low
+                     optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-low
+                     optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-medium-low
+                     optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-medium-low
+                     optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-medium-high
+                     optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-medium-high
+                     optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-medium
+                     optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-medium
+                     optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-pkts-high
+                     optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/red-drop-bytes-high
+                     optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/total-drop-pkts
+                     optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/total-drop-bytes
+                     optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/reserved-buffer-pkts
+                     optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/reserved-buffer-bytes
+                     optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/shared-buffer-pkts
+                     optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/counters/shared-buffer-bytes
+                  }
+                  optional rates_type rates = 152;    // /state/interfaces/interface/queues/out-queues/out-queue/rates
+                  message rates_type {
+                     optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/queued-pkts-rate
+                     optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/queued-bytes-rate
+                     optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/transmit-pkts-rate
+                     optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/transmit-bytes-rate
+                     optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/tail-drop-pkts-rate
+                     optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/tail-drop-bytes-rate
+                     optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/ecn-ce-pkts-rate
+                     optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/ecn-ce-bytes-rate
+                     optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/rate-limit-pkts-rate
+                     optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/rate-limit-bytes-rate
+                     optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate
+                     optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate
+                     optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                     optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                     optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-tcp
+                     optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-tcp
+                     optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                     optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                     optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-tcp
+                     optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-tcp
+                     optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low
+                     optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low
+                     optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-low
+                     optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-low
+                     optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-high
+                     optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-high
+                     optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium
+                     optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium
+                     optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high
+                     optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high
+                     optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/total-drop-pkts-rate
+                     optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/out-queues/out-queue/rates/total-drop-bytes-rate
+                  }
+                  optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/queues/out-queues/out-queue/queue-depths
+                  message queue_depths_type {
+                     optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/queue-depths/average-queue-depth
+                     optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/queue-depths/current-queue-depth
+                     optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/queue-depths/peak-queue-depth
+                     optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/out-queues/out-queue/queue-depths/max-queue-depth
+                  }
+               }
+               repeated out_queue_list out_queue = 151;
+            }
+            optional virtual_output_queues_type virtual_output_queues = 153;    // /state/interfaces/interface/queues/virtual-output-queues
+            message virtual_output_queues_type {
+               message virtual_output_queue_list {    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue
+                  optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/name
+                  message out_queue_list {    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue
+                     optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/type
+                     optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/id
+                     optional counters_type counters = 151;    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters
+                     message counters_type {
+                        optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-pkts
+                        optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/queued-bytes
+                        optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-pkts
+                        optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/transmit-bytes
+                        optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-pkts
+                        optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/tail-drop-bytes
+                        optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-pkts
+                        optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/ecn-ce-marked-bytes
+                        optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-pkts
+                        optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/rate-limit-bytes
+                        optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts
+                        optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes
+                        optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-non-tcp
+                        optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-non-tcp
+                        optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low-tcp
+                        optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low-tcp
+                        optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-non-tcp
+                        optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-non-tcp
+                        optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high-tcp
+                        optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high-tcp
+                        optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-low
+                        optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-low
+                        optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-low
+                        optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-low
+                        optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium-high
+                        optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium-high
+                        optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-medium
+                        optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-medium
+                        optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-pkts-high
+                        optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/red-drop-bytes-high
+                        optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-pkts
+                        optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/total-drop-bytes
+                        optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-pkts
+                        optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/reserved-buffer-bytes
+                        optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-pkts
+                        optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/counters/shared-buffer-bytes
+                     }
+                     optional rates_type rates = 152;    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates
+                     message rates_type {
+                        optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-pkts-rate
+                        optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/queued-bytes-rate
+                        optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-pkts-rate
+                        optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/transmit-bytes-rate
+                        optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-pkts-rate
+                        optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/tail-drop-bytes-rate
+                        optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-pkts-rate
+                        optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/ecn-ce-bytes-rate
+                        optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-pkts-rate
+                        optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/rate-limit-bytes-rate
+                        optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate
+                        optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate
+                        optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                        optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                        optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low-tcp
+                        optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low-tcp
+                        optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                        optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                        optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high-tcp
+                        optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high-tcp
+                        optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-low
+                        optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-low
+                        optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-low
+                        optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-low
+                        optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium-high
+                        optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium-high
+                        optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-medium
+                        optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-medium
+                        optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-pkts-rate-high
+                        optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/red-drop-bytes-rate-high
+                        optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-pkts-rate
+                        optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/rates/total-drop-bytes-rate
+                     }
+                     optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths
+                     message queue_depths_type {
+                        optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/average-queue-depth
+                        optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/current-queue-depth
+                        optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/peak-queue-depth
+                        optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/queues/virtual-output-queues/virtual-output-queue/out-queue/queue-depths/max-queue-depth
+                     }
+                  }
+                  repeated out_queue_list out_queue = 151;
+               }
+               repeated virtual_output_queue_list virtual_output_queue = 151;
+            }
+         }
+         optional slices_type slices = 154;    // /state/interfaces/interface/slices
+         message slices_type {
+            message slice_list {    // /state/interfaces/interface/slices/slice
+               optional string name = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/slices/slice/name
+               optional queues_type queues = 151;    // /state/interfaces/interface/slices/slice/queues
+               message queues_type {
+                  optional in_queues_type in_queues = 151;    // /state/interfaces/interface/slices/slice/queues/in-queues
+                  message in_queues_type {
+                     message in_queue_list {    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/in-queues/in-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated in_queue_list in_queue = 151;
+                  }
+                  optional out_queues_type out_queues = 152;    // /state/interfaces/interface/slices/slice/queues/out-queues
+                  message out_queues_type {
+                     message out_queue_list {    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue
+                        optional string type = 51 [(telemetry_options).is_key = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/type
+                        optional uint32 id = 52 [(telemetry_options).is_key = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/id
+                        optional counters_type counters = 151;    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters
+                        message counters_type {
+                           optional uint64 queued_pkts = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/queued-pkts
+                           optional uint64 queued_bytes = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/queued-bytes
+                           optional uint64 transmit_pkts = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/transmit-pkts
+                           optional uint64 transmit_bytes = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/transmit-bytes
+                           optional uint64 tail_drop_pkts = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/tail-drop-pkts
+                           optional uint64 tail_drop_bytes = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/tail-drop-bytes
+                           optional uint64 ecn_ce_marked_pkts = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/ecn-ce-marked-pkts
+                           optional uint64 ecn_ce_marked_bytes = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/ecn-ce-marked-bytes
+                           optional uint64 rate_limit_pkts = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/rate-limit-pkts
+                           optional uint64 rate_limit_bytes = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/rate-limit-bytes
+                           optional uint64 red_drop_pkts = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts
+                           optional uint64 red_drop_bytes = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes
+                           optional uint64 red_drop_pkts_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-low-non-tcp
+                           optional uint64 red_drop_bytes_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-low-non-tcp
+                           optional uint64 red_drop_pkts_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-low-tcp
+                           optional uint64 red_drop_bytes_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-low-tcp
+                           optional uint64 red_drop_pkts_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-high-non-tcp
+                           optional uint64 red_drop_bytes_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-high-non-tcp
+                           optional uint64 red_drop_pkts_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-high-tcp
+                           optional uint64 red_drop_bytes_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-high-tcp
+                           optional uint64 red_drop_pkts_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-low
+                           optional uint64 red_drop_bytes_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-low
+                           optional uint64 red_drop_pkts_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-medium-low
+                           optional uint64 red_drop_bytes_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-medium-low
+                           optional uint64 red_drop_pkts_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-medium-high
+                           optional uint64 red_drop_bytes_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-medium-high
+                           optional uint64 red_drop_pkts_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-medium
+                           optional uint64 red_drop_bytes_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-medium
+                           optional uint64 red_drop_pkts_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-pkts-high
+                           optional uint64 red_drop_bytes_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/red-drop-bytes-high
+                           optional uint64 total_drop_pkts = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/total-drop-pkts
+                           optional uint64 total_drop_bytes = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/total-drop-bytes
+                           optional uint64 reserved_buffer_pkts = 83 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/reserved-buffer-pkts
+                           optional uint64 reserved_buffer_bytes = 84 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/reserved-buffer-bytes
+                           optional uint64 shared_buffer_pkts = 85 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/shared-buffer-pkts
+                           optional uint64 shared_buffer_bytes = 86 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/counters/shared-buffer-bytes
+                        }
+                        optional rates_type rates = 152;    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates
+                        message rates_type {
+                           optional uint64 queued_pkts_rate = 51 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/queued-pkts-rate
+                           optional uint64 queued_bytes_rate = 52 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/queued-bytes-rate
+                           optional uint64 transmit_pkts_rate = 53 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/transmit-pkts-rate
+                           optional uint64 transmit_bytes_rate = 54 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/transmit-bytes-rate
+                           optional uint64 tail_drop_pkts_rate = 55 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/tail-drop-pkts-rate
+                           optional uint64 tail_drop_bytes_rate = 56 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/tail-drop-bytes-rate
+                           optional uint64 ecn_ce_pkts_rate = 57 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/ecn-ce-pkts-rate
+                           optional uint64 ecn_ce_bytes_rate = 58 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/ecn-ce-bytes-rate
+                           optional uint64 rate_limit_pkts_rate = 59 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/rate-limit-pkts-rate
+                           optional uint64 rate_limit_bytes_rate = 60 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/rate-limit-bytes-rate
+                           optional uint64 red_drop_pkts_rate = 61 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate
+                           optional uint64 red_drop_bytes_rate = 62 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate
+                           optional uint64 red_drop_pkts_rate_low_non_tcp = 63 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-non-tcp
+                           optional uint64 red_drop_bytes_rate_low_non_tcp = 64 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-non-tcp
+                           optional uint64 red_drop_pkts_rate_low_tcp = 65 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low-tcp
+                           optional uint64 red_drop_bytes_rate_low_tcp = 66 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low-tcp
+                           optional uint64 red_drop_pkts_rate_high_non_tcp = 67 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-non-tcp
+                           optional uint64 red_drop_bytes_rate_high_non_tcp = 68 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-non-tcp
+                           optional uint64 red_drop_pkts_rate_high_tcp = 69 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high-tcp
+                           optional uint64 red_drop_bytes_rate_high_tcp = 70 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high-tcp
+                           optional uint64 red_drop_pkts_rate_low = 71 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-low
+                           optional uint64 red_drop_bytes_rate_low = 72 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-low
+                           optional uint64 red_drop_pkts_rate_medium_low = 73 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-low
+                           optional uint64 red_drop_bytes_rate_medium_low = 74 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-low
+                           optional uint64 red_drop_pkts_rate_medium_high = 75 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium-high
+                           optional uint64 red_drop_bytes_rate_medium_high = 76 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium-high
+                           optional uint64 red_drop_pkts_rate_medium = 77 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-medium
+                           optional uint64 red_drop_bytes_rate_medium = 78 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-medium
+                           optional uint64 red_drop_pkts_rate_high = 79 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-pkts-rate-high
+                           optional uint64 red_drop_bytes_rate_high = 80 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/red-drop-bytes-rate-high
+                           optional uint64 total_drop_pkts_rate = 81 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/total-drop-pkts-rate
+                           optional uint64 total_drop_bytes_rate = 82 [(telemetry_options).is_counter = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/rates/total-drop-bytes-rate
+                        }
+                        optional queue_depths_type queue_depths = 153;    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/queue-depths
+                        message queue_depths_type {
+                           optional uint64 average_queue_depth = 51 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/queue-depths/average-queue-depth
+                           optional uint64 current_queue_depth = 52 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/queue-depths/current-queue-depth
+                           optional uint64 peak_queue_depth = 53 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/queue-depths/peak-queue-depth
+                           optional uint64 max_queue_depth = 54 [(telemetry_options).is_gauge_max = true];    // /state/interfaces/interface/slices/slice/queues/out-queues/out-queue/queue-depths/max-queue-depth
+                        }
+                     }
+                     repeated out_queue_list out_queue = 151;
+                  }
+               }
+            }
+            repeated slice_list slice = 151;
+         }
+      }
+      repeated interface_list interface = 151;
+   }
+}

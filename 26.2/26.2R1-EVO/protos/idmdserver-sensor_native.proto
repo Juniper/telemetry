@@ -1,0 +1,40 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+junos-state-system-infrastructure-evo - This module contains a collection of top level nodes for JUNOS
+Evolved specific infrastructure data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_telemetry_343 jnpr_state_telemetry_343_ext = 343;
+}
+
+message state_telemetry_343 {    // /state
+   optional system_type system = 51;    // /state/system
+   message system_type {
+      optional infrastructure_type infrastructure = 51;    // /state/system/infrastructure
+      message infrastructure_type {
+         optional junos_evolved_type junos_evolved = 51;    // /state/system/infrastructure/junos-evolved
+         message junos_evolved_type {
+            optional indexes_type indexes = 51;    // /state/system/infrastructure/junos-evolved/indexes
+            message indexes_type {
+               message index_list {    // /state/system/infrastructure/junos-evolved/indexes/index
+                  optional string type = 51 [(telemetry_options).is_key = true];    // /state/system/infrastructure/junos-evolved/indexes/index/type
+                  optional uint32 clients = 52;    // /state/system/infrastructure/junos-evolved/indexes/index/clients
+                  optional uint32 chunk_size = 53;    // /state/system/infrastructure/junos-evolved/indexes/index/chunk-size
+                  optional uint32 total = 54;    // /state/system/infrastructure/junos-evolved/indexes/index/total
+                  optional uint32 free = 55;    // /state/system/infrastructure/junos-evolved/indexes/index/free
+                  optional uint32 global = 56;    // /state/system/infrastructure/junos-evolved/indexes/index/global
+                  optional uint32 local = 57;    // /state/system/infrastructure/junos-evolved/indexes/index/local
+                  optional uint32 global_usage = 58;    // /state/system/infrastructure/junos-evolved/indexes/index/global-usage
+               }
+               repeated index_list index = 151;
+            }
+         }
+      }
+   }
+}

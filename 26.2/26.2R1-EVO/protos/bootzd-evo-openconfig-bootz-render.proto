@@ -1,0 +1,25 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-system-bootz - This module adds configuration and operational state relating to bootz
+service running on a network device
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional system_341 jnpr_system_341_ext = 341;
+}
+
+message system_341 {    // /system
+   optional bootz_type bootz = 49;    // /system/bootz
+   message bootz_type {
+      optional state_type state = 51;    // /system/bootz/state
+      message state_type {
+         optional string checksum = 52;    // /system/bootz/state/checksum
+         optional uint64 error_count = 53;    // /system/bootz/state/error-count
+         optional string status = 54;    // /system/bootz/state/status
+         optional uint64 last_boot_attempt = 55;    // /system/bootz/state/last-boot-attempt
+      }
+   }
+}

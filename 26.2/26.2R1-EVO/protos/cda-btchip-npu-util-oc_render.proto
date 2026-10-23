@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional components_btchip jnpr_components_btchip_ext = 137;
+}
+
+message components_btchip {    // /components
+   message component_list {    // /components/component
+      optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/name
+      message properties_list {    // /components/component/properties
+         message property_list {    // /components/component/properties/property
+            optional string name = 51 [(telemetry_options).is_key = true];    // /components/component/properties/property/name
+            message state_list {    // /components/component/properties/property/state
+               optional uint64 value = 51;    // /components/component/properties/property/state/value
+            }
+            repeated state_list state = 151;
+         }
+         repeated property_list property = 151;
+      }
+      repeated properties_list properties = 151;
+   }
+   repeated component_list component = 151;
+}

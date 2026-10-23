@@ -1,0 +1,42 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-programming-errors - This module provides detailed information about the hardware programming
+state of various types of routes within a particular network instance
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional network_instances_318 jnpr_network_instances_318_ext = 318;
+}
+
+message network_instances_318 {    // /network-instances
+   message network_instance_list {    // /network-instances/network-instance
+      optional string name = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/name
+      optional programming_errors_type programming_errors = 151;    // /network-instances/network-instance/programming-errors
+      message programming_errors_type {
+         optional ip_routes_type ip_routes = 151;    // /network-instances/network-instance/programming-errors/ip-routes
+         message ip_routes_type {
+            optional state_type state = 51;    // /network-instances/network-instance/programming-errors/ip-routes/state
+            message state_type {
+               optional uint64 total_errors = 51;    // /network-instances/network-instance/programming-errors/ip-routes/state/total-errors
+            }
+            optional failed_routes_type failed_routes = 52;    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes
+            message failed_routes_type {
+               message failed_list {    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed
+                  optional string prefix = 51 [(telemetry_options).is_key = true];    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed/prefix
+                  optional state_type state = 52;    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed/state
+                  message state_type {
+                     optional string prefix = 53;    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed/state/prefix
+                     optional uint64 time = 54;    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed/state/time
+                     repeated string dest_component = 55;    // /network-instances/network-instance/programming-errors/ip-routes/failed-routes/failed/state/dest-component
+                  }
+               }
+               repeated failed_list failed = 151;
+            }
+         }
+      }
+   }
+   repeated network_instance_list network_instance = 151;
+}

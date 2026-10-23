@@ -1,0 +1,260 @@
+/* 
+This proto is generated from below openconfig models
+junos-extensions - This module provides extensions to the YANG language to allow
+JUNOS specific functionality and metadata to be defined
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional junos_authentication jnpr_junos_authentication_ext = 33;
+}
+
+message junos_authentication {    // /junos
+   optional system_type system = 151;    // /junos/system
+   message system_type {
+      optional subscriber_management_type subscriber_management = 151;    // /junos/system/subscriber-management
+      message subscriber_management_type {
+         optional aaa_type aaa = 151;    // /junos/system/subscriber-management/aaa
+         message aaa_type {
+            optional authentication_statistics_type authentication_statistics = 152;    // /junos/system/subscriber-management/aaa/authentication-statistics
+            message authentication_statistics_type {
+               optional uint64 req_received = 51;    // /junos/system/subscriber-management/aaa/authentication-statistics/req-received
+               optional uint64 req_accepted = 52;    // /junos/system/subscriber-management/aaa/authentication-statistics/req-accepted
+               optional uint64 req_rejected = 53;    // /junos/system/subscriber-management/aaa/authentication-statistics/req-rejected
+               optional uint64 req_challenge = 54;    // /junos/system/subscriber-management/aaa/authentication-statistics/req-challenge
+               optional uint64 req_timeout = 55;    // /junos/system/subscriber-management/aaa/authentication-statistics/req-timeout
+               optional uint64 pre_authen_req_received = 56;    // /junos/system/subscriber-management/aaa/authentication-statistics/pre-authen-req-received
+               optional uint64 pre_authen_req_accepted = 57;    // /junos/system/subscriber-management/aaa/authentication-statistics/pre-authen-req-accepted
+               optional uint64 pre_authen_req_rejected = 58;    // /junos/system/subscriber-management/aaa/authentication-statistics/pre-authen-req-rejected
+               optional uint64 pre_authen_req_challenge = 59;    // /junos/system/subscriber-management/aaa/authentication-statistics/pre-authen-req-challenge
+               optional uint64 pre_authen_req_timeout = 60;    // /junos/system/subscriber-management/aaa/authentication-statistics/pre-authen-req-timeout
+               optional uint64 re_authen_req_received = 61;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req-received
+               optional uint64 re_authen_req_accepted = 62;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req-accepted
+               optional uint64 re_authen_req_rejected = 63;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req-rejected
+               optional uint64 re_authen_req_internal_errors = 64;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req-internal-errors
+               optional uint64 re_authen_req_challenge = 65;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req-challenge
+               optional uint64 re_authen_req_timeout = 66;    // /junos/system/subscriber-management/aaa/authentication-statistics/re-authen-req_timeout
+            }
+            optional accounting_statistics_type accounting_statistics = 153;    // /junos/system/subscriber-management/aaa/accounting-statistics
+            message accounting_statistics_type {
+               optional uint64 acct_req_received = 51;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-req-received
+               optional uint64 acct_req_timeout = 52;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-req-timeout
+               optional uint64 acct_resp_failure = 53;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-failure
+               optional uint64 acct_resp_success = 54;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-success
+               optional uint64 acct_req_start = 55;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-req-start
+               optional uint64 acct_req_interim = 56;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-req-interim
+               optional uint64 acct_req_stop = 57;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-req-stop
+               optional uint64 acct_resp_total = 58;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-total
+               optional uint64 acct_resp_start = 59;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-start
+               optional uint64 acct_resp_interim = 60;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-interim
+               optional uint64 acct_resp_stop = 61;    // /junos/system/subscriber-management/aaa/accounting-statistics/acct-resp-stop
+            }
+            optional dynamic_request_statistics_type dynamic_request_statistics = 154;    // /junos/system/subscriber-management/aaa/dynamic-request-statistics
+            message dynamic_request_statistics_type {
+               optional uint64 dynamic_req_received = 51;    // /junos/system/subscriber-management/aaa/dynamic-request-statistics/dynamic-req-received
+               optional uint64 dynamic_req_success = 52;    // /junos/system/subscriber-management/aaa/dynamic-request-statistics/dynamic-req-success
+               optional uint64 dynamic_req_error = 53;    // /junos/system/subscriber-management/aaa/dynamic-request-statistics/dynamic-req-error
+               optional uint64 dynamic_req_silently_drop = 54;    // /junos/system/subscriber-management/aaa/dynamic-request-statistics/dynamic-req-silently-drop
+            }
+            optional radius_servers_type radius_servers = 155;    // /junos/system/subscriber-management/aaa/radius-servers
+            message radius_servers_type {
+               message radius_server_list {    // /junos/system/subscriber-management/aaa/radius-servers/radius-server
+                  optional string server_address = 52 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/server-address
+                  optional statistics_type statistics = 151;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics
+                  message statistics_type {
+                     optional uint64 server_last_rtt = 51;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/server-last-rtt
+                     optional uint64 auth_access_requests = 52;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-access-requests
+                     optional uint64 auth_rollover_requests = 53;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-rollover-requests
+                     optional uint64 auth_retransmissions = 54;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-retransmissions
+                     optional uint64 auth_access_accepts = 55;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-access-accepts
+                     optional uint64 auth_access_rejects = 56;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-access-rejects
+                     optional uint64 auth_access_challenges = 57;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-access-challenges
+                     optional uint64 auth_malformed_responses = 58;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-malformed-responses
+                     optional uint64 auth_bad_authenticators = 59;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-bad-authenticators
+                     optional uint64 auth_req_pending = 60;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-req-pending
+                     optional uint64 auth_request_timeouts = 61;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-request-timeouts
+                     optional uint64 auth_unknown_responses = 62;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-unknown-responses
+                     optional uint64 auth_packets_dropped = 63;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/auth-packets-dropped
+                     optional uint64 preauth_access_requests = 64;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-access-requests
+                     optional uint64 preauth_rollover_requests = 65;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-rollover-requests
+                     optional uint64 preauth_retransmissions = 66;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-retransmissions
+                     optional uint64 preauth_access_accepts = 67;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-access-accepts
+                     optional uint64 preauth_access_rejects = 68;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-access-rejects
+                     optional uint64 preauth_access_challenges = 69;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-access-challenges
+                     optional uint64 preauth_malformed_responses = 70;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-malformed-responses
+                     optional uint64 preauth_bad_authenticators = 71;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-bad-authenticators
+                     optional uint64 preauth_req_pending = 72;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-req-pending
+                     optional uint64 preauth_request_timeouts = 73;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-request-timeouts
+                     optional uint64 preauth_unknown_responses = 74;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-unknown-responses
+                     optional uint64 preauth_packets_dropped = 75;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/preauth-packets-dropped
+                     optional uint64 acct_start_requests = 76;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-start-requests
+                     optional uint64 acct_interim_requests = 77;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-interim-requests
+                     optional uint64 acct_stop_requests = 78;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-stop-requests
+                     optional uint64 acct_rollover_requests = 79;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-rollover-requests
+                     optional uint64 acct_retransmissions = 80;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-retransmissions
+                     optional uint64 acct_start_responses = 81;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-start-responses
+                     optional uint64 acct_interim_responses = 82;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-interim-responses
+                     optional uint64 acct_stop_responses = 83;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-stop-responses
+                     optional uint64 acct_malformed_responses = 84;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-malformed-responses
+                     optional uint64 acct_bad_authenticators = 85;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-bad-authenticators
+                     optional uint64 acct_req_pending = 86;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-req-pending
+                     optional uint64 acct_request_timeouts = 87;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-request-timeouts
+                     optional uint64 acct_unknown_responses = 88;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-unknown-responses
+                     optional uint64 acct_packets_dropped = 89;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/statistics/acct-packets-dropped
+                  }
+                  optional response_time_type response_time = 152;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time
+                  message response_time_type {
+                     optional uint64 one_minute_minimum_response_time = 51;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-minimum-response-time
+                     optional uint64 one_minute_average_response_time = 52;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-average-response-time
+                     optional uint64 one_minute_maximum_response_time = 53;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-maximum-response-time
+                     optional uint64 one_minute_messages_sent = 54;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-messages-sent
+                     optional uint64 one_minute_messages_received = 55;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-messages-received
+                     optional uint64 one_minute_messages_no_response = 56;    // /junos/system/subscriber-management/aaa/radius-servers/radius-server/response-time/one-minute-messages-no-response
+                  }
+               }
+               repeated radius_server_list radius_server = 151;
+            }
+            optional address_assignment_statistics_type address_assignment_statistics = 156;    // /junos/system/subscriber-management/aaa/address-assignment-statistics
+            message address_assignment_statistics_type {
+               optional logical_system_routing_instances_type logical_system_routing_instances = 151;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances
+               message logical_system_routing_instances_type {
+                  message logical_system_routing_instance_list {    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance
+                     optional string name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/name
+                     optional pools_type pools = 151;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools
+                     message pools_type {
+                        message pool_list {    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool
+                           optional string pool_name = 51 [(telemetry_options).is_key = true];    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/pool-name
+                           optional uint64 out_of_memory = 52;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/out-of-memory
+                           optional uint64 out_of_address = 53;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/out-of-address
+                           optional uint64 address_total = 54;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/address-total
+                           optional uint64 address_in_use = 55;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/address-in-use
+                           optional uint64 address_usage_percent = 56;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/address-usage-percent
+                           optional string linked_pool_name = 57;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/linked-pool-name
+                           optional string linked_pool_head = 58;    // /junos/system/subscriber-management/aaa/address-assignment-statistics/logical-system-routing-instances/logical-system-routing-instance/pools/pool/linked-pool-head
+                        }
+                        repeated pool_list pool = 151;
+                     }
+                  }
+                  repeated logical_system_routing_instance_list logical_system_routing_instance = 151;
+               }
+            }
+            optional diameter_type diameter = 157;    // /junos/system/subscriber-management/aaa/diameter
+            message diameter_type {
+               optional clients_type clients = 151;    // /junos/system/subscriber-management/aaa/diameter/clients
+               message clients_type {
+                  optional nasreq_type nasreq = 151;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq
+                  message nasreq_type {
+                     optional uint64 authentication_request_messages_sent = 51;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authentication-request-messages-sent
+                     optional uint64 authentication_request_message_failures = 52;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authentication-request-message-failures
+                     optional uint64 authentication_request_messages_timeouts = 53;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authentication-request-messages-timeouts
+                     optional uint64 authentication_denies_failures = 54;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authentication-denies-failures
+                     optional uint64 authentication_grants_received = 55;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authentication-grants-received
+                     optional uint64 authorization_request_messages_sent = 56;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authorization-request-messages-sent
+                     optional uint64 authorization_request_message_failures = 57;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authorization-request-message-failures
+                     optional uint64 authorization_request_messages_timeouts = 58;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authorization-request-messages-timeouts
+                     optional uint64 authorization_denies_failures = 59;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authorization-denies-failures
+                     optional uint64 authorization_grants_received = 60;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/authorization-grants-received
+                     optional uint64 session_terminate_request_messages_sent = 61;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/session-terminate-request-messages-sent
+                     optional uint64 session_terminate_request_message_failures = 62;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/session-terminate-request-message-failures
+                     optional uint64 session_terminate_request_messages_timeouts = 63;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/session-terminate-request-messages-timeouts
+                     optional uint64 session_terminate_response_messages_failures = 64;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/session-terminate-response-messages-failures
+                     optional uint64 session_terminate_response_messages_received = 65;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/session-terminate-response-messages-received
+                     optional uint64 abort_session_requests_received = 66;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/abort-session-requests-received
+                     optional uint64 abort_session_response_ack_messages_sent = 67;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/abort-session-response-ack-messages-sent
+                     optional uint64 abort_session_response_nack_messages_sent = 68;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/abort-session-response-nack-messages-sent
+                     optional uint64 abort_session_response_message_failures = 69;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/abort-session-response-message-failures
+                     optional uint64 transmit_queue_time_outs = 70;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/transmit-queue-time-outs
+                     optional uint64 response_parse_errors = 71;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/response-parse-errors
+                     optional uint64 responses_dropped = 72;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/responses-dropped
+                     optional uint64 outstanding_requests = 73;    // /junos/system/subscriber-management/aaa/diameter/clients/nasreq/outstanding-requests
+                  }
+                  optional gx_type gx = 152;    // /junos/system/subscriber-management/aaa/diameter/clients/gx
+                  message gx_type {
+                     optional uint64 ccr_initial = 51;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-initial
+                     optional uint64 ccr_initial_retry = 52;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-initial-retry
+                     optional uint64 cca_initial = 53;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial
+                     optional uint64 cca_initial_grant = 54;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial-grant
+                     optional uint64 cca_initial_deny = 55;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial-deny
+                     optional uint64 cca_initial_failure = 56;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial-failure
+                     optional uint64 ccr_update = 57;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-update
+                     optional uint64 ccr_update_retry = 58;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-update-retry
+                     optional uint64 cca_update = 59;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-update
+                     optional uint64 cca_update_timeout = 60;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-update-timeout
+                     optional uint64 ccr_terminate = 61;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-terminate
+                     optional uint64 ccr_terminate_retry = 62;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/ccr-terminate-retry
+                     optional uint64 cca_terminate = 63;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-terminate
+                     optional uint64 cca_terminate_timeout = 64;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-terminate-timeout
+                     optional uint64 cca_parse_error = 65;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-parse-error
+                     optional uint64 cca_dropped = 66;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-dropped
+                     optional uint64 cca_initial_bad_result_code = 67;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial-bad-result-code
+                     optional uint64 cca_initial_bad_data = 68;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/cca-initial-bad-data
+                     optional uint64 rar_update = 69;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-update
+                     optional uint64 rar_update_retry = 70;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-update-retry
+                     optional uint64 rar_update_drop = 71;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-update-drop
+                     optional uint64 raa_update_ack = 72;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-update-ack
+                     optional uint64 raa_update_nak = 73;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-update-nak
+                     optional uint64 rar_disconnect = 74;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-disconnect
+                     optional uint64 rar_disconnect_retry = 75;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-disconnect-retry
+                     optional uint64 rar_disconnect_drop = 76;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-disconnect-drop
+                     optional uint64 raa_disconnect_ack = 77;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-disconnect-ack
+                     optional uint64 raa_disconnect_nak = 78;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-disconnect-nak
+                     optional uint64 rar_audit = 79;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-audit
+                     optional uint64 rar_audit_retry = 80;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-audit-retry
+                     optional uint64 rar_audit_drop = 81;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/rar-audit-drop
+                     optional uint64 raa_audit_ack = 82;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-audit-ack
+                     optional uint64 raa_audit_nak = 83;    // /junos/system/subscriber-management/aaa/diameter/clients/gx/raa-audit-nak
+                  }
+                  optional gy_type gy = 153;    // /junos/system/subscriber-management/aaa/diameter/clients/gy
+                  message gy_type {
+                     optional uint64 ccr_initial = 51;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-initial
+                     optional uint64 ccr_initial_retry = 52;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-initial-retry
+                     optional uint64 ccr_initial_alternate_retry = 53;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-initial-alternate-retry
+                     optional uint64 cca_initial = 54;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-initial
+                     optional uint64 cca_initial_alternate = 55;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-initial-alternate
+                     optional uint64 ccr_update = 56;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-update
+                     optional uint64 ccr_update_retry = 57;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-update-retry
+                     optional uint64 ccr_update_alternate_retry = 58;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-update-alternate-retry
+                     optional uint64 cca_update = 59;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-update
+                     optional uint64 cca_update_alternate = 60;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-update-alternate
+                     optional uint64 ccr_terminate = 61;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-terminate
+                     optional uint64 ccr_terminate_retry = 62;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-terminate-retry
+                     optional uint64 ccr_terminate_alternate_retry = 63;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/ccr-terminate-alternate-retry
+                     optional uint64 cca_terminate = 64;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-terminate
+                     optional uint64 cca_terminate_alternate = 65;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-terminate-alternate
+                     optional uint64 cca_terminate_timeout = 66;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-terminate-timeout
+                     optional uint64 cca_parse_error = 67;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-parse-error
+                     optional uint64 cca_dropped = 68;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-dropped
+                     optional uint64 cca_initial_bad_result_code = 69;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-initial-bad-result-code
+                     optional uint64 cca_initial_bad_data = 70;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/cca-initial-bad-data
+                     optional uint64 asr = 71;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asr
+                     optional uint64 asr_retry = 72;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asr-retry
+                     optional uint64 asr_parse_error = 73;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asr-parse-error
+                     optional uint64 asr_update_drop = 74;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asr-update-drop
+                     optional uint64 asa_ack = 75;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asa-ack
+                     optional uint64 asa_nak = 76;    // /junos/system/subscriber-management/aaa/diameter/clients/gy/asa-nak
+                  }
+               }
+            }
+            optional nas5g_statistics_type nas5g_statistics = 158;    // /junos/system/subscriber-management/aaa/nas5g-statistics
+            message nas5g_statistics_type {
+               optional uint64 authentication_request_attempts = 51;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-request-attempts
+               optional uint64 authentication_request_messages_sent = 52;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-request-messages-sent
+               optional uint64 authentication_request_messages_authenticated = 53;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-request-messages-authenticated
+               optional uint64 authentication_request_failures = 54;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-request-failures
+               optional uint64 authentication_response_failures = 55;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-response-failures
+               optional uint64 authentication_request_timeouts = 56;    // /junos/system/subscriber-management/aaa/nas5g-statistics/authentication-request-timeouts
+               optional uint64 max_outstanding_requests_exceeded_failures = 57;    // /junos/system/subscriber-management/aaa/nas5g-statistics/max-outstanding-requests-exceeded-failures
+               optional uint64 session_terminate_request_messages_sent = 58;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-terminate-request-messages-sent
+               optional uint64 session_terminate_request_message_failures = 59;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-terminate-request-message-failures
+               optional uint64 session_terminate_request_timeouts = 60;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-terminate-request-timeouts
+               optional uint64 session_terminate_response_failures = 61;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-terminate-response-failures
+               optional uint64 session_terminate_response_messages_received = 62;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-terminate-response-messages-received
+               optional uint64 session_command_logout_received = 63;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-command-logout-received
+               optional uint64 session_command_logout_receive_failures = 64;    // /junos/system/subscriber-management/aaa/nas5g-statistics/session-command-logout-receive-failures
+            }
+         }
+      }
+   }
+}

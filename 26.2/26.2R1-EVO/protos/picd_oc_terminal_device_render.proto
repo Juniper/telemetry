@@ -1,0 +1,87 @@
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional terminal_device_optics_oc_334 jnpr_terminal_device_optics_oc_334_ext = 334;
+}
+
+message terminal_device_optics_oc_334 {    // /terminal-device
+   optional logical_channels_type logical_channels = 1;    // /terminal-device/logical-channels
+   message logical_channels_type {
+      message channel_list {    // /terminal-device/logical-channels/channel
+         optional uint32 index = 51 [(telemetry_options).is_key = true];    // /terminal-device/logical-channels/channel/index
+         optional ingress_type ingress = 60;    // /terminal-device/logical-channels/channel/ingress
+         message ingress_type {
+            optional state_type state = 1;    // /terminal-device/logical-channels/channel/ingress/state
+            message state_type {
+               optional string interface = 1;    // /terminal-device/logical-channels/channel/ingress/state/interface
+            }
+         }
+         message state_list {    // /terminal-device/logical-channels/channel/state
+            optional uint32 index = 51;    // /terminal-device/logical-channels/channel/state/index
+            optional string description = 52;    // /terminal-device/logical-channels/channel/state/description
+            optional string admin_state = 55;    // /terminal-device/logical-channels/channel/state/admin-state
+            optional string rate_class = 56;    // /terminal-device/logical-channels/channel/state/rate-class
+            optional string trib_protocol = 57;    // /terminal-device/logical-channels/channel/state/trib-protocol
+            optional string logical_channel_type = 58;    // /terminal-device/logical-channels/channel/state/logical-channel-type
+            optional string loopback_mode = 59;    // /terminal-device/logical-channels/channel/state/loopback-mode
+         }
+         repeated state_list state = 2;
+         optional logical_channel_assignments_type logical_channel_assignments = 3;    // /terminal-device/logical-channels/channel/logical-channel-assignments
+         message logical_channel_assignments_type {
+            message assignment_list {    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment
+               optional uint32 index = 51 [(telemetry_options).is_key = true];    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/index
+               message state_list {    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state
+                  optional uint32 index = 51;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/index
+                  optional string description = 52;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/description
+                  optional string assignment_type = 53;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/assignment-type
+                  optional double allocation = 54;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/allocation
+                  optional uint32 logical_channel = 55;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/logical-channel
+                  optional string optical_channel = 56;    // /terminal-device/logical-channels/channel/logical-channel-assignments/assignment/state/optical-channel
+               }
+               repeated state_list state = 2;
+            }
+            repeated assignment_list assignment = 1;
+         }
+         optional otn_type otn = 4;    // /terminal-device/logical-channels/channel/otn
+         message otn_type {
+            message state_list {    // /terminal-device/logical-channels/channel/otn/state
+               message esnr_list {    // /terminal-device/logical-channels/channel/otn/state/esnr
+                  optional double instant = 52;    // /terminal-device/logical-channels/channel/otn/state/esnr/instant
+                  optional double avg = 53;    // /terminal-device/logical-channels/channel/otn/state/esnr/avg
+                  optional double min = 54;    // /terminal-device/logical-channels/channel/otn/state/esnr/min
+                  optional double max = 55;    // /terminal-device/logical-channels/channel/otn/state/esnr/max
+                  optional uint64 interval = 56;    // /terminal-device/logical-channels/channel/otn/state/esnr/interval
+                  optional uint64 min_time = 57;    // /terminal-device/logical-channels/channel/otn/state/esnr/min-time
+                  optional uint64 max_time = 58;    // /terminal-device/logical-channels/channel/otn/state/esnr/max-time
+               }
+               repeated esnr_list esnr = 1;
+               message pre_fec_ber_list {    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber
+                  optional double instant = 52;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/instant
+                  optional double avg = 53;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/avg
+                  optional double min = 54;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/min
+                  optional double max = 55;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/max
+                  optional uint64 interval = 56;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/interval
+                  optional uint64 min_time = 57;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/min-time
+                  optional uint64 max_time = 58;    // /terminal-device/logical-channels/channel/otn/state/pre-fec-ber/max-time
+               }
+               repeated pre_fec_ber_list pre_fec_ber = 2;
+               message q_value_list {    // /terminal-device/logical-channels/channel/otn/state/q-value
+                  optional double instant = 52;    // /terminal-device/logical-channels/channel/otn/state/q-value/instant
+                  optional double avg = 53;    // /terminal-device/logical-channels/channel/otn/state/q-value/avg
+                  optional double min = 54;    // /terminal-device/logical-channels/channel/otn/state/q-value/min
+                  optional double max = 55;    // /terminal-device/logical-channels/channel/otn/state/q-value/max
+                  optional uint64 interval = 56;    // /terminal-device/logical-channels/channel/otn/state/q-value/interval
+                  optional uint64 min_time = 57;    // /terminal-device/logical-channels/channel/otn/state/q-value/min-time
+                  optional uint64 max_time = 58;    // /terminal-device/logical-channels/channel/otn/state/q-value/max-time
+               }
+               repeated q_value_list q_value = 3;
+               optional uint64 fec_uncorrectable_blocks = 4;    // /terminal-device/logical-channels/channel/otn/state/fec-uncorrectable-blocks
+            }
+            repeated state_list state = 1;
+         }
+      }
+      repeated channel_list channel = 1;
+   }
+}

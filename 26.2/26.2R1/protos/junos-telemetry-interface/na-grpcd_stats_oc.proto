@@ -1,0 +1,60 @@
+/* 
+This proto is generated from below openconfig models
+openconfig-telemetry - Data model which creates the configuration for the telemetry
+systems and functions on the device
+jnx-aug-openconfig-telemetry - This module contains augments to openconfig system grpc model
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional telemetry_system_stats jnpr_telemetry_system_stats_ext = 211;
+}
+
+message telemetry_system_stats {    // /telemetry-system
+   optional subscriptions_type subscriptions = 151;    // /telemetry-system/subscriptions
+   message subscriptions_type {
+      optional dynamic_subscriptions_type dynamic_subscriptions = 151;    // /telemetry-system/subscriptions/dynamic-subscriptions
+      message dynamic_subscriptions_type {
+         message dynamic_subscription_list {    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription
+            optional uint32 id = 51 [(telemetry_options).is_key = true];    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/id
+            optional state_type state = 151;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state
+            message state_type {
+               optional uint64 id = 51;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state/id
+               optional string destination_address = 52;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state/destination-address
+               optional uint32 destination_port = 53;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state/destination-port
+               optional string protocol = 54;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state/protocol
+               optional string encoding = 55;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/state/encoding
+            }
+            optional sensor_paths_type sensor_paths = 152;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths
+            message sensor_paths_type {
+               message sensor_path_list {    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path
+                  optional string path = 51 [(telemetry_options).is_key = true];    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/path
+                  optional state_type state = 151;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state
+                  message state_type {
+                     optional string path = 51;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/path
+                     optional uint64 sample_interval = 52;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/sample-interval
+                     optional counters_type counters = 151;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters
+                     message counters_type {
+                        message counter_list {    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter
+                           optional string severity = 51 [(telemetry_options).is_key = true];    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/severity
+                           optional state_type state = 151;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/state
+                           message state_type {
+                              optional string severity = 51;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/state/severity
+                              optional string id = 52;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/state/id
+                              optional uint64 value = 53;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/state/value
+                              optional string unit = 54;    // /telemetry-system/subscriptions/dynamic-subscriptions/dynamic-subscription/sensor-paths/sensor-path/state/counters/counter/state/unit
+                           }
+                        }
+                        repeated counter_list counter = 151;
+                     }
+                  }
+               }
+               repeated sensor_path_list sensor_path = 151;
+            }
+         }
+         repeated dynamic_subscription_list dynamic_subscription = 151;
+      }
+   }
+}

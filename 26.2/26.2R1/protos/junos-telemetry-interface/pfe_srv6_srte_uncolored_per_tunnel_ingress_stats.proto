@@ -1,0 +1,40 @@
+/* 
+This proto is generated from below openconfig models
+junos-state-segment-routing-te-policy - This module contains a collection of top level nodes for JUNOS
+segment-routing te-policies state data
+*/
+syntax = "proto2";
+
+import "telemetry_top.proto";
+
+extend JuniperNetworksSensors {
+   optional state_pfe_srv6_srte_uncolored_per_tun_ingress_327 jnpr_state_pfe_srv6_srte_uncolored_per_tun_ingress_327_ext = 327;
+}
+
+message state_pfe_srv6_srte_uncolored_per_tun_ingress_327 {    // /state
+   optional routing_instances_type routing_instances = 151;    // /state/routing-instances
+   message routing_instances_type {
+      message routing_instance_list {    // /state/routing-instances/routing-instance
+         optional string name = 51 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/name
+         optional protocols_type protocols = 151;    // /state/routing-instances/routing-instance/protocols
+         message protocols_type {
+            optional source_packet_routing_type source_packet_routing = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing
+            message source_packet_routing_type {
+               optional uncolored_te_tunnels_type uncolored_te_tunnels = 151;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels
+               message uncolored_te_tunnels_type {
+                  message uncolored_te_tunnel_list {    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels/uncolored-te-tunnel
+                     optional string name = 50 [(telemetry_options).is_key = true];    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels/uncolored-te-tunnel/name
+                     optional counters_type counters = 51;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels/uncolored-te-tunnel/counters
+                     message counters_type {
+                        optional uint64 in_pkts = 52;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels/uncolored-te-tunnel/counters/in-pkts
+                        optional uint64 in_bytes = 54;    // /state/routing-instances/routing-instance/protocols/source-packet-routing/uncolored-te-tunnels/uncolored-te-tunnel/counters/in-bytes
+                     }
+                  }
+                  repeated uncolored_te_tunnel_list uncolored_te_tunnel = 151;
+               }
+            }
+         }
+      }
+      repeated routing_instance_list routing_instance = 151;
+   }
+}
